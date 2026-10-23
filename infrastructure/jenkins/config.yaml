@@ -3,7 +3,7 @@
 # 部署/启动准入；修改边界见同目录 README 的字段表。
 jenkins_enabled: true
 # 控制器的 TLS/SNI 域名（只在内网入口 30443 上，边缘不转发）；修改边界见同目录 README 的字段表。
-jenkins_hostname: jenkins.sunmoonai.com
+jenkins_hostname: 'jenkins.{{ site_domain }}'
 # Compose 实例名；修改边界见同目录 README 的字段表。
 jenkins_project: sunmoon-jenkins
 # 宿主回环 HTTPS 后端端口（入口 SNI 直通到这里，由随附的 HAProxy 终止 TLS）；修改边界见同目录 README 的字段表。
@@ -17,7 +17,7 @@ jenkins_config_dir: /etc/sunmoon/jenkins
 # Compose、启动脚本与运行配置目录；修改边界见同目录 README 的字段表。
 jenkins_runtime_dir: /opt/sunmoon/jenkins
 # 数据目录：数据盘整盘挂载点下的子目录，不另加 bind；修改边界见同目录 README 的字段表。
-jenkins_data_dir: /mnt/sunmoon-data/jenkins
+jenkins_data_dir: '{{ data_root }}/jenkins'
 # 控制器容器资源上限；修改边界见同目录 README 的字段表。
 jenkins_memory: 2g
 jenkins_cpus: 2
@@ -25,7 +25,7 @@ jenkins_cpus: 2
 jenkins_certificate_days: 1825
 
 # Human login policy; initial files are private inputs, not passwords in configuration.
-jenkins_credential_backup_dir: /mnt/sunmoon-data/backups/jenkins/credentials
+jenkins_credential_backup_dir: '{{ data_root }}/backups/jenkins/credentials'
 jenkins_human_account:
   object: jenkins
   id: admin
@@ -43,3 +43,23 @@ jenkins_human_account:
   # 第一版只有本地管理员的首次预设、查看与导入；改口令在 Jenkins 界面里做，轮换协议以后接。
   protocol_check_supported: false
   rotation_supported: false
+
+# ---- 第 2 步：宿主代理、插件、只读 render-check（0033 第八节第 2 步）----
+# 宿主代理用哪个用户跑：今天跑发布卡的那个宿主用户（和 cluster_operator 同一个），不新给任何权限
+jenkins_agent_user: '{{ cluster_operator }}'
+# 控制器里这个代理节点的名字与标签（流水线按标签 host 选它）
+jenkins_agent_name: host
+# 代理自己的目录（Jenkins 的 remoteFS、agent.jar 的 workDir）；在数据盘上
+jenkins_agent_dir: '{{ jenkins_data_dir }}/agent'
+# 代理干活用的仓：k8s 和六个应用仓并列，像 ~/worktrees/<工位> 一样，但不碰人的工位
+jenkins_repos_dir: '{{ jenkins_data_dir }}/repos'
+# 仓从哪克隆：按 fable 工位各仓的 origin（宿主用户已有的 git 凭据）；子仓按父仓 gitlink 检出
+jenkins_repo_source_workspace: fable
+# 根仓的目录名（代理克隆、引导脚本、工位路径都用它）。改名 sunmoonun 那天只改这一处再重装代理与控制器（SDD 0038 第五节）。
+jenkins_root_repo: sunmoonun
+# 代理上要装的工具（装在仓克隆里的 .tools，与人的工位一样）
+jenkins_tools_binaries: kubectl,compose
+# render-check 的定时：每 10 分钟看一眼 origin 有没有新提交，没有就不跑（只读检查）
+jenkins_render_check_cron: 'H/10 * * * *'
+jenkins_render_check_branch: fable
+jenkins_render_check_apps: tpl knowfeed knowbase knowbench knowlab knowmart

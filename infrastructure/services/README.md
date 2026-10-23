@@ -1,6 +1,8 @@
 # 平台服务部署与维护
 
-本模块是所有启用平台组件的原生Make→Ansible→Flux/SOPS编排。组件参数、模板、生成声明、身份准备与说明在[各责任组件](../../gitops/components/README.md)；阶段与依赖在各组件`stage.yaml`（见[components](../components/README.md)）；[layout.yaml](layout.yaml)只剩命名空间与保留卷清单，不再集中维护重复端口/账号表。
+> 所在层：5 平台层 + 横切交付链——平台组件的口令、工具、检查；D 段随渲染层重组（暂住）（[总览表](../README.md)）
+
+本模块是所有启用平台组件的原生Make→Ansible→Flux/SOPS编排。组件参数、模板、生成声明、身份准备与说明在[各责任组件](../../gitops/components/README.md)；阶段与依赖在各组件`stage.yaml`（见[components](../components/README.md)）；[layout.yaml](../components/layout.yaml)只剩命名空间与保留卷清单，不再集中维护重复端口/账号表。
 
 ## 输入与准备
 当前值以[config.yaml](config.yaml)为准，手册维护字段职责，不再复制一套默认值。
@@ -23,7 +25,7 @@ make -C infrastructure services-verify-materials
 make -C infrastructure services-publish
 make -C infrastructure services-tools
 make -C infrastructure services-chart
-make -C infrastructure services-render
+make -C infrastructure components-render
 ```
 
 依赖Harbor/入口、拥有的KIND、Flux/SOPS与完整物料。credentials保留已有输入、缺主时恢复备份；已有声明而两份均丢失则拒绝生成。platform口令和业务口令分开。轮换需服务器/客户端/Secret/备份同步，不能只编辑输入。
@@ -33,8 +35,8 @@ render会核唯一kube-system UID，准备静态目录/模型、身份备份、�
 ## 修改配置并发布
 
 ```sh
-make -C infrastructure services-render
-make -C infrastructure services-stage
+make -C infrastructure components-render
+make -C infrastructure components-stage
 ```
 
 审查`.build/services`公开对象与秘密语义；stage拷贝已生成候选至各组件，并经`topology-stage`更新clusters/kind/stages.yaml。提交工作树后按[Flux发布与晋级](../flux/README.md#发布与显式晋级)生成、审核并晋级同一产物。stage不代表声明已生效。
@@ -63,8 +65,8 @@ make -C infrastructure services-check
 
 声明差异先修配置/源码并重新审阅发布；字段冲突不force接管。Job失败保留代次与错误，查其前置依赖/schema/身份；已有同名账号/卷不符须显式处理。Neo4j限定rollout恢复见[组件说明](../../gitops/components/data-platform/neo4j/README.md)。
 
-退回按[Flux](../flux/README.md#故障与退回)恢复原固定源并做真实检查；schema/身份/持久数据需匹配备份，不自动随Git回滚。业务备份/轮换、统一停用、WSL/删群持久化和长期空间管理见[未完成项](../../docs/dev-investment-agent/tree-build/pending-after-migration.md)（104–109）。
+退回按[Flux](../flux/README.md#故障与退回)恢复原固定源并做真实检查；schema/身份/持久数据需匹配备份，不自动随Git回滚。业务备份/轮换、统一停用、WSL/删群持久化和长期空间管理见[未完成项](../../docs/design/pending-after-migration.md)（104–109）。
 
 ## Kibana浏览器访问
 
-浏览器配置、身份准备、声明和验收集中在[同一组件](../../gitops/components/data-platform/elk/kibana/ui/README.md)，共享services-render/stage/bootstrap/check原生链。启用时services-check从新集群入口验证实际TLS、登录会话、权限和退出；主机30443切换后运行`make -C infrastructure services-check-public`，同一playbook引用entry_port验证真实入口。Kibana公开入口的切换仍单独确认，不能把29443后端通过写成30443已通过。
+浏览器配置、身份准备、声明和验收集中在[同一组件](../../gitops/components/data-platform/elk/kibana/ui/README.md)，共享components-render/stage/bootstrap/check原生链。启用时services-check从新集群入口验证实际TLS、登录会话、权限和退出；主机30443切换后运行`make -C infrastructure services-check-public`，同一playbook引用entry_port验证真实入口。Kibana公开入口的切换仍单独确认，不能把29443后端通过写成30443已通过。

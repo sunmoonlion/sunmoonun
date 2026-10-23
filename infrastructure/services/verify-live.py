@@ -29,7 +29,7 @@ def require(condition, message):
 
 def verify_namespace_boundary(args, environment):
     """Probe both label-denied and allowed connections using the same cached image."""
-    prefix = [args.kubectl, '--kubeconfig=' + args.kubeconfig, '--context=kind-sunmoon-kind', '-n', args.app_namespace, '--request-timeout=20s']
+    prefix = [args.kubectl, '--kubeconfig=' + args.kubeconfig, '--context=' + args.context, '-n', args.app_namespace, '--request-timeout=20s']
     def kubectl(arguments, document=None):
         result = subprocess.run(prefix + arguments, input=None if document is None else json.dumps(document), capture_output=True, text=True, env=environment, timeout=40)
         require(result.returncode == 0, 'Namespace boundary probe Kubernetes operation failed')
@@ -74,7 +74,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kubectl', required=True)
     parser.add_argument('--kubeconfig', required=True)
+    parser.add_argument('--context', required=True)
     parser.add_argument('--ca', required=True)
+    parser.add_argument('--casdoor-origin', required=True)
+    parser.add_argument('--ingress-port', required=True)
     parser.add_argument('--messaging-namespace', required=True)
     parser.add_argument('--app-namespace', required=True)
     parser.add_argument('--data-namespace', required=True)
@@ -85,7 +88,7 @@ def main():
     args = parser.parse_args()
     require(os.geteuid() == 0, 'Private input access requires root')
     credentials = json.load(sys.stdin)['service_credentials']
-    prefix = [args.kubectl, '--kubeconfig=' + args.kubeconfig, '--context=kind-sunmoon-kind', '-n', args.messaging_namespace]
+    prefix = [args.kubectl, '--kubeconfig=' + args.kubeconfig, '--context=' + args.context, '-n', args.messaging_namespace]
     environment = dict(os.environ)
     for key in ('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy'):
         environment.pop(key, None)
@@ -146,8 +149,8 @@ def main():
     if not args.skip_casdoor:
         with tempfile.TemporaryDirectory(prefix='sunmoon-identity-') as temporary:
             cookies = str(Path(temporary)/'cookies')
-            origin = 'https://casdoor.sunmoonai.com:30443'
-            base = ['curl','--silent','--show-error','--fail','--max-time','30','--noproxy','*','--cacert',args.ca,'--connect-to','casdoor.sunmoonai.com:30443:127.0.0.1:29443']
+            origin = args.casdoor_origin
+            base = ['curl','--silent','--show-error','--fail','--max-time','30','--noproxy','*','--cacert',args.ca,'--connect-to', origin.split('://', 1)[1] + ':127.0.0.1:' + args.ingress_port]
             payload = {'application':'app-built-in','organization':'built-in','username':'admin','password':credentials['casdoor_admin_password'],'type':'login'}
             result = subprocess.run(base + ['--cookie-jar',cookies,'--header','Content-Type: application/json','--header','Origin: '+origin,'--data-binary','@-',origin+'/api/login'], input=json.dumps(payload), capture_output=True, text=True, env=environment, timeout=35)
             require(result.returncode == 0, 'Casdoor trusted TLS/login request failed')

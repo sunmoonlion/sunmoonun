@@ -1,9 +1,11 @@
 # KIND集群维护
 
+> 所在层：4 集群层——kind 建群（建法可换的模块之一）（[总览表](../README.md)）
+
 共享身份来自[site](../environments/kind/site.yaml)，参数在[config](config.yaml)，工具和节点身份取[artifacts锁](../artifacts/README.md)。当前正式开发环境sunmoon-kind；原始kind是受保护旧环境，不由此入口接管。
 
 ## 配置和存储
-当前值以[config.yaml](config.yaml)为准，手册维护字段职责，不再复制一套默认值。
+当前值以[config.yaml](config.yaml)为准，手册维护字段职责，不再复制一套默认值。`cluster_kubeconfig`、`cluster_operator`、`cluster_context` 是站点事实，在 [环境参数](../environments/kind/README.md)（C1 起）。
 
 | 字段 | 类型 | 维护条件 |
 |---|---|---|
@@ -13,8 +15,6 @@
 | `cluster_pod_subnet` | 文本/表达式 | 以本目录实现和下文限制为准；通过候选审阅、发布、晋级生效。 |
 | `cluster_service_subnet` | 文本/表达式 | 以本目录实现和下文限制为准；通过候选审阅、发布、晋级生效。 |
 | `cluster_data_root` | 文本/表达式 | 目录责任；已有输入/数据需完整恢复和路径守卫，不能换空目录重建身份。 |
-| `cluster_kubeconfig` | 文本/表达式 | 以本目录实现和下文限制为准；通过候选审阅、发布、晋级生效。 |
-| `cluster_operator` | 文本/表达式 | 以本目录实现和下文限制为准；通过候选审阅、发布、晋级生效。 |
 | `cluster_create_budget_bytes` | 整数 | 操作预算/限时；调整须匹配真实峰值及当前容量检查。 |
 
 一个控制面、两个worker，每个节点都挂自己的宿主目录：`cluster_data_root/cluster_name/<节点>/static`→节点`/data/kind-local-storage`；`dynamic`→节点动态存储目录；公共CA目录只读挂载。完整对应以[kind.yaml.j2](kind.yaml.j2)为准。旧宿主`/data/kind-local-storage`不覆盖挂载。
@@ -53,6 +53,6 @@ infrastructure/.tools/bin/kubectl --context=kind-sunmoon-kind get pv,pvc -A
 
 ## 重启、重建和失败恢复
 
-本模块没有cluster-start/stop/delete统一target，也没有任意删除旧集群后自动认领同名新UID的流程。整套启停、开机顺序、重启DNS/IP更新和Harbor跨删群持久化验收属于[未完成项](../../docs/dev-investment-agent/tree-build/pending-after-migration.md)（104–109）。
+本模块没有cluster-start/stop/delete统一target，也没有任意删除旧集群后自动认领同名新UID的流程。整套启停、开机顺序、重启DNS/IP更新和Harbor跨删群持久化验收属于[未完成项](../../docs/design/pending-after-migration.md)（104–109）。
 
 不得为了清运行状态直接删节点或Docker卷。重建先明确数据处理/备份、receipt新旧身份、节点存储映射、Flux/SOPS恢复、Harbor完整摘要及新节点拉取验收；目录挂载正确不等于这些已验证。失败检查保留节点与证据，按[宿主诊断](../host/troubleshooting.md)和[Flux诊断](../flux/README.md#故障与退回)定位。

@@ -1,5 +1,7 @@
 # 外置Harbor维护
 
+> 所在层：3 宿主层——Harbor（[总览表](../README.md)）
+
 Harbor由宿主WSL上的官方离线安装包、同版prepare、官方配套镜像、Compose与systemd运行，数据与KIND节点独立。版本、归档和镜像身份分别见[文件锁](../artifacts/files.lock.json)、[启动镜像锁](../artifacts/harbor-offline-images.lock.json)、[发布策略](release.yaml)；不复制第二套BOM。
 
 ## 安装、启停和前提
@@ -75,7 +77,7 @@ accounts追加Docker的仓库专用CA并保留其他CA。KIND信任与DNS由[clu
 
 systemd唯一管理重启，容器restart=no、Compose前台；任一组件退出停止整组并经过守卫恢复，120秒最多3次。启动核精确ext4/UUID/bind fsroot、宿主与Docker的设备/inode及实例落盘。失败即拒绝启动。此守卫不等于运行期故障监控。
 
-本模块deploy只daemon-reload并管理本仓库，不单独启用boot autostart。当前由[宿主统一生命周期](../host/lifecycle.md)协调开机顺序，恢复单元已安装并启用；Harbor/KIND整套停启及目录/镜像验收已通过，真实Windows/WSL重启和删群重建仍见[未完成项](../../docs/dev-investment-agent/tree-build/pending-after-migration.md)（104–109）。
+本模块deploy只daemon-reload并管理本仓库，不单独启用boot autostart。当前由[宿主统一生命周期](../host/lifecycle.md)协调开机顺序，恢复单元已安装并启用；Harbor/KIND整套停启及目录/镜像验收已通过，真实Windows/WSL重启和删群重建仍见[未完成项](../../docs/design/pending-after-migration.md)（104–109）。
 
 错误先看systemd和限定日志：
 

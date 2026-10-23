@@ -1,8 +1,31 @@
-# 跨模块共用环境参数。模块专属配置见各模块 config.yaml；每个字段只有一个来源。
+# 站点参数（SDD 0039 第二版，C1 字段集）：跨模块共用的站点事实，每个字段只有一个来源。
+# 模块专属常量见各模块 config.yaml；代码里不许出现任何站点的值，站点文件里不许出现别的站点的值。
 ---
+# 站点身份
+site_name: kind
+site_role: dev
+# 集群：名字、建法、kubectl 上下文、访问文件
 cluster_name: sunmoon-kind
+cluster_builder: kind
+cluster_context: kind-sunmoon-kind
+cluster_kubeconfig: /home/zymun/.kube/sunmoon-kind.config
+# 宿主：操作用户与其家目录、数据盘挂载根（备份、Jenkins 数据、应用私有副本都在它下面派生）
+cluster_operator: zymun
+operator_home: /home/zymun
+data_root: /mnt/sunmoon-data
+# 网络：站点域名与公网/入口端口（短名 tpl、casdoor、kibana… 两站相同，留在各模块 config 里拼成 '<短名>.{{ site_domain }}'）
+# Traefik 的 NodePort 30443 是入口组件常量，不是这个端口（生产 public_port=443 时 NodePort 仍是 30443）
+site_domain: dev.sunmoonai.com
+public_port: 30443
+# 边缘：开发站点的公网入口在东京 VM（separate），生产宿主自带公网 IP 时为 local
+edge_mode: separate
+edge_public_ip: 43.153.135.74
+# 入口：非 Harbor 域名的默认后端（kind 节点 IP + 节点入口端口；C4 起改由建群模块的身份回执给出）
+entry_cluster_backend: 172.18.0.5:30443
+# 物料与仓库
 registry_address: harbor.sunmoonai.com:30443
 artifact_cache_root: /home/zymun/k8s-packages
+# 命名空间（后缀 = site_role）
 data_namespace: data-platform-dev
 messaging_namespace: messaging-platform-dev
 app_namespace: app-platform-dev

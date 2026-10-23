@@ -9,6 +9,13 @@
       - casdoor_session_lifetime_seconds >= 3600 and casdoor_session_lifetime_seconds <= 2592000
 - name: Read the shared core identities
   ansible.builtin.include_tasks: '{{ playbook_dir }}/tasks/shared-credentials.yaml'
+- name: Retire the service certificate when its name no longer matches the site
+  ansible.builtin.include_tasks: '{{ playbook_dir }}/../components/tasks/tls-retire.yaml'
+  vars:
+    tls_retire_crt: '{{ services_config_dir }}/tls/server.crt'
+    tls_retire_csr: '{{ services_config_dir }}/tls/server.csr'
+    tls_retire_backup_crt: '{{ services_backup_dir }}/tls/server.crt'
+    tls_retire_names: ['{{ casdoor_hostname }}']
 - name: Generate a private service TLS key only when absent
   ansible.builtin.command:
     argv: [openssl, genpkey, -algorithm, RSA, -pkeyopt, 'rsa_keygen_bits:3072', -out, '{{ services_config_dir }}/tls/server.key']
@@ -44,6 +51,16 @@
     remote_src: true
     force: false
     mode: preserve
+  no_log: true
+# 上面整目录 copy 在备份目录已存在时不会补文件；证书被退役重签后（tls_retired）按文件刷新，平时只补缺的，不覆盖。
+- name: Refresh the backup certificate and request after a re-issue
+  ansible.builtin.copy:
+    src: '{{ services_config_dir }}/tls/{{ item }}'
+    dest: '{{ services_backup_dir }}/tls/{{ item }}'
+    remote_src: true
+    force: '{{ tls_retired | default(false) | bool }}'
+    mode: preserve
+  loop: [server.csr, server.crt]
   no_log: true
 - name: Require matching TLS backup identities
   ansible.builtin.command:

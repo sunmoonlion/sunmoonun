@@ -1,0 +1,146 @@
+---
+# 代理干活用的仓（0033 第三节）：k8s 和六个应用仓并列在 jenkins_repos_dir 下，像 ~/worktrees/<工位>，但不碰人的工位。
+# 从哪克隆：按 jenkins_repo_source_workspace 工位各仓的 origin（宿主用户已有的 git 凭据，一般是 GitHub 的 SSH）；
+# 子仓按父仓 gitlink 检出，地址在 .gitmodules 里是 https，用 insteadOf 改走同一把 SSH 钥匙。
+# 对象从哪来：本机到 GitHub 只有几十 KB/s（2026-10-20 实测），k8s 一仓历史 220 MiB 要两小时；而宿主用户的工位里本来就有全部历史，
+# 所以克隆用 --reference 从本机工位的对象库（git-common-dir；子仓在 <common>/modules/<名>）拷对象，--dissociate 拷完就断开，
+# 之后不依赖人的工位；GitHub 只补工位里没有的新提交。
+- name: Read the origin of each repo from the source workspace
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -C, '/home/{{ jenkins_agent_user }}/worktrees/{{ jenkins_repo_source_workspace }}/{{ item }}', remote, get-url, origin]
+  loop: '{{ jenkins_repos }}'
+  register: repo_origins
+  changed_when: false
+
+- name: Require plain SSH or HTTPS origins without embedded credentials
+  ansible.builtin.assert:
+    quiet: true
+    that: item.stdout is match('^(git@[a-zA-Z0-9.-]+:[a-zA-Z0-9_./-]+|https://[a-zA-Z0-9.-]+/[a-zA-Z0-9_./-]+)$')
+  loop: '{{ repo_origins.results }}'
+  loop_control:
+    label: '{{ item.item }}'
+
+- name: Locate the object store of each repo in the source workspace
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -C, '/home/{{ jenkins_agent_user }}/worktrees/{{ jenkins_repo_source_workspace }}/{{ item }}', rev-parse, --path-format=absolute, --git-common-dir]
+  loop: '{{ jenkins_repos }}'
+  register: repo_common_dirs
+  changed_when: false
+
+- name: Inspect existing clones
+  ansible.builtin.stat:
+    path: '{{ jenkins_repos_dir }}/{{ item }}/.git'
+    follow: false
+  loop: '{{ jenkins_repos }}'
+  register: clones
+
+# 本地机各仓的 origin 是 https://github.com/…；私有仓的 https 要凭据助手，systemd 下没有。宿主用户的 GitHub SSH 钥匙
+# 是通的（卡第一节先探），所以克隆与取回都按命令级 insteadOf 改走 SSH，不改用户的全局 git 配置。
+- name: Clone missing repos as the agent user (objects copied from the source workspace, GitHub https rewritten to SSH for this command)
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -c, 'url.git@github.com:.insteadOf=https://github.com/', clone, --quiet, --reference-if-able, '{{ repo_common_dirs.results[repo_index].stdout }}', --dissociate, --branch, '{{ jenkins_render_check_branch }}', '{{ item.stdout }}', '{{ jenkins_repos_dir }}/{{ item.item }}']
+  loop: '{{ repo_origins.results }}'
+  loop_control:
+    label: '{{ item.item }}'
+    index_var: repo_index
+  when: not clones.results[repo_index].stat.exists
+  changed_when: true
+
+# 源工位的 origin 可能配了第二个 push 地址（镜像站 Gitee）。克隆只继承第一个，所以根仓克隆上另加一个 remote mirror，
+# 流水线推完 GitHub 再尽力推它（2026-10-21 回执 fable-b4）。只对 k8s：应用仓流水线不推。
+- name: Read the push URLs of the k8s origin in the source workspace
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -C, '/home/{{ jenkins_agent_user }}/worktrees/{{ jenkins_repo_source_workspace }}/{{ jenkins_root_repo }}', remote, get-url, --push, --all, origin]
+  register: k8s_push_urls
+  changed_when: false
+
+- name: Require plain push URLs without embedded credentials
+  ansible.builtin.assert:
+    quiet: true
+    that: item is match('^(git@[a-zA-Z0-9.-]+:[a-zA-Z0-9_./-]+|https://[a-zA-Z0-9.-]+/[a-zA-Z0-9_./-]+)$')
+  loop: '{{ k8s_push_urls.stdout_lines }}'
+
+- name: Point the mirror remote of the k8s clone at the second push URL (or drop it when there is none)
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.shell:
+    cmd: >-
+      cd '{{ jenkins_repos_dir }}/{{ jenkins_root_repo }}' &&
+      if [ -n '{{ mirror_url }}' ]; then
+        (git remote get-url mirror >/dev/null 2>&1 && git remote set-url mirror '{{ mirror_url }}' || git remote add mirror '{{ mirror_url }}') && git remote get-url mirror;
+      else
+        git remote remove mirror 2>/dev/null; echo '(no mirror)';
+      fi
+  vars:
+    mirror_url: "{{ (k8s_push_urls.stdout_lines | reject('equalto', k8s_push_urls.stdout_lines[0]) | list | first) | default('') }}"
+  changed_when: true
+
+- name: Fetch all branches of existing clones
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -C, '{{ jenkins_repos_dir }}/{{ item.item }}', -c, 'url.git@github.com:.insteadOf=https://github.com/', fetch, --quiet, origin, '+refs/heads/*:refs/remotes/origin/*']
+  loop: '{{ clones.results }}'
+  loop_control:
+    label: '{{ item.item }}'
+  when: item.stat.exists
+  changed_when: false
+
+- name: List the submodules of the application repos (name and path from .gitmodules)
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -C, '{{ jenkins_repos_dir }}/{{ item }}', config, -f, .gitmodules, --get-regexp, '^submodule\..*\.path$']
+  loop: '{{ jenkins_repos | reject("equalto", jenkins_root_repo) | list }}'
+  register: submodule_lists
+  changed_when: false
+  failed_when: submodule_lists.rc not in [0, 1]
+
+# 每个子仓单独 update。对象库从哪拷：问源工位里该子仓自己的 git-common-dir（工位是 linked worktree 时在
+# <common>/worktrees/<名>/modules/<子仓>，不能按父仓的 modules/ 推导——2026-10-20 回执 fable-b2b 第 08 份证据）；
+# 源工位没检出这个子仓就不给 --reference，只从 GitHub 拉。拷完 --dissociate。
+- name: Locate the object store of each submodule in the source workspace
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [git, -C, '/home/{{ jenkins_agent_user }}/worktrees/{{ jenkins_repo_source_workspace }}/{{ item.0.item }}/{{ item.1.split(" ")[1] }}', rev-parse, --path-format=absolute, --git-common-dir]
+  loop: '{{ submodule_lists.results | subelements("stdout_lines") }}'
+  loop_control:
+    label: '{{ item.0.item }}/{{ item.1.split(" ")[1] }}'
+  register: submodule_common_dirs
+  changed_when: false
+  failed_when: false
+
+- name: Check out each submodule over SSH, objects copied from the source workspace when it has them
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: >-
+      {{ ['git', '-C', jenkins_repos_dir ~ '/' ~ item.0.item, '-c', 'url.git@github.com:.insteadOf=https://github.com/',
+          'submodule', 'update', '--init', '--quiet']
+         + (['--reference', submodule_common_dirs.results[sub_index].stdout, '--dissociate'] if submodule_common_dirs.results[sub_index].rc == 0 else [])
+         + ['--', item.1.split(" ")[1]] }}
+  loop: '{{ submodule_lists.results | subelements("stdout_lines") }}'
+  loop_control:
+    label: '{{ item.0.item }}/{{ item.1.split(" ")[1] }}{{ "" if submodule_common_dirs.results[sub_index].rc == 0 else " (no source objects, GitHub only)" }}'
+    index_var: sub_index
+  changed_when: false
+
+- name: Install the worktree tools in the k8s clone (venv, binaries, Flux, sops and age) as the agent user
+  become: true
+  become_user: '{{ jenkins_agent_user }}'
+  ansible.builtin.command:
+    argv: [make, -C, '{{ jenkins_repos_dir }}/{{ jenkins_root_repo }}/infrastructure', '{{ item }}']
+  environment:
+    HOME: '/home/{{ jenkins_agent_user }}'
+    BINARIES: '{{ jenkins_tools_binaries }}'
+  loop: [tools, install-binaries, install-flux, install-secrets-tools]
+  changed_when: true

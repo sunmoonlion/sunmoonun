@@ -14,7 +14,7 @@ private_dir/provider-source.yaml为原文读取口令，provider-binding.json为
 
 ```sh
 make -C infrastructure application-deployment-plan APP=knowbase
-make -C infrastructure application-stage APP=knowbase
+make -C infrastructure platform-stage OBJECT=app-platform/knowbase-app
 ```
 
 plan只读；stage除了私有输入/候选文件，还调用已运行RAGFlow官方API准备私有中文纯文本数据集，不能当纯预览。现有绑定须匹配远端ID/名称；同名未记录对象或丢失绑定拒绝认领。创建POST结果不明停止，按已有输入与远端核对，不自动重发创建。列表查找有分页边界。
@@ -33,4 +33,4 @@ plan只读；stage除了私有输入/候选文件，还调用已运行RAGFlow官
 
 成功只清本次UUID指定的成功摄入Job、对应领域记录/已结束投递与Outbox、精确RAGFlow文档及S3版本；再删除原文指定VersionId与日记。不删正式数据集、其它原文/桶或未知对象。清理失败按日记恢复精确处理，不全目录批删，也不把删除日记当恢复完成。
 
-检查入口application-check APP=knowledge会有上述写入/精确删除副作用；纯状态先看Flux/Pod。恢复仍需源原文、平台数据库、派生状态与身份配套，当前完整灾备未验收，见[验收边界](../../../../../../docs/dev-investment-agent/tree-build/pending-after-migration.md)（104–109）。
+检查入口application-check APP=knowledge会有上述写入/精确删除副作用；纯状态先看Flux/Pod。恢复仍需源原文、平台数据库、派生状态与身份配套，当前完整灾备未验收，见[验收边界](../../../../../../docs/design/pending-after-migration.md)（104–109）。

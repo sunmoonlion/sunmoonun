@@ -12,10 +12,20 @@
     # check lives in applications/verify.yaml
     application_check_port: '{{ entry_port if application_check_public | default(false) | bool else cluster_ingress_port }}'
     capacity_operation: 'application-deploy-{{ application_name }}'
-    application_cfg: '{{ (lookup("file", app_root + "/config.yaml") | from_yaml)[application_name + "_deployment"] }}'
-    backend_cfg: '{{ (lookup("file", component_root + "/config.yaml") | from_yaml)[application_name + "_backend_deployment"] }}'
-    web_cfg: '{{ (lookup("file", app_root + "/" + application_name + "-web-frontend/config.yaml") | from_yaml)[application_name + "_web_deployment"] }}'
-    admin_cfg: '{{ (lookup("file", app_root + "/" + application_name + "-admin-frontend/config.yaml") | from_yaml)[application_name + "_admin_deployment"] }}'
+    application_cfg: '{{ (lookup("template", app_root + "/config.yaml", convert_data=False) | from_yaml)[application_name + "_deployment"] }}'
+    backend_cfg_raw: '{{ (lookup("template", component_root + "/config.yaml", convert_data=False) | from_yaml)[application_name + "_backend_deployment"] }}'
+    # private_dir/backup_dir 由站点值推出，插回配置里原来的位置（deploy_budget_bytes 之前）；与 common/backend/bind.yaml 同一规则
+    backend_cfg: >-
+      {%- set out = {} -%}
+      {%- for k, v in backend_cfg_raw.items() -%}
+        {%- if k == 'deploy_budget_bytes' -%}
+          {%- set _ = out.update({'private_dir': '/etc/sunmoon/applications/' ~ cluster_name ~ '/' ~ application_name, 'backup_dir': data_root ~ '/backups/applications/' ~ cluster_name ~ '/' ~ application_name}) -%}
+        {%- endif -%}
+        {%- set _ = out.update({k: v}) -%}
+      {%- endfor -%}
+      {{ out }}
+    web_cfg: '{{ (lookup("template", app_root + "/" + application_name + "-web-frontend/config.yaml", convert_data=False) | from_yaml)[application_name + "_web_deployment"] }}'
+    admin_cfg: '{{ (lookup("template", app_root + "/" + application_name + "-admin-frontend/config.yaml", convert_data=False) | from_yaml)[application_name + "_admin_deployment"] }}'
     cfg: '{{ application_cfg | combine(backend_cfg) | combine({"namespace":app_namespace, "web_origin":web_cfg.origin, "admin_origin":admin_cfg.origin}) }}'
     app_root: '{{ playbook_dir }}/../../gitops/components/app-platform/{{ application_name }}-app'
     component_root: '{{ app_root }}/{{ application_name }}-backend'
@@ -36,7 +46,7 @@
     images: '{{ (lookup("file", playbook_dir + "/../artifacts/upstream-images.lock.json") | from_json).images }}'
     image_map: '{{ dict(images | map(attribute="id") | zip(images)) }}'
     migration_job: '{{ application_name }}-migrate-{{ app_images.backend.digest[7:19] }}-{{ cfg.migration_job_revision }}'
-    kube: ['{{ tools }}/kubectl', '--kubeconfig={{ cluster_kubeconfig }}', '--context=kind-{{ cluster_name }}', '--request-timeout=30s']
+    kube: ['{{ tools }}/kubectl', '--kubeconfig={{ cluster_kubeconfig }}', '--context={{ cluster_context }}', '--request-timeout=30s']
     core_candidate_files: [database/workload.yaml, database/bootstrap.sops.yaml, database/runtime.sops.yaml, database/kustomization.yaml, migration/workload.yaml, migration/auth.sops.yaml, migration/kustomization.yaml, redis/workload.yaml, redis/provision.sops.yaml, redis/runtime.sops.yaml, redis/kustomization.yaml, rabbitmq/workload.yaml, rabbitmq/provision.sops.yaml, rabbitmq/runtime.sops.yaml, rabbitmq/kustomization.yaml, identity/workload.yaml, identity/provision.sops.yaml, identity/runtime.sops.yaml, identity/kustomization.yaml, runtime/workload.yaml, runtime/tls.sops.yaml, runtime/kustomization.yaml, '../{{ application_name }}-web-frontend/workload.yaml', '../{{ application_name }}-web-frontend/kustomization.yaml', '../{{ application_name }}-admin-frontend/workload.yaml', '../{{ application_name }}-admin-frontend/kustomization.yaml']
     agent_releases_enabled: '{{ lookup("vars", application_name + "_agent_releases", default={}).enabled | default(false) | bool }}'
     storage_enabled: '{{ cfg.object_storage.enabled | default(false) | bool }}'
@@ -46,8 +56,8 @@
     service_relation: '{{ "ingest" if application_name == "knowfeed" else "retrieve" }}'
     service_env_prefix: '{{ "KNOWBASE_APP_SERVICE" if application_name == "knowfeed" else "KNOWBASE_RETRIEVAL_SERVICE" }}'
     service_bindings:
-      ingest: '{{ (lookup("file", repo + "/gitops/components/app-platform/knowfeed-app/knowfeed-backend/config.yaml") | from_yaml).knowfeed_backend_deployment.knowbase_service }}'
-      retrieve: '{{ (lookup("file", repo + "/gitops/components/app-platform/knowbench-app/knowbench-backend/config.yaml") | from_yaml).knowbench_backend_deployment.knowbase_service }}'
+      ingest: '{{ (lookup("template", repo + "/gitops/components/app-platform/knowfeed-app/knowfeed-backend/config.yaml", convert_data=False) | from_yaml).knowfeed_backend_deployment.knowbase_service }}'
+      retrieve: '{{ (lookup("template", repo + "/gitops/components/app-platform/knowbench-app/knowbench-backend/config.yaml", convert_data=False) | from_yaml).knowbench_backend_deployment.knowbase_service }}'
     all_candidate_files: '{{ core_candidate_files + (["agent-releases/workload.yaml","agent-releases/provision.sops.yaml","agent-releases/kustomization.yaml","runtime/agent-releases.sops.yaml"] if agent_releases_enabled else []) + (["storage/workload.yaml","storage/provision.sops.yaml","storage/kustomization.yaml","runtime/storage.sops.yaml"] if storage_enabled else []) + (["provider/workload.yaml","provider/provision.sops.yaml","provider/kustomization.yaml","runtime/provider.sops.yaml"] if provider_enabled else []) + (["service-identity/workload.yaml","service-identity/provision.sops.yaml","service-identity/kustomization.yaml","runtime/service.sops.yaml"] if service_enabled else []) }}'
     selected_application_components: '{{ selection.applications[application_name] }}'
     selected_backend: '{{ application_name + "-backend" in selected_application_components }}'
@@ -77,8 +87,6 @@
           - cfg.database_extensions | default([]) | difference(['uuid-ossp']) | length == 0
           - cfg.database_bootstrap_revision is match('^[a-z0-9-]{1,16}$')
           - cfg.migration_job_revision is match('^[a-z0-9-]{1,16}$')
-          - cfg.private_dir == '/etc/sunmoon/applications/' + cluster_name + '/' + application_name
-          - cfg.backup_dir == '/mnt/sunmoon-data/backups/applications/' + cluster_name + '/' + application_name
           - app_images.backend.repository == application_name + '-backend'
           - app_images.backend.deployment_id is match("^[a-z][a-z0-9-]{5,90}$")
           - app_images.web.deployment_id is match("^[a-z][a-z0-9-]{5,90}$")
@@ -103,8 +111,8 @@
           - admin_cfg.port | int > 1024 and admin_cfg.port | int < 65536
           - web_cfg.replicas | int >= 1
           - admin_cfg.replicas | int >= 1
-          - cfg.web_origin is match('^https://[a-z0-9.-]+:30443$')
-          - cfg.admin_origin is match('^https://[a-z0-9.-]+:30443$')
+          - cfg.web_origin is match('^https://[a-z0-9.-]+:' + (public_port | string) + '$')
+          - cfg.admin_origin is match('^https://[a-z0-9.-]+:' + (public_port | string) + '$')
           - cfg.web_origin != cfg.admin_origin
           - cfg.rabbitmq_user is match('^[a-z][a-z0-9_.-]{1,63}$')
           - cfg.rabbitmq_user not in ['admin','guest']
@@ -193,7 +201,7 @@
       ansible.builtin.assert:
         quiet: true
         that: application_action not in ['render', 'stage']
-        fail_msg: Use make application-render/stage APP=<app> or services-render/stage OBJECT=app-platform/<app>-app
+        fail_msg: Use make platform-stage OBJECT=app-platform/<app>-app (or components-render OBJECT=... to render only)
     - name: Validate rendered inputs against the promoted immutable source
       when: application_action == 'validate'
       block:
