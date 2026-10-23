@@ -82,7 +82,7 @@
 
 | 项 | 做法 |
 | --- | --- |
-| 本人凭据 | **Casdoor 令牌交换（RFC 8693）**：应用后端拿用户的登录令牌，向 Casdoor 换一张发给 knowbase 的令牌（`audience` = knowbase）。2026-10-23 读 Casdoor 4.12.0（部署的版本）源码核过：`object/token_oauth.go` 的 `GetTokenExchangeToken`，核令牌未吊销、用户未禁用、目标应用存在且服务这个组织、权限只能收窄；换出的令牌带用户（`sub`）与代办应用（`azp`），满足数据拓扑第 5.3 节第 4 条。要在各应用的 Casdoor 应用上打开这个授权类型。不由 knowbase 自己签发 |
+| 本人凭据 | **Casdoor 令牌交换（RFC 8693）**：应用后端拿用户的登录令牌，向 Casdoor 换一张发给 knowbase 的令牌（`audience` = knowbase）。2026-10-23 读 Casdoor 4.12.0（部署的版本）源码核过：`object/token_oauth.go` 的 `GetTokenExchangeToken`，核令牌未吊销、用户未禁用、目标应用存在且服务这个组织、权限只能收窄；换出的令牌带用户（`sub`）与代办应用（`azp`），满足数据拓扑第 5.3 节第 4 条。要在各应用的 Casdoor 应用上打开这个授权类型。不由 knowbase 自己签发。**10-23 在临时 Casdoor 4.12.0（正式环境同一镜像）上实测通过**（[`opus-0042-token-exchange-lab.20261023-2009.md`](../../../../scripts/results/opus-0042-token-exchange-lab.20261023-2009.md)）：换出的令牌 `aud` = knowbase、`azp` = 代办应用、`sub` = 用户；放大权限、别的应用代换、吊销后再换都被拒。随之要做：应用会话在服务端存用户的访问令牌（现在登录后丢了），knowbase 新加按 `azp` 认应用 |
 | 运行授权 | knowbase 签发，四种：测试、委托、孵化（已定）、**会话**（新加：knowbench 聊天、工作里用户选用 B 的几份，会话结束就撤，兜底按会话的时限）；只能在用户选的范围内，越界就拒；申请不到不开跑 |
 | 留痕 | 每次读：谁、凭哪条运行授权、读了哪个数据集哪一版；只记编号不记数值，留一年（数据拓扑第 5.3 节第 9 条） |
 | 分区 | knowbase 里按「用户 × 应用（knowbench / knowlab / knowmart）」分开存；买来的知识复制一份，归属与删除各算各的 |
