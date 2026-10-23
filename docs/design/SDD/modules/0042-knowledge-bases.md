@@ -155,7 +155,7 @@
 
 | 6 | knowmart：详情页显示需要你提供的数据；D 知识库（卖家上传、管理）；供需市场（知识条目从 D 选资料，卖出时经 knowbase 复制进买家的 B 或 C） | 见 [0018](0018-advisor-market.md) 第十一节第 10 小节 |
 
-还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 7 重孵化；knowlab 0037 的数据结构与两端重做。
+还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 7 重孵化。knowlab 0037 的数据结构与两端重做已做，见 [0037](0037-idea-avatar-expert.md) 第十八之二节第 4 小节。
 
 发版时要配（等 Fable）：
 
@@ -165,5 +165,5 @@
 - knowbench：期望库版本改成 `20261023_0024`（`gitops/.../knowbench-backend/config.yaml` 与 `migration/workload.yaml` 的 `expected_schema_revision`）。runner 起了交还授权的线，要能连 knowbase（服务关系 `user-data-read`）。
 - knowbase：knowlab 的导入服务身份配上 `knowbase:user-data-import`，并在 `USER_DATA_READER_APPS_JSON` 里登记成 knowlab；knowlab 签测试授权的身份要 `user-data-grant-test`。
 - knowbench：期望库版本改成 `20261023_0025`（上面那条的 0024 作废）。
-- knowlab：期望库版本改成 `20261023_0011`；配 `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_*`、`KNOWBASE_USER_DATA_IMPORT_SERVICE_*`；发版后跑一次 `python -m app.bootstrap.import_datasets`。
+- knowlab：期望库版本改成 `20261024_0012`（0037 的迁移在 0011 之后；只写 0011 的那一版作废）；配 `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_*`、`KNOWBASE_USER_DATA_IMPORT_SERVICE_*`；发版后跑一次 `python -m app.bootstrap.import_datasets`。
 - 发布顺序：knowbase（交还授权、导入、同意放宽）→ knowmart（清单外层）→ knowbench（认 `data_grant`）→ knowlab（声明与绑定、知识库搬家、发 `data_grant`）；本地 link 新版带 `fs/digest`，老版本照样能用（工作台一块块读回来算）。

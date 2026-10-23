@@ -310,5 +310,6 @@ knowbase PRD「已知的缺口：文档检索」里的 `search_documents` 先在
 | knowmart 知识库（D）：网页经后端凭本人令牌转 knowbase 的 knowmart 分区 | knowmart 后端 `e857e6d`、web端 `d19ab30`，父 `1ffe540` |
 | web端八栏：专家、知识、需求大厅、我发布的、我买到的、知识库、发布主体、驻场规则；专家详情页显示需要的数据（数据需求声明）、每次请的价格与评价 | web端 `1ca4ddf`、`9aa357a`，父 `d645e3c`、`409d0b4` |
 | 管理端五栏：条目审核（标出禁止类的词）、资质审核（看证件照片）、举报处理、驻场规则（改了出新版本）、成交记录 | 管理端 `627e3e1`，父 `b47dbb0` |
+| knowlab 交付可带「申请公开」：卖家发布主体与类目资质都过的，那一版进这里的上架审核，不过的留自用；knowlab 能停用某一版（内部接口，服务关系同交付）。见 [0037](0037-idea-avatar-expert.md) 第十八之二节 | knowmart 后端 `1771683`，父 `ff33950` |
 
 发版时要配（等 Fable）：knowmart 期望库版本改成 `20261023_0007`；`PUBLIC_MARKET_ENABLED` 打开才有公开的专家；`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_PURCHASE_SERVICE_*`（买知识的复制）；Celery beat 起来跑 `market-sweep`。
