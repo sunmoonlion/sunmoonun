@@ -198,6 +198,28 @@ class RelayTests(unittest.IsolatedAsyncioTestCase):
             await asyncio.sleep(0.05)
         self.assertEqual(sorted(await agents()), ["u2"])
 
+    async def test_machine_carries_device_id_host_and_os(self):
+        # 账 143：0.5.1 的本地 link 多报设备编号、主机名、系统；编号不合格式不转，过长截断
+        ctrl = await connect(self.url + "/agent"); self.open_ws.append(ctrl)
+        h = json.loads(hello("agent", "u1", "A1"))
+        h["machine"] = {"name": "laptop", "roots": [], "ceiling": {}, "device_id": "0f8fad5b-d9cb-469f-a165-70867728950e",
+                        "host": "DESKTOP-" + "z" * 200, "os": "Windows"}
+        await ctrl.send(json.dumps(h))
+        self.assertEqual(json.loads(await ctrl.recv())["type"], "welcome")
+        m = self.relay.agents["u1"].machine
+        self.assertEqual(m["device_id"], "0f8fad5b-d9cb-469f-a165-70867728950e")
+        self.assertEqual(len(m["host"]), 128)
+        self.assertEqual(m["os"], "Windows")
+        await ctrl.close()
+        for _ in range(50):
+            if "u1" not in self.relay.agents: break
+            await asyncio.sleep(0.05)
+        ctrl = await connect(self.url + "/agent"); self.open_ws.append(ctrl)
+        h["machine"]["device_id"] = "my-pc; drop table"
+        await ctrl.send(json.dumps(h))
+        self.assertEqual(json.loads(await ctrl.recv())["type"], "welcome")
+        self.assertNotIn("device_id", self.relay.agents["u1"].machine)
+
     async def test_bad_machine_fields_never_break_the_hello(self):
         for bad in ("text", {"roots": "not-a-list", "ceiling": "x"}, {"ceiling": {"sandbox": "root", "network": "yes"}}):
             ctrl = await connect(self.url + "/agent"); self.open_ws.append(ctrl)

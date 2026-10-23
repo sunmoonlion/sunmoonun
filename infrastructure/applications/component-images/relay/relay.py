@@ -125,6 +125,7 @@ def verify_jwt(token: str, public_key, *, issuer: str = "") -> dict:
 
 
 SANDBOX_MODES = ("read-only", "workspace-write", "danger-full-access")
+DEVICE_ID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 
 def machine_of(hello: dict) -> dict:
@@ -143,11 +144,19 @@ def machine_of(hello: dict) -> dict:
         ceiling["sandbox"] = c["sandbox"]
     if isinstance(c.get("network"), bool):
         ceiling["network"] = c["network"]
-    return {
+    out = {
         "name": str(m.get("name") or "")[:128],
         "roots": [r[:1024] for r in roots if isinstance(r, str) and r][:64],
         "ceiling": ceiling,
     }
+    # 0.5.1 起（账 143）：设备编号认「这台电脑上的这一份本地 link」，主机名与系统用来发现配置被拷到别的电脑。
+    # 编号不合格式就不转；老代理不报这三样。
+    if isinstance(m.get("device_id"), str) and DEVICE_ID.fullmatch(m["device_id"]):
+        out["device_id"] = m["device_id"]
+    for key, limit in (("host", 128), ("os", 64)):
+        if isinstance(m.get(key), str) and m[key]:
+            out[key] = m[key][:limit]
+    return out
 
 
 def capabilities_of(hello: dict) -> list[str]:
