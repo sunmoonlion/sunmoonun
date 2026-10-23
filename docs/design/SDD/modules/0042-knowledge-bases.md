@@ -1,6 +1,6 @@
 # 四类知识库：放什么、读哪里、怎么读、怎么用；请专家用自己的数据（0042）
 
-> 状态：**设计稿，未实施**。所有者 2026-10-23 定，Opus 同日整理；第五节六项所有者「除了选数据的弹框，「财务分析与预测」重孵化第 2 版都按你拟的」，听完解释后第 6 项「行」。
+> 状态：**实施中**（进度见第十一节，qwen 只提交未发）。所有者 2026-10-23 定，Opus 同日整理；第五节六项所有者「除了选数据的弹框，「财务分析与预测」重孵化第 2 版都按你拟的」，听完解释后第 6 项「行」。
 >
 > 所有者原话（10-23，按先后）：
 > - 早上：「knowlab knowmart都有自己的知识库，但是它们都在云端，而knowbench的用户的知识库在本地」「每个用户除了出售专家服务，还出售私有知识」「云端知识库当然在knowbench（knowlab也有知识库，与knowbench不同）。knowbench的本地知识就叫本地知识库」「经过自己的后端转调knowbase」「它们虽然可以身份相同，但大多少其实不同，应该独立，不能互相拿」
@@ -118,3 +118,25 @@
 - 一键在应用之间复制资料（只能下载再上传）。
 - 让 knowbase 直接对前端。
 - 「专家随数据」（10-20 公开专家随专家提供一套数据）：10-23 取代。
+
+## 十一、实施进度（qwen 工位，只提交、不推、不发）
+
+| 块 | 已做 | 提交 |
+| --- | --- | --- |
+| 1 | knowbase 用户资料：按「用户 × 应用」分区存、上传下载删、同意、运行授权（测试、委托、孵化、会话）、凭授权读内容或格式、买卖复制、读数留痕；验令牌的 `aud`、`azp`；契约 `user-data/v1` | knowbase 后端 `0465409`、`54a0bd0`，父仓 `1947261`、`915863a` |
+| 1 | 三个应用留下用户访问令牌、向 Casdoor 令牌交换、knowbase 客户端 | tpl `736d94d`（父 `c96dd25`）；knowbench `6b28350`（父 `e2d12cf`）；knowlab `47cf74c`（父 `75042a0`）；knowmart `23a18a3`（父 `899e1f6`） |
+| 2 | knowbench「云端知识库」页（上传、看、删、下载） | knowbench 后端 `a359320`、网页 `39d17d9`，父 `5ccdad2` |
+| 5 | 读数层（抽文字、分页、按格子、核引文）从 knowlab 搬到 knowbench | knowbench 后端 `a4797cc` |
+| 5 | 本地 link 服务流能只读本地知识库目录 | sunmoon-link `3f44f92`（随下一版 link） |
+| 5 | 委托钉住的数据表（迁移 `20261023_0024`）；读数据工具、`compute`、数值验收先读钉住的那几份：云端凭委托的运行授权经 knowbase，本地经服务流一块块读，取到就核 sha256，对不上报「数据在这次委托开始后被改过」（验收里记平台没能核）；没钉的旧格式专家照旧经 knowlab | knowbench 后端 `77f3114`，父 `33953f8` |
+
+还没做（按第九节的块）：块 4 清单格式；块 5 请专家选数据的接口与弹框（选好时申请委托运行授权、本地算 sha256 记进钉表）、会话选用 B、`list_library` / `read_library_item` 改读 B、工作台显示用了哪些数据；块 3 knowlab 知识库搬进 knowbase；块 6 knowmart；块 7 重孵化。
+
+选数据接口要一起处理的：knowbase 的运行授权最长 7 天，委托结束时要撤（撤要用户本人凭据，结束多在后台发生；在用户能操作的那一刻撤，兜底靠时限）；被进行中委托钉住的资料 knowbase 不让删，授权撤了才能删。
+
+发版时要配（等 Fable）：
+
+- knowbase：迁移 `20261023_0008`；配置 `user_token_audience`、`user_token_apps_json`、`user_data_bucket`、`user_data_prefix`、`user_data_reader_apps_json`；服务关系 `user-data-read`、`user-data-grant-test`、`user-data-purchase`；期望库版本随之改。
+- Casdoor：knowbench、knowlab、knowmart 三个应用打开令牌交换授权类型；建 knowbase 目标应用（它的客户端编号就是各应用的 `KNOWBASE_USER_AUDIENCE`）。
+- knowbench、knowlab、knowmart：`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_DATA_<关系>_SERVICE_*`。
+- knowbench：期望库版本改成 `20261023_0024`（`gitops/.../knowbench-backend/config.yaml` 与 `migration/workload.yaml` 的 `expected_schema_revision`）。
