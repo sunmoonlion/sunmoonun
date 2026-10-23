@@ -150,6 +150,21 @@
 | Linux 远程机器上 bwrap 能不能用（非特权用户命名空间、常见发行版的默认设置） | 查文档并在一台 Linux 上实测 |
 | Windows 远程机器经 SSH 登录时，Codex 的 Windows 沙箱能不能起（SSH 会话的登录类型与桌面不同） | 实测 |
 | 云端 Codex 面对的执行端从 Windows（用户电脑）换成 Linux（远程机器）时，选 shell、路径规则能不能按执行端那边的系统自动切；后端按路径给的 Windows 说明会不会误加 | 读 Codex app-server 与 exec-server 的环境信息代码，再实测 |
+
+**第一轮实测（2026-10-23）**：所有者说「你直接用43.153,135.74也就是你所在的就行了啊」。用户电脑 = 所有者的 Windows（本地），远程机器 = 云服务器（远程，Ubuntu 24.04，x86_64），经公网；Windows 上用所有者现有的 `~/.ssh/config`（`Host txy-tokyo`）和钥匙。远程上只用一个临时目录、单独的 CODEX_HOME，没碰那台机器上已有的 Codex 与 `~/.codex`；测完临时目录、Windows 与 WSL 上的测试文件都已删。
+
+| 项 | 结果 |
+| --- | --- |
+| SSH 客户端 | Windows 自带的 OpenSSH 客户端（9.5p2）直接认用户的 `~/.ssh/config` 与钥匙，`BatchMode` 下可用；不随包带客户端也行 |
+| exec-server 经 SSH 的 stdio | 通：`initialize` 含 SSH 建连 1.4 秒；之后每个请求往返约 40～50 毫秒（10 次 `fs/getMetadata` 共 0.4 秒）；读文件、列目录、写文件、起进程拿输出都正常。还没接云端跑一轮完整的 Codex |
+| 执行端报的环境 | `initialize` 回 `platformOs: "linux"`、shell 是 zsh、家目录：云端拿得到远程机器的系统；app-server 会不会据此换 shell 与路径规则仍要核。Linux（musl）版报的 `executorVersion` 是 `0.0.0`，Windows 版是 `0.155.1`（本地 link 的 Windows 助手按 `0.155.1` 核），核版本要换别的办法 |
+| Linux 版大小 | `codex` 257 MB；npm 包整个压缩后 142 MB（含 `codex-code-mode-host` 66 MB、rg、语音组件）；只传 `codex` 的话估压缩后约 90 MB |
+| bwrap 外沙箱 | 照 `outerSandbox.ts` 的参数套上后，工作目录里能写，工作目录外 `fs/writeFile` 与 shell 写入都报 `Read-only file system`；进程以 SSH 用户身份运行。**这台机器关掉了 Ubuntu 对非特权用户命名空间的限制**（`kernel.apparmor_restrict_unprivileged_userns = 0`，不是 24.04 的默认），默认设置下的表现还没测；推断默认设置下只有系统自带的 `/usr/bin/bwrap`（有 AppArmor 配置）能用，随包带的 bwrap 会被拦，远程机器有系统 bwrap 时应优先用它 |
+| 断线 | 正在跑 `sleep` 时直接杀掉用户电脑上的 ssh：远程上的 exec-server、bwrap、`sleep` 都随之退出，没有留下进程，和第 5 小节「不常驻」一致 |
+| 上传 | 从所有者 Windows 传 30 MB 到远程机器用了 3 秒（约 10 MB/s），放一次执行端约十几秒 |
+| 读的范围 | 外沙箱是「全盘只读、白名单可写」，远程命令能读到 SSH 用户能读的一切（如那台机器上的 `~/.ssh`、`~/.codex`）；过滤只管经 exec-server 的文件请求，管不到命令自己读什么。同本地 link 的 Linux 做法，所以第 6 小节建议给执行端一个只有所需目录权限的账户 |
+
+还没测：Windows 远程机器（暂时没有）、bwrap 在 Ubuntu 默认设置下、接云端跑一轮完整的 Codex、局域网下的耗时。
 | 断线重连、升级执行端的流程 | 实测 |
 | 慢 | 局域网与经公网各测一次 Codex 跑一轮的耗时，写进说明 |
 
