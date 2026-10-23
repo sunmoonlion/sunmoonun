@@ -148,7 +148,12 @@
 | 5 | knowbench 请专家选数据：写了声明的专家没选不建委托；云端凭本人令牌核资料、签一条委托运行授权（7 天兜底），本地只收本地知识库目录里的文件、由 link 算摘要（老 link 一块块读回来算）；钉住的数据随委托同一提交写下；同一把幂等钥匙重发不再签；建委托没成就交还；委托结束由 runner 交还授权；`GET /workbench/packs/{id}/data-needs` 给弹框声明与同一项目上次所选；委托单带 `chosen_data` | knowbench 后端 `41596bd`，父 `17a474c` |
 | 5 | knowbench 网页：请专家页「要用的数据」一节与选数据弹框（云端按格式列、本地文件树），必填缺了不能交；委托页顶上写用了哪些数据 | knowbench 网页 `5a1262d`，父 `cce89b1` |
 
-还没做（按第九节的块）：块 5 剩会话选用 B（聊天、工作里选几份、凭「会话」运行授权）、`list_library` / `read_library_item` 改读 B、`knowlab_data_client.py` 退役（第 1 版停用后）；块 3 knowlab 知识库搬进 knowbase、测试走测试运行授权；块 6 knowmart（详情页显示需要哪些数据、D 知识库与供需市场）；块 7 重孵化；knowlab 0037 的数据结构与两端重做。
+| 2、5 | 聊天、工作里选用云端知识库：每段对话选几份、凭「会话」运行授权（24 小时兜底，改选换一条、交还旧的）；每轮说明写这段对话能读哪几份；`list_library` / `read_library_item` 改读这几份；撤旧的「交回物当资料」（迁移 `20261023_0025`）；网页输入框旁「云端知识库」 | knowbench 后端 `57ab32e`、网页 `5fe3e2d`，父 `f36f83d`、`6b6e490` |
+| 3 | knowbase：应用搬自己的旧资料（`POST /imports`，服务关系 `user-data-import`，只进调用方自己的分区、按原编号幂等）；同意依据最多 1000 份（授权仍 64） | knowbase 后端 `f6fcf8f`、`f7eaa39`，父 `588865b`、`232fd21` |
+| 3 | knowlab：新传、删走 knowbase（迁移 `20261023_0011`），每人最多 1000 份；传、删、打开知识库页时更新测试同意；发起测试签测试运行授权、随请求带 `data_grant`，结束、退回、开跑失败都撤；一次性命令 `python -m app.bootstrap.import_datasets` 搬旧数据；网页「我的数据」改「知识库」 | knowlab 后端 `b8dd62b`、网页 `3be2704`，父 `9fafac8`（契约 `knowbot-test-run/v1` 只加 `data_grant`） |
+| 3 | knowbench：测试请求认 `data_grant`，每条用例的委托钉这几份按钉住的读（钉表主键改成委托＋数据编号、记授权种类，测试授权不由 runner 交还） | knowbench 后端 `cc81702`，父 `09c239a` |
+
+还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 6 knowmart（详情页显示需要哪些数据、D 知识库与供需市场）；块 7 重孵化；knowlab 0037 的数据结构与两端重做。
 
 发版时要配（等 Fable）：
 
@@ -156,4 +161,7 @@
 - Casdoor：knowbench、knowlab、knowmart 三个应用打开令牌交换授权类型；建 knowbase 目标应用（它的客户端编号就是各应用的 `KNOWBASE_USER_AUDIENCE`）。
 - knowbench、knowlab、knowmart：`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_DATA_<关系>_SERVICE_*`。
 - knowbench：期望库版本改成 `20261023_0024`（`gitops/.../knowbench-backend/config.yaml` 与 `migration/workload.yaml` 的 `expected_schema_revision`）。runner 起了交还授权的线，要能连 knowbase（服务关系 `user-data-read`）。
-- 发布顺序：knowbase（交还授权接口）→ knowmart（清单外层）→ knowlab（声明与绑定）→ knowbench；本地 link 新版带 `fs/digest`，老版本照样能用（工作台一块块读回来算）。
+- knowbase：knowlab 的导入服务身份配上 `knowbase:user-data-import`，并在 `USER_DATA_READER_APPS_JSON` 里登记成 knowlab；knowlab 签测试授权的身份要 `user-data-grant-test`。
+- knowbench：期望库版本改成 `20261023_0025`（上面那条的 0024 作废）。
+- knowlab：期望库版本改成 `20261023_0011`；配 `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_*`、`KNOWBASE_USER_DATA_IMPORT_SERVICE_*`；发版后跑一次 `python -m app.bootstrap.import_datasets`。
+- 发布顺序：knowbase（交还授权、导入、同意放宽）→ knowmart（清单外层）→ knowbench（认 `data_grant`）→ knowlab（声明与绑定、知识库搬家、发 `data_grant`）；本地 link 新版带 `fs/digest`，老版本照样能用（工作台一块块读回来算）。
