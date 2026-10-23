@@ -140,7 +140,7 @@
 
 ## 实现状态
 
-本页的叫法与流程是 2026-10-23 定的。下面是和现在代码的差距（2026-10-23 在 qwen 工位核过），暂停结束后与本地 link 0.5.1 一起改，见待办账 143、163（[`pending-after-migration.md`](../design/pending-after-migration.md)）。
+本页的叫法与流程是 2026-10-23 定的。下面是和现在代码的差距（2026-10-23 在 qwen 工位核过），暂停结束后与本地 link 0.5.2 一起改（0.5.1 已由 Fable 在 2026-10-22 发出），见待办账 143、163（[`pending-after-migration.md`](../design/pending-after-migration.md)）。
 
 | 差距 | 在哪 |
 | --- | --- |
