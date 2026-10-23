@@ -153,7 +153,9 @@
 | 3 | knowlab：新传、删走 knowbase（迁移 `20261023_0011`），每人最多 1000 份；传、删、打开知识库页时更新测试同意；发起测试签测试运行授权、随请求带 `data_grant`，结束、退回、开跑失败都撤；一次性命令 `python -m app.bootstrap.import_datasets` 搬旧数据；网页「我的数据」改「知识库」 | knowlab 后端 `b8dd62b`、网页 `3be2704`，父 `9fafac8`（契约 `knowbot-test-run/v1` 只加 `data_grant`） |
 | 3 | knowbench：测试请求认 `data_grant`，每条用例的委托钉这几份按钉住的读（钉表主键改成委托＋数据编号、记授权种类，测试授权不由 runner 交还） | knowbench 后端 `cc81702`，父 `09c239a` |
 
-还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 6 knowmart（详情页显示需要哪些数据、D 知识库与供需市场）；块 7 重孵化；knowlab 0037 的数据结构与两端重做。
+| 6 | knowmart：详情页显示需要你提供的数据；D 知识库（卖家上传、管理）；供需市场（知识条目从 D 选资料，卖出时经 knowbase 复制进买家的 B 或 C） | 见 [0018](0018-advisor-market.md) 第十一节第 10 小节 |
+
+还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 7 重孵化；knowlab 0037 的数据结构与两端重做。
 
 发版时要配（等 Fable）：
 
