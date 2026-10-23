@@ -129,14 +129,19 @@
 | 5 | 读数层（抽文字、分页、按格子、核引文）从 knowlab 搬到 knowbench | knowbench 后端 `a4797cc` |
 | 5 | 本地 link 服务流能只读本地知识库目录 | sunmoon-link `3f44f92`（随下一版 link） |
 | 5 | 委托钉住的数据表（迁移 `20261023_0024`）；读数据工具、`compute`、数值验收先读钉住的那几份：云端凭委托的运行授权经 knowbase，本地经服务流一块块读，取到就核 sha256，对不上报「数据在这次委托开始后被改过」（验收里记平台没能核）；没钉的旧格式专家照旧经 knowlab | knowbench 后端 `77f3114`，父 `33953f8` |
+| 4 | 清单外层加数据需求声明 `data_needs`（每样：key、名字、说明、格式 pdf / excel / csv / text、必填、`min_count`～`max_count`、表格类要有的表与列；合起来不超过 64 份），绑定可写对应哪一样 `need`；写了声明的交到 knowmart 不带绑定；声明为空、`need` 没写时不进规范 JSON，旧清单摘要不变（测试钉了加之前的两个摘要）。格式照市面做法拟（Dify 应用的「用户输入表单」：变量名、标签、必填、文件类型、最多几份） | knowmart 后端 `cf1cdbe`，父 `b6e83d9`（契约 `knowbot-manifest/v1` 只加） |
+| 4 | knowlab：建草稿先核声明，测试绑定按声明核（每份写对应哪一样、格式对、份数在范围里），交 knowmart 去掉测试绑定 | knowlab 后端 `28db63b`，父 `7639424` |
+| 5 | knowbase：读的一方能交还给自己的运行授权（`POST /grants/{id}/release`），委托结束就撤、不用用户在场 | knowbase 后端 `d17eb26`，父 `cc24146` |
+| 5 | 本地 link 服务流加 `fs/digest`：在 link 这头算整份文件的 sha256（Windows 经沙箱助手按块读、在 link 里算） | sunmoon-link `855655b`（随下一版 link） |
+| 5 | knowbench 请专家选数据：写了声明的专家没选不建委托；云端凭本人令牌核资料、签一条委托运行授权（7 天兜底），本地只收本地知识库目录里的文件、由 link 算摘要（老 link 一块块读回来算）；钉住的数据随委托同一提交写下；同一把幂等钥匙重发不再签；建委托没成就交还；委托结束由 runner 交还授权；`GET /workbench/packs/{id}/data-needs` 给弹框声明与同一项目上次所选；委托单带 `chosen_data` | knowbench 后端 `41596bd`，父 `17a474c` |
+| 5 | knowbench 网页：请专家页「要用的数据」一节与选数据弹框（云端按格式列、本地文件树），必填缺了不能交；委托页顶上写用了哪些数据 | knowbench 网页 `5a1262d`，父 `cce89b1` |
 
-还没做（按第九节的块）：块 4 清单格式；块 5 请专家选数据的接口与弹框（选好时申请委托运行授权、本地算 sha256 记进钉表）、会话选用 B、`list_library` / `read_library_item` 改读 B、工作台显示用了哪些数据；块 3 knowlab 知识库搬进 knowbase；块 6 knowmart；块 7 重孵化。
-
-选数据接口要一起处理的：knowbase 的运行授权最长 7 天，委托结束时要撤（撤要用户本人凭据，结束多在后台发生；在用户能操作的那一刻撤，兜底靠时限）；被进行中委托钉住的资料 knowbase 不让删，授权撤了才能删。
+还没做（按第九节的块）：块 5 剩会话选用 B（聊天、工作里选几份、凭「会话」运行授权）、`list_library` / `read_library_item` 改读 B、`knowlab_data_client.py` 退役（第 1 版停用后）；块 3 knowlab 知识库搬进 knowbase、测试走测试运行授权；块 6 knowmart（详情页显示需要哪些数据、D 知识库与供需市场）；块 7 重孵化；knowlab 0037 的数据结构与两端重做。
 
 发版时要配（等 Fable）：
 
 - knowbase：迁移 `20261023_0008`；配置 `user_token_audience`、`user_token_apps_json`、`user_data_bucket`、`user_data_prefix`、`user_data_reader_apps_json`；服务关系 `user-data-read`、`user-data-grant-test`、`user-data-purchase`；期望库版本随之改。
 - Casdoor：knowbench、knowlab、knowmart 三个应用打开令牌交换授权类型；建 knowbase 目标应用（它的客户端编号就是各应用的 `KNOWBASE_USER_AUDIENCE`）。
 - knowbench、knowlab、knowmart：`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_DATA_<关系>_SERVICE_*`。
-- knowbench：期望库版本改成 `20261023_0024`（`gitops/.../knowbench-backend/config.yaml` 与 `migration/workload.yaml` 的 `expected_schema_revision`）。
+- knowbench：期望库版本改成 `20261023_0024`（`gitops/.../knowbench-backend/config.yaml` 与 `migration/workload.yaml` 的 `expected_schema_revision`）。runner 起了交还授权的线，要能连 knowbase（服务关系 `user-data-read`）。
+- 发布顺序：knowbase（交还授权接口）→ knowmart（清单外层）→ knowlab（声明与绑定）→ knowbench；本地 link 新版带 `fs/digest`，老版本照样能用（工作台一块块读回来算）。
