@@ -34,7 +34,7 @@
 | 应用构建/发布/部署/真实检查 | [applications](../infrastructure/applications/README.md) | 4应用共享原生入口 |
 | 理解职责/适用边界 | [规则](design/rules/constraints.md#发布)「发布」`C-R*`、[项目总览](project-guide/overall-architecture.md) | 稳定设计 |
 | 看用户、本地 link、沙箱、会合点、供给器怎么连 | [运行拓扑](总纲/运行拓扑.md) 第一部分 | 图与各自职责 |
-| 账号、电脑、本地 link、会合点四个词怎么对应 | [账号-电脑-link-会合点](project-guide/账号-电脑-link-会合点.md) | 说明文档，不是地图 |
+| 账号、电脑、本地 link、沙箱、令牌、会合点六样东西，安装、颁发令牌、配对三个过程 | [账号-电脑-link-会合点](project-guide/账号-电脑-link-会合点.md) | 说明文档，不是地图 |
 | 看还没完成的 | [待办账](design/pending-after-migration.md) 104–109 | 计划，不是实时状态 |
 | 找设计、过程、运维说明 | [design/](design/README.md) 需求与设计、[process/](process/README.md) 流水线与派活卡、[ops/](ops/README.md) 运维说明 | 2026-10-21 起按内容分；之前回执里的 `docs/dev-investment-agent/tree-build` 读作 `docs/design`，其余读作 `docs/process` |
 
