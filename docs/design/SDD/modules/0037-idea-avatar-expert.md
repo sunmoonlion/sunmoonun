@@ -253,15 +253,16 @@ knowmart：交付带版本号按它记；停用接口只认 knowlab 的服务身
 | knowlab 管理端 | 受理 · 孵化 · 测试 · 交付四栏（右边栏只放输出）、名称详情页 `/names/{id}`、旧地址跳转；账 142（成稿写「第几步「步名」写的」）、账 144（回包多字段不再整页失败） | 管理端 `4a867b8`，父 `2b06e2d` |
 | knowlab web端 | 申请 · 审核 · 专家三栏、修改创意出新版本、审核待办箱（问题、准专家、同意门）、首页「测试通过了，去确认」、名称详情页、旧地址跳转；「分身」改叫「准专家」 | web端 `8e95e56`，父 `522ae33` |
 | knowbench 网页 | 账 147（新建、删除的文件按整份内容数行）、账 148（专家每步交回的原文折成一行，点开看） | knowbench 网页 `17252b6`，父 `6a60c84` |
+| knowmart 空号与停用 | 第三节「详情页写明空号那一版的结局」：knowlab 在用户不要、审核不过、交付成功时把没上架那几版的结局整份交给 knowmart（内部接口 `PUT .../sources/{ref}/unlisted`，迁移 `20261024_0008`），knowmart 专家详情的版本记录里写「没有上架：你没要这一版 / 运营审核没通过」；knowlab 交来的专家在 knowmart 不再能直接停用（回 409 `stop_in_knowlab`），页面带去 knowlab 的「专家」里停，两边对得上 | knowmart 后端 `7745167`、web端 `b8ae4e0`，父 `e37c884`；knowlab 后端 `23af09f`，父 `3dd4da3` |
 
-测试：knowlab 后端全量 595 过（含 0012 在真 PostgreSQL 上的回填、退回、再进）；管理端 59、web端 107、knowbench 网页 336、knowmart 后端 486 过；两端构建过。
+测试：knowlab 后端全量 597 过（含 0012 在真 PostgreSQL 上的回填、退回、再进）；管理端 59、web端 107、knowbench 网页 336、knowmart 后端 492、knowmart web端 105 过；各前端构建过。
 
 还没做：第十六节的「真跑」（拿「财务分析与预测」走一遍新流程，随块 7 重孵化第 2 版一起）；上线后给试行期的第 1 版补一次运营审核记录（管理端「交付 → 全部专家」里有按钮）；收缩那一次迁移（删准专家上的 run、报告、交付几栏，状态约束去掉 delivered），等新流程跑稳。
 
 发版时要配（等 Fable）：
 
 - knowlab：期望库版本改成 `20261024_0012`（[0042](0042-knowledge-bases.md) 第十一节里的 `20261023_0011` 作废）；两个前端随后端一起发。
-- knowmart：后端随这一版发（交付的 `request_public` 与停用接口用现有的 `knowmart:deliver` 服务关系，不用新配置）。
+- knowmart：期望库版本改成 `20261024_0008`；交付的 `request_public`、停用、空号结局三个内部接口都用现有的 `knowmart:deliver` 服务关系；`CROSS_APP_TARGETS_JSON` 加上 knowlab 的 `web_base_url`（专家详情「到 knowlab 停用」的去处，不配就只写一句去哪停）。web端随后端一起发。
 - 发布顺序不变：knowbase → knowmart → knowbench → knowlab。
 
 ## 十八、代价
