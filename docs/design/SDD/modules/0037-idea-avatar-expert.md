@@ -254,16 +254,32 @@ knowmart：交付带版本号按它记；停用接口只认 knowlab 的服务身
 | knowlab web端 | 申请 · 审核 · 专家三栏、修改创意出新版本、审核待办箱（问题、准专家、同意门）、首页「测试通过了，去确认」、名称详情页、旧地址跳转；「分身」改叫「准专家」 | web端 `8e95e56`，父 `522ae33` |
 | knowbench 网页 | 账 147（新建、删除的文件按整份内容数行）、账 148（专家每步交回的原文折成一行，点开看） | knowbench 网页 `17252b6`，父 `6a60c84` |
 | knowmart 空号与停用 | 第三节「详情页写明空号那一版的结局」：knowlab 在用户不要、审核不过、交付成功时把没上架那几版的结局整份交给 knowmart（内部接口 `PUT .../sources/{ref}/unlisted`，迁移 `20261024_0008`），knowmart 专家详情的版本记录里写「没有上架：你没要这一版 / 运营审核没通过」；knowlab 交来的专家在 knowmart 不再能直接停用（回 409 `stop_in_knowlab`），页面带去 knowlab 的「专家」里停，两边对得上 | knowmart 后端 `7745167`、web端 `b8ae4e0`，父 `e37c884`；knowlab 后端 `23af09f`，父 `3dd4da3` |
+| 评审后（10-24，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md)） | 空号结局改成按版本逐条送（`PUT .../sources/{ref}/unlisted/{version}`），取代上一行的整份替换；knowlab 记 `unlisted_sent_at`，beat 每 5 分钟补发没送到的（Astra F08）。knowlab 的服务关系在 knowmart 只能停、只能标 knowlab 交来的（Kimi 1）。受理先锁名称，并发写同一版后到的回 409（Kimi 6）。0012 回填前先核现网数据前提，不成立就停下、列出是哪几行；测试编号的排序加兜底，结果确定（Kimi 2、Qwen Q-01） | knowmart 后端 `28a983a`、`435a5d4`，父 `413c924`、`ac0aa3e`；knowlab 后端 `50695d3`、`a7c308c`、`fc28f29`，父 `ee03afe`、`d10deb6` |
 
-测试：knowlab 后端全量 597 过（含 0012 在真 PostgreSQL 上的回填、退回、再进）；管理端 59、web端 107、knowbench 网页 336、knowmart 后端 492、knowmart web端 105 过；各前端构建过。
+同意文字里「分身」改「准专家」、「交付」改「上架」，同意版本仍是 2：只是叫法对齐、意思没变，升版本会让所有人重签（Qwen Q-09、Kimi 评审第三节都认为可以不升）。
+
+0012 的退回（downgrade）是紧急回退用的：上架了的专家改回准专家的「已交付」，带回回执。以下几样会丢：
+- 受理单与创意版本表；
+- 测试与专家表本身；
+- 没上架那几版的结局；
+- 交付失败的审核结论；
+- 用户审核记录。
+
+发版与回退的做法待 Fable 定（Astra F05）。
+
+测试：knowlab 后端全量 597 过（含 0012 在真 PostgreSQL 上的回填、退回、再进）；管理端 59、web端 107、knowbench 网页 336、knowmart 后端 492、knowmart web端 105 过；各前端构建过。评审后：knowlab 后端 608、knowmart 后端 497 过。
 
 还没做：第十六节的「真跑」（拿「财务分析与预测」走一遍新流程，随块 7 重孵化第 2 版一起）；上线后给试行期的第 1 版补一次运营审核记录（管理端「交付 → 全部专家」里有按钮）；收缩那一次迁移（删准专家上的 run、报告、交付几栏，状态约束去掉 delivered），等新流程跑稳。
 
 发版时要配（等 Fable）：
 
-- knowlab：期望库版本改成 `20261024_0012`（[0042](0042-knowledge-bases.md) 第十一节里的 `20261023_0011` 作废）；两个前端随后端一起发。
+- knowlab：期望库版本改成 `20261024_0012`（[0042](0042-knowledge-bases.md) 第十一节里的 `20261023_0011` 作废）；两个前端随后端一起发。0012 开头先核现网数据，不成立就停下并列出是哪几行，先修数据再迁移。要核的三条：
+  - 通过、已交付的准专家版本号是整数；
+  - 同一创意里不重号；
+  - 同一创意至多一个测试中的。
+- knowlab：Celery beat 多一项 `knowbot-unlisted-resend`（每 5 分钟补发空号结局），与已有的 `knowbot-outputs-expire` 用同一个 beat。
 - knowmart：期望库版本改成 `20261024_0008`；交付的 `request_public`、停用、空号结局三个内部接口都用现有的 `knowmart:deliver` 服务关系；`CROSS_APP_TARGETS_JSON` 加上 knowlab 的 `web_base_url`（专家详情「到 knowlab 停用」的去处，不配就只写一句去哪停）。web端随后端一起发。
-- 发布顺序不变：knowbase → knowmart → knowbench → knowlab。
+- 发布顺序不变：knowbase → knowmart → knowbench → knowlab。空号结局的新接口要 knowmart 先上；knowlab 若先上，送不到的也会补发。
 
 ## 十八、代价
 

@@ -155,6 +155,24 @@
 
 | 6 | knowmart：详情页显示需要你提供的数据；D 知识库（卖家上传、管理）；供需市场（知识条目从 D 选资料，卖出时经 knowbase 复制进买家的 B 或 C） | 见 [0018](0018-advisor-market.md) 第十一节第 10 小节 |
 
+评审后（10-24，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md)）：
+
+| 评审条 | 改了什么 | 提交 |
+| --- | --- | --- |
+| Astra F01 | 缓存不跳过授权：knowbase 加「核一次」`GET /grants/{id}/items/{item}/check`（同读内容的判断，不给内容，留痕 `check`；迁移 0008 的 CHECK 加这个值；契约 user-data/v1 只加 `ItemCheck`）。knowbench 读钉住的数据，没取字节就先核：云端 check，本地 `fs/digest` 重算 | knowbase 后端 `9ecc492`、`5c45cf6`，父 `cef673e`；knowbench 后端 `9e5ed18`，父 `606616c` |
+| Astra F02 | 签不出测试运行授权不开跑，不退回旧读路。三种情况：没绑数据，不签；全没搬进 knowbase，照旧经 knowlab；有搬进去的，必须签。开测前就报的码：`data_not_imported`、`data_binding_stale`、`test_consent_missing`。knowbase 拒签或不可达，这一次记平台出错。knowlab 的测试读法只给没签授权的、没搬的那几份；knowbench 带授权的测试不退回 knowlab | knowlab 后端 `b32c593`，knowbench 后端 `8b21a46`，父 `ee03afe`、`606616c` |
+| Astra F03 | 删资料前先立不含它的新同意、撤旧同意（迁移 0011 加待撤同意表 `knowbot_consent_withdrawal`），撤不成停下报 `consent_not_withdrawn`、可重试；活动授权挡住删除时同意放回 | knowlab 后端 `dc5e11c`、web端 `5336d29`，父 `ee03afe` |
+| Astra F04 | 打开知识库页把 knowbase 里 knowlab 分区有、knowlab 没登记的补登记（数据编号按资料编号定，重来不重复），在 knowmart 买进 knowlab 的就能绑、能测 | knowlab 后端 `74f451e`，父 `ee03afe` |
+| Qwen Q-06 | 运行授权兜底：委托 7 天、会话 24 小时（原来 knowbase 截成 24、12 小时，与本节和 knowbench 申请的不一致） | knowbase 后端 `a37915f`，父 `9759248` |
+| Qwen Q-08 | 老 link 没有 `fs/digest`、走回退路径时记一行日志 | knowbench 后端 `9d6ab2d`，父 `2a72f77` |
+| Astra D01 | Windows 补授读：从用户目录到目标逐级拒符号链接与联接，realpath 核实际目标就是这个路径；icacls 带 `/L`，授前再核 | sunmoon-link `c2cbb83`（随下一版 link） |
+
+已知限制（Astra D01、Qwen Q-13、Kimi 168）：
+- 补授读按 PATH 里用户目录之下的目录授，`(OI)(CI)(RX)` 继承到其下所有文件，沙箱命令能读到这些目录里的东西（包括顺带放在那里的配置）。要不要收窄到固定的程序根，影响所有者实测过的 Python 场景，没改。
+- 真 NTFS 上的 ACL 前后与沙箱实读（含「已有授权但缺 CI」的中间态），等所有者 Windows 真机回归。
+
+待 Fable 定（Astra D03）：撤回测试同意是只挡新授权（现状），还是同时撤掉由它签出的授权。
+
 还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 7 重孵化。knowlab 0037 的数据结构与两端重做已做，见 [0037](0037-idea-avatar-expert.md) 第十八之二节第 4 小节。
 
 发版时要配（等 Fable）：
@@ -167,3 +185,7 @@
 - knowbench：期望库版本改成 `20261023_0025`（上面那条的 0024 作废）。
 - knowlab：期望库版本改成 `20261024_0012`（0037 的迁移在 0011 之后；只写 0011 的那一版作废）；配 `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_*`、`KNOWBASE_USER_DATA_IMPORT_SERVICE_*`；发版后跑一次 `python -m app.bootstrap.import_datasets`。
 - 发布顺序：knowbase（交还授权、导入、同意放宽）→ knowmart（清单外层）→ knowbench（认 `data_grant`）→ knowlab（声明与绑定、知识库搬家、发 `data_grant`）；本地 link 新版带 `fs/digest`，老版本照样能用（工作台一块块读回来算）。
+- 评审后（10-24）：
+  - knowbase 迁移 0008 的内容变了（读数留痕多 `check`），版本号不变。knowbench 读钉住的数据要用 knowbase 的 check，knowbase 要先上（顺序已满足）。
+  - knowlab 迁移 0011 多一张待撤同意表，期望库版本仍是 `20261024_0012`。
+  - knowlab 开测签不出授权就不开跑：发版后先跑 `import_datasets`，再让用户打开一次知识库页立测试同意，然后再发起绑了数据的测试；不然开测会报 `data_not_imported` 或 `test_consent_missing`。

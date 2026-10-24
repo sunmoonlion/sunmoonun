@@ -311,5 +311,13 @@ knowbase PRD「已知的缺口：文档检索」里的 `search_documents` 先在
 | web端八栏：专家、知识、需求大厅、我发布的、我买到的、知识库、发布主体、驻场规则；专家详情页显示需要的数据（数据需求声明）、每次请的价格与评价 | web端 `1ca4ddf`、`9aa357a`，父 `d645e3c`、`409d0b4` |
 | 管理端五栏：条目审核（标出禁止类的词）、资质审核（看证件照片）、举报处理、驻场规则（改了出新版本）、成交记录 | 管理端 `627e3e1`，父 `b47dbb0` |
 | knowlab 交付可带「申请公开」：卖家发布主体与类目资质都过的，那一版进这里的上架审核，不过的留自用；knowlab 能停用某一版（内部接口，服务关系同交付）。见 [0037](0037-idea-avatar-expert.md) 第十八之二节 | knowmart 后端 `1771683`，父 `ff33950` |
+| 评审后（10-24，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md)）：资格贯穿审核与使用（Astra F06），运营批准、市场列出、买、请都现核「主体实名审过 + 类目要的证照有效」，有证照也要主体审过 | knowmart 后端 `248f9fb`、web端 `fce9b22`，父 `413c924` |
+| 评审后：买知识可恢复（Astra F07）。买时带幂等键，先落一笔「复制中」，逐份复制、逐份记，复制完才成交；同键重来接着做，参数不同拒；换键同参数接着做没复制完的。迁移 0007 的 trade 加 `status`、`request_key`、`request_digest`、`planned`。成交记录标出没复制完的 | knowmart 后端 `f491bac`、web端 `af3ffc7`、管理端 `84f96ee`，父 `413c924` |
+| 评审后：身份证号查重摘要改 HMAC，带服务端钥匙（Kimi 5） | knowmart 后端 `bc22bd1`、web端 `02b2927`，父 `ac0aa3e` |
 
-发版时要配（等 Fable）：knowmart 期望库版本改成 `20261023_0007`；`PUBLIC_MARKET_ENABLED` 打开才有公开的专家；`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_PURCHASE_SERVICE_*`（买知识的复制）；Celery beat 起来跑 `market-sweep`。
+发版时要配（等 Fable）：
+- knowmart 期望库版本改成 `20261023_0007`（0037 之后是 `20261024_0008`，见那边）；
+- `PUBLIC_MARKET_ENABLED` 打开才有公开的专家；
+- `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_PURCHASE_SERVICE_*`（买知识的复制）；
+- Celery beat 起来跑 `market-sweep`；
+- 评审后新加私密配置 `PUBLISHER_ID_HASH_KEY`（身份证号查重摘要的钥匙，放 SOPS，随机生成、不再换；没配个人入驻回 503）。迁移 0007 的内容变了（trade 加四栏），版本号不变。
