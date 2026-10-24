@@ -2,9 +2,14 @@
 
 > 所有者 2026-10-24：「现在你帮你这两天来的工作进行详细说明并写成文档，我让astra和fable对你的工作进行审核」，随后补「再加一个qwen」。
 >
-> 这份是给评审看的总结与索引，不是任务卡。请读源码与设计；回执只在要查细节时看。意见写成 `docs/design/review-2026-10-<日>-<名字>.md`（写在你自己的工位、提交在你自己的分支，不要改 qwen 工位的文件），按轻重排，每条写清在哪、为什么、建议怎么改。采不采纳由 Opus 定，拿不准的问所有者。
+> 这份是给评审看的总结与索引，不是任务卡。请读源码与设计；回执只在要查细节时看。
 >
-> **Qwen 写在 cursor 工位**（所有者 10-24「那你让它在cursor工位写吧」）：qwen 工位是被评审的这份工作所在的地方，Qwen 的意见写到 `/home/zymun/worktrees/cursor/sunmoonun/docs/design/review-2026-10-<日>-qwen.md`，提交在 cursor 工位的 `cursor` 分支；只读 qwen 工位，不在里面改文件、不提交。
+> **意见交到哪**（所有者 10-24：「建立一个文件夹让各助手把它们的审查都提交在该文件夹，不提交到各工位了」）：都写进这份请求所在的文件夹，一人一个文件——`fable.md`、`astra.md`、`qwen.md`。
+>
+> - 本地路径：`/home/zymun/worktrees/qwen/sunmoonun/docs/design/review-2026-10-24-opus/`；在远程机上走挂载：`~/wsl-worktrees/qwen/sunmoonun/docs/design/review-2026-10-24-opus/`。
+> - 只往这个文件夹里加自己那一个文件；**不要 git 提交**，也不要改 qwen 工位的别的文件。你们写完，由 Opus 统一提交。
+> - 不再写进各自的工位。
+> - 格式：按轻重排，每条写清在哪（仓、文件、函数或行）、为什么、建议怎么改；拿不准的标「待议」。采不采纳由 Opus 定，拿不准的问所有者。
 >
 > **状态**：全部在本地 qwen 工位（`/home/zymun/worktrees/qwen/...`）**只提交、没推、没发版**（所有者 10-23：「先提交，不推，不发版，等fable回来让它处理」）。每段做完都和 fable 试合并过（`git merge-tree`，都没有冲突），子仓的新提交都接在父仓 fable 分支钉的那一版后面（快进）。平台文件（gitops、`infrastructure/`、Jenkins、发版卡）一个都没动，要配的都写在第六节。
 >
@@ -31,11 +36,11 @@
 | sunmoonun（k8s） | `c2ce7751..e27dd0bc` | 42 | | 设计、决定、回执、会合点一处代码（`3644498b`） |
 
 设计与决定的入口：
-- [SDD 0037](SDD/modules/0037-idea-avatar-expert.md)：第十八之二节「落地做法」与第 4 小节「实施进度」。
-- [SDD 0042](SDD/modules/0042-knowledge-bases.md)：第十一节「实施进度」与「发版时要配」。
-- [SDD 0018](SDD/modules/0018-advisor-market.md)：第十一节（供需市场）与第 10 小节「实施」。
-- [decisions.md](decisions.md)：10-23 各条（三个应用相互独立、四类知识库、供需市场六项、角色、终端不做等）。
-- [待办账](pending-after-migration.md)：129、141、142、143、144、147、148、165、168。
+- [SDD 0037](../SDD/modules/0037-idea-avatar-expert.md)：第十八之二节「落地做法」与第 4 小节「实施进度」。
+- [SDD 0042](../SDD/modules/0042-knowledge-bases.md)：第十一节「实施进度」与「发版时要配」。
+- [SDD 0018](../SDD/modules/0018-advisor-market.md)：第十一节（供需市场）与第 10 小节「实施」。
+- [decisions.md](../decisions.md)：10-23 各条（三个应用相互独立、四类知识库、供需市场六项、角色、终端不做等）。
+- [待办账](../pending-after-migration.md)：129、141、142、143、144、147、148、165、168。
 - 回执：`process/switch-test/done/2026-10-23-opus-052-1` 至 `-5`。
 
 测试的运行方式：各后端 `uv run --frozen pytest -q -p no:randomly`，真库测试要 `DELIVERY_TEST_DATABASE_URL`（或 `AGENT_TEST_DATABASE_URL`）指向一个一次性的 `*_tests` 库；前端 `pnpm typecheck && pnpm lint && pnpm check:i18n && pnpm vitest run && pnpm build`。
