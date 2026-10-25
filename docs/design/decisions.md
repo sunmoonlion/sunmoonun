@@ -295,3 +295,5 @@
 - **Opus 这批连 knowfeed 一起做完再合、再发一轮；旧 kind 以完整的样子收尾**（2026-10-25 所有者定）：Opus 在 qwen 工位修完 P1、做完 knowfeed 完善，再一次合并、对齐；Fable 用现在的链路发一轮（knowbase → knowmart → knowbench → knowlab → knowfeed，加 link 0.5.2），打 `kind-flux-final`，才开始 D、E（E 后旧 kind 暂不回收）→ D'。等的这几周 Fable 只审 Opus 的文档与代码、不开新活；平台配置在对齐后做，C4、C5 在这一轮发完后做。同日所有者定：网页端 Casdoor 令牌改 12 小时与会话对齐；Opus 自己做合并与工位对齐。细节在总纲第六节第 10 条。
 
 - **knowmart 供需市场的总开关 `PUBLIC_MARKET_ENABLED` 在开发站点开着**（2026-10-25 所有者「那应该是开吧」）：开了审过资质的专家与知识别的用户才看得到、请得到、买得到；资质仍逐次现核。承接 10-23「都做出来、不被法律评估挡住，挡住就按是否有资质处理」。生产站点另定。
+
+- **Opus 这批先发，不等 knowfeed**（2026-10-25 晚所有者「等 knowfeed 改好可能要好久，先把这部分搞好，没问题后再 knowfeed，多一次发版但稳当」）：Opus 修完接口清单两处代码、合并对齐后 Fable 即按发版卡发四次（knowbase → knowmart → knowbench → knowlab，加 link 0.5.2）；knowfeed 做完再合并、再发一轮，然后打 `kind-flux-final`。总纲第六节第 10 条改为此版（第四次往返）。
