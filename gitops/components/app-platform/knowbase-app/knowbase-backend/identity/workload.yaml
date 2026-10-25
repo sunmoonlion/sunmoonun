@@ -290,7 +290,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowbase-identity-52e6b4ffea7b-v6', namespace: app-platform-dev}
+metadata: {name: 'knowbase-identity-0d6765b3fbec-v6', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -304,7 +304,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:52e6b4ffea7b6af1a25d0a9f448e8e16bfc70f471355314f8a68fd9fe9f82fae
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:0d6765b3fbec8f01497d4e015a964eaf6ebac57c80576ca5c50528e48425d480
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:

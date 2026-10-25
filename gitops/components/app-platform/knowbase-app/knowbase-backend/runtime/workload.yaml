@@ -4,7 +4,7 @@ metadata: {name: knowbase-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowbase
-  DEPLOYMENT_ID: "knowbase-backend-52e6b4ffea7b6af1"
+  DEPLOYMENT_ID: "knowbase-backend-0d6765b3fbec8f01"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowbase-api,knowbase-api.app-platform-dev.svc.cluster.local,knowbase.dev.sunmoonai.com,knowbase-admin.dev.sunmoonai.com,knowbase-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -118,10 +118,9 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/ragflow-client: 'true'
-        sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e7eb6ee4860ec9e326429c46df64d82fcbf6905d74a8d08a6a2c3de92ad95fb0
+        sunmoonai.com/config-sha256: 7b0749b810f6932e095bcb4bf17d3401fbe0cd80f5f858e5ccf3735e4ca648da
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -131,7 +130,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:52e6b4ffea7b6af1a25d0a9f448e8e16bfc70f471355314f8a68fd9fe9f82fae
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:0d6765b3fbec8f01497d4e015a964eaf6ebac57c80576ca5c50528e48425d480
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -189,9 +188,8 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/ragflow-client: 'true'
-        sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e7eb6ee4860ec9e326429c46df64d82fcbf6905d74a8d08a6a2c3de92ad95fb0
+        sunmoonai.com/config-sha256: 7b0749b810f6932e095bcb4bf17d3401fbe0cd80f5f858e5ccf3735e4ca648da
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -201,7 +199,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:52e6b4ffea7b6af1a25d0a9f448e8e16bfc70f471355314f8a68fd9fe9f82fae
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:0d6765b3fbec8f01497d4e015a964eaf6ebac57c80576ca5c50528e48425d480
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -254,7 +252,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e7eb6ee4860ec9e326429c46df64d82fcbf6905d74a8d08a6a2c3de92ad95fb0
+        sunmoonai.com/config-sha256: 7b0749b810f6932e095bcb4bf17d3401fbe0cd80f5f858e5ccf3735e4ca648da
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -264,7 +262,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:52e6b4ffea7b6af1a25d0a9f448e8e16bfc70f471355314f8a68fd9fe9f82fae
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:0d6765b3fbec8f01497d4e015a964eaf6ebac57c80576ca5c50528e48425d480
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]

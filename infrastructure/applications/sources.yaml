@@ -22,9 +22,9 @@ applications:
     admin_parent_revision: b344c106c4f44522770b8cca3e9a8121e0b3ce32
     admin_revision: b344c106c4f44522770b8cca3e9a8121e0b3ce32
   knowbase:
-    parent_revision: a5051faf4c086e4d282217ce0e8225b4ec39bf8d
-    backend_parent_revision: ad1e2edcceb88e43df0842e1fe3be215406b855a
-    backend_revision: ad1e2edcceb88e43df0842e1fe3be215406b855a
+    parent_revision: b6bf588eb1163a9a62502238780c7a20802c16aa
+    backend_parent_revision: 8ca7fc88f1567da2976ecd53143addc443c48588
+    backend_revision: 8ca7fc88f1567da2976ecd53143addc443c48588
     web_parent_revision: 8c338db2b7222702f71cef892fd283016c148210
     web_revision: 8c338db2b7222702f71cef892fd283016c148210
     admin_parent_revision: f097495080ef6ef7296beb0fcc9430b4079d8011
