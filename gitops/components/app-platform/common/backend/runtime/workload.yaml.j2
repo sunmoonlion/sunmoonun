@@ -132,12 +132,12 @@ spec:
         app.kubernetes.io/part-of: {{ application_name }}
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
-{% if storage_enabled or (agent_releases_enabled | default(false) and role == "api") %}
+{# 一个标签只写一次：knowbase 同时有自己的桶与知识源只读身份时两边都要它（YAML 不许重复键，#17 在此停） #}
+{% if storage_enabled or (agent_releases_enabled | default(false) and role == "api") or (provider_enabled and role in ['api','worker']) %}
         sunmoonai.com/object-storage-client: 'true'
 {% endif %}
 {% if provider_enabled and role in ['api','worker'] %}
         sunmoonai.com/ragflow-client: 'true'
-        sunmoonai.com/object-storage-client: 'true'
 {% endif %}
 {% if role in ['api','runner'] %}
         sunmoonai.com/redis-client: 'true'
