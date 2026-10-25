@@ -126,7 +126,8 @@
           - browser_clients.web.name != browser_clients.admin.name
           - cfg.redis_user == application_name + '_runtime'
           - cfg.redis_key_pattern == application_name + ':*'
-          - not provider_enabled or (application_name == 'knowbase' and not storage_enabled)
+          # knowbase 可同时有知识源只读身份与带前缀的用户资料桶（SDD 0042；与 common/backend/prepare.yaml 同一条）
+          - not provider_enabled or (application_name == 'knowbase' and (not storage_enabled or cfg.object_storage.env_prefix is defined))
           - not service_enabled or (application_name in ['knowfeed','knowbench'] and service_access_enabled | bool)
           - not receiver_enabled or (application_name == 'knowbase' and provider_enabled and service_access_enabled | bool)
           - not receiver_enabled or (service_bindings.ingest.enabled | bool and service_bindings.retrieve.enabled | bool)
