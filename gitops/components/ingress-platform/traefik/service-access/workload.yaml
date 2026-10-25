@@ -50,6 +50,10 @@ spec:
             pathType: Prefix
             backend:
               service: {name: knowbase-api, port: {name: http}}
+          - path: /api/internal/v1/user-data
+            pathType: Prefix
+            backend:
+              service: {name: knowbase-api, port: {name: http}}
 ---
 apiVersion: v1
 kind: Service

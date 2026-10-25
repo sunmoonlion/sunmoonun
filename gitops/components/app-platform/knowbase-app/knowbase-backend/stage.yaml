@@ -26,8 +26,14 @@ stages:
   resources: [workload.yaml, provision.sops.yaml, runtime.sops.yaml]
 - name: knowbase-runtime
   path: runtime
-  dependsOn: '{{ ["knowbase-identity"] + (["knowbase-provider", "ragflow-runtime"] if knowbase_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["knowfeed-service-identity", "knowbench-service-identity"] if knowbase_backend_deployment.knowbase_service_receiver.enabled | default(false) else []) }}'
+  dependsOn: '{{ ["knowbase-identity"] + (["knowbase-storage"] if knowbase_backend_deployment.object_storage.enabled | default(false) else []) + (["knowbase-provider", "ragflow-runtime"] if knowbase_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["knowfeed-service-identity", "knowbench-service-identity"] if knowbase_backend_deployment.knowbase_service_receiver.enabled | default(false) else []) }}'
   resources: '{{ ["workload.yaml", "tls.sops.yaml"] + (["storage.sops.yaml"] if knowbase_backend_deployment.object_storage.enabled | default(false) else []) + (["provider.sops.yaml"] if knowbase_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["service.sops.yaml"] if knowbase_backend_deployment.knowbase_service.enabled | default(false) else []) + (["domain.sops.yaml"] if knowbase_backend_deployment.domain_secrets | default({}) | length > 0 else []) }}'
+# SDD 0042：用户资料的桶与 S3 身份（机制 common/backend/storage，变量名带前缀 USER_DATA_）
+- name: knowbase-storage
+  path: storage
+  dependsOn: [object-storage]
+  enabled: '{{ knowbase_deployment.enabled and knowbase_backend_deployment.object_storage.enabled | default(false) }}'
+  resources: [workload.yaml, provision.sops.yaml]
 - name: knowbase-provider
   path: provider
   dependsOn: [knowfeed-storage, ragflow-runtime]

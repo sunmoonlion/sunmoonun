@@ -36,6 +36,8 @@ knowlab_backend_deployment:
     # 登录完能回到「我在做的分身」与「提交一个想法」（SDD 0027 P3，前缀匹配）；其余同模板默认
     # web端各页（SDD 0037：待我回答、创意、分身、专家、我的数据；旧的 /knowbots 转到创意）
     WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/questions,/en/questions,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/experts,/en/experts,/zh-CN/data,/en/data'
+    # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
+    KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
   # 通用出站服务身份（SDD 0027 P1，机制在 common/backend/service-client）：测试通过后，把分身版本交付给 knowmart 登记。
   service_clients:
     - target: knowmart
@@ -55,6 +57,27 @@ knowlab_backend_deployment:
       client_id: sunmoon-knowlab-knowbench-testrun
       organization: sunmoon-workload-knowlab-knowbench-testrun
       scope: knowbench:testrun
+      job_revision: v1
+      token_seconds: 900
+    # SDD 0042：发起测试时凭本人的测试同意向 knowbase 签测试运行授权，结束、退回、开跑失败时撤（契约 user-data/v1）
+    - target: knowbase
+      relation: user-data-grant-test
+      enabled: true
+      application: sunmoonai-knowlab-knowbase-user-data-grant-test
+      client_id: sunmoon-knowlab-knowbase-user-data-grant-test
+      organization: sunmoon-workload-knowlab-knowbase-user-data-grant-test
+      scope: knowbase:user-data-grant-test
+      job_revision: v1
+      token_seconds: 900
+    # SDD 0042 块 3：一次性命令 python -m app.bootstrap.import_datasets 把 knowlab 旧的知识库资料搬进 knowbase 的 knowlab 分区（在 api 进程里跑）
+    - target: knowbase
+      relation: user-data-import
+      enabled: true
+      roles: [api]
+      application: sunmoonai-knowlab-knowbase-user-data-import
+      client_id: sunmoon-knowlab-knowbase-user-data-import
+      organization: sunmoon-workload-knowlab-knowbase-user-data-import
+      scope: knowbase:user-data-import
       job_revision: v1
       token_seconds: 900
   # 接收运行方读分身绑定的用户数据（SDD 0027 §3.5，契约 knowbot-data/v1）。内部入口在 traefik service-access

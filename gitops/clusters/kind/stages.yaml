@@ -183,10 +183,29 @@ spec:
   sourceRef: {kind: OCIRepository, name: platform}
   dependsOn:
     - {name: knowbase-identity}
+    - {name: knowbase-storage}
     - {name: knowbase-provider}
     - {name: ragflow-runtime}
     - {name: knowfeed-service-identity}
     - {name: knowbench-service-identity}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbase-storage, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbase-app/knowbase-backend/storage
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: object-storage}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -359,6 +378,7 @@ spec:
     - {name: knowbench-service-identity}
     - {name: knowbench-knowmart-summon-identity}
     - {name: knowbench-knowlab-read-identity}
+    - {name: knowbench-knowbase-user-data-read-identity}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -430,6 +450,25 @@ spec:
   retryInterval: 30s
   timeout: 8m
   path: ./components/app-platform/knowbench-app/knowbench-backend/knowlab-read-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbench-knowbase-user-data-read-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbench-app/knowbench-backend/knowbase-user-data-read-identity
   sourceRef: {kind: OCIRepository, name: platform}
   dependsOn:
     - {name: casdoor}
@@ -793,6 +832,8 @@ spec:
     - {name: knowlab-storage}
     - {name: knowlab-knowmart-deliver-identity}
     - {name: knowlab-knowbench-testrun-identity}
+    - {name: knowlab-knowbase-user-data-grant-test-identity}
+    - {name: knowlab-knowbase-user-data-import-identity}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -827,6 +868,44 @@ spec:
   retryInterval: 30s
   timeout: 8m
   path: ./components/app-platform/knowlab-app/knowlab-backend/knowbench-testrun-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowlab-knowbase-user-data-grant-test-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowlab-app/knowlab-backend/knowbase-user-data-grant-test-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowlab-knowbase-user-data-import-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowlab-app/knowlab-backend/knowbase-user-data-import-identity
   sourceRef: {kind: OCIRepository, name: platform}
   dependsOn:
     - {name: casdoor}
@@ -998,6 +1077,26 @@ spec:
   sourceRef: {kind: OCIRepository, name: platform}
   dependsOn:
     - {name: knowmart-identity}
+    - {name: knowmart-knowbase-user-data-purchase-identity}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowmart-knowbase-user-data-purchase-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowmart-app/knowmart-backend/knowbase-user-data-purchase-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
   prune: false
   deletionPolicy: Orphan
   wait: true

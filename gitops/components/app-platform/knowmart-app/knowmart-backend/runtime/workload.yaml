@@ -15,6 +15,12 @@ data:
   CASDOOR_VERIFY_SSL: 'true'
   SESSION_COOKIE_SECURE: 'true'
   REFERENCE_INTERACTION_ENABLED: 'false'
+  KNOWBASE_INTERNAL_URL: https://knowbase-tls.app-platform-dev.svc.cluster.local
+  KNOWBASE_USER_DATA_PURCHASE_SERVICE_APPLICATION: "sunmoonai-knowmart-knowbase-user-data-purchase"
+  KNOWBASE_USER_DATA_PURCHASE_SERVICE_CLIENT_ID: "sunmoon-knowmart-knowbase-user-data-purchase"
+  KNOWBASE_USER_DATA_PURCHASE_SERVICE_SCOPE: "knowbase:user-data-purchase"
+  KNOWBASE_USER_DATA_PURCHASE_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWBASE_USER_DATA_PURCHASE_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   SERVICE_AUTH_DELIVER_CALLERS: "knowlab"
   SERVICE_AUTH_DELIVER_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowmart-deliver"
   SERVICE_AUTH_DELIVER_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -30,9 +36,11 @@ data:
   SERVICE_AUTH_SUMMON_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowmart-summon"
   SERVICE_AUTH_SUMMON_KNOWBENCH_REQUIRED_SCOPE: "knowmart:summon"
   SSL_CERT_FILE: /etc/sunmoon/service/ca.crt
-  CROSS_APP_TARGETS_JSON: "{\"knowbench\": {\"web_base_url\": \"https://knowbench.dev.sunmoonai.com:30443\"}}"
+  CROSS_APP_TARGETS_JSON: "{\"knowbench\": {\"web_base_url\": \"https://knowbench.dev.sunmoonai.com:30443\"}, \"knowlab\": {\"web_base_url\": \"https://knowlab.dev.sunmoonai.com:30443\"}}"
   CROSS_APP_SOURCES_JSON: "{\"knowbench\": {\"return_url\": \"https://knowbench.dev.sunmoonai.com:30443/zh-CN/workbench?ref={ref}\"}, \"knowbase\": {}, \"knowfeed\": {}}"
   WEB_AUTH_ALLOWED_RETURN_PATHS: "/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots"
+  KNOWBASE_USER_AUDIENCE: "sunmoon-kind-knowbase-user-data"
+  PUBLIC_MARKET_ENABLED: "true"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -64,7 +72,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 31ef813b81d2269edbe8bd569fca5d7d1bdb2493934f49b4037e4ad8fe17db40
+        sunmoonai.com/config-sha256: bc74873a0a8b4e5f58271216d21e00749940e1eab07792e21e342cefedc2f596
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -95,6 +103,8 @@ spec:
             - {secretRef: {name: knowmart-rabbitmq-runtime}}
             - {secretRef: {name: knowmart-redis-runtime}}
             - {secretRef: {name: knowmart-browser-secrets}}
+            - {secretRef: {name: knowmart-domain-runtime}}
+            - {secretRef: {name: knowmart-knowbase-user-data-purchase-service}}
           resources: {"requests": {"cpu": "100m", "memory": "192Mi"}, "limits": {"cpu": "2", "memory": "768Mi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
@@ -124,7 +134,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 31ef813b81d2269edbe8bd569fca5d7d1bdb2493934f49b4037e4ad8fe17db40
+        sunmoonai.com/config-sha256: bc74873a0a8b4e5f58271216d21e00749940e1eab07792e21e342cefedc2f596
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -151,6 +161,8 @@ spec:
             - {configMapRef: {name: knowmart-browser-identity}}
             - {secretRef: {name: knowmart-database-runtime}}
             - {secretRef: {name: knowmart-rabbitmq-runtime}}
+            - {secretRef: {name: knowmart-domain-runtime}}
+            - {secretRef: {name: knowmart-knowbase-user-data-purchase-service}}
           resources: {"requests": {"cpu": "100m", "memory": "256Mi"}, "limits": {"cpu": "2", "memory": "1Gi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
@@ -180,7 +192,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 31ef813b81d2269edbe8bd569fca5d7d1bdb2493934f49b4037e4ad8fe17db40
+        sunmoonai.com/config-sha256: bc74873a0a8b4e5f58271216d21e00749940e1eab07792e21e342cefedc2f596
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -298,7 +310,7 @@ metadata: {name: knowmart-service-https-out, namespace: app-platform-dev}
 spec:
   podSelector:
     matchExpressions:
-      - {key: app.kubernetes.io/name, operator: In, values: [knowmart-api]}
+      - {key: app.kubernetes.io/name, operator: In, values: [knowmart-api, knowmart-worker]}
   policyTypes: [Egress]
   egress:
     - to:

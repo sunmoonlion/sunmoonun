@@ -7,8 +7,11 @@
     quiet: true
     that:
       - client.target in application_names and client.target != application_name
-      - client.relation is match('^[a-z][a-z0-9]{1,15}$')
-      - client.target in service_access_routes | default({})
+      # 关系名可带连字符（SDD 0042 的 user-data-read 等）；环境变量名里连字符换下划线（应用侧 service_client.py 的 _key 同此）
+      - client.relation is match('^[a-z][a-z0-9]*(-[a-z0-9]+)*$')
+      - client.relation | length <= 32
+      # 目标要么有自己的内部入口（service_access_routes），要么是共用证书上的 knowbase（service_access_hosts，入口路径由 service-access 定）
+      - client.target in service_access_routes | default({}) or client.target in service_access_hosts | default({})
       - client.application == 'sunmoonai-' + application_name + '-' + client.target + '-' + client.relation
       - client.client_id == 'sunmoon-' + application_name + '-' + client.target + '-' + client.relation
       - client.organization == 'sunmoon-workload-' + application_name + '-' + client.target + '-' + client.relation
@@ -106,7 +109,7 @@
         apiVersion: v1
         kind: Secret
         metadata: {name: '{{ client_name }}-service', namespace: '{{ app_namespace }}'}
-        stringData: '{{ {(client.target ~ "_" ~ client.relation) | upper ~ "_SERVICE_CLIENT_SECRET": client_secret} }}'
+        stringData: '{{ {(client.target ~ "_" ~ client.relation) | upper | replace("-", "_") ~ "_SERVICE_CLIENT_SECRET": client_secret} }}'
   loop_control: {loop_var: secret_item}
   no_log: true
 - name: Render this client's explicit resource list

@@ -8,3 +8,4 @@ resources:
 - domain.sops.yaml
 - knowmart-summon-service.sops.yaml
 - knowlab-read-service.sops.yaml
+- knowbase-user-data-read-service.sops.yaml

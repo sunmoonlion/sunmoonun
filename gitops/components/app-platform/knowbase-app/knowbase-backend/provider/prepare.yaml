@@ -13,7 +13,8 @@
       - cfg.knowledge_provider.dataset_key == 'default'
       - cfg.knowledge_provider.dataset_name == cluster_name + '-knowbase-default'
       - cfg.knowledge_provider.job_revision is match('^[a-z0-9-]{1,16}$')
-      - not storage_enabled
+      # 知识源只读身份占着 S3_*；knowbase 自己的用户资料桶（SDD 0042）只能以另一个前缀并存
+      - not storage_enabled or cfg.object_storage.env_prefix is defined
 - name: Inspect preserved application S3 identity
   ansible.builtin.stat: {path: '{{ item }}/provider-source.yaml', follow: false}
   loop: ['{{ cfg.private_dir }}', '{{ cfg.backup_dir }}']

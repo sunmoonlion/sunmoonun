@@ -64,7 +64,8 @@
       - cfg.redis_user == application_name + '_runtime'
       - cfg.redis_key_pattern == application_name + ':*'
       - cfg.redis_pubsub_channel_pattern | default('') in ['', application_name + ':workbench:*']
-      - not provider_enabled | bool or (application_name == 'knowbase' and not storage_enabled | bool)
+      # knowbase 同时有知识源只读身份（provider）与自己的用户资料桶（storage）时，后者的变量名必须另起前缀，不然两套 S3_* 打架（SDD 0042）
+      - not provider_enabled | bool or (application_name == 'knowbase' and (not storage_enabled | bool or cfg.object_storage.env_prefix is defined))
       - not service_enabled | bool or (application_name in ['knowfeed','knowbench'] and service_access_enabled | bool)
       - not receiver_enabled | bool or (application_name == 'knowbase' and provider_enabled | bool and service_access_enabled | bool)
       - not receiver_enabled | bool or (service_bindings.ingest.enabled | bool and service_bindings.retrieve.enabled | bool)

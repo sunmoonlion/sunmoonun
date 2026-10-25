@@ -4,6 +4,9 @@ services_relay_enabled: true
 relay_origin: 'https://relay.{{ site_domain }}:{{ public_port }}'
 relay_port: 47100
 relay_name: edge-1
+# 每个用户同时最多几条服务流（远程看文件、拉仓库、算摘要各占一条；拉仓库一条最长占 16 分钟）。原来是镜像默认 2，
+# 一边拉仓库一边展开目录就 too many service streams（Fable 评审 P2-13）
+relay_max_service_streams_per_user: 6
 relay_resources:
   requests: {cpu: 50m, memory: 64Mi}
   limits: {cpu: 500m, memory: 256Mi}

@@ -29,6 +29,7 @@ spec:
             - {name: RELAY_HOST, value: 0.0.0.0}
             - {name: RELAY_PORT, value: '{{ relay_port }}'}
             - {name: RELAY_NAME, value: '{{ relay_name }}'}
+            - {name: RELAY_MAX_SERVICE_STREAMS_PER_USER, value: '{{ relay_max_service_streams_per_user }}'}
             - {name: RELAY_TOKENS_FILE, value: /secrets/tokens.json}
             - {name: RELAY_TOKENS_STATE, value: /state/tokens.json}
             - {name: RELAY_ADMIN_TOKEN, valueFrom: {secretKeyRef: {name: relay-auth, key: RELAY_ADMIN_TOKEN}}}
