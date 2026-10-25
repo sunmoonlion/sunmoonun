@@ -186,11 +186,11 @@ Fable 评审后（10-25，处置见 [`review-2026-10-24-opus/opus-response.md`](
 
 发版时要配（等 Fable）：
 
-- knowbase：迁移 `20261023_0008`；配置 `user_token_audience`、`user_token_apps_json`、`user_data_bucket`、`user_data_prefix`、`user_data_reader_apps_json`；服务关系 `user-data-read`、`user-data-grant-test`、`user-data-purchase`；期望库版本随之改。
+- knowbase：迁移 `20261023_0008`；配置 `user_token_audience`、`user_token_apps_json`、`user_data_bucket`、`user_data_prefix`；服务关系 `user-data-read`、`user-data-grant-test`、`user-data-purchase`；期望库版本随之改。（Fable 10-25 对平台核对后改：`user_data_reader_apps_json` 不要了，见本节末条。）
 - Casdoor：knowbench、knowlab、knowmart 三个应用打开令牌交换授权类型；建 knowbase 目标应用（它的客户端编号就是各应用的 `KNOWBASE_USER_AUDIENCE`）。
 - knowbench、knowlab、knowmart：`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_DATA_<关系>_SERVICE_*`。
 - knowbench：期望库版本改成 `20261023_0024`（`gitops/.../knowbench-backend/config.yaml` 与 `migration/workload.yaml` 的 `expected_schema_revision`）。runner 起了交还授权的线，要能连 knowbase（服务关系 `user-data-read`）。
-- knowbase：knowlab 的导入服务身份配上 `knowbase:user-data-import`，并在 `USER_DATA_READER_APPS_JSON` 里登记成 knowlab；knowlab 签测试授权的身份要 `user-data-grant-test`。
+- knowbase：knowlab 的导入服务身份配上 `knowbase:user-data-import`；knowlab 签测试授权的身份要 `user-data-grant-test`。
 - knowbench：期望库版本改成 `20261023_0025`（上面那条的 0024 作废）。
 - knowlab：期望库版本改成 `20261024_0012`（0037 的迁移在 0011 之后；只写 0011 的那一版作废）；配 `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_*`、`KNOWBASE_USER_DATA_IMPORT_SERVICE_*`；发版后跑一次 `python -m app.bootstrap.import_datasets`。
 - 发布顺序：knowbase（交还授权、导入、同意放宽）→ knowmart（清单外层）→ knowbench（认 `data_grant`）→ knowlab（声明与绑定、知识库搬家、发 `data_grant`）；本地 link 新版带 `fs/digest`，老版本照样能用（工作台一块块读回来算）。
@@ -200,3 +200,6 @@ Fable 评审后（10-25，处置见 [`review-2026-10-24-opus/opus-response.md`](
   - knowlab 开测签不出授权就不开跑。搬过来的旧数据在本人补上测试同意之前照旧经 knowlab 读（Fable P2-4），所以发版后跑完 `import_datasets` 就能测；`import_datasets` 要在没有在跑的测试时跑。
   - Fable 评审后：knowbase 迁移 0008 又加资料的 `no_resale`；knowlab 迁移 0011 又加数据记录的 `no_resale`，0012 退回前核新写入；期望库版本都不变。
   - 测试电脑的 TMPDIR 设到 `<工作区>/runs/.tmp`（Fable P2-14，平台配置）。没设之前测试照旧能写 /tmp，没有隔离。
+- Fable 10-25 对平台核对后（家目录《平台配置-给Opus的接口清单-20261025》第 1、3 条），knowbase 改了两处，平台按改后的配：
+  - 用户资料的四种服务关系改成按关系校验（做法同 knowmart）：读 `SERVICE_AUTH_<关系>_CALLERS` 与每个调用方一组 `_AUDIENCE`、`_SUBJECT_ALLOWLIST`、`_REQUIRED_SCOPE`，关系名的连字符换下划线；读、导入以校验认出的调用方那个应用的名义。`USER_DATA_READER_APPS_JSON` 不再读，平台可以不发。
+  - 用户资料的对象存储单独读 `USER_DATA_S3_ENDPOINT`、`_REGION`、`_FORCE_PATH_STYLE`、`_ACCESS_KEY_ID`、`_SECRET_ACCESS_KEY`，桶仍是 `USER_DATA_BUCKET`；`S3_*` 留给知识源只读身份。https 时按 `AWS_CA_BUNDLE` 核证书（`SSL_CERT_FILE` 是知识源那套的）。
