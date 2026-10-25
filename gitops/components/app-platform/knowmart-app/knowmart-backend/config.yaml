@@ -29,7 +29,7 @@ knowmart_backend_deployment:
     WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots'
     # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
     KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
-    # SDD 0018 第十一节供需市场：开了别人才看得到、请得到公开的专家与知识；资质仍逐次现核（所有者 2026-10-23「都做出来」；开发站点先开）
+    # SDD 0018 第十一节供需市场：开了别人才看得到、请得到公开的专家与知识；资质仍逐次现核（所有者 2026-10-23「都做出来」、2026-10-25 定开发站点开）
     PUBLIC_MARKET_ENABLED: 'true'
   domain_secrets:
     # 发布主体身份证号查重摘要的钥匙（HMAC，Kimi 评审第 5 条）：首次随机生成后不再换；没配时个人入驻回 503
