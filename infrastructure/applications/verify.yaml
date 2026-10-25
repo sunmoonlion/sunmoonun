@@ -471,7 +471,7 @@
               no_log: true
             - name: Run the application storage implementation and remove only its probe versions
               ansible.builtin.command:
-                argv: [python3, '{{ playbook_dir }}/../../gitops/components/data-platform/object-storage/verify.py', --kubectl, '{{ tools }}/kubectl', --kubeconfig, '{{ cluster_kubeconfig }}', --context, '{{ cluster_context }}', --namespace, '{{ data_namespace }}', --mc, '{{ tools }}/mc', --ca, '{{ registry_config_dir }}/clients/ca.crt', --application, '{{ application_name }}', --app-namespace, '{{ app_namespace }}', --bucket, '{{ cfg.object_storage.bucket }}', --runtime-check, '{{ mechanism_root }}/storage/verify-runtime.py']
+                argv: [python3, '{{ playbook_dir }}/../../gitops/components/data-platform/object-storage/verify.py', --kubectl, '{{ tools }}/kubectl', --kubeconfig, '{{ cluster_kubeconfig }}', --context, '{{ cluster_context }}', --namespace, '{{ data_namespace }}', --mc, '{{ tools }}/mc', --ca, '{{ registry_config_dir }}/clients/ca.crt', --application, '{{ application_name }}', --app-namespace, '{{ app_namespace }}', --bucket, '{{ cfg.object_storage.bucket }}', --runtime-check, '{{ mechanism_root }}/storage/verify-runtime.py', --env-prefix, "{{ cfg.object_storage.env_prefix | default('') }}"]
                 stdin: '{{ s3_verifier_input.content | b64decode | from_yaml | to_json }}'
               register: s3_runtime_check
               changed_when: false

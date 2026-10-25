@@ -28,6 +28,7 @@ def main():
     ap.add_argument('--app-namespace')
     ap.add_argument('--bucket')
     ap.add_argument('--runtime-check')
+    ap.add_argument('--env-prefix', default='')  # SDD 0042：桶的变量带前缀的应用（knowbase 的 USER_DATA_），交给探针
     args = ap.parse_args()
     require(os.geteuid() == 0, 'Private root input requires root')
     secret = json.load(sys.stdin)
@@ -72,7 +73,7 @@ def main():
             if args.application:
                 require(re.fullmatch(r'(knowfeed|knowbase|knowbench|knowlab)', args.application), 'Unsupported storage application')  # knowlab 的「我的数据」桶（0027 P5）
                 require(args.bucket == args.application + '-originals', 'Unexpected domain bucket')
-                runtime = subprocess.run([args.kubectl, '--kubeconfig=' + args.kubeconfig, '--context=' + args.context, '-n', args.app_namespace, 'exec', '-i', 'deployment/' + args.application + '-api', '--', 'python', '-'], input=Path(args.runtime_check).read_text(), text=True, capture_output=True, env=env, timeout=90)
+                runtime = subprocess.run([args.kubectl, '--kubeconfig=' + args.kubeconfig, '--context=' + args.context, '-n', args.app_namespace, 'exec', '-i', 'deployment/' + args.application + '-api', '--', 'python', '-'] + ([args.env_prefix] if args.env_prefix else []), input=Path(args.runtime_check).read_text(), text=True, capture_output=True, env=env, timeout=90)
                 result = json.loads(runtime.stdout)
                 try:
                     require(runtime.returncode == 0 and result.get('passed') is True, 'Actual application S3 acceptance failed')
