@@ -20,7 +20,11 @@ knowbase_backend_deployment:
   identity_organization: built-in
   # 普通用户所在组织（决策 D21、SDD 0014）：网页端应用挂这里；管理端仍在 built-in。
   identity_user_organization: sunmoonai
-  identity_revision: v5
+  # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
+  identity_revision: v6
+  # SDD 0042：knowbase 在 Casdoor 里的目标应用，只作用户令牌交换的 audience（客户端编号 = 各应用的 KNOWBASE_USER_AUDIENCE、
+  # knowbase 的 USER_TOKEN_AUDIENCE）；没人登录它，随身份注册 Job 建
+  identity_audience_application: {name: sunmoonai-knowbase-user-data, client_id: sunmoon-kind-knowbase-user-data}
   api_port: 8000
   api_replicas: 1
   worker_replicas: 1

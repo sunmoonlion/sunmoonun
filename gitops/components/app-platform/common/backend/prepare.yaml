@@ -56,6 +56,9 @@
       - cfg.identity_organization == 'built-in'
       - cfg.identity_user_organization == 'sunmoonai'
       - cfg.identity_revision is match('^[a-z0-9-]{1,16}$')
+      # SDD 0042：只有读 knowbase 用户资料的应用开令牌交换；只有 knowbase 带 audience 目标应用，名字按固定格式
+      - (cfg.identity_token_exchange | default(false)) in [true, false]
+      - cfg.identity_audience_application is not defined or (cfg.identity_audience_application.name == 'sunmoonai-' + application_name + '-user-data' and cfg.identity_audience_application.client_id == cluster_name + '-' + application_name + '-user-data')
       - browser_clients.web.client_id != browser_clients.admin.client_id
       - browser_clients.web.name != browser_clients.admin.name
       - cfg.redis_user == application_name + '_runtime'

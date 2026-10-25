@@ -54,6 +54,9 @@ spec:
             - {name: CASDOOR_USER_ORGANIZATION, value: '{{ cfg.identity_user_organization }}'}
             - name: BROWSER_CLIENTS
               value: {{ browser_clients | to_json | to_json }}
+            # SDD 0042：读 knowbase 用户资料的应用，网页端可以用用户令牌换给 knowbase 的令牌；knowbase 自己带一个只作 audience 的目标应用
+            - {name: TOKEN_EXCHANGE_SURFACES, value: {{ (['web'] if (cfg.identity_token_exchange | default(false) | bool) else []) | to_json | to_json }}}
+            - {name: AUDIENCE_APPLICATION, value: {{ (cfg.identity_audience_application | default(none)) | to_json | to_json }}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 50m, memory: 64Mi}, limits: {cpu: '1', memory: 256Mi}}
           volumeMounts:

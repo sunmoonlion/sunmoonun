@@ -18,7 +18,10 @@ knowmart_backend_deployment:
   identity_organization: built-in
   # 普通用户所在组织（决策 D21、SDD 0014）：网页端应用挂这里；管理端仍在 built-in。
   identity_user_organization: sunmoonai
-  identity_revision: v5
+  # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
+  identity_revision: v6
+  # SDD 0042：网页端用用户令牌向 Casdoor 换给 knowbase 的令牌（RFC 8693），Casdoor 要给这个应用开令牌交换授权类型
+  identity_token_exchange: true
   # 跨应用跳转（SDD 0027）：工作台带用户来「我的分身」选一位，按登记的回跳地址回去（knowbench 的工作台）
   cross_app_enabled: true
   domain_env:
