@@ -258,6 +258,8 @@ knowmart：交付带版本号按它记；停用接口只认 knowlab 的服务身
 
 同意文字里「分身」改「准专家」、「交付」改「上架」，同意版本仍是 2：只是叫法对齐、意思没变，升版本会让所有人重签（Qwen Q-09、Kimi 评审第三节都认为可以不升）。
 
+| Fable 评审后（10-25） | 0012 的退回在迁移后有新写入时拒绝（F05）；试行期补审不通过走停用（D02）；答过的开步前提问只套回问的还是同一句的用例，改创意保留原用例编号（P1-6）；签出的测试授权比要的短就不用（P1-1）；交付时没类目照实回 `category_needed`（P2-1）；knowmart 按版本记能不能公开，以 knowlab 逐版审核为准（P2-2） | knowlab 后端 `614c1b9`、`9551115`、`8af7d59`、`0b99028`，管理端 `25ca1d6`、`28c79f0`，web端 `fa7f0e1`，父 `6e95425`；knowmart 后端 `7df9aa9`、`04afca2`，父 `09218c1` |
+
 0012 的退回（downgrade）是紧急回退用的：上架了的专家改回准专家的「已交付」，带回回执。以下几样会丢：
 - 受理单与创意版本表；
 - 测试与专家表本身；
@@ -265,7 +267,7 @@ knowmart：交付带版本号按它记；停用接口只认 knowlab 的服务身
 - 交付失败的审核结论；
 - 用户审核记录。
 
-发版与回退的做法待 Fable 定（Astra F05）。
+发版与回退（Fable 10-25 定，F05）：停写切换，不做新旧共存。迁移后只要有新写入（新发起的测试、第 2 版以后的创意、人写的受理单、非试行期的专家），downgrade 就拒绝并报各多少，这时的回退是用发版前的备份恢复库 + 旧镜像。
 
 测试：knowlab 后端全量 597 过（含 0012 在真 PostgreSQL 上的回填、退回、再进）；管理端 59、web端 107、knowbench 网页 336、knowmart 后端 492、knowmart web端 105 过；各前端构建过。评审后：knowlab 后端 608、knowmart 后端 497 过。
 
@@ -278,6 +280,11 @@ knowmart：交付带版本号按它记；停用接口只认 knowlab 的服务身
   - 同一创意里不重号；
   - 同一创意至多一个测试中的。
 - knowlab：Celery beat 多一项 `knowbot-unlisted-resend`（每 5 分钟补发空号结局），与已有的 `knowbot-outputs-expire` 用同一个 beat。
+- knowlab 发版（Fable 10-25 定，停写切换）：
+  1. 发版前核没有在跑的测试（准专家 `testing` 为 0）、没有等用户答的提问；有就等完或先结束。
+  2. 迁移前对 knowlab 库做一次 `pg_dump`，放本地 `~/sunmoon-probe-runs/`，root 0600，不进 git。
+  3. 迁移 Job 与新镜像同一次发布；中间几分钟旧 Pod 若有写入会报错，接受。
+  4. 要回退时：迁移后有新写入就用第 2 步的备份恢复库 + 旧镜像，不用 downgrade（它会拒）。
 - knowmart：期望库版本改成 `20261024_0008`；交付的 `request_public`、停用、空号结局三个内部接口都用现有的 `knowmart:deliver` 服务关系；`CROSS_APP_TARGETS_JSON` 加上 knowlab 的 `web_base_url`（专家详情「到 knowlab 停用」的去处，不配就只写一句去哪停）。web端随后端一起发。
 - 发布顺序不变：knowbase → knowmart → knowbench → knowlab。空号结局的新接口要 knowmart 先上；knowlab 若先上，送不到的也会补发。
 

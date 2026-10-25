@@ -171,7 +171,16 @@
 - 补授读按 PATH 里用户目录之下的目录授，`(OI)(CI)(RX)` 继承到其下所有文件，沙箱命令能读到这些目录里的东西（包括顺带放在那里的配置）。要不要收窄到固定的程序根，影响所有者实测过的 Python 场景，没改。
 - 真 NTFS 上的 ACL 前后与沙箱实读（含「已有授权但缺 CI」的中间态），等所有者 Windows 真机回归。
 
-待 Fable 定（Astra D03）：撤回测试同意是只挡新授权（现状），还是同时撤掉由它签出的授权。
+撤回测试同意只挡新授权，已签的到交还、撤销或到期为止（Fable 10-25 定，D03；写进契约 user-data/v1 说明）。
+
+Fable 评审后（10-25，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md) 第四节）：
+
+| 评审条 | 改了什么 | 提交 |
+| --- | --- | --- |
+| P1-1 | 测试运行授权上限 7 天（原来截成 26 小时）；knowlab 签出的比要的短就撤掉、当没签成 | knowbase 后端 `3df65ea`，knowlab 后端 `0b99028` |
+| P2-4、5、6 | 搬过来的旧数据还有旧对象、本人还没补上测试同意时照旧经 knowlab 读（取代上面「先打开知识库页才能测」的说法）；测试同意刷新整段加锁；补登记跳过搬旧数据建的 | knowlab 后端 `c053eb7` |
+| P2-16 | 买来不许转卖的资料带 `no_resale`（knowbase 迁移 0008 加栏，契约只加可选字段），同一个人再传同样内容的也带上；knowbench 云端知识库、knowlab 知识库标出来 | knowbase 后端 `b031c85`，knowbench `1e640b4`、`1ba80ac`，knowlab `519e21d`、`3a0f2c8` |
+| P1-3、P1-4、P2-11、P2-14、P2-15、P2-12 | link 删只读测试目录、远程拉仓库不记住令牌、远程操作只转给连着的电脑、测试不写 /tmp、重新 init 留着设备编号、提权模式下控制文件拒读 | sunmoon-link `c5cef2d`、`1c4cea9`、`d85aeb9`、`4f36a06`，knowbench `05911d1`、`e41edac`、`94c620c`、`1cf2b07`、`44d08cd`、`39b5dc6`、`281f4bc` |
 
 还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 7 重孵化。knowlab 0037 的数据结构与两端重做已做，见 [0037](0037-idea-avatar-expert.md) 第十八之二节第 4 小节。
 
@@ -188,4 +197,6 @@
 - 评审后（10-24）：
   - knowbase 迁移 0008 的内容变了（读数留痕多 `check`），版本号不变。knowbench 读钉住的数据要用 knowbase 的 check，knowbase 要先上（顺序已满足）。
   - knowlab 迁移 0011 多一张待撤同意表，期望库版本仍是 `20261024_0012`。
-  - knowlab 开测签不出授权就不开跑：发版后先跑 `import_datasets`，再让用户打开一次知识库页立测试同意，然后再发起绑了数据的测试；不然开测会报 `data_not_imported` 或 `test_consent_missing`。
+  - knowlab 开测签不出授权就不开跑。搬过来的旧数据在本人补上测试同意之前照旧经 knowlab 读（Fable P2-4），所以发版后跑完 `import_datasets` 就能测；`import_datasets` 要在没有在跑的测试时跑。
+  - Fable 评审后：knowbase 迁移 0008 又加资料的 `no_resale`；knowlab 迁移 0011 又加数据记录的 `no_resale`，0012 退回前核新写入；期望库版本都不变。
+  - 测试电脑的 TMPDIR 设到 `<工作区>/runs/.tmp`（Fable P2-14，平台配置）。没设之前测试照旧能写 /tmp，没有隔离。

@@ -315,9 +315,14 @@ knowbase PRD「已知的缺口：文档检索」里的 `search_documents` 先在
 | 评审后：买知识可恢复（Astra F07）。买时带幂等键，先落一笔「复制中」，逐份复制、逐份记，复制完才成交；同键重来接着做，参数不同拒；换键同参数接着做没复制完的。迁移 0007 的 trade 加 `status`、`request_key`、`request_digest`、`planned`。成交记录标出没复制完的 | knowmart 后端 `f491bac`、web端 `af3ffc7`、管理端 `84f96ee`，父 `413c924` |
 | 评审后：身份证号查重摘要改 HMAC，带服务端钥匙（Kimi 5） | knowmart 后端 `bc22bd1`、web端 `02b2927`，父 `ac0aa3e` |
 
+| Fable 评审后（10-25，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md) 第四节）：卖家删资料前核在架条目、卖家那份没了成交记失败（P1-2）；专家申请公开时选类目、交付照实回为什么没进审核、「只自用」不冲掉下架（P2-1、P2-10）；能不能公开按版本记（P2-2）；换键接手记别名（P2-7）；运营能撤销审过的主体与证照（P2-8）；需求选定后能结单（P2-9）；「不许转卖」按成交那一刻、复制时带标记（P2-16） | knowmart 后端 `aa182c4`、`7df9aa9`、`04afca2`、`162865c`、`1303b2a`、`d69dde2`、`928ad74`，web端 `d1adb0a`、`e6e8506`、`18981c7`、`db315f2`，管理端 `d14c3dc`，父 `09218c1` |
+
 发版时要配（等 Fable）：
 - knowmart 期望库版本改成 `20261023_0007`（0037 之后是 `20261024_0008`，见那边）；
 - `PUBLIC_MARKET_ENABLED` 打开才有公开的专家；
 - `KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_AUDIENCE`、`KNOWBASE_USER_DATA_PURCHASE_SERVICE_*`（买知识的复制）；
 - Celery beat 起来跑 `market-sweep`；
 - 评审后新加私密配置 `PUBLISHER_ID_HASH_KEY`（身份证号查重摘要的钥匙，放 SOPS，随机生成、不再换；没配个人入驻回 503）。迁移 0007 的内容变了（trade 加四栏），版本号不变。
+- Fable 评审后迁移又变（版本号不变）：
+  - 0007：trade 加 `failure`、`resale_allowed`，加 `trade_request_alias` 表，主体与证照的审核状态加 `revoked`；
+  - 0008：版本加 `public_allowed`，之前的回填为真。
