@@ -48,10 +48,10 @@ applications:
     admin_revision: 2d5c1124c0b3f76ec0efda2371fadbd5f13787b0
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowmart:
-    parent_revision: a7f68471d5013ee972d4aeafdc6efb19a34ec228
-    backend_parent_revision: c00eebf376e804984f3eabd070daaed50573cc13
-    backend_revision: c00eebf376e804984f3eabd070daaed50573cc13
-    web_parent_revision: 50e280ea37609f0ca198a5d1308aa02bc4074dc8
-    web_revision: 50e280ea37609f0ca198a5d1308aa02bc4074dc8
-    admin_parent_revision: 107fda29642e9bf7259af274fa6d6c991302bfeb
-    admin_revision: 107fda29642e9bf7259af274fa6d6c991302bfeb
+    parent_revision: 09218c16a29cb9150b7758e1aca06798e928efde
+    backend_parent_revision: 928ad749fe0d5ac9a186b41de7baef13ca1d295f
+    backend_revision: 928ad749fe0d5ac9a186b41de7baef13ca1d295f
+    web_parent_revision: db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e
+    web_revision: db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e
+    admin_parent_revision: d14c3dc41293c660634a92aed2f1b14d46d5ef80
+    admin_revision: d14c3dc41293c660634a92aed2f1b14d46d5ef80

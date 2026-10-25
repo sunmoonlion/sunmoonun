@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: knowmart-admin-frontend
-digest: sha256:1af12695257e262dc53d4dac7755d18b4e2148ebde7387e688e997e41c893010
-source_revision: 107fda29642e9bf7259af274fa6d6c991302bfeb
-deployment_id: knowmart-admin-frontend-1af12695257e262d
+digest: sha256:437e960c5872247d808aa2b111b46b57ecb8297fa44fd2c367807cf9d74a584c
+source_revision: d14c3dc41293c660634a92aed2f1b14d46d5ef80
+deployment_id: knowmart-admin-frontend-437e960c5872247d
