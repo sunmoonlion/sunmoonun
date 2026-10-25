@@ -405,8 +405,10 @@ application-rehearse-downloads:
 	.venv/bin/python applications/tests/rehearse-downloads.py $(CONFIG_ARGS)
 
 .PHONY: application-deployment-plan application-check application-check-public application-bootstrap
+# PLAN_EXTRA：发布第 2 阶段改完钉、构建前的前置核对传 plan_before_build=true（镜像锁与钉那时必然不等，第 5 阶段再核）
+PLAN_EXTRA ?=
 application-deployment-plan:
-	$(ANSIBLE) -i host/inventory.yaml applications/deploy.yaml $(CONFIG_ARGS) --extra-vars 'application_name=$(APP) application_action=plan'
+	$(ANSIBLE) -i host/inventory.yaml applications/deploy.yaml $(CONFIG_ARGS) --extra-vars 'application_name=$(APP) application_action=plan $(PLAN_EXTRA)'
 application-check-public:
 	$(MAKE) install-binaries BINARIES=mc
 	$(ANSIBLE) -i host/inventory.yaml applications/verify.yaml $(CONFIG_ARGS) --extra-vars 'application_name=$(APP) application_action=check application_check_public=true'

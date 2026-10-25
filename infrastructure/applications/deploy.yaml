@@ -92,7 +92,8 @@
           - app_images.web.deployment_id is match("^[a-z][a-z0-9-]{5,90}$")
           - app_images.admin.deployment_id is match("^[a-z][a-z0-9-]{5,90}$")
           - app_images.backend.digest is match('^sha256:[a-f0-9]{64}$')
-          - app_images.backend.source_revision == source_lock.backend_revision
+          # 发布第 2 阶段改完钉、还没构建时的前置 plan（plan_before_build）只核库版本，镜像锁等第 3 阶段构建后在第 5 阶段核
+          - (plan_before_build | default(false) | bool) or app_images.backend.source_revision == source_lock.backend_revision
           - cfg.deploy_budget_bytes | int >= 2147483648
           - app_images.web.repository == application_name + '-web-frontend'
           - app_images.admin.repository == application_name + '-admin-frontend'

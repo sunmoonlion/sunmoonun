@@ -78,8 +78,9 @@ echo "total=\$n"
                 sh "git diff -- infrastructure/applications/sources.yaml > '${out}/2-sources.diff'; git diff --stat -- infrastructure/applications/sources.yaml"
                 // 构建链要求子仓 HEAD 恰等于钉的号：按钉对齐检出
                 logged('2-align', "python3 ci/align-sources.py --repos '${reposDir}' --apps '${apps.join(' ')}'")
-                // 前置核对：钉到的后端的 alembic 头要等于 expected_schema_revision；不对就停在这里，不进构建
-                for (app in apps) { logged("2-plan-${app}", "make -C infrastructure application-deployment-plan APP=${app}") }
+                // 前置核对：钉到的后端的 alembic 头要等于 expected_schema_revision；不对就停在这里，不进构建。
+                // 这时镜像还没构建，镜像锁里的源码提交必然不等于新钉（#16 在此停），所以只核库版本；镜像锁第 5 阶段再核
+                for (app in apps) { logged("2-plan-${app}", "make -C infrastructure application-deployment-plan APP=${app} PLAN_EXTRA=plan_before_build=true") }
             }
             stage('3 构建') {
                 for (app in apps) { logged("3-build-${app}", "make -C infrastructure platform-build OBJECT=app-platform/${app}-app") }
