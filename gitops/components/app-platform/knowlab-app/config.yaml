@@ -2,3 +2,5 @@
 ---
 knowlab_deployment:
   enabled: true
+  # 验收时管理员读的一张管理端列表（只读）；应用改了管理端接口要同步改这里（账 173）
+  admin_list_path: /api/admin/v1/knowbot-counts

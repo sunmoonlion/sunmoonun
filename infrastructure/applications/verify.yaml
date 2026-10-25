@@ -567,7 +567,7 @@
         - name: Verify real authorization callback SSR and security boundaries through the selected entry
           ansible.builtin.command:
             argv: [/usr/bin/python3, '{{ playbook_dir }}/check-browser.py']
-            stdin: '{{ {"clients":browser_clients, "provider":"https://" + casdoor_hostname + ":" + (public_port | string), "organization":cfg.identity_organization,"user_organization":cfg.identity_user_organization, "username":"admin", "password":(browser_acceptance_input.content | b64decode | from_yaml).service_credentials.casdoor_admin_password, "application":application_name, "ca_file":registry_config_dir + "/tls/ca.crt", "entry_port":application_check_port | int} | to_json }}'
+            stdin: '{{ {"clients":browser_clients, "provider":"https://" + casdoor_hostname + ":" + (public_port | string), "organization":cfg.identity_organization,"user_organization":cfg.identity_user_organization, "username":"admin", "password":(browser_acceptance_input.content | b64decode | from_yaml).service_credentials.casdoor_admin_password, "application":application_name, "admin_list_path":(application_cfg.admin_list_path | default("")), "ca_file":registry_config_dir + "/tls/ca.crt", "entry_port":application_check_port | int} | to_json }}'
           register: browser_acceptance
           changed_when: false
           no_log: true

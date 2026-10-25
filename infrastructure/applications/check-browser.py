@@ -13,11 +13,6 @@ from urllib.parse import parse_qs, urlencode, urlsplit
 # 管理员读得出的一张管理端列表（只读）。后端认管理角色（账 134）部署之后才加进来：
 # knowlab、knowbench 随 qwen-005；knowfeed（/api/admin/security-requests）、
 # knowbase（/api/admin/v1/knowledge/datasets）等各自下次部署时加
-ADMIN_LISTS = {
-    # 0037 起 knowlab 管理端没有 /knowbot-drafts 列表了，管理员读的是各栏「等我们」的条数（发布 #23 在这里倒）
-    'knowlab': '/api/admin/v1/knowbot-counts',
-    'knowbench': '/api/admin/v1/workbench/missing-data',
-}
 
 
 def require(value, label):
@@ -179,8 +174,10 @@ def _check_surfaces(settings, Browser, member, outcomes):
         privileged = surface == 'admin' and (
             settings['application'] + ':admin' in session['user']['scopes'] or
             bool(set(session['user'].get('roles') or []) & {'admin', 'operator'}))
-        if privileged and settings['application'] in ADMIN_LISTS:
-            status, _, _ = browser.request(origin + ADMIN_LISTS[settings['application']])
+        # 列表路径由应用在 gitops 的 <app>_deployment.admin_list_path 声明（账 173：以前写死在这里，应用改接口就在验收倒）
+        if privileged and settings.get('admin_list_path'):
+            require(settings['admin_list_path'].startswith('/api/admin/'), 'admin_list_path must be an admin API path')
+            status, _, _ = browser.request(origin + settings['admin_list_path'])
             require(status == 200, 'Administrator could not read the admin console list')
             admin_list_read = True
         if surface == 'admin' and not privileged:
