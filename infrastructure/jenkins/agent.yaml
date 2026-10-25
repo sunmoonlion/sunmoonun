@@ -254,6 +254,12 @@
             timeout: 20
           register: crumb
           no_log: true
+        - name: Mark a release as queued so render-check yields the executor (ci/render-check.groovy reads it; release.groovy removes it)
+          when: jenkins_run_job == 'release'
+          ansible.builtin.copy:
+            dest: '{{ jenkins_data_dir }}/repos/.release-active'
+            content: "queued {{ lookup('pipe', 'date -Is') }} {{ jenkins_run_params.NOTE | default('') }}\n"
+            mode: '0644'
         - name: Queue the build
           ansible.builtin.uri:
             url: '{{ controller_base }}/job/{{ jenkins_run_job }}/buildWithParameters?{{ jenkins_run_params | urlencode }}'
@@ -304,6 +310,9 @@
           # --extra-vars 传进来的是字符串，先 | int 再除（2026-10-20 回执 fable-b3 第二版）
           retries: '{{ ((jenkins_run_timeout_seconds | int) / 15) | int }}'
           delay: 15
+        - name: Remove the release-active marker whatever the result (belt and braces for aborted or timed-out approvals)
+          when: jenkins_run_job == 'release'
+          ansible.builtin.file: {path: '{{ jenkins_data_dir }}/repos/.release-active', state: absent}
         - name: Create the local directory for build consoles
           ansible.builtin.file:
             path: '{{ playbook_dir }}/../.build/jenkins'

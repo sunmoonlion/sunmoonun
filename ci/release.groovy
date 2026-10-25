@@ -133,6 +133,8 @@ git -c user.name=sunmoon-ci -c user.email=ci@sunmoonai.com commit -q -m "deploy(
             }
         } finally {
             stage('前半段收尾') {
+                // 不进后半段（失败或无差异）就拿掉「发布中」标记，让 render-check 继续跑；进后半段的在后半段收尾拿
+                if (!state.awaiting) { sh "rm -f '${reposDir}/.release-active'" }
                 if (!state.awaiting && !state.nothing) { notify("发布 #${n} 前半段失败", "${note ?: '按钉发布'}；没有到人批这一步，看控制台", "${env.BUILD_URL}console", false) }
                 def hit = scanSecrets()
                 archive()
@@ -250,6 +252,7 @@ fi
             }
         } finally {
             stage('后半段收尾') {
+                sh "rm -f '${reposDir}/.release-active'"
                 def hit = scanSecrets()
                 archive()
                 if (!state.pushed) {

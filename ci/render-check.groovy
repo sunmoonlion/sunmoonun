@@ -7,6 +7,15 @@ def run(params, reposDir) {
     def head = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
     currentBuild.displayName = "#${env.BUILD_NUMBER} ${params.BRANCH}@${head.take(10)}"
 
+    // 让路（所有者 2026-10-25 定）：有发布在排队或在跑就不占执行位。标记由 jenkins/agent.yaml 发起发布时放、
+    // release.groovy 收尾时拿；超过 4 小时没拿掉当作陈旧，不再让路
+    def busy = "${reposDir}/.release-active"
+    if (fileExists(busy) && sh(script: "find '${busy}' -mmin -240 | wc -l", returnStdout: true).trim() == '1') {
+        currentBuild.result = 'NOT_BUILT'
+        currentBuild.description = "有发布在排队或在跑，让路（${readFile(busy).trim().take(80)}）"
+        return
+    }
+
     stage('同步应用仓') {
         // 渲染要按钉住的提交读各应用后端的迁移链，所以六个应用仓也要有那些提交
         for (app in apps) {
