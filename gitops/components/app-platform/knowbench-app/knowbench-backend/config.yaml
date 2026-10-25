@@ -7,7 +7,8 @@ knowbench_backend_deployment:
   database_extensions: []
   database_bootstrap_revision: v1
   migration_job_revision: v7
-  expected_schema_revision: '20261023_0025'
+  # 账 175：本地用户只按 subject 认、合并旧份（20261025_0026）
+  expected_schema_revision: '20261025_0026'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*

@@ -7,7 +7,8 @@ knowfeed_backend_deployment:
   database_extensions: [uuid-ossp]
   database_bootstrap_revision: v1
   migration_job_revision: v3
-  expected_schema_revision: '20261015_0014'
+  # 账 175：本地用户只按 subject 认、合并旧份（20261025_0015）
+  expected_schema_revision: '20261025_0015'
   deploy_budget_bytes: 2147483648
   redis_user: knowfeed_runtime
   redis_key_pattern: 'knowfeed:*'

@@ -6,7 +6,8 @@ knowlab_backend_deployment:
   database_migrator_user: knowlab_migrator
   database_bootstrap_revision: v2
   migration_job_revision: v1
-  expected_schema_revision: '20261024_0012'
+  # 账 175：本地用户只按 subject 认、合并旧份（20261025_0013）
+  expected_schema_revision: '20261025_0013'
   deploy_budget_bytes: 2147483648
   redis_user: knowlab_runtime
   redis_key_pattern: 'knowlab:*'
