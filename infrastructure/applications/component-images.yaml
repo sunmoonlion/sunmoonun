@@ -8,9 +8,9 @@ revision: b23ea80b24c0c3b866bb346277a870028ed58b42
 images:
   relay:
     object: relay-platform/relay
-    # 第 2 段：权限审计回执与版本错配通知；只有 relay 更新源码锁
-    revision: 4028d32de4801ef958806962c72502da0135a744
-    context: sunmoonai/relay-platform/relay
+    # 3644498b：会合点转发本地 link 报的设备编号、主机名、系统（账 143；现网没转，knowbench 认不出配给账号的那份，账 178）
+    revision: 3644498b32de16960a5d415139618bfc57aaf21e
+    context: infrastructure/applications/component-images/relay
     dockerfile: Dockerfile
     base: python
     user: relay
