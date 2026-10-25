@@ -290,7 +290,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'tpl-identity-79e6b4a2b828-v6', namespace: app-platform-dev}
+metadata: {name: 'tpl-identity-1f1c52b5e8d5-v6', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -304,7 +304,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/tpl-backend@sha256:79e6b4a2b828afe2b0d6460a441f9ea06964fca47bb6d6d4d53287c3f1f9d1b2
+          image: harbor.sunmoonai.com:30443/platform/tpl-backend@sha256:1f1c52b5e8d5585d1331550bf73c0b61d83b0240f30318119ca5f10568a6fc3b
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
