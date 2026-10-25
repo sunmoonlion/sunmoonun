@@ -26,5 +26,10 @@ stages:
   resources: [workload.yaml, provision.sops.yaml, runtime.sops.yaml]
 - name: knowmart-runtime
   path: runtime
-  dependsOn: [knowmart-identity]
-  resources: '{{ ["workload.yaml", "tls.sops.yaml"] + (["storage.sops.yaml"] if knowmart_backend_deployment.object_storage.enabled | default(false) else []) + (["provider.sops.yaml"] if knowmart_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["service.sops.yaml"] if knowmart_backend_deployment.knowbase_service.enabled | default(false) else []) + (["domain.sops.yaml"] if knowmart_backend_deployment.domain_secrets | default({}) | length > 0 else []) }}'
+  dependsOn: '{{ ["knowmart-identity"] + (["knowmart-knowbase-user-data-purchase-identity"] if knowmart_backend_deployment.service_clients | default([]) | selectattr("target", "equalto", "knowbase") | selectattr("relation", "equalto", "user-data-purchase") | selectattr("enabled") | list | length > 0 else []) }}'
+  resources: '{{ ["workload.yaml", "tls.sops.yaml"] + (["storage.sops.yaml"] if knowmart_backend_deployment.object_storage.enabled | default(false) else []) + (["provider.sops.yaml"] if knowmart_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["service.sops.yaml"] if knowmart_backend_deployment.knowbase_service.enabled | default(false) else []) + (["domain.sops.yaml"] if knowmart_backend_deployment.domain_secrets | default({}) | length > 0 else []) + (["knowbase-user-data-purchase-service.sops.yaml"] if knowmart_backend_deployment.service_clients | default([]) | selectattr("target", "equalto", "knowbase") | selectattr("relation", "equalto", "user-data-purchase") | selectattr("enabled") | list | length > 0 else []) }}'
+- name: knowmart-knowbase-user-data-purchase-identity
+  path: knowbase-user-data-purchase-identity
+  dependsOn: [casdoor, traefik]
+  enabled: '{{ knowmart_deployment.enabled and (knowmart_backend_deployment.service_clients | default([]) | selectattr("target", "equalto", "knowbase") | selectattr("relation", "equalto", "user-data-purchase") | selectattr("enabled") | list | length > 0) }}'
+  resources: [workload.yaml, provision.sops.yaml]

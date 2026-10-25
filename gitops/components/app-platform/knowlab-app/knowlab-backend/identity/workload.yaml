@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: 'knowlab-identity-provision-v5', namespace: app-platform-dev}
+metadata: {name: 'knowlab-identity-provision-v6', namespace: app-platform-dev}
 data:
   provision.py: |
     """Register the two browser clients through Casdoor's supported API."""
@@ -12,6 +12,11 @@ data:
     from urllib.parse import urlsplit
 
     import httpx
+
+    # RFC 8693. Web clients of the applications that read user data in knowbase trade the user's
+    # token for one addressed to knowbase (SDD 0042); Casdoor only allows that for applications
+    # carrying this grant type.
+    TOKEN_EXCHANGE = 'urn:ietf:params:oauth:grant-type:token-exchange'
 
 
     def require(condition, message):
@@ -27,6 +32,12 @@ data:
         # admin clients stay in built-in, whose every member is a Casdoor global administrator.
         user_organization = os.environ['CASDOOR_USER_ORGANIZATION']
         definitions = json.loads(os.environ['BROWSER_CLIENTS'])
+        # Which browser surfaces may trade the user's token (SDD 0042: web of knowbench, knowlab,
+        # knowmart), and the token-target application this backend owns (only knowbase). The target
+        # application exists so Casdoor has an audience to issue to; nobody signs in to it.
+        exchange_surfaces = set(json.loads(os.environ.get('TOKEN_EXCHANGE_SURFACES', '[]')))
+        audience_application = json.loads(os.environ.get('AUDIENCE_APPLICATION', 'null'))
+        require(exchange_surfaces <= {'web', 'admin'}, 'Unexpected token exchange surfaces')
         secrets = json.loads(Path('/run/app/clients.json').read_text())
         initialization = json.loads(Path('/run/admin/init_data.json').read_text())
         admins = [u for u in initialization['users'] if u['owner'] == 'built-in' and u['name'] == 'admin']
@@ -41,6 +52,8 @@ data:
         migrated = []
         sso_migrated = []
         domain_migrated = []
+        exchange_migrated = []
+        audience_created = []
         with httpx.Client(base_url=endpoint, headers={'Origin': origin}, trust_env=False, timeout=15) as client:
             def api(method, path, payload=None, params=None):
                 response = client.request(method, path, json=payload, params=params)
@@ -116,8 +129,12 @@ data:
                     'clientId': config['client_id'], 'clientSecret': secrets[surface + '_secret'],
                     'redirectUris': [callback, config['origin'] + '/api/auth/' + surface + '/logged-out'],
                     'homepageUrl': config['origin'], 'cert': baseline['cert'],
-                    'grantTypes': ['authorization_code'], 'tokenFormat': 'JWT', 'tokenSigningMethod': 'RS256',
-                    'expireInHours': 1, 'refreshExpireInHours': 0,
+                    'grantTypes': ['authorization_code'] + ([TOKEN_EXCHANGE] if surface in exchange_surfaces else []),
+                    'tokenFormat': 'JWT', 'tokenSigningMethod': 'RS256',
+                    # Owner 2026-10-25: a web token lives as long as the Casdoor session (12 h), so a
+                    # user is not sent back to sign in every hour when the backend trades it for
+                    # knowbase; admin consoles keep one hour.
+                    'expireInHours': 12 if surface == 'web' else 1, 'refreshExpireInHours': 0,
                     'enablePassword': True, 'enableSignUp': False, 'enableGuestSignin': False,
                     'enableSigninSession': single_sign_on, 'enableAutoSignin': single_sign_on, 'isShared': False,
                     'signinMethods': [{'name': 'Password', 'displayName': 'Password', 'rule': 'All'}],
@@ -171,9 +188,52 @@ data:
                     require(changed == 'Affected', 'Site domain move was not applied')
                     domain_migrated.append(surface)
                     existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
+                # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from the pre-0042
+                # shape (authorization code only, one-hour tokens): add the token exchange grant and
+                # the longer web token. Everything else must already match.
+                exchange_keys = {'grantTypes', 'expireInHours'}
+                drift = {k for k, v in desired.items() if existing.get(k) != v}
+                if (drift and drift <= exchange_keys and existing.get('grantTypes') == ['authorization_code']
+                        and existing.get('expireInHours') == 1):
+                    changed = api('POST', '/api/update-application', dict(existing, **{k: desired[k] for k in drift}),
+                                  params={'id': 'admin/' + config['name']})
+                    require(changed == 'Affected', 'Token exchange settings were not applied')
+                    exchange_migrated.append(surface)
+                    existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
                 require(existing and all(existing.get(k) == v for k, v in desired.items()),
                         'Existing browser application differs; explicit migration required')
                 checked.append(surface)
+            if audience_application:
+                # The token-target application (knowbase): no grant type, no redirect, sign-in
+                # disabled. Its client ID is the `aud` the exchanging backends ask for and knowbase
+                # checks. The secret is random and thrown away: nothing can be done with it.
+                for name in ('name', 'client_id'):
+                    require(re.fullmatch(r'[a-z][a-z0-9-]{2,79}', audience_application[name]), 'Invalid audience identity')
+                desired_audience = {
+                    'owner': 'admin', 'name': audience_application['name'], 'organization': user_organization,
+                    'description': 'sunmoon:knowlab:user-token-audience:managed-by-gitops',
+                    'displayName': 'SunMoon knowlab user data', 'category': 'Default', 'type': 'Web',
+                    'clientId': audience_application['client_id'], 'cert': baseline['cert'],
+                    # Casdoor rewrites an empty grant list to the authorization code grant (checked on
+                    # 4.12.0); with no redirect URI and sign-in disabled that flow cannot complete.
+                    'grantTypes': ['authorization_code'], 'redirectUris': [], 'tokenFormat': 'JWT', 'tokenSigningMethod': 'RS256',
+                    'expireInHours': 12, 'refreshExpireInHours': 0,
+                    'enablePassword': False, 'enableSignUp': False, 'enableGuestSignin': False,
+                    'enableSigninSession': False, 'enableAutoSignin': False, 'isShared': False,
+                }
+                existing = api('GET', '/api/get-application', params={'id': 'admin/' + audience_application['name']})
+                if existing is None:
+                    applications = api('GET', '/api/get-applications', params={'owner': 'admin'})
+                    require(not any(a.get('clientId') == audience_application['client_id'] for a in applications),
+                            'Client ID belongs to another application')
+                    added = api('POST', '/api/add-application',
+                                dict(desired_audience, clientSecret=os.urandom(24).hex(),
+                                     createdTime=datetime.now(timezone.utc).isoformat()))
+                    require(added == 'Affected', 'Audience application was not created')
+                    audience_created.append(audience_application['client_id'])
+                    existing = api('GET', '/api/get-application', params={'id': 'admin/' + audience_application['name']})
+                require(existing and all(existing.get(k) == v for k, v in desired_audience.items()),
+                        'Existing audience application differs; explicit migration required')
             response = client.get('/.well-known/openid-configuration')
             require(response.status_code == 200, 'OIDC discovery failed')
             discovery = response.json()
@@ -186,6 +246,9 @@ data:
             require(response.status_code == 200 and response.json().get('keys'), 'OIDC verification keys missing')
         print(json.dumps({'browser_clients': sorted(checked), 'created': created, 'migrated': migrated,
                           'single_sign_on_migrated': sso_migrated, 'domain_migrated': domain_migrated, 'single_sign_on': ['web'],
+                          'token_exchange': sorted(exchange_surfaces), 'token_exchange_migrated': exchange_migrated,
+                          'audience_application': audience_application['client_id'] if audience_application else None,
+                          'audience_created': audience_created,
                           'admin_roles_created': roles_created, 'admin_role_members_added': role_members_added,
                           'user_organization': user_organization, 'admin_organization': organization,
                           'distinct_identities': True, 'exact_redirects': True, 'client_secrets_match': True,
@@ -227,7 +290,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowlab-identity-16b489d0aff6-v5', namespace: app-platform-dev}
+metadata: {name: 'knowlab-identity-16b489d0aff6-v6', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -251,6 +314,9 @@ spec:
             - {name: CASDOOR_USER_ORGANIZATION, value: 'sunmoonai'}
             - name: BROWSER_CLIENTS
               value: "{\"web\": {\"name\": \"sunmoonai-knowlab-web\", \"client_id\": \"sunmoon-kind-knowlab-web\", \"origin\": \"https://knowlab.dev.sunmoonai.com:30443\"}, \"admin\": {\"name\": \"sunmoonai-knowlab-admin\", \"client_id\": \"sunmoon-kind-knowlab-admin\", \"origin\": \"https://knowlab-admin.dev.sunmoonai.com:30443\"}}"
+            # SDD 0042：读 knowbase 用户资料的应用，网页端可以用用户令牌换给 knowbase 的令牌；knowbase 自己带一个只作 audience 的目标应用
+            - {name: TOKEN_EXCHANGE_SURFACES, value: "[\"web\"]"}
+            - {name: AUDIENCE_APPLICATION, value: "null"}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 50m, memory: 64Mi}, limits: {cpu: '1', memory: 256Mi}}
           volumeMounts:
@@ -259,7 +325,7 @@ spec:
             - {name: app, mountPath: /run/app, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: script, configMap: {name: 'knowlab-identity-provision-v5'}}
+        - {name: script, configMap: {name: 'knowlab-identity-provision-v6'}}
         - {name: admin, secret: {secretName: casdoor-initial-identity, items: [{key: init_data.json, path: init_data.json}], defaultMode: 0440}}
         - {name: app, secret: {secretName: knowlab-identity-provision, defaultMode: 0440}}
         - {name: tmp, emptyDir: {sizeLimit: 32Mi}}

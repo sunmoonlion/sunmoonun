@@ -21,7 +21,10 @@ knowbench_backend_deployment:
   identity_organization: built-in
   # 普通用户所在组织（决策 D21、SDD 0014）：网页端应用挂这里；管理端仍在 built-in。
   identity_user_organization: sunmoonai
-  identity_revision: v5
+  # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
+  identity_revision: v6
+  # SDD 0042：网页端用用户令牌向 Casdoor 换给 knowbase 的令牌（RFC 8693），Casdoor 要给这个应用开令牌交换授权类型
+  identity_token_exchange: true
   api_port: 8000
   api_replicas: 1
   worker_replicas: 1
@@ -89,6 +92,8 @@ knowbench_backend_deployment:
     WORKBENCH_RECORDS_MCP_ENABLED: 'true'
     WORKBENCH_RECORDS_MCP_URL: 'http://knowbench-api.{{ app_namespace }}.svc.cluster.local:8000/api/mcp/workbench'
     WORKBENCH_TRUSTED_PROXY_CIDRS: '127.0.0.1/32,10.247.0.0/16'
+    # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用（knowbase 后端 identity_audience_application）
+    KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
   domain_secrets:
     # Fernet 密钥（后端用 cryptography.Fernet 加密用户的模型 key）：2026-10-06 第 7 步登记 key 报 internal_error，原因是默认的 40 位随机串不是 Fernet 格式
     WORKBENCH_CREDENTIAL_KEY: {source: random, format: fernet}
@@ -138,6 +143,17 @@ knowbench_backend_deployment:
       client_id: sunmoon-knowbench-knowlab-read
       organization: sunmoon-workload-knowbench-knowlab-read
       scope: knowlab:read
+      job_revision: v1
+      token_seconds: 900
+    # SDD 0042：凭委托、会话、测试的运行授权读 knowbase 里用户的资料（契约 user-data/v1）；runner 结束时交还授权、读钉住的数据
+    - target: knowbase
+      relation: user-data-read
+      enabled: true
+      roles: [api, worker, runner]
+      application: sunmoonai-knowbench-knowbase-user-data-read
+      client_id: sunmoon-knowbench-knowbase-user-data-read
+      organization: sunmoon-workload-knowbench-knowbase-user-data-read
+      scope: knowbase:user-data-read
       job_revision: v1
       token_seconds: 900
   # 作为运行方接收 knowlab 的「跑测试」（契约 knowbot-test-run/v1，SDD 0027 决定 12）

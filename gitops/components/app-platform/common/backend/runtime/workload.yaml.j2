@@ -6,7 +6,7 @@ data:
   ENV: production
   APP_SLUG: {{ application_name }}
   DEPLOYMENT_ID: {{ deployment_id | to_json }}
-  ALLOWED_HOSTS: {{ (['localhost','127.0.0.1',(application_name + '-api'),(application_name + '-api.') + app_namespace + '.svc.cluster.local', cfg.web_origin | urlsplit('hostname'), cfg.admin_origin | urlsplit('hostname')] + ([service_access_hosts.knowbase] if receiver_enabled else []) + ([service_access_routes[application_name].host] if generic_service_receivers | default([]) | length > 0 else [])) | join(',') | to_json }}
+  ALLOWED_HOSTS: {{ (['localhost','127.0.0.1',(application_name + '-api'),(application_name + '-api.') + app_namespace + '.svc.cluster.local', cfg.web_origin | urlsplit('hostname'), cfg.admin_origin | urlsplit('hostname')] + ([service_access_hosts.knowbase] if receiver_enabled else []) + ([(service_access_routes[application_name].host if application_name in service_access_routes | default({}) else service_access_hosts[application_name])] if generic_service_receivers | default([]) | length > 0 else [])) | unique | join(',') | to_json }}
   REDIS_HOST: redis.{{ data_namespace }}.svc.cluster.local
   REDIS_PORT: '6379'
   REDIS_DB: '0'
@@ -17,11 +17,13 @@ data:
   SESSION_COOKIE_SECURE: 'true'
   REFERENCE_INTERACTION_ENABLED: 'false'
 {% if storage_enabled %}
-  S3_ENDPOINT: https://object-storage.{{ data_namespace }}.svc.cluster.local:{{ object_storage_port }}
-  S3_REGION: {{ object_storage_region }}
-  S3_BUCKET: {{ cfg.object_storage.bucket }}
-  S3_FORCE_PATH_STYLE: 'true'
-  S3_USE_TLS: 'true'
+{# env_prefix（SDD 0042，knowbase 用 USER_DATA_）：这个应用还有另一套 S3 身份（知识源只读）占着 S3_* 时，应用自己的桶换个前缀 #}
+{% set sp = cfg.object_storage.env_prefix | default('') %}
+  {{ sp }}S3_ENDPOINT: https://object-storage.{{ data_namespace }}.svc.cluster.local:{{ object_storage_port }}
+  {{ sp }}S3_REGION: {{ object_storage_region }}
+  {{ sp }}S3_BUCKET: {{ cfg.object_storage.bucket }}
+  {{ sp }}S3_FORCE_PATH_STYLE: 'true'
+  {{ sp }}S3_USE_TLS: 'true'
   AWS_CA_BUNDLE: /etc/sunmoon/object-storage/ca.crt
 {% endif %}
 {% if provider_enabled %}
@@ -56,9 +58,16 @@ data:
   {{ prefix }}_REQUIRED_SCOPE: {{ service_bindings[relation].scope | to_json }}
 {% endfor %}
 {% endif %}
+{# 一个目标只写一次内部地址（一个应用对同一目标可以有几条关系）；有自己内部入口的用入口，共用证书上的 knowbase 用主机名 #}
+{% for target in generic_service_clients | default([]) | map(attribute='target') | unique %}
+{% if target in service_access_routes | default({}) %}
+  {{ target | upper }}_INTERNAL_URL: https://{{ service_access_routes[target].host }}{{ service_access_routes[target].path }}
+{% else %}
+  {{ target | upper }}_INTERNAL_URL: https://{{ service_access_hosts[target] }}
+{% endif %}
+{% endfor %}
 {% for client in generic_service_clients | default([]) %}
-{% set p = (client.target ~ '_' ~ client.relation) | upper %}
-  {{ client.target | upper }}_INTERNAL_URL: https://{{ service_access_routes[client.target].host }}{{ service_access_routes[client.target].path }}
+{% set p = (client.target ~ '_' ~ client.relation) | upper | replace('-', '_') %}
   {{ p }}_SERVICE_APPLICATION: {{ client.application | to_json }}
   {{ p }}_SERVICE_CLIENT_ID: {{ client.client_id | to_json }}
   {{ p }}_SERVICE_SCOPE: {{ client.scope | to_json }}
@@ -66,9 +75,9 @@ data:
   {{ p }}_SERVICE_BACKCHANNEL_ENDPOINT: https://{{ service_access_hosts.casdoor }}
 {% endfor %}
 {% for relation, group in generic_service_receivers | default([]) | groupby('relation') %}
-  SERVICE_AUTH_{{ relation | upper }}_CALLERS: {{ group | map(attribute='caller') | join(',') | to_json }}
+  SERVICE_AUTH_{{ relation | upper | replace('-', '_') }}_CALLERS: {{ group | map(attribute='caller') | join(',') | to_json }}
 {% for receiver in group %}
-{% set p = 'SERVICE_AUTH_' ~ (receiver.relation | upper) ~ '_' ~ (receiver.caller | upper | replace('-', '_')) %}
+{% set p = 'SERVICE_AUTH_' ~ (receiver.relation | upper | replace('-', '_')) ~ '_' ~ (receiver.caller | upper | replace('-', '_')) %}
   {{ p }}_CASDOOR_APPLICATION: {{ receiver.client.application | to_json }}
   {{ p }}_DISCOVERY_URL: https://{{ casdoor_hostname }}:{{ public_port }}/.well-known/openid-configuration
   {{ p }}_BACKCHANNEL_ENDPOINT: https://{{ service_access_hosts.casdoor }}

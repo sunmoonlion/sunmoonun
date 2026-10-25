@@ -20,7 +20,11 @@ knowbase_backend_deployment:
   identity_organization: built-in
   # 普通用户所在组织（决策 D21、SDD 0014）：网页端应用挂这里；管理端仍在 built-in。
   identity_user_organization: sunmoonai
-  identity_revision: v5
+  # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
+  identity_revision: v6
+  # SDD 0042：knowbase 在 Casdoor 里的目标应用，只作用户令牌交换的 audience（客户端编号 = 各应用的 KNOWBASE_USER_AUDIENCE、
+  # knowbase 的 USER_TOKEN_AUDIENCE）；没人登录它，随身份注册 Job 建
+  identity_audience_application: {name: sunmoonai-knowbase-user-data, client_id: sunmoon-kind-knowbase-user-data}
   api_port: 8000
   api_replicas: 1
   worker_replicas: 1
@@ -63,6 +67,14 @@ knowbase_backend_deployment:
     KNOWBASE_DATASET_CACHE_DIR: /tmp/knowbase-datasets
     KNOWBASE_SEMANTIC_ENGINE_ENABLED: 'true'
     KNOWBASE_SEMANTIC_CACHE_DIR: /tmp/knowledge-semantic
+    # SDD 0042 用户资料：本人令牌的 aud 是 Casdoor 里的目标应用（identity_audience_application）；azp → 分区，只认三家网页端
+    USER_TOKEN_AUDIENCE: sunmoon-kind-knowbase-user-data
+    USER_TOKEN_APPS_JSON: '{"sunmoon-kind-knowbench-web": "knowbench", "sunmoon-kind-knowlab-web": "knowlab", "sunmoon-kind-knowmart-web": "knowmart"}'
+    # 用户资料存自己的桶（机制规定 <应用>-originals，前缀 users/；凭据在 USER_DATA_S3_*，见 object_storage.env_prefix）
+    USER_DATA_BUCKET: knowbase-originals
+    USER_DATA_PREFIX: users
+    # 凭运行授权读的服务身份以哪个应用的名义读（sub = admin/<调用方服务应用>），与下面 service_receivers 一一对应
+    USER_DATA_READER_APPS_JSON: '{"admin/sunmoonai-knowbench-knowbase-user-data-read": "knowbench", "admin/sunmoonai-knowlab-knowbase-user-data-grant-test": "knowlab", "admin/sunmoonai-knowlab-knowbase-user-data-import": "knowlab", "admin/sunmoonai-knowmart-knowbase-user-data-purchase": "knowmart"}'
   domain_secrets:
     KNOWBASE_MCP_JWT_PUBLIC_KEY: {source: workbench-signing, key: public_key_pem}
   domain_secrets_roles: [api]
@@ -80,6 +92,21 @@ knowbase_backend_deployment:
     source_prefix: knowfeed/
     # v2：前缀放宽后策略要在现网重建一次（Job 按代次命名，不升代次不重跑）
     job_revision: v2
+
+  # SDD 0042 用户资料的桶（机制在 common/backend/storage）：knowbase 的 S3_* 已被知识源只读身份（knowledge_provider）占着，
+  # 这个桶的变量名带前缀 USER_DATA_（USER_DATA_S3_ENDPOINT、USER_DATA_S3_ACCESS_KEY_ID……），应用代码按前缀读
+  object_storage:
+    enabled: true
+    user: knowbase_storage
+    bucket: knowbase-originals
+    job_revision: v1
+    env_prefix: USER_DATA_
+  # SDD 0042 接收的跨应用服务关系（通用机制 common/backend/service-client）：身份从调用方的 service_clients 推出来
+  service_receivers:
+    - {relation: user-data-read, caller: knowbench, enabled: true}
+    - {relation: user-data-grant-test, caller: knowlab, enabled: true}
+    - {relation: user-data-import, caller: knowlab, enabled: true}
+    - {relation: user-data-purchase, caller: knowmart, enabled: true}
 
   knowbase_service_receiver:
     enabled: true

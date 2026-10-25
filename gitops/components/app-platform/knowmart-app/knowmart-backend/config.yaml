@@ -18,12 +18,34 @@ knowmart_backend_deployment:
   identity_organization: built-in
   # 普通用户所在组织（决策 D21、SDD 0014）：网页端应用挂这里；管理端仍在 built-in。
   identity_user_organization: sunmoonai
-  identity_revision: v5
+  # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
+  identity_revision: v6
+  # SDD 0042：网页端用用户令牌向 Casdoor 换给 knowbase 的令牌（RFC 8693），Casdoor 要给这个应用开令牌交换授权类型
+  identity_token_exchange: true
   # 跨应用跳转（SDD 0027）：工作台带用户来「我的分身」选一位，按登记的回跳地址回去（knowbench 的工作台）
   cross_app_enabled: true
   domain_env:
     # 登录完能回到「我的分身」（从工作台带来的 from、ref 不丢）；其余同模板默认
     WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots'
+    # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
+    KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
+    # SDD 0018 第十一节供需市场：开了别人才看得到、请得到公开的专家与知识；资质仍逐次现核（所有者 2026-10-23「都做出来」、2026-10-25 定开发站点开）
+    PUBLIC_MARKET_ENABLED: 'true'
+  domain_secrets:
+    # 发布主体身份证号查重摘要的钥匙（HMAC，Kimi 评审第 5 条）：首次随机生成后不再换；没配时个人入驻回 503
+    PUBLISHER_ID_HASH_KEY: {source: random}
+  domain_secrets_roles: [api, worker]
+  # SDD 0042 块 6：买知识时经 knowbase 把卖家那份复制进买家选的知识库（契约 user-data/v1，关系 user-data-purchase）
+  service_clients:
+    - target: knowbase
+      relation: user-data-purchase
+      enabled: true
+      application: sunmoonai-knowmart-knowbase-user-data-purchase
+      client_id: sunmoon-knowmart-knowbase-user-data-purchase
+      organization: sunmoon-workload-knowmart-knowbase-user-data-purchase
+      scope: knowbase:user-data-purchase
+      job_revision: v1
+      token_seconds: 900
   # 接收的跨应用服务关系（SDD 0027 P1）：只写接受谁的哪种关系，身份从调用方的 service_clients 推出来，
   # 不重复维护。内部入口在 traefik service-access 的 service_access_routes.knowmart。
   service_receivers:
