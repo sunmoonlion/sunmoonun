@@ -57,6 +57,8 @@ echo "total=\$n"
         currentBuild.displayName = "#${n} ${branch}@${head.take(10)} ${apps.join(',')}"
         currentBuild.description = note ?: ''
         sh "mkdir -p '${out}'"
+        // 「发布中」标记：make 目标排队时已放一份；从页面点 Build with Parameters 发起的没有，这里补上，render-check 见到就让路
+        sh "printf 'running %s #${n} %s\\n' \"\$(date -Is)\" '${note}' > '${reposDir}/.release-active'"
         try {
             stage('1 核对') {
                 def dirty = sh(script: 'git status --porcelain --untracked-files=no -- gitops infrastructure/applications/sources.yaml infrastructure/environments', returnStdout: true).trim()

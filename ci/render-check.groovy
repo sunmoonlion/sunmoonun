@@ -7,7 +7,7 @@ def run(params, reposDir) {
     def head = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
     currentBuild.displayName = "#${env.BUILD_NUMBER} ${params.BRANCH}@${head.take(10)}"
 
-    // 让路（所有者 2026-10-25 定）：有发布在排队或在跑就不占执行位。标记由 jenkins/agent.yaml 发起发布时放、
+    // 让路（所有者 2026-10-25 定）：有发布在排队或在跑就不占执行位。标记由 jenkins/agent.yaml 排队发布时放、release.groovy 开头再放一次（页面发起的只有这一份）、
     // release.groovy 收尾时拿；超过 4 小时没拿掉当作陈旧，不再让路
     def busy = "${reposDir}/.release-active"
     if (fileExists(busy) && sh(script: "find '${busy}' -mmin -240 | wc -l", returnStdout: true).trim() == '1') {
