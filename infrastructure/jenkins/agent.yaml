@@ -260,6 +260,9 @@
             dest: '{{ jenkins_data_dir }}/repos/.release-active'
             content: "queued {{ lookup('pipe', 'date -Is') }} {{ jenkins_run_params.NOTE | default('') }}\n"
             mode: '0644'
+            # 归代理用户：release.groovy 开头要改写它（#27 倒在 root 的那份改写不了）
+            owner: '{{ jenkins_agent_user }}'
+            group: '{{ jenkins_agent_user }}'
         - name: Queue the build
           ansible.builtin.uri:
             url: '{{ controller_base }}/job/{{ jenkins_run_job }}/buildWithParameters?{{ jenkins_run_params | urlencode }}'

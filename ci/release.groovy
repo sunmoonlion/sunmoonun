@@ -58,7 +58,8 @@ echo "total=\$n"
         currentBuild.description = note ?: ''
         sh "mkdir -p '${out}'"
         // 「发布中」标记：make 目标排队时已放一份；从页面点 Build with Parameters 发起的没有，这里补上，render-check 见到就让路
-        sh "printf 'running %s #${n} %s\\n' \"\$(date -Is)\" '${note}' > '${reposDir}/.release-active'"
+        // make 目标放的那份是 root 的，代理（宿主操作用户）改写不了，先删再写（目录是代理的）
+        sh "rm -f '${reposDir}/.release-active'; printf 'running %s #${n} %s\\n' \"\$(date -Is)\" '${note}' > '${reposDir}/.release-active'"
         try {
             stage('1 核对') {
                 def dirty = sh(script: 'git status --porcelain --untracked-files=no -- gitops infrastructure/applications/sources.yaml infrastructure/environments', returnStdout: true).trim()
