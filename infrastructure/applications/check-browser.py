@@ -14,7 +14,8 @@ from urllib.parse import parse_qs, urlencode, urlsplit
 # knowlab、knowbench 随 qwen-005；knowfeed（/api/admin/security-requests）、
 # knowbase（/api/admin/v1/knowledge/datasets）等各自下次部署时加
 ADMIN_LISTS = {
-    'knowlab': '/api/admin/v1/knowbot-drafts',
+    # 0037 起 knowlab 管理端没有 /knowbot-drafts 列表了，管理员读的是各栏「等我们」的条数（发布 #23 在这里倒）
+    'knowlab': '/api/admin/v1/knowbot-counts',
     'knowbench': '/api/admin/v1/workbench/missing-data',
 }
 
