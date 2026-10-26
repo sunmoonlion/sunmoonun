@@ -155,7 +155,7 @@
 
 | 6 | knowmart：详情页显示需要你提供的数据；D 知识库（卖家上传、管理）；供需市场（知识条目从 D 选资料，卖出时经 knowbase 复制进买家的 B 或 C） | 见 [0018](0018-advisor-market.md) 第十一节第 10 小节 |
 
-评审后（10-24，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md)）：
+评审后（10-24，处置见 `review-2026-10-24-opus/opus-response.md`（目录 10-26 已删，原文在提交 `c8dc9aef`））：
 
 | 评审条 | 改了什么 | 提交 |
 | --- | --- | --- |
@@ -173,7 +173,7 @@
 
 撤回测试同意只挡新授权，已签的到交还、撤销或到期为止（Fable 10-25 定，D03；写进契约 user-data/v1 说明）。
 
-Fable 评审后（10-25，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md) 第四节）：
+Fable 评审后（10-25，处置见 `review-2026-10-24-opus/opus-response.md`（目录 10-26 已删，原文在提交 `c8dc9aef`） 第四节）：
 
 | 评审条 | 改了什么 | 提交 |
 | --- | --- | --- |

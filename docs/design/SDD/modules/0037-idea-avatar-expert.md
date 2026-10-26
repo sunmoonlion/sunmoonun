@@ -254,7 +254,7 @@ knowmart：交付带版本号按它记；停用接口只认 knowlab 的服务身
 | knowlab web端 | 申请 · 审核 · 专家三栏、修改创意出新版本、审核待办箱（问题、准专家、同意门）、首页「测试通过了，去确认」、名称详情页、旧地址跳转；「分身」改叫「准专家」 | web端 `8e95e56`，父 `522ae33` |
 | knowbench 网页 | 账 147（新建、删除的文件按整份内容数行）、账 148（专家每步交回的原文折成一行，点开看） | knowbench 网页 `17252b6`，父 `6a60c84` |
 | knowmart 空号与停用 | 第三节「详情页写明空号那一版的结局」：knowlab 在用户不要、审核不过、交付成功时把没上架那几版的结局整份交给 knowmart（内部接口 `PUT .../sources/{ref}/unlisted`，迁移 `20261024_0008`），knowmart 专家详情的版本记录里写「没有上架：你没要这一版 / 运营审核没通过」；knowlab 交来的专家在 knowmart 不再能直接停用（回 409 `stop_in_knowlab`），页面带去 knowlab 的「专家」里停，两边对得上 | knowmart 后端 `7745167`、web端 `b8ae4e0`，父 `e37c884`；knowlab 后端 `23af09f`，父 `3dd4da3` |
-| 评审后（10-24，处置见 [`review-2026-10-24-opus/opus-response.md`](../../review-2026-10-24-opus/opus-response.md)） | 空号结局改成按版本逐条送（`PUT .../sources/{ref}/unlisted/{version}`），取代上一行的整份替换；knowlab 记 `unlisted_sent_at`，beat 每 5 分钟补发没送到的（Astra F08）。knowlab 的服务关系在 knowmart 只能停、只能标 knowlab 交来的（Kimi 1）。受理先锁名称，并发写同一版后到的回 409（Kimi 6）。0012 回填前先核现网数据前提，不成立就停下、列出是哪几行；测试编号的排序加兜底，结果确定（Kimi 2、Qwen Q-01） | knowmart 后端 `28a983a`、`435a5d4`，父 `413c924`、`ac0aa3e`；knowlab 后端 `50695d3`、`a7c308c`、`fc28f29`，父 `ee03afe`、`d10deb6` |
+| 评审后（10-24，处置见 `review-2026-10-24-opus/opus-response.md`（目录 10-26 已删，原文在提交 `c8dc9aef`）） | 空号结局改成按版本逐条送（`PUT .../sources/{ref}/unlisted/{version}`），取代上一行的整份替换；knowlab 记 `unlisted_sent_at`，beat 每 5 分钟补发没送到的（Astra F08）。knowlab 的服务关系在 knowmart 只能停、只能标 knowlab 交来的（Kimi 1）。受理先锁名称，并发写同一版后到的回 409（Kimi 6）。0012 回填前先核现网数据前提，不成立就停下、列出是哪几行；测试编号的排序加兜底，结果确定（Kimi 2、Qwen Q-01） | knowmart 后端 `28a983a`、`435a5d4`，父 `413c924`、`ac0aa3e`；knowlab 后端 `50695d3`、`a7c308c`、`fc28f29`，父 `ee03afe`、`d10deb6` |
 
 同意文字里「分身」改「准专家」、「交付」改「上架」，同意版本仍是 2：只是叫法对齐、意思没变，升版本会让所有人重签（Qwen Q-09、Kimi 评审第三节都认为可以不升）。
 
