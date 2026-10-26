@@ -4,14 +4,14 @@
 >
 > 写之前做了三件事：
 > - 读 knowfeed 现有代码（本地 `~/worktrees/qwen/knowfeed-app`）；
-> - 梳理已定的决定与旧设计：[数据拓扑](../总纲/数据拓扑.md)、`decisions.md`、`constraints.md`、SDD 0008、0019、0026、0042、待办账；
+> - 梳理已定的决定与旧设计：[数据拓扑](../../数据拓扑.md)、`decisions.md`、`constraints.md`、SDD 0008、0019、0026、0042、待办账；
 > - 查市面做法：巨潮、交易所、HKEX 的条款，Capital IQ、AlphaSense、Daloopa、Firecrawl、OpenBB 等，以及国内爬取数据的判例。出处见第十节。
 >
 > 本文只是方案，没有改任何代码。第九节列要所有者定的问题，每题都附了我的建议。
 
 ## 一、结论先说
 
-1. **「主力军」放在已定的边界里做，不推翻边界**。10-18 所有者定的是「平台不提供数据，只按用户的指定取回公开披露」（[数据拓扑](../总纲/数据拓扑.md)第一节）。knowfeed 要做主力，做法是两条：
+1. **「主力军」放在已定的边界里做，不推翻边界**。10-18 所有者定的是「平台不提供数据，只按用户的指定取回公开披露」（[数据拓扑](../../数据拓扑.md)第一节）。knowfeed 要做主力，做法是两条：
    - 让「指定一份公开披露、平台替你取回」比手动上传更顺手，成为用户拿数据的默认方式；
    - 平台把取回、加工、质检做扎实，取回来的东西直接能给专家读。
 
@@ -282,10 +282,10 @@ AlphaSense 那类「关注公司 → 新公告提醒」是成熟做法。在我�
 ## 十、出处
 
 内部：
-- [数据拓扑](../总纲/数据拓扑.md)：第一、二、三、4.1–4.3、5.3、六、七、九、十、十之一、十五、十七节。
+- [数据拓扑](../../数据拓扑.md)：第一、二、三、4.1–4.3、5.3、六、七、九、十、十之一、十五、十七节。
 - `decisions.md`：10-18 数据拓扑条与「又定」、10-23 四类知识库条、10-15 改名条。
 - `rules/constraints.md`：C-L1、C-L2、C-L3、C-D13。
-- SDD [0042](SDD/modules/0042-knowledge-bases.md)、[0026](SDD/modules/0026-knowlab.md) 第五节、0008 系列、0019。
+- SDD [0042](../../../design/SDD/modules/0042-knowledge-bases.md)、[0026](../../../design/SDD/modules/0026-knowlab.md) 第五节、0008 系列、0019。
 - `pending-after-migration.md`：11、15、56、85、115。
 - knowfeed 代码：`knowfeed-app`，以及后端 `docs/REPORT_EXTRACTION.md`、`tests/test_dormant_capabilities.py`。
 
