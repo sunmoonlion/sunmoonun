@@ -159,3 +159,8 @@
 | knowmart、knowlab、knowbench | 本仓的声明 v2 模型照新契约改、锁更新 |
 | knowfeed | 巨潮插件：细类与事项的认法（第四节）、版本形态、按披露时间窗列出多份并逐份交付 |
 | knowbase web端 | 描述表单从词表接口取各维度（不写死，已是这样） |
+
+## 六、实施进度
+
+- 2026-10-27：knowbase 词表第 2 版、描述的几维（迁移 0016）、解析按大类与披露时间窗、`recent` 期间规则、数据 MCP `search_evidence` 按维度圈，knowbase-backend `a6948bb`；契约 `knowbot-data-needs/v2`、`user-data/v2` 重新生成。knowmart `c9ccff2`（声明模型、清单 v2 契约重新生成）、knowlab `96ca04e`（声明模型、两把锁）、knowfeed `93d887a`（巨潮按窗逐份交付、按分类与标题认细类与事项、词表副本与锁）。knowbench 的声明模型随第 4 步提交。
+- 没做：knowbase web端的描述表单接各维度（从词表接口取，接口已带）；研报的几维从首页识别后请本人确认；按标题归事项的规则版本号；RAGFlow 与 Elasticsearch 的文档带维度元数据（块 9、0047 P4）。
