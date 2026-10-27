@@ -15,22 +15,23 @@
 ## 二、架构
 
 ```
-沙箱里的 Codex ─┐
-用户 link 上的 ─┼─▶ knowbench（中继，只转发、不验不换令牌）──▶ knowbase 数据 MCP
-               │                                              （验令牌、按授权核、留痕）
-               └─▶ knowbench 工作台 MCP（项目、计算、要数据）
+沙箱里的 Codex ─┐                    ┌─ 项目、计算、要数据（工作台自己的工具）
+用户 link 上的 ─┴─▶ knowbench 工作台 MCP ┤
+                                     └─ 数据工具：换范围、当场签令牌 ──▶ knowbase 数据 MCP
+                                                                    （验令牌、按授权核、留痕）
 ```
 
 - **knowbase 开数据 MCP**：读钉住的输入、查事实（含跨全市场）、找证据片段、全文搜、按描述查、科目与指标字典。授权、留痕、开关都在 knowbase，和数据规则在一处。
 - **knowbench 工作台 MCP 只留跟任务有关的**：读项目对话与底稿、`compute`、`request_data`（缺数据时提出要什么，第五节）。
-- **都经 knowbench 中继**：用户的沙箱只连得到 knowbench（工作台给沙箱配置时特意不发 knowbase 的令牌：「用户的沙箱到不了平台的数（数据拓扑，待办账 111）」），用户 link 也只连 knowbench；knowbench 把数据 MCP 的请求原样转给 knowbase，只许转这一个地址（防 SSRF），不验、不换令牌。
+- **都经 knowbench 中继**：用户的沙箱只连得到 knowbench（工作台给沙箱配置时特意不发 knowbase 的令牌：「用户的沙箱到不了平台的数（数据拓扑，待办账 111）」），用户 link 也只连 knowbench。
+- **实施时改成工具层中继**（10-27，第 4 步）：沙箱的配置由平台的 provisioner 落成环境变量（`infrastructure/` 下，Fable 的平台文件），只认工作台 MCP 这一个地址；为不动平台文件，knowbase 数据 MCP 的读工具照它的定义挂在工作台 MCP 上，只把 `run` / `session` 换成工作台的 `task` / `conversation`。模型带 `task` 时工作台先核这件委托是这个用户的、专家正在做（同读项目记录），换成运行授权 ref `knowbench:<幂等钥匙>`；带 `conversation` 时核对话是他的、登记过 knowbase 会话。每次调用当场签一张 5 分钟的令牌、只许这一个工具，原样转给 knowbase 的固定地址（只这一个，防 SSRF）。比原设计多一道「这件委托正在做」的核对，沙箱里也不放长效令牌。
 - **修正**（写完读代码后）：原建议「令牌由 knowbase 自己签」改为**沿用 knowbench 签**——knowbase 现有 MCP 本来就认 knowbench 签的 ES256 令牌（audience 是 knowbase）。令牌只说明「这个沙箱代用户 U、以 knowbench 名义在用」，**能读什么由 knowbase 每次按用户签的运行授权或会话范围核**，knowbench 自己拿不到用户没授权过的数据。
 
 ## 三、令牌
 
 | 项 | 内容 |
 | --- | --- |
-| 签发 | knowbench 工作台（现有 ES256 签发器），和记录工具的令牌一起在给沙箱配置时发；link 经设备令牌向 knowbench 领 |
+| 签发 | knowbench 工作台（现有 ES256 签发器），中继每次调用当场签、5 分钟过期（10-27 实施时改，原写「和记录工具的令牌一起在给沙箱配置时发；link 经设备令牌向 knowbench 领」）；沙箱、link 凭现有的读记录令牌调工作台 MCP |
 | audience | `knowbase-data`（只给数据 MCP 用，别的服务不认） |
 | 内容 | `sub` 用户、`azp` 执行的应用（knowbench）、沙箱或设备编号、允许的工具、过期时间 |
 | 能干什么 | 只证明身份与沙箱；每次调用另带 `run`（委托或测试编号）或 `session`（会话编号），knowbase 按它找有效的授权再核 |
@@ -86,5 +87,6 @@
 ## 八、实施进度
 
 - M1（knowbase）：做完，knowbase-backend `5309b14`（对齐：执行方、会话登记、运行中加需求的服务路）与 `7957b5c`（数据 MCP，`/mcp/data`）。读法格式定为：`text` 是 UTF-8 纯文本，`pages` 是 `[{page, text}]` 的 JSON。
-- M2（knowbench 中继、发令牌、`request_data`）、M3（`search_documents`）：未开始。
+- M2（knowbench）：做完，knowbench-backend `1c488d2`、knowbench-web-frontend `42c0f6b`（应用仓 `af99634`）。工具层中继（见第二节）；`request_data` 列进用户的确认清单、步骤边界停下，页面确认（追加签授权、追加钉住）或不要；`compute` 与数值验收认事实编号 `fact:` / `raw:`（knowbase 加了 `read_facts`，knowbase-backend `0ef2eef`）与 `{material_id, page, text}` 引文；会话发消息时登记、首读由 knowbase 签小授权；旧的「对话里逐份选云端知识库」退役。续签只认确认时就有的需求项，运行中新加的要本人另行确认（knowbase-backend `914efac`）。
+- 没做：用户 link 读数据（link 0.5.4，0043 块 10）；`request_data` 只能要这件委托主体的数据（解析清单的主体在请专家时定，要别家公司的得新开一张清单）；M3（`search_documents`）未开始。
 - **要记着做**（所有者 10-27：「这个要记得做啊，保证到时可以按维度过滤检索」）：`search_evidence` 先圈后找：「圈」已接按维度过滤（knowbase 词表第 2 版，在授权范围里按描述的维度筛，回 `materials_searched`）；**「找」还没换成 RAGFlow（等块 9），换的时候把同样的维度条件作 RAGFlow 元数据条件传下去**，保证按维度过滤检索。

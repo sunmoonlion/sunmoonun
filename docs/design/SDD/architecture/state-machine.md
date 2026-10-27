@@ -54,6 +54,7 @@ RECEIVED → VALIDATING → QUEUED → RUNNING → SUCCEEDED ●
 | `APPROVAL` | 用户批准工具级升级的动作、外发范围、外部副作用 | Interaction 消费 |
 | `RESOURCE` | 预算用尽，等用户追加 | Interaction 消费；拒绝则 `FAILED` |
 | `ENVIRONMENT` | 用户机器的执行环境离线 | `thread/environment/connected` 事件；超时则 `FAILED` |
+| `DATA` | 清单 v2 的专家：要补采的数据交给 knowfeed 了，或专家运行中新要的数据等用户确认（SDD 0043 第 3.4 节、0048 第五节；10-27 加） | 需求单办完、重解析齐了，凭本人那次确认续签、钉住，回 `VALIDATING`（所有者 10-27 定自动接着跑）；用户确认或不要新要的数据；必填没取到、确认过 7 天则 `FAILED`；委托取消撤需求单 |
 
 判据只有一条：要不要一个外部事件来解除。要的进 `WAITING`，只等轮到自己的是 `QUEUED`。旧树的 `WAITING(DEVICE)` 改名 `ENVIRONMENT`；没有"等设备绑定"，Session 已经绑了环境。
 
