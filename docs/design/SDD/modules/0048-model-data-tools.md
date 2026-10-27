@@ -47,7 +47,7 @@
 | `query_facts` | 查事实：按主体、科目编码、报告期、口径、原样或标准化、长表或宽表；`scope=run` 只查钉住的，`scope=market` 查全市场公开原件的事实（筛选、排序、排名、统计） | `run`：授权项；`market`：资格、权限、平台总开关（0047 第 4.4 节） |
 | `query_metric` | 按指标算（毛利率等），回公式与参与计算的每个数的出处 | 同 `query_facts` |
 | `describe_items` | 科目表与指标定义（编码、中文名、属于哪张表、适用哪类公司） | 只要令牌有效 |
-| `search_evidence` | 在钉住的版本里找证据片段（RAGFlow + Infinity，关键词加向量），回片段与页码 | `run` 的授权项；会话里是会话范围 |
+| `search_evidence` | 在钉住的版本里找证据片段，回片段与页码。块 9 之前在按页文字里按关键词找（回 `method: keyword`）；块 9（RAGFlow 一版本一文档）后换 RAGFlow + Infinity 的关键词加向量 | `run` 的授权项；会话里是这段会话已读过的 |
 | `search_documents` | 全文搜公开原件与他名下的资料（Elasticsearch），按公司、类型、年份筛 | 资格、权限、平台总开关；他名下的按展示依据（0047 第 5.2 节，随 P4） |
 | `lookup` | 按精确描述查某一份在不在、在哪个范围 | 只要令牌有效；同一用户限流 |
 | `list_library` | 会话里能读的：他放开给 knowbench 的，加公开原件层 | `session` |
@@ -85,4 +85,5 @@
 
 ## 八、实施进度
 
-（未开始）
+- M1（knowbase）：做完，knowbase-backend `5309b14`（对齐：执行方、会话登记、运行中加需求的服务路）与 `7957b5c`（数据 MCP，`/mcp/data`）。读法格式定为：`text` 是 UTF-8 纯文本，`pages` 是 `[{page, text}]` 的 JSON。
+- M2（knowbench 中继、发令牌、`request_data`）、M3（`search_documents`）：未开始。
