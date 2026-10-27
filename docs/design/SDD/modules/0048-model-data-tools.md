@@ -87,4 +87,4 @@
 
 - M1（knowbase）：做完，knowbase-backend `5309b14`（对齐：执行方、会话登记、运行中加需求的服务路）与 `7957b5c`（数据 MCP，`/mcp/data`）。读法格式定为：`text` 是 UTF-8 纯文本，`pages` 是 `[{page, text}]` 的 JSON。
 - M2（knowbench 中继、发令牌、`request_data`）、M3（`search_documents`）：未开始。
-- **要记着做**（所有者 10-27：「这个要记得做啊，保证到时可以按维度过滤检索」）：现在的 `search_evidence` 已经是先圈后找，但「圈」还没接按维度过滤（等描述的维度上线，knowbase 词表第 2 版），「找」还没换成 RAGFlow（等块 9）。两步都要做，保证到时按维度过滤检索：圈的那一步用 knowbase 描述的维度在授权范围里筛；找的那一步把同样的条件作 RAGFlow 元数据条件。
+- **要记着做**（所有者 10-27：「这个要记得做啊，保证到时可以按维度过滤检索」）：`search_evidence` 先圈后找：「圈」已接按维度过滤（knowbase 词表第 2 版，在授权范围里按描述的维度筛，回 `materials_searched`）；**「找」还没换成 RAGFlow（等块 9），换的时候把同样的维度条件作 RAGFlow 元数据条件传下去**，保证按维度过滤检索。
