@@ -76,7 +76,7 @@
 | 资讯 | `news` | 媒体 | 财经资讯 | `financial_news` | 不采（现在没有资讯渠道），能上传 |
 | | | | 推荐资讯 | `recommended_news` | |
 | | | | 负面资讯 | `negative_news` | |
-| 简报 | `briefing` | 平台 | 简报 | `briefing` | 平台自己出（拟），不采 |
+| 简报 | `briefing` | 平台 | 简报 | `brief` | 平台自己出（拟），不采 |
 | 政策法规 | `policy` | 政府机关与监管机构（含交易所、协会） | 法律 | `law` | 采（按机构编号） |
 | | | | 行政法规 | `administrative_regulation` | |
 | | | | 部门规章 | `departmental_rule` | |
@@ -155,7 +155,7 @@
 
 | 仓 | 改什么 |
 | --- | --- |
-| knowbase | 词表（大类、细类、事项、行业、语言、版本形态、研报的几维、`recent` 期间规则）；描述加 `edition`、`topics`、`industry`、`language`、`attributes`（迁移）；解析按大类展开、按披露窗与版本形态匹配、按事项与行业缩小；契约 `knowbot-data-needs/v2`、`user-data/v2` 重新生成 |
+| knowbase | 词表（大类、细类、事项、行业、语言、版本形态、研报的几维、`recent` 期间规则）；描述加 `edition`、`topics`、`industry`、`language`、`attributes`（迁移）；解析按大类展开、按披露窗与版本形态匹配、按事项与行业缩小；契约 `knowbot-data-needs/v2`、`user-data/v2` 重新生成；数据 MCP 的 `search_evidence` 圈范围接维度过滤，RAGFlow 与 Elasticsearch 的文档带这些维度作元数据（0047 第 2.4 节、0048 第八节，所有者 10-27：「这个要记得做啊，保证到时可以按维度过滤检索」） |
 | knowmart、knowlab、knowbench | 本仓的声明 v2 模型照新契约改、锁更新 |
 | knowfeed | 巨潮插件：细类与事项的认法（第四节）、版本形态、按披露时间窗列出多份并逐份交付 |
 | knowbase web端 | 描述表单从词表接口取各维度（不写死，已是这样） |
