@@ -251,4 +251,5 @@
 - 块 7（交付）：交公开原件、给每条需求依据记引用、写回读法与事实、回执、原件交付后留 30 天做了；30 天后删内容的定时任务未做。
 - 块 8（切合）：精确描述按渠道能力切合做了；预切合、供给条件快照的核对、换下一个渠道未做。
 - **词表第 2 版**（2026-10-27，[0049](0049-document-types.md) 第四节，knowfeed-backend `93d887a`）：描述键带版本形态、事项、行业，类型可写大类；巨潮插件除定期报告外，临时公告、招股书、上市公告书、投资者关系活动记录、监管函件按披露时间窗逐个查相关分类、每条公告一份资料，按巨潮分类给缺省事项、按标题认细类与补事项；作业把窗里的逐份交付，回执列出每一份；只有全文年报抽表。互动问答、业务规则、政策法规与统计数据的渠道未接。
+- **证券名录**（2026-10-28，decisions ⑭「查主体」，knowfeed-backend `5b71559`）：巨潮的证券列表（沪深京 A 股：代码、简称、拼音首字母）进 `supply_security`（迁移 0018），整份换，查的时候名录空着或超过一天就经发件箱排一次刷新（worker 去取）；内部接口 `GET /internal/v1/supply/securities?q=`，同 `knowfeed:supply-demand` 服务身份，给 knowbench 第 0 步的 `find_subject`。机构名录等 knowbase 管理端登记编号后再接。
 - 平台要配：knowfeed 调 knowbase 的 `KNOWBASE_SUPPLY_URL` 与 scope `knowbase:user-data-supply`；knowbench、knowlab 调 knowfeed 的 scope `knowfeed:supply-demand` 与 `SUPPLY_SERVICE_APPS_JSON`。
