@@ -107,7 +107,7 @@
 | 已有的 | 一次性搬：knowlab 服务身份把旧对象逐份交给 knowbase（新接口「导入」，只能导进调用方自己的分区，按 knowlab 数据编号幂等），回填资料编号；旧对象留到「财务分析与预测」第 1 版停用（第 1 版运行时照旧经 knowlab 读作者绑的） |
 | 测试同意 | 用户在 knowlab 知识库传、删时（本人在场），knowlab 凭本人令牌在 knowbase 更新一条「测试」同意依据，范围是他 knowlab 知识库里的全部资料；页面写明「放在这里的资料只用于测试你的创意」 |
 | 测试读数 | 发起测试时 knowlab 凭同意依据向 knowbase 签测试运行授权（读的一方是 knowbench，只读绑定的那几份，时限按测试的超时加等人），随测试请求交给 knowbench（`knowbot-test-run/v1` 只加一个可选的 `data_grant`）；knowbench 把这几份钉进每条用例的委托，按钉住的读；测试结束 knowlab 撤授权 |
-| 没搬完的 | 测试绑的数据还没有资料编号时不签授权，照旧经 knowlab 读（第 1 版停用后这条路撤掉） |
+| 没搬完的 | 测试绑的数据还没有资料编号时不签授权，照旧经 knowlab 读（这条路现在就撤，decisions ⑰） |
 
 ## 八、knowmart 知识库与供需市场
 
@@ -123,7 +123,7 @@
 | 4 | 清单格式（声明 + 测试绑定）、knowlab 孵化与测试按新格式 | 0037 |
 | 5 | knowbench：请专家选数据、钉住、读数据工具与验收改读 A / B | 1、4 |
 | 6 | knowmart：清单模型改、详情页显示数据需求；D 知识库与供需市场（0018） | 1、4 |
-| 7 | 「财务分析与预测」重孵化第 2 版、上架、停用第 1 版 | 4、5、6 |
+| 7 | 「财务分析与预测」重孵化、上架（旧的第 1 版直接废弃，decisions ⑰） | 4、5、6 |
 
 每块写完单测与跨应用契约锁；照旧只在 qwen 提交，等 Fable 回来按平台流程发（所有者 10-23）。
 
@@ -184,7 +184,7 @@ Fable 评审后（10-25，处置见 `review-2026-10-24-opus/opus-response.md`（
 | P2-16 | 买来不许转卖的资料带 `no_resale`（knowbase 迁移 0008 加栏，契约只加可选字段），同一个人再传同样内容的也带上；knowbench 云端知识库、knowlab 知识库标出来 | knowbase 后端 `b031c85`，knowbench `1e640b4`、`1ba80ac`，knowlab `519e21d`、`3a0f2c8` |
 | P1-3、P1-4、P2-11、P2-14、P2-15、P2-12 | link 删只读测试目录、远程拉仓库不记住令牌、远程操作只转给连着的电脑、测试不写 /tmp、重新 init 留着设备编号、提权模式下控制文件拒读 | sunmoon-link `c5cef2d`、`1c4cea9`、`d85aeb9`、`4f36a06`，knowbench `05911d1`、`e41edac`、`94c620c`、`1cf2b07`、`44d08cd`、`39b5dc6`、`281f4bc` |
 
-还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，等「财务分析与预测」第 1 版停用后撤；块 7 重孵化。knowlab 0037 的数据结构与两端重做已做，见 [0037](0037-idea-avatar-expert.md) 第十八之二节第 4 小节。
+还没做（按第九节的块）：`knowlab_data_client.py` 与 knowlab 的旧读数路、旧对象，现在就撤（decisions ⑰）；块 7 重孵化。knowlab 0037 的数据结构与两端重做已做，见 [0037](0037-idea-avatar-expert.md) 第十八之二节第 4 小节。
 
 发版时要配（等 Fable）：
 

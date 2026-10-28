@@ -53,7 +53,7 @@
 | `lookup` | 按精确描述查某一份在不在、在哪个范围 | 只要令牌有效；同一用户限流 |
 | `list_library` | 会话里能读的：他放开给 knowbench 的，加公开原件层 | `session` |
 
-旧工具：knowbase 的 `list_datasets` / `describe_schema` / `metric_definitions` / `run_sql` / `query_metric`（SQLite 数据集）与工作台的 `list_my_data` / `read_my_data` / `read_my_table` / `list_library` / `read_library_item`，跟「财务分析与预测」第 2 版上架一起退；兼容窗口内 v1 专家照旧用。
+旧工具：knowbase 的 `list_datasets` / `describe_schema` / `metric_definitions` / `run_sql` / `query_metric`（SQLite 数据集）与工作台的 `list_my_data` / `read_my_data` / `read_my_table` / `list_library` / `read_library_item`，现在就删，不留兼容窗口（decisions ⑰）。
 
 ## 五、逐步升级：首读小授权与缺数据
 
@@ -78,7 +78,7 @@
 | M3 | `search_documents` | 0047 P4 |
 
 **怎么验**：
-- 委托跑「财务分析与预测」第 2 版：`list_inputs` 列出钉的几份年报；`query_facts` 查得到三大表，每行有出处到页；`search_evidence` 只回钉住版本里的片段。
+- 委托跑新孵化的「财务分析与预测」：`list_inputs` 列出钉的几份年报；`query_facts` 查得到三大表，每行有出处到页；`search_evidence` 只回钉住版本里的片段。
 - 同一令牌换一个不属于他的 `run`：读不到；授权撤掉后立即读不到。
 - 会话里读一份没读过的、放开给 knowbench 的：自动签小授权；读一份没放开的：拒绝并提示去 knowbase 放开。
 - 模型调 `request_data` 要上一年年报：任务进「等数据」、用户待办里出现确认清单；没确认之前 `list_inputs` 看不到它。
