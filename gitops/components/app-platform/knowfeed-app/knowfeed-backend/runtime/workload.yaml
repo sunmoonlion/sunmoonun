@@ -5,7 +5,7 @@ data:
   ENV: production
   APP_SLUG: knowfeed
   DEPLOYMENT_ID: "knowfeed-backend-dd38938ea04f4167"
-  ALLOWED_HOSTS: "localhost,127.0.0.1,knowfeed-api,knowfeed-api.app-platform-dev.svc.cluster.local,knowfeed.dev.sunmoonai.com,knowfeed-admin.dev.sunmoonai.com"
+  ALLOWED_HOSTS: "localhost,127.0.0.1,knowfeed-api,knowfeed-api.app-platform-dev.svc.cluster.local,knowfeed.dev.sunmoonai.com,knowfeed-admin.dev.sunmoonai.com,knowfeed-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
   REDIS_DB: '0'
@@ -28,6 +28,25 @@ data:
   KNOWBASE_APP_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWBASE_APP_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   SSL_CERT_FILE: /etc/sunmoon/service/ca.crt
+  KNOWBASE_INTERNAL_URL: https://knowbase-tls.app-platform-dev.svc.cluster.local
+  KNOWBASE_USER_DATA_SUPPLY_SERVICE_APPLICATION: "sunmoonai-knowfeed-knowbase-user-data-supply"
+  KNOWBASE_USER_DATA_SUPPLY_SERVICE_CLIENT_ID: "sunmoon-knowfeed-knowbase-user-data-supply"
+  KNOWBASE_USER_DATA_SUPPLY_SERVICE_SCOPE: "knowbase:user-data-supply"
+  KNOWBASE_USER_DATA_SUPPLY_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWBASE_USER_DATA_SUPPLY_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_SUPPLY_DEMAND_CALLERS: "knowbench,knowlab"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowfeed-supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowfeed-supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowfeed-supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWBENCH_REQUIRED_SCOPE: "knowfeed:supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowfeed-supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWLAB_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowfeed-supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowfeed-supply-demand"
+  SERVICE_AUTH_SUPPLY_DEMAND_KNOWLAB_REQUIRED_SCOPE: "knowfeed:supply-demand"
   STORAGE_BACKEND: "s3"
   SEARCH_BACKEND: "disabled"
   CROSS_APP_TARGETS_JSON: "{\"knowbase\": {\"web_base_url\": \"https://knowbase.dev.sunmoonai.com:30443\"}}"
@@ -65,7 +84,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: a997389afb508c9b94c3b123f7d90824a9ca0e94e385615aa0ddded6b467057d
+        sunmoonai.com/config-sha256: 3c2a8881ea2d70e304840dc9186ed0a20bd645fe1eaf85e6008a1e89af225e72
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -98,6 +117,7 @@ spec:
             - {secretRef: {name: knowfeed-browser-secrets}}
             - {secretRef: {name: knowfeed-storage-runtime}}
             - {secretRef: {name: knowfeed-knowbase-service}}
+            - {secretRef: {name: knowfeed-knowbase-user-data-supply-service}}
           resources: {"requests": {"cpu": "100m", "memory": "192Mi"}, "limits": {"cpu": "2", "memory": "768Mi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
@@ -130,7 +150,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: a997389afb508c9b94c3b123f7d90824a9ca0e94e385615aa0ddded6b467057d
+        sunmoonai.com/config-sha256: 3c2a8881ea2d70e304840dc9186ed0a20bd645fe1eaf85e6008a1e89af225e72
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -159,6 +179,7 @@ spec:
             - {secretRef: {name: knowfeed-rabbitmq-runtime}}
             - {secretRef: {name: knowfeed-storage-runtime}}
             - {secretRef: {name: knowfeed-knowbase-service}}
+            - {secretRef: {name: knowfeed-knowbase-user-data-supply-service}}
           resources: {"requests": {"cpu": "100m", "memory": "256Mi"}, "limits": {"cpu": "2", "memory": "1536Mi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
@@ -191,7 +212,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: a997389afb508c9b94c3b123f7d90824a9ca0e94e385615aa0ddded6b467057d
+        sunmoonai.com/config-sha256: 3c2a8881ea2d70e304840dc9186ed0a20bd645fe1eaf85e6008a1e89af225e72
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]

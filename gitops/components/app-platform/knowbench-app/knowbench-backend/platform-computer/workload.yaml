@@ -1,17 +1,8 @@
-# 分身测试的测试电脑（SDD 0027 §3.4）：与用户同一份代码的本地代理（Linux 包），只配对给测试账号
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: knowbench-test-computer
-  namespace: app-platform-dev
-  annotations: {kustomize.toolkit.fluxcd.io/prune: disabled}
-spec:
-  accessModes: [ReadWriteOnce]
-  resources: {requests: {storage: 20Gi}}
----
+# 平台电脑（原分身测试的测试电脑，SDD 0027 §3.4；叫法 10-29）：与用户同一份代码的本地代理（Linux 包），一人一台配给名单里的账号。
+# 脚本与取包凭据各一份、所有电脑共用；每台一个 Deployment、各自的持久卷
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: knowbench-test-computer-scripts, namespace: app-platform-dev}
+metadata: {name: knowbench-platform-computer-scripts, namespace: app-platform-dev}
 data:
   fetch.sh: |
     # 取钉住的 Linux 包：只读身份从私有桶取、核归档摘要、解开、按清单逐字节核对。已核过的版本不重取
@@ -36,7 +27,8 @@ data:
     fi
     ln -sfn "$target" /data/agent.next && mv -T /data/agent.next /data/agent
   run.sh: |
-    # 第一次没有凭据：日志里显示连接码，所有者用测试账号在工作台「接入电脑」里确认；之后直接启动
+    # 第一次没有凭据：日志里显示连接码，配给的那位用自己的账号在工作台「接入电脑」里确认；之后直接启动。
+    # 这台配给谁、叫什么由 Deployment 的环境变量给（SUNMOON_PLATFORM_ACCOUNT、SUNMOON_PLATFORM_COMPUTER）
     set -eu
     export HOME=/data/home SUNMOON_AGENT_HOME=/data/home/.sunmoon-link
     # 按安装包的方式起代理（同包里 launch.mjs 的 nodeLaunch）：带 --use-system-ca；站点是 edge-public（系统信任），
@@ -46,11 +38,11 @@ data:
     mkdir -p "$SUNMOON_AGENT_HOME" "/workspace/底稿" "/workspace/runs/.tmp"
     agent() { node --use-system-ca /data/agent/app/dist/cli.js "$@"; }
     if [ ! -f "$SUNMOON_AGENT_HOME/config.json" ]; then
-      agent init --root "/workspace" --no-outer-sandbox --name knowbot-test
+      agent init --root "/workspace" --no-outer-sandbox --name "$SUNMOON_PLATFORM_COMPUTER"
     fi
     paired() { node -e 'process.exit(require(process.env.SUNMOON_AGENT_HOME + "/config.json").token ? 0 : 1)'; }
     until paired; do
-      echo '{"event":"pairing","hint":"用测试账号 knowbot-tester 在工作台「接入电脑」里输入下面的连接码"}'
+      printf '{"event":"pairing","hint":"用账号 %s 在工作台「接入电脑」里输入下面的连接码"}\n' "$SUNMOON_PLATFORM_ACCOUNT"
       agent pair || sleep 10
     done
     # 测试产出保留 7 天：每小时删一次 7 天前的底稿目录（只动 底稿/对话-*）。每次测试自己的目录 runs/*
@@ -62,29 +54,41 @@ data:
       done ) &
     exec node --use-system-ca /data/agent/app/dist/cli.js start
 ---
+# knowbot-tester：配给 knowbot-tester，沿用持久卷 knowbench-test-computer
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: knowbench-test-computer
+  namespace: app-platform-dev
+  annotations: {kustomize.toolkit.fluxcd.io/prune: disabled}
+spec:
+  accessModes: [ReadWriteOnce]
+  resources: {requests: {storage: 20Gi}}
+---
 apiVersion: apps/v1
 kind: Deployment
-metadata: {name: knowbench-test-computer, namespace: app-platform-dev}
+metadata: {name: knowbench-platform-computer-knowbot-tester, namespace: app-platform-dev}
 spec:
   replicas: 1
   strategy: {type: Recreate}
   selector:
-    matchLabels: {app.kubernetes.io/name: knowbench-test-computer}
+    matchLabels: {app.kubernetes.io/name: knowbench-platform-computer-knowbot-tester}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: knowbench-test-computer
+        app.kubernetes.io/name: knowbench-platform-computer-knowbot-tester
         app.kubernetes.io/part-of: knowbench
+        sunmoonai.com/platform-computer: 'knowbot-tester'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
         sunmoonai.com/agent-package: 'd93bfc543030e373fe251f9e36300d807e01b49f5192df0120508c0589f4ead5'
         # 脚本改了 Pod 就换：ConfigMap 卷不会让在跑的进程重读（R5.3 改 run.sh 后旧 Pod 崩到第 11 次才用上新脚本）
-        sunmoonai.com/scripts: '13df80e7510d8b0adca7a0051fa84b13e7cc74a27af8d757df45bfc087799f47'
+        sunmoonai.com/scripts: '63b9de9d4495582e9c6d5341958b8c34ce5cc1b27deeda2cadfe9cec3b0eac39'
     spec:
       automountServiceAccountToken: false
-      # 镜像在 Harbor 的 platform 项目：和沙箱一样显式带拉取凭据（不用运行时的服务账号，测试电脑不需要别的身份）
+      # 镜像在 Harbor 的 platform 项目：和沙箱一样显式带拉取凭据（不用运行时的服务账号，平台电脑不需要别的身份）
       imagePullSecrets: [{name: registry-puller}]
-      # 测试电脑按公网名经边缘连进来（站点文件 edge-public）。集群的 DNS 最终经 WSL 走到 Windows，而所有者的 Windows hosts 把这些名字指到 127.0.0.1；
+      # 平台电脑按公网名经边缘连进来（站点文件 edge-public）。集群的 DNS 最终经 WSL 走到 Windows，而所有者的 Windows hosts 把这些名字指到 127.0.0.1；
       # 只给这个 Pod 把两个名字钉到边缘地址（与下面出站策略放行的是同一个地址），不改集群 DNS
       hostAliases:
         - ip: '43.153.135.74'
@@ -109,7 +113,10 @@ spec:
           image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:8fac3fdfb14f9c956d00cc65cb5b45aaa683500d162b3ffba7a3110d63cea720
           imagePullPolicy: IfNotPresent
           command: [/usr/bin/tini, --, /bin/bash, /scripts/run.sh]
-          env: [{name: TMPDIR, value: '/workspace/runs/.tmp'}]
+          env:
+            - {name: TMPDIR, value: '/workspace/runs/.tmp'}
+            - {name: SUNMOON_PLATFORM_COMPUTER, value: 'knowbot-tester'}
+            - {name: SUNMOON_PLATFORM_ACCOUNT, value: 'knowbot-tester'}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 256Mi}, limits: {cpu: '2', memory: 2Gi}}
           volumeMounts:
@@ -119,16 +126,17 @@ spec:
             - {name: tmp, mountPath: /tmp}
       volumes:
         - {name: data, persistentVolumeClaim: {claimName: knowbench-test-computer}}
-        - {name: scripts, configMap: {name: knowbench-test-computer-scripts, defaultMode: 0555}}
-        - {name: download, secret: {secretName: knowbench-test-computer-download, defaultMode: 0440}}
+        - {name: scripts, configMap: {name: knowbench-platform-computer-scripts, defaultMode: 0555}}
+        - {name: download, secret: {secretName: knowbench-platform-computer-download, defaultMode: 0440}}
         - {name: tmp, emptyDir: {sizeLimit: 1Gi}}
 ---
-# 只放行 DNS、对象存储（取包）与公网边缘的 30443（会合点与网页地址）。模型在测试账号的云端沙箱里调，这里不出外网
+# 所有平台电脑共用一条：只放行 DNS、对象存储（取包）与公网边缘的 30443（会合点与网页地址）。模型在该账号的云端沙箱里调，这里不出外网
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
-metadata: {name: knowbench-test-computer-egress, namespace: app-platform-dev}
+metadata: {name: knowbench-platform-computer-egress, namespace: app-platform-dev}
 spec:
-  podSelector: {matchLabels: {app.kubernetes.io/name: knowbench-test-computer}}
+  podSelector:
+    matchExpressions: [{key: sunmoonai.com/platform-computer, operator: Exists}]
   policyTypes: [Ingress, Egress]
   ingress: []
   egress:

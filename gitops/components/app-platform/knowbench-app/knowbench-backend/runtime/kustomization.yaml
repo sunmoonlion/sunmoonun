@@ -9,3 +9,5 @@ resources:
 - knowmart-summon-service.sops.yaml
 - knowlab-read-service.sops.yaml
 - knowbase-user-data-read-service.sops.yaml
+- knowbase-user-data-output-service.sops.yaml
+- knowfeed-supply-demand-service.sops.yaml

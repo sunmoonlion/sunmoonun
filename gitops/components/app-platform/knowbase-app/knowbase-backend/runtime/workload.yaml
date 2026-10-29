@@ -44,6 +44,13 @@ data:
   RETRIEVAL_AUTH_AUDIENCE: "sunmoon-knowbench-knowbase-retrieve"
   RETRIEVAL_AUTH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowbase-retrieve"
   RETRIEVAL_AUTH_REQUIRED_SCOPE: "knowbase:retrieve"
+  SERVICE_AUTH_USER_DATA_DIRECTORY_CALLERS: "knowlab"
+  SERVICE_AUTH_USER_DATA_DIRECTORY_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-directory"
+  SERVICE_AUTH_USER_DATA_DIRECTORY_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_USER_DATA_DIRECTORY_KNOWLAB_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_USER_DATA_DIRECTORY_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowbase-user-data-directory"
+  SERVICE_AUTH_USER_DATA_DIRECTORY_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowbase-user-data-directory"
+  SERVICE_AUTH_USER_DATA_DIRECTORY_KNOWLAB_REQUIRED_SCOPE: "knowbase:user-data-directory"
   SERVICE_AUTH_USER_DATA_GRANT_TEST_CALLERS: "knowlab"
   SERVICE_AUTH_USER_DATA_GRANT_TEST_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-grant-test"
   SERVICE_AUTH_USER_DATA_GRANT_TEST_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -58,6 +65,19 @@ data:
   SERVICE_AUTH_USER_DATA_IMPORT_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowbase-user-data-import"
   SERVICE_AUTH_USER_DATA_IMPORT_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowbase-user-data-import"
   SERVICE_AUTH_USER_DATA_IMPORT_KNOWLAB_REQUIRED_SCOPE: "knowbase:user-data-import"
+  SERVICE_AUTH_USER_DATA_OUTPUT_CALLERS: "knowbench,knowlab"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowbase-user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowbase-user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowbase-user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWBENCH_REQUIRED_SCOPE: "knowbase:user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWLAB_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowbase-user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowbase-user-data-output"
+  SERVICE_AUTH_USER_DATA_OUTPUT_KNOWLAB_REQUIRED_SCOPE: "knowbase:user-data-output"
   SERVICE_AUTH_USER_DATA_PURCHASE_CALLERS: "knowmart"
   SERVICE_AUTH_USER_DATA_PURCHASE_KNOWMART_CASDOOR_APPLICATION: "sunmoonai-knowmart-knowbase-user-data-purchase"
   SERVICE_AUTH_USER_DATA_PURCHASE_KNOWMART_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -65,13 +85,26 @@ data:
   SERVICE_AUTH_USER_DATA_PURCHASE_KNOWMART_AUDIENCE: "sunmoon-knowmart-knowbase-user-data-purchase"
   SERVICE_AUTH_USER_DATA_PURCHASE_KNOWMART_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowmart-knowbase-user-data-purchase"
   SERVICE_AUTH_USER_DATA_PURCHASE_KNOWMART_REQUIRED_SCOPE: "knowbase:user-data-purchase"
-  SERVICE_AUTH_USER_DATA_READ_CALLERS: "knowbench"
+  SERVICE_AUTH_USER_DATA_READ_CALLERS: "knowbench,knowlab"
   SERVICE_AUTH_USER_DATA_READ_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowbase-user-data-read"
   SERVICE_AUTH_USER_DATA_READ_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   SERVICE_AUTH_USER_DATA_READ_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   SERVICE_AUTH_USER_DATA_READ_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowbase-user-data-read"
   SERVICE_AUTH_USER_DATA_READ_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowbase-user-data-read"
   SERVICE_AUTH_USER_DATA_READ_KNOWBENCH_REQUIRED_SCOPE: "knowbase:user-data-read"
+  SERVICE_AUTH_USER_DATA_READ_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-read"
+  SERVICE_AUTH_USER_DATA_READ_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_USER_DATA_READ_KNOWLAB_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_USER_DATA_READ_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowbase-user-data-read"
+  SERVICE_AUTH_USER_DATA_READ_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowbase-user-data-read"
+  SERVICE_AUTH_USER_DATA_READ_KNOWLAB_REQUIRED_SCOPE: "knowbase:user-data-read"
+  SERVICE_AUTH_USER_DATA_SUPPLY_CALLERS: "knowfeed"
+  SERVICE_AUTH_USER_DATA_SUPPLY_KNOWFEED_CASDOOR_APPLICATION: "sunmoonai-knowfeed-knowbase-user-data-supply"
+  SERVICE_AUTH_USER_DATA_SUPPLY_KNOWFEED_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_USER_DATA_SUPPLY_KNOWFEED_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_USER_DATA_SUPPLY_KNOWFEED_AUDIENCE: "sunmoon-knowfeed-knowbase-user-data-supply"
+  SERVICE_AUTH_USER_DATA_SUPPLY_KNOWFEED_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowfeed-knowbase-user-data-supply"
+  SERVICE_AUTH_USER_DATA_SUPPLY_KNOWFEED_REQUIRED_SCOPE: "knowbase:user-data-supply"
   CROSS_APP_TARGETS_JSON: "{\"knowfeed\": {\"web_base_url\": \"https://knowfeed.dev.sunmoonai.com:30443\"}}"
   CROSS_APP_SOURCES_JSON: "{\"knowbench\": {\"return_url\": \"https://knowbench.dev.sunmoonai.com:30443/zh-CN/workbench?ref={ref}\"}, \"knowfeed\": {}}"
   KNOWBASE_MCP_JWT_ISSUER: "sunmoon-workbench"
@@ -120,7 +153,7 @@ spec:
         sunmoonai.com/ragflow-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 695a42225a8f3e4f72bc5b4f8327bc690ad10f6eae026dc8c5babfd1ad2dcdc2
+        sunmoonai.com/config-sha256: 2fecc93c90b73ca319d808700acf8defac0acc4e3aed4d3bc04d469809d86554
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -189,7 +222,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/ragflow-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 695a42225a8f3e4f72bc5b4f8327bc690ad10f6eae026dc8c5babfd1ad2dcdc2
+        sunmoonai.com/config-sha256: 2fecc93c90b73ca319d808700acf8defac0acc4e3aed4d3bc04d469809d86554
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -252,7 +285,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 695a42225a8f3e4f72bc5b4f8327bc690ad10f6eae026dc8c5babfd1ad2dcdc2
+        sunmoonai.com/config-sha256: 2fecc93c90b73ca319d808700acf8defac0acc4e3aed4d3bc04d469809d86554
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]

@@ -8,3 +8,8 @@ resources:
 - knowbench-testrun-service.sops.yaml
 - knowbase-user-data-grant-test-service.sops.yaml
 - knowbase-user-data-import-service.sops.yaml
+- knowbase-user-data-read-service.sops.yaml
+- knowbase-user-data-directory-service.sops.yaml
+- knowbase-user-data-output-service.sops.yaml
+- knowfeed-supply-demand-service.sops.yaml
+- knowbench-incubate-service.sops.yaml

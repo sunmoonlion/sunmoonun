@@ -24,6 +24,7 @@ data:
   KNOWMART_INTERNAL_URL: https://knowmart-tls.app-platform-dev.svc.cluster.local/api/internal/v1/knowmart
   KNOWBENCH_INTERNAL_URL: https://knowbench-tls.app-platform-dev.svc.cluster.local/api/internal/v1/knowbot-runtime
   KNOWBASE_INTERNAL_URL: https://knowbase-tls.app-platform-dev.svc.cluster.local
+  KNOWFEED_INTERNAL_URL: https://knowfeed-tls.app-platform-dev.svc.cluster.local/api/internal/v1/supply
   KNOWMART_DELIVER_SERVICE_APPLICATION: "sunmoonai-knowlab-knowmart-deliver"
   KNOWMART_DELIVER_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowmart-deliver"
   KNOWMART_DELIVER_SERVICE_SCOPE: "knowmart:deliver"
@@ -44,6 +45,31 @@ data:
   KNOWBASE_USER_DATA_IMPORT_SERVICE_SCOPE: "knowbase:user-data-import"
   KNOWBASE_USER_DATA_IMPORT_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWBASE_USER_DATA_IMPORT_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWBASE_USER_DATA_READ_SERVICE_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-read"
+  KNOWBASE_USER_DATA_READ_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowbase-user-data-read"
+  KNOWBASE_USER_DATA_READ_SERVICE_SCOPE: "knowbase:user-data-read"
+  KNOWBASE_USER_DATA_READ_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWBASE_USER_DATA_READ_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWBASE_USER_DATA_DIRECTORY_SERVICE_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-directory"
+  KNOWBASE_USER_DATA_DIRECTORY_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowbase-user-data-directory"
+  KNOWBASE_USER_DATA_DIRECTORY_SERVICE_SCOPE: "knowbase:user-data-directory"
+  KNOWBASE_USER_DATA_DIRECTORY_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWBASE_USER_DATA_DIRECTORY_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWBASE_USER_DATA_OUTPUT_SERVICE_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-output"
+  KNOWBASE_USER_DATA_OUTPUT_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowbase-user-data-output"
+  KNOWBASE_USER_DATA_OUTPUT_SERVICE_SCOPE: "knowbase:user-data-output"
+  KNOWBASE_USER_DATA_OUTPUT_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWBASE_USER_DATA_OUTPUT_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWFEED_SUPPLY_DEMAND_SERVICE_APPLICATION: "sunmoonai-knowlab-knowfeed-supply-demand"
+  KNOWFEED_SUPPLY_DEMAND_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowfeed-supply-demand"
+  KNOWFEED_SUPPLY_DEMAND_SERVICE_SCOPE: "knowfeed:supply-demand"
+  KNOWFEED_SUPPLY_DEMAND_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWFEED_SUPPLY_DEMAND_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWBENCH_INCUBATE_SERVICE_APPLICATION: "sunmoonai-knowlab-knowbench-incubate"
+  KNOWBENCH_INCUBATE_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowbench-incubate"
+  KNOWBENCH_INCUBATE_SERVICE_SCOPE: "knowbench:incubate"
+  KNOWBENCH_INCUBATE_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWBENCH_INCUBATE_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   SERVICE_AUTH_READ_CALLERS: "knowbench"
   SERVICE_AUTH_READ_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowlab-read"
   SERVICE_AUTH_READ_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -55,6 +81,7 @@ data:
   STORAGE_BACKEND: "s3"
   WEB_AUTH_ALLOWED_RETURN_PATHS: "/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/questions,/en/questions,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/experts,/en/experts,/zh-CN/data,/en/data"
   KNOWBASE_USER_AUDIENCE: "sunmoon-kind-knowbase-user-data"
+  KNOWLAB_DATA_SUPPLY_ENABLED: "true"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -87,7 +114,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 82d62c62e6b22014c7cec429feed1214743db8c5db7f6f99608543522f5546bd
+        sunmoonai.com/config-sha256: 358843894a98400d0b949c29cb6e6badcaf9a94203b23ef0b14ada1d57d62cf4
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -123,6 +150,11 @@ spec:
             - {secretRef: {name: knowlab-knowbench-testrun-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-grant-test-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-import-service}}
+            - {secretRef: {name: knowlab-knowbase-user-data-read-service}}
+            - {secretRef: {name: knowlab-knowbase-user-data-directory-service}}
+            - {secretRef: {name: knowlab-knowbase-user-data-output-service}}
+            - {secretRef: {name: knowlab-knowfeed-supply-demand-service}}
+            - {secretRef: {name: knowlab-knowbench-incubate-service}}
           resources: {"requests": {"cpu": "100m", "memory": "256Mi"}, "limits": {"cpu": "2", "memory": "1536Mi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
@@ -155,7 +187,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 82d62c62e6b22014c7cec429feed1214743db8c5db7f6f99608543522f5546bd
+        sunmoonai.com/config-sha256: 358843894a98400d0b949c29cb6e6badcaf9a94203b23ef0b14ada1d57d62cf4
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -186,6 +218,10 @@ spec:
             - {secretRef: {name: knowlab-knowmart-deliver-service}}
             - {secretRef: {name: knowlab-knowbench-testrun-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-grant-test-service}}
+            - {secretRef: {name: knowlab-knowbase-user-data-read-service}}
+            - {secretRef: {name: knowlab-knowbase-user-data-directory-service}}
+            - {secretRef: {name: knowlab-knowbase-user-data-output-service}}
+            - {secretRef: {name: knowlab-knowfeed-supply-demand-service}}
           resources: {"requests": {"cpu": "100m", "memory": "256Mi"}, "limits": {"cpu": "2", "memory": "1Gi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
@@ -218,7 +254,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 82d62c62e6b22014c7cec429feed1214743db8c5db7f6f99608543522f5546bd
+        sunmoonai.com/config-sha256: 358843894a98400d0b949c29cb6e6badcaf9a94203b23ef0b14ada1d57d62cf4
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
