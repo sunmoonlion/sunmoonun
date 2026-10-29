@@ -9,13 +9,13 @@
   | 仓 | qwen 头 | 比 origin/fable 多 |
   | --- | --- | --- |
   | knowbase-app | `5c14ec7` | 20 |
-  | knowbench-app | `2c36ad1` | 11 |
+  | knowbench-app | `7b3151c` | 12 |
   | knowfeed-app | `569e3f9` | 8 |
-  | knowlab-app | `6785ae4` | 17 |
+  | knowlab-app | `d034ffb` | 18 |
   | knowmart-app | `b5679a2` | 6 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
 
-  上表是 10-29 AI 请专家提交后的头；合之前再看一眼各仓 `qwen` 头。
+  上表是 10-29 AI 请专家（含专家孵化方案第十三节第 5 条）提交后的头；合之前再看一眼各仓 `qwen` 头。
 - **新增类**（第一节）不影响现在跑着的旧代码，可以先上。
 - **删除类**（第二节）必须和 qwen 的代码同一次发布：旧代码还在读这些变量、用这些身份，先删会断。
 - **迁移会删生产记录**（所有者已同意，decisions ⑰）：knowmart 0010（0011 只改名、加列，不删行）、knowlab 0016–0018（0019–0021 只加列、加表，不删行）、knowbench 0030–0031（0032 只加列）、knowfeed 0019、knowbase 0018。knowfeed 0019 会删关注清单那 10 行与流水，所有者 10-29 定不导出（名单还在历史迁移 0013 的代码里）。
@@ -62,6 +62,14 @@ knowbase 按现有做法认 `SERVICE_AUTH_<关系>_*`；Casdoor 要给调用方�
 - `KNOWLAB_INTERNAL_URL` 现有的值（`…/api/internal/v1/knowlab`）就对，traefik `service-access` 已放行这个前缀；**所以第 3 条第 4 项里它不要删**，只删 `KNOWLAB_READ_SERVICE_*` 那一组。
 - 这三条都不配，旧功能照常，只是「让 AI 找」用不了。
 
+### 2b. knowlab 带用户去 knowbench 请专家（专家孵化方案第十三节第 5 条）
+
+knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbench 请它」的链接（`…/zh-CN/workbench?knowbot=<专家>@<版本>[&task=<找专家那一轮>]&from=knowlab&ref=<专家编号>`）。knowlab 现在没开跨应用链接，要两处：
+1. `knowlab-app/knowlab-backend/config.yaml` 加 `cross_app_enabled: true`（照 knowmart 那样写一行注释）。
+2. `common/backend/domain/prepare.yaml` 的 `target_names` 里 `'knowlab': []` 改成 `'knowlab': ['knowbench']`；第 80 行左右「谁带人去哪」的注释补一句「knowlab 去 knowbench（能用了的专家去工作台请，专家孵化方案第十三节）」。
+
+推出来的 knowlab 环境变量应是 `CROSS_APP_TARGETS_JSON={"knowbench": {"web_base_url": "https://knowbench.<域名>:<端口>"}}`，`CROSS_APP_SOURCES_JSON` 照模板（knowbench 回跳、knowbase、knowfeed）。knowbench 那头不用改：它收到 `knowbot=` 就按用户会话向 knowmart 核验、钉住（走现有 `knowmart:summon`），不看 `from`；`CROSS_APP_SOURCES_JSON` 里没有 knowlab，所以工作台上不显示「回到 knowlab」，这是有意的。没配时 knowlab 页面照旧只写一句怎么去。
+
 ## 二、删除、撤（和 qwen 代码同一次发）
 
 ### 3. 删旧版兼容以后（待你决定第 6 条）
@@ -94,6 +102,7 @@ knowbench-backend `config.yaml` 的 `domain_env` 删 `KNOWBOT_TEST_SUBJECT`、`K
 - knowlab「AI 起草」一轮能到 knowbench（`incubate` 关系通）；作者的 link 旧于 `service-projects-v1` 时这一轮写明原因失败。
 - 平台电脑重启后日志里不再出连接码，knowbot-tester「我的电脑」里它仍在线。
 - check-browser 的 knowfeed 管理端探测换了新接口后通过。
+- knowlab 专家页上能用的那一版有「去 knowbench 请它」链接，点了在新标签页到工作台、钉住并选好这位专家；申请是从 knowbench 找专家来的，直接到当初那个项目的请专家页、问题已填好。
 - knowbench 请专家页点「让 AI 找」能跑完一轮（`catalog` 通）；都不合适时点「孵化一个专家」，knowlab「申请」里多一份种类为「问题」的申请（`incubation-request` 通）；点「发布」后 knowmart 需求里能看到（`demand` 通）。
 
 ## 五、qwen 随后还要提交、会进同一次发布的
@@ -102,7 +111,7 @@ knowbench-backend `config.yaml` 的 `domain_env` 删 `KNOWBOT_TEST_SUBJECT`、`K
 - 第 8 条第 4 项不改代码（Windows 上本地 link 本来就给执行端单开临时目录），不涉及 link 发版。
 - 孵化第 5 步（10-29 已提交，knowlab 头 `9688dc2`）：迁移 0019（孵化模式、受理类型、给平台的授权表）、0020（运营的提议表）；**已有的名称一律记成作者自己来**，发版后管理端受理栏里原来待受理的会看不到，要平台孵化的由作者点「请平台孵化」。不要新的平台配置。
 
-- AI 请专家（10-29 已提交）：knowmart 后端 `f384353`（应用仓 `b5679a2`）、knowlab `4c94955`（应用仓 `6785ae4`，迁移 0021）、knowbench 后端 `e681d3d`（迁移 0032）与 web端 `0828ce7`（应用仓 `2c36ad1`）。要的平台配置见第 2a 节；孵化契约锁跟着 `reference` 字段更新过，两边同一版。
+- AI 请专家（10-29 已提交）：knowmart 后端 `f384353`（应用仓 `b5679a2`）、knowlab `4c94955`（应用仓 `6785ae4`，迁移 0021）、knowbench 后端 `e681d3d`（迁移 0032）与 web端 `0828ce7`；第十三节第 5 条 knowlab web端 `a115f1e`（应用仓 `d034ffb`）、knowbench web端 `4b47bf8`（应用仓 `7b3151c`）。要的平台配置见第 2a、2b 节；孵化契约锁跟着 `reference` 字段更新过，两边同一版。
 
 ## 六、Fable 回执第二节的答复（10-29，回执见 [交Fable-gitops-回执](交Fable-gitops-回执.md)）
 
