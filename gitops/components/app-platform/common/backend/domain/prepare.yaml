@@ -77,8 +77,9 @@
       knowmart: '{{ (lookup("template", playbook_dir + "/../../gitops/components/app-platform/knowmart-app/knowmart-web-frontend/config.yaml", convert_data=False) | from_yaml).knowmart_web_deployment.origin }}'
       knowlab: '{{ (lookup("template", playbook_dir + "/../../gitops/components/app-platform/knowlab-app/knowlab-web-frontend/config.yaml", convert_data=False) | from_yaml).knowlab_web_deployment.origin }}'
     # 谁带人去哪（PRD/apps/README.md 4.1）：knowbench 去 knowfeed、knowbase，以及 knowmart「我的分身」（请分身，SDD 0027 P4）；
-    # knowbase 去 knowfeed；knowfeed 去 knowbase；knowmart 去 knowbench（专家目录「去工作台请」，SDD 0032）、去 knowlab（knowlab 交来的专家要到 knowlab 停用，SDD 0037）
-    target_names: "{{ {'knowbench': ['knowfeed','knowbase','knowmart'], 'knowbase': ['knowfeed'], 'knowfeed': ['knowbase'], 'tpl': [], 'knowlab': [], 'knowmart': ['knowbench','knowlab']}[application_name] }}"
+    # knowbase 去 knowfeed；knowfeed 去 knowbase；knowmart 去 knowbench（专家目录「去工作台请」，SDD 0032）、去 knowlab（knowlab 交来的专家要到 knowlab 停用，SDD 0037）；
+    # knowlab 去 knowbench（能用了的专家去工作台请，专家孵化方案第十三节）
+    target_names: "{{ {'knowbench': ['knowfeed','knowbase','knowmart'], 'knowbase': ['knowfeed'], 'knowfeed': ['knowbase'], 'tpl': [], 'knowlab': ['knowbench'], 'knowmart': ['knowbench','knowlab']}[application_name] }}"
     cross_app_targets: >-
       {% set out = {} %}{% for n in target_names %}{% set _ = out.update({n: {'web_base_url': web_origins[n]}}) %}{% endfor %}{{ out | to_json }}
     # 谁会把人带到这里、各自的回跳地址：knowbench 的工作台回跳；别的应用不回跳；自己不在名单里

@@ -142,6 +142,40 @@ knowbench_backend_deployment:
       scope: knowmart:summon
       job_revision: v1
       token_seconds: 900
+    # AI 请专家（decisions 10-29「AI 请专家」，请专家方案设计第 4.9 节；交Fable-gitops 第 2a 节）：只挂 api 进程。
+    # 「找专家」时向 knowmart 取这位用户请得动、运行方是 knowbench 的专家的公开信息；入口共用 KNOWMART_INTERNAL_URL
+    - target: knowmart
+      relation: catalog
+      enabled: true
+      roles: [api]
+      application: sunmoonai-knowbench-knowmart-catalog
+      client_id: sunmoon-knowbench-knowmart-catalog
+      organization: sunmoon-workload-knowbench-knowmart-catalog
+      scope: knowmart:catalog
+      job_revision: v1
+      token_seconds: 900
+    # 用户点「发布」后替他向 knowmart 挂需求
+    - target: knowmart
+      relation: demand
+      enabled: true
+      roles: [api]
+      application: sunmoonai-knowbench-knowmart-demand
+      client_id: sunmoon-knowbench-knowmart-demand
+      organization: sunmoon-workload-knowbench-knowmart-demand
+      scope: knowmart:demand
+      job_revision: v1
+      token_seconds: 900
+    # 用户点「孵化一个专家」后，以他的名义到 knowlab 建「问题」申请；入口 KNOWLAB_INTERNAL_URL（…/api/internal/v1/knowlab）
+    - target: knowlab
+      relation: incubation-request
+      enabled: true
+      roles: [api]
+      application: sunmoonai-knowbench-knowlab-incubation-request
+      client_id: sunmoon-knowbench-knowlab-incubation-request
+      organization: sunmoon-workload-knowbench-knowlab-incubation-request
+      scope: knowlab:incubation-request
+      job_revision: v1
+      token_seconds: 900
     # 分身运行时读用户自己绑定的数据：工作台按委托核过，再向 knowlab 读（SDD 0027 §3.5，契约 knowbot-data/v1）
     # runner 也要：顾问在 runner 里做数值验收 sourced，要按地址回 knowlab 重取那一格（0030 §3.3；qwen-005 走查第 10 行）
     - target: knowlab

@@ -52,6 +52,9 @@ knowmart_backend_deployment:
   service_receivers:
     - {relation: deliver, caller: knowlab, enabled: true}
     - {relation: summon, caller: knowbench, enabled: true}
+    # AI 请专家（decisions 10-29；交Fable-gitops 第 2a 节）：工作台替用户查公开专家、挂需求
+    - {relation: catalog, caller: knowbench, enabled: true}
+    - {relation: demand, caller: knowbench, enabled: true}
   api_port: 8000
   api_replicas: 1
   worker_replicas: 1
