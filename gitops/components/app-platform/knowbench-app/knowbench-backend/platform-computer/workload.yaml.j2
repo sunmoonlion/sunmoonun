@@ -1,5 +1,5 @@
 {% set release = knowbench_agent_releases.linux %}
-{% set tc = cfg.knowbot_test_computer %}
+{% set pc = cfg.platform_computers %}
 {% set scripts %}
   fetch.sh: |
     # 取钉住的 Linux 包：只读身份从私有桶取、核归档摘要、解开、按清单逐字节核对。已核过的版本不重取
@@ -24,61 +24,70 @@
     fi
     ln -sfn "$target" /data/agent.next && mv -T /data/agent.next /data/agent
   run.sh: |
-    # 第一次没有凭据：日志里显示连接码，所有者用测试账号在工作台「接入电脑」里确认；之后直接启动
+    # 第一次没有凭据：日志里显示连接码，配给的那位用自己的账号在工作台「接入电脑」里确认；之后直接启动。
+    # 这台配给谁、叫什么由 Deployment 的环境变量给（SUNMOON_PLATFORM_ACCOUNT、SUNMOON_PLATFORM_COMPUTER）
     set -eu
     export HOME=/data/home SUNMOON_AGENT_HOME=/data/home/.sunmoon-link
     # 按安装包的方式起代理（同包里 launch.mjs 的 nodeLaunch）：带 --use-system-ca；站点是 edge-public（系统信任），
     # 不许另指证书，所以清掉 NODE_EXTRA_CA_CERTS 与 NODE_OPTIONS。不这样起，代理会以 SITE_LAUNCH 拒绝启动
     unset NODE_EXTRA_CA_CERTS NODE_OPTIONS
     # runs/.tmp 是 TMPDIR（Fable 评审 P2-14）：测试轮次的沙箱排除共用的 /tmp，临时文件落在工作区里；工作台每次开测前会清掉重建它
-    mkdir -p "$SUNMOON_AGENT_HOME" "{{ tc.workspace }}/底稿" "{{ tc.workspace }}/runs/.tmp"
+    mkdir -p "$SUNMOON_AGENT_HOME" "{{ pc.workspace }}/底稿" "{{ pc.workspace }}/runs/.tmp"
     agent() { node --use-system-ca /data/agent/app/dist/cli.js "$@"; }
     if [ ! -f "$SUNMOON_AGENT_HOME/config.json" ]; then
-      agent init --root "{{ tc.workspace }}" --no-outer-sandbox --name knowbot-test
+      agent init --root "{{ pc.workspace }}" --no-outer-sandbox --name "$SUNMOON_PLATFORM_COMPUTER"
     fi
     paired() { node -e 'process.exit(require(process.env.SUNMOON_AGENT_HOME + "/config.json").token ? 0 : 1)'; }
     until paired; do
-      echo '{"event":"pairing","hint":"用测试账号 knowbot-tester 在工作台「接入电脑」里输入下面的连接码"}'
+      printf '{"event":"pairing","hint":"用账号 %s 在工作台「接入电脑」里输入下面的连接码"}\n' "$SUNMOON_PLATFORM_ACCOUNT"
       agent pair || sleep 10
     done
     # 测试产出保留 7 天：每小时删一次 7 天前的底稿目录（只动 底稿/对话-*）。每次测试自己的目录 runs/*
     # 由工作台测完就删（账 129），这里只兜底删 7 天没动的
     ( while true; do
-        find "{{ tc.workspace }}/底稿" -mindepth 1 -maxdepth 1 -type d -name '对话-*' -mtime +7 -exec rm -rf {} + || true
-        find "{{ tc.workspace }}/runs" -mindepth 1 -maxdepth 1 -type d ! -name .tmp -mtime +7 -exec rm -rf {} + 2>/dev/null || true
+        find "{{ pc.workspace }}/底稿" -mindepth 1 -maxdepth 1 -type d -name '对话-*' -mtime +7 -exec rm -rf {} + || true
+        find "{{ pc.workspace }}/runs" -mindepth 1 -maxdepth 1 -type d ! -name .tmp -mtime +7 -exec rm -rf {} + 2>/dev/null || true
         sleep 3600
       done ) &
     exec node --use-system-ca /data/agent/app/dist/cli.js start
 {% endset %}
-# 分身测试的测试电脑（SDD 0027 §3.4）：与用户同一份代码的本地代理（Linux 包），只配对给测试账号
+# 平台电脑（原分身测试的测试电脑，SDD 0027 §3.4；叫法 10-29）：与用户同一份代码的本地代理（Linux 包），一人一台配给名单里的账号。
+# 脚本与取包凭据各一份、所有电脑共用；每台一个 Deployment、各自的持久卷
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: knowbench-platform-computer-scripts, namespace: {{ app_namespace }}}
+data:
+{{ scripts }}
+{%- for computer in pc.computers %}
+{% set unit = 'knowbench-platform-computer-' ~ computer.name %}
+{% set claim = computer.claim | default(unit) %}
+---
+# {{ computer.name }}：配给 {{ computer.account }}{% if computer.claim is defined %}，沿用持久卷 {{ computer.claim }}{% endif %}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: knowbench-test-computer
+  name: {{ claim }}
   namespace: {{ app_namespace }}
   annotations: {kustomize.toolkit.fluxcd.io/prune: disabled}
 spec:
   accessModes: [ReadWriteOnce]
-  resources: {requests: {storage: {{ tc.storage }}}}
+  resources: {requests: {storage: {{ pc.storage }}}}
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata: {name: knowbench-test-computer-scripts, namespace: {{ app_namespace }}}
-data:
-{{ scripts }}---
 apiVersion: apps/v1
 kind: Deployment
-metadata: {name: knowbench-test-computer, namespace: {{ app_namespace }}}
+metadata: {name: {{ unit }}, namespace: {{ app_namespace }}}
 spec:
   replicas: 1
   strategy: {type: Recreate}
   selector:
-    matchLabels: {app.kubernetes.io/name: knowbench-test-computer}
+    matchLabels: {app.kubernetes.io/name: {{ unit }}}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: knowbench-test-computer
+        app.kubernetes.io/name: {{ unit }}
         app.kubernetes.io/part-of: knowbench
+        sunmoonai.com/platform-computer: '{{ computer.name }}'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
         sunmoonai.com/agent-package: '{{ release.tarball_sha256 }}'
@@ -86,18 +95,18 @@ spec:
         sunmoonai.com/scripts: '{{ scripts | hash("sha256") }}'
     spec:
       automountServiceAccountToken: false
-      # 镜像在 Harbor 的 platform 项目：和沙箱一样显式带拉取凭据（不用运行时的服务账号，测试电脑不需要别的身份）
+      # 镜像在 Harbor 的 platform 项目：和沙箱一样显式带拉取凭据（不用运行时的服务账号，平台电脑不需要别的身份）
       imagePullSecrets: [{name: registry-puller}]
-      # 测试电脑按公网名经边缘连进来（站点文件 edge-public）。集群的 DNS 最终经 WSL 走到 Windows，而所有者的 Windows hosts 把这些名字指到 127.0.0.1；
+      # 平台电脑按公网名经边缘连进来（站点文件 edge-public）。集群的 DNS 最终经 WSL 走到 Windows，而所有者的 Windows hosts 把这些名字指到 127.0.0.1；
       # 只给这个 Pod 把两个名字钉到边缘地址（与下面出站策略放行的是同一个地址），不改集群 DNS
       hostAliases:
-        - ip: '{{ test_computer_edge_ip }}'
-          hostnames: {{ test_computer_hostnames | to_json }}
+        - ip: '{{ platform_computer_edge_ip }}'
+          hostnames: {{ platform_computer_hostnames | to_json }}
       enableServiceLinks: false
       securityContext: {runAsNonRoot: true, runAsUser: 10001, runAsGroup: 10001, fsGroup: 10001, seccompProfile: {type: RuntimeDefault}}
       initContainers:
         - name: fetch
-          image: {{ registry_address }}/platform/{{ test_computer_image.repository }}@{{ test_computer_image.digest }}
+          image: {{ registry_address }}/platform/{{ platform_computer_image.repository }}@{{ platform_computer_image.digest }}
           imagePullPolicy: IfNotPresent
           command: [/bin/bash, /scripts/fetch.sh]
           env: [{name: HOME, value: /tmp}]
@@ -110,29 +119,34 @@ spec:
             - {name: tmp, mountPath: /tmp}
       containers:
         - name: agent
-          image: {{ registry_address }}/platform/{{ test_computer_image.repository }}@{{ test_computer_image.digest }}
+          image: {{ registry_address }}/platform/{{ platform_computer_image.repository }}@{{ platform_computer_image.digest }}
           imagePullPolicy: IfNotPresent
           command: [/usr/bin/tini, --, /bin/bash, /scripts/run.sh]
-          env: [{name: TMPDIR, value: '{{ tc.workspace }}/runs/.tmp'}]
+          env:
+            - {name: TMPDIR, value: '{{ pc.workspace }}/runs/.tmp'}
+            - {name: SUNMOON_PLATFORM_COMPUTER, value: '{{ computer.name }}'}
+            - {name: SUNMOON_PLATFORM_ACCOUNT, value: '{{ computer.account }}'}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 256Mi}, limits: {cpu: '2', memory: 2Gi}}
           volumeMounts:
             - {name: data, mountPath: /data}
-            - {name: data, mountPath: {{ tc.workspace }}, subPath: workspace}
+            - {name: data, mountPath: {{ pc.workspace }}, subPath: workspace}
             - {name: scripts, mountPath: /scripts, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: data, persistentVolumeClaim: {claimName: knowbench-test-computer}}
-        - {name: scripts, configMap: {name: knowbench-test-computer-scripts, defaultMode: 0555}}
-        - {name: download, secret: {secretName: knowbench-test-computer-download, defaultMode: 0440}}
+        - {name: data, persistentVolumeClaim: {claimName: {{ claim }}}}
+        - {name: scripts, configMap: {name: knowbench-platform-computer-scripts, defaultMode: 0555}}
+        - {name: download, secret: {secretName: knowbench-platform-computer-download, defaultMode: 0440}}
         - {name: tmp, emptyDir: {sizeLimit: 1Gi}}
+{%- endfor %}
 ---
-# 只放行 DNS、对象存储（取包）与公网边缘的 30443（会合点与网页地址）。模型在测试账号的云端沙箱里调，这里不出外网
+# 所有平台电脑共用一条：只放行 DNS、对象存储（取包）与公网边缘的 30443（会合点与网页地址）。模型在该账号的云端沙箱里调，这里不出外网
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
-metadata: {name: knowbench-test-computer-egress, namespace: {{ app_namespace }}}
+metadata: {name: knowbench-platform-computer-egress, namespace: {{ app_namespace }}}
 spec:
-  podSelector: {matchLabels: {app.kubernetes.io/name: knowbench-test-computer}}
+  podSelector:
+    matchExpressions: [{key: sunmoonai.com/platform-computer, operator: Exists}]
   policyTypes: [Ingress, Egress]
   ingress: []
   egress:
@@ -145,5 +159,5 @@ spec:
           podSelector: {matchLabels: {app.kubernetes.io/name: object-storage}}
       ports: [{protocol: TCP, port: {{ object_storage_port }}}]
     - to:
-        - ipBlock: {cidr: {{ test_computer_edge_ip }}/32}
+        - ipBlock: {cidr: {{ platform_computer_edge_ip }}/32}
       ports: [{protocol: TCP, port: {{ public_port }}}]

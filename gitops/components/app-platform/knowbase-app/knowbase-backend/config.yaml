@@ -102,12 +102,24 @@ knowbase_backend_deployment:
     bucket: knowbase-originals
     job_revision: v1
     env_prefix: USER_DATA_
-  # SDD 0042 接收的跨应用服务关系（通用机制 common/backend/service-client）：身份从调用方的 service_clients 推出来
+  # SDD 0042 接收的跨应用服务关系（通用机制 common/backend/service-client）：身份从调用方的 service_clients 推出来。
+  # 数据第四版（数据拓扑 v4、SDD 0043/0044/0045；交Fable-gitops 10-29 第 1 条）：一种关系可以有多个调用方
   service_receivers:
+    # 凭第四版运行授权读：knowbench（委托、会话）、knowlab（测试集重解析）
     - {relation: user-data-read, caller: knowbench, enabled: true}
+    - {relation: user-data-read, caller: knowlab, enabled: true}
+    # knowlab 签与撤测试授权、第四版也用它签平台过程的授权
     - {relation: user-data-grant-test, caller: knowlab, enabled: true}
+    # 旧版兼容，随 qwen 这批代码一起删（decisions ⑰，交Fable-gitops 第 3 条）
     - {relation: user-data-import, caller: knowlab, enabled: true}
     - {relation: user-data-purchase, caller: knowmart, enabled: true}
+    # knowlab 推名下专家名录、交付时冻结绑定（SDD 0044 第三节）
+    - {relation: user-data-directory, caller: knowlab, enabled: true}
+    # 应用替用户写产出区（SDD 0043 第 2.6 节）
+    - {relation: user-data-output, caller: knowbench, enabled: true}
+    - {relation: user-data-output, caller: knowlab, enabled: true}
+    # knowfeed 凭加工依据领授权、写回读法，受理前核确认（SDD 0043 第 2.7、3.3 节；SDD 0045）
+    - {relation: user-data-supply, caller: knowfeed, enabled: true}
 
   knowbase_service_receiver:
     enabled: true

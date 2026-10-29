@@ -66,12 +66,15 @@ knowbench_backend_deployment:
   # 0010：工作台（0001-workbench）。沙箱、会合点、供给器在各自的组件；这里只是地址与开关。
   cross_app_enabled: true
   runner_replicas: 1
-  # 分身测试的测试电脑（SDD 0027 §3.4，见 test-computer/README.md）：先上传 Linux 包（agent-release-linux-upload）再开；
-  # 0028 R5.3 上传 0.5.0 的 Linux 包、换钉之后才打开
-  knowbot_test_computer:
+  # 平台电脑（叫法 10-29；原「分身测试的测试电脑」SDD 0027 §3.4，见 platform-computer/README.md）：集群里的 Linux 电脑，
+  # 一人一台配给名单里的平台人员账号，名单里几个开几台，每台各自的持久卷。先上传 Linux 包（agent-release-linux-upload）再开
+  platform_computers:
     enabled: true
     workspace: /workspace
     storage: 20Gi
+    computers:
+      # 第一台就是原来的测试电脑：沿用原卷 knowbench-test-computer（配对凭据在卷上 /data/home，换卷要用这个账号重新确认连接码）
+      - {name: knowbot-tester, account: knowbot-tester, claim: knowbench-test-computer}
   domain_env:
     WORKBENCH_ENABLED: 'true'
     WORKBENCH_REDIS_KEY_PREFIX: 'knowbench:workbench'
@@ -82,7 +85,9 @@ knowbench_backend_deployment:
     WORKBENCH_RELAY_ADMIN_URL: 'ws://relay.{{ relay_namespace }}.svc.cluster.local:47100'
     WORKBENCH_RELAY_PUBLIC_URL: 'wss://relay.{{ site_domain }}:{{ public_port }}'
     # 作为运行方跑分身测试（SDD 0027 §3.4）：测试电脑的工作区、每月测试费用上限（所有者定 1000 元）。
-    # 测试账号 knowbot-tester 的 Casdoor 用户 id（0028 R5.4 建）
+    # 平台测试改在作者账号下（decisions ⑯）后这三项不再有人读，随 qwen 这批代码删（交Fable-gitops 第 4 条）；
+    # KNOWBOT_TEST_ISOLATE 保持不设（关）：作者 Windows 电脑上的本地 link 不许服务流建、删目录
+    # knowbot-tester 的 Casdoor 用户 id（0028 R5.4 建）
     KNOWBOT_TEST_SUBJECT: '1929b2c2-760f-4d1a-bdc9-d1b55410003c'
     KNOWBOT_TEST_WORKSPACE: /workspace
     KNOWBOT_TEST_MONTHLY_LIMIT: '1000'
@@ -95,6 +100,9 @@ knowbench_backend_deployment:
     WORKBENCH_TRUSTED_PROXY_CIDRS: '127.0.0.1/32,10.247.0.0/16'
     # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用（knowbase 后端 identity_audience_application）
     KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
+    # 数据第四版补采开关（SDD 0043 第 4.1 节，fail-closed）：开着且下面 knowfeed 的 supply-demand 关系配全了才提需求单，
+    # 否则缺的数据一律「暂不能补采」
+    WORKBENCH_DATA_SUPPLY_ENABLED: 'true'
   domain_secrets:
     # Fernet 密钥（后端用 cryptography.Fernet 加密用户的模型 key）：2026-10-06 第 7 步登记 key 报 internal_error，原因是默认的 40 位随机串不是 Fernet 格式
     WORKBENCH_CREDENTIAL_KEY: {source: random, format: fernet}
@@ -157,6 +165,31 @@ knowbench_backend_deployment:
       scope: knowbase:user-data-read
       job_revision: v1
       token_seconds: 900
+    # 数据第四版：替用户写产出区（SDD 0043 第 2.6 节，契约 user-data/v2）；与 user-data-read 同一组进程
+    - target: knowbase
+      relation: user-data-output
+      enabled: true
+      roles: [api, worker, runner]
+      application: sunmoonai-knowbench-knowbase-user-data-output
+      client_id: sunmoon-knowbench-knowbase-user-data-output
+      organization: sunmoon-workload-knowbench-knowbase-user-data-output
+      scope: knowbase:user-data-output
+      job_revision: v1
+      token_seconds: 900
+    # 数据第四版：向 knowfeed 提需求单、看进度、取消（SDD 0045 第 2.4 节）；委托第 0 步「查主体」也走它。
+    # 工作台在 api 受理、runner 跑委托，都要这份身份；knowfeed 按 SUPPLY_SERVICE_APPS_JSON 把它认成 knowbench
+    - target: knowfeed
+      relation: supply-demand
+      enabled: true
+      roles: [api, worker, runner]
+      application: sunmoonai-knowbench-knowfeed-supply-demand
+      client_id: sunmoon-knowbench-knowfeed-supply-demand
+      organization: sunmoon-workload-knowbench-knowfeed-supply-demand
+      scope: knowfeed:supply-demand
+      job_revision: v1
+      token_seconds: 900
   # 作为运行方接收 knowlab 的「跑测试」（契约 knowbot-test-run/v1，SDD 0027 决定 12）
+  # 与「孵化」的一轮（契约 knowbot-incubation/v1，专家孵化方案第十八节；交Fable-gitops 第 2 条）
   service_receivers:
     - {relation: testrun, caller: knowlab, enabled: true}
+    - {relation: incubate, caller: knowlab, enabled: true}

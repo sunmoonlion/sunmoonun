@@ -38,7 +38,14 @@ knowfeed_backend_deployment:
   # 0010：采集申请与数据集登记（0008-info）。SECURITY_* 都有默认值，这里不写。
   cross_app_enabled: true
   domain_env:
+    # 旧版数据集登记，随 qwen 这批代码一起删（decisions ⑰，交Fable-gitops 第 3 条）
     KNOWBASE_APP_DATASET_URL: 'https://{{ service_access_hosts.knowbase }}/api/internal/v1/knowledge/datasets'
+    # 供给（SDD 0045）：knowbase 数据第四版的资料库接口（契约 user-data/v2），服务身份是下面 service_clients 里
+    # target=knowbase、relation=user-data-supply 那一项（KNOWBASE_USER_DATA_SUPPLY_SERVICE_*），不是入库那份
+    KNOWBASE_SUPPLY_URL: 'https://{{ service_access_hosts.knowbase }}/api/internal/v2/user-data'
+    # 哪个服务身份是哪个应用（SDD 0045 第 2.4 节）：需求单记在那个应用名下，进度只给它看。键是令牌的 sub（admin/<调用方服务应用>），
+    # 与下面 service_receivers 的两个调用方一一对应
+    SUPPLY_SERVICE_APPS_JSON: '{"admin/sunmoonai-knowbench-knowfeed-supply-demand": "knowbench", "admin/sunmoonai-knowlab-knowfeed-supply-demand": "knowlab"}'
   domain_egress:
     # 采集走公网（巨潮、东方财富）；标准 NetworkPolicy 不认域名，先放行 80/443 到任意地址
     - {name: public-sites, roles: [worker], cidrs: ['0.0.0.0/0'], ports: [443, 80]}
@@ -58,3 +65,21 @@ knowfeed_backend_deployment:
     scope: knowbase:ingest
     job_revision: v1
     token_seconds: 900
+  # 通用出站服务身份（机制在 common/backend/service-client）。数据第四版（交Fable-gitops 10-29 第 1 条）：
+  # 凭加工依据向 knowbase 领授权、写回读法，受理前核确认（SDD 0043 第 2.7、3.3 节；0045）。
+  # 一个服务应用只有一个 scope，所以不沿用上面入库那份身份，另开一条关系；api 核确认、worker 跑采集与加工
+  service_clients:
+    - target: knowbase
+      relation: user-data-supply
+      enabled: true
+      application: sunmoonai-knowfeed-knowbase-user-data-supply
+      client_id: sunmoon-knowfeed-knowbase-user-data-supply
+      organization: sunmoon-workload-knowfeed-knowbase-user-data-supply
+      scope: knowbase:user-data-supply
+      job_revision: v1
+      token_seconds: 900
+  # 接收应用的需求单（SDD 0045 第 2.4 节，scope knowfeed:supply-demand）：身份从调用方的 service_clients 推出来；
+  # 内部入口在 traefik service-access 的 service_access_routes.knowfeed（/api/internal/v1/supply）
+  service_receivers:
+    - {relation: supply-demand, caller: knowbench, enabled: true}
+    - {relation: supply-demand, caller: knowlab, enabled: true}

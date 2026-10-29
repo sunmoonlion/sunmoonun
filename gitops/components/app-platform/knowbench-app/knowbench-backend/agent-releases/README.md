@@ -72,14 +72,14 @@ curl 使用 SigV4、专用 CA 和域名校验，代理与 curl 用户配置不�
 本地维护检查：`python3 <本目录>/test_upload.py`；后端契约在 knowbench-backend
 `app/contracts/agent-onboarding.md`。开发原始输出与待验清单在 runtime 本轮交回中。
 
-## Linux 包（分身测试的测试电脑）
+## Linux 包（平台电脑）
 
-`config.yaml` 的 `linux` 一节钉分身测试测试电脑用的 Linux 包（SDD 0027 §3.4）：sunmoon-link 仓 `agent/distribution/build-linux.mjs` 从 `source_revision` 打出，同一提交打出同一个摘要。只有测试电脑（`../test-computer`）用发行包的只读身份读它，不给用户下载、不进 API 的下载入口。
+`config.yaml` 的 `linux` 一节钉平台电脑（原分身测试的测试电脑，SDD 0027 §3.4；叫法 10-29）用的 Linux 包：sunmoon-link 仓 `agent/distribution/build-linux.mjs` 从 `source_revision` 打出，同一提交打出同一个摘要。只有平台电脑（`../platform-computer`）用发行包的只读身份读它，不给用户下载、不进 API 的下载入口。
 
 ```bash
 AGENT_LINUX_TGZ=/绝对路径/agent.tar.gz make -C infrastructure agent-release-linux-verify
 AGENT_LINUX_TGZ=/绝对路径/agent.tar.gz make -C infrastructure agent-release-linux-upload
 ```
 
-校验与 ZIP 同样严格（只认普通文件与目录、逐个按清单核大小与摘要、清单平台必须是 linux），同名不覆盖，读回回执写 `knowbench-agent-release-linux-published.json`，测试电脑 stage 前核它。
+校验与 ZIP 同样严格（只认普通文件与目录、逐个按清单核大小与摘要、清单平台必须是 linux），同名不覆盖，读回回执写 `knowbench-agent-release-linux-published.json`，平台电脑 stage 前核它。
 

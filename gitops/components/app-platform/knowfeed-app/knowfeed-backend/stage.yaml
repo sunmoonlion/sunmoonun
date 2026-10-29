@@ -26,8 +26,8 @@ stages:
   resources: [workload.yaml, provision.sops.yaml, runtime.sops.yaml]
 - name: knowfeed-runtime
   path: runtime
-  dependsOn: '{{ ["knowfeed-identity"] + (["knowfeed-service-identity"] if knowfeed_backend_deployment.knowbase_service.enabled | default(false) else []) + (["knowfeed-storage"] if knowfeed_backend_deployment.object_storage.enabled | default(false) else []) }}'
-  resources: '{{ ["workload.yaml", "tls.sops.yaml"] + (["storage.sops.yaml"] if knowfeed_backend_deployment.object_storage.enabled | default(false) else []) + (["provider.sops.yaml"] if knowfeed_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["service.sops.yaml"] if knowfeed_backend_deployment.knowbase_service.enabled | default(false) else []) + (["domain.sops.yaml"] if knowfeed_backend_deployment.domain_secrets | default({}) | length > 0 else []) }}'
+  dependsOn: '{{ ["knowfeed-identity"] + (["knowfeed-service-identity"] if knowfeed_backend_deployment.knowbase_service.enabled | default(false) else []) + (["knowfeed-storage"] if knowfeed_backend_deployment.object_storage.enabled | default(false) else []) + (["knowfeed-knowbase-user-data-supply-identity"] if knowfeed_backend_deployment.service_clients | default([]) | selectattr("target", "equalto", "knowbase") | selectattr("relation", "equalto", "user-data-supply") | selectattr("enabled") | list | length > 0 else []) }}'
+  resources: '{{ ["workload.yaml", "tls.sops.yaml"] + (["storage.sops.yaml"] if knowfeed_backend_deployment.object_storage.enabled | default(false) else []) + (["provider.sops.yaml"] if knowfeed_backend_deployment.knowledge_provider.enabled | default(false) else []) + (["service.sops.yaml"] if knowfeed_backend_deployment.knowbase_service.enabled | default(false) else []) + (["domain.sops.yaml"] if knowfeed_backend_deployment.domain_secrets | default({}) | length > 0 else []) + (["knowbase-user-data-supply-service.sops.yaml"] if knowfeed_backend_deployment.service_clients | default([]) | selectattr("target", "equalto", "knowbase") | selectattr("relation", "equalto", "user-data-supply") | selectattr("enabled") | list | length > 0 else []) }}'
 - name: knowfeed-storage
   path: storage
   dependsOn: [object-storage]
@@ -37,4 +37,9 @@ stages:
   path: service-identity
   dependsOn: [casdoor, postgresql]
   enabled: '{{ knowfeed_deployment.enabled and knowfeed_backend_deployment.knowbase_service.enabled | default(false) }}'
+  resources: [workload.yaml, provision.sops.yaml]
+- name: knowfeed-knowbase-user-data-supply-identity
+  path: knowbase-user-data-supply-identity
+  dependsOn: [casdoor, traefik]
+  enabled: '{{ knowfeed_deployment.enabled and (knowfeed_backend_deployment.service_clients | default([]) | selectattr("target", "equalto", "knowbase") | selectattr("relation", "equalto", "user-data-supply") | selectattr("enabled") | list | length > 0) }}'
   resources: [workload.yaml, provision.sops.yaml]

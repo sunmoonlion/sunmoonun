@@ -18,3 +18,7 @@ service_access_routes:
   knowlab:
     host: 'knowlab-tls.{{ app_namespace }}.svc.cluster.local'
     path: /api/internal/v1/knowlab
+  # 供给（SDD 0045 第 2.4 节）：knowbench、knowlab 按契约来这里提需求单、看进度、取消，第 0 步「查主体」也走它
+  knowfeed:
+    host: 'knowfeed-tls.{{ app_namespace }}.svc.cluster.local'
+    path: /api/internal/v1/supply

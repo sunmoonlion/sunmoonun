@@ -39,6 +39,8 @@ knowlab_backend_deployment:
     WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/questions,/en/questions,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/experts,/en/experts,/zh-CN/data,/en/data'
     # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
     KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
+    # 数据第四版补采开关（同 knowbench 的 WORKBENCH_DATA_SUPPLY_ENABLED，fail-closed）：测试集里缺的公开披露交 knowfeed
+    KNOWLAB_DATA_SUPPLY_ENABLED: 'true'
   # 通用出站服务身份（SDD 0027 P1，机制在 common/backend/service-client）：测试通过后，把分身版本交付给 knowmart 登记。
   service_clients:
     - target: knowmart
@@ -70,7 +72,8 @@ knowlab_backend_deployment:
       scope: knowbase:user-data-grant-test
       job_revision: v1
       token_seconds: 900
-    # SDD 0042 块 3：一次性命令 python -m app.bootstrap.import_datasets 把 knowlab 旧的知识库资料搬进 knowbase 的 knowlab 分区（在 api 进程里跑）
+    # SDD 0042 块 3：一次性命令 python -m app.bootstrap.import_datasets 把 knowlab 旧的知识库资料搬进 knowbase 的 knowlab 分区（在 api 进程里跑）。
+    # 旧版兼容，随 qwen 这批代码一起删（decisions ⑰，交Fable-gitops 第 3 条）
     - target: knowbase
       relation: user-data-import
       enabled: true
@@ -79,6 +82,57 @@ knowlab_backend_deployment:
       client_id: sunmoon-knowlab-knowbase-user-data-import
       organization: sunmoon-workload-knowlab-knowbase-user-data-import
       scope: knowbase:user-data-import
+      job_revision: v1
+      token_seconds: 900
+    # 数据第四版（契约 user-data/v2，SDD 0043）：补采办完后重解析测试集里的资料，凭第四版运行授权读
+    - target: knowbase
+      relation: user-data-read
+      enabled: true
+      application: sunmoonai-knowlab-knowbase-user-data-read
+      client_id: sunmoon-knowlab-knowbase-user-data-read
+      organization: sunmoon-workload-knowlab-knowbase-user-data-read
+      scope: knowbase:user-data-read
+      job_revision: v1
+      token_seconds: 900
+    # 数据第四版：推名下专家名录、交付时冻结绑定（SDD 0044 第三节）
+    - target: knowbase
+      relation: user-data-directory
+      enabled: true
+      application: sunmoonai-knowlab-knowbase-user-data-directory
+      client_id: sunmoon-knowlab-knowbase-user-data-directory
+      organization: sunmoon-workload-knowlab-knowbase-user-data-directory
+      scope: knowbase:user-data-directory
+      job_revision: v1
+      token_seconds: 900
+    # 数据第四版：替用户写产出区（SDD 0043 第 2.6 节）
+    - target: knowbase
+      relation: user-data-output
+      enabled: true
+      application: sunmoonai-knowlab-knowbase-user-data-output
+      client_id: sunmoon-knowlab-knowbase-user-data-output
+      organization: sunmoon-workload-knowlab-knowbase-user-data-output
+      scope: knowbase:user-data-output
+      job_revision: v1
+      token_seconds: 900
+    # 数据第四版：测试集里缺的公开披露向 knowfeed 提需求单、看进度、取消（SDD 0045 第 2.4 节）；knowfeed 按 SUPPLY_SERVICE_APPS_JSON 把它认成 knowlab
+    - target: knowfeed
+      relation: supply-demand
+      enabled: true
+      application: sunmoonai-knowlab-knowfeed-supply-demand
+      client_id: sunmoon-knowlab-knowfeed-supply-demand
+      organization: sunmoon-workload-knowlab-knowfeed-supply-demand
+      scope: knowfeed:supply-demand
+      job_revision: v1
+      token_seconds: 900
+    # 孵化栏（专家孵化方案第 8.2、十八节，契约 knowbot-incubation/v1）：「AI 起草」的一轮交 knowbench 跑；入口共用 KNOWBENCH_INTERNAL_URL，只在 api 进程
+    - target: knowbench
+      relation: incubate
+      enabled: true
+      roles: [api]
+      application: sunmoonai-knowlab-knowbench-incubate
+      client_id: sunmoon-knowlab-knowbench-incubate
+      organization: sunmoon-workload-knowlab-knowbench-incubate
+      scope: knowbench:incubate
       job_revision: v1
       token_seconds: 900
   # 接收运行方读分身绑定的用户数据（SDD 0027 §3.5，契约 knowbot-data/v1）。内部入口在 traefik service-access

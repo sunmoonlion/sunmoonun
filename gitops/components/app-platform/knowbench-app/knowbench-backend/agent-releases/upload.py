@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify a pinned Windows bundle or Linux test-computer bundle, conditionally upload, then
+"""Verify a pinned Windows bundle or Linux platform-computer bundle, conditionally upload, then
 independently read back (Linux: SDD 0027 §3.4, the knowbot test computer).
 
 Only curl (SigV4 + TLS) and kubectl are external dependencies. Secrets arrive on stdin,

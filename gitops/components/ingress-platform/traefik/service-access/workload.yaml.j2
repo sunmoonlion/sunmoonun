@@ -21,8 +21,9 @@ spec:
     - host: {{ service_access_hosts[name] }}
       http:
         paths:
-{# knowbase 只放行内部接口的两个前缀：知识源（摄入、检索）与用户资料（SDD 0042，knowbench、knowlab、knowmart 凭服务关系或用户令牌调） #}
-{% for path in (['/api/internal/v1/knowledge', '/api/internal/v1/user-data'] if name == 'knowbase' else ['/']) %}
+{# knowbase 只放行内部接口的三个前缀：知识源（摄入、检索）、用户资料第一版（SDD 0042，随 qwen 这批代码删）与
+   数据第四版 user-data/v2（SDD 0043，knowbench、knowlab、knowfeed 凭服务关系或用户令牌调） #}
+{% for path in (['/api/internal/v1/knowledge', '/api/internal/v1/user-data', '/api/internal/v2/user-data'] if name == 'knowbase' else ['/']) %}
           - path: {{ path }}
             pathType: Prefix
             backend:
