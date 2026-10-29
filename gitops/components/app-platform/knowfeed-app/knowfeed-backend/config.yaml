@@ -40,12 +40,8 @@ knowfeed_backend_deployment:
   domain_env:
     # 旧版数据集登记，随 qwen 这批代码一起删（decisions ⑰，交Fable-gitops 第 3 条）
     KNOWBASE_APP_DATASET_URL: 'https://{{ service_access_hosts.knowbase }}/api/internal/v1/knowledge/datasets'
-    # 供给（SDD 0045）：knowbase 数据第四版的资料库接口（契约 user-data/v2），服务身份是下面 service_clients 里
-    # target=knowbase、relation=user-data-supply 那一项（KNOWBASE_USER_DATA_SUPPLY_SERVICE_*），不是入库那份
-    KNOWBASE_SUPPLY_URL: 'https://{{ service_access_hosts.knowbase }}/api/internal/v2/user-data'
-    # 哪个服务身份是哪个应用（SDD 0045 第 2.4 节）：需求单记在那个应用名下，进度只给它看。键是令牌的 sub（admin/<调用方服务应用>），
-    # 与下面 service_receivers 的两个调用方一一对应
-    SUPPLY_SERVICE_APPS_JSON: '{"admin/sunmoonai-knowbench-knowfeed-supply-demand": "knowbench", "admin/sunmoonai-knowlab-knowfeed-supply-demand": "knowlab"}'
+    # 供给（SDD 0045）：knowbase 数据第四版的地址与身份都从下面 service_clients 那一项推出（KNOWBASE_INTERNAL_URL +
+    # /api/internal/v2/user-data、KNOWBASE_USER_DATA_SUPPLY_SERVICE_*），调用方是谁由 relation_auth 校验得出，这里不另配
   domain_egress:
     # 采集走公网（巨潮、东方财富）；标准 NetworkPolicy 不认域名，先放行 80/443 到任意地址
     - {name: public-sites, roles: [worker], cidrs: ['0.0.0.0/0'], ports: [443, 80]}
