@@ -1,25 +1,25 @@
 # knowbase-app：资料库
 
-> 最后更新：2026-10-29 ｜ 按 qwen 分支代码重写 ｜ 骨架继承 [`tpl-app.md`](tpl-app.md)，本文只写它多出来的 ｜ 总览见 [`../overall-architecture.md`](../overall-architecture.md)
+> 最后更新：2026-10-29（web端与管理端补齐，计划 B1、B6） ｜ 按 qwen 分支代码重写 ｜ 骨架继承 [`tpl-app.md`](tpl-app.md)，本文只写它多出来的 ｜ 总览见 [`../overall-architecture.md`](../overall-architecture.md)
 
 **层与线**：第 6 层应用层；第 7 层数据线（knowfeed → knowbase）的终点（[架构总纲](../../总纲/架构总纲.md)第二节）。按 [数据拓扑](../../总纲/数据拓扑.md) 第四版，它是云端来源数据唯一的真源。
 
-knowbase 替用户存数据，并管「谁能读」。云端的资料、内容版本、读法、使用权、同意依据、运行授权、读数留痕，都以它为准；公开披露也存在这里，只存一份。knowfeed 采来的交给它，knowbench、knowlab、knowmart 要用数据都来问它，它自己不调别的应用。模型在委托里读数据，走它的数据 MCP。用户管自己数据的 web端（SDD 0044）还没有页面，后端接口已经有了（见文末）。
+knowbase 替用户存数据，并管「谁能读」。云端的资料、内容版本、读法、使用权、同意依据、运行授权、读数留痕，都以它为准；公开披露也存在这里，只存一份。knowfeed 采来的交给它，knowbench、knowlab、knowmart 要用数据都来问它，它自己不调别的应用。模型在委托里读数据，走它的数据 MCP。用户管自己数据的唯一入口是 knowbase web端（SDD 0044）：总栏、上传与直达上传、描述、展示按钮、许可档、给平台的授权都在这里。
 
 ## 一、谁来做什么
 
 **用户**（本人在各应用页面上点，应用后端凭本人令牌转交）：
-- 上传资料、传新版本、改描述、改许可档、删、下载（后端接口有，现在没有页面调）。
+- 在 knowbase web端上传资料（选文件后先按文件名、首页识别描述，本人确认）、传新版本、改描述、改许可档（升档勾「我有权」并留痕，上传时选高档也一样）、删（先列出受影响的）、下载。
 - 点展示：给 knowbench、给 knowlab、交给 knowmart 待上架、绑给名下专家；可以批量；第一次点「新数据默认展示给我的全部应用」这个开关，点过才生效。
 - 在 knowbench 委托页、knowlab 测试集上确认数据清单：knowbase 记一条确认，7 天有效。
 - 开委托、开会话、孵化时签运行授权（在应用里点开跑，与钉住同时完成）。
-- 选平台孵化、平台测试时留下平台过程的依据，可以撤回。
+- 选平台孵化、平台测试时留下平台过程的依据；在 knowbase web端「给平台的授权」里看、撤回；在 knowfeed 建的订阅范围同意也在那里撤。
 - 把一份产出「转为数据」；看一份资料谁读过。
 - 跨全市场查公开原件抽出的事实（过一道门：平台总开关、资格、这一份确实是公开原件；见第三节「公开数据的门」）。
 
 **作者**：把自己的数据绑给自己名下的专家；交付时由 knowlab 把绑定冻结在那一版上。**请专家的人**：委托里读作者绑定的数据，读数留痕里作者是内容所有者、请的人是受益人。
 
-**平台人员**（管理端，admin 或 operator）：看旧链的知识入库作业、改状态、重试，查 RAGFlow 配置。禁用资料、清除内容只有后端服务方法，管理端没有入口。
+**平台人员**（管理端，admin 或 operator）：看旧链的知识入库作业、改状态、重试，查 RAGFlow 配置；看用户资料的用量、词表与描述的分布；找资料、禁用（违规处置）、依法清除（这两样只有 admin，写明原因、留删除事件）。
 
 **别的应用**（系统替用户做的事）：
 - knowbench 替用户解析委托第 0 步提出的数据描述、数据齐了凭本人那次确认续签授权、凭授权读；模型经 knowbench 中继调数据 MCP。
@@ -30,16 +30,17 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 
 ## 二、页面与流程
 
-**web端**（`knowbase.<站点域名>`，sunmoonai 组织登录）：只有模板页。
-- 首页：一句「这里没有给你看的页面」。
+**web端**（`knowbase.<站点域名>`，sunmoonai 组织登录；登录后到「我的数据」）：
+- 我的数据 `/<语言>/library?category=…&material=…`：空间用量；四类分栏（我上传的、为我采集的、买来的、产出，按后端给的分类画）；按主体、类型、年份、展示到哪里、未确认筛选；批量展示、撤展示、删。第一次进来亮出「新数据默认展示给我的全部应用」，点过才生效；有未确认的描述就引导逐份确认。选中一份看详情：描述（接词表各维度，研报的几维）、内容版本与每版的读法、下载、上传新版本、补交加工、展示按钮（knowbench、knowlab、交给 knowmart、绑给名下专家）、许可档、产出转为数据、谁读过、改动留痕、删。knowmart「交易记录」的直达链接就是这个地址。
+- 上传 `/<语言>/upload`：选文件 → 识别描述（文件名、首页文字、表头；研报认机构、研究员、评级等）→ 本人确认或改 → 许可档（高档勾「我有权」）、要不要交 knowfeed 加工 → 传；同名同描述时问「新版本」还是「另一份」。直达上传是同一页带 `from`、`ref` 和预填的描述（见第五节「跨应用链接」）。
+- 给平台的授权 `/<语言>/consents`、设置 `/<语言>/settings`。
 - 工具箱：模板的前端组件参考页。
-- 0044 定的总栏、资料详情、上传、直达上传、产出转为数据、给平台的授权、设置，都还没有页面。
 
 **管理端**（`knowbase-admin.<站点域名>`，built-in 组织，admin 或 operator）：
 - 治理控制台：模板首页。
 - 知识入库：旧链的入库作业列表、改状态、重试、RAGFlow 配置检查。
 - 设置：界面的主题、密度、语言。CRUD 参考、富能力参考：模板样例页。
-- 用户资料用量、词表维护、禁用资料的处理（0044 第四节）都没有页面。
+- 用户资料用量、词表（现行版本、类型枚举、描述按版本与确认状态的分布；词表在代码里，改走提交）、禁用资料的处理（0044 第四节）。
 
 **流程一：请专家时拿数据**（knowbench 委托；knowlab 测试集同一套接口）
 1. 用户在 knowbench 选专家、写问题；knowbench 凭本人令牌在 knowbase 建一张空的解析清单。
@@ -55,9 +56,9 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 2. knowfeed 给提了需求的用户各记一条引用（取得依据「引用」的使用权）。
 3. knowfeed 领加工授权，写回正文、按页文字；抽好的表写成一批事实行（原样层、标准化层），会计恒等式质检照实记在读法上，不改数。
 
-**流程三：上传与加工**（后端已有，没有页面）
-1. 本人上传：PDF、Excel、CSV、文本、Markdown，单份 50 MB，一个账号 1 GB。建资料、第 1 版、取得依据「上传」的使用权；勾了确认的描述才参与解析。
-2. 默认展示开关开着、而且本人点过，自动展示给 knowbench、knowlab。
+**流程三：上传与加工**（knowbase web端）
+1. 本人上传：PDF、Excel、CSV、文本、Markdown，单份 50 MB，一个账号 1 GB。先识别描述（规则带版本号，识别结果与规则版本记进改动留痕），本人确认或改；建资料、第 1 版、取得依据「上传」的使用权；勾了确认的描述才参与解析。
+2. 默认展示开关开着、而且本人点过，自动展示给 knowbench、knowlab；直达上传时「展示给来源应用」和资料在同一个事务里记下。
 3. 勾了加工就记一条加工依据，这一版进「待加工」清单（`/processing/pending`）；加工授权只限这一版、3 天。knowfeed 代码现在只给自己交来的公开原件领加工授权，还不来领上传的。
 
 **会话**：knowbench 发消息时登记会话（24 小时，范围是展示给 knowbench 的）；模型第一次读某一份，knowbase 当场签一条小授权，读到 50 份提示一次。
@@ -68,7 +69,10 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 
 | 块 | 代码 | 说明 |
 | --- | --- | --- |
-| 资料库 | `domain/user_library.py`、`application/services/user_library_service.py`、`interfaces/endpoints/user_library_routes.py` | 资料、内容版本、使用权、展示（同意依据）、账号默认、名下专家影子表、订阅范围、平台过程依据、公开原件与引用、成交建使用权 |
+| 资料库 | `domain/user_library.py`、`application/services/user_library_service.py`、`interfaces/endpoints/user_library_routes.py` | 资料、内容版本、使用权、展示（同意依据）、账号默认、名下专家影子表、订阅范围（knowfeed 生成新需求前凭服务身份核还在不在）、平台过程依据、公开原件与引用、成交建使用权、knowmart 成批核条目还能不能卖 |
+| web端自家接口 | `interfaces/endpoints/library_web_routes.py`、`interfaces/schemas/web_library.py` | `/api/web/v1/library`：本人在 knowbase 网页的会话（Cookie + CSRF），复用上面同一套服务；多出空间用量、识别、影响清单、给平台的授权一览 |
+| 上传时识别 | `domain/recognition.py`、`infrastructure/external/first_page.py` | 按文件名与首页文字猜描述（0049 第四节的标题规则、研报的几维），规则版本 `RULES_VERSION`；PDF 首页用 pypdf 读，只读不存 |
+| 管理端看用户资料 | `interfaces/endpoints/user_data_admin_routes.py` | `/api/admin/v1/user-data`：用量、词表、找资料、禁用、清除（后两样要 `knowbase:user-data:dispose`，只有 admin） |
 | 描述与词表 | `domain/vocabulary.py` | 第 2 版：类型分大类（发布者）与细类，主体、期间、版本形态进键，事项、行业等只筛选 |
 | 按描述查与解析 | `domain/user_resolution.py`、`user_resolution_service.py`、`user_resolution_routes.py` | 按描述查（只认进键的维度，不列不浏览）、解析清单与修订、确认（7 天）、偏好（只读） |
 | 运行与读 | `domain/user_runs.py`、`user_run_service.py`、`user_run_routes.py` | 运行授权（委托、会话、孵化、测试、平台过程、加工）、会话登记、凭授权读、读法、产出区、转为数据、谁读过、禁用与清除（只有服务方法） |
@@ -94,9 +98,9 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 | --- | --- |
 | knowbench | 本人令牌（`azp` 为 knowbench）：建与改解析清单、确认、签委托与会话授权、登记会话、交还。服务关系 `user-data-read`（scope `knowbase:user-data-read`，knowbench 调）：替运行中的专家提新需求、重解析、凭确认续签、凭授权读、按运行查事实。数据 MCP：knowbench 中继，令牌由 knowbench 签（ES256，`aud` 为 `knowbase-data`），能读什么由 knowbase 按授权核。`user-data-output`（写产出区）：knowbase 已收、部署已开，knowbench 代码还没调 |
 | knowlab | 本人令牌（作者）：测试集的解析与确认。`user-data-grant-test`（knowlab 调）：签与撤测试授权、平台过程授权，结束平台过程。`user-data-read`：重解析。`user-data-directory`（推名下专家名录、交付时冻结绑定）与 `user-data-output`：knowbase 已收、部署已开，knowlab 代码还没调 |
-| knowmart | 本人令牌：读卖家「交给 knowmart」那一栏（`/columns/knowmart`）。`user-data-purchase`（knowmart 调）：成交给买家建使用权，同一交易只建一条 |
-| knowfeed | `user-data-supply`（knowfeed 调）：核确认编号、交公开原件、记引用、领待加工与加工授权、写回读法与事实行。旧链：服务身份 `knowbase:ingest` 交契约 `knowfeed-knowbase-artifact` v1，进 RAGFlow（knowfeed 旧采集线还在调） |
-| 跨应用链接 | 配置了去 knowfeed 的地址；认来自 knowbench（带回跳地址）、knowfeed 的链接。web端还没有页面用 |
+| knowmart | 本人令牌：读卖家「交给 knowmart」那一栏（`/columns/knowmart`）。`user-data-purchase`（knowmart 调）：成交给买家建使用权，同一交易只建一条；后台成批核条目里的资料还能不能卖（`/service/market-offers/check`，只读） |
+| knowfeed | `user-data-supply`（knowfeed 调）：核确认编号、交公开原件、记引用、领待加工与加工授权、写回读法与事实行、生成新需求前核订阅范围同意（`/service/subscriptions/{订阅}/revisions/{修订}?subject=`，撤了回 404；knowfeed 代码还没调）。旧链：服务身份 `knowbase:ingest` 交契约 `knowfeed-knowbase-artifact` v1，进 RAGFlow（knowfeed 旧采集线还在调） |
+| 跨应用链接 | 认来自 knowbench（带回跳地址）、knowfeed 的链接。直达上传：`<knowbase web端>/<语言>/upload?from=<来源应用>&ref=<来处引用>` 加预填的描述 `doc_type`、`subject`、`period_start`、`period_end`、`disclosed_on`、`edition`（都可省）；来源是 knowbench、knowlab 的，传完同时展示给它，再回到配置里登记的回跳地址。knowmart 交易记录：`/<语言>/library?category=purchased|uploaded&material=<资料>` |
 | 契约（本仓 `contracts/` 是真源） | `data-request/v1`：一样数据的描述，附词表、科目表；knowbench、knowlab 锁 schema 摘要，knowfeed 锁词表与科目表。`user-data/v2`：全部用户资料接口。`artifact/v1`、`retrieval/v1`：旧入库与检索（knowbench 还留着检索的锁，代码已不调）。做法见 [契约](../topics/contracts.md) |
 
 knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
@@ -136,6 +140,8 @@ knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
 
 ## 代码和设计对不上的
 
-1. **web端没有页面**：`knowbase-web-frontend` 只有登录、首页、工具箱三页，首页文案还写「数据在 knowbench 里问专家或代理就有；数据目录在管理后台」（`messages/zh-CN.json:88`，管理端的数据目录 ⑰ 已删）。[0044](../../design/SDD/modules/0044-knowbase-web.md) 定 web端是用户管数据的唯一入口（总栏、上传、展示按钮等），数据拓扑第 7.1 节定上传只在 knowbase web端；现在哪个应用都没有上传入口，knowbench 解析结果「采不来」却提示用户「到 knowbase 上传」。
+1. **直达上传还没有人链过来**：knowbase web端有了直达上传（见第五节「跨应用链接」），knowbench 解析结果「采不来」时的「到 knowbase 上传」还没带上这个链接；knowlab 也还没有。
 2. **旧知识文档表还在用**：`knowledge_document` 两张表与 `knowbase:ingest` 入库链仍在（`infrastructure/models/knowledge.py:72`），knowfeed 旧采集线（`info_crawl_service.py:1301`）还在调；0047 第 2.4 节定这两张表退役，改为一个资料版本对应一个 RAGFlow 文档（排在 0043 块 9）。
 3. **`user-data-read` 的调用方**：代码认 knowfeed 也能凭授权读（`interfaces/endpoints/user_run_routes.py:72`），`contracts/README.md:62` 也这样写；部署只给 knowbench、knowlab 开了这条关系，knowfeed 代码也不调。
+4. **knowfeed 自己认的事项规则没带版本号**：0049 第四节「规则带版本」，knowbase 上传时的识别已带（`RULES_VERSION`，记进留痕）；knowfeed 交公开原件时认细类、事项的规则版本还没交过来，knowbase 也没地方记。
+

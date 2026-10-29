@@ -101,6 +101,12 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
    - knowlab 的跨应用去处加 knowbase（`domain/prepare.yaml` 的 `target_names` 里 `'knowlab': ['knowbench']` 再加 `'knowbase'`），不然知识库栏「去 knowbase 管理」不显示。
    - worker 定时多一项（每分钟）`app.tasks.knowbot_refresh.sweep`，随代码走。
    - 迁移：knowlab 0022（加一列）。
+8. **knowbase web端与管理端**（knowbase-backend `ffad92c`）：
+   - 跨应用来源：knowbase 的 `CROSS_APP_SOURCES_JSON` 要认 knowbench、knowlab、knowmart、knowfeed，并给 knowbench、knowlab 配 `return_url`（直达上传传完回去；不配就留在 knowbase）。现在 `domain/prepare.yaml` 的 `cross_app_sources` 只推 knowbench、knowbase、knowfeed 且只有 knowbench 有回跳，要按应用改成可配。
+   - 网关：web端新接口 `/api/web/v1/library/*`、管理端 `/api/admin/v1/user-data/*` 要和现有 `/api/web/*`、`/api/admin/*` 一样到后端（按前缀放的话不用改）。
+   - 后端镜像多一个依赖 pypdf（`uv.lock` 已锁）。
+   - 管理权限：禁用、依法清除要 `knowbase:user-data:dispose`，admin 本来就有，operator 默认没有，不用改。
+   - 迁移：knowbase 0020（留痕多认一种，不删行）。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 

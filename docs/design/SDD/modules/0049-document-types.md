@@ -163,4 +163,5 @@
 ## 六、实施进度
 
 - 2026-10-27：knowbase 词表第 2 版、描述的几维（迁移 0016）、解析按大类与披露时间窗、`recent` 期间规则、数据 MCP `search_evidence` 按维度圈，knowbase-backend `a6948bb`；契约 `knowbot-data-needs/v2`、`user-data/v2` 重新生成。knowmart `c9ccff2`（声明模型、清单 v2 契约重新生成）、knowlab `96ca04e`（声明模型、两把锁）、knowfeed `93d887a`（巨潮按窗逐份交付、按分类与标题认细类与事项、词表副本与锁）。knowbench 的声明模型随第 4 步提交（knowbench-backend `1c488d2`）。
-- 没做：knowbase web端的描述表单接各维度（从词表接口取，接口已带）；研报的几维从首页识别后请本人确认；按标题归事项的规则版本号；RAGFlow 与 Elasticsearch 的文档带维度元数据（块 9、0047 P4）。
+- 2026-10-29（发版前补齐 B1、B6）：knowbase web端的描述表单接各维度（从词表接口取）；上传时按文件名与首页识别描述，研报认机构、研究员、评级、盈利预测、深度、更新频率，标「待确认」，本人确认了才算；knowbase 识别用的标题规则（细类、事项、版本形态）带版本号 `RULES_VERSION`，每次识别把规则版本与认出的值记进资料的改动留痕（`recognized`，迁移 0020）。
+- 没做：knowfeed 认巨潮公告的规则版本号（knowfeed 一头，交公开原件时把规则版本带过来，knowbase 要加一个参数接）；RAGFlow 与 Elasticsearch 的文档带维度元数据（块 9、0047 P4）。
