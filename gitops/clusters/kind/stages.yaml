@@ -381,6 +381,9 @@ spec:
     - {name: knowbench-knowbase-user-data-read-identity}
     - {name: knowbench-knowbase-user-data-output-identity}
     - {name: knowbench-knowfeed-supply-demand-identity}
+    - {name: knowbench-knowmart-catalog-identity}
+    - {name: knowbench-knowmart-demand-identity}
+    - {name: knowbench-knowlab-incubation-request-identity}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -509,6 +512,63 @@ spec:
   retryInterval: 30s
   timeout: 8m
   path: ./components/app-platform/knowbench-app/knowbench-backend/knowfeed-supply-demand-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbench-knowmart-catalog-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbench-app/knowbench-backend/knowmart-catalog-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbench-knowmart-demand-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbench-app/knowbench-backend/knowmart-demand-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbench-knowlab-incubation-request-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbench-app/knowbench-backend/knowlab-incubation-request-identity
   sourceRef: {kind: OCIRepository, name: platform}
   dependsOn:
     - {name: casdoor}
