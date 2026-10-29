@@ -7,7 +7,7 @@
 > - 只往这个文件夹里加自己那一个文件；**不要 git 提交**，**不要改代码**，也不要改 qwen 工位的别的文件。写完由 Opus 统一提交，逐条核实、在 qwen 上修，并写评审回执（`opus-response.md`）。
 > - 不分工：每人都看全部代码。形式不限，可以补没想到的、指出会出问题的、提完全不同的做法。每条问题请写清在哪（仓、文件、行）、什么情况下出错（输入、状态 → 错在哪），能分轻重就分。
 >
-> **状态**：代码都在本地 `qwen` 分支，只提交了，没推。各仓全量测试都过（knowbench 后端 1210、knowlab 后端 622、knowmart 后端 493；knowbench web端 341、knowlab web端 154、管理端 66）。Fable 已做完第 2a、2b 节的 gitops（fable `eac18b59`，已推，没发版），删除类 gitops 在本地分支 `fable-v4-deletions`（头 `2f5bbd7c`，不推）。顺序是：这一轮评审 → Opus 修 → Fable 把 qwen 合进 fable、发版。**各工位还没对齐**，代码请在本地 qwen 工位看：`/home/zymun/worktrees/qwen/<应用仓>/<子仓>`（只读，不要切分支、不要动工作区），提交范围照下表。
+> **状态**：代码都在本地 `qwen` 分支，只提交了，没推。各仓全量测试都过（knowbase 后端 670、knowbench 后端 1210、knowlab 后端 622、knowmart 后端 493；knowbench web端 341、knowlab web端 154、knowlab 管理端 66、knowbench 管理端 60）。Fable 已做完第 2a、2b 节的 gitops（fable `eac18b59`，已推，没发版），删除类 gitops 在本地分支 `fable-v4-deletions`（头 `2f5bbd7c`，不推）。顺序是：这一轮评审 → Opus 修 → Fable 把 qwen 合进 fable、发版。**各工位还没对齐**，代码请在本地 qwen 工位看：`/home/zymun/worktrees/qwen/<应用仓>/<子仓>`（只读，不要切分支、不要动工作区），提交范围照下表。
 
 ## 一、要看的
 
@@ -17,14 +17,15 @@
 
 | 应用仓 | 子仓 | 范围 | 提交数 | 主要内容 |
 | --- | --- | --- | --- | --- |
-| knowbase-app | knowbase-backend | `eedb6d0..01926df` | 20 | 数据第四版块 1–4（资料、内容版本、读法、使用权、描述与词表、展示即同意、运行授权、按描述查与解析、确认、产出区、契约 `data-request/v1`、`knowbot-data-needs/v2`），公开原件与科目表（0047），数据 MCP（0048），词表第 2 版（0049）；删旧 SQLite 数据集、语义层、旧知识 MCP、`user-data/v1`、`UserObjects.copy`（⑰） |
+| knowbase-app | knowbase-backend | `eedb6d0..f893a38` | 21 | 数据第四版块 1–4（资料、内容版本、读法、使用权、描述与词表、展示即同意、运行授权、按描述查与解析、确认、产出区、契约 `data-request/v1`、`knowbot-data-needs/v2`），公开原件与科目表（0047），数据 MCP（0048），词表第 2 版（0049）；删旧 SQLite 数据集、语义层、旧知识 MCP、`user-data/v1`、`UserObjects.copy`（⑰） |
 | | knowbase-admin-frontend | `f097495..1f49c43` | 1 | 删旧数据集管理界面 |
 | knowfeed-app | knowfeed-backend | `c4cd1d6..61d1a03` | 9 | 供给竖线 3a–3d（0045：受理需求、切合、作业、巨潮目录渠道、按页文字与财报抽表）、证券名录、词表第 2 版的供给；退证券专线与旧数据集（⑰）；`supply-demand` 关系认调用方、调 knowbase 用 `user-data-supply` 身份 |
 | | knowfeed-admin-frontend | `b344c10..c640303` | 1 | 删旧证券专线管理界面 |
-| knowbench-app | knowbench-backend | `ce8e3b0..e681d3d` | 10 | 清单 v2 的专家请来用数据、第 0 步定数据（⑭）、删清单 v1 与旧数据路（⑰）、测试运行方与测试只在作者账号下跑（0046、⑯）、孵化运行方 `incubate`、AI 请专家（找专家那一轮、`find_expert` 工具、三个服务客户端、对话来源） |
-| | knowbench-web-frontend | `17cd09b..4b47bf8` | 6 | 请专家页与委托页按第 0 步（⑭）、删云端知识库页（⑰）、「让 AI 找」、从 knowlab 带着专家回来 |
+| knowbench-app | knowbench-backend | `ce8e3b0..3755be3` | 11 | 清单 v2 的专家请来用数据、第 0 步定数据（⑭）、删清单 v1 与旧数据路（⑰）、测试运行方与测试只在作者账号下跑（0046、⑯）、孵化运行方 `incubate`、AI 请专家（找专家那一轮、`find_expert` 工具、三个服务客户端、对话来源） |
+| | knowbench-web-frontend | `17cd09b..bf02903` | 7 | 请专家页与委托页按第 0 步（⑭）、删云端知识库页（⑰）、「让 AI 找」、从 knowlab 带着专家回来 |
+| | knowbench-admin-frontend | `2696455..f0bb202` | 1 | 「缺数据的需求」去掉指向已删页面的链接 |
 | knowlab-app | knowlab-backend | `8684d25..4c94955` | 19 | 清单 v2 草稿、测试集与自助测试（0046）、平台测试在作者账号下（⑯）、删清单 v1（⑰）、工作稿（⑮）、孵化契约与 AI 孵化一轮、测试数据说明第 3 版、孵化模式与给平台的授权、运营只能提议、`incubation-request` 关系 |
-| | knowlab-web-frontend | `3a0f2c8..a115f1e` | 7 | 测试卡片、撤「知识库」、名称页「孵化」栏与工作稿页、AI 起草、选自己来或请平台、去 knowbench 请它 |
+| | knowlab-web-frontend | `3a0f2c8..2feda88` | 8 | 测试卡片、撤「知识库」、名称页「孵化」栏与工作稿页、AI 起草、选自己来或请平台、去 knowbench 请它 |
 | | knowlab-admin-frontend | `28c79f0..111ceda` | 4 | 孵化页删「用户的数据」、测试等待文案、作者没电脑的提示、运营改工作稿（提议）与出一版 |
 | knowmart-app | knowmart-backend | `884f093..f384353` | 6 | 清单 v2（⑭）、删清单 v1 与 `user-data/v1`（⑰）、条目自动下架、成交改名 granted、服务关系 `catalog` 与 `demand` |
 | | knowmart-web-frontend | `db315f2..2867a64` | 3 | 专家详情按 v2、删知识库页、下架原因 |
@@ -50,6 +51,8 @@
 ## 二、背景与提醒
 
 - 产品没上线，旧格式、旧接口直接删，不留兼容（⑰）；看到删掉的旧路不用要求加回兼容，但删漏了、删多了（还有人在用）请指出。
+- 评审开始前 Opus 已按所有者 10-29「第一类先修」修了写应用说明时查出的五处（knowlab「同意新说明」换第 3 版文字、knowbench「AI 替你请了谁」改存在浏览器里、knowbench 管理端去掉指向已删页面的链接、knowbase 平台孵化授权上限改 30 天、knowbench 删请专家前列清单的旧分支），已含在上表范围里。所有者同时定「让我的模型直接答」按聊天，decisions 与请专家方案设计已改。
+- 各应用的现状说明在 [`project-guide/repos/`](../../../project-guide/repos/)（10-29 按 qwen 分支代码重写），每页末尾「代码和设计对不上的」是现成的线索，可以对照着核，也可以指出那里写错的。
 - Opus 自己知道、请顺带核的几处：
   - knowbench 内置孵化方法 INCUBATE 的指令里加了一句怎么对待参考回答。这段指令所有者逐字核过。
   - AI 请专家里「直接请」由网页在用户在场时做（先钉住，再用用户自己的会话建委托），不是后端代请。

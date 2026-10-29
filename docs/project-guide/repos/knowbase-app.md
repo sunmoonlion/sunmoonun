@@ -137,8 +137,7 @@ knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
 
 1. **web端没有页面**：`knowbase-web-frontend` 只有登录、首页、工具箱三页，首页文案还写「数据在 knowbench 里问专家或代理就有；数据目录在管理后台」（`messages/zh-CN.json:88`，管理端的数据目录 ⑰ 已删）。[0044](../../design/SDD/modules/0044-knowbase-web.md) 定 web端是用户管数据的唯一入口（总栏、上传、展示按钮等），数据拓扑第 7.1 节定上传只在 knowbase web端；现在哪个应用都没有上传入口，knowbench 解析结果「采不来」却提示用户「到 knowbase 上传」。
 2. **本人令牌只认三个应用**：`core/config.py:678` 只许 `USER_TOKEN_APPS_JSON` 映射到 knowbench、knowlab、knowmart。0043 第十节写「knowbase 的 `user_token_apps` 登记 knowfeed」，订阅范围同意要由 knowfeed 凭本人令牌转交（0045 第 2.1 节）；按现在的校验 knowfeed 进不来，订阅接口没人能调。knowbase web端自己也没有走到这些本人接口的路。
-3. **平台孵化授权时限**：`domain/user_runs.py:56` 平台过程 `incubate` 上限 7 天；decisions 10-29「孵化第 5 步的三件」① 定为到作者点「我自己来」或交还为止、最长 30 天、到期一键续。
-4. **正文、按页文字存在哪**：`application/services/user_run_service.py:664` 把这两种读法各存成对象存储里的一个对象，读法表只记对象键；0043 第五节与数据拓扑第 16.2 节写的是放 knowbase 的 PostgreSQL（正文每个读法版本一行、按页文字每页一行）。表格读法已按设计落成 PostgreSQL 的事实行。
-5. **全市场读只有一道门**：公开原件全市场可读、跨全市场查事实，代码只核平台总开关 `PUBLIC_ACCESS_ENABLED`（`user_run_service.py:270`、`:799`、`:1262`），没有资格、权限的检查；0047 第二、四、五节与决定 ⑪ 写的是「资格、权限、平台总开关」同一道门。
-6. **旧知识文档表还在用**：`knowledge_document` 两张表与 `knowbase:ingest` 入库链仍在（`infrastructure/models/knowledge.py:72`），knowfeed 旧采集线（`info_crawl_service.py:1301`）还在调；0047 第 2.4 节定这两张表退役，改为一个资料版本对应一个 RAGFlow 文档（排在 0043 块 9）。
-7. **`user-data-read` 的调用方**：代码认 knowfeed 也能凭授权读（`interfaces/endpoints/user_run_routes.py:72`），`contracts/README.md:62` 也这样写；部署只给 knowbench、knowlab 开了这条关系，knowfeed 代码也不调。
+3. **正文、按页文字存在哪**：`application/services/user_run_service.py:664` 把这两种读法各存成对象存储里的一个对象，读法表只记对象键；0043 第五节与数据拓扑第 16.2 节写的是放 knowbase 的 PostgreSQL（正文每个读法版本一行、按页文字每页一行）。表格读法已按设计落成 PostgreSQL 的事实行。
+4. **全市场读只有一道门**：公开原件全市场可读、跨全市场查事实，代码只核平台总开关 `PUBLIC_ACCESS_ENABLED`（`user_run_service.py:270`、`:799`、`:1262`），没有资格、权限的检查；0047 第二、四、五节与决定 ⑪ 写的是「资格、权限、平台总开关」同一道门。
+5. **旧知识文档表还在用**：`knowledge_document` 两张表与 `knowbase:ingest` 入库链仍在（`infrastructure/models/knowledge.py:72`），knowfeed 旧采集线（`info_crawl_service.py:1301`）还在调；0047 第 2.4 节定这两张表退役，改为一个资料版本对应一个 RAGFlow 文档（排在 0043 块 9）。
+6. **`user-data-read` 的调用方**：代码认 knowfeed 也能凭授权读（`interfaces/endpoints/user_run_routes.py:72`），`contracts/README.md:62` 也这样写；部署只给 knowbench、knowlab 开了这条关系，knowfeed 代码也不调。

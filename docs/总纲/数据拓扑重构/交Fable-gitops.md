@@ -8,14 +8,14 @@
 
   | 仓 | qwen 头 | 比 origin/fable 多 |
   | --- | --- | --- |
-  | knowbase-app | `5c14ec7` | 20 |
-  | knowbench-app | `7b3151c` | 12 |
+  | knowbase-app | `f65a6c7` | 21 |
+  | knowbench-app | `567c3b8` | 13 |
   | knowfeed-app | `569e3f9` | 8 |
-  | knowlab-app | `d034ffb` | 18 |
+  | knowlab-app | `0bfd91b` | 19 |
   | knowmart-app | `b5679a2` | 6 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
 
-  上表是 10-29 AI 请专家（含专家孵化方案第十三节第 5 条）提交后的头；合之前再看一眼各仓 `qwen` 头。
+  上表是 10-29 第四轮评审前修正（第 2c 节）提交后的头；合之前再看一眼各仓 `qwen` 头。
 - **新增类**（第一节）不影响现在跑着的旧代码，可以先上。
 - **删除类**（第二节）必须和 qwen 的代码同一次发布：旧代码还在读这些变量、用这些身份，先删会断。
 - **迁移会删生产记录**（所有者已同意，decisions ⑰）：knowmart 0010（0011 只改名、加列，不删行）、knowlab 0016–0018（0019–0021 只加列、加表，不删行）、knowbench 0030–0031（0032 只加列）、knowfeed 0019、knowbase 0018。knowfeed 0019 会删关注清单那 10 行与流水，所有者 10-29 定不导出（名单还在历史迁移 0013 的代码里）。
@@ -69,6 +69,11 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
 2. `common/backend/domain/prepare.yaml` 的 `target_names` 里 `'knowlab': []` 改成 `'knowlab': ['knowbench']`；第 80 行左右「谁带人去哪」的注释补一句「knowlab 去 knowbench（能用了的专家去工作台请，专家孵化方案第十三节）」。
 
 推出来的 knowlab 环境变量应是 `CROSS_APP_TARGETS_JSON={"knowbench": {"web_base_url": "https://knowbench.<域名>:<端口>"}}`，`CROSS_APP_SOURCES_JSON` 照模板（knowbench 回跳、knowbase、knowfeed）。knowbench 那头不用改：它收到 `knowbot=` 就按用户会话向 knowmart 核验、钉住（走现有 `knowmart:summon`），不看 `from`；`CROSS_APP_SOURCES_JSON` 里没有 knowlab，所以工作台上不显示「回到 knowlab」，这是有意的。没配时 knowlab 页面照旧只写一句怎么去。
+
+### 2c. 第四轮评审前补的两处（10-29）
+
+1. **knowbench 管理端不再读 `KNOWFEED_ADMIN_URL`**（knowbench-admin-frontend `f0bb202`）：「缺数据的需求」原来链去 knowfeed 管理端的「证券采集」页，那一页已随 ⑰ 删了，链接一起去掉。`knowbench-app/knowbench-admin-frontend/config.yaml` 第 12 行与 `workload.yaml` 里的 `KNOWFEED_ADMIN_URL` 可以删；不删也不报错（多出来的变量没人读）。算删除类，和 qwen 代码同发。
+2. **knowlab 登录后的回跳列表还是旧页面**：`knowlab-backend/config.yaml` 第 41 行的 `WEB_AUTH_ALLOWED_RETURN_PATHS` 列的是 `knowbots`、`questions`、`ideas`、`avatars`、`data`，现在 web端的栏是 `applications`、`names`、`review`、`experts`（加 `dashboard`、`login`），各两种语言（`/zh-CN/…`、`/en/…`）。不在列表里的回跳地址后端退回首页，不会出错，只是登录后回不到原来那一页。旧的几个地址前端会跳到新栏，可删可留。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 

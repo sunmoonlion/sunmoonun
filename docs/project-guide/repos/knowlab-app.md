@@ -144,12 +144,11 @@ knowlab 是作者把自己的方法做成专家的地方。一个**产品**从�
 
 1. **自助测出的专家没有交付的路**：0046 第五节写自助测的「提交交付即过」、自用轻审、公开重跑。代码交付仍是 0037 那条（管理端交回 → 用户同意 → 运营审核），`application/services/knowbot_board.py:108` `operator_view` 只给平台人员看平台模式与交平台测的准专家，web端「专家」只列交回过的（`domain/knowbots/lifecycle.py:222`，没交回的阶段 `to_return` 不在 web端的大类里）。自助孵化、自助测试通过的专家，作者和平台人员都没有入口把它交出去（文件头注释写「交审随块 6 再放开」）。
 2. **web端分栏**：0046 第六节写左边申请、孵化、测试、交付、待办，右边专家、知识库。代码 `knowlab-web-frontend/app/lib/navigation.ts:13` 只有首页、申请、待办、专家；孵化、测试在名称页里，没有交付栏和知识库栏。
-3. **「同意新说明」的文字还是第 2 版**：后端 `domain/knowbots/drafts.py:108` 是第 3 版（knowbase 里选的资料、作者的电脑和 key、请平台时给平台人员看），申请表单的勾选文字已改（`messages/zh-CN.json:128`），但旧说明下同意的用户看到的「新说明」（`knowlab-web-frontend/app/messages/zh-CN.json:222`）仍是第 2 版。
-4. **交给 AI 的数据格式给空、没有挑数据的界面**：专家孵化方案第 7.1、8.2 节写作者从 knowbase 挑数据、把格式交给 AI；`application/services/knowbot_incubation.py` 文件头写这一步给空，web端只列已挑的编号。
-5. **列作者的电脑走哪条路**：0046 第七节写凭本人令牌向 knowbench 要；代码走 `knowbench:testrun` 带作者编号（`infrastructure/external/knowbot_clients.py:113`）。0046 第九节已记这处差异，第七节正文没改。
-6. **gitops 落后于代码**（Fable 工位 `knowlab-backend/config.yaml`）：
+3. **交给 AI 的数据格式给空、没有挑数据的界面**：专家孵化方案第 7.1、8.2 节写作者从 knowbase 挑数据、把格式交给 AI；`application/services/knowbot_incubation.py` 文件头写这一步给空，web端只列已挑的编号。
+4. **列作者的电脑走哪条路**：0046 第七节写凭本人令牌向 knowbench 要；代码走 `knowbench:testrun` 带作者编号（`infrastructure/external/knowbot_clients.py:113`）。0046 第九节已记这处差异，第七节正文没改。
+5. **gitops 落后于代码**（Fable 工位 `knowlab-backend/config.yaml`）：
    - 还收 `knowlab:read`（`service_receivers` 第 143 行），knowbench 那边也还配着；代码已删这个接口，`infrastructure/security/relation_auth.py` 只认 `incubation-request`。
    - 还配 `knowbase:user-data-import`（注释已写随 qwen 删）、`user-data-directory`、`user-data-output` 三个出站身份和 `object_storage` 桶，代码都不用。
-   - `WEB_AUTH_ALLOWED_RETURN_PATHS` 列的是旧页面（`knowbots`、`ideas`、`avatars`、`questions`、`data`），没有 `applications`、`review`、`names`。
+   - `WEB_AUTH_ALLOWED_RETURN_PATHS` 列的是旧页面（不在列表里的登录后退回首页，不会出错；已列进交 Fable 文档第 2c 节；`knowbots`、`ideas`、`avatars`、`questions`、`data`），没有 `applications`、`review`、`names`。
    - 组件 `README.md` 还写「空应用」「我的数据」「分身」。
-7. **文档落后于代码**：[叫法](../叫法.md) 末尾写「代码还叫『审核』」，代码已改「待办」（导航 `nav.review` 是「待办」，路径仍是 `/review`）；[topics/knowbot.md](../topics/knowbot.md)（10-17）还写运营贴清单、「我的数据」、`knowlab:read`。
+6. **文档落后于代码**：[topics/knowbot.md](../topics/knowbot.md)（10-17）还写运营贴清单、「我的数据」、`knowlab:read`。

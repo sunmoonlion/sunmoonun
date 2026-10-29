@@ -19,7 +19,7 @@
 - 自助或平台测试的每条用例、孵化的每一轮（「AI 起草」「让 AI 改…」），都在作者的工作台里建委托，作者看得到委托和花了多少钱（⑮⑯）。
 
 **平台人员**
-- 管理端：看「缺数据的需求」（各用户查不到的公司按代码汇总，链去 knowfeed 管理端发起采集）；另有一个模板带的「Research runtime」占位页。
+- 管理端：看「缺数据的需求」（各用户查不到的公司按代码汇总，只看；现在缺的数据由用户在委托里确认、knowfeed 替用户采）；另有一个模板带的「Research runtime」占位页。
 - 以平台身份当用户干活时，用配给自己账号的**平台电脑**（现在一台，配在 `knowbot-tester`），在 web端和普通用户一样用（[叫法](../叫法.md)）。
 
 **别的应用（系统替用户做的事）**
@@ -48,7 +48,7 @@
 
 | 页面 | 做什么 |
 | --- | --- |
-| 缺数据的需求（`/workbench/missing-data`） | 查不到数据的公司按代码汇总：几次、几个人、最近一次；采不采由平台人员在 knowfeed 管理端发起 |
+| 缺数据的需求（`/workbench/missing-data`） | 查不到数据的公司按代码汇总：几次、几个人、最近一次；只看，不再链去 knowfeed 发起采集 |
 | Research runtime（`/research/runtime`） | 模板留下的占位页，没有功能 |
 
 ### 流程一：用户自己请专家（⑭，[请专家方案设计](../../总纲/请专家方案设计.md) 第 4.3 节）
@@ -154,10 +154,7 @@
 
 ## 代码和设计对不上的
 
-1. **直接答开的是聊天，不是工作对话**：`knowbench-web-frontend/app/lib/workbench/find-expert.ts:74` 建的是 `kind: 'chat'`（文案「在这个项目里开一段聊天」）。decisions 10-29「AI 请专家」第⑤条写「开一个普通工作对话」，请专家方案设计第 4.9 节第 5 条写「交给 knowbench 现有的工作对话」；专家孵化方案第十八节第 6 步又写「开一段聊天」，文档之间也不一致。
-2. **「AI 替你请了谁」记在标签页里**：`find-expert.ts:85-118` 用 `sessionStorage`，关了这个标签页就不显示；请专家方案设计第 4.9 节「实施」写「记在这个浏览器里，换了浏览器不显示这一行」。直接答对话「接着孵化」要的那一轮编号也存在这里，换个标签页打开聊天就没有这个按钮。
-3. **本地知识库还在**：web端 `features/local-library/`、侧栏入口（`features/shell/model/nav.ts:179`）、设置「电脑与沙箱」里的「本地知识库目录」都在。decisions 10-26「数据拓扑第四版」第①条「删 knowbench 本地知识库」，0043 第 4.1 节「删本地知识库目录设置」（随本地 link 0.5.4）。
-4. **「没有数据」卡片与「缺数据的需求」还按旧数据集认**：`knowbench-backend/app/app/domain/workbench/missing_data.py:17-60` 认数据集名 `sh600519-…` 和答复「unknown dataset」，那套数据集工具 ⑰ 已删，工具这一路不会再触发；卡片文案「我们的数据里还没有这家公司……入库由我们来做」（`knowbench-web-frontend/app/messages/zh-CN.json:398-401`）与第四版「缺的经用户确认、knowfeed 替用户采」（⑫⑭）不合。
-5. **部署里还配着代码已不用的关系**：后端 `config.yaml` 的 `knowlab:read`（⑰ 删了经 knowlab 读数据）、`knowbase_service`（`knowbase:retrieve`）、`KNOWBOT_TEST_SUBJECT`/`KNOWBOT_TEST_WORKSPACE`/`KNOWBOT_TEST_MONTHLY_LIMIT`（⑯ 后测试在作者账号下跑），代码里都没有读的地方；应用仓 `contracts/knowbase-retrieval-provider-lock.json` 也还在，没有调用方。config 注释自己写着「随 qwen 这批代码删」。
-6. **产出区没人写**：0043 第 2.6 节写「knowbench runner 以服务身份替用户写产出区」，部署也配了 `knowbase:user-data-output`，但后端代码里没有这条关系的调用。
-7. **旧「开跑前列出」的分支还在**：`domain/workbench/data_plan.py:90-160` 的 `user_decides=False`（必填的不能去掉、缺了开不了跑）没有调用方，所有调用都传 `True`；请专家方案设计第 4.7 节「删请专家前列清单那条路」、⑰ 不留旧分支。
+1. **本地知识库还在**：web端 `features/local-library/`、侧栏入口（`features/shell/model/nav.ts:179`）、设置「电脑与沙箱」里的「本地知识库目录」都在。decisions 10-26「数据拓扑第四版」第①条「删 knowbench 本地知识库」，0043 第 4.1 节「删本地知识库目录设置」（随本地 link 0.5.4）。
+2. **「没有数据」卡片与「缺数据的需求」还按旧数据集认**：`knowbench-backend/app/app/domain/workbench/missing_data.py:17-60` 认数据集名 `sh600519-…` 和答复「unknown dataset」，那套数据集工具 ⑰ 已删，工具这一路不会再触发；卡片文案「我们的数据里还没有这家公司……入库由我们来做」（`knowbench-web-frontend/app/messages/zh-CN.json:398-401`）与第四版「缺的经用户确认、knowfeed 替用户采」（⑫⑭）不合。
+3. **部署里还配着代码已不用的关系**：后端 `config.yaml` 的 `knowlab:read`（⑰ 删了经 knowlab 读数据）、`knowbase_service`（`knowbase:retrieve`）、`KNOWBOT_TEST_SUBJECT`/`KNOWBOT_TEST_WORKSPACE`/`KNOWBOT_TEST_MONTHLY_LIMIT`（⑯ 后测试在作者账号下跑），代码里都没有读的地方；应用仓 `contracts/knowbase-retrieval-provider-lock.json` 也还在，没有调用方。config 注释自己写着「随 qwen 这批代码删」。
+4. **产出区没人写**：0043 第 2.6 节写「knowbench runner 以服务身份替用户写产出区」，部署也配了 `knowbase:user-data-output`，但后端代码里没有这条关系的调用。

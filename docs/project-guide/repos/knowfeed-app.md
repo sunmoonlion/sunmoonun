@@ -128,7 +128,6 @@ knowfeed 替用户采公开数据，采到的交给 knowbase。数据第四版�
 2. **旧写入口没关**：0045 第六节第 1 条要求先关「运营建作业直接分发进 knowbase」那条路；代码里 `interfaces/endpoints/info_routes.py:351` 的 `POST /admin/distributions/knowledge` 和 `info_crawl_service.py:1301` 经 `knowbase:ingest` 入库的路都还在，管理端「资讯采集」仍能建采集作业。旧通用文档模型（0045 第六节第 2 条第二点）也没退。
 3. **web端那句说明是旧流程**：0045 第一节、数据拓扑第三节写 web端有「提需求」「我的需求」；代码 web端首页只有一句，且 `knowfeed-web-frontend/app/messages/zh-CN.json:88` 写的是「要采哪家公司的数据，由我们在管理后台发起；你在 knowbench 里查不到的，我们会看到」，说的是已退的证券专线。
 4. **管理端还是旧的**：0045 第一节写管理端管来源目录、渠道审核与试采、待审网站、缺口清单、队列监控；代码只有旧通用采集的「资讯采集」一页，后端也没有渠道的管理接口。
-5. **knowbench 管理端链到已删的页**：knowbench `knowbench-admin-frontend/app/features/demand/model/demand.ts:8` 的「去发起采集」拼的是 knowfeed 管理端 `/knowfeed/securities`，文案（`zh-CN.json:95-96`）和 `knowbench-backend/app/app/interfaces/http/admin/missing_data.py:4` 都说「证券采集」页；这一页随 knowfeed-admin-frontend `c640303` 删了。
-6. **「正文文字」读法没人产**：接口收 `text`（`internal/supply.py` 的 `readings`），0045 第 3.4 节有正文抽取加工器；代码只产原件、按页文字、表（`jobs.py`），要了 `text` 的项最多到「部分就绪」（`processing.py:329` 的 `wanted_readings`）。
+5. **「正文文字」读法没人产**：接口收 `text`（`internal/supply.py` 的 `readings`），0045 第 3.4 节有正文抽取加工器；代码只产原件、按页文字、表（`jobs.py`），要了 `text` 的项最多到「部分就绪」（`processing.py:329` 的 `wanted_readings`）。
 
 其余还没做的（配额、需求状态推送、按渠道排队限速、预切合与供给条件快照、换下一个渠道、订阅、给网址、按主题找、30 天后删原件等）0045 第九节、0049 第六节已逐条列出，本页不重复。
