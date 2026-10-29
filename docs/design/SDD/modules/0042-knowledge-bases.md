@@ -201,7 +201,7 @@ Fable 评审后（10-25，处置见 `review-2026-10-24-opus/opus-response.md`（
   - knowlab 迁移 0011 多一张待撤同意表，期望库版本仍是 `20261024_0012`。
   - knowlab 开测签不出授权就不开跑。搬过来的旧数据在本人补上测试同意之前照旧经 knowlab 读（Fable P2-4），所以发版后跑完 `import_datasets` 就能测；`import_datasets` 要在没有在跑的测试时跑。
   - Fable 评审后：knowbase 迁移 0008 又加资料的 `no_resale`；knowlab 迁移 0011 又加数据记录的 `no_resale`，0012 退回前核新写入；期望库版本都不变。
-  - 测试电脑的 TMPDIR 设到 `<工作区>/runs/.tmp`（Fable P2-14，平台配置）。没设之前测试照旧能写 /tmp，没有隔离。
+  - 平台电脑（原测试电脑）的 TMPDIR 设到 `<工作区>/runs/.tmp`（Fable P2-14，平台配置）。没设之前测试照旧能写 /tmp，没有隔离。
 - Fable 10-25 对平台核对后（家目录《平台配置-给Opus的接口清单-20261025》第 1、3 条），knowbase 改了两处，平台按改后的配：
   - 用户资料的四种服务关系改成按关系校验（做法同 knowmart）：读 `SERVICE_AUTH_<关系>_CALLERS` 与每个调用方一组 `_AUDIENCE`、`_SUBJECT_ALLOWLIST`、`_REQUIRED_SCOPE`，关系名的连字符换下划线；读、导入以校验认出的调用方那个应用的名义。`USER_DATA_READER_APPS_JSON` 不再读，平台可以不发。
   - 用户资料的对象存储单独读 `USER_DATA_S3_ENDPOINT`、`_REGION`、`_FORCE_PATH_STYLE`、`_ACCESS_KEY_ID`、`_SECRET_ACCESS_KEY`，桶仍是 `USER_DATA_BUCKET`；`S3_*` 留给知识源只读身份。https 时按 `AWS_CA_BUNDLE` 核证书（`SSL_CERT_FILE` 是知识源那套的）。

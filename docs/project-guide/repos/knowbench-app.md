@@ -13,7 +13,7 @@
 | 对话与项目 | `application/workbench/session_service.py`、`project_service.py`；`domain/workbench/projects.py` | 三种对话（聊天、工作、「专家」——10-16 曾定改叫分身，10-18 定都叫专家、不改，[0017](../../design/SDD/modules/0017-three-kinds-of-conversation.md)）、项目、工作区 |
 | 专家（现为内置专家包） | `domain/workbench/packs.py`、`pack_view.py`、`step_view.py`；`application/workbench/expert_desk.py`、`advisor.py`、`delegation.py` | 每个包：六问、步骤、每步验收、工具范围。代码里列给用户的有「问数」「财报体检」「财务分析与预测」（`listed_packs()`；前两个 2026-10-15 已定下架，代码还没撤），另有只给内部测机制的「机制烟测」。「财务分析与预测」是我们作为普通用户的专家（[0023](../../design/SDD/modules/0023-fin-forecast.md)）。**对全体用户可选，与 `C-L5` 冲突，对用户开放前改为归属用户** |
 | 用户自己的专家（[0027](../../design/SDD/modules/0027-knowbot-first-path.md) P4，已写未部署） | `application/workbench/catalog.py`；`domain/workbench/knowbots.py`；`infrastructure/external/knowmart_client.py`；网页端 `components/workbench/knowbot-arrival.tsx` | 专家首页「请我的分身」跳 knowmart 选、回跳后按会话向 knowmart 核验并钉住；委托钉这一版的专家包快照与摘要，编排、验收都读快照（`pack_for_task`）；knowbot 的专家包只能比平台更严、不许用数据线工具 |
-| 作为运行方跑专家测试（0027 §3.4，已写未部署） | `application/workbench/test_runs.py`、`interactions.py`；`domain/workbench/test_runs.py`；`interfaces/endpoints/knowbot_runtime_routes.py` | knowlab 来跑测试（服务身份 `knowbench:testrun`）：在测试账号与测试电脑上用草稿快照建委托、runner 照常驱动；等人回答的报给 knowlab、答完代答接着跑；推进器在 runner 进程里 |
+| 作为运行方跑专家测试（0027 §3.4，已写未部署） | `application/workbench/test_runs.py`、`interactions.py`；`domain/workbench/test_runs.py`；`interfaces/endpoints/knowbot_runtime_routes.py` | knowlab 来跑测试（服务身份 `knowbench:testrun`）：在作者的账号与电脑上用草稿快照建委托（decisions ⑯）、runner 照常驱动；等人回答的报给 knowlab、答完代答接着跑；推进器在 runner 进程里 |
 | 专家读用户数据（0027 §3.5，已写未部署） | `application/workbench/knowbot_data.py`；`interfaces/mcp/workbench_mcp.py`（`list_my_data`、`read_my_data`）；`infrastructure/external/knowlab_data_client.py` | 按委托核（委托在跑、是专家或测试中的草稿、数据在这一版清单的绑定里），再用服务身份 `knowlab:read` 向 knowlab 读文字（契约 `knowbot-data/v1`，锁 `contracts/knowlab-knowbot-data-lock.json`） |
 | 委托、验收、账 | `acceptance.py`、`deliverable_check.py`、`ledger.py`、`runner.py`、`records.py`、`run_files.py` | Task / Attempt、预算硬停（`C-A10`）、底稿与交付；四本账落 PostgreSQL（`C-A3`） |
 | 沙箱 | `provisioning.py`、`tokens.py` | 设置页「拉起 / 更新沙箱」→ 签发会合点身份并登记 → 调供给器 `PUT /sandboxes/<用户>`；给沙箱签 knowbase MCP 与记录 MCP 的短期令牌 |
@@ -43,4 +43,4 @@
 
 ## 部署
 
-`k8s/gitops/components/app-platform/knowbench-app/`：`database`、`migration`、`redis`、`rabbitmq`、`identity`、`service-identity`、`agent-releases`（安装包上传与校验）、`runtime`；专家线新加的 `knowmart-summon-identity`、`knowlab-read-identity`（出站服务身份）与 `test-computer`（专家测试的测试电脑），已写未部署。对外开放的三个公网域名之一：0028 R5 起是 `knowbench.sunmoonai.com`，之前是 `investment.sunmoonai.com`。
+`k8s/gitops/components/app-platform/knowbench-app/`：`database`、`migration`、`redis`、`rabbitmq`、`identity`、`service-identity`、`agent-releases`（安装包上传与校验）、`runtime`；专家线新加的 `knowmart-summon-identity`、`knowlab-read-identity`（出站服务身份）与 `test-computer`（平台电脑，原测试电脑；改名交 Fable）。对外开放的三个公网域名之一：0028 R5 起是 `knowbench.sunmoonai.com`，之前是 `investment.sunmoonai.com`。
