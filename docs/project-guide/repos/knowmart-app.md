@@ -1,0 +1,148 @@
+# knowmart-app：供需市场
+
+> 最后更新：2026-10-29 ｜ 按 qwen 分支代码重写 ｜ 骨架继承 [`tpl-app.md`](tpl-app.md)，本文只写它多出来的 ｜ 总览见 [`../overall-architecture.md`](../overall-architecture.md)
+
+**层与线**：第 6 层应用层；专家线 knowlab → knowmart → knowbench 的中间一环（专家在这里存放、上架、被请）；同时是用户之间买卖资料的地方，资料本身的真源在 knowbase。
+
+knowmart 是专家与知识的供需市场。专家从 knowlab 交来，一版一版存在这里，作者定只自用还是申请公开、标每次请的价格；用户在专家目录里挑专家，回 knowbench 去请。知识是用户在 knowbase 里交给 knowmart 的资料，写成条目上架，别人买下后 knowbase 给买家建使用权，不复制。用户还能发需求、响应别人的需求。要公开专家、上架知识，先要过发布主体与资质审核（`C-L4`）。本期标价、记成交，不接真实支付。设计上每个用户一家小店，代码还没做到（见文末）。叫法照 [叫法](../叫法.md)。
+
+## 一、谁来做什么
+
+**用户**
+
+- 作者：在「我发布的 › 专家」给 knowlab 交来的专家标每次请的价格，选「只自用」，或选类目后「申请公开」。
+- 作者：停用某一版要到 knowlab 停；详情页上停用一栏给的是「到 knowlab 停用」的链接。
+- 卖家：先在 knowbase 总栏把资料「交给 knowmart」，再在「我发布的 › 知识条目」选资料写条目（名称、类目、说明、样张、权利声明、允不允许转卖、价格），交审核，或下架。
+- 卖家：资料在 knowbase 里没了或不再出售时，用到它的条目自动下架，原因写在这一条上。
+- 入驻：在「发布主体」页登记个人或非个人主体，传证件照片，加证照，交运营审。
+- 请专家的人：在「专家」目录看自己的专家和别人公开的专家，看详情；从工作台跳来时点「请这位」回工作台，不是从工作台来的点「去工作台请」。
+- 买家：在「知识」里找、点「买下」，资料进买家 knowbase 总栏的「买来的」。
+- 需求方：在「需求大厅」发需求（要专家还是知识、要解决什么、要什么资料、期限、预算可空），看响应、选一家、结束需求。
+- 卖家响应需求：写方案、报价、几天做好，可附自己已有的条目，也可做好上架后再补附。
+- 成交双方：在「我买到的」看买入、卖出的成交；买家评一次分（1–5 分加一句话），卖家回复一次；需求下公开留言，响应下双方私下留言；谁都能举报。
+
+**平台人员（管理端）**
+
+- 条目审核：审知识条目与申请公开的专家，页面标出禁止类的词（荐股、目标价、评级、收益承诺），通过或不通过（不通过写理由）。
+- 资质审核：审发布主体与证照，看证件照片；已审过的主体或某张证照可撤销（写理由），相关公开专家即刻改回自用、在架知识下架。
+- 举报处理：核实就下架（专家、知识、需求、响应、留言），或驳回。
+- 驻场规则：改全文，出一个新版本，旧的留着。
+- 成交记录：看全部成交，含还没办完的。
+
+**别的应用与后台（系统替用户做的事）**
+
+- knowlab 替作者交付用户同意、运营审过的一版专家（可带「申请公开」），停用某一版，报没上架那一版的结局（用户不要 / 审核没过）。
+- knowbench 替请专家的人取清单并钉住；AI 请专家时替用户查目录，用户点了「发布」后替用户挂需求。
+- knowbase 列出卖家交给 knowmart 的资料；成交后给买家建使用权。
+- knowmart 后台每小时扫一遍：证照到期前 30 天记提醒；过期的，相关公开专家改回自用、在架知识下架；审过满一年的证件照片清掉内容。
+
+## 二、页面与流程
+
+**web端**（页头一行栏目：专家 · 知识 · 需求大厅 · 我发布的 · 我买到的 · 发布主体 · 驻场规则）
+
+| 页面（地址） | 在上面做什么 |
+| --- | --- |
+| 专家 `/knowbots` | 专家目录：类目树（照腾讯 WorkBuddy 的服务类目）、搜名称或一句话、按更新时间筛、按最近更新或名称排，每页 24 位 |
+| 专家详情 `/knowbots/<编号>` | 能做什么（接什么 / 不接什么 / 不接的去哪问；方法步骤只有主人看得到）、需要的数据（按你的问题定数据，专家自带几份）、交回什么、版本记录（含空号，没上架的原因只给主人看）、发布主体；价格与评价；停用 |
+| 知识 `/knowledge`、`/knowledge/<编号>` | 在架知识条目，按关键词、类目找；详情有说明、几份、样张、权利声明、能不能转卖、发布主体、评价，买下、举报 |
+| 需求大厅 `/demands`、`/demands/<编号>` | 收响应中的需求，发布需求；详情里响应、选一家、结束、留言 |
+| 我发布的 `/mine` | 四个页签：知识条目（写、改、交审核、下架、自动下架原因）、专家（价格、只自用、申请公开与类目、上架状态）、需求、响应 |
+| 我买到的 `/bought` | 两栏：我买到的、我卖出的；评价与回复 |
+| 发布主体 `/publisher` | 页标题「发布主体与资质」：主体资料、证件照片、证照 |
+| 驻场规则 `/rules` | 最新一版规则 |
+
+站点首页、`/dashboard`、`/toolkit` 还是模板原样；市场从 `/knowbots` 起，页头的 knowmart 字样也链到这里。
+
+**管理端**（左侧导航五项，都在 `market/` 下）：条目审核 `listings` · 资质审核 `qualifications` · 举报处理 `reports` · 驻场规则 `rules` · 成交记录 `trades`。后端另有「平台直接下架」和「手动扫一遍」两个接口，管理端页面没接，下架现在只经举报处理。
+
+**流程一：专家从交付到被请**
+
+1. 作者在 knowlab 点「要这一版」、运营审过 → knowlab 后端调交付接口。knowmart 只收清单 v2（`knowbot-manifest/v2`），核外层；同一交付单号重发内容一样回原结果、不一样回 409；版本号照清单记（可有空号），版本只插不改。knowlab 审成公开的那一版记「允许公开」。
+2. 交付带「申请公开」的：卖家主体审过、类目要的证照也有，这一位才进条目审核；否则留自用，回包写明原因（没选类目 `category_needed`，资质不够 `not_qualified`）。交付不带类目，新专家都是「未分类」，所以实际要卖家先在「我发布的 › 专家」选类目再申请。
+3. 运营在「条目审核」通过 → 专家公开。别人看得到、请得到要同时满足：总开关 `PUBLIC_MARKET_ENABLED` 开着、专家公开、主体实名审过、类目要证照的有有效证照，且只限 knowlab 审成公开的那几版。
+4. 用户在 knowbench 点「请我的分身」→ 来到 `/knowbots`（带着来源与 `ref`）→ 选一版点「请这位」→ knowmart 后端核：是自己的或可请的公开专家、这一版没停用、运行方是 knowbench → 带 `knowbot=<编号>@<版本>` 回工作台 → knowbench 以 `summon` 关系取清单原文与摘要钉住。
+5. 请的是别人的专家，记一笔成交（价格照条目，本期不收钱）。同一用户同一版只记一次：网页「请这位」和 knowbench 取清单（含 AI 替用户请）都走这一处。买家有一条已选定的需求、选中的响应附的正是这位专家时，成交记在那条需求上，需求随之结束。
+
+**流程二：AI 请专家时 knowmart 这一头**
+
+1. knowbench 的「找专家」调 `catalog`：回这个用户请得动、运行方是 knowbench 的专家，各取最新一版能请的——名称、一句话、类目、`pack.scope` 三项（接什么、不接什么、不接的去哪问）、版本、价格、免不免费（作者是本人、没标价或价格为零、请过这一版）。只按名称排，不排序、不加权。
+2. 选定后照流程一第 4、5 步钉住、记成交。
+3. 都不合适、用户在 knowbench 看过描述点「发布」→ knowbench 调 `demand`，需求记在这个用户名下，和在需求大厅自己发的一样。
+
+**流程三：卖知识、买知识**
+
+1. 卖家在 knowbase 总栏把资料「交给 knowmart」。
+2. 在「我发布的 › 知识条目」写一条：后端凭卖家本人的令牌读 knowbase 里交给 knowmart 的那一栏，核每份是卖家自己的、许可是「可以出售」、不是买来又不许转卖的同样内容（按摘要比）。
+3. 交审核要主体审过（类目要证照的还要证照）→ 运营审过上架。
+4. 买家点「买下」：先记一笔「办理中」，逐份请 knowbase 建使用权（只到成交那一版，不复制，带转卖标记）；都建好记成交，有需求就结束需求。带幂等键，重来接着办，不会多建。
+5. 卖家那份资料没了或不再出售：这笔记「没买成」（已建好的几份照旧归买家），条目自动下架。卖家打开「我发布的」时也会核一遍待审、在架的条目，原因（资料不在 / 不再出售）写在条目上。
+
+## 三、后端
+
+| 块 | 代码（`knowmart-backend/app/app/` 下） | 说明 |
+| --- | --- | --- |
+| 专家的存放与请 | `application/services/knowbot_service.py`；`interfaces/endpoints/knowbot_routes.py` | 交付、停用、空号结局、取清单；`catalog`、`demand` 两个内部接口；web端停用与「请这位」 |
+| 清单 v2 | `domain/knowbots/manifest.py`、`schema.py` | 只核外层：名字、版本、运行方、`bindings`（作者挑选、交付时冻结的资料引用）、`rule_sources`；`pack` 只核骨架；摘要 |
+| 专家目录 | `application/services/expert_catalog.py`；`interfaces/endpoints/expert_routes.py`；类目 `domain/knowbots/catalog.py` | 谁看得到只在这里判；筛、排、分页、详情；给 knowbench 的目录 |
+| 供需市场 | `application/services/market.py`（用户一侧 `MarketService`、运营一侧 `MarketAdmin`）；`domain/market.py`；`interfaces/endpoints/market_routes.py` | 主体与资质、专家上架与价格、知识条目、买、需求与响应、成交、评价、留言、举报、驻场规则 |
+| 调 knowbase | `infrastructure/external/knowbase_user_data.py` | 契约 `user-data/v2`：列资料、建使用权 |
+| 服务关系 | `infrastructure/security/relation_auth.py` | `deliver`、`summon`、`catalog`、`demand` 四种；按部署下发的配置认调用方，没配的关系一律拒 |
+| 定时活 | `tasks/market.py`；`worker.py` 里的 `market-sweep` | 每小时一次，重复跑不多做 |
+| 跨应用跳转 | `domain/cross_app.py`；`interfaces/http/web/cross_app.py` | 回跳地址只从本应用配置查，不用链接里带的 |
+
+## 四、自己存什么
+
+- 库 `knowmart`、Redis 前缀 `knowmart:*`、RabbitMQ vhost `knowmart`（模板一套）；没有对象存储桶。
+- 专家：`knowbot`（名称、一句话、主人、来源引用、当前版本、类目、可见范围、发布主体、价格、上架状态与审核说明）、`knowbot_version`（清单原文与摘要、状态、允许公开；只插不改、不许删）、`knowbot_unlisted_version`（空号那一版的结局）。
+- 主体与资质：`publisher`（个人 / 非个人；身份证号只存遮住的样子和带钥匙的摘要）、`publisher_license`（证照）、`publisher_document`（证件照片存在库里，审过满一年清掉内容）。
+- 市场：`knowledge_listing`（只记资料引用、名字与摘要，内容在 knowbase；带自动下架原因）、`demand`、`demand_response`、`trade`（要建的几份、建好的几份、状态、幂等键）、`trade_request_alias`、`trade_review`、`market_message`、`house_rules`、`market_report`。
+- 模板的 `auth_user`、`outbox_message`、`inbox_message`。
+- 已删掉的旧东西（⑰）：清单 v1 的专家版本（只剩 v1 的专家连同空号结局一起删，订单历史不动）、knowmart 知识库页与 `user-data/v1` 调用、「复制」的叫法（成交表改叫 granted）、「只用自带数据」筛选。
+
+## 五、和别的应用
+
+内部接口的路径前都有 `/api`，并只认内部入口来的请求。
+
+| 对方 | 怎么连 |
+| --- | --- |
+| knowlab | 关系 `deliver`（scope `knowmart:deliver`，只认 knowlab）：`POST /internal/v1/knowmart/deliveries` 交付；`POST …/owners/{用户}/knowbots/{编号}/versions/{版本}/stop` 停用（只停 knowlab 交来的）；`PUT …/owners/{用户}/sources/{引用}/unlisted/{版本}` 报没上架的结局 |
+| knowlab（链接） | 专家详情「到 knowlab 停用」→ knowlab web端「专家」栏 |
+| knowbench | 关系 `summon`（`knowmart:summon`）：`GET …/owners/{用户}/knowbots/{编号}@{版本}` 取清单原文与摘要，请别人的专家时记成交 |
+| knowbench | 关系 `catalog`（`knowmart:catalog`）：`GET …/owners/{用户}/catalog`，替用户找专家 |
+| knowbench | 关系 `demand`（`knowmart:demand`）：`POST …/owners/{用户}/demands`，替用户挂需求 |
+| knowbench（链接） | knowbench「请我的分身」→ knowmart `/knowbots`；「请这位」回 knowbench 工作台（回跳地址登记在 knowmart 的配置里）；不是从工作台来时「去工作台请」→ knowbench 工作台的「专家」 |
+| knowbase | knowmart 调：`GET /api/internal/v2/user-data/columns/knowmart`（卖家本人令牌，向 Casdoor 换给 knowbase 的令牌）；`POST /api/internal/v2/user-data/purchases`（服务关系 `knowbase:user-data-purchase`）建使用权。字段用得少，没放锁 |
+| knowbase、knowfeed | 跨应用来源里登记了，没配回跳地址 |
+| 契约 | knowmart 是清单 `knowbot/v2` 的提供方，真源在父仓 `contracts/knowbot/v2/`；knowlab、knowbench 父仓各有一把锁 `knowmart-knowbot-manifest-v2-lock.json`。`contracts/README.md` 只写了 knowlab 那三个接口，`summon`、`catalog`、`demand` 没写 |
+
+## 六、照什么做的
+
+| 块 | 决定 | 设计文档 |
+| --- | --- | --- |
+| 供需市场、小店 | decisions「knowmart 每个用户一家小店」（10-26）、「knowmart 供需市场的做法」（10-23 晚）、「三个应用相互独立……knowmart 改为专家与知识的供需市场」（10-23） | [0018](../../design/SDD/modules/0018-advisor-market.md) 第十、十一节（含第 7 之二小节） |
+| 专家只经 knowlab、两道门、空号、停用在 knowlab | decisions「交付由用户定」「公开不再锁死，按资质定」（10-20） | [0037](../../design/SDD/modules/0037-idea-avatar-expert.md) 第五、六、十二、十八之二节；[0027](../../design/SDD/modules/0027-knowbot-first-path.md) |
+| 公开按资质、类目、总开关 | decisions「对标腾讯 WorkBuddy」（10-18）、`C-L4`（10-20）、「总开关在开发站点开着」（10-25） | 0018 第十一节第 5 小节 |
+| 专家目录 | decisions「都叫专家」（10-18） | [0032](../../design/SDD/modules/0032-knowmart-storefront.md) |
+| 清单 v2、删旧版 | decisions ⑭、⑰ | [0043](../../design/SDD/modules/0043-data-v4.md) 第三、四节 |
+| 买卖 = 使用权、卖资料 | decisions「数据拓扑第四版」（10-26） | [数据拓扑](../../总纲/数据拓扑.md) 第十一节；0043 第 4.3 节 |
+| AI 请专家（`catalog`、`demand`、同一版只记一次） | decisions ⑭ 的 10-28 晚补、「AI 请专家（孵化第 6 步）的做法」（10-29） | [请专家方案设计](../../总纲/请专家方案设计.md) 第 4.9 节；[专家孵化方案](../../总纲/专家孵化方案.md) 第十三节 |
+| 资料没了自动下架 | 所有者 10-29 定（「数据拓扑重构/待你决定」第 7 条，没进 decisions） | 数据拓扑第十一节「卖家把许可档改低」一条 |
+
+决定都在 [decisions](../../design/decisions.md)。
+
+## 七、部署
+
+`gitops/components/app-platform/knowmart-app/`（Fable 工位为准）：
+
+- `knowmart-backend/`：`database`、`migration`、`redis`、`rabbitmq`、`identity`（模板一套）；`knowbase-user-data-purchase-identity`（knowmart 调 knowbase 建使用权用的服务身份）；`runtime`（API、worker、scheduler；`PUBLIC_MARKET_ENABLED`、跨应用来源与去处、身份证号摘要的钥匙）。
+- 后端 `config.yaml` 的 `service_receivers` 写收哪几种关系：`deliver` 认 knowlab，`summon`、`catalog`、`demand` 认 knowbench。
+- `knowmart-web-frontend/`、`knowmart-admin-frontend/`：两个前端。
+
+## 代码和设计对不上的
+
+1. **小店没做**。在 `knowmart-web-frontend/app/components/market/market-shell.tsx:9-18`：栏目还是 0018 第十一节第 7 小节那一套（专家、知识、需求大厅、我发布的、我买到的、发布主体、驻场规则），站点首页是模板原样（`app/[locale]/page.tsx`）；后端没有店名、小店列表、小店详情、处置状态，`DemandIn`（`domain/market.py:162`）没有「公开到我的小店」的勾，「我买到的」的成交没有去 knowbase / knowbench 的直达链接。0018 第十一节第 7 之二小节、0043 第 4.3 节写的是：首页是小店列表，有小店详情页与「我的小店」，「我买到的」拆掉（0043 第七节块 8，第十二节记为未开始）。
+2. **平台下架不收回买家的使用权；紧急撤回没做**。`application/services/market.py:1359-1362` 下架知识条目时「买家那份照旧在」，管理端举报页的说明也这样写（`knowmart-admin-frontend/app/messages/zh-CN.json:89`）；全仓没有「紧急撤回连在跑的也停」。数据拓扑第十一节、0043 第 4.3 节写的是「平台因违规下架，收回买家的使用权，留痕」；0018 第十一节第 9 小节第 3 项写了紧急撤回。
+3. **交付时不查专家所绑数据的许可**。`application/services/knowbot_service.py:80-98` 只核清单外层，不问 knowbase 所绑每份能不能经专家给别人用；也没有「待处理」这个状态。0043 第 4.3 节写「knowlab 运营审核门预查，knowmart 收清单时硬查」，自用转公开时重查；数据拓扑第十节第 5 条写所绑数据失效时在售专家转「待处理」。
+4. **自动下架只在两个时候核**：卖家打开「我发布的」（`market.py:522` 的 `my_listings`）和有人买到一半失败时。资料在 knowbase 删了以后、卖家打开之前，条目照样在「知识」里列着，买的人点了才发现买不成；没有定时核，也没有 knowbase 来的通知。10-29 定的是「资料被删时用到它的在架条目自动下架」（「待你决定」第 7 条第 4 项；站内信所有者说以后再做）。另外那份文件说原因写在「我的条目」上，代码里这页叫「我发布的 › 知识条目」。
+5. **交付不带类目**。`domain/knowbots/catalog.py:55` 的注释说「knowlab 交付时由运营选类目」，交付接口（`knowbot_routes.py` 的 `DeliveryIn`）没有类目字段，新专家一律「未分类」，带「申请公开」的第一版必然回 `category_needed`，要卖家在 knowmart 选类目后再申请。0032 待定第一项写的是交付时由运营选类目。
+6. **过时的说明**：`infrastructure/security/relation_auth.py:3` 说「knowmart 接受两种关系」，代码收四种；后端 `GET /web/v1/knowbots`（「我的分身」列表）前端已不调；gitops（Fable 工位）`knowmart-app/knowmart-backend/config.yaml` 里调 knowbase 那段注释还写「契约 user-data/v1、复制进买家选的知识库」，`knowmart-app/README.md` 还写「只做私有模式」。
