@@ -6,9 +6,9 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v7
-  # 账 175：本地用户只按 subject 认、合并旧份（20261025_0026）
-  expected_schema_revision: '20261025_0026'
+  migration_job_revision: v8
+  # 数据第四版：删 v1、孵化表（20261028_0030–0031 删行，20261029_0032 只加列；Opus 10-29 核定头 20261029_0032）
+  expected_schema_revision: '20261029_0032'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
@@ -84,13 +84,8 @@ knowbench_backend_deployment:
     WORKBENCH_PROVISIONER_URL: 'http://sandbox-provisioner.{{ sandbox_namespace }}.svc.cluster.local:8080'
     WORKBENCH_RELAY_ADMIN_URL: 'ws://relay.{{ relay_namespace }}.svc.cluster.local:47100'
     WORKBENCH_RELAY_PUBLIC_URL: 'wss://relay.{{ site_domain }}:{{ public_port }}'
-    # 作为运行方跑分身测试（SDD 0027 §3.4）：测试电脑的工作区、每月测试费用上限（所有者定 1000 元）。
-    # 平台测试改在作者账号下（decisions ⑯）后这三项不再有人读，随 qwen 这批代码删（交Fable-gitops 第 4 条）；
+    # 平台测试在作者的账号与电脑上跑（decisions ⑯），KNOWBOT_TEST_SUBJECT/WORKSPACE/MONTHLY_LIMIT 已撤；
     # KNOWBOT_TEST_ISOLATE 保持不设（关）：作者 Windows 电脑上的本地 link 不许服务流建、删目录
-    # knowbot-tester 的 Casdoor 用户 id（0028 R5.4 建）
-    KNOWBOT_TEST_SUBJECT: '1929b2c2-760f-4d1a-bdc9-d1b55410003c'
-    KNOWBOT_TEST_WORKSPACE: /workspace
-    KNOWBOT_TEST_MONTHLY_LIMIT: '1000'
     WORKBENCH_TOKEN_ISSUER: sunmoon-workbench
     WORKBENCH_SANDBOX_MODEL_PROVIDER: kimi
     WORKBENCH_SANDBOX_MODEL: kimi-k3
@@ -174,18 +169,6 @@ knowbench_backend_deployment:
       client_id: sunmoon-knowbench-knowlab-incubation-request
       organization: sunmoon-workload-knowbench-knowlab-incubation-request
       scope: knowlab:incubation-request
-      job_revision: v1
-      token_seconds: 900
-    # 分身运行时读用户自己绑定的数据：工作台按委托核过，再向 knowlab 读（SDD 0027 §3.5，契约 knowbot-data/v1）
-    # runner 也要：顾问在 runner 里做数值验收 sourced，要按地址回 knowlab 重取那一格（0030 §3.3；qwen-005 走查第 10 行）
-    - target: knowlab
-      relation: read
-      enabled: true
-      roles: [api, worker, runner]
-      application: sunmoonai-knowbench-knowlab-read
-      client_id: sunmoon-knowbench-knowlab-read
-      organization: sunmoon-workload-knowbench-knowlab-read
-      scope: knowlab:read
       job_revision: v1
       token_seconds: 900
     # SDD 0042：凭委托、会话、测试的运行授权读 knowbase 里用户的资料（契约 user-data/v1）；runner 结束时交还授权、读钉住的数据
