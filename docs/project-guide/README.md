@@ -13,6 +13,8 @@
 | [`governance.md`](governance.md) | 权威排序、接手演练、什么不属于本目录 |
 | [`licensing.md`](licensing.md) | 第三方许可与本产品的关系 |
 
+**应用那几页跟着代码改**（所有者 2026-10-29）：改了某个应用的页面、流程、服务关系、跨应用链接或存储，就在同一批提交里改 `repos/` 下那个应用的那一页，页首「最后更新」跟着改；Fable、Kimi、Luna、Qwen、Opus 各工位都照做。改动不影响那一页写的东西，就不用改。
+
 另外三处：
 
 - [`../process/pipeline.md`](../process/pipeline.md)——一次 turn 的九站，以及**每一站现在谁做**（人还是脚本）；人机分工的现状只记在那里；
