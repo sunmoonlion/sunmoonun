@@ -82,6 +82,12 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
 1. **knowbase 公开数据的门**（knowbase-backend `09b8fe3`）：新变量 `PUBLIC_ACCESS_QUALIFICATION`（默认 `none`，不要求资格；`listed` 时只认名单）与 `PUBLIC_ACCESS_QUALIFIED_SUBJECTS_JSON`（默认 `[]`，格式不对进程起不来）。不配就照默认，不用动。
 2. **knowbase 本人令牌认 knowfeed**（同上）：Casdoor 给 knowfeed 的网页客户端打开令牌交换，目标 `aud` 是 knowbase 的 `USER_TOKEN_AUDIENCE`；knowbase 的 `USER_TOKEN_APPS_JSON` 加一项「knowfeed 的 Casdoor 客户端编号 → `knowfeed`」。knowfeed 一头的令牌交换配置随 F1（knowfeed web端提需求、订阅）再补。
 3. 迁移：knowbase 0019（正文、按页文字进库，只加表、删一列，不删行）。
+4. **knowmart 小店**（knowmart-backend `70c2d4d`）：
+   - 新变量 `PLATFORM_PUBLISHER_CREDIT_CODE`：平台主体（非个人）的统一社会信用代码，主体审过后那家店标「平台」；不配就没有平台店。
+   - knowmart 的跨应用去处要加 knowbase（`domain/prepare.yaml` 的 `target_names` 里 `'knowmart': ['knowbench','knowlab']` 加 `'knowbase'`），不然「去 knowbase 看这份」的链接不显示。
+   - 登录回跳：knowmart 的 `WEB_AUTH_ALLOWED_RETURN_PATHS` 加 `/zh-CN`、`/en`、`/zh-CN/shop`、`/en/shop`、`/zh-CN/shops`、`/en/shops`（按前缀认），`WEB_AUTH_DEFAULT_RETURN_TO` 改成 `/zh-CN`（首页现在是小店列表）。
+   - worker 的定时多一项 `market-offers`（每 10 分钟核资料还在不在），随代码走，不用配。
+   - 迁移：knowmart 0012（加表、加列，给已有用户各补一家店，不删行）。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 
