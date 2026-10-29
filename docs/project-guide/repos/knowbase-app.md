@@ -15,7 +15,7 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 - 开委托、开会话、孵化时签运行授权（在应用里点开跑，与钉住同时完成）。
 - 选平台孵化、平台测试时留下平台过程的依据，可以撤回。
 - 把一份产出「转为数据」；看一份资料谁读过。
-- 跨全市场查公开原件抽出的事实（受平台总开关管）。
+- 跨全市场查公开原件抽出的事实（过一道门：平台总开关、资格、这一份确实是公开原件；见第三节「公开数据的门」）。
 
 **作者**：把自己的数据绑给自己名下的专家；交付时由 knowlab 把绑定冻结在那一版上。**请专家的人**：委托里读作者绑定的数据，读数留痕里作者是内容所有者、请的人是受益人。
 
@@ -74,15 +74,16 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 | 运行与读 | `domain/user_runs.py`、`user_run_service.py`、`user_run_routes.py` | 运行授权（委托、会话、孵化、测试、平台过程、加工）、会话登记、凭授权读、读法、产出区、转为数据、谁读过、禁用与清除（只有服务方法） |
 | 科目表与事实 | `domain/chart_of_accounts.py`、`domain/user_facts.py`、`user_fact_routes.py` | 科目表第 2 版（一般企业，对上 2015 版通用分类标准元素；银行一组随银行专家再填）、指标定义；写回事实、按运行查、跨全市场查 |
 | 数据 MCP | `interfaces/mcp/data_mcp.py` | `/api/mcp/data`；工具 `list_inputs`、`read_input`、`query_facts`、`query_metric`、`read_facts`、`describe_items`、`search_evidence`、`lookup`、`list_library`；`search_evidence` 现在是在按页文字里按关键词找 |
-| 身份 | `infrastructure/security/user_token.py`、`relation_auth.py`、`interfaces/http/internal/host_guard.py` | 本人令牌（应用经令牌交换换来，`azp` 记代办的应用）；六种服务关系；内部接口公网来的一律 404 |
-| 对象存储 | `infrastructure/storage/user_objects.py` | 原件、读法对象 |
+| 身份 | `infrastructure/security/user_token.py`、`relation_auth.py`、`interfaces/http/internal/host_guard.py` | 本人令牌（应用经令牌交换换来，`azp` 记代办的应用；认 knowbench、knowlab、knowmart、knowfeed 四个，knowfeed 代办的只进订阅接口）；六种服务关系；内部接口公网来的一律 404 |
+| 对象存储 | `infrastructure/storage/user_objects.py` | 原件（正文、按页文字两种读法存在 PostgreSQL，见第四节） |
+| 公开数据的门 | `domain/public_access.py`（`PublicGate`）、`interfaces/endpoints/public_access.py` | 会话首读公开原件、跨全市场查事实与指标（含数据 MCP `scope=market`）、签依据为「公开」的授权、解析与按描述查里公开原件算不算候选，都过这一道：平台总开关 `PUBLIC_ACCESS_ENABLED`（默认开）、资格 `PUBLIC_ACCESS_QUALIFICATION`（默认 `none` 不要求；`listed` 时只认登记名单）、这一份确实是没禁用没清除的公开原件。凭引用读不过这道门 |
 | 旧入库与检索 | `knowledge_routes.py`、`knowledge_ingestion_service.py`、`knowledge_retrieval_service.py`、`provider_delivery.py`、`infrastructure/external/ragflow*.py` | knowfeed 交文档进 RAGFlow、按数据集检索；发件箱只有这条链在用 |
 
 ## 四、自己存什么
 
-- **PostgreSQL（`user_data_*`）**：资料 `user_data_item`、内容版本、读法、使用权 `holding`（含第二区引用）、同意依据 `use`、改动记录 `material_log`、账号设置、名下专家影子、产出、输入组合、运行授权及其各项、会话、读数留痕 `read`、删除事件、解析清单、确认、偏好；事实分原样层 `fact_raw` 与标准化层 `fact`。
+- **PostgreSQL（`user_data_*`）**：资料 `user_data_item`、内容版本、读法（正文 `user_data_text` 每个读法版本一行，按页文字 `user_data_page` 每页一行，摘要按规范化内容算）、使用权 `holding`（含第二区引用）、同意依据 `use`、改动记录 `material_log`、账号设置、名下专家影子、产出、输入组合、运行授权及其各项、会话、读数留痕 `read`、删除事件、解析清单、确认、偏好；事实分原样层 `fact_raw` 与标准化层 `fact`。
 - **PostgreSQL（旧入库链）**：`knowledge_ingestion_job`、`knowledge_provider_operation`、`knowledge_document`、`knowledge_document_version`；模板的发件箱、收件箱与 `auth_user`。
-- **对象存储**：桶 `knowbase-originals`，前缀 `users/`，按用户编号的摘要分目录；原件按资料与内容版本存，正文、按页文字读法也存成对象；公开原件同在这个桶，所有者是 `public:disclosure`。
+- **对象存储**：桶 `knowbase-originals`，前缀 `users/`，按用户编号的摘要分目录；只存原件（按资料与内容版本），公开原件同在这个桶，所有者是 `public:disclosure`。
 - **只读别人的桶**：旧入库链用账号 `knowbase_source_reader` 读 `knowfeed-originals`。
 - **RAGFlow**：旧入库链的数据集 `sunmoon-kind-knowbase-default`，派生、可重建。Redis 前缀、RabbitMQ vhost 照模板。
 - **已删的旧东西**（⑰）：SQLite 数据集登记 `knowledge_dataset`、语义层引擎、旧知识 MCP `/api/mcp/knowledge`、`user-data/v1` 与它的同意依据、授权四张表、成交复制。
@@ -127,7 +128,7 @@ knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
 - `knowbase-backend/identity`：注册 Web、管理端回调；建本人令牌的目标应用（令牌交换的 `aud`）。
 - `knowbase-backend/storage`：建桶 `knowbase-originals` 与它的存储账号。
 - `knowbase-backend/provider`：在 RAGFlow 建数据集，开 knowfeed 桶的只读身份（旧入库链用）。
-- `knowbase-backend/runtime`：API、Worker、Scheduler；各服务关系的接收绑定、本人令牌认的三个应用、数据 MCP 令牌的签发方、两个桶的地址等配置。
+- `knowbase-backend/runtime`：API、Worker、Scheduler；各服务关系的接收绑定、本人令牌认的四个应用、公开数据门的资格设置、数据 MCP 令牌的签发方、两个桶的地址等配置。
 - `knowbase-backend/samples`：Olist 样例数据集的登记脚本（旧数据集的遗留，已列进交 Fable 的清理单）。
 - `knowbase-web-frontend`、`knowbase-admin-frontend`：两个前端。
 
@@ -136,8 +137,5 @@ knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
 ## 代码和设计对不上的
 
 1. **web端没有页面**：`knowbase-web-frontend` 只有登录、首页、工具箱三页，首页文案还写「数据在 knowbench 里问专家或代理就有；数据目录在管理后台」（`messages/zh-CN.json:88`，管理端的数据目录 ⑰ 已删）。[0044](../../design/SDD/modules/0044-knowbase-web.md) 定 web端是用户管数据的唯一入口（总栏、上传、展示按钮等），数据拓扑第 7.1 节定上传只在 knowbase web端；现在哪个应用都没有上传入口，knowbench 解析结果「采不来」却提示用户「到 knowbase 上传」。
-2. **本人令牌只认三个应用**：`core/config.py:678` 只许 `USER_TOKEN_APPS_JSON` 映射到 knowbench、knowlab、knowmart。0043 第十节写「knowbase 的 `user_token_apps` 登记 knowfeed」，订阅范围同意要由 knowfeed 凭本人令牌转交（0045 第 2.1 节）；按现在的校验 knowfeed 进不来，订阅接口没人能调。knowbase web端自己也没有走到这些本人接口的路。
-3. **正文、按页文字存在哪**：`application/services/user_run_service.py:664` 把这两种读法各存成对象存储里的一个对象，读法表只记对象键；0043 第五节与数据拓扑第 16.2 节写的是放 knowbase 的 PostgreSQL（正文每个读法版本一行、按页文字每页一行）。表格读法已按设计落成 PostgreSQL 的事实行。
-4. **全市场读只有一道门**：公开原件全市场可读、跨全市场查事实，代码只核平台总开关 `PUBLIC_ACCESS_ENABLED`（`user_run_service.py:270`、`:799`、`:1262`），没有资格、权限的检查；0047 第二、四、五节与决定 ⑪ 写的是「资格、权限、平台总开关」同一道门。
-5. **旧知识文档表还在用**：`knowledge_document` 两张表与 `knowbase:ingest` 入库链仍在（`infrastructure/models/knowledge.py:72`），knowfeed 旧采集线（`info_crawl_service.py:1301`）还在调；0047 第 2.4 节定这两张表退役，改为一个资料版本对应一个 RAGFlow 文档（排在 0043 块 9）。
-6. **`user-data-read` 的调用方**：代码认 knowfeed 也能凭授权读（`interfaces/endpoints/user_run_routes.py:72`），`contracts/README.md:62` 也这样写；部署只给 knowbench、knowlab 开了这条关系，knowfeed 代码也不调。
+2. **旧知识文档表还在用**：`knowledge_document` 两张表与 `knowbase:ingest` 入库链仍在（`infrastructure/models/knowledge.py:72`），knowfeed 旧采集线（`info_crawl_service.py:1301`）还在调；0047 第 2.4 节定这两张表退役，改为一个资料版本对应一个 RAGFlow 文档（排在 0043 块 9）。
+3. **`user-data-read` 的调用方**：代码认 knowfeed 也能凭授权读（`interfaces/endpoints/user_run_routes.py:72`），`contracts/README.md:62` 也这样写；部署只给 knowbench、knowlab 开了这条关系，knowfeed 代码也不调。

@@ -75,6 +75,14 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
 1. **knowbench 管理端不再读 `KNOWFEED_ADMIN_URL`**（knowbench-admin-frontend `f0bb202`）：「缺数据的需求」原来链去 knowfeed 管理端的「证券采集」页，那一页已随 ⑰ 删了，链接一起去掉。`knowbench-app/knowbench-admin-frontend/config.yaml` 第 12 行与 `workload.yaml` 里的 `KNOWFEED_ADMIN_URL` 可以删；不删也不报错（多出来的变量没人读）。算删除类，和 qwen 代码同发。
 2. **knowlab 登录后的回跳列表还是旧页面**：`knowlab-backend/config.yaml` 第 41 行的 `WEB_AUTH_ALLOWED_RETURN_PATHS` 列的是 `knowbots`、`questions`、`ideas`、`avatars`、`data`，现在 web端的栏是 `applications`、`names`、`review`、`experts`（加 `dashboard`、`login`），各两种语言（`/zh-CN/…`、`/en/…`）。不在列表里的回跳地址后端退回首页，不会出错，只是登录后回不到原来那一页。旧的几个地址前端会跳到新栏，可删可留。
 
+### 2d. 发版前补齐要配的（10-29 起随做随补，见 [发版前补齐计划](发版前补齐计划.md)）
+
+都和 qwen 代码同一次发。
+
+1. **knowbase 公开数据的门**（knowbase-backend `09b8fe3`）：新变量 `PUBLIC_ACCESS_QUALIFICATION`（默认 `none`，不要求资格；`listed` 时只认名单）与 `PUBLIC_ACCESS_QUALIFIED_SUBJECTS_JSON`（默认 `[]`，格式不对进程起不来）。不配就照默认，不用动。
+2. **knowbase 本人令牌认 knowfeed**（同上）：Casdoor 给 knowfeed 的网页客户端打开令牌交换，目标 `aud` 是 knowbase 的 `USER_TOKEN_AUDIENCE`；knowbase 的 `USER_TOKEN_APPS_JSON` 加一项「knowfeed 的 Casdoor 客户端编号 → `knowfeed`」。knowfeed 一头的令牌交换配置随 F1（knowfeed web端提需求、订阅）再补。
+3. 迁移：knowbase 0019（正文、按页文字进库，只加表、删一列，不删行）。
+
 ## 二、删除、撤（和 qwen 代码同一次发）
 
 ### 3. 删旧版兼容以后（待你决定第 6 条）
