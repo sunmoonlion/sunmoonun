@@ -6,3 +6,4 @@ resources:
 - tls-knowmart.sops.yaml
 - tls-knowbench.sops.yaml
 - tls-knowlab.sops.yaml
+- tls-knowfeed.sops.yaml

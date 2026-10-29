@@ -54,6 +54,10 @@ spec:
             pathType: Prefix
             backend:
               service: {name: knowbase-api, port: {name: http}}
+          - path: /api/internal/v2/user-data
+            pathType: Prefix
+            backend:
+              service: {name: knowbase-api, port: {name: http}}
 ---
 apiVersion: v1
 kind: Service
@@ -132,3 +136,29 @@ spec:
             pathType: Prefix
             backend:
               service: {name: knowlab-api, port: {name: http}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: knowfeed-tls, namespace: app-platform-dev}
+spec:
+  type: ExternalName
+  externalName: traefik.ingress-platform-dev.svc.cluster.local
+  ports: [{name: https, port: 443}]
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: knowfeed-service-access
+  namespace: app-platform-dev
+  annotations: {traefik.ingress.kubernetes.io/router.entrypoints: websecure}
+spec:
+  ingressClassName: sunmoon
+  tls: [{secretName: service-access-knowfeed-tls, hosts: [knowfeed-tls.app-platform-dev.svc.cluster.local]}]
+  rules:
+    - host: knowfeed-tls.app-platform-dev.svc.cluster.local
+      http:
+        paths:
+          - path: /api/internal/v1/supply
+            pathType: Prefix
+            backend:
+              service: {name: knowfeed-api, port: {name: http}}
