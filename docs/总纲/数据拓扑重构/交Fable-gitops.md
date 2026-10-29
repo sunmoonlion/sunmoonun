@@ -8,17 +8,17 @@
 
   | 仓 | qwen 头 | 比 origin/fable 多 |
   | --- | --- | --- |
-  | knowbase-app | `e2075f1` | 19 |
+  | knowbase-app | `5c14ec7` | 20 |
   | knowbench-app | `55e5ec2` | 8 |
-  | knowfeed-app | `dd21417` | 6 |
-  | knowlab-app | `844a631` | 13 |
-  | knowmart-app | `e80fd18` | 4 |
+  | knowfeed-app | `905da53` | 7 |
+  | knowlab-app | `dc9b413` | 14 |
+  | knowmart-app | `14a0510` | 5 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
 
   这之后 qwen 还会接着提交（第 7 条的几处小改、孵化第 5 步），合之前看一眼各仓 `qwen` 头。
 - **新增类**（第一节）不影响现在跑着的旧代码，可以先上。
 - **删除类**（第二节）必须和 qwen 的代码同一次发布：旧代码还在读这些变量、用这些身份，先删会断。
-- **迁移会删生产记录**（所有者已同意，decisions ⑰）：knowmart 0010、knowlab 0016–0018、knowbench 0030–0031、knowfeed 0019、knowbase 0018。knowfeed 0019 会删关注清单那 10 行与流水，所有者 10-29 定不导出（名单还在历史迁移 0013 的代码里）。
+- **迁移会删生产记录**（所有者已同意，decisions ⑰）：knowmart 0010（0011 只改名、加列，不删行）、knowlab 0016–0018、knowbench 0030–0031、knowfeed 0019、knowbase 0018。knowfeed 0019 会删关注清单那 10 行与流水，所有者 10-29 定不导出（名单还在历史迁移 0013 的代码里）。
 
 ## 一、新增
 
@@ -83,6 +83,6 @@ knowbench-backend `config.yaml` 的 `domain_env` 删 `KNOWBOT_TEST_SUBJECT`、`K
 
 ## 五、qwen 随后还要提交、会进同一次发布的
 
-- 第 7 条：knowmart 删「只用自带数据」筛选；资料被删时用到它的在架条目自动下架并发站内信（knowmart、knowbase）；knowlab 申请表单同意文案改成第四版说法、`CONSENT_VERSION` 升一版；几处没人用的小遗留删掉、knowmart 成交表 `copied`/`copying` 改名（会多一个 knowmart 迁移）；删 `storage-access-bootstrap/`。
-- 第 8 条第 4 项：本地 link 给测试委托把 `TMPDIR` 指到 `runs/.tmp`（含 Windows），随下一个本地 link 版本发。
+- 第 7 条（10-29 已提交）：knowmart 删「只用自带数据」筛选；资料没了或不再出售时用到它的条目自动下架、原因写在条目上；成交表 `copied`/`copying` 改名 `granted`/`granting`——**多一个 knowmart 迁移 `20261029_0011`**（knowmart 头 `14a0510`）；knowlab 测试数据说明升第 3 版（在旧说明下同意的创意要用户点一次「同意新说明」）、删 `storage-access-bootstrap/`（knowlab 头 `dc9b413`）；knowbase 删 `UserObjects.copy`（`5c14ec7`）；knowfeed `financial_catalog` 清理（`905da53`）。都不要新的平台配置。
+- 第 8 条第 4 项不改代码（Windows 上本地 link 本来就给执行端单开临时目录），不涉及 link 发版。
 - 孵化第 5 步（管理端同一个编辑器、模式切换与确认框）。
