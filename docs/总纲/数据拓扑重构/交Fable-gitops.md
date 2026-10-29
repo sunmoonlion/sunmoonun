@@ -88,6 +88,19 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
    - 登录回跳：knowmart 的 `WEB_AUTH_ALLOWED_RETURN_PATHS` 加 `/zh-CN`、`/en`、`/zh-CN/shop`、`/en/shop`、`/zh-CN/shops`、`/en/shops`（按前缀认），`WEB_AUTH_DEFAULT_RETURN_TO` 改成 `/zh-CN`（首页现在是小店列表）。
    - worker 的定时多一项 `market-offers`（每 10 分钟核资料还在不在），随代码走，不用配。
    - 迁移：knowmart 0012（加表、加列，给已有用户各补一家店，不删行）。
+5. **knowfeed 来源目录、配额、状态推送、30 天删原件**（knowfeed-backend `2359a81`）：
+   - 新出站关系 `supply-status`：knowfeed → knowbench、knowfeed → knowlab。每个应用一组变量：`KNOWBENCH_INTERNAL_URL`、`KNOWLAB_INTERNAL_URL`（knowfeed 进程里，要 https），加 `KNOWBENCH_SUPPLY_STATUS_SERVICE_{CLIENT_ID,CLIENT_SECRET,SCOPE,DISCOVERY_URL,BACKCHANNEL_ENDPOINT}`（scope `knowbench:supply-status`）与 `KNOWLAB_SUPPLY_STATUS_SERVICE_*`（scope `knowlab:supply-status`）。接收端：knowbench、knowlab 的 `service_receivers` 加 `{relation: supply-status, caller: knowfeed}`，入口 `POST /api/internal/v1/knowfeed/demand-status`（两边接收端随后提交，这里先列）。不配就不推，应用照旧按单号查。
+   - 可选变量：`SUPPLY_QUOTA_PER_HOUR`（默认 60 张单/人/小时）、`SUPPLY_QUOTA_OPEN_DEMANDS`（在途 20 张）、`SUPPLY_QUOTA_MONTHLY_ITEMS`（每月新取 500 份，北京时间自然月）、`SUPPLY_QUOTA_SUBSCRIPTIONS`（20 条）。
+   - 桶权限：knowfeed 的 S3 身份要能 `ListBucketVersions`、`DeleteObjectVersion`（桶 `knowfeed-originals` 开了版本），桶上不能有阻止删除的对象锁。
+   - 告警：按日志事件 `supply_channel_auto_paused`、`supply_sites_alert` 配。
+   - worker 定时多两项（每小时）：`app.tasks.supply_upkeep.purge_originals`、`expire_sites`，随代码走。
+   - 迁移：knowfeed 0020（加表、加列，旧原因句子换成编码，不删行）。
+6. **knowbench 删「缺数据的需求」**（knowbench-admin-frontend `540d9f3`）：管理端的 `KNOWFEED_ADMIN_URL` 可删（同第 2c 节第 1 条）。没有迁移。
+7. **knowlab 分栏与挑数据**（knowlab-backend `06d15c1`）：
+   - 登录回跳 `WEB_AUTH_ALLOWED_RETURN_PATHS` 换成：`dashboard`、`login`、`applications`、`incubation`、`tests`、`delivery`、`review`、`experts`、`knowledge`、`names`，`/zh-CN/…`、`/en/…` 各一份（取代第 2c 节第 2 条那份）。
+   - knowlab 的跨应用去处加 knowbase（`domain/prepare.yaml` 的 `target_names` 里 `'knowlab': ['knowbench']` 再加 `'knowbase'`），不然知识库栏「去 knowbase 管理」不显示。
+   - worker 定时多一项（每分钟）`app.tasks.knowbot_refresh.sweep`，随代码走。
+   - 迁移：knowlab 0022（加一列）。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 
