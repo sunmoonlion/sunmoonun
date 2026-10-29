@@ -13,13 +13,13 @@
 - 建项目（选电脑、选工作区，建文件夹或拉仓库），在项目里开聊天、工作；聊天也可以不挂项目。
 - 请专家：自己选一位，或点「让 AI 找」；写问题；确认第 0 步提出的数据（换、改主体或期间、去掉、自己加）；答专家的反问与审批；看步骤、底稿与花费，随时停。
 - 从 knowmart「我的分身」选专家带回来，或从 knowlab 申请页、专家页点「去 knowbench 请它」带回来。
-- 管长期记忆；看本地知识库目录（见文末第 3 条）。
+- 管长期记忆；看本地知识库目录（见文末第 1 条）。
 
 **作者**（是用户；在 knowlab 发起，在 knowbench 跑，用作者自己的账号、电脑、key）
 - 自助或平台测试的每条用例、孵化的每一轮（「AI 起草」「让 AI 改…」），都在作者的工作台里建委托，作者看得到委托和花了多少钱（⑮⑯）。
 
 **平台人员**
-- 管理端：看「缺数据的需求」（各用户查不到的公司按代码汇总，只看；现在缺的数据由用户在委托里确认、knowfeed 替用户采）；另有一个模板带的「Research runtime」占位页。
+- 管理端：只有模板带的几页，没有 knowbench 自己的功能页。缺的数据由用户在委托里确认、knowfeed 替用户采；采不来的汇总在 knowfeed 管理端的缺口清单。
 - 以平台身份当用户干活时，用配给自己账号的**平台电脑**（现在一台，配在 `knowbot-tester`），在 web端和普通用户一样用（[叫法](../叫法.md)）。
 
 **别的应用（系统替用户做的事）**
@@ -48,8 +48,8 @@
 
 | 页面 | 做什么 |
 | --- | --- |
-| 缺数据的需求（`/workbench/missing-data`） | 查不到数据的公司按代码汇总：几次、几个人、最近一次；只看，不再链去 knowfeed 发起采集 |
-| Research runtime（`/research/runtime`） | 模板留下的占位页，没有功能 |
+| 研究运行时（`/research/runtime`） | 模板留下的占位页，没有功能 |
+| 治理控制台、CRUD 参考、富能力参考、设置 | 模板自带 |
 
 ### 流程一：用户自己请专家（⑭，[请专家方案设计](../../总纲/请专家方案设计.md) 第 4.3 节）
 
@@ -94,7 +94,6 @@
 | 对话里读数据 | `expert_data.py` 的 `ensure_data_session` | 用户在对话里发消息时用本人令牌在 knowbase 登记会话（24 小时，范围是放开给 knowbench 的加公开原件），登记不成不挡聊天 |
 | 沙箱与令牌 | `provisioning.py`、`tokens.py` | 拉起沙箱（解密 key → 签会合点身份 → 调供给器）；签各种 ES256 令牌，公钥经 `/api/workbench/token-keys` 发 |
 | 本地 link | `agent_onboarding.py`、`agent_download.py`、`agent_service.py`、`agent_reports.py`、`machines.py` | 安装包下发、颁发令牌、按设备编号登记、连没连着；远程登录 link 的电脑看文件、建项目走 `/environments/{id}/remote/*` |
-| 缺数据汇总 | `domain/workbench/missing_data.py`、`application/workbench/demand.py`；`interfaces/http/admin/missing_data.py` | 管理端那张表的数据（见文末第 4 条） |
 | runner 进程 | `bootstrap/runner.py` | 比模板多的运行角色：连各沙箱、驱动委托，同进程里还有等数据线、授权交还、交付检查、电脑同步、测试与孵化的推进 |
 
 ## 四、自己存什么
@@ -110,7 +109,7 @@
 
 另有模板的 `auth_user`、`outbox_message`、`inbox_message`；对象存储桶 `agent-releases` 放本地 link 安装包。
 
-已删掉的旧东西（⑰）：清单 v1 与它的分支、`workbench_session_data`（对话里逐份选的云端知识库）、钉住来源 `cloud`/`local`、经 knowlab 读数据（`knowlab_data_client`）、旧数据集工具、云端知识库页与选数据弹框、内置的「问数」「财报体检」「财务分析与预测」。库里还留着代码已不读的旧表：`workbench_library_items` 与最早一批 `agent_*`（`agent_runs`、`agent_sessions`、`agent_pilot_*` 等），迁移里没删。
+已删掉的旧东西（⑰）：清单 v1 与它的分支、`workbench_session_data`（对话里逐份选的云端知识库）、钉住来源 `cloud`/`local`、经 knowlab 读数据（`knowlab_data_client`）、旧数据集工具、云端知识库页与选数据弹框、内置的「问数」「财报体检」「财务分析与预测」。另按 decisions「发版前补齐」①（10-29）删了「没有数据」卡片、步骤的 `missing_data` 与管理端「缺数据的需求」，由 knowfeed 管理端的缺口清单取代；`workbench_session_events` 里旧的 `data.missing` 事件留着，代码不读。库里还留着代码已不读的旧表：`workbench_library_items` 与最早一批 `agent_*`（`agent_runs`、`agent_sessions`、`agent_pilot_*` 等），迁移里没删。
 
 ## 五、和别的应用
 
@@ -149,12 +148,12 @@
 - `knowbench-backend/agent-releases`：本地 link 安装包上传与核对。
 - `knowbench-backend/platform-computer`：平台电脑，名单在后端 `config.yaml` 的 `platform_computers`，现在一台配给 `knowbot-tester`。
 - `knowbench-backend/knowmart-summon-identity`、`knowmart-catalog-identity`、`knowmart-demand-identity`、`knowlab-incubation-request-identity`、`knowbase-user-data-read-identity`、`knowfeed-supply-demand-identity`：出站服务身份，各一条关系。
-- `knowbench-backend/service-identity`（旧 `knowbase:retrieve`）、`knowlab-read-identity`、`knowbase-user-data-output-identity`：还在部署里，代码不用（见下节第 5、6 条）。
+- `knowbench-backend/service-identity`（旧 `knowbase:retrieve`）、`knowlab-read-identity`、`knowbase-user-data-output-identity`：还在部署里，代码不用（见下节第 2、3 条）。
 - 收的两条关系 `testrun`、`incubate` 写在后端 `config.yaml` 的 `service_receivers`，调用方 knowlab。
 
 ## 代码和设计对不上的
 
 1. **本地知识库还在**：web端 `features/local-library/`、侧栏入口（`features/shell/model/nav.ts:179`）、设置「电脑与沙箱」里的「本地知识库目录」都在。decisions 10-26「数据拓扑第四版」第①条「删 knowbench 本地知识库」，0043 第 4.1 节「删本地知识库目录设置」（随本地 link 0.5.4）。
-2. **「没有数据」卡片与「缺数据的需求」还按旧数据集认**：`knowbench-backend/app/app/domain/workbench/missing_data.py:17-60` 认数据集名 `sh600519-…` 和答复「unknown dataset」，那套数据集工具 ⑰ 已删，工具这一路不会再触发；卡片文案「我们的数据里还没有这家公司……入库由我们来做」（`knowbench-web-frontend/app/messages/zh-CN.json:398-401`）与第四版「缺的经用户确认、knowfeed 替用户采」（⑫⑭）不合。
-3. **部署里还配着代码已不用的关系**：后端 `config.yaml` 的 `knowlab:read`（⑰ 删了经 knowlab 读数据）、`knowbase_service`（`knowbase:retrieve`）、`KNOWBOT_TEST_SUBJECT`/`KNOWBOT_TEST_WORKSPACE`/`KNOWBOT_TEST_MONTHLY_LIMIT`（⑯ 后测试在作者账号下跑），代码里都没有读的地方；应用仓 `contracts/knowbase-retrieval-provider-lock.json` 也还在，没有调用方。config 注释自己写着「随 qwen 这批代码删」。
-4. **产出区没人写**：0043 第 2.6 节写「knowbench runner 以服务身份替用户写产出区」，部署也配了 `knowbase:user-data-output`，但后端代码里没有这条关系的调用。
+2. **部署里还配着代码已不用的关系**：后端 `config.yaml` 的 `knowlab:read`（⑰ 删了经 knowlab 读数据）、`knowbase_service`（`knowbase:retrieve`）、`KNOWBOT_TEST_SUBJECT`/`KNOWBOT_TEST_WORKSPACE`/`KNOWBOT_TEST_MONTHLY_LIMIT`（⑯ 后测试在作者账号下跑），代码里都没有读的地方；应用仓 `contracts/knowbase-retrieval-provider-lock.json` 也还在，没有调用方。config 注释自己写着「随 qwen 这批代码删」。
+3. **产出区没人写**：0043 第 2.6 节写「knowbench runner 以服务身份替用户写产出区」，部署也配了 `knowbase:user-data-output`，但后端代码里没有这条关系的调用。
+4. **需求状态推送没接**：0045 第 2.5 节写需求状态由 knowfeed 通知；knowfeed 已经发（契约 `knowfeed-supply-status/v1`，入口 `POST /api/internal/v1/knowfeed/demand-status`），knowbench 没有这个接收端，也没配 `supply-status` 关系，等数据线照旧按单号查。
