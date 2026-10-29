@@ -107,6 +107,17 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
    - 后端镜像多一个依赖 pypdf（`uv.lock` 已锁）。
    - 管理权限：禁用、依法清除要 `knowbase:user-data:dispose`，admin 本来就有，operator 默认没有，不用改。
    - 迁移：knowbase 0020（留痕多认一种，不删行）。
+9. **knowbench 跟进**（knowbench-backend `8433279`）：
+   - 收 knowfeed 的状态推送：knowbench 的 `service_receivers` 加 `{relation: supply-status, caller: knowfeed}`（`SERVICE_AUTH_SUPPLY_STATUS_*`，scope `knowbench:supply-status`），入口 `POST /api/internal/v1/knowfeed/demand-status` 只认内部地址；收到后在 **api 进程**里马上重解析，要用到 knowbase `user-data-read` 与 knowfeed `supply-demand`（api 进程原本就挂着）。knowfeed 一头的变量见第 5 条。
+   - 写产出区：`knowbase:user-data-output` 要挂在 **runner 进程**上（`KNOWBASE_INTERNAL_URL`、`KNOWBASE_USER_DATA_OUTPUT_SERVICE_*`），runner 还要 `KNOWBASE_USER_DATA_READ_SERVICE_*`；没配会合点（`WORKBENCH_RELAY_ADMIN_URL`）和签名私钥就不起这条线。请核现在配的是不是 runner 进程。
+   - 迁移：knowbench 0033（只加表）。
+10. **本地 link 0.5.4**（sunmoon-link `35bd113`）：删「本地知识库目录」设置。只改了代码，**要打包、发布**（照 0.5.3 的发布流程）；Windows 托盘设置窗（`native/desktop.ps1`）要在实机上看一眼。新网页在 0.5.3 上照常能用，两边同发最好。
+11. **knowfeed 调度、加工、切合**（knowfeed-backend `21a45ea`）：
+    - 新出站关系 knowfeed → knowbase `user-data-read`（scope `knowbase:user-data-read`）：knowfeed 一组 `KNOWBASE_USER_DATA_READ_SERVICE_*`；knowbase 的 `SERVICE_AUTH_USER_DATA_READ_CALLERS` 加 knowfeed 及对应 AUDIENCE、SUBJECT_ALLOWLIST、REQUIRED_SCOPE。用来凭加工授权读用户上传的原件；没配就不加工上传资料。
+    - 可选变量：`SUPPLY_GLOBAL_RATE_PER_MINUTE`（默认 60）、`SUPPLY_PROCESS_MAX_RUNNING`（默认 2）。
+    - worker 定时多两项：`supply-dispatch`（每 5 秒）、`supply-pull-processing`（每分钟），随代码走。
+    - 出网：worker 要能到 `irm.cninfo.com.cn`（巨潮互动易，迁移里登记为待审渠道，平台人员在来源目录试采、放行）。
+    - 迁移：knowfeed 0021（加表、加列、一条待审渠道，不删行）。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 
