@@ -1,6 +1,6 @@
 # 交 Fable：随 qwen 这批代码要改的 gitops（10-29）
 
-所有者 10-29：「都按你建议。你写份文档，我让fable现在就做」。本页列出数据第四版、删旧版兼容（decisions ⑰）、平台测试改在作者账号下（⑯）、孵化栏、平台电脑（10-29 叫法）这几批代码要的平台改动。都在 `sunmoonun/gitops`（和一处 `infrastructure/`），qwen 没动。每条的来龙去脉见同目录 [待你决定](待你决定.md) 对应的条号。
+所有者 10-29：「都按你建议。你写份文档，我让fable现在就做」。本页列出数据第四版、删旧版兼容（decisions ⑰）、平台测试改在作者账号下（⑯）、孵化栏、平台电脑（10-29 叫法）、AI 请专家（decisions 10-29「AI 请专家」）这几批代码要的平台改动。都在 `sunmoonun/gitops`（和一处 `infrastructure/`），qwen 没动。每条的来龙去脉见同目录 [待你决定](待你决定.md) 对应的条号。
 
 ## 〇、代码在哪、怎么发
 
@@ -9,16 +9,16 @@
   | 仓 | qwen 头 | 比 origin/fable 多 |
   | --- | --- | --- |
   | knowbase-app | `5c14ec7` | 20 |
-  | knowbench-app | `6b13fed` | 9 |
+  | knowbench-app | `2c36ad1` | 11 |
   | knowfeed-app | `569e3f9` | 8 |
-  | knowlab-app | `9688dc2` | 16 |
-  | knowmart-app | `14a0510` | 5 |
+  | knowlab-app | `6785ae4` | 17 |
+  | knowmart-app | `b5679a2` | 6 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
 
-  这之后 qwen 还会接着提交（第 7 条的几处小改、孵化第 5 步），合之前看一眼各仓 `qwen` 头。
+  上表是 10-29 AI 请专家提交后的头；合之前再看一眼各仓 `qwen` 头。
 - **新增类**（第一节）不影响现在跑着的旧代码，可以先上。
 - **删除类**（第二节）必须和 qwen 的代码同一次发布：旧代码还在读这些变量、用这些身份，先删会断。
-- **迁移会删生产记录**（所有者已同意，decisions ⑰）：knowmart 0010（0011 只改名、加列，不删行）、knowlab 0016–0018（0019、0020 只加列、加表，不删行）、knowbench 0030–0031、knowfeed 0019、knowbase 0018。knowfeed 0019 会删关注清单那 10 行与流水，所有者 10-29 定不导出（名单还在历史迁移 0013 的代码里）。
+- **迁移会删生产记录**（所有者已同意，decisions ⑰）：knowmart 0010（0011 只改名、加列，不删行）、knowlab 0016–0018（0019–0021 只加列、加表，不删行）、knowbench 0030–0031（0032 只加列）、knowfeed 0019、knowbase 0018。knowfeed 0019 会删关注清单那 10 行与流水，所有者 10-29 定不导出（名单还在历史迁移 0013 的代码里）。
 
 ## 一、新增
 
@@ -48,6 +48,20 @@ knowbase 按现有做法认 `SERVICE_AUTH_<关系>_*`；Casdoor 要给调用方�
 2. knowlab `config.yaml` 的 `service_clients` 加 incubate（application `sunmoonai-knowlab-knowbench-incubate`），环境变量 `KNOWBENCH_INCUBATE_SERVICE_{APPLICATION,CLIENT_ID,SCOPE,DISCOVERY_URL,BACKCHANNEL_ENDPOINT}`，密钥 `KNOWBENCH_INCUBATE_SERVICE_CLIENT_SECRET` 进 sops（只挂 API 进程）；身份申领 `knowbench-incubate-identity/`、`stage.yaml`、`clusters/kind/stages.yaml`、Casdoor 组织与服务应用。入口共用 `KNOWBENCH_INTERNAL_URL`，traefik 已按前缀放行。
 3. 作者的本地 link 要带 `service-projects-v1` 能力才能建「孵化」目录，旧版 link 这一轮直接失败（原因写明）。
 
+### 2a. AI 请专家的三条服务关系（decisions 10-29「AI 请专家」）
+
+都是 knowbench 调别人，做法同 `knowmart:summon`：调用方 `service_clients` 加一项，被调方 `service_receivers` 加 `{relation, caller: knowbench}`，生成 `SERVICE_AUTH_<关系>_CALLERS=knowbench` 与 `SERVICE_AUTH_<关系>_KNOWBENCH_{AUDIENCE,SUBJECT_ALLOWLIST,REQUIRED_SCOPE}`（关系名里的连字符换下划线）；Casdoor 加服务应用与 scope，密钥进 sops、只挂 knowbench API 进程。
+
+| 关系 | 被调方 | knowbench 的环境变量 | 干什么 |
+| --- | --- | --- | --- |
+| `knowmart:catalog` | knowmart（`SERVICE_AUTH_CATALOG_*`） | `KNOWMART_CATALOG_SERVICE_{CLIENT_ID,CLIENT_SECRET,SCOPE,DISCOVERY_URL,BACKCHANNEL_ENDPOINT}`，入口共用 `KNOWMART_INTERNAL_URL` | 「找专家」时取这位用户请得动、运行方是 knowbench 的专家的公开信息 |
+| `knowmart:demand` | knowmart（`SERVICE_AUTH_DEMAND_*`） | `KNOWMART_DEMAND_SERVICE_*`，入口同上 | 用户点「发布」后替他挂需求 |
+| `knowlab:incubation-request` | knowlab（`SERVICE_AUTH_INCUBATION_REQUEST_*`） | `KNOWLAB_INCUBATION_REQUEST_SERVICE_*`，入口 `KNOWLAB_INTERNAL_URL` | 用户点「孵化一个专家」后，knowlab 以他的名义建「问题」申请 |
+
+- SCOPE 必须正好是 `knowmart:catalog`、`knowmart:demand`、`knowlab:incubation-request`，`*_INTERNAL_URL` 必须是 https，缺一项 knowbench 就当没开（页面上「让 AI 找」那一轮会失败、写明原因）。
+- `KNOWLAB_INTERNAL_URL` 现有的值（`…/api/internal/v1/knowlab`）就对，traefik `service-access` 已放行这个前缀；**所以第 3 条第 4 项里它不要删**，只删 `KNOWLAB_READ_SERVICE_*` 那一组。
+- 这三条都不配，旧功能照常，只是「让 AI 找」用不了。
+
 ## 二、删除、撤（和 qwen 代码同一次发）
 
 ### 3. 删旧版兼容以后（待你决定第 6 条）
@@ -55,7 +69,7 @@ knowbase 按现有做法认 `SERVICE_AUTH_<关系>_*`；Casdoor 要给调用方�
 1. **沙箱 provisioner（不改会断）**：`components/sandbox-platform/provisioner/config.yaml:8` 的 `knowbase_mcp_url`、`workload.yaml` 与 `workload.yaml.j2` 第 67 行的 `KNOWBASE_MCP_URL` 指着已删的 `/api/mcp/knowledge`，会 404。工作台从 10-18 起不给沙箱 knowbase 令牌，整项撤。
 2. **knowbase-backend**：`config.yaml:65-70`、`runtime/workload.yaml:79-84` 的 `KNOWBASE_DATASET_*`、`KNOWBASE_SEMANTIC_*`；`config.yaml:109` service_receivers 里的 `user-data-import`、`workload.yaml:54-60` 的 `SERVICE_AUTH_USER_DATA_IMPORT_*`；`USER_DATA_READER_APPS_JSON` 整条（代码不读）；`config.yaml:92-95` 与 `provider/prepare.yaml:11` 对 knowfeed 桶 datasets 前缀的只读放宽收回到 `knowfeed/original/`，并升 `job_revision`；`samples/register-olist.py` 与 README。
 3. **knowlab-backend**：`S3_*`、`STORAGE_BACKEND`、`knowlab-originals` 桶与 `knowlab-backend-s3`（`storage/` 组件）；`KNOWBASE_USER_DATA_IMPORT_SERVICE_*`、`knowbase-user-data-import-service.sops.yaml`、`knowbase-user-data-import-identity/`、`stage.yaml` 两处条件、`config.yaml:75-81` 的 service_client；`SERVICE_AUTH_READ_*`（knowlab 已不收任何服务关系）。Casdoor 应用 `sunmoonai-knowlab-knowbase-user-data-import` 可退。（Settings 是 `extra="ignore"`，变量留着也起得来。）knowlab 应用仓里的 `knowlab-backend/storage-access-bootstrap/` 所有者 10-29 定撤，qwen 在应用仓里删。
-4. **knowbench-backend**：`runtime/workload.yaml` 的 `KNOWLAB_INTERNAL_URL`、`KNOWLAB_READ_SERVICE_*`、三处 `secretRef: knowbench-knowlab-read-service`；`runtime/knowlab-read-service.sops.yaml`；`knowlab-read-identity/` 与 `config.yaml` 里的身份 `sunmoonai-knowbench-knowlab-read`；knowlab 侧 `SERVICE_AUTH_READ_KNOWBENCH_*`。可选：`KNOWBASE_RETRIEVAL_SERVICE_*`（账 111 说没人用，未核）。
+4. **knowbench-backend**：`runtime/workload.yaml` 的 `KNOWLAB_READ_SERVICE_*`（`KNOWLAB_INTERNAL_URL` 留着，第 2a 节的 `incubation-request` 要用）、三处 `secretRef: knowbench-knowlab-read-service`；`runtime/knowlab-read-service.sops.yaml`；`knowlab-read-identity/` 与 `config.yaml` 里的身份 `sunmoonai-knowbench-knowlab-read`；knowlab 侧 `SERVICE_AUTH_READ_KNOWBENCH_*`。可选：`KNOWBASE_RETRIEVAL_SERVICE_*`（账 111 说没人用，未核）。
 5. **knowfeed-backend**：`config.yaml:41` 的 `KNOWBASE_APP_DATASET_URL` 与第 38 行注释、`runtime/workload.yaml:35`。
 6. **平台仓**：`infrastructure/applications/check-browser.py:14` 拿 knowfeed 的 `/api/admin/security-requests` 做管理端只读探测，这个接口已删，要换一个；`scripts/local-integration/dataset-chain/` 整套跑不了了。
 7. knowmart 侧不用改。
@@ -80,12 +94,15 @@ knowbench-backend `config.yaml` 的 `domain_env` 删 `KNOWBOT_TEST_SUBJECT`、`K
 - knowlab「AI 起草」一轮能到 knowbench（`incubate` 关系通）；作者的 link 旧于 `service-projects-v1` 时这一轮写明原因失败。
 - 平台电脑重启后日志里不再出连接码，knowbot-tester「我的电脑」里它仍在线。
 - check-browser 的 knowfeed 管理端探测换了新接口后通过。
+- knowbench 请专家页点「让 AI 找」能跑完一轮（`catalog` 通）；都不合适时点「孵化一个专家」，knowlab「申请」里多一份种类为「问题」的申请（`incubation-request` 通）；点「发布」后 knowmart 需求里能看到（`demand` 通）。
 
 ## 五、qwen 随后还要提交、会进同一次发布的
 
 - 第 7 条（10-29 已提交）：knowmart 删「只用自带数据」筛选；资料没了或不再出售时用到它的条目自动下架、原因写在条目上；成交表 `copied`/`copying` 改名 `granted`/`granting`——**多一个 knowmart 迁移 `20261029_0011`**（knowmart 头 `14a0510`）；knowlab 测试数据说明升第 3 版（在旧说明下同意的创意要用户点一次「同意新说明」）、删 `storage-access-bootstrap/`（knowlab 头 `dc9b413`）；knowbase 删 `UserObjects.copy`（`5c14ec7`）；knowfeed `financial_catalog` 清理（`905da53`）。都不要新的平台配置。
 - 第 8 条第 4 项不改代码（Windows 上本地 link 本来就给执行端单开临时目录），不涉及 link 发版。
 - 孵化第 5 步（10-29 已提交，knowlab 头 `9688dc2`）：迁移 0019（孵化模式、受理类型、给平台的授权表）、0020（运营的提议表）；**已有的名称一律记成作者自己来**，发版后管理端受理栏里原来待受理的会看不到，要平台孵化的由作者点「请平台孵化」。不要新的平台配置。
+
+- AI 请专家（10-29 已提交）：knowmart 后端 `f384353`（应用仓 `b5679a2`）、knowlab `4c94955`（应用仓 `6785ae4`，迁移 0021）、knowbench 后端 `e681d3d`（迁移 0032）与 web端 `0828ce7`（应用仓 `2c36ad1`）。要的平台配置见第 2a 节；孵化契约锁跟着 `reference` 字段更新过，两边同一版。
 
 ## 六、Fable 回执第二节的答复（10-29，回执见 [交Fable-gitops-回执](交Fable-gitops-回执.md)）
 
