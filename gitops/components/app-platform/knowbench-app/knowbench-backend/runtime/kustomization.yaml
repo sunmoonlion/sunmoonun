@@ -11,3 +11,6 @@ resources:
 - knowbase-user-data-read-service.sops.yaml
 - knowbase-user-data-output-service.sops.yaml
 - knowfeed-supply-demand-service.sops.yaml
+- knowmart-catalog-service.sops.yaml
+- knowmart-demand-service.sops.yaml
+- knowlab-incubation-request-service.sops.yaml

@@ -70,6 +70,13 @@ data:
   KNOWBENCH_INCUBATE_SERVICE_SCOPE: "knowbench:incubate"
   KNOWBENCH_INCUBATE_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWBENCH_INCUBATE_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_INCUBATION_REQUEST_CALLERS: "knowbench"
+  SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowlab-incubation-request"
+  SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowlab-incubation-request"
+  SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowlab-incubation-request"
+  SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_REQUIRED_SCOPE: "knowlab:incubation-request"
   SERVICE_AUTH_READ_CALLERS: "knowbench"
   SERVICE_AUTH_READ_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowlab-read"
   SERVICE_AUTH_READ_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -79,6 +86,8 @@ data:
   SERVICE_AUTH_READ_KNOWBENCH_REQUIRED_SCOPE: "knowlab:read"
   SSL_CERT_FILE: /etc/sunmoon/service/ca.crt
   STORAGE_BACKEND: "s3"
+  CROSS_APP_TARGETS_JSON: "{\"knowbench\": {\"web_base_url\": \"https://knowbench.dev.sunmoonai.com:30443\"}}"
+  CROSS_APP_SOURCES_JSON: "{\"knowbench\": {\"return_url\": \"https://knowbench.dev.sunmoonai.com:30443/zh-CN/workbench?ref={ref}\"}, \"knowbase\": {}, \"knowfeed\": {}}"
   WEB_AUTH_ALLOWED_RETURN_PATHS: "/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/questions,/en/questions,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/experts,/en/experts,/zh-CN/data,/en/data"
   KNOWBASE_USER_AUDIENCE: "sunmoon-kind-knowbase-user-data"
   KNOWLAB_DATA_SUPPLY_ENABLED: "true"
@@ -114,7 +123,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 358843894a98400d0b949c29cb6e6badcaf9a94203b23ef0b14ada1d57d62cf4
+        sunmoonai.com/config-sha256: e50f27528da762e9b5eac0e60d8258daadf1f3522c12bebbaf2fc5d717cd346d
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -187,7 +196,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 358843894a98400d0b949c29cb6e6badcaf9a94203b23ef0b14ada1d57d62cf4
+        sunmoonai.com/config-sha256: e50f27528da762e9b5eac0e60d8258daadf1f3522c12bebbaf2fc5d717cd346d
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -254,7 +263,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 358843894a98400d0b949c29cb6e6badcaf9a94203b23ef0b14ada1d57d62cf4
+        sunmoonai.com/config-sha256: e50f27528da762e9b5eac0e60d8258daadf1f3522c12bebbaf2fc5d717cd346d
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]

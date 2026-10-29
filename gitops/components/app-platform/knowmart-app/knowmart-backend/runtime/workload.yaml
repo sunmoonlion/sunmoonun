@@ -21,6 +21,13 @@ data:
   KNOWBASE_USER_DATA_PURCHASE_SERVICE_SCOPE: "knowbase:user-data-purchase"
   KNOWBASE_USER_DATA_PURCHASE_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWBASE_USER_DATA_PURCHASE_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_CATALOG_CALLERS: "knowbench"
+  SERVICE_AUTH_CATALOG_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowmart-catalog"
+  SERVICE_AUTH_CATALOG_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_CATALOG_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_CATALOG_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowmart-catalog"
+  SERVICE_AUTH_CATALOG_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowmart-catalog"
+  SERVICE_AUTH_CATALOG_KNOWBENCH_REQUIRED_SCOPE: "knowmart:catalog"
   SERVICE_AUTH_DELIVER_CALLERS: "knowlab"
   SERVICE_AUTH_DELIVER_KNOWLAB_CASDOOR_APPLICATION: "sunmoonai-knowlab-knowmart-deliver"
   SERVICE_AUTH_DELIVER_KNOWLAB_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -28,6 +35,13 @@ data:
   SERVICE_AUTH_DELIVER_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowmart-deliver"
   SERVICE_AUTH_DELIVER_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowmart-deliver"
   SERVICE_AUTH_DELIVER_KNOWLAB_REQUIRED_SCOPE: "knowmart:deliver"
+  SERVICE_AUTH_DEMAND_CALLERS: "knowbench"
+  SERVICE_AUTH_DEMAND_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowmart-demand"
+  SERVICE_AUTH_DEMAND_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  SERVICE_AUTH_DEMAND_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  SERVICE_AUTH_DEMAND_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowmart-demand"
+  SERVICE_AUTH_DEMAND_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowmart-demand"
+  SERVICE_AUTH_DEMAND_KNOWBENCH_REQUIRED_SCOPE: "knowmart:demand"
   SERVICE_AUTH_SUMMON_CALLERS: "knowbench"
   SERVICE_AUTH_SUMMON_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowmart-summon"
   SERVICE_AUTH_SUMMON_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
@@ -72,7 +86,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 840a34e4de7fcca5ab67a72b907a564053a96556c4557822d98817ebc5b5ecc8
+        sunmoonai.com/config-sha256: 8afcbf19279b18c73c959334447d8e8e427a9d566a61a2f88d1c3a7bd189d536
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -134,7 +148,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 840a34e4de7fcca5ab67a72b907a564053a96556c4557822d98817ebc5b5ecc8
+        sunmoonai.com/config-sha256: 8afcbf19279b18c73c959334447d8e8e427a9d566a61a2f88d1c3a7bd189d536
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -192,7 +206,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 840a34e4de7fcca5ab67a72b907a564053a96556c4557822d98817ebc5b5ecc8
+        sunmoonai.com/config-sha256: 8afcbf19279b18c73c959334447d8e8e427a9d566a61a2f88d1c3a7bd189d536
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]

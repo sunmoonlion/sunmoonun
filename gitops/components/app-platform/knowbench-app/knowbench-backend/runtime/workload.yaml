@@ -31,6 +31,21 @@ data:
   KNOWMART_SUMMON_SERVICE_SCOPE: "knowmart:summon"
   KNOWMART_SUMMON_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWMART_SUMMON_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWMART_CATALOG_SERVICE_APPLICATION: "sunmoonai-knowbench-knowmart-catalog"
+  KNOWMART_CATALOG_SERVICE_CLIENT_ID: "sunmoon-knowbench-knowmart-catalog"
+  KNOWMART_CATALOG_SERVICE_SCOPE: "knowmart:catalog"
+  KNOWMART_CATALOG_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWMART_CATALOG_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWMART_DEMAND_SERVICE_APPLICATION: "sunmoonai-knowbench-knowmart-demand"
+  KNOWMART_DEMAND_SERVICE_CLIENT_ID: "sunmoon-knowbench-knowmart-demand"
+  KNOWMART_DEMAND_SERVICE_SCOPE: "knowmart:demand"
+  KNOWMART_DEMAND_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWMART_DEMAND_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
+  KNOWLAB_INCUBATION_REQUEST_SERVICE_APPLICATION: "sunmoonai-knowbench-knowlab-incubation-request"
+  KNOWLAB_INCUBATION_REQUEST_SERVICE_CLIENT_ID: "sunmoon-knowbench-knowlab-incubation-request"
+  KNOWLAB_INCUBATION_REQUEST_SERVICE_SCOPE: "knowlab:incubation-request"
+  KNOWLAB_INCUBATION_REQUEST_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
+  KNOWLAB_INCUBATION_REQUEST_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   KNOWLAB_READ_SERVICE_APPLICATION: "sunmoonai-knowbench-knowlab-read"
   KNOWLAB_READ_SERVICE_CLIENT_ID: "sunmoon-knowbench-knowlab-read"
   KNOWLAB_READ_SERVICE_SCOPE: "knowlab:read"
@@ -119,7 +134,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 0a43ba475622338387a242acdb98fdfe5af9d72ee99d921b9d3c2423d3f8f676
+        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -153,6 +168,9 @@ spec:
             - {secretRef: {name: knowbench-domain-runtime}}
             - {secretRef: {name: knowbench-knowbase-service}}
             - {secretRef: {name: knowbench-knowmart-summon-service}}
+            - {secretRef: {name: knowbench-knowmart-catalog-service}}
+            - {secretRef: {name: knowbench-knowmart-demand-service}}
+            - {secretRef: {name: knowbench-knowlab-incubation-request-service}}
             - {secretRef: {name: knowbench-knowlab-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-output-service}}
@@ -189,7 +207,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 0a43ba475622338387a242acdb98fdfe5af9d72ee99d921b9d3c2423d3f8f676
+        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -251,7 +269,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 0a43ba475622338387a242acdb98fdfe5af9d72ee99d921b9d3c2423d3f8f676
+        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -308,7 +326,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 0a43ba475622338387a242acdb98fdfe5af9d72ee99d921b9d3c2423d3f8f676
+        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
