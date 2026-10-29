@@ -138,7 +138,7 @@ spec:
         - {name: scripts, configMap: {name: knowbench-platform-computer-scripts, defaultMode: 0555}}
         - {name: download, secret: {secretName: knowbench-platform-computer-download, defaultMode: 0440}}
         - {name: tmp, emptyDir: {sizeLimit: 1Gi}}
-{%- endfor %}
+{% endfor -%}
 ---
 # 所有平台电脑共用一条：只放行 DNS、对象存储（取包）与公网边缘的 30443（会合点与网页地址）。模型在该账号的云端沙箱里调，这里不出外网
 apiVersion: networking.k8s.io/v1
