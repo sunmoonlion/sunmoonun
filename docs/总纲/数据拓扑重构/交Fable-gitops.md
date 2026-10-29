@@ -9,9 +9,9 @@
   | 仓 | qwen 头 | 比 origin/fable 多 |
   | --- | --- | --- |
   | knowbase-app | `5c14ec7` | 20 |
-  | knowbench-app | `55e5ec2` | 8 |
-  | knowfeed-app | `905da53` | 7 |
-  | knowlab-app | `dc9b413` | 14 |
+  | knowbench-app | `6b13fed` | 9 |
+  | knowfeed-app | `569e3f9` | 8 |
+  | knowlab-app | `60903bc` | 15 |
   | knowmart-app | `14a0510` | 5 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
 
@@ -86,3 +86,15 @@ knowbench-backend `config.yaml` 的 `domain_env` 删 `KNOWBOT_TEST_SUBJECT`、`K
 - 第 7 条（10-29 已提交）：knowmart 删「只用自带数据」筛选；资料没了或不再出售时用到它的条目自动下架、原因写在条目上；成交表 `copied`/`copying` 改名 `granted`/`granting`——**多一个 knowmart 迁移 `20261029_0011`**（knowmart 头 `14a0510`）；knowlab 测试数据说明升第 3 版（在旧说明下同意的创意要用户点一次「同意新说明」）、删 `storage-access-bootstrap/`（knowlab 头 `dc9b413`）；knowbase 删 `UserObjects.copy`（`5c14ec7`）；knowfeed `financial_catalog` 清理（`905da53`）。都不要新的平台配置。
 - 第 8 条第 4 项不改代码（Windows 上本地 link 本来就给执行端单开临时目录），不涉及 link 发版。
 - 孵化第 5 步（管理端同一个编辑器、模式切换与确认框）。
+
+## 六、Fable 回执第二节的答复（10-29，回执见 [交Fable-gitops-回执](交Fable-gitops-回执.md)）
+
+| 条 | 处理 |
+| --- | --- |
+| 1 knowfeed 收 `supply-demand` | 已改代码（knowfeed `61d1a03`，应用仓 `569e3f9`）：新 `relation_auth`，读 `SERVICE_AUTH_SUPPLY_DEMAND_CALLERS` 与逐调用方的 `_AUDIENCE`、`_SUBJECT_ALLOWLIST`、`_REQUIRED_SCOPE`（`knowfeed:supply-demand`），只认 knowbench、knowlab，需求单记在校验出的调用方名下。**`SUPPLY_SERVICE_APPS_JSON` 代码不读了，gitops 可以删** |
+| 2 knowfeed 调 knowbase | 已改代码（同上）：地址 = `KNOWBASE_INTERNAL_URL` + `/api/internal/v2/user-data`，身份读 `KNOWBASE_USER_DATA_SUPPLY_SERVICE_{CLIENT_ID,CLIENT_SECRET,SCOPE,DISCOVERY_URL,BACKCHANNEL_ENDPOINT}`，缺一项就是没开。**`KNOWBASE_SUPPLY_URL` 代码不读了，gitops 可以删**；入库那份身份（`KNOWBASE_APP_SERVICE_*`）照旧只管入库 |
+| 3 `KNOWFEED_INTERNAL_URL` 带前缀 | 已改代码：knowbench `c6c0592`（应用仓 `6b13fed`）、knowlab `4485c7a`（应用仓 `60903bc`）去掉 `BASE`，内部地址后面直接接 `/demands`、`/securities` |
+| 4 `user-data-output`、`user-data-directory` 没有调用方 | **留着**：设计里都要用（产出区写入，SDD 0043 第 2.6 节；交付时推专家名录、冻结绑定，SDD 0044 第三节），在这一轮的块 6（测试证据进产出区、交付）里接上，不改名 |
+| 5 knowfeed 不要 `user-data-read` | 对，是交接清单列错了：knowfeed 只走 `user-data-supply`，不用加 |
+| 6 孵化路由前缀 | 核过：knowbench `interfaces/endpoints/knowbot_runtime_routes.py` 的路由前缀是 `/internal/v1/knowbot-runtime`（挂在 `/api` 下），孵化是 `POST /incubations`、`GET /incubations/{id}`、`POST /incubations/{id}/cancel`，和测试运行同一个前缀，traefik 现在的放行够用 |
+
