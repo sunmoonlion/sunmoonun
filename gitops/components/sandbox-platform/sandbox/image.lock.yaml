@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: sandbox
-digest: sha256:8fac3fdfb14f9c956d00cc65cb5b45aaa683500d162b3ffba7a3110d63cea720
-source_revision: c5905fe2e8ab16a0bc2deddd57bd3fee30907578
-deployment_id: sandbox-8fac3fdfb14f9c95
+digest: sha256:ec14e4a591d7401ad222b579d745fa4c5c6e9292c28055c696b9671661f7823c
+source_revision: 679745b2814ead1ea60107a412044be326991191
+deployment_id: sandbox-ec14e4a591d7401a
