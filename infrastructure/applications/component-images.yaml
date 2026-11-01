@@ -33,7 +33,7 @@ images:
     # 源的地址在 download-modes.json（不在 context 里，不用改钉的提交）；国内源用 http：slim 基础镜像没有 ca-certificates，
     # apt 走 https 会在证书上失败（2026-10-06 第 26 轮退出 100），包本身有签名
     # 2fe6652c：编排端配置加 [windows] sandbox = unelevated（Windows 代理第 1 段联调）
-    revision: 5798e3125f2e7b96704c511c7b29155ffd9c39d5
+    revision: 679745b2814ead1ea60107a412044be326991191
     context: infrastructure/applications/component-images/sandbox-platform
     dockerfile: image/Dockerfile
     base: node-runtime
