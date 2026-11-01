@@ -1,0 +1,960 @@
+{
+  "date": "2026-11-02",
+  "scope": "five local workstations; master and Jenkins untouched",
+  "base": "release #43 + verified tool roundtrip repair + preserved planning/operations documents",
+  "sunmoonun_target": "the commit containing this record (or its release-receipt merge); actual resulting HEAD recorded in local verification receipt",
+  "targets": {
+    "tpl-app": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+    "tpl-app/tpl-backend": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+    "tpl-app/tpl-web-frontend": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+    "tpl-app/tpl-admin-frontend": "722c6b80e849d6352f28abbdd7362e1151191c14",
+    "knowfeed-app": "317ffffba0afb982c8b4027b7aaf17ee878c505e",
+    "knowfeed-app/knowfeed-backend": "b666d393ef2d23555f78f16ae39465415ceef916",
+    "knowfeed-app/knowfeed-web-frontend": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+    "knowfeed-app/knowfeed-admin-frontend": "d7af6017f16f2ea2ac2d8ba71876a4be64c7f11d",
+    "knowbase-app": "14e341a17a8add888d024df7fb75c00d72e63d0f",
+    "knowbase-app/knowbase-backend": "fb88c4868a4245f934e59123506b9fe9c7087463",
+    "knowbase-app/knowbase-web-frontend": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+    "knowbase-app/knowbase-admin-frontend": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+    "knowbench-app": "525735629ed6ba70f3a87038ed2b53ecce1ae453",
+    "knowbench-app/knowbench-backend": "1e7834fae769230d508bca6e399167c3b8a91f6f",
+    "knowbench-app/knowbench-web-frontend": "e538f00560464d922912770667bc65e008ddb052",
+    "knowbench-app/knowbench-admin-frontend": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+    "knowlab-app": "0488b7e5992b52e6a684df7a89bc90e66deb0962",
+    "knowlab-app/knowlab-backend": "bd7fe93d28cb6460dc16d4a43c5569c13dbf9610",
+    "knowlab-app/knowlab-web-frontend": "4334a198dc89d95b4c71ecc3165d9f965734a7e2",
+    "knowlab-app/knowlab-admin-frontend": "fc8b4edc9144365248a7a96c58eaac5947fed111",
+    "knowmart-app": "255ae5024c83e7d7ad70acba698d173b3a1e0ccb",
+    "knowmart-app/knowmart-backend": "9c3f041c56412dae752dfe5d10b25844cf9fc6c7",
+    "knowmart-app/knowmart-web-frontend": "10b80aa56f31bb0f83270a2ae3dd46f1dccfcf12",
+    "knowmart-app/knowmart-admin-frontend": "5f109118ffbaca623a732ed33eaea61a2905241a",
+    "sunmoon-link": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+    "sunmoonun": "CONTAINING_COMMIT"
+  },
+  "untracked_review": [
+    {
+      "path": "docs/ops/wsl-space-reclamation-plan.md",
+      "original_sha256": "6d2113c72dd0ddc2e0a1351f7ad926f827007638532ddc85977fd09b8f94bb34",
+      "decision": "retain as historical operational evidence; prepend corrections and scope"
+    },
+    {
+      "path": "scripts/results/qwen-probe-runs-inventory.20261101.md",
+      "original_sha256": "e39d54397566d3e17643cb796e64b2c68981f05a1fd9ef07dd5dead6c8bb757a",
+      "decision": "retain as historical operational evidence; prepend corrections and scope"
+    }
+  ],
+  "before": [
+    {
+      "station": "qwen",
+      "repo": "knowbase-app",
+      "head": "1cd071d2a5a5c53cb9532c6dd4508d1c3590ad5b",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbase-app/knowbase-admin-frontend",
+      "head": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbase-app/knowbase-web-frontend",
+      "head": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbase-app/knowbase-backend",
+      "head": "c804dd47bb22c40c7769e22327a1f619a1569863",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbench-app",
+      "head": "7ab1b17c4dcabf78b48b25637d5769f883929af3",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbench-app/knowbench-backend",
+      "head": "6032cbd940e96ed36f18eefacee468537591ec3c",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbench-app/knowbench-admin-frontend",
+      "head": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowbench-app/knowbench-web-frontend",
+      "head": "e538f00560464d922912770667bc65e008ddb052",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowfeed-app",
+      "head": "91ef5da9fbd1b544ea366fe0e1ab7c2ad44a4820",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowfeed-app/knowfeed-backend",
+      "head": "35fc02529feaa0c7436f561467ed5582cfed7dc0",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowfeed-app/knowfeed-web-frontend",
+      "head": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowfeed-app/knowfeed-admin-frontend",
+      "head": "d7af6017f16f2ea2ac2d8ba71876a4be64c7f11d",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowlab-app",
+      "head": "0488b7e5992b52e6a684df7a89bc90e66deb0962",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowlab-app/knowlab-admin-frontend",
+      "head": "fc8b4edc9144365248a7a96c58eaac5947fed111",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowlab-app/knowlab-web-frontend",
+      "head": "4334a198dc89d95b4c71ecc3165d9f965734a7e2",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowlab-app/knowlab-backend",
+      "head": "bd7fe93d28cb6460dc16d4a43c5569c13dbf9610",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowmart-app",
+      "head": "255ae5024c83e7d7ad70acba698d173b3a1e0ccb",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowmart-app/knowmart-admin-frontend",
+      "head": "5f109118ffbaca623a732ed33eaea61a2905241a",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowmart-app/knowmart-backend",
+      "head": "9c3f041c56412dae752dfe5d10b25844cf9fc6c7",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "knowmart-app/knowmart-web-frontend",
+      "head": "10b80aa56f31bb0f83270a2ae3dd46f1dccfcf12",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "sunmoon-link",
+      "head": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "sunmoonun",
+      "head": "bac3696a5d80699c4549d9b3b22740c5ad19c209",
+      "branch": "qwen",
+      "status": "?? docs/ops/wsl-space-reclamation-plan.md\n?? scripts/results/qwen-probe-runs-inventory.20261101.md"
+    },
+    {
+      "station": "qwen",
+      "repo": "tpl-app",
+      "head": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "tpl-app/tpl-backend",
+      "head": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "tpl-app/tpl-admin-frontend",
+      "head": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "qwen",
+      "repo": "tpl-app/tpl-web-frontend",
+      "head": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+      "branch": "qwen",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbase-app",
+      "head": "b16d7aa8c7ace36a3d84e873718c69a8e2d5f9ae",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbase-app/knowbase-admin-frontend",
+      "head": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbase-app/knowbase-web-frontend",
+      "head": "8c338db2b7222702f71cef892fd283016c148210",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbase-app/knowbase-backend",
+      "head": "eedb6d06a361dd229c505ca9b721d0a6b28da807",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbench-app",
+      "head": "3ffcc7e8a0738cb1a66c7e9ff26b0bef18be1500",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbench-app/knowbench-backend",
+      "head": "7fe309a37350e0fe2f4444a26403b11fc1166238",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbench-app/knowbench-admin-frontend",
+      "head": "26964553ed9d581ac855c38edeaee8e65add792f",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowbench-app/knowbench-web-frontend",
+      "head": "17cd09be9b83fec7483123a7f4969e2f44db6062",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowfeed-app",
+      "head": "fc065ea073eb496d2b40260a4323056a5a2e9a48",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowfeed-app/knowfeed-backend",
+      "head": "c4cd1d683abd8b275777f82fd19b2c7d096e84ff",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowfeed-app/knowfeed-web-frontend",
+      "head": "bca159f76befc47b1b38e7028c0f63c68b334759",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowfeed-app/knowfeed-admin-frontend",
+      "head": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowlab-app",
+      "head": "ce93fbc63e2ddea6b1c435f227ec3f8af6dfbe6a",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowlab-app/knowlab-admin-frontend",
+      "head": "28c79f0c38d4a01753dd92f403587470585f9ac3",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowlab-app/knowlab-web-frontend",
+      "head": "3a0f2c847c220770d28177288023debc75172f19",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowlab-app/knowlab-backend",
+      "head": "8684d258b452e5b755de1a67b08884a5bdf29aa2",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowmart-app",
+      "head": "5e19a4cd28817d7db4069dc1a3b8ff4954c32939",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowmart-app/knowmart-admin-frontend",
+      "head": "d14c3dc41293c660634a92aed2f1b14d46d5ef80",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowmart-app/knowmart-backend",
+      "head": "884f0931efcd696dc1923c7cf9f1f341edf746be",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "knowmart-app/knowmart-web-frontend",
+      "head": "db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "sunmoon-link",
+      "head": "ab5679dd67f48582f3dad1c9087ab73776db9919",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "sunmoonun",
+      "head": "9727ef8ff38314d147ea5e72265d2379f5f7cbb5",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "tpl-app",
+      "head": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+      "branch": "kimi",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "tpl-app/tpl-backend",
+      "head": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "tpl-app/tpl-admin-frontend",
+      "head": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "kimi",
+      "repo": "tpl-app/tpl-web-frontend",
+      "head": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbase-app",
+      "head": "14e341a17a8add888d024df7fb75c00d72e63d0f",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbase-app/knowbase-admin-frontend",
+      "head": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbase-app/knowbase-web-frontend",
+      "head": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbase-app/knowbase-backend",
+      "head": "fb88c4868a4245f934e59123506b9fe9c7087463",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbench-app",
+      "head": "a4bf9aec6f96eadccd2c2e333038a8b799ea7d58",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbench-app/knowbench-backend",
+      "head": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbench-app/knowbench-admin-frontend",
+      "head": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowbench-app/knowbench-web-frontend",
+      "head": "e538f00560464d922912770667bc65e008ddb052",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowfeed-app",
+      "head": "317ffffba0afb982c8b4027b7aaf17ee878c505e",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowfeed-app/knowfeed-backend",
+      "head": "b666d393ef2d23555f78f16ae39465415ceef916",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowfeed-app/knowfeed-web-frontend",
+      "head": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowfeed-app/knowfeed-admin-frontend",
+      "head": "d7af6017f16f2ea2ac2d8ba71876a4be64c7f11d",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowlab-app",
+      "head": "0488b7e5992b52e6a684df7a89bc90e66deb0962",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowlab-app/knowlab-admin-frontend",
+      "head": "fc8b4edc9144365248a7a96c58eaac5947fed111",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowlab-app/knowlab-web-frontend",
+      "head": "4334a198dc89d95b4c71ecc3165d9f965734a7e2",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowlab-app/knowlab-backend",
+      "head": "bd7fe93d28cb6460dc16d4a43c5569c13dbf9610",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowmart-app",
+      "head": "255ae5024c83e7d7ad70acba698d173b3a1e0ccb",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowmart-app/knowmart-admin-frontend",
+      "head": "5f109118ffbaca623a732ed33eaea61a2905241a",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowmart-app/knowmart-backend",
+      "head": "9c3f041c56412dae752dfe5d10b25844cf9fc6c7",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "knowmart-app/knowmart-web-frontend",
+      "head": "10b80aa56f31bb0f83270a2ae3dd46f1dccfcf12",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "sunmoon-link",
+      "head": "35bd1137ad51a849816c487461f1a51f2fbb7107",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "sunmoonun",
+      "head": "3974950e16ad1ec027f2859367235e21bda56509",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "tpl-app",
+      "head": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "tpl-app/tpl-backend",
+      "head": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "tpl-app/tpl-admin-frontend",
+      "head": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "fable",
+      "repo": "tpl-app/tpl-web-frontend",
+      "head": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+      "branch": "fable",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbase-app",
+      "head": "b16d7aa8c7ace36a3d84e873718c69a8e2d5f9ae",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbase-app/knowbase-admin-frontend",
+      "head": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbase-app/knowbase-web-frontend",
+      "head": "8c338db2b7222702f71cef892fd283016c148210",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbase-app/knowbase-backend",
+      "head": "eedb6d06a361dd229c505ca9b721d0a6b28da807",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbench-app",
+      "head": "388d61bca93594dffeb18defc9d2603c79416de8",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbench-app/knowbench-backend",
+      "head": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbench-app/knowbench-admin-frontend",
+      "head": "26964553ed9d581ac855c38edeaee8e65add792f",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowbench-app/knowbench-web-frontend",
+      "head": "17cd09be9b83fec7483123a7f4969e2f44db6062",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowfeed-app",
+      "head": "fc065ea073eb496d2b40260a4323056a5a2e9a48",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowfeed-app/knowfeed-backend",
+      "head": "c4cd1d683abd8b275777f82fd19b2c7d096e84ff",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowfeed-app/knowfeed-web-frontend",
+      "head": "bca159f76befc47b1b38e7028c0f63c68b334759",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowfeed-app/knowfeed-admin-frontend",
+      "head": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowlab-app",
+      "head": "ce93fbc63e2ddea6b1c435f227ec3f8af6dfbe6a",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowlab-app/knowlab-admin-frontend",
+      "head": "28c79f0c38d4a01753dd92f403587470585f9ac3",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowlab-app/knowlab-web-frontend",
+      "head": "3a0f2c847c220770d28177288023debc75172f19",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowlab-app/knowlab-backend",
+      "head": "8684d258b452e5b755de1a67b08884a5bdf29aa2",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowmart-app",
+      "head": "5e19a4cd28817d7db4069dc1a3b8ff4954c32939",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowmart-app/knowmart-admin-frontend",
+      "head": "d14c3dc41293c660634a92aed2f1b14d46d5ef80",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowmart-app/knowmart-backend",
+      "head": "884f0931efcd696dc1923c7cf9f1f341edf746be",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "knowmart-app/knowmart-web-frontend",
+      "head": "db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "sunmoon-link",
+      "head": "ab5679dd67f48582f3dad1c9087ab73776db9919",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "sunmoonun",
+      "head": "806f2259785eff75dd2d1bd0ac82cb63878ed496",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "tpl-app",
+      "head": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+      "branch": "luna",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "tpl-app/tpl-backend",
+      "head": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "tpl-app/tpl-admin-frontend",
+      "head": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "luna",
+      "repo": "tpl-app/tpl-web-frontend",
+      "head": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbase-app",
+      "head": "b16d7aa8c7ace36a3d84e873718c69a8e2d5f9ae",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbase-app/knowbase-admin-frontend",
+      "head": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbase-app/knowbase-web-frontend",
+      "head": "8c338db2b7222702f71cef892fd283016c148210",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbase-app/knowbase-backend",
+      "head": "eedb6d06a361dd229c505ca9b721d0a6b28da807",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbench-app",
+      "head": "388d61bca93594dffeb18defc9d2603c79416de8",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbench-app/knowbench-backend",
+      "head": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbench-app/knowbench-admin-frontend",
+      "head": "26964553ed9d581ac855c38edeaee8e65add792f",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowbench-app/knowbench-web-frontend",
+      "head": "17cd09be9b83fec7483123a7f4969e2f44db6062",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowfeed-app",
+      "head": "fc065ea073eb496d2b40260a4323056a5a2e9a48",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowfeed-app/knowfeed-backend",
+      "head": "c4cd1d683abd8b275777f82fd19b2c7d096e84ff",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowfeed-app/knowfeed-web-frontend",
+      "head": "bca159f76befc47b1b38e7028c0f63c68b334759",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowfeed-app/knowfeed-admin-frontend",
+      "head": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowlab-app",
+      "head": "ce93fbc63e2ddea6b1c435f227ec3f8af6dfbe6a",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowlab-app/knowlab-admin-frontend",
+      "head": "28c79f0c38d4a01753dd92f403587470585f9ac3",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowlab-app/knowlab-web-frontend",
+      "head": "3a0f2c847c220770d28177288023debc75172f19",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowlab-app/knowlab-backend",
+      "head": "8684d258b452e5b755de1a67b08884a5bdf29aa2",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowmart-app",
+      "head": "5e19a4cd28817d7db4069dc1a3b8ff4954c32939",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowmart-app/knowmart-admin-frontend",
+      "head": "d14c3dc41293c660634a92aed2f1b14d46d5ef80",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowmart-app/knowmart-backend",
+      "head": "884f0931efcd696dc1923c7cf9f1f341edf746be",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "knowmart-app/knowmart-web-frontend",
+      "head": "db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "sunmoon-link",
+      "head": "ab5679dd67f48582f3dad1c9087ab73776db9919",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "sunmoonun",
+      "head": "806f2259785eff75dd2d1bd0ac82cb63878ed496",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "tpl-app",
+      "head": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+      "branch": "cursor",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "tpl-app/tpl-backend",
+      "head": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "tpl-app/tpl-admin-frontend",
+      "head": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "branch": "",
+      "status": ""
+    },
+    {
+      "station": "cursor",
+      "repo": "tpl-app/tpl-web-frontend",
+      "head": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+      "branch": "",
+      "status": ""
+    }
+  ],
+  "preservation_branch": "backup/pre-align-20261102/<station> in each repository",
+  "verification": "all 130 workspaces must have exact target HEAD, station-named branch, and empty git status; all 30 parent repositories must match their gitlinks"
+}

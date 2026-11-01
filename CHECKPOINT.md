@@ -207,3 +207,13 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 搜索声明已确认保留；诊断中模型没有真正完成 webSearch，不能报告搜索端到端验证成功。
 
 待办：推送独立修复分支，触发 Jenkins `release`，APPS="knowbench sandbox"、PIN=keep，审核候选差异后等原有人批；批准后验证目标用户沙箱镜像、find_subject → request_data → 待确认流程。人批不能由修复代理代点。
+
+## 2026-11-02 本地工位对齐与双轨计划接手
+
+- 所有者明确选择：最新已发布版本 + 本次已验证工具回传修复；后续在 `/home/zymun/worktrees/luna` 的各仓 `luna` 分支开发。
+- 五工位范围：cursor、fable、kimi、luna、qwen，各含 sunmoonun、sunmoon-link、六应用父仓及 18 子仓。master 与 Jenkins 独立检出不作工位修改。
+- sunmoonun 基于 release #43 回执 `c00e6766b24c0d249938152d35511116f6f169ff`，修复来源 `7ead007f6271f3516c1e28ec5e8b2bf54f978d09`；knowbench 父仓 `525735629ed6ba70f3a87038ed2b53ecce1ae453`、后端 `1e7834fae769230d508bca6e399167c3b8a91f6f`；其余应用依 sources.yaml，Link 依 agent-releases/config.yaml 的 0.5.5 源码钉。
+- 四份双轨交付相关文档从 qwen `bac3696a5d80699c4549d9b3b22740c5ad19c209` 带入，开发工位改为 luna。文档中 WP 完成状态是历史记录，不能据此声称未纳入本基线的 qwen 代码已经发布或验收。后续先比对保留的 qwen 业务提交与 WP 清单，复用合格实现并补验，避免重写。
+- 对齐前各检出 HEAD 留在 `backup/pre-align-20261102/<工位>` 本地分支（每仓独立）；分叉的原工位分支重命名保存，再从固定基线创建同名分支，不 reset、不清理文件、不自动 push。qwen 两份未跟踪文档经审阅均有用：保留空间盘点、归档与清理证据，补充历史适用范围及权限处理纠正后纳入共同提交；原始字节另存本地对齐备份，工作区不留未跟踪副本。
+- Jenkins #44 使用原发布分支 fix/tool-roundtrip-release，工位对齐不改变该运行中的候选。修复已通过 39 项后端测试、14 项传输测试及真实失败请求重放，但发布人批、部署后复核、已有用户沙箱重新供应和真实补采闭环仍待完成。不得把测试通过写成全链已修复。
+- 本轮对齐的固定目标与每个工作区旧提交见 scripts/results/workstations-alignment.20261102.json；该记录为本地 Git 工作区证据，不是发布回执。
