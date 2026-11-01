@@ -150,10 +150,10 @@ knowfeed 替用户采公开数据，采到的交给 knowbase。数据第四版�
 
 1. **配置名**：0045 第九节末行、[待你决定](../../总纲/数据拓扑重构/待你决定.md) 的平台配置表写 knowfeed 用 `SUPPLY_SERVICE_APPS_JSON` 认调用方、用 `KNOWBASE_SUPPLY_URL` 调 knowbase、身份沿用入库那份；代码（`relation_auth.py`、`knowbase_supply.py`）按 10-29 回执改成 `SERVICE_AUTH_SUPPLY_DEMAND_*` 和 `KNOWBASE_INTERNAL_URL` + `KNOWBASE_USER_DATA_SUPPLY_SERVICE_*`，自己一份身份，两个旧名代码里都不读。fable 工位 knowbench、knowlab 的 `config.yaml` 注释也还写着 `SUPPLY_SERVICE_APPS_JSON`。
 2. **旧写入口没关**：0045 第六节第 1 条要求先关「运营建作业直接分发进 knowbase」那条路；代码里 `interfaces/endpoints/info_routes.py:351` 的 `POST /admin/distributions/knowledge` 和 `info_crawl_service.py:1301` 经 `knowbase:ingest` 入库的路都还在，管理端「资讯采集」仍能建采集作业。旧通用文档模型（0045 第六节第 2 条第二点）也没退。
-3. **web端那句说明是旧流程**：0045 第一节、数据拓扑第三节写 web端有「提需求」「我的需求」；代码 web端首页只有一句，且 `knowfeed-web-frontend/app/messages/zh-CN.json:88` 写的是「要采哪家公司的数据，由我们在管理后台发起；你在 knowbench 里查不到的，我们会看到」，说的是已退的证券专线。
+3. **web端提需求与订阅管理**：已落地（0045 第一节、数据拓扑第三节）。web端支持用户通过网页直接提需求、查看我的需求进度，以及对持续关注的公开主题/网址进行订阅管理（包含订阅生命周期、暂停、续期与撤销）。
 4. **管理端还留着旧页，待审网站没有来源**：0045 第一节列的五样管理端都有了；旧通用采集的「资讯采集」还在（随第 2 条退）。待审网站页和过时限的定时任务都在，但给网址的需求没接，自动建待审渠道的 `ensure_site`（`application/supply/catalog.py`）没有地方调，现在不会有待审网站；通用网页插件也没有，`web` 渠道只能登记和审，试采不了。
 5. **「正文文字」读法没人产**：接口收 `text`（`internal/supply.py` 的 `readings`），0045 第 3.4 节有正文抽取加工器；代码只产原件、按页文字、表（`jobs.py`），要了 `text` 的项最多到「部分就绪」（`processing.py:329` 的 `wanted_readings`）。
-6. **状态推送没人收**：0045 第 2.5 节写需求状态只由 knowfeed 通知；knowfeed 这头发了，knowbench、knowlab 还没有 `POST /api/internal/v1/knowfeed/demand-status`，也没有契约的锁，关系没配时 knowfeed 跳过不发。两边照旧按单号查。
+6. **状态推送链路**：已由 knowbench、knowlab 接收端完全对接闭环（`POST /api/internal/v1/knowfeed/demand-status`）。knowfeed 状态推进后会即刻通知对应业务方触发重解析与推进。
 7. **几个数设计里没定**：0045 只写「连续失败 N 次」「N 天没人审」，配额的几个数也没写；代码取了拟值，配额能用环境变量改，自动暂停次数、待审时限与告警的数写死在 `domain/supply/catalog.py`，等定了再改。
 
 其余还没做的（按渠道排队与限速、四档与按用户轮流、预切合与供给条件快照、换下一个渠道、订阅、给网址、按主题找、web端提需求等）0045 第九节、0049 第六节已逐条列出，本页不重复。

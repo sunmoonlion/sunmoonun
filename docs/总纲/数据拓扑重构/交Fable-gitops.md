@@ -10,7 +10,7 @@
   | --- | --- | --- |
   | knowbase-app | `f65a6c7` | 21 |
   | knowbench-app | `567c3b8` | 13 |
-  | knowfeed-app | `569e3f9` | 8 |
+  | knowfeed-app | `d23f6c4` | 11 |
   | knowlab-app | `0bfd91b` | 19 |
   | knowmart-app | `b5679a2` | 6 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
@@ -124,6 +124,10 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
     - knowmart 调 knowbase：沿用 `user-data-purchase` 调 `/service/expert-bindings/check`（api 进程收清单时硬查，worker 进程每 10 分钟 `knowbot-bindings` 定时核在售版本）。没配 `KNOWBASE_INTERNAL_URL` 时带绑定的清单一律回 503 不收。
     - knowlab 跨应用去处：加 `knowmart`（`domain/prepare.yaml` 的 `target_names` 里 `'knowlab': ['knowbench', 'knowbase', 'knowmart']`），交付栏显示「去我的小店」链接。
     - 迁移：knowmart 0013（加列、扩状态约束，不删行）、knowlab 0023（加 `knowbot_delivery` 表、加列、扩测试模式约束，旧未上架专家按原状态回填交付记录，不删行）。
+13. **knowfeed 网页需求、订阅与各渠道适配器**（knowfeed-backend `4089bca`、web `bb03f1a`、admin `3c2895a`、应用仓 `d23f6c4`）：
+    - 用户令牌交换配置：Casdoor 给 knowfeed 的网页客户端开启令牌交换至 knowbase（`KNOWBASE_USER_AUDIENCE`），已在第 2 条说明；web端需求提交流程凭用户令牌直通。
+    - worker 定时多一项：`supply-subscription-tick`（每 10 秒轮巡一次订阅，到期或撤回即刻停止）。
+    - 迁移：knowfeed 0022（加 `supply_web_subscriptions` 表、加索引，不删行）。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 
