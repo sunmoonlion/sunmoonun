@@ -37,7 +37,7 @@ knowfeed_backend_deployment:
   celery_event_queue_exclusive: true
   # 0010：跨应用链接（0008-info）；数据集登记随旧版删了（decisions ⑰）
   cross_app_enabled: true
-  domain_env:
+  domain_env: {}
     # 供给（SDD 0045）：knowbase 数据第四版的地址与身份都从下面 service_clients 那一项推出（KNOWBASE_INTERNAL_URL +
     # /api/internal/v2/user-data、KNOWBASE_USER_DATA_SUPPLY_SERVICE_*），调用方是谁由 relation_auth 校验得出，这里不另配
   domain_egress:
