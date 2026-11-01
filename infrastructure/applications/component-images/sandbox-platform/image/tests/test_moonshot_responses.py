@@ -167,4 +167,5 @@ def test_http_transport_preserves_auth_sse_and_upstream_errors(capsys):
             server.server_close()
     captured = capsys.readouterr()
     assert "TEST-ONLY" not in captured.out + captured.err
-    assert "removed_empty_assistant_messages=1" in captured.out
+    assert "removed_empty_assistant_messages=1" in captured.err
+    assert captured.out == ""

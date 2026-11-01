@@ -133,6 +133,7 @@ def handler_for(upstream: str):
                 if count:
                     print(
                         f"[moonshot-compat] removed_empty_assistant_messages={count}",
+                        file=sys.stderr,
                         flush=True,
                     )
             connection_headers = {
