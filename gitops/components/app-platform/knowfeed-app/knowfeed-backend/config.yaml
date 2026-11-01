@@ -6,9 +6,9 @@ knowfeed_backend_deployment:
   database_migrator_user: knowfeed_migrator
   database_extensions: [uuid-ossp]
   database_bootstrap_revision: v1
-  migration_job_revision: v4
+  migration_job_revision: v5
   # 数据第四版：删证券线旧表（20261028_0019，decisions ⑰；关注清单那 10 行随之删，所有者 10-29 定不导出）；合代码时再核一次 qwen 分支的迁移头
-  expected_schema_revision: '20261028_0019'
+  expected_schema_revision: '20261030_0022'
   deploy_budget_bytes: 2147483648
   redis_user: knowfeed_runtime
   redis_key_pattern: 'knowfeed:*'

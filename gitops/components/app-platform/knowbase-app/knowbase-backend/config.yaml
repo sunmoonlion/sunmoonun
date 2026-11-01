@@ -7,9 +7,9 @@ knowbase_backend_deployment:
   database_extensions:
   - uuid-ossp
   database_bootstrap_revision: v1
-  migration_job_revision: v3
+  migration_job_revision: v4
   # 数据第四版：删旧版表（20261028_0018，decisions ⑰）；合代码时再核一次 qwen 分支的迁移头
-  expected_schema_revision: '20261028_0018'
+  expected_schema_revision: '20261101_0021'
   deploy_budget_bytes: 2147483648
   redis_user: knowbase_runtime
   redis_key_pattern: knowbase:*

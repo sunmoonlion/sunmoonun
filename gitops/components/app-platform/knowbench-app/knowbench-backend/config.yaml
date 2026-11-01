@@ -6,9 +6,9 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v8
+  migration_job_revision: v9
   # 数据第四版：删 v1、孵化表（20261028_0030–0031 删行，20261029_0032 只加列；Opus 10-29 核定头 20261029_0032）
-  expected_schema_revision: '20261029_0032'
+  expected_schema_revision: '20261030_0034'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
