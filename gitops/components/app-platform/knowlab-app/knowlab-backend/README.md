@@ -86,3 +86,17 @@ plan只读；check会创建限定随机数据库/消息/业务探针并精确清
 | `knowlab_backend_deployment.resources.scheduler.limits.memory` | 文本/表达式 | 运行资源/性能；发布晋级后生效，检查调度、峰值和吞吐。 |
 | `knowlab_backend_deployment.celery_control_queue_exclusive` | 开关 | 以本目录实现和下文限制为准；通过候选审阅、发布、晋级生效。 |
 | `knowlab_backend_deployment.celery_event_queue_exclusive` | 开关 | 以本目录实现和下文限制为准；通过候选审阅、发布、晋级生效。 |
+
+## 撤桶与旧关系后要手工删的（数据第四版，decisions ⑰）
+
+集群 prune: false、Flux 阶段 deletionPolicy Orphan，声明里拿掉的对象不会自动删。随 qwen 那批代码发布后精确删：
+
+| 对象 | 名字 |
+| --- | --- |
+| Flux Kustomization（flux-system） | `knowlab-storage`、`knowlab-knowbase-user-data-import-identity`、`knowbench-knowlab-read-identity` |
+| Secret（app 命名空间） | `knowlab-storage-runtime`、`knowlab-knowbase-user-data-import-service`、`knowlab-knowbase-user-data-import-provision`、`knowbench-knowlab-read-service`、`knowbench-knowlab-read-provision` |
+| 一次性 Job 及其 ConfigMap | `knowlab-storage-*`、`knowlab-knowbase-user-data-import-identity-*`、`knowbench-knowlab-read-identity-*`（名字带镜像摘要，按前缀找） |
+| Casdoor 组织与服务应用（所有者在界面退） | `sunmoon-workload-knowlab-knowbase-user-data-import`、`sunmoon-workload-knowbench-knowlab-read` |
+| 对象存储 | 桶 `knowlab-originals`、用户 `knowlab_storage` 及其策略：**删桶是删数据，所有者单独定**；旧资料已由 SDD 0042 块 3 搬进 knowbase |
+
+私有输入 `service-client-knowbase-user-data-import.yaml`、`service-client-knowlab-read.yaml`（knowbench 名下）与 `storage` 的凭据文件照留在主备目录，不删（撤回只改声明，机制不重生成）。

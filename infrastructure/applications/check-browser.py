@@ -10,9 +10,8 @@ import sys
 from urllib.parse import parse_qs, urlencode, urlsplit
 
 
-# 管理员读得出的一张管理端列表（只读）。后端认管理角色（账 134）部署之后才加进来：
-# knowlab、knowbench 随 qwen-005；knowfeed（/api/admin/security-requests）、
-# knowbase（/api/admin/v1/knowledge/datasets）等各自下次部署时加
+# 管理员读得出的一张管理端列表（只读）：路径由应用在 gitops 的 <app>_deployment.admin_list_path 声明（账 173），
+# 没声明就跳过这一项。knowfeed、knowbase 的旧接口（security-requests、knowledge/datasets）随旧版删了，等有新的管理端列表再声明
 
 
 def require(value, label):

@@ -5,9 +5,9 @@ knowlab_backend_deployment:
   database_runtime_user: knowlab_runtime
   database_migrator_user: knowlab_migrator
   database_bootstrap_revision: v2
-  migration_job_revision: v1
-  # 账 175：本地用户只按 subject 认、合并旧份（20261025_0013）
-  expected_schema_revision: '20261025_0013'
+  migration_job_revision: v2
+  # 数据第四版：删旧版表、孵化表（20261028_0016–0018 删行，0019–0021 只加列加表；Opus 10-29 核定头 20261029_0021）
+  expected_schema_revision: '20261029_0021'
   deploy_budget_bytes: 2147483648
   redis_user: knowlab_runtime
   redis_key_pattern: 'knowlab:*'
@@ -25,16 +25,9 @@ knowlab_backend_deployment:
   identity_token_exchange: true
   # 跨应用跳转（专家孵化方案第十三节第 5 条）：申请页、专家页上能用了的那一版带用户去 knowbench 工作台请它
   cross_app_enabled: true
-  # 用户上传的数据只进自己的桶（SDD 0027 决定 4，机制在 common/backend/storage）；桶与身份的名字由机制规定。
-  # 未接入 S3 前上传一律不收，不回退到容器本地目录
-  object_storage:
-    enabled: true
-    user: knowlab_storage
-    bucket: knowlab-originals
-    job_revision: v1
-  domain_runtime_env: {STORAGE_BACKEND: s3}
-  # 上传的文件超过 1 MB 会先落到 /tmp（单个最大 50 MB），默认 64Mi 不够几个并发
-  tmp_size_limit: 256Mi
+  # 用户的资料都在 knowbase（SDD 0042 起），knowlab 自己的桶 knowlab-originals 与 S3 身份随旧版撤了（decisions ⑰）；
+  # 集群 prune: false，桶、策略与身份对象要手工精确删（见 README）
+  domain_runtime_env: {}
   domain_env:
     # 登录完能回到「我在做的分身」与「提交一个想法」（SDD 0027 P3，前缀匹配）；其余同模板默认
     # web端各页（SDD 0037：待我回答、创意、分身、专家、我的数据；旧的 /knowbots 转到创意）
@@ -72,18 +65,6 @@ knowlab_backend_deployment:
       client_id: sunmoon-knowlab-knowbase-user-data-grant-test
       organization: sunmoon-workload-knowlab-knowbase-user-data-grant-test
       scope: knowbase:user-data-grant-test
-      job_revision: v1
-      token_seconds: 900
-    # SDD 0042 块 3：一次性命令 python -m app.bootstrap.import_datasets 把 knowlab 旧的知识库资料搬进 knowbase 的 knowlab 分区（在 api 进程里跑）。
-    # 旧版兼容，随 qwen 这批代码一起删（decisions ⑰，交Fable-gitops 第 3 条）
-    - target: knowbase
-      relation: user-data-import
-      enabled: true
-      roles: [api]
-      application: sunmoonai-knowlab-knowbase-user-data-import
-      client_id: sunmoon-knowlab-knowbase-user-data-import
-      organization: sunmoon-workload-knowlab-knowbase-user-data-import
-      scope: knowbase:user-data-import
       job_revision: v1
       token_seconds: 900
     # 数据第四版（契约 user-data/v2，SDD 0043）：补采办完后重解析测试集里的资料，凭第四版运行授权读
@@ -137,11 +118,10 @@ knowlab_backend_deployment:
       scope: knowbench:incubate
       job_revision: v1
       token_seconds: 900
-  # 接收运行方读分身绑定的用户数据（SDD 0027 §3.5，契约 knowbot-data/v1）。内部入口在 traefik service-access
+  # 接收的服务关系：运行方读用户数据（knowbot-data/v1）随旧版撤了（decisions ⑰），改走 knowbase 数据第四版；
+  # 现在只收工作台以用户的名义来建「问题」申请（AI 请专家，交Fable-gitops 第 2a 节）。内部入口在 traefik service-access
   # 的 service_access_routes.knowlab；身份从调用方的 service_clients 推出来，不重复维护。
   service_receivers:
-    - {relation: read, caller: knowbench, enabled: true}
-    # AI 请专家（decisions 10-29；交Fable-gitops 第 2a 节）：工作台以用户的名义来建「问题」申请
     - {relation: incubation-request, caller: knowbench, enabled: true}
   api_port: 8000
   api_replicas: 1
@@ -149,7 +129,7 @@ knowlab_backend_deployment:
   worker_concurrency: 2
   scheduler_replicas: 1
   resources:
-    # 读用户数据时在 API 进程里解析 PDF 与 Excel（单个最大 50 MB，0027 §3.5），上限放宽到 1.5Gi
+    # 曾为读用户数据时在 API 进程里解析 PDF 与 Excel 放宽到 1.5Gi（0027 §3.5）；测试集解析现在在 knowbase，先照留
     api: {requests: {cpu: 100m, memory: 256Mi}, limits: {cpu: '2', memory: 1536Mi}}
     worker: {requests: {cpu: 100m, memory: 256Mi}, limits: {cpu: '2', memory: 1Gi}}
     scheduler: {requests: {cpu: 50m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
