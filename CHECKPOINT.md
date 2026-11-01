@@ -227,3 +227,12 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 所有者已在界面设置 Full Access，但本次普通执行仍报 no new privileges；所有者准备退出后重进 luna 会话。新会话先核实实际权限，不把旧提权选项机械沿用。
 
 - 2026-11-02（luna，#44 发布后验收）：真实财务任务已越过原工具回传失败点，成功提出采单并等待用户确认；发现长采单挤走步骤栏、等待说明误用下一步骤文字、工具契约未向模型提供合法词汇与日期形状。已修复并钉 knowbench 父仓 8fc56c8（后端 143912c、前端 7c58ef9），拟经现有 Jenkins 发布。后端 1196 passed/92 skipped，前端 347 passed/2 skipped；后端 pyright 16 条基线既有错误未增加。真实任务尚未确认，采集分析未验收。证据见 scripts/results/knowbench-data-confirmation.20261102.md。
+
+
+## 2026-11-02 #45 后：排队提示与通用计算候选
+
+- 实测项目 2571913d 中 9319ae09 已完成 data-plan 并 WAITING(DATA)；a0d5cca5、8b79ad62 仍 RECEIVED 排队。前端忽略 task/queued，因没有模型 turn 显示“还没有开始”。web 6e4e0c4 修复提示、项目入口及本条取消（原鉴权/CSRF 接口），353 passed/2 skipped，完整 check 和两尺寸构建预览通过。
+- backend bfcfc8c 清除既有类型错误；eb61d25 支持有界 Decimal 分数幂，1204 passed/92 skipped，ruff、pyright 均通过。parent 20427cc，候选沿 fix/data-confirmation 经 Jenkins，源钉已更新；不能把候选当上线。
+- 当前采单误解模糊的未来两季度为 2026Q4/2027Q1，用户未确认。所有者指定固定目标 2025Q1/Q2；应通过本人正常入口调整输入和重复任务，不能后台改用户任务或代确认。2024 年报已披露后做这道题，不等于严格 2024 年末的无前视回测。
+- 第二轨明确包括任务内按作者方法论动态选步骤/工具；已更新主计划、decisions 与 WP-10/11；代码尚未实现动态规划，不能声明通过。Wind W0 仅本人研发最多 5 次，已做 3 次，缺服务端许可及关键元数据/全文覆盖，判 undecidable；W1 未放行。详见 Wind-W0评估.md。
+- 本轮实际 Full Access、approval policy never；不重复要求终端提权。但 Jenkins 人工批准是发布链业务门，不能由代理代批。其他工位暂保留已发布 #45，候选上线后才按确认基线对齐。
