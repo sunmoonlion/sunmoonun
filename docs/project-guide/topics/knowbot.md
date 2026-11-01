@@ -23,7 +23,7 @@
 我们（knowlab 管理端网页）  看提交与方法原文，照它手工写专家清单、贴进来建草稿（现在不调模型起草，所有者定「暂时不用」）；
                            清单里每条规则记出处，数据绑定只能指向这个用户自己的、没删的数据 —— 「待测试」
                            逐条核规则出处，核过才能发起测试（预算上限、超时）
-knowlab 管理端后端          「测试中」→ 按草稿的运行方调登记的运行方跑测试（我们的测试账号与测试电脑）
+knowlab 管理端后端          「测试中」→ 按草稿的运行方调登记的运行方跑测试（在作者的账号与电脑上，decisions ⑯）
 运行方（knowbench）         每条用例开一个对话、按草稿快照建委托照常驱动；专家读用户数据经工作台转到 knowlab 读文字
                            跑到要人决定的地方（审批、开步前提问、反问）就报给 knowlab：运营在管理端答，投资判断转给用户，
                            用户在网页端「需要我回答的问题」里答；等人的时间不算超时，最长 3 天
@@ -53,7 +53,7 @@ knowlab 管理端后端          收结果（每条用例各步过没过，不�
 | --- | --- | --- | --- |
 | `knowmart:deliver` | knowlab → knowmart | 交付测试通过的版本：`POST /api/internal/v1/knowmart/deliveries`（幂等：同交付单号同内容回原结果，不同则 409） | 两端已写 |
 | `knowmart:summon` | 运行方（knowbench）→ knowmart | 取清单：`GET /api/internal/v1/knowmart/owners/{所有者}/knowbots/{专家}@{版本}`（所有者由运行方从自己的登录会话里取；不是你的与不存在都是 404） | 两端已写 |
-| `knowbench:testrun` | knowlab → 运行方（knowbench） | 跑测试：`POST /api/internal/v1/knowbot-runtime/test-runs`，契约 `knowbot-test-run/v1` | 两端代码已写（有人值守：等人回答的问题报给 knowlab，运营答跑法、用户答投资判断）；测试账号与测试电脑的部署声明已写，随 0027 P6（0028 R5）部署 |
+| `knowbench:testrun` | knowlab → 运行方（knowbench） | 跑测试：`POST /api/internal/v1/knowbot-runtime/test-runs`，契约 `knowbot-test-run/v1` | 两端代码已写（有人值守：等人回答的问题报给 knowlab，运营答跑法、用户答投资判断）；测试在作者的账号与电脑上跑（decisions ⑯） |
 | `knowlab:read` | 运行方（knowbench）→ knowlab | 读专家绑定的用户数据：`POST /api/internal/v1/knowlab/knowbot-data/{list,read}`，契约 `knowbot-data/v1`；运行方先按委托核（委托在跑、数据在这一版的绑定里），knowlab 再按草稿与交付记录核；读出来是文字，按页给 | 两端已写（0027 §3.5） |
 
 接收方的环境变量是 `SERVICE_AUTH_<关系>_CALLERS` 加每个调用方一组 `SERVICE_AUTH_<关系>_<调用方>_*`；校验签名、签发方、受众（调用方 client_id）、精确主体与 scope，通过后知道是哪个调用方。knowbase 那一对旧关系（摄入、检索）仍走旧机制，迁移见待办账 115。
@@ -96,7 +96,7 @@ knowlab 管理端后端          收结果（每条用例各步过没过，不�
 | knowlab 有人值守 | 后端 `application/services/knowbot_questions.py`、迁移 `20261016_0006_knowbot_questions.py`；管理端 `components/knowbots/open-questions.tsx`；网页端 `components/knowbots/my-questions.tsx` |
 | knowlab 网页端、管理端 | 网页端 `app/[locale]/(dashboard)/knowbots/`（我在做的分身、`new` 提交一个想法）、`components/knowbots/`；管理端 `app/[locale]/(dashboard)/knowbots/`（分身草稿）、`components/knowbots/knowbot-drafts.tsx`。管理端导航入口要角色 `admin`/`operator`：身份初始化建好这两个角色、把 built-in 的 admin 放进 `admin`，各应用身份配置给 `ADMIN_AUTH_ROLE_ALLOWLIST=admin,operator`（待办账 98，已写未部署）；部署前直接输入地址进 |
 | 部署 | `gitops/components/app-platform/common/backend/service-client/`、各应用后端 `config.yaml` 的 `service_clients` / `service_receivers`、`ingress-platform/traefik/service-access/` |
-| 测试电脑 | sunmoon-link 仓 `agent/distribution/build-linux.mjs`（Linux 包）；部署 `knowbench-backend/test-computer/`、`agent-releases/config.yaml` 的 `linux` 一节与 `upload.py --tarball` |
+| 平台电脑（原测试电脑） | sunmoon-link 仓 `agent/distribution/build-linux.mjs`（Linux 包）；部署 `knowbench-backend/test-computer/`、`agent-releases/config.yaml` 的 `linux` 一节与 `upload.py --tarball` |
 | knowbench 运行方（跑测试） | 后端 `app/domain/workbench/test_runs.py`（契约解析、期望判定、用例结果）、`application/workbench/test_runs.py`（受理、状态、回答、推进器）、`application/workbench/interactions.py`（回答交互、停止委托，网页与测试共用）、`infrastructure/security/relation_auth.py`、`interfaces/endpoints/knowbot_runtime_routes.py`、迁移 `20261017_0020_knowbot_test_runs.py`；锁 `knowbench-app/contracts/knowlab-test-run-lock.json` |
 | knowbench 读用户数据 | 后端 `application/workbench/knowbot_data.py`（按委托核）、`interfaces/mcp/workbench_mcp.py`（`list_my_data`、`read_my_data`）、`infrastructure/external/knowlab_data_client.py`；部署 `knowbench-backend/knowlab-read-identity/`；锁 `knowbench-app/contracts/knowlab-knowbot-data-lock.json` |
 | knowbench 后端、网页端 | 后端 `app/domain/workbench/knowbots.py`（清单→专家包与硬约束）、`application/workbench/catalog.py`（专家目录、钉住、`pack_for_task`）、`infrastructure/external/knowmart_client.py`、`interfaces/http/web/workbench_expert.py`（`POST /api/workbench/knowbots/pin`）、迁移 `alembic/versions/20261016_0019_knowbot_pins.py`；网页端专家首页「请我的分身」、`components/workbench/knowbot-arrival.tsx`（收回跳）；锁 `knowbench-app/contracts/knowmart-knowbot-manifest-lock.json` |

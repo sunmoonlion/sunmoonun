@@ -1,6 +1,6 @@
 # SunMoonAI 项目总览
 
-> 最后更新：2026-10-17 ｜ 工作台 investment 改名 knowbench、本地代理仓 runtime 改名 sunmoon-link（[0028](../design/SDD/modules/0028-knowbench-rename.md)：仓、代码、检出已改，**集群里跑的还是改名前的 investment**，随 0027 P6 按新名部署）；专家线 0027 P1–P5 代码已写未部署。2026-10-16 按 knowlab 定位重写的结构不变。
+> 最后更新：2026-10-29 只改了第 2 节「仓」与第 4 节「应用与数据怎么流」（按 qwen 分支代码，五个应用各一页）；其余各节仍是 2026-10-17 的，第 1 节「专家只归用户自己」「knowmart 私有模式」等说法已过时，以各应用那一页与 [数据拓扑](../总纲/数据拓扑.md) 为准 ｜ 2026-10-17： 工作台 investment 改名 knowbench、本地代理仓 runtime 改名 sunmoon-link（[0028](../design/SDD/modules/0028-knowbench-rename.md)：仓、代码、检出已改，**集群里跑的还是改名前的 investment**，随 0027 P6 按新名部署）；专家线 0027 P1–P5 代码已写未部署。2026-10-16 按 knowlab 定位重写的结构不变。
 >
 > **本文件是进入这个项目的入口。**读完它，你应当知道：这个产品是什么、改动落在哪个仓、东西跑在哪里、怎么发布、去哪里查更细的。细节都在指路的文档里；本文不写易腐的值（提交号、镜像摘要、迁移头、版本号、副本数）。与代码冲突时**永远以代码为准**，并请指出本文件需要更新。
 >
@@ -34,11 +34,11 @@
 | 仓 | 职责 | 说明 |
 | --- | --- | --- |
 | [`tpl-app`](repos/tpl-app.md) | 模板：一个标准应用长什么样，其余应用由它实例化；公共缺陷先修模板再同步实例 | 三个子仓：后端、网页、管理端 |
-| [`knowfeed-app`](repos/knowfeed-app.md) | 采集：从公开来源取原件、建数据集、质量检查、向 knowbase 登记 | 同上 |
-| [`knowbase-app`](repos/knowbase-app.md) | 加工入库：数据集目录、口径、语义层，经 MCP 给沙箱；文档入库与检索（RAGFlow） | 同上 |
-| [`knowbench-app`](repos/knowbench-app.md) | 工作台：网页、工作台后端（对话、项目、专家运行、账、验收、交付）、给沙箱的记录 MCP、本地代理安装包的发放 | 同上 |
-| `knowlab-app` | 创建专家：受理、工程化、测试、交付（[0026](../design/SDD/modules/0026-knowlab.md)、[0027](../design/SDD/modules/0027-knowbot-first-path.md)） | 由 tpl-app 实例化；三个子仓 |
-| `knowmart-app` | 存放专家与「请」（先做私有模式，[0018](../design/SDD/modules/0018-advisor-market.md)、[0027](../design/SDD/modules/0027-knowbot-first-path.md)） | 由 tpl-app 实例化；三个子仓 |
+| [`knowfeed-app`](repos/knowfeed-app.md) | 采集：替用户采公开数据（需求、切合、作业、渠道），原件与加工结果交 knowbase | 同上 |
+| [`knowbase-app`](repos/knowbase-app.md) | 资料库：云端数据唯一的真源，管资料、使用权、按描述查与解析、运行授权、读数留痕，数据 MCP 给模型读 | 同上 |
+| [`knowbench-app`](repos/knowbench-app.md) | 工作台：用户用自己的模型聊天、工作、请专家（含「让 AI 找」）；替 knowlab 跑测试与孵化一轮；本地 link 安装包的发放 | 同上 |
+| [`knowlab-app`](repos/knowlab-app.md) | 造专家：创意、受理、孵化（工作稿）、出一版、测试、两道门、交付 knowmart | 由 tpl-app 实例化；三个子仓 |
+| [`knowmart-app`](repos/knowmart-app.md) | 专家与资料的供需市场：专家目录与请、买卖资料（建使用权）、需求与响应、发布主体与资质 | 由 tpl-app 实例化；三个子仓 |
 | [`k8s`](repos/sunmoonun.md) | 部署与项目文档：宿主、仓库、入口、建群、Flux、全部平台组件与应用的部署声明；本目录也在此 | 无业务源码（自研的会合点、沙箱、供给器源码除外） |
 | [`sunmoon-link`](repos/sunmoon-link.md) | 本地代理（英文 sunmoon-link，命令现在还叫 `sunmoon-agent`，0028 R5 发新 Windows 包时改），装在用户电脑上 | 不参与集群部署 |
 
@@ -75,25 +75,36 @@
 
 ## 4. 应用与数据怎么流
 
-两条线：**数据线**（knowfeed → knowbase，我们自己的数据）与**专家线**（knowlab → knowmart → 运行方，用户的方法与数据）。专家线上的专家运行时**不接**数据线的数据（`C-L2`）。专家线的架构见[专家](topics/knowbot.md)：knowlab、knowmart 已建成空应用，专家相关代码已写一部分、未部署。
+> 本节 2026-10-29 按 qwen 分支代码重写；每个应用的细节（谁来做什么、页面与流程、服务关系、存什么、照哪条决定做的、代码和设计对不上的）在各自那一页。叫法照 [叫法](叫法.md)。
+
+两条线（[数据拓扑](../总纲/数据拓扑.md) 第四版）：**数据线** knowfeed → knowbase，knowbase 是云端数据唯一的真源，别的应用都来问它；**专家线** knowlab → knowmart → knowbench，作者在 knowlab 把方法做成专家，交 knowmart 上架，用户在 knowbench 请来，用自己的模型和自己能用的数据跑。
 
 ```text
-数据线                                             专家线
-公开网站 ──采集──▶ knowfeed                        用户：想法 / skill ＋ 自己的数据
-                    │ 登记新版本（服务身份 knowbase:ingest）      │
-                    ▼                               knowlab（创建草稿 → 管理端核出处、调运行方测试）
-                 knowbase ── 语义层 / RAGFlow 索引           │ 测试通过才交付
-                    │（内部工具；以后 knowmart 的数据线）   knowmart（私有：只有本人看得见，只放能用的版本）
-                    ▼                                       │ 请（跳过去选、跳回）
-                 （现在仍经 MCP sunmoon_knowbase 接进沙箱，  运行方（现在是 knowbench 工作台）：用户请自己的专家，自己跑
-                   工作台对用户开放前改为默认不接，0026）
+数据线
+公开网站 ──knowfeed 替用户采──▶ knowbase ◀── 用户上传（knowbase web端，页面还没做）
+                                  │ 按描述查、解析、用户确认、运行授权、读数留痕
+                  ┌───────────────┼────────────────┐
+              knowbench          knowlab           knowmart
+            （委托第 0 步      （测试集）        （卖资料 = 给买家建使用权）
+              定数据、读）
+
+专家线
+作者的创意 ─▶ knowlab：受理 → 孵化（工作稿）→ 出一版 → 测试 → 用户同意、平台审核
+                 │ 孵化一轮、测试都交 knowbench，在作者的账号、电脑上用作者的 key 跑（⑯）
+                 ▼ 交付
+              knowmart：上架、专家目录、价格、成交
+                 │ 请（跳过去选、带回来；或「让 AI 找」）
+                 ▼
+              knowbench：用户用自己的模型跑专家，第 0 步定数据、用户确认
 ```
 
-| 应用 | 用户来做什么 | 管理员来做什么 |
-| --- | --- | --- |
-| knowbench | 聊天、让代理干活、请自己的专家；管工作区与项目 | 「缺数据的需求」（链去 knowfeed 管理端发起采集）、研究运行时 |
-| knowbase | 看有哪些数据、数据到哪一天、口径怎么算 | 数据集版本、登记、工具调用情况 |
-| knowfeed | （网页端没有功能页） | 批准申请、发起采集、看批次、关注清单 |
+| 应用 | 一句话 | 用户在 web端做什么 | 平台人员在管理端做什么 |
+| --- | --- | --- | --- |
+| [knowbench](repos/knowbench-app.md) | 用自己的模型做事、请专家 | 接入电脑、拉起沙箱；聊天、工作；请专家或「让 AI 找」、确认第 0 步的数据、看步骤与花费；带着专家从 knowmart、knowlab 回来 | 「缺数据的需求」（还按旧数据集认，见那一页） |
+| [knowlab](repos/knowlab-app.md) | 造专家 | 作者：申请创意、选自己来或请平台孵化、工作稿与 AI 起草、出一版、测试、待办、专家、去 knowbench 请它 | 受理、孵化（改的只是提议）、测试、交付（交回、审核、交 knowmart）；只看得到作者授权的 |
+| [knowmart](repos/knowmart-app.md) | 专家与资料的供需市场 | 专家目录与「请这位」、知识（买）、需求大厅、我发布的、我买到的、发布主体 | 条目审核、资质审核、举报处理、驻场规则、成交记录 |
+| [knowbase](repos/knowbase-app.md) | 资料库，云端唯一真源 | web端页面还没做；用户在别的应用里确认数据、签授权，由那个应用凭本人令牌转交 | 只剩旧链的知识入库作业 |
+| [knowfeed](repos/knowfeed-app.md) | 替用户采公开数据 | 不直接打开：在 knowbench、knowlab 确认缺的数据后由它们代提需求 | 只剩旧通用采集「资讯采集」一页 |
 
 管理端的业务页按应用角色 `admin`/`operator` 显示，现行部署没配角色白名单，admin 只看得到「治理控制台」「设置」（[待办账](../design/pending-after-migration.md) 98）。
 
