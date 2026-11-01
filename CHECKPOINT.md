@@ -225,3 +225,5 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 原故障下一步：从正常工作台入口重新供应已有用户沙箱，确认实际镜像为 `sha256:ec14e4a591d7401ad222b579d745fa4c5c6e9292c28055c696b9671661f7823c`，再验证 find_subject → request_data → 用户本人确认 → knowfeed → 恢复分析。不要替用户确认采单；本轮无可用的用户网页登录会话。工作台后端已发布镜像为 `sha256:c16adcea4c2c3d8c7cb27f0de9270f8e27c7cc5772245d53523ddbb8337d14e8`。
 - 双轨计划下一步：先复核 `backup/pre-align-20261102/qwen` 中三后端的未发布实现与计划状态。knowbench 额外业务提交 `74a443c`、`c166baa`、`c656a65`；knowfeed `278f372`、`092d8a7`、`35fc025`；knowbase `5a22a91`、`c804dd4`。按正式设计决定是否纳入，不能按提交标题直接认可 WP/DCF/Wind 完成。备份分支位于相应 qwen 子仓，luna 子仓需要时可从本地取对象。
 - 所有者已在界面设置 Full Access，但本次普通执行仍报 no new privileges；所有者准备退出后重进 luna 会话。新会话先核实实际权限，不把旧提权选项机械沿用。
+
+- 2026-11-02（luna，#44 发布后验收）：真实财务任务已越过原工具回传失败点，成功提出采单并等待用户确认；发现长采单挤走步骤栏、等待说明误用下一步骤文字、工具契约未向模型提供合法词汇与日期形状。已修复并钉 knowbench 父仓 8fc56c8（后端 143912c、前端 7c58ef9），拟经现有 Jenkins 发布。后端 1196 passed/92 skipped，前端 347 passed/2 skipped；后端 pyright 16 条基线既有错误未增加。真实任务尚未确认，采集分析未验收。证据见 scripts/results/knowbench-data-confirmation.20261102.md。
