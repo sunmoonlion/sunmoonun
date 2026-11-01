@@ -118,6 +118,12 @@ knowlab 申请页、专家页上，能用了的那一版给一个「去 knowbenc
     - worker 定时多两项：`supply-dispatch`（每 5 秒）、`supply-pull-processing`（每分钟），随代码走。
     - 出网：worker 要能到 `irm.cninfo.com.cn`（巨潮互动易，迁移里登记为待审渠道，平台人员在来源目录试采、放行）。
     - 迁移：knowfeed 0021（加表、加列、一条待审渠道，不删行）。
+12. **交付流程（L1、L2、M3、M5）与 knowlab 收状态推送**（knowbase-backend `fe9dbfd`、应用仓 `69c3588`；knowmart-backend `4ddfe1e`、web `10b80aa`、应用仓 `eb73dfc`；knowlab-backend `e90fc56`、web `31bc302`、admin `06a6b2d`、应用仓 `d663fb1`）：
+    - knowlab 收 knowfeed 状态推送：knowlab 的 `service_receivers` 加 `{relation: supply-status, caller: knowfeed}`（`SERVICE_AUTH_SUPPLY_STATUS_*`，scope `knowlab:supply-status`），入口 `POST /api/internal/v1/knowfeed/demand-status` 只认内部地址；收到后在 **api 进程**里马上重解析接着跑。knowfeed 一头的变量见第 5 条。
+    - knowlab 调 knowbase：已配好的 `KNOWBASE_USER_DATA_DIRECTORY_SERVICE_*`（scope `knowbase:user-data-directory`）与 `KNOWBASE_USER_DATA_OUTPUT_SERVICE_*`（scope `knowbase:user-data-output`）现在由 **api 进程**与 **worker 进程**实际调用（推专家名录、交付时冻结绑定与预查、作废未交成冻结、自用转公开升冻结许可、写测试证据进产出区）；knowbase 的 `SERVICE_AUTH_USER_DATA_DIRECTORY_CALLERS`、`SERVICE_AUTH_USER_DATA_OUTPUT_CALLERS` 要含 `knowlab`。原有的 `user-data-grant-test` 也用来签机器重跑授权、核与结束平台过程。
+    - knowmart 调 knowbase：沿用 `user-data-purchase` 调 `/service/expert-bindings/check`（api 进程收清单时硬查，worker 进程每 10 分钟 `knowbot-bindings` 定时核在售版本）。没配 `KNOWBASE_INTERNAL_URL` 时带绑定的清单一律回 503 不收。
+    - knowlab 跨应用去处：加 `knowmart`（`domain/prepare.yaml` 的 `target_names` 里 `'knowlab': ['knowbench', 'knowbase', 'knowmart']`），交付栏显示「去我的小店」链接。
+    - 迁移：knowmart 0013（加列、扩状态约束，不删行）、knowlab 0023（加 `knowbot_delivery` 表、加列、扩测试模式约束，旧未上架专家按原状态回填交付记录，不删行）。
 
 ## 二、删除、撤（和 qwen 代码同一次发）
 

@@ -1,6 +1,6 @@
 # knowbase-app：资料库
 
-> 最后更新：2026-10-29（web端与管理端补齐，计划 B1、B6） ｜ 按 qwen 分支代码重写 ｜ 骨架继承 [`tpl-app.md`](tpl-app.md)，本文只写它多出来的 ｜ 总览见 [`../overall-architecture.md`](../overall-architecture.md)
+> 最后更新：2026-11-01（专家绑定核查、冻结作废与升档，配合 L1/L2/M3） ｜ 按 qwen 分支代码重写 ｜ 骨架继承 [`tpl-app.md`](tpl-app.md)，本文只写它多出来的 ｜ 总览见 [`../overall-architecture.md`](../overall-architecture.md)
 
 **层与线**：第 6 层应用层；第 7 层数据线（knowfeed → knowbase）的终点（[架构总纲](../../总纲/架构总纲.md)第二节）。按 [数据拓扑](../../总纲/数据拓扑.md) 第四版，它是云端来源数据唯一的真源。
 
@@ -69,7 +69,7 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 
 | 块 | 代码 | 说明 |
 | --- | --- | --- |
-| 资料库 | `domain/user_library.py`、`application/services/user_library_service.py`、`interfaces/endpoints/user_library_routes.py` | 资料、内容版本、使用权、展示（同意依据）、账号默认、名下专家影子表、订阅范围（knowfeed 生成新需求前凭服务身份核还在不在）、平台过程依据、公开原件与引用、成交建使用权、knowmart 成批核条目还能不能卖 |
+| 资料库 | `domain/user_library.py`、`application/services/user_library_service.py`、`interfaces/endpoints/user_library_routes.py` | 资料、内容版本、使用权、展示（同意依据）、账号默认、名下专家影子表、订阅范围（knowfeed 生成新需求前凭服务身份核还在不在）、平台过程依据、公开原件与引用、成交建使用权、knowmart 成批核条目还能不能卖、核专家所绑数据许可（`/service/expert-bindings/check`）、交付时冻结绑定与回摘要/许可、未交成冻结作废、自用转公开时冻结许可升档（留痕） |
 | web端自家接口 | `interfaces/endpoints/library_web_routes.py`、`interfaces/schemas/web_library.py` | `/api/web/v1/library`：本人在 knowbase 网页的会话（Cookie + CSRF），复用上面同一套服务；多出空间用量、识别、影响清单、给平台的授权一览 |
 | 上传时识别 | `domain/recognition.py`、`infrastructure/external/first_page.py` | 按文件名与首页文字猜描述（0049 第四节的标题规则、研报的几维），规则版本 `RULES_VERSION`；PDF 首页用 pypdf 读，只读不存 |
 | 管理端看用户资料 | `interfaces/endpoints/user_data_admin_routes.py` | `/api/admin/v1/user-data`：用量、词表、找资料、禁用、清除（后两样要 `knowbase:user-data:dispose`，只有 admin） |
@@ -97,8 +97,8 @@ knowbase 替用户存数据，并管「谁能读」。云端的资料、内容�
 | 对方 | 怎么连 |
 | --- | --- |
 | knowbench | 本人令牌（`azp` 为 knowbench）：建与改解析清单、确认、签委托与会话授权、登记会话、交还。服务关系 `user-data-read`（scope `knowbase:user-data-read`，knowbench 调）：替运行中的专家提新需求、重解析、凭确认续签、凭授权读、按运行查事实。数据 MCP：knowbench 中继，令牌由 knowbench 签（ES256，`aud` 为 `knowbase-data`），能读什么由 knowbase 按授权核。`user-data-output`（写产出区）：knowbase 已收、部署已开，knowbench 代码还没调 |
-| knowlab | 本人令牌（作者）：测试集的解析与确认。`user-data-grant-test`（knowlab 调）：签与撤测试授权、平台过程授权，结束平台过程。`user-data-read`：重解析。`user-data-directory`（推名下专家名录、交付时冻结绑定）与 `user-data-output`：knowbase 已收、部署已开，knowlab 代码还没调 |
-| knowmart | 本人令牌：读卖家「交给 knowmart」那一栏（`/columns/knowmart`）。`user-data-purchase`（knowmart 调）：成交给买家建使用权，同一交易只建一条；后台成批核条目里的资料还能不能卖（`/service/market-offers/check`，只读） |
+| knowlab | 本人令牌（作者）：测试集的解析与确认、留平台过程同意（`/platform-consents`）。`user-data-grant-test`（knowlab 调）：签与撤测试授权、平台过程授权（含机器重跑授权，可同时带公开原件、引用与冻结绑定），结束平台过程。`user-data-read`：重解析。`user-data-directory`（knowlab 调）：推名下专家名录、交付时冻结绑定与预查（`/service/expert-bindings/check`）、作废未交成冻结、自用转公开时升档冻结许可。`user-data-output`（knowlab 调）：写每次测试的证据进产出区 |
+| knowmart | 本人令牌：读卖家「交给 knowmart」那一栏（`/columns/knowmart`）。`user-data-purchase`（knowmart 调）：成交给买家建使用权，同一交易只建一条；后台成批核条目里的资料还能不能卖（`/service/market-offers/check`，只读）；收清单与每 10 分钟定时核专家所绑数据许可（`/service/expert-bindings/check`） |
 | knowfeed | `user-data-supply`（knowfeed 调）：核确认编号、交公开原件、记引用、领待加工与加工授权、写回读法与事实行、生成新需求前核订阅范围同意（`/service/subscriptions/{订阅}/revisions/{修订}?subject=`，撤了回 404；knowfeed 代码还没调）。旧链：服务身份 `knowbase:ingest` 交契约 `knowfeed-knowbase-artifact` v1，进 RAGFlow（knowfeed 旧采集线还在调） |
 | 跨应用链接 | 认来自 knowbench（带回跳地址）、knowfeed 的链接。直达上传：`<knowbase web端>/<语言>/upload?from=<来源应用>&ref=<来处引用>` 加预填的描述 `doc_type`、`subject`、`period_start`、`period_end`、`disclosed_on`、`edition`（都可省）；来源是 knowbench、knowlab 的，传完同时展示给它，再回到配置里登记的回跳地址。knowmart 交易记录：`/<语言>/library?category=purchased|uploaded&material=<资料>` |
 | 契约（本仓 `contracts/` 是真源） | `data-request/v1`：一样数据的描述，附词表、科目表；knowbench、knowlab 锁 schema 摘要，knowfeed 锁词表与科目表。`user-data/v2`：全部用户资料接口。`artifact/v1`、`retrieval/v1`：旧入库与检索（knowbench 还留着检索的锁，代码已不调）。做法见 [契约](../topics/contracts.md) |
