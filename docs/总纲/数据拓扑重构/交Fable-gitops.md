@@ -8,11 +8,11 @@
 
   | 仓 | qwen 头 | 比 origin/fable 多 |
   | --- | --- | --- |
-  | knowbase-app | `f65a6c7` | 21 |
-  | knowbench-app | `567c3b8` | 13 |
-  | knowfeed-app | `d23f6c4` | 11 |
-  | knowlab-app | `0bfd91b` | 19 |
-  | knowmart-app | `b5679a2` | 6 |
+  | knowbase-app | `14e341a` | 25 |
+  | knowbench-app | `f601d36` | 16 |
+  | knowfeed-app | `317ffff` | 12 |
+  | knowlab-app | `0488b7e` | 23 |
+  | knowmart-app | `255ae50` | 9 |
   | sunmoonun | 见 `git log origin/fable..qwen` | 只有文档 |
 
   上表是 10-29 第四轮评审前修正（第 2c 节）提交后的头；合之前再看一眼各仓 `qwen` 头。
