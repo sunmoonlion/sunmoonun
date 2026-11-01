@@ -1,0 +1,73 @@
+{
+  "case": "virtual tools only; failing request tail, not a complete API request",
+  "model": "kimi-k3",
+  "input_tail": [
+    {
+      "type": "function_call",
+      "id": "fc_WXofLkhmc2R7otlnKB9SORHC",
+      "name": "probe_lookup",
+      "namespace": "probe",
+      "arguments": "{\"name\": \"ExampleA\"}",
+      "call_id": "probe--_--probe_lookup_0_7d733b9a"
+    },
+    {
+      "type": "function_call",
+      "id": "fc_OOGgSWhFI6tfnbpjchx4xZJk",
+      "name": "probe_lookup",
+      "namespace": "probe",
+      "arguments": "{\"name\": \"ExampleB\"}",
+      "call_id": "probe--_--probe_lookup_1_d7756526"
+    },
+    {
+      "type": "message",
+      "id": "msg_s8paU5f8gVmim9iiOx5MMoYI",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "type": "function_call_output",
+      "id": "fco_01a197fd-dd46-70f3-a119-e27154e1c951",
+      "call_id": "probe--_--probe_lookup_0_7d733b9a",
+      "output": "{\"code\":\"EXAMPLE\"}"
+    },
+    {
+      "type": "function_call_output",
+      "id": "fco_01a197fd-dd6d-78f0-9549-867c7b5aa9a4",
+      "call_id": "probe--_--probe_lookup_1_d7756526",
+      "output": "{\"code\":\"EXAMPLE\"}"
+    }
+  ],
+  "upstream_error": {
+    "error": {
+      "message": "Invalid request: an assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. The following tool_call_ids did not have response messages: probe--_--probe_lookup:0, probe--_--probe_lookup:1",
+      "type": "invalid_request_error",
+      "param": null,
+      "code": "invalid_request_error"
+    }
+  },
+  "controlled_replay": [
+    {
+      "change": "none",
+      "http_status": 400
+    },
+    {
+      "change": "remove the empty assistant message only",
+      "http_status": 200,
+      "turn_status": "completed"
+    },
+    {
+      "change": "move the empty message before calls",
+      "http_status": 400,
+      "error": "text content is empty"
+    },
+    {
+      "change": "none again",
+      "http_status": 400
+    }
+  ]
+}
