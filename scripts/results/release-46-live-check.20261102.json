@@ -1,0 +1,45 @@
+{
+  "release": 46,
+  "tag": "release-20261102-3",
+  "jenkins_status": "SUCCESS",
+  "receipt_commit": "b0539cbcdfc6202c7ad38c44df7a615863829773",
+  "web_source": "6e4e0c412e85f5e459fe44e60e1349d0dd122c6d",
+  "backend_source": "eb61d253afb839d11ba06c80d53d4d5847e6c274",
+  "web_image": "sha256:5d924abd356b2877e627666573c08e89d1ab132c0883abc0031e66043f77ff6b",
+  "backend_image": "sha256:8f3662d0d2c6c5b271d712494e18aa6102c5c0dc4dd85dd60f9a07dfc6038fb6",
+  "queue_ui": {
+    "asset": "/_next/static/chunks/0vne5nzb39_ym.js",
+    "https_and_container_sha256": "95bfebf75039560f553b50d14e0352c1e996b0c08596ea33b34d6caebf4558e4",
+    "container_contains": [
+      "queue.title",
+      "cancelQueuedTask"
+    ],
+    "visual_validation": "local built preview at 1366x768 and 1024x640; not a user-authenticated production browser test"
+  },
+  "compute_probe": {
+    "kind": "synthetic; pure evaluator, no model or financial API call",
+    "expression": "(end/start)**(1/years)-1",
+    "values": {
+      "start": "1000",
+      "end": "1331",
+      "years": "3"
+    },
+    "rounded_10": "0.1000000000"
+  },
+  "business_observation": {
+    "task": "9319ae09-c8b7-4c3b-844e-27306e9e98d8",
+    "state": "WAITING(DATA)",
+    "data_plan": "COMPLETED",
+    "confirmation_id": null,
+    "demand_id": null,
+    "steps": 8,
+    "financial_end_to_end": "not yet accepted"
+  },
+  "fallback_source": "existing cninfo/knowfeed/knowbase; no Wind integration",
+  "personal_wind_probe_budget": {
+    "limit": 5,
+    "used": 3,
+    "remaining": 2,
+    "project_integrated": false
+  }
+}
