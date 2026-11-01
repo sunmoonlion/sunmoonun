@@ -3,7 +3,13 @@
 // 后半段（9–12）另一段 node。入口只认 make 的公开目标，不认内部剧本名。D 段换 Argo 时第 7–10 阶段整段替换。
 
 def main(params, reposDir, approver, rootRepo = 'sunmoonun', site = 'kind') {
-    def apps = (params.APPS ?: '').trim() ? params.APPS.trim().split(/\s+/) as List : ['tpl', 'knowfeed', 'knowbase', 'knowbench', 'knowlab', 'knowmart']
+    // 保留现有任务入口；APPS 也接受显式的 sandbox 发布目标，无需另一条流水线。
+    def targets = (params.APPS ?: '').trim() ? params.APPS.trim().split(/\s+/) as List : ['tpl', 'knowfeed', 'knowbase', 'knowbench', 'knowlab', 'knowmart']
+    def allowedApps = ['tpl', 'knowfeed', 'knowbase', 'knowbench', 'knowlab', 'knowmart']
+    for (target in targets) { if (!(target in allowedApps) && target != 'sandbox') { error "未知发布目标: ${target}" } }
+    targets = targets.unique()
+    def apps = targets.findAll { it in allowedApps }
+    def releaseSandbox = targets.contains('sandbox')
     def branch = params.BRANCH.trim()
     def note = (params.NOTE ?: '').trim()
     def approvalMinutes = (params.APPROVAL_TIMEOUT_MINUTES ?: '1440').trim()
@@ -54,7 +60,7 @@ echo "total=\$n"
     def short_ = { String c -> c ? c.take(8) : '' }
     node('host') { dir(k8s) {
         def head = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-        currentBuild.displayName = "#${n} ${branch}@${head.take(10)} ${apps.join(',')}"
+        currentBuild.displayName = "#${n} ${branch}@${head.take(10)} ${targets.join(',')}"
         currentBuild.description = note ?: ''
         sh "mkdir -p '${out}'"
         // 「发布中」标记：make 目标排队时已放一份；从页面点 Build with Parameters 发起的没有，这里补上，render-check 见到就让路
@@ -73,19 +79,20 @@ echo "total=\$n"
                 logged('1-platform-status', 'make -C infrastructure platform-status')
             }
             stage('2 改钉') {
-                if (params.PIN == 'heads') {
+                if (params.PIN == 'heads' && apps) {
                     logged('2-pin', "python3 ci/pin-sources.py --repos '${reposDir}' --branch '${branch}' --apps '${apps.join(' ')}'")
                 } else {
                     echo 'PIN=keep：sources.yaml 按已提交的钉，不改'
                 }
                 sh "git diff -- infrastructure/applications/sources.yaml > '${out}/2-sources.diff'; git diff --stat -- infrastructure/applications/sources.yaml"
                 // 构建链要求子仓 HEAD 恰等于钉的号：按钉对齐检出
-                logged('2-align', "python3 ci/align-sources.py --repos '${reposDir}' --apps '${apps.join(' ')}'")
+                if (apps) { logged('2-align', "python3 ci/align-sources.py --repos '${reposDir}' --apps '${apps.join(' ')}'") }
                 // 前置核对：钉到的后端的 alembic 头要等于 expected_schema_revision；不对就停在这里，不进构建。
                 // 这时镜像还没构建，镜像锁里的源码提交必然不等于新钉（#16 在此停），所以只核库版本；镜像锁第 5 阶段再核
                 for (app in apps) { logged("2-plan-${app}", "make -C infrastructure application-deployment-plan APP=${app} PLAN_EXTRA=plan_before_build=true") }
             }
             stage('3 构建') {
+                if (releaseSandbox) { logged('3-build-sandbox', 'make -C infrastructure platform-build OBJECT=sandbox-platform/sandbox') }
                 for (app in apps) { logged("3-build-${app}", "make -C infrastructure platform-build OBJECT=app-platform/${app}-app") }
                 sh """
 for f in \$(git diff --name-only -- gitops | grep image.lock.yaml || true); do echo "\$f: \$(grep -E '^(source_revision|digest)' "\$f" | tr '\\n' ' ')"; done > '${out}/3-image-locks.txt'
@@ -95,6 +102,8 @@ cat '${out}/3-image-locks.txt'
             }
             stage('4 暂存') {
                 for (app in apps) { logged("4-stage-${app}", "make -C infrastructure platform-stage OBJECT=app-platform/${app}-app") }
+                // 沙箱镜像由供给器持有；发布新镜像要同时更新供给器中的固定摘要。
+                if (releaseSandbox) { logged('4-stage-sandbox', 'make -C infrastructure platform-stage OBJECT=sandbox-platform/provisioner') }
                 sh """#!/bin/bash
 set -euo pipefail
 if grep -rln 'BEGIN [A-Z ]*PRIVATE KEY\\|BEGIN PUBLIC KEY' gitops/ ; then echo '暂存结果里有密钥字样'; exit 1; fi
@@ -118,7 +127,7 @@ wc -l '${out}/4-workload.diff'
                     sh """#!/bin/bash
 set -euo pipefail
 git add infrastructure/applications/sources.yaml gitops
-git -c user.name=sunmoon-ci -c user.email=ci@sunmoonai.com commit -q -m "deploy(${apps.join(',')}): ${note ?: '按钉发布'}（release #${n}）"
+git -c user.name=sunmoon-ci -c user.email=ci@sunmoonai.com commit -q -m "deploy(${targets.join(',')}): ${note ?: '按钉发布'}（release #${n}）"
 { git rev-parse HEAD; git show --stat --format='%H %an %s' HEAD; } | tee '${out}/6-commit.txt'
 """
                     state.commit = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
@@ -131,7 +140,7 @@ git -c user.name=sunmoon-ci -c user.email=ci@sunmoonai.com commit -q -m "deploy(
                     def rev = sh(script: "grep -E '^revision:' '${out}/7-source-candidate.yaml' | awk '{print \$2}'", returnStdout: true).trim()
                     if (rev != state.commit) { error "候选的 revision ${rev} 不是第 6 阶段的提交 ${state.commit}" }
                     state.awaiting = true
-                    notify("发布 #${n} 等你批准", "${note ?: '按钉发布'}；提交 ${short_(state.commit)}；应用 ${apps.join(' ')}", "${env.BUILD_URL}input/", true)
+                    notify("发布 #${n} 等你批准", "${note ?: '按钉发布'}；提交 ${short_(state.commit)}；目标 ${targets.join(' ')}", "${env.BUILD_URL}input/", true)
                 }
             }
         } finally {
@@ -157,7 +166,7 @@ git -c user.name=sunmoon-ci -c user.email=ci@sunmoonai.com commit -q -m "deploy(
     // ---------- 人批：不在 node 里，不占执行器 ----------
     stage('8 人批') {
         // 弹出框只显示第一行：把说明和提交号放在第一行，其余在控制台底部
-        def summary = """发布 #${n}：${note ?: '按钉发布'}（提交 ${short_(state.commit)}，应用 ${apps.join(' ')}）
+        def summary = """发布 #${n}：${note ?: '按钉发布'}（提交 ${short_(state.commit)}，目标 ${targets.join(' ')}）
 分支 ${branch}
 说明：${note ?: '(无)'}
 提交：${state.commit}
@@ -209,10 +218,14 @@ for app in ${apps.join(' ')}; do
   \$K -n flux-system get kustomizations -o name | grep -E "/\${app}-" | xargs -r \$K -n flux-system wait --for=condition=Ready --timeout=30m
 done 2>&1 | tee '${out}/10-wait.txt'
 """
+                if (releaseSandbox) {
+                    logged('10-wait-sandbox', "KUBECONFIG=\$(awk -F': *' '/^cluster_kubeconfig:/{print \$2}' infrastructure/environments/${site}/site.yaml) infrastructure/.tools/bin/kubectl -n flux-system wait kustomization/sandbox-provisioner --for=condition=Ready --timeout=10m")
+                }
             }
             stage('11 检查') {
                 // 只跑 application-check；platform-check 对应用对象就是公网入口检查，边缘只放行三个域名，不是每个应用都有公网入口
                 for (app in apps) { logged("11-check-${app}", "make -C infrastructure application-check APP=${app}") }
+                if (releaseSandbox) { logged('11-check-sandbox', 'make -C infrastructure platform-check OBJECT=sandbox-platform/provisioner') }
             }
             stage('12 推送与回执') {
                 def hit = scanSecrets()
@@ -225,7 +238,7 @@ r='${receipt}'
 {
   echo "# release #${n}：${note ?: '按钉发布'}"
   echo
-  echo "- 时间：\$(date -Is)；分支 ${branch}；应用 ${apps.join(', ')}；PIN=${params.PIN}；由 Jenkins 任务 release 生成（${env.BUILD_URL}）"
+  echo "- 时间：\$(date -Is)；分支 ${branch}；目标 ${targets.join(', ')}；PIN=${params.PIN}；由 Jenkins 任务 release 生成（${env.BUILD_URL}）"
   echo "- 提交：deploy ${state.commit}；指针 ${state.pointerCommit}；tag ${state.tag}；批准：\$(cat '${out}/8-approval.txt')"
   echo
   echo "## 改钉（2-sources.diff）"; echo; echo '```diff'; cat '${out}/2-sources.diff'; echo '```'; echo

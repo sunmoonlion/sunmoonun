@@ -12,6 +12,12 @@
 
 **没有 Jenkins 时**：流水线只是按顺序敲本目录的 make 入口，控制器或代理坏了，人照发布卡手敲同一串命令，结果一样（qwen-001 到 017 就是这么发的）。各应用仓 `mybuild/` 里的 `build-image.sh`、`push-image.sh` 是更早那套，所有者 2026-10-20 决定留着当应急：能单独出一个镜像，但不写 `image.lock.yaml`、不改 gitops 声明，产物不进部署链。
 
+同一 `release` 任务的 `APPS` 还接受显式目标 `sandbox`，例如 `APPS="knowbench sandbox"`。
+此时第 3 阶段另外构建已钉提交的 `sandbox-platform/sandbox`，第 4 阶段暂存供给器持有的新沙箱摘要，
+第 10 阶段等待 `sandbox-provisioner` Ready，第 11 阶段检查供给器；目标也会列入提交、人批说明与回执。
+不另建任务、不改变原有人批。空 `APPS` 仍只表示原来的六个应用，不自动加入沙箱。
+这会更新供给器之后拉起沙箱时使用的镜像，**不会重启已存在的用户沙箱**；已有沙箱须经工作台重新供给后单独核对镜像与真实工具往返。
+
 ## 安装、启停和前提
 
 需要 registry 已部署（本地 CA 在 `registry_config_dir/tls/`，控制器证书由它签）、入口模块、Docker、systemd、非交互 sudo、可见的数据盘；物料与工具按 [artifacts](../artifacts/README.md)、[tools](../tools/README.md)。代理准备会在自己的 k8s 克隆里通过原生 `install-flux` 安装按锁校验的 Flux CLI，供 release 的候选发布与晋级使用。首次使用：

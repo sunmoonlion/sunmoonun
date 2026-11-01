@@ -192,3 +192,18 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - **MVP 闭环第一次在新集群上跑通（2026-10-07 上午）**：所有者在 knowfeed 申请 600009 入库并在管理端通过 → knowfeed 采集、建数据集、登记到知识服务 → knowbase 数据目录出现「上海机场 财务报表」→ investment 里请专家（财务复核），专家经 MCP 查到 2025 年营业收入 13,346,192,164.12 元并与年报原文核对；结论栏按设计留给用户填。期间修的：知识目录没默认库也能用（账 50）。另：请专家页在清单请求失败时不显示错误（页面空着），要补提示。
 - 2026-10-20（远程 Fable）：产品线暂停，平台线 B 段开工（`tree-build/暂停时的状态.md`）。第 1 步宿主 Jenkins 控制器模块 `infrastructure/jenkins/` 写好、离线校验过（剧本语法、Compose config、`haproxy -c`、systemd 单元、两份锁），卡 fable-b1 给 luna（本地机）；CHECKPOINT 第 131 行「Jenkins 待组件接入」由此接入（密码表第 13 项，`platform-account-import OBJECT=jenkins`）。
 - 2026-10-20 晚（luna 在本地机 fable 工位）：B 段第 1 步做成。卡 fable-b1 两次跑：第一次控制器部署全过、停在卡写错的 curl 身份；第二次接续，控制器三项核对、入口加 jenkins 路由、经入口 200、Harbor 不受影响、`platform-status` 退出 0。宿主上有了 Jenkins 2.580.1（回环 18443/18080/50000，`sunmoon-jenkins.service` enabled）。所有者浏览器走查待做。同步改成「一项工作一个工位分支，两边直接推拉 origin/<WS>」。
+
+
+# 工具协议修复发布检查点
+
+本分支 `fix/tool-roundtrip-release` 从 Jenkins #43 回执提交 c00e6766 开始，保留现网所有无关声明与配置。原始 qwen 基线候选只用于诊断，未部署。
+
+- 运行时根因：Moonshot 发出 function_call 后附带空助理消息，下一轮回传自身历史时报缺失 tool_call_id；原样重放两次 400，删除空消息 200。调用 ID 已正确匹配。完整证据与诊断线程在 knowbench-backend/CHECKPOINT.md。
+- 沙箱源代码提交 5798e312：在用户沙箱内做最小 HTTP/SSE 兼容，仅移除无内容助理消息。已通过 14 项测试、真实失败请求重放、真实 Codex 工具往返，以及确切 0.155.1 启动配置检查。
+- 后端以线上 7a1c4be 为底，拒绝把进度文字当成成功，并按线程/轮次归属错误；39 项相关测试通过。确切父子仓提交由 sources.yaml 钉住。
+- 用户明确要求使用现有 Jenkins。扩展原 release 的 APPS 目标列表，接受 `knowbench sandbox`；保留阶段 8 人批、不可变候选与 Flux 晋级机制。不创建第二条发布流水线。
+- 来源与回退：线上 OCI sha256:1557b13795d88fb041e52475ff98516581229ed23018a6d629f66c479a1d2fa0，来源 1104dcd03f14c2f930d6dfe8d5d121558484bfaf。当前目标用户沙箱镜像 sha256:8fac3fdfb14f9c956d00cc65cb5b45aaa683500d162b3ffba7a3110d63cea720；后端镜像 sha256:c33b10ce51bec19eab92360ee16708d9389b8928e9e5df7fed3c19dd66fad59b。
+- 发布仅更新供给器的沙箱镜像摘要；已有用户沙箱需在工作台重新供给。不能把供给器 Ready 当成已有用户沙箱已更新。没有修改专家 bindings、任务状态或绕过用户的数据需求确认。
+- 搜索声明已确认保留；诊断中模型没有真正完成 webSearch，不能报告搜索端到端验证成功。
+
+待办：推送独立修复分支，触发 Jenkins `release`，APPS="knowbench sandbox"、PIN=keep，审核候选差异后等原有人批；批准后验证目标用户沙箱镜像、find_subject → request_data → 待确认流程。人批不能由修复代理代点。
