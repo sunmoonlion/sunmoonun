@@ -1,7 +1,7 @@
 {
   "date": "2026-11-02",
   "scope": "five local workstations; master and Jenkins untouched",
-  "base": "release #43 + verified tool roundtrip repair + preserved planning/operations documents",
+  "base": "release #44 (release #43 + verified tool roundtrip repair) + preserved planning/operations documents",
   "sunmoonun_target": "the commit containing this record (or its release-receipt merge); actual resulting HEAD recorded in local verification receipt",
   "targets": {
     "tpl-app": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
@@ -956,5 +956,12 @@
     }
   ],
   "preservation_branch": "backup/pre-align-20261102/<station> in each repository",
-  "verification": "all 130 workspaces must have exact target HEAD, station-named branch, and empty git status; all 30 parent repositories must match their gitlinks"
+  "verification": "all 130 workspaces must have exact target HEAD, station-named branch, and empty git status; all 30 parent repositories must match their gitlinks",
+  "release_receipt_commit": "f90b34a756c9707c0f4bc44ff9340ed10a670780",
+  "verified_before_receipt_sync": {
+    "workspaces_clean": 130,
+    "backup_refs": 130,
+    "parent_gitlinks": 30,
+    "master_unchanged": true
+  }
 }

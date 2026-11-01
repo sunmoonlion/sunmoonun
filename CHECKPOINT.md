@@ -215,5 +215,13 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - sunmoonun 基于 release #43 回执 `c00e6766b24c0d249938152d35511116f6f169ff`，修复来源 `7ead007f6271f3516c1e28ec5e8b2bf54f978d09`；knowbench 父仓 `525735629ed6ba70f3a87038ed2b53ecce1ae453`、后端 `1e7834fae769230d508bca6e399167c3b8a91f6f`；其余应用依 sources.yaml，Link 依 agent-releases/config.yaml 的 0.5.5 源码钉。
 - 四份双轨交付相关文档从 qwen `bac3696a5d80699c4549d9b3b22740c5ad19c209` 带入，开发工位改为 luna。文档中 WP 完成状态是历史记录，不能据此声称未纳入本基线的 qwen 代码已经发布或验收。后续先比对保留的 qwen 业务提交与 WP 清单，复用合格实现并补验，避免重写。
 - 对齐前各检出 HEAD 留在 `backup/pre-align-20261102/<工位>` 本地分支（每仓独立）；分叉的原工位分支重命名保存，再从固定基线创建同名分支，不 reset、不清理文件、不自动 push。qwen 两份未跟踪文档经审阅均有用：保留空间盘点、归档与清理证据，补充历史适用范围及权限处理纠正后纳入共同提交；原始字节另存本地对齐备份，工作区不留未跟踪副本。
-- Jenkins #44 使用原发布分支 fix/tool-roundtrip-release，工位对齐不改变该运行中的候选。修复已通过 39 项后端测试、14 项传输测试及真实失败请求重放，但发布人批、部署后复核、已有用户沙箱重新供应和真实补采闭环仍待完成。不得把测试通过写成全链已修复。
+- Jenkins #44 使用原发布分支 fix/tool-roundtrip-release，工位对齐没有改变其候选。2026-11-02 01:24 后该作业 SUCCESS：人批、部署、knowbench 与 sandbox-provisioner 核验通过，release-20261102-1，发布回执提交 `f90b34a756c9707c0f4bc44ff9340ed10a670780` 已合入共同工位基线。修复已通过 39 项后端测试、14 项传输测试及真实失败请求重放；已有用户沙箱重新供应和真实补采闭环仍待完成，不得写成全链已修复。
 - 本轮对齐的固定目标与每个工作区旧提交见 scripts/results/workstations-alignment.20261102.json；该记录为本地 Git 工作区证据，不是发布回执。
+
+### 对齐核验与下次继续
+
+- 五工位 130/130 检出已核对目标 SHA、同名分支、空 git status；30/30 应用父仓子模块指针一致；130/130 原 HEAD 有备份分支；master 各仓未改。最终核验原始结果：`/home/zymun/worktrees/luna/workstation-alignment-20261102/verified.json`。本轮未向远端推送工位分支。
+- 最终补入 release #44 的生成声明、已晋级指针与回执，保持所有工位根仓一致；本次准备克隆留作排查证据，后续实现用 `/home/zymun/worktrees/luna/{sunmoonun,knowbench-app,knowbase-app,knowfeed-app,...}` 正式工位。
+- 原故障下一步：从正常工作台入口重新供应已有用户沙箱，确认实际镜像为 `sha256:ec14e4a591d7401ad222b579d745fa4c5c6e9292c28055c696b9671661f7823c`，再验证 find_subject → request_data → 用户本人确认 → knowfeed → 恢复分析。不要替用户确认采单；本轮无可用的用户网页登录会话。工作台后端已发布镜像为 `sha256:c16adcea4c2c3d8c7cb27f0de9270f8e27c7cc5772245d53523ddbb8337d14e8`。
+- 双轨计划下一步：先复核 `backup/pre-align-20261102/qwen` 中三后端的未发布实现与计划状态。knowbench 额外业务提交 `74a443c`、`c166baa`、`c656a65`；knowfeed `278f372`、`092d8a7`、`35fc025`；knowbase `5a22a91`、`c804dd4`。按正式设计决定是否纳入，不能按提交标题直接认可 WP/DCF/Wind 完成。备份分支位于相应 qwen 子仓，luna 子仓需要时可从本地取对象。
+- 所有者已在界面设置 Full Access，但本次普通执行仍报 no new privileges；所有者准备退出后重进 luna 会话。新会话先核实实际权限，不把旧提权选项机械沿用。
