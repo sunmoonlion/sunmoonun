@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: 'knowfeed-schema-check-v3', namespace: app-platform-dev}
+metadata: {name: 'knowfeed-schema-check-v5', namespace: app-platform-dev}
 data:
   verify.py: |
     """Check the deployed schema and real runtime grants without printing credentials."""
@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowfeed-migrate-dd38938ea04f-v3', namespace: app-platform-dev}
+metadata: {name: 'knowfeed-migrate-77932942a541-v5', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,22 +72,22 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:dd38938ea04f41678c2e39618b6721e5f2e8c9420f617a7f1fcad0c1778d5b54
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowfeed-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: 'c4cd1d683abd8b275777f82fd19b2c7d096e84ff'}
+            - {name: DEPLOYMENT_ID, value: 'b666d393ef2d23555f78f16ae39465415ceef916'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowfeed-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowfeed.dev.sunmoonai.com:30443'}
-            - {name: EXPECTED_SCHEMA_REVISION, value: '20261025_0015'}
+            - {name: EXPECTED_SCHEMA_REVISION, value: '20261030_0022'}
           command: [/bin/sh, -ec]
           args: ['python -m app.bootstrap.migration upgrade && python /verify/verify.py']
           volumeMounts:
             - {name: verify, mountPath: /verify, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: verify, configMap: {name: 'knowfeed-schema-check-v3'}}
+        - {name: verify, configMap: {name: 'knowfeed-schema-check-v5'}}
         - {name: tmp, emptyDir: {sizeLimit: 32Mi}}

@@ -4,7 +4,7 @@ metadata: {name: knowfeed-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowfeed
-  DEPLOYMENT_ID: "knowfeed-backend-dd38938ea04f4167"
+  DEPLOYMENT_ID: "knowfeed-backend-77932942a5419b4a"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowfeed-api,knowfeed-api.app-platform-dev.svc.cluster.local,knowfeed.dev.sunmoonai.com,knowfeed-admin.dev.sunmoonai.com,knowfeed-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -51,7 +51,6 @@ data:
   SEARCH_BACKEND: "disabled"
   CROSS_APP_TARGETS_JSON: "{\"knowbase\": {\"web_base_url\": \"https://knowbase.dev.sunmoonai.com:30443\"}}"
   CROSS_APP_SOURCES_JSON: "{\"knowbench\": {\"return_url\": \"https://knowbench.dev.sunmoonai.com:30443/zh-CN/workbench?ref={ref}\"}, \"knowbase\": {}}"
-  KNOWBASE_APP_DATASET_URL: "https://knowbase-tls.app-platform-dev.svc.cluster.local/api/internal/v1/knowledge/datasets"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -84,7 +83,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 3c2a8881ea2d70e304840dc9186ed0a20bd645fe1eaf85e6008a1e89af225e72
+        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -94,7 +93,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:dd38938ea04f41678c2e39618b6721e5f2e8c9420f617a7f1fcad0c1778d5b54
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -150,7 +149,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 3c2a8881ea2d70e304840dc9186ed0a20bd645fe1eaf85e6008a1e89af225e72
+        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -160,7 +159,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:dd38938ea04f41678c2e39618b6721e5f2e8c9420f617a7f1fcad0c1778d5b54
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -212,7 +211,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 3c2a8881ea2d70e304840dc9186ed0a20bd645fe1eaf85e6008a1e89af225e72
+        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -222,7 +221,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:dd38938ea04f41678c2e39618b6721e5f2e8c9420f617a7f1fcad0c1778d5b54
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]

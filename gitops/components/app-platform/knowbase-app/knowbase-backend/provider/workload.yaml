@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: knowbase-source-policy-v2, namespace: data-platform-dev}
+metadata: {name: knowbase-source-policy-v3, namespace: data-platform-dev}
 data:
   policy.json: |
-    {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Action": ["s3:GetObject", "s3:GetObjectVersion"], "Resource": ["arn:aws:s3:::knowfeed-originals/knowfeed/*"]}]}
+    {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Action": ["s3:GetObject", "s3:GetObjectVersion"], "Resource": ["arn:aws:s3:::knowfeed-originals/knowfeed/original/*"]}]}
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: knowbase-source-v2, namespace: data-platform-dev}
+metadata: {name: knowbase-source-v3, namespace: data-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 300
@@ -52,7 +52,7 @@ spec:
                 *AccessDenied*|*'Access Denied'*) : ;;
                 *) printf 'Reader rejection was not AccessDenied\n' >&2; exit 1 ;;
               esac
-              printf '{"reader":"knowbase_source_reader","source":"knowfeed-originals/knowfeed/","read_only_policy":true,"management_denied":true}\n'
+              printf '{"reader":"knowbase_source_reader","source":"knowfeed-originals/knowfeed/original/","read_only_policy":true,"management_denied":true}\n'
           env: [{name: HOME, value: /work}, {name: NO_PROXY, value: '*'}]
           resources: {requests: {cpu: 20m, memory: 64Mi}, limits: {cpu: 500m, memory: 256Mi}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
@@ -62,5 +62,5 @@ spec:
             - {name: work, mountPath: /work}
       volumes:
         - {name: auth, secret: {secretName: knowbase-source-provision, defaultMode: 0440}}
-        - {name: policy, configMap: {name: knowbase-source-policy-v2}}
+        - {name: policy, configMap: {name: knowbase-source-policy-v3}}
         - {name: work, emptyDir: {sizeLimit: 16Mi}}

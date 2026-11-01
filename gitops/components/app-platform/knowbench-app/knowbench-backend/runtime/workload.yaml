@@ -4,7 +4,7 @@ metadata: {name: knowbench-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowbench
-  DEPLOYMENT_ID: "knowbench-backend-73535ae04fe76981"
+  DEPLOYMENT_ID: "knowbench-backend-123d94d8a93b215d"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowbench-api,knowbench-api.app-platform-dev.svc.cluster.local,knowbench.dev.sunmoonai.com,knowbench-admin.dev.sunmoonai.com,knowbench-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -46,11 +46,6 @@ data:
   KNOWLAB_INCUBATION_REQUEST_SERVICE_SCOPE: "knowlab:incubation-request"
   KNOWLAB_INCUBATION_REQUEST_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWLAB_INCUBATION_REQUEST_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
-  KNOWLAB_READ_SERVICE_APPLICATION: "sunmoonai-knowbench-knowlab-read"
-  KNOWLAB_READ_SERVICE_CLIENT_ID: "sunmoon-knowbench-knowlab-read"
-  KNOWLAB_READ_SERVICE_SCOPE: "knowlab:read"
-  KNOWLAB_READ_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
-  KNOWLAB_READ_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   KNOWBASE_USER_DATA_READ_SERVICE_APPLICATION: "sunmoonai-knowbench-knowbase-user-data-read"
   KNOWBASE_USER_DATA_READ_SERVICE_CLIENT_ID: "sunmoon-knowbench-knowbase-user-data-read"
   KNOWBASE_USER_DATA_READ_SERVICE_SCOPE: "knowbase:user-data-read"
@@ -90,9 +85,6 @@ data:
   WORKBENCH_PROVISIONER_URL: "http://sandbox-provisioner.sandbox-platform-dev.svc.cluster.local:8080"
   WORKBENCH_RELAY_ADMIN_URL: "ws://relay.relay-platform-dev.svc.cluster.local:47100"
   WORKBENCH_RELAY_PUBLIC_URL: "wss://relay.dev.sunmoonai.com:30443"
-  KNOWBOT_TEST_SUBJECT: "1929b2c2-760f-4d1a-bdc9-d1b55410003c"
-  KNOWBOT_TEST_WORKSPACE: "/workspace"
-  KNOWBOT_TEST_MONTHLY_LIMIT: "1000"
   WORKBENCH_TOKEN_ISSUER: "sunmoon-workbench"
   WORKBENCH_SANDBOX_MODEL_PROVIDER: "kimi"
   WORKBENCH_SANDBOX_MODEL: "kimi-k3"
@@ -134,7 +126,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
+        sunmoonai.com/config-sha256: 6039d19b5082bd22dbafa40a990ee52bf2497c281cb7dc0ad5c1b4086f7c05ce
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -144,7 +136,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:73535ae04fe769815762b381e42143154841eee545e53ba1223f4a102e26d307
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:123d94d8a93b215d7cfe4371ff01436ed686a5b27d716a67d7de1e5ff1274f6b
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -171,7 +163,6 @@ spec:
             - {secretRef: {name: knowbench-knowmart-catalog-service}}
             - {secretRef: {name: knowbench-knowmart-demand-service}}
             - {secretRef: {name: knowbench-knowlab-incubation-request-service}}
-            - {secretRef: {name: knowbench-knowlab-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-output-service}}
             - {secretRef: {name: knowbench-knowfeed-supply-demand-service}}
@@ -207,7 +198,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
+        sunmoonai.com/config-sha256: 6039d19b5082bd22dbafa40a990ee52bf2497c281cb7dc0ad5c1b4086f7c05ce
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -217,7 +208,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:73535ae04fe769815762b381e42143154841eee545e53ba1223f4a102e26d307
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:123d94d8a93b215d7cfe4371ff01436ed686a5b27d716a67d7de1e5ff1274f6b
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -236,7 +227,6 @@ spec:
             - {secretRef: {name: knowbench-rabbitmq-runtime}}
             - {secretRef: {name: knowbench-knowbase-service}}
             - {secretRef: {name: knowbench-knowmart-summon-service}}
-            - {secretRef: {name: knowbench-knowlab-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-output-service}}
             - {secretRef: {name: knowbench-knowfeed-supply-demand-service}}
@@ -269,7 +259,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
+        sunmoonai.com/config-sha256: 6039d19b5082bd22dbafa40a990ee52bf2497c281cb7dc0ad5c1b4086f7c05ce
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -279,7 +269,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:73535ae04fe769815762b381e42143154841eee545e53ba1223f4a102e26d307
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:123d94d8a93b215d7cfe4371ff01436ed686a5b27d716a67d7de1e5ff1274f6b
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]
@@ -326,7 +316,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e01d949d975015e1cdcc7e5da0a031c97b0cfc04d1d82411ebe1e6673d7c3eb8
+        sunmoonai.com/config-sha256: 6039d19b5082bd22dbafa40a990ee52bf2497c281cb7dc0ad5c1b4086f7c05ce
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -336,7 +326,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: runner
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:73535ae04fe769815762b381e42143154841eee545e53ba1223f4a102e26d307
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:123d94d8a93b215d7cfe4371ff01436ed686a5b27d716a67d7de1e5ff1274f6b
           imagePullPolicy: IfNotPresent
           # 0001-workbench：runner 是每个用户沙箱里 app-server 的唯一客户端；不开端口，靠进程存活
           command: [python]
@@ -354,7 +344,6 @@ spec:
             - {secretRef: {name: knowbench-rabbitmq-runtime}}
             - {secretRef: {name: knowbench-redis-runtime}}
             - {secretRef: {name: knowbench-domain-runtime}}
-            - {secretRef: {name: knowbench-knowlab-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-output-service}}
             - {secretRef: {name: knowbench-knowfeed-supply-demand-service}}

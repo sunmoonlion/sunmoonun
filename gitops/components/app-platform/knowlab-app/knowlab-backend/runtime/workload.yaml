@@ -4,7 +4,7 @@ metadata: {name: knowlab-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowlab
-  DEPLOYMENT_ID: "knowlab-backend-aba8d849bbffe8aa"
+  DEPLOYMENT_ID: "knowlab-backend-e78fdcd5d5b66203"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowlab-api,knowlab-api.app-platform-dev.svc.cluster.local,knowlab.dev.sunmoonai.com,knowlab-admin.dev.sunmoonai.com,knowlab-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -15,12 +15,6 @@ data:
   CASDOOR_VERIFY_SSL: 'true'
   SESSION_COOKIE_SECURE: 'true'
   REFERENCE_INTERACTION_ENABLED: 'false'
-  S3_ENDPOINT: https://object-storage.data-platform-dev.svc.cluster.local:9000
-  S3_REGION: us-east-1
-  S3_BUCKET: knowlab-originals
-  S3_FORCE_PATH_STYLE: 'true'
-  S3_USE_TLS: 'true'
-  AWS_CA_BUNDLE: /etc/sunmoon/object-storage/ca.crt
   KNOWMART_INTERNAL_URL: https://knowmart-tls.app-platform-dev.svc.cluster.local/api/internal/v1/knowmart
   KNOWBENCH_INTERNAL_URL: https://knowbench-tls.app-platform-dev.svc.cluster.local/api/internal/v1/knowbot-runtime
   KNOWBASE_INTERNAL_URL: https://knowbase-tls.app-platform-dev.svc.cluster.local
@@ -40,11 +34,6 @@ data:
   KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_SCOPE: "knowbase:user-data-grant-test"
   KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
   KNOWBASE_USER_DATA_GRANT_TEST_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
-  KNOWBASE_USER_DATA_IMPORT_SERVICE_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-import"
-  KNOWBASE_USER_DATA_IMPORT_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowbase-user-data-import"
-  KNOWBASE_USER_DATA_IMPORT_SERVICE_SCOPE: "knowbase:user-data-import"
-  KNOWBASE_USER_DATA_IMPORT_SERVICE_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
-  KNOWBASE_USER_DATA_IMPORT_SERVICE_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
   KNOWBASE_USER_DATA_READ_SERVICE_APPLICATION: "sunmoonai-knowlab-knowbase-user-data-read"
   KNOWBASE_USER_DATA_READ_SERVICE_CLIENT_ID: "sunmoon-knowlab-knowbase-user-data-read"
   KNOWBASE_USER_DATA_READ_SERVICE_SCOPE: "knowbase:user-data-read"
@@ -77,15 +66,7 @@ data:
   SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowlab-incubation-request"
   SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowlab-incubation-request"
   SERVICE_AUTH_INCUBATION_REQUEST_KNOWBENCH_REQUIRED_SCOPE: "knowlab:incubation-request"
-  SERVICE_AUTH_READ_CALLERS: "knowbench"
-  SERVICE_AUTH_READ_KNOWBENCH_CASDOOR_APPLICATION: "sunmoonai-knowbench-knowlab-read"
-  SERVICE_AUTH_READ_KNOWBENCH_DISCOVERY_URL: https://casdoor.dev.sunmoonai.com:30443/.well-known/openid-configuration
-  SERVICE_AUTH_READ_KNOWBENCH_BACKCHANNEL_ENDPOINT: https://casdoor-tls.app-platform-dev.svc.cluster.local
-  SERVICE_AUTH_READ_KNOWBENCH_AUDIENCE: "sunmoon-knowbench-knowlab-read"
-  SERVICE_AUTH_READ_KNOWBENCH_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowbench-knowlab-read"
-  SERVICE_AUTH_READ_KNOWBENCH_REQUIRED_SCOPE: "knowlab:read"
   SSL_CERT_FILE: /etc/sunmoon/service/ca.crt
-  STORAGE_BACKEND: "s3"
   CROSS_APP_TARGETS_JSON: "{\"knowbench\": {\"web_base_url\": \"https://knowbench.dev.sunmoonai.com:30443\"}}"
   CROSS_APP_SOURCES_JSON: "{\"knowbench\": {\"return_url\": \"https://knowbench.dev.sunmoonai.com:30443/zh-CN/workbench?ref={ref}\"}, \"knowbase\": {}, \"knowfeed\": {}}"
   WEB_AUTH_ALLOWED_RETURN_PATHS: "/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/questions,/en/questions,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/experts,/en/experts,/zh-CN/data,/en/data"
@@ -120,10 +101,9 @@ spec:
         app.kubernetes.io/part-of: knowlab
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
-        sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e50f27528da762e9b5eac0e60d8258daadf1f3522c12bebbaf2fc5d717cd346d
+        sunmoonai.com/config-sha256: d1d7dc4f425802292eb824c3be4148bf0eacfff7e4060277aa3854f879fa7081
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -133,7 +113,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:aba8d849bbffe8aa5fbfc90e955966ed2941a29bf07c5385ccb48461770fad90
+          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:e78fdcd5d5b66203f68126f96190671abe35c9ee6a3e10e0a26169ff6fa1fa80
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -154,11 +134,9 @@ spec:
             - {secretRef: {name: knowlab-rabbitmq-runtime}}
             - {secretRef: {name: knowlab-redis-runtime}}
             - {secretRef: {name: knowlab-browser-secrets}}
-            - {secretRef: {name: knowlab-storage-runtime}}
             - {secretRef: {name: knowlab-knowmart-deliver-service}}
             - {secretRef: {name: knowlab-knowbench-testrun-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-grant-test-service}}
-            - {secretRef: {name: knowlab-knowbase-user-data-import-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-read-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-directory-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-output-service}}
@@ -168,13 +146,11 @@ spec:
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
             - {name: service-ca, mountPath: /etc/sunmoon/service, readOnly: true}
-            - {name: storage-ca, mountPath: /etc/sunmoon/object-storage, readOnly: true}
             - {name: tmp, mountPath: /tmp}
             - {name: celery-config, mountPath: /etc/sunmoon/celery, readOnly: true}
       volumes:
         - {name: service-ca, configMap: {name: knowlab-service-ca}}
-        - {name: storage-ca, secret: {secretName: knowlab-storage-runtime, items: [{key: ca.crt, path: ca.crt}]}}
-        - {name: tmp, emptyDir: {sizeLimit: 256Mi}}
+        - {name: tmp, emptyDir: {sizeLimit: 64Mi}}
         - {name: celery-config, configMap: {name: knowlab-celery-config}}
 ---
 apiVersion: apps/v1
@@ -194,9 +170,8 @@ spec:
         app.kubernetes.io/part-of: knowlab
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
-        sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e50f27528da762e9b5eac0e60d8258daadf1f3522c12bebbaf2fc5d717cd346d
+        sunmoonai.com/config-sha256: d1d7dc4f425802292eb824c3be4148bf0eacfff7e4060277aa3854f879fa7081
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -206,7 +181,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:aba8d849bbffe8aa5fbfc90e955966ed2941a29bf07c5385ccb48461770fad90
+          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:e78fdcd5d5b66203f68126f96190671abe35c9ee6a3e10e0a26169ff6fa1fa80
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -223,7 +198,6 @@ spec:
             - {configMapRef: {name: knowlab-browser-identity}}
             - {secretRef: {name: knowlab-database-runtime}}
             - {secretRef: {name: knowlab-rabbitmq-runtime}}
-            - {secretRef: {name: knowlab-storage-runtime}}
             - {secretRef: {name: knowlab-knowmart-deliver-service}}
             - {secretRef: {name: knowlab-knowbench-testrun-service}}
             - {secretRef: {name: knowlab-knowbase-user-data-grant-test-service}}
@@ -235,13 +209,11 @@ spec:
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
             - {name: service-ca, mountPath: /etc/sunmoon/service, readOnly: true}
-            - {name: storage-ca, mountPath: /etc/sunmoon/object-storage, readOnly: true}
             - {name: tmp, mountPath: /tmp}
             - {name: celery-config, mountPath: /etc/sunmoon/celery, readOnly: true}
       volumes:
         - {name: service-ca, configMap: {name: knowlab-service-ca}}
-        - {name: storage-ca, secret: {secretName: knowlab-storage-runtime, items: [{key: ca.crt, path: ca.crt}]}}
-        - {name: tmp, emptyDir: {sizeLimit: 256Mi}}
+        - {name: tmp, emptyDir: {sizeLimit: 64Mi}}
         - {name: celery-config, configMap: {name: knowlab-celery-config}}
 ---
 apiVersion: apps/v1
@@ -261,9 +233,8 @@ spec:
         app.kubernetes.io/part-of: knowlab
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
-        sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: e50f27528da762e9b5eac0e60d8258daadf1f3522c12bebbaf2fc5d717cd346d
+        sunmoonai.com/config-sha256: d1d7dc4f425802292eb824c3be4148bf0eacfff7e4060277aa3854f879fa7081
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -273,7 +244,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:aba8d849bbffe8aa5fbfc90e955966ed2941a29bf07c5385ccb48461770fad90
+          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:e78fdcd5d5b66203f68126f96190671abe35c9ee6a3e10e0a26169ff6fa1fa80
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]
@@ -290,18 +261,15 @@ spec:
             - {configMapRef: {name: knowlab-browser-identity}}
             - {secretRef: {name: knowlab-database-runtime}}
             - {secretRef: {name: knowlab-rabbitmq-runtime}}
-            - {secretRef: {name: knowlab-storage-runtime}}
           resources: {"requests": {"cpu": "50m", "memory": "128Mi"}, "limits": {"cpu": "1", "memory": "512Mi"}}
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           volumeMounts:
             - {name: service-ca, mountPath: /etc/sunmoon/service, readOnly: true}
-            - {name: storage-ca, mountPath: /etc/sunmoon/object-storage, readOnly: true}
             - {name: tmp, mountPath: /tmp}
             - {name: celery-config, mountPath: /etc/sunmoon/celery, readOnly: true}
       volumes:
         - {name: service-ca, configMap: {name: knowlab-service-ca}}
-        - {name: storage-ca, secret: {secretName: knowlab-storage-runtime, items: [{key: ca.crt, path: ca.crt}]}}
-        - {name: tmp, emptyDir: {sizeLimit: 256Mi}}
+        - {name: tmp, emptyDir: {sizeLimit: 64Mi}}
         - {name: celery-config, configMap: {name: knowlab-celery-config}}
 ---
 apiVersion: v1
