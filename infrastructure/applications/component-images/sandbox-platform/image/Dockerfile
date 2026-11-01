@@ -26,6 +26,7 @@ RUN if [ -n "$DEBIAN_MIRROR" ]; then sed -i "s|https\?://deb.debian.org|${DEBIAN
     && useradd -u 10001 -m -s /bin/bash codex && mkdir -p /data/codex && chown -R codex:codex /data
 COPY --chown=codex:codex bridge/sandbox_bridge.py /opt/sandbox/sandbox_bridge.py
 COPY --chown=codex:codex image/entrypoint.sh /opt/sandbox/entrypoint.sh
+COPY --chown=codex:codex image/moonshot_responses.py /opt/sandbox/moonshot_responses.py
 RUN chmod +x /opt/sandbox/entrypoint.sh
 USER codex
 WORKDIR /data

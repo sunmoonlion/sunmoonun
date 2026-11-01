@@ -74,4 +74,5 @@ BRIDGE_PID=$!
 trap 'kill $BRIDGE_PID 2>/dev/null' EXIT
 for i in $(seq 1 40); do python3 -c "import socket;socket.create_connection(('127.0.0.1',${BRIDGE_PORT:-47002}),1).close()" 2>/dev/null && break; sleep 0.25; done
 unset RELAY_TOKEN
-exec codex app-server --listen "ws://0.0.0.0:${APP_SERVER_PORT:-47800}" --ws-auth capability-token --ws-token-file "$APP_SERVER_TOKEN_FILE"
+# 兼容只作用于 Moonshot Responses 的空助理消息；不改持久配置、不关闭搜索、不改工具 ID。
+exec python3 /opt/sandbox/moonshot_responses.py codex app-server --listen "ws://0.0.0.0:${APP_SERVER_PORT:-47800}" --ws-auth capability-token --ws-token-file "$APP_SERVER_TOKEN_FILE"
