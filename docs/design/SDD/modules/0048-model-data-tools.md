@@ -23,6 +23,7 @@
 
 - **knowbase 开数据 MCP**：读钉住的输入、查事实（含跨全市场）、找证据片段、全文搜、按描述查、科目与指标字典。授权、留痕、开关都在 knowbase，和数据规则在一处。
 - **knowbench 工作台 MCP 只留跟任务有关的**：读项目对话与底稿、`compute`、`request_data`（缺数据时提出要什么，第五节）。
+- `compute` 的能力说明与 [0030 §3.2](0030-knowbot-compute.md) 同步：指数绝对值不超过 100，正底数可用分数次幂，以十进制 ln/exp 求值；数值验收与工具共用求值器。WP-2 本地实现与测试不等于已发布。
 - **都经 knowbench 中继**：用户的沙箱只连得到 knowbench（工作台给沙箱配置时特意不发 knowbase 的令牌：「用户的沙箱到不了平台的数（数据拓扑，待办账 111）」），用户 link 也只连 knowbench。
 - **实施时改成工具层中继**（10-27，第 4 步）：沙箱的配置由平台的 provisioner 落成环境变量（`infrastructure/` 下，Fable 的平台文件），只认工作台 MCP 这一个地址；为不动平台文件，knowbase 数据 MCP 的读工具照它的定义挂在工作台 MCP 上，只把 `run` / `session` 换成工作台的 `task` / `conversation`。模型带 `task` 时工作台先核这件委托是这个用户的、专家正在做（同读项目记录），换成运行授权 ref `knowbench:<幂等钥匙>`；带 `conversation` 时核对话是他的、登记过 knowbase 会话。每次调用当场签一张 5 分钟的令牌、只许这一个工具，原样转给 knowbase 的固定地址（只这一个，防 SSRF）。比原设计多一道「这件委托正在做」的核对，沙箱里也不放长效令牌。
 - **修正**（写完读代码后）：原建议「令牌由 knowbase 自己签」改为**沿用 knowbench 签**——knowbase 现有 MCP 本来就认 knowbench 签的 ES256 令牌（audience 是 knowbase）。令牌只说明「这个沙箱代用户 U、以 knowbench 名义在用」，**能读什么由 knowbase 每次按用户签的运行授权或会话范围核**，knowbench 自己拿不到用户没授权过的数据。
