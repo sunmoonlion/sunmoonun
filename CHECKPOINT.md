@@ -359,3 +359,27 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - agy 交接第 9 节补了新提交和测试页要求：稳定方法名、全部最终成果、失效与省略提示；
   未改其代码。v3 外部准入仍关闭，下一步须作者页联调与真实沙箱验证；财务方法与许可
   不能代本人确认。Wind 仍 3/5，保底仍巨潮。没有新增发版卡。
+
+
+## 2026-11-02 接续：作者冻结/选版真实接线与 agy 审查
+
+- knowlab 后端 c5bf88606bf058ecf9dc586223188e984949160c、前端
+  a54e26c18c2ecaafe8385bc50d5052c8b69c516f、父仓
+  522d15e667176b97123fa12540084026282ed722 均已推 GitHub
+  feat/method-execution-view。先推子仓后钉父仓，没有改 qwen 发布候选。
+- 补齐作者规划/选择条件编辑、工作稿保存后冻结、本人方法列表、精确选版、输入预览与
+  引用保存，以及全部最终成果/失效历史展示。复用现有出处、身份/CSRF 和接口，不建
+  第二个作者系统。后端列表补标题/简述，不改变不可变定义或精确版核验。
+- agy 前端 8cb9cfd 初稿有硬编码财务列表、假 UUID/摘要及引用未保存问题，Luna 在自身
+  分支重写接线。agy 后端 83ef256 只是财务测试夹具，不是 14 项真实资产已入库；自动
+  模拟出处不能替代本人确认，原题单季/PDF/区间预测覆盖尚不足。具体审查追加至
+  /home/zymun/worktrees/agy/方法库并行开发要求-Luna交接.md 第 10 节，未改其代码。
+- 后端完整 792 passed / 5 skipped，ruff/pyright 通过；前端 182 passed / 2 skipped，
+  typecheck/lint/i18n（931 keys）/build 通过。日志
+  /tmp/luna-author-ui-lab-full.txt、/tmp/luna-author-flow-web-full.txt 与
+  /tmp/luna-author-flow-{types,lint,i18n,build}.txt。没有新增依赖或迁移。
+- v3 外部准入仍关闭，下一步真实作者/沙箱联合验收；组件 mock HTTP 和合成数据库任务
+  不是用户验收。Wind W0 未决，仍 3/5；没有真实取数、Jenkins、sources、线上采单操作。
+- 继续检查补采并发：request_data 在远程 add_needs 前读取 detail，完成后整份覆写，
+  两个并发调用可能使用相同 req 编号并丢失一次请求；knowbase add_needs 也基于旧快照
+  追加。当前只是代码审查发现，尚未复现或修复，不得宣称动态补采并发/超时恢复已通过。
