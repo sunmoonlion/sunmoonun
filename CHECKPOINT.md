@@ -307,3 +307,10 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 迁移 20261102_0025（父版 20261101_0024）：knowbot_method / knowbot_method_version、版本不可改/删触发器；非空方法历史阻止 downgrade。无旧数据回填，无生产迁移。回退应用须保留扩展 schema。
 - 全量 760 passed / 5 skipped（117.99 秒，/tmp/luna-method-library-full.txt）；之后只补 3 个故障/并发测试，最终四文件 32 passed（/tmp/luna-method-library-tests-final.txt）。全仓 ruff/pyright 已过；原 11 个 lint 与 1 个类型错误均清理，类目取值与 DeliveryReviewIn schema 与基线逐字一致（/tmp/luna-method-library-category-schema.txt）。此前交接的 knowlab 静态债务已清，不能据此替未改 knowmart 清账。
 - 新交接 docs/总纲/发版/2026-11-02-WP10方法主档开发交接.md 按所有者要求另存 qwen 对应目录；仅新增文件，不替 qwen 提交或改发布分支。Jenkins、sources、线上保底任务均未改，Wind 仍 3/5。下一段继续精确专家引用与消费者接入，而不是提前开放动态执行。
+
+## 2026-11-02 #47 页面修复与待发 WP-10 合并
+
+- 所有者授权修复并将待发交接合为一版；唯一入口为 `docs/总纲/发版/2026-11-02-页面修复与WP10合并发版交接.md`，qwen 同名副本已落地，旧四卡标并入。没有覆盖 qwen 的回执或 sources，没有启动 Jenkins。
+- 模板先过完整门，再同步实例；修复 knowbase 来源、401 恢复、独立错误提示，并通过全量回归发现/修复远程 Git 401 误判。模板 95 pass/2 skip；工作台 374 pass/2 skip，均 typecheck/lint/i18n/build 通过；后端真实 HTTP/数据库 34 pass、pyright 0。日志路径及完整 SHA 见合并单。
+- 三个父仓统一提供 `release/recovery-methods`；knowbench 父仓 2f08c6999feb03f3005393c81f430513ea197ad7，后端 707ef08cdb6763ccc1a47f4d5d7d2c9b0bc7ef12，前端 4b8f9de8befb6ef2b35c7deecc71755e66397ae3。knowlab/knowmart 保持上一已测候选。
+- 下一步 qwen 在 #47 根仓组装同一候选，核 0025/0035 迁移并走 Jenkins；不是直接使用 luna 旧 sources。真实登录/原任务验收未完成，需用户原页面与本人采单动作。Wind、reading-receipts、WP-3 不混入，真实动态 v3 仍未准入。luna 后续继续有效计划派发开发，不能把本轮发版视为第二轨完整上线。
