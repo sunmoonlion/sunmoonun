@@ -644,3 +644,12 @@ ruff/pyright 通过。修复 float 中转和输出 context 截断，财务公式
 只设置writeup output_file；preview下一版2无问题，但线上旧编译尾注冲突，尚未publish。
 收到Qwen修复发布回执后，Luna继续核revision及模板，生成准专家新版、走现有测试与交付。
 无直接SQL更新，不代造财务测试结果，不把当前缺数报告当完整验收。证据见第二轨联调/2026-11-03-Markdown成稿。
+
+
+## 2026-11-03 等待发布期间第二轨回归补齐
+
+knowbench后端c0486f9新增证据→compute→验收→Markdown→底稿→handback联调，
+以及source_query提需→HTTP确认→供给→重解析/失败等待。新增8项通过，相关回归50项
+（有重叠，不累加），ruff/pyright通过。生产逻辑未改，Qwen候选不动，无Wind真实调用。
+证据 docs/总纲/数据拓扑重构/第二轨联调/2026-11-03-证据到成稿回归。
+下一步仍是Qwen发布后生成/测试/交付专家v2；不能把合成运行回归当作财务业务验收。
