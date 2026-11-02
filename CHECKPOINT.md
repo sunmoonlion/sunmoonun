@@ -329,3 +329,11 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 动态 covers 经活动 Attempt 绑定读取确切 ID/版本/摘要，不按同名最新成果验收。TurnResult/TurnDriver/时限抽到共用 turn.py；固定 Advisor 导入兼容，未改变既有固定专家循环。
 - 独立 PostgreSQL 全量 1344 passed / 92 skipped / 2 既有 collection warnings，599.87 秒（`/tmp/luna-method-planner-full.txt`）。全量启动后增加父版本重试守卫及一例，五文件最后重跑 139 passed（`/tmp/luna-method-planner-final-focused.txt`）；最终全仓 ruff 与 app 目录 pyright 0 errors（`/tmp/luna-method-planner-{ruff,pyright}-final.txt`）。不要把追加案例冒充已纳入这次全量。
 - 状态边界：规划服务尚未由真实 Advisor 调度入口调用，Driver 测试替身不是实际沙箱闭环；v3 仍关闭。继续 Advisor/Runner 派发与成功/失败原子收尾、可信每轮身份下的工具鉴权、视图/页面/底稿/测试报告与全部 final_outputs 交付。当前 MCP 的用户/沙箱身份及客户端 args.task 不足以强制方法工具子集；不要通过全局关闭 MCP 来误伤其他会话。还须避免规划 Attempt 已完成导致首个方法范围检查被跳过。具体接线注意事项已写后端 docs/method-execution.md。
+
+
+## 2026-11-02 夜间继续：动态执行、展示与每轮工具权限
+
+- knowbench-backend ee3c40c09d2cffa6ce37773411c5f610fe2a2138、前端 06f90264ae060bf2de239211cbe4d5f0916631ef、父仓 5747e3e3ce7efc1b7317cb1b3dca72a7231f8046 均已推 GitHub feat/method-execution-view。包含 Advisor 全循环与原子交付、返工显式 pin 重规划、计划/当前成果 UI、实际轮次 MCP 鉴权、原生审批与取消边界；未新建方法运行框架。
+- 后端全量 1396 passed / 92 skipped / 2 既有 warnings；之后新增规划资料元信息和 Runner→MCP→运行授权跨层测试，四文件最终 44 passed。前端 377 passed / 2 skipped；后端 ruff/pyright、前端 typecheck/lint/i18n/build 通过。固定 Codex 0.155.1 无外网合成协议探针通过，证明工具 metadata 与事件对应以及 live resume 不刷新 MCP header；实现没有全局改沙箱配置。完整日志和最初失败记录在后端 CHECKPOINT.md。
+- qwen 当前合并发布候选、sources、Jenkins、线上旧采单与保底专家未动，没有新增发布卡。保底仍巨潮，Wind W0 未决、总调用仍 3/5。agy 原交接不变，其方法内容/作者 UI 与 Luna 运行链独立。
+- v3 外部准入继续关闭。后续先补动态孵化测试的稳定断言和多最终成果回执，避免把任务实例名当作者预先知道的名字，或只传最后一个文件；再与作者流程和真实沙箱联合验收。开发可继续，供应商许可和作者方法确认不能代作。
