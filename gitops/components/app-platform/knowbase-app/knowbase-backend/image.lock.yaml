@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: knowbase-backend
-digest: sha256:7a264a5fee92ff613fb13a385cba19a2cd6d12f60e370bd421e229789d8dc393
-source_revision: 60b0417c21249d5ed2c5012df5667fe41cd52c6e
-deployment_id: knowbase-backend-7a264a5fee92ff61
+digest: sha256:2d843f276cbae3619ad08518d1ab9049bb65367a9c4433441dcb74069952b684
+source_revision: c5c131598467ef32e7be1b91f596f0a0cac27445
+deployment_id: knowbase-backend-2d843f276cbae361
