@@ -44,3 +44,31 @@
 | C-R1 / C-R2 | #58 隔离候选钉提交，由 Qwen 现有 Jenkins 发布 |
 
 精确作者格子变化见 [author-change.json](author-change.json)。应用发布候选见统一发版交接第12节。
+
+## 发布后真实验证（2026-11-03）
+
+所有者通知应用发布完成后，直接核实线上 knowlab 编译器已有文件尾注；revision30 未漂移，
+preview 无问题。通过既有 publish 服务生成第2版准专家。新旧包逐字段比对：只变版本号及
+writeup 的 output_file/method_text，其余步骤、作者方法、验收规则均不变。
+
+作者是 zymun，使用专家的账号是 sig-am。Windows link 最初连着 sig-am，不能替作者跑正式测试；
+用户在托盘重新颁发令牌并切回作者账号后，正常同步为在线。未重装客户端、未改账号归属。
+
+- 初次准专家 `11299389-e795-4682-a05b-d7148e317581`，测试
+  `395aba61-f090-4a0e-952b-fbd2f4eefcae`：三条均遇 Kimi 401，未进入财务分析，账上费用0。
+  原失败记录保留。旧v1的通过回执未找到对应运行方任务，不能替代本次真实验收。
+- 用户已在 zymun 保存新 Kimi Key。用正式 SandboxProvisioning.provision 更新既有沙箱，
+  先核无活动任务；原连接令牌保持不变。等待 Deployment 实际 rollout 完成后才重试。
+- 内容相同的第2版新修订：`7c8d330f-646a-40b3-8fc3-06d12852abbd`；新测试
+  `41f664e4-b880-495b-b410-7ae3dd9871a0`，运行号
+  `knowlab-test-41f664e4-b880-495b-b410-7ae3dd9871a0`。费用上限沿用20，时限3600秒。
+  Windows 目录使用测试接口要求的白名单根 `C:\Users\zymun\Desktop`，每次测试创建独立项目记录。
+- 重试已真实进入模型执行，find_subject、discover_source_tools、list_inputs 调用成功；
+  随后提出20项读法需求，状态 waiting，等作者在knowlab测试页确认；未测试通过、未交付商城。
+  范围为2022年报/三季基期，2023～2025全年度及季度表格，2026前三季度表格，三份年报另读pages。
+  这轮问题按近三年与未来两季解释为2023～2025、2026Q4/2027Q1；不是2021～2024固定回归题。
+
+线上 `KNOWBOT_TEST_ISOLATE=false`，测试文件目录隔离未启用；回执里的“本地代理不支持”
+是现有通用说明，不能据此认定0.5.5确实不支持。此项按原账129继续留账，未擅自改部署。
+当前测试用例还引用旧结果路径，是否通过以真实执行为准，不静默删用例或降低财务验收标准。
+具体动作回执见 [post-release-validation.json](post-release-validation.json)，不含凭据。

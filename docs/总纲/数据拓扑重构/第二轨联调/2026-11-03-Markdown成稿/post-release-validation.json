@@ -1,0 +1,859 @@
+{
+  "initial_draft": {
+    "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+    "workdraft_revision": 30,
+    "draft_id": "11299389-e795-4682-a05b-d7148e317581",
+    "version": "2",
+    "status": "pending_test",
+    "output_file": "财务分析报告.md",
+    "via": "KnowbotWorkdraftService.publish",
+    "listed": false
+  },
+  "first_test": {
+    "draft_id": "11299389-e795-4682-a05b-d7148e317581",
+    "test_id": "395aba61-f090-4a0e-952b-fbd2f4eefcae",
+    "run_id": "knowlab-test-395aba61-f090-4a0e-952b-fbd2f4eefcae",
+    "status": "queued",
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "root": "C:\\Users\\zymun\\Desktop",
+    "budget_limit": "20.00",
+    "timeout_seconds": 3600
+  },
+  "first_result": {
+    "test_id": "395aba61-f090-4a0e-952b-fbd2f4eefcae",
+    "status": "failed",
+    "error": null,
+    "report": {
+      "cost": {
+        "spent": "0.000000",
+        "currency": "CNY"
+      },
+      "cases": [
+        {
+          "note": "the run ended as failed: unexpected status 401 Unauthorized: Incorrect API key provided, url: http://127.0.0.1:35453/v1/responses；本次测试没有隔离：电脑上的本地代理还不支持建、删目录，在共用的工作区里跑",
+          "steps": [],
+          "status": "failed",
+          "case_id": "c1",
+          "expectations": [
+            false,
+            false
+          ]
+        },
+        {
+          "note": "the run ended as failed: unexpected status 401 Unauthorized: Incorrect API key provided, url: http://127.0.0.1:35453/v1/responses；本次测试没有隔离：电脑上的本地代理还不支持建、删目录，在共用的工作区里跑",
+          "steps": [],
+          "status": "failed",
+          "case_id": "c2",
+          "expectations": [
+            false
+          ]
+        },
+        {
+          "note": "the run ended as failed: unexpected status 401 Unauthorized: Incorrect API key provided, url: http://127.0.0.1:35453/v1/responses；本次测试没有隔离：电脑上的本地代理还不支持建、删目录，在共用的工作区里跑",
+          "steps": [],
+          "status": "failed",
+          "case_id": "c3",
+          "expectations": [
+            false,
+            false
+          ]
+        }
+      ],
+      "run_id": "knowlab-test-395aba61-f090-4a0e-952b-fbd2f4eefcae",
+      "status": "failed",
+      "blocked": null,
+      "contract": "knowbot-test-run/v1",
+      "progress": null,
+      "questions": [],
+      "started_at": "2026-11-02T17:45:35.498465+00:00",
+      "finished_at": "2026-11-02T17:47:05.975820+00:00",
+      "waited_seconds": 0
+    }
+  },
+  "sandbox_update": {
+    "credential_updated_at": "2026-11-02 17:49:34.848688+00:00",
+    "provider": "kimi",
+    "status": "ready",
+    "ready": true,
+    "identity_preserved": true,
+    "via": "SandboxProvisioning.provision"
+  },
+  "retry_draft": {
+    "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+    "workdraft_revision": 30,
+    "draft_id": "7c8d330f-646a-40b3-8fc3-06d12852abbd",
+    "version": "2",
+    "status": "pending_test",
+    "output_file": "财务分析报告.md",
+    "via": "KnowbotWorkdraftService.publish",
+    "listed": false
+  },
+  "retry_test": {
+    "draft_id": "7c8d330f-646a-40b3-8fc3-06d12852abbd",
+    "test_id": "41f664e4-b880-495b-b410-7ae3dd9871a0",
+    "run_id": "knowlab-test-41f664e4-b880-495b-b410-7ae3dd9871a0",
+    "status": "queued",
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "root": "C:\\Users\\zymun\\Desktop",
+    "budget_limit": "20.00",
+    "timeout_seconds": 3600
+  },
+  "pack_diff_verified": {
+    "top_level": [
+      "version"
+    ],
+    "step_changes": {
+      "writeup": [
+        "method_text",
+        "output_file"
+      ]
+    },
+    "other_steps_unchanged": true
+  },
+  "status": "waiting_for_author_test_data_confirmation",
+  "retry_progress": {
+    "test_id": "41f664e4-b880-495b-b410-7ae3dd9871a0",
+    "status": "waiting",
+    "error": null,
+    "report": {
+      "cost": {
+        "spent": "0.000000",
+        "currency": "CNY"
+      },
+      "cases": [],
+      "run_id": "knowlab-test-41f664e4-b880-495b-b410-7ae3dd9871a0",
+      "status": "waiting",
+      "blocked": null,
+      "contract": "knowbot-test-run/v1",
+      "progress": {
+        "step": 1,
+        "spent": "2.223640",
+        "attempt": 0,
+        "case_id": "c1",
+        "cases_done": 0,
+        "step_title": "定范围",
+        "cases_total": 3,
+        "steps_total": 8,
+        "queued_behind": null
+      },
+      "questions": [
+        {
+          "key": null,
+          "kind": "data",
+          "text": "专家要这些数据：与2022年三季报相减得到2022Q4单季数；预测回测最近4季时，最早一期（2025Q4）的近8季同比区间需要2022Q4为底。、提供2022年前三季度累计数，用于换算2022Q4单季（年报−三季报）。、2023Q1单季及Q2换算基数；利润表、现金流量表累计转单季所需。、2023Q2单季=半年报−一季报；并提供三大报表用于勾稽。、2023Q3单季=三季报−半年报；Q4换算基数。、近三年（2023）年度营业收入、归母净利润及三大报表勾稽；2023Q4=年报−三季报。、步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。、2024Q1单季及Q2换算基数；近4季/近8季同比序列所需。、2024Q2单季=半年报−一季报；并提供三大报表用于勾稽。、2024Q3单季=三季报−半年报；Q4换算基数。、近三年（2024）年度营业收入、归母净利润及三大报表勾稽；2024Q4=年报−三季报。、步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。、2025Q1单季及Q2换算基数；近4季同比中位数所需。、2025Q2单季=半年报−一季报；并提供三大报表用于勾稽。、2025Q3单季=三季报−半年报；2025Q4换算基数，回测与预测同比序列所需。、近三年（2025）年度营业收入、归母净利润及三大报表勾稽；2025Q4=年报−三季报，是预测2026Q4的「上年同季」基数。、步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。、2026Q1单季及2026Q2换算基数；预测2027Q1的「上年同季」基数与近4季同比所需。、2026Q2单季=半年报−一季报；近4季同比中位数与勾稽所需。、2026Q3单季=三季报−半年报；当前最近已披露季度，是回测最近4季与预测下两个季度（2026Q4、2027Q1）的最新基数。",
+          "case_id": "c1",
+          "options": [],
+          "step_id": null,
+          "asked_at": "2026-11-02T17:53:35.061549+00:00",
+          "requests": [
+            {
+              "key": "req1_1",
+              "name": "与2022年三季报相减得到2022Q4单季数；预测回测最近4季时，最早一期（2025Q4）的近8季同比区间需要2022Q4为底。",
+              "period": {
+                "end": "2022-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2022-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "与2022年三季报相减得到2022Q4单季数；预测回测最近4季时，最早一期（2025Q4）的近8季同比区间需要2022Q4为底。",
+              "source_query": null
+            },
+            {
+              "key": "req1_2",
+              "name": "提供2022年前三季度累计数，用于换算2022Q4单季（年报−三季报）。",
+              "period": {
+                "end": "2022-09-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2022-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q3_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "提供2022年前三季度累计数，用于换算2022Q4单季（年报−三季报）。",
+              "source_query": null
+            },
+            {
+              "key": "req1_3",
+              "name": "2023Q1单季及Q2换算基数；利润表、现金流量表累计转单季所需。",
+              "period": {
+                "end": "2023-03-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2023-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q1_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2023Q1单季及Q2换算基数；利润表、现金流量表累计转单季所需。",
+              "source_query": null
+            },
+            {
+              "key": "req1_4",
+              "name": "2023Q2单季=半年报−一季报；并提供三大报表用于勾稽。",
+              "period": {
+                "end": "2023-06-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2023-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "semiannual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2023Q2单季=半年报−一季报；并提供三大报表用于勾稽。",
+              "source_query": null
+            },
+            {
+              "key": "req1_5",
+              "name": "2023Q3单季=三季报−半年报；Q4换算基数。",
+              "period": {
+                "end": "2023-09-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2023-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q3_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2023Q3单季=三季报−半年报；Q4换算基数。",
+              "source_query": null
+            },
+            {
+              "key": "req1_6",
+              "name": "近三年（2023）年度营业收入、归母净利润及三大报表勾稽；2023Q4=年报−三季报。",
+              "period": {
+                "end": "2023-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2023-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "近三年（2023）年度营业收入、归母净利润及三大报表勾稽；2023Q4=年报−三季报。",
+              "source_query": null
+            },
+            {
+              "key": "req1_7",
+              "name": "步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。",
+              "period": {
+                "end": "2023-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2023-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "pages",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。",
+              "source_query": null
+            },
+            {
+              "key": "req1_8",
+              "name": "2024Q1单季及Q2换算基数；近4季/近8季同比序列所需。",
+              "period": {
+                "end": "2024-03-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2024-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q1_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2024Q1单季及Q2换算基数；近4季/近8季同比序列所需。",
+              "source_query": null
+            },
+            {
+              "key": "req1_9",
+              "name": "2024Q2单季=半年报−一季报；并提供三大报表用于勾稽。",
+              "period": {
+                "end": "2024-06-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2024-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "semiannual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2024Q2单季=半年报−一季报；并提供三大报表用于勾稽。",
+              "source_query": null
+            },
+            {
+              "key": "req1_10",
+              "name": "2024Q3单季=三季报−半年报；Q4换算基数。",
+              "period": {
+                "end": "2024-09-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2024-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q3_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2024Q3单季=三季报−半年报；Q4换算基数。",
+              "source_query": null
+            },
+            {
+              "key": "req1_11",
+              "name": "近三年（2024）年度营业收入、归母净利润及三大报表勾稽；2024Q4=年报−三季报。",
+              "period": {
+                "end": "2024-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2024-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "近三年（2024）年度营业收入、归母净利润及三大报表勾稽；2024Q4=年报−三季报。",
+              "source_query": null
+            },
+            {
+              "key": "req1_12",
+              "name": "步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。",
+              "period": {
+                "end": "2024-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2024-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "pages",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。",
+              "source_query": null
+            },
+            {
+              "key": "req1_13",
+              "name": "2025Q1单季及Q2换算基数；近4季同比中位数所需。",
+              "period": {
+                "end": "2025-03-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2025-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q1_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2025Q1单季及Q2换算基数；近4季同比中位数所需。",
+              "source_query": null
+            },
+            {
+              "key": "req1_14",
+              "name": "2025Q2单季=半年报−一季报；并提供三大报表用于勾稽。",
+              "period": {
+                "end": "2025-06-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2025-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "semiannual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2025Q2单季=半年报−一季报；并提供三大报表用于勾稽。",
+              "source_query": null
+            },
+            {
+              "key": "req1_15",
+              "name": "2025Q3单季=三季报−半年报；2025Q4换算基数，回测与预测同比序列所需。",
+              "period": {
+                "end": "2025-09-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2025-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q3_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2025Q3单季=三季报−半年报；2025Q4换算基数，回测与预测同比序列所需。",
+              "source_query": null
+            },
+            {
+              "key": "req1_16",
+              "name": "近三年（2025）年度营业收入、归母净利润及三大报表勾稽；2025Q4=年报−三季报，是预测2026Q4的「上年同季」基数。",
+              "period": {
+                "end": "2025-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2025-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "近三年（2025）年度营业收入、归母净利润及三大报表勾稽；2025Q4=年报−三季报，是预测2026Q4的「上年同季」基数。",
+              "source_query": null
+            },
+            {
+              "key": "req1_17",
+              "name": "步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。",
+              "period": {
+                "end": "2025-12-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2025-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "pages",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "annual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "步骤6需读年报PDF「主要会计数据和财务指标」并写明页码，与三张表数据比对。",
+              "source_query": null
+            },
+            {
+              "key": "req1_18",
+              "name": "2026Q1单季及2026Q2换算基数；预测2027Q1的「上年同季」基数与近4季同比所需。",
+              "period": {
+                "end": "2026-03-31",
+                "kind": "fixed",
+                "count": null,
+                "start": "2026-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q1_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2026Q1单季及2026Q2换算基数；预测2027Q1的「上年同季」基数与近4季同比所需。",
+              "source_query": null
+            },
+            {
+              "key": "req1_19",
+              "name": "2026Q2单季=半年报−一季报；近4季同比中位数与勾稽所需。",
+              "period": {
+                "end": "2026-06-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2026-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "semiannual_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2026Q2单季=半年报−一季报；近4季同比中位数与勾稽所需。",
+              "source_query": null
+            },
+            {
+              "key": "req1_20",
+              "name": "2026Q3单季=三季报−半年报；当前最近已披露季度，是回测最近4季与预测下两个季度（2026Q4、2027Q1）的最新基数。",
+              "period": {
+                "end": "2026-09-30",
+                "kind": "fixed",
+                "count": null,
+                "start": "2026-01-01",
+                "months": null,
+                "disclosed_by_task_date": false
+              },
+              "tables": [],
+              "topics": [],
+              "caliber": null,
+              "edition": "full",
+              "formats": [
+                "pdf",
+                "excel",
+                "csv",
+                "text",
+                "markdown",
+                "html"
+              ],
+              "reading": "table",
+              "sources": [],
+              "subject": "600519.SH",
+              "doc_type": "q3_report",
+              "industry": null,
+              "priority": null,
+              "required": true,
+              "max_count": 1,
+              "min_count": 1,
+              "description": "2026Q3单季=三季报−半年报；当前最近已披露季度，是回测最近4季与预测下两个季度（2026Q4、2027Q1）的最新基数。",
+              "source_query": null
+            }
+          ],
+          "question_id": "data:a44500cf-aff2-4062-bf70-8ceb043d4d07:r1",
+          "allow_free_text": false
+        }
+      ],
+      "started_at": "2026-11-02T17:50:56.211682+00:00",
+      "finished_at": null,
+      "waited_seconds": 0
+    }
+  }
+}

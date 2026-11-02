@@ -661,3 +661,19 @@ knowbench后端c0486f9新增证据→compute→验收→Markdown→底稿→hand
 12个修复前失败用例；修复后66项文件/归档/动态导出与证据成稿回归通过，ruff/pyright通过。
 记录见第二轨联调/2026-11-03-成稿完整性；统一交接13节登记后续增量，不改当前发布引用。
 最新只读核对Qwen仍在50102a60候选，线上编译器尚无PLATFORM_FILE_TAIL，未发布专家v2。
+
+## 2026-11-03 所有者通知发布完成，专家v2真实测试启动
+
+线上编译尾注已更新；workdraft30不变，已生成准专家v2。新旧包只变version与writeup文件/尾注。
+作者zymun和买家sig-am不同；用户已将Windows link重新配对到zymun。
+首轮395aba61三用例Kimi401失败、账上0费用，保留原记录。用户更新作者Key后，经正式供给服务
+更新既有沙箱（核无活动任务、身份不变），rollout完成。相同v2新修订7c8d330f，测试41f664e4，
+运行knowlab-test-41f664e4-b880-495b-b410-7ae3dd9871a0；20上限/3600秒，桌面白名单根。
+已真实进入模型与工具调用，尚在定数据；不能称交付。当前c1 task a44500cf/session587f2b2e。
+原始及精确回执见第二轨联调/2026-11-03-Markdown成稿/post-release-validation.json。
+刷新脚本/tmp/luna_report_v2_refresh_retry.py仅调用正式refresh_mine；生产未直接SQL改业务状态。
+后续先处理作者测试采单确认，再验数字/引用/实际Markdown，过门后才交付。测试目录隔离开关仍关，原账129未销。
+
+01:54复核：测试41f664e4已waiting，data:a44500cf-aff2-4062-bf70-8ceb043d4d07:r1，
+20项读法需求；已请作者在knowlab /zh/tests?item=5814331f-b555-4de9-bee6-f01e4e84e909
+最新测试确认。不能代造授权或使用sig-am令牌。新模型调用有效，之前401已消除。
