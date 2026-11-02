@@ -1,0 +1,63 @@
+{
+  "project_id": "68b94c7b-42a3-4afe-bfdc-42a9ed1fc899",
+  "project_title": "财务分析与预测 · 作者自测",
+  "sessions": [
+    {
+      "session_id": "b003bb82-cbd4-4100-96d5-cae5a944f19d",
+      "before_title": "财务分析与预测 · 准专家 2.2 · 测试 2 · c1",
+      "before_archived": true,
+      "title": "财务分析与预测 · 准专家 2.2 · 作者自测 2 · c1",
+      "archive": true,
+      "task_id": "aae7700b-8fbb-4f42-adda-e547e1853bba",
+      "state": "FAILED"
+    },
+    {
+      "session_id": "fbec8d71-02c0-4da8-9ce4-07e5103a746f",
+      "before_title": "财务分析与预测 · 准专家 2.2 · 测试 2 · c2",
+      "before_archived": true,
+      "title": "财务分析与预测 · 准专家 2.2 · 作者自测 2 · c2",
+      "archive": true,
+      "task_id": "723acf99-f57e-4a33-b08f-751418eb3268",
+      "state": "FAILED"
+    },
+    {
+      "session_id": "3843a666-badf-4f25-882b-dc8cb5b2d7a0",
+      "before_title": "财务分析与预测 · 准专家 2.2 · 测试 2 · c3",
+      "before_archived": true,
+      "title": "财务分析与预测 · 准专家 2.2 · 作者自测 2 · c3",
+      "archive": true,
+      "task_id": "157cf5bd-7c66-4385-87ea-2d919dd0f833",
+      "state": "FAILED"
+    },
+    {
+      "session_id": "587f2b2e-9aa8-4594-9d13-9f1f0b8c6479",
+      "before_title": "财务分析与预测 · 准专家 2.3 · 测试 3 · c1",
+      "before_archived": true,
+      "title": "财务分析与预测 · 准专家 2.3 · 作者自测 3 · c1",
+      "archive": true,
+      "task_id": "a44500cf-aff2-4062-bf70-8ceb043d4d07",
+      "state": "CANCELLED"
+    },
+    {
+      "session_id": "78c0a000-2602-471b-8d71-1363d71a3402",
+      "before_title": "财务分析与预测 · 准专家 2.5 · 测试 4 · c1",
+      "before_archived": true,
+      "title": "财务分析与预测 · 准专家 2.5 · 作者自测 4 · c1",
+      "archive": true,
+      "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+      "state": "CANCELLED"
+    },
+    {
+      "session_id": "146194c6-32fd-484f-a732-0d9f9fc5c712",
+      "before_title": "财务分析与预测 · 准专家 2.5 · 测试 4 · c2",
+      "before_archived": false,
+      "title": "财务分析与预测 · 准专家 2.5 · 作者自测 4 · c2",
+      "archive": false,
+      "task_id": "15b7f4da-2ec4-43b0-8445-7d42c33a6e51",
+      "state": "WAITING"
+    }
+  ],
+  "method": "SessionService.rename/archive + ProjectService.rename",
+  "business_decisions": false,
+  "note": "首次整理前4条旧测试已归档；本次新增归档测试4 c1。第二次只补充作者自测身份。"
+}

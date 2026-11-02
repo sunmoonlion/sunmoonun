@@ -1,0 +1,593 @@
+[
+  [
+    {
+      "created_at": "2026-11-02 19:44:29.550940+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "CANCELLED",
+        "from": "WAITING",
+        "reason": {
+          "by": "user"
+        },
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+        "waiting_reason": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:44:26.916261+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "WAITING",
+        "from": "RUNNING",
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+        "waiting_reason": "RESOURCE"
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:44:26.916261+00:00",
+      "event_type": "attempt/state",
+      "payload": {
+        "to": "BUDGET_EXCEEDED",
+        "from": "RUNNING",
+        "consumed": "5.176852",
+        "attempt_id": "75fcd488-dbef-4ec7-b6e5-3bf3b0cb2386",
+        "failure_code": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:44:26.916261+00:00",
+      "event_type": "attempt/state",
+      "payload": {
+        "to": "RUNNING",
+        "from": "CREATED",
+        "consumed": "0",
+        "attempt_id": "75fcd488-dbef-4ec7-b6e5-3bf3b0cb2386",
+        "failure_code": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:29:25.485148+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "RUNNING",
+        "from": "QUEUED",
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca"
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:29:25.448198+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "QUEUED",
+        "from": "RUNNING",
+        "reason": {},
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+        "waiting_reason": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:29:25.448198+00:00",
+      "event_type": "step/accepted",
+      "payload": {
+        "checks": [
+          {
+            "pass": true,
+            "path": null,
+            "rule": "json_object",
+            "label": "交回的是一个 JSON",
+            "detail": "",
+            "message": ""
+          },
+          {
+            "pass": true,
+            "path": null,
+            "rule": "required_keys",
+            "label": "交回项都在：「periods」",
+            "detail": "",
+            "message": ""
+          },
+          {
+            "pass": true,
+            "path": null,
+            "rule": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "detail": "",
+            "message": ""
+          }
+        ],
+        "step_id": "inventory",
+        "artifact": {
+          "id": "30672b87-af12-4ee3-8f4a-c95c86221f51",
+          "kind": "step",
+          "name": "inventory",
+          "digest": "efaa43fa1bc498a615e17e612d62830d68e5e1d3664c5ccb204cf5d2b8f9adae",
+          "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "version": 1
+        },
+        "consumed": "1.174444"
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:29:25.448198+00:00",
+      "event_type": "attempt/state",
+      "payload": {
+        "to": "COMPLETED",
+        "from": "RUNNING",
+        "consumed": "1.174444",
+        "attempt_id": "2b917798-a966-4f90-8b9a-9ddf48928820",
+        "failure_code": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:29:25.448198+00:00",
+      "event_type": "attempt/state",
+      "payload": {
+        "to": "RUNNING",
+        "from": "CREATED",
+        "consumed": "0",
+        "attempt_id": "2b917798-a966-4f90-8b9a-9ddf48928820",
+        "failure_code": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:27:08.013280+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "RUNNING",
+        "from": "QUEUED",
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca"
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:27:07.973681+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "QUEUED",
+        "from": "RUNNING",
+        "reason": {},
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+        "waiting_reason": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:27:07.973681+00:00",
+      "event_type": "step/accepted",
+      "payload": {
+        "checks": [
+          {
+            "pass": true,
+            "path": null,
+            "rule": "json_object",
+            "label": "交回的是一个 JSON",
+            "detail": "",
+            "message": ""
+          },
+          {
+            "pass": true,
+            "path": null,
+            "rule": "required_keys",
+            "label": "交回项都在：「company」、「in_data」",
+            "detail": "",
+            "message": ""
+          },
+          {
+            "pass": true,
+            "path": null,
+            "rule": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "detail": "",
+            "message": ""
+          }
+        ],
+        "step_id": "scope",
+        "artifact": {
+          "id": "fdc4749b-7503-401e-b0b4-802dc0599fac",
+          "kind": "step",
+          "name": "scope",
+          "digest": "8ce71eb095c14978ef69304abeb98b945a62c70f06abb162ae5572d3fed66786",
+          "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "version": 1
+        },
+        "consumed": "0.495956"
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:27:07.973681+00:00",
+      "event_type": "attempt/state",
+      "payload": {
+        "to": "COMPLETED",
+        "from": "RUNNING",
+        "consumed": "0.495956",
+        "attempt_id": "515c3598-9563-48f5-a943-88953116c046",
+        "failure_code": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:27:07.973681+00:00",
+      "event_type": "attempt/state",
+      "payload": {
+        "to": "RUNNING",
+        "from": "CREATED",
+        "consumed": "0",
+        "attempt_id": "515c3598-9563-48f5-a943-88953116c046",
+        "failure_code": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:26:33.038563+00:00",
+      "event_type": "task/state",
+      "payload": {
+        "to": "RUNNING",
+        "from": "QUEUED",
+        "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca"
+      }
+    }
+  ],
+  [
+    {
+      "created_at": "2026-11-02 19:43:50.505010+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_19_2dc81e97",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'L' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2024q1_e",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "L": "fact:8257cbab-ffa9-4c84-9c7c-3e5ed60a57fb",
+            "TLE": "fact:9cf7642b-2061-45d3-8dd5-ff2e94df1cfe"
+          },
+          "expression": "TLE - L"
+        },
+        "appContext": null,
+        "durationMs": 95,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:50.387889+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_18_6f053613",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'A' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2024q1_a",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "A": "fact:a937cfba-8cbb-4a5e-9988-04ffb4cfd714",
+            "TLE": "fact:9cf7642b-2061-45d3-8dd5-ff2e94df1cfe"
+          },
+          "expression": "A - TLE"
+        },
+        "appContext": null,
+        "durationMs": 61,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:50.299215+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_17_3b4fd8fe",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'L' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2023q1_e",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "L": "fact:ad9b2a0e-d06a-4b3a-9ddc-ea6f075a53f8",
+            "TLE": "fact:e3295c93-c989-4795-9fcc-194cbe2b4611"
+          },
+          "expression": "TLE - L"
+        },
+        "appContext": null,
+        "durationMs": 84,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:50.182576+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_16_b39a0897",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'A' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2023q1_a",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "A": "fact:e3ce7002-50b9-460b-97f6-48ecf167241c",
+            "TLE": "fact:e3295c93-c989-4795-9fcc-194cbe2b4611"
+          },
+          "expression": "A - TLE"
+        },
+        "appContext": null,
+        "durationMs": 72,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:50.078020+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_15_a9e7e245",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'A' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2026q3",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "A": "fact:f29a7a91-74a4-44ea-8c6d-d9b9460e398c",
+            "E": "fact:99adaf67-efa8-4740-a1e2-ff612e178c9b",
+            "L": "fact:8f5ea675-8d3b-4e14-8db4-15ca6642f24e"
+          },
+          "expression": "A - (L + E)"
+        },
+        "appContext": null,
+        "durationMs": 205,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:49.849839+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_14_9902f0ae",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'A' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2026h1",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "A": "fact:3f8d020b-a238-43c5-83a6-ea34e0d6ca30",
+            "E": "fact:182eb1cf-9a04-4dbb-a213-3ab8feebe6ac",
+            "L": "fact:4135d6e0-a081-434f-a4f5-f0c10812b782"
+          },
+          "expression": "A - (L + E)"
+        },
+        "appContext": null,
+        "durationMs": 63,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:49.763162+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_13_024bc4c4",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'A' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2025",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "A": "fact:5b580ded-ec35-41c5-8892-4d98eb98a695",
+            "E": "fact:f69e8569-a848-4cf6-940a-b44735a2b2a4",
+            "L": "fact:99645db8-4dbe-4fba-b5b4-1531611f63dd"
+          },
+          "expression": "A - (L + E)"
+        },
+        "appContext": null,
+        "durationMs": 66,
+        "readOnlyHint": null
+      }
+    },
+    {
+      "created_at": "2026-11-02 19:43:49.673788+00:00",
+      "item": {
+        "id": "mcp__sunmoon_workbench--_--compute_12_424fd565",
+        "tool": "compute",
+        "type": "mcpToolCall",
+        "error": null,
+        "result": {
+          "_meta": null,
+          "content": [
+            {
+              "text": "input name 'A' must be lower-case letters, digits or _",
+              "type": "text"
+            }
+          ],
+          "structuredContent": null
+        },
+        "server": "sunmoon_workbench",
+        "status": "failed",
+        "pluginId": null,
+        "arguments": {
+          "name": "c1_2025q3",
+          "task": "884a65cc-94d7-426c-b71d-76f50855fcca",
+          "round": 2,
+          "inputs": {
+            "A": "fact:fc62b1e2-ec66-4d4c-ac33-3535f2a77344",
+            "E": "fact:4fff29df-edb1-4802-ac76-a722602fe22a",
+            "L": "fact:dc320f6a-f193-4126-8947-a395bd13a067"
+          },
+          "expression": "A - (L + E)"
+        },
+        "appContext": null,
+        "durationMs": 200,
+        "readOnlyHint": null
+      }
+    }
+  ],
+  [
+    {
+      "run_id": "knowlab-test-bdc4eb40-75a5-470f-bcac-3f03ad116df1",
+      "case_id": "c1",
+      "task_id": "884a65cc-94d7-426c-b71d-76f50855fcca",
+      "result": {
+        "note": "stopped for a decision in the workbench (resource)；本次测试没有隔离：电脑上的本地代理还不支持建、删目录，在共用的工作区里跑",
+        "steps": [
+          {
+            "details": [],
+            "step_id": "scope",
+            "accepted": true,
+            "failed_checks": []
+          },
+          {
+            "details": [],
+            "step_id": "inventory",
+            "accepted": true,
+            "failed_checks": []
+          },
+          {
+            "details": [],
+            "step_id": "reconcile",
+            "accepted": false,
+            "failed_checks": []
+          }
+        ],
+        "status": "failed",
+        "case_id": "c1",
+        "expectations": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    {
+      "run_id": "knowlab-test-bdc4eb40-75a5-470f-bcac-3f03ad116df1",
+      "case_id": "c2",
+      "task_id": "15b7f4da-2ec4-43b0-8445-7d42c33a6e51",
+      "result": null
+    },
+    {
+      "run_id": "knowlab-test-bdc4eb40-75a5-470f-bcac-3f03ad116df1",
+      "case_id": "c3",
+      "task_id": null,
+      "result": null
+    }
+  ]
+]
