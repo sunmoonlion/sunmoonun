@@ -1,0 +1,18 @@
+{
+  "knowlab-app": {
+    "parent": "b29dea218508d95812d6a7dec825b4a6c31ebe17",
+    "gitlinks": {
+      "knowlab-admin-frontend": "2679f874c08a172b0372795b1da28dc3cc95182d",
+      "knowlab-backend": "c5d9f4e23612252de0303ee4b1a26c4f3c840d76",
+      "knowlab-web-frontend": "67b618302e46b0b5761b149280883ccf7c7368c4"
+    }
+  },
+  "knowbench-app": {
+    "parent": "9364866e52c93679af80273ba1733ace6c9c060d",
+    "gitlinks": {
+      "knowbench-admin-frontend": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+      "knowbench-backend": "ccc7eaa68730f7a82354f0577e9a0e8d1be51a82",
+      "knowbench-web-frontend": "7d771c7cbaade105cbad3491fec04725a155abb4"
+    }
+  }
+}

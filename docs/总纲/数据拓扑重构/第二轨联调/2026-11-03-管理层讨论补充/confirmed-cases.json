@@ -1,0 +1,510 @@
+[
+  {
+    "case_id": "c1",
+    "input": {
+      "question": "分析贵州茅台2021～2024年的营业收入、归母净利润及毛利率走势，计算2021→2024三年营收CAGR；以2026-11-03为预测时点，按既定方法预测2026Q4、2027Q1的营收和归母净利润区间，先做最近四个已披露单季的回测，最后交付Markdown报告。"
+    },
+    "expectations": [
+      {
+        "artifact": "indicators",
+        "path": "annual_metrics",
+        "row": {
+          "where": {
+            "year": "2021"
+          },
+          "field": "year"
+        },
+        "kind": "equals",
+        "value": "2021"
+      },
+      {
+        "artifact": "indicators",
+        "path": "annual_metrics",
+        "row": {
+          "where": {
+            "year": "2022"
+          },
+          "field": "year"
+        },
+        "kind": "equals",
+        "value": "2022"
+      },
+      {
+        "artifact": "indicators",
+        "path": "annual_metrics",
+        "row": {
+          "where": {
+            "year": "2023"
+          },
+          "field": "year"
+        },
+        "kind": "equals",
+        "value": "2023"
+      },
+      {
+        "artifact": "indicators",
+        "path": "annual_metrics",
+        "row": {
+          "where": {
+            "year": "2024"
+          },
+          "field": "year"
+        },
+        "kind": "equals",
+        "value": "2024"
+      },
+      {
+        "artifact": "indicators",
+        "path": "annual_metrics",
+        "row": {
+          "where": {
+            "year": "2024"
+          },
+          "field": "revenue"
+        },
+        "kind": "approx",
+        "value": 170899152276.34,
+        "tolerance": 0.001
+      },
+      {
+        "artifact": "indicators",
+        "path": "calculations",
+        "row": {
+          "where": {
+            "period": "2021-2024",
+            "metric": "revenue_cagr"
+          },
+          "field": "metric"
+        },
+        "kind": "equals",
+        "value": "revenue_cagr"
+      },
+      {
+        "artifact": "forecast",
+        "path": "horizon",
+        "kind": "equals",
+        "value": 2
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2026Q4",
+            "metric": "revenue",
+            "part": "point"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2026Q4",
+            "metric": "revenue",
+            "part": "lower"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2026Q4",
+            "metric": "revenue",
+            "part": "upper"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2026Q4",
+            "metric": "parent_net_profit",
+            "part": "point"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2026Q4",
+            "metric": "parent_net_profit",
+            "part": "lower"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2026Q4",
+            "metric": "parent_net_profit",
+            "part": "upper"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2027Q1",
+            "metric": "revenue",
+            "part": "point"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2027Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2027Q1",
+            "metric": "revenue",
+            "part": "lower"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2027Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2027Q1",
+            "metric": "revenue",
+            "part": "upper"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2027Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2027Q1",
+            "metric": "parent_net_profit",
+            "part": "point"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2027Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2027Q1",
+            "metric": "parent_net_profit",
+            "part": "lower"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2027Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "forecast_rows",
+        "row": {
+          "where": {
+            "period": "2027Q1",
+            "metric": "parent_net_profit",
+            "part": "upper"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2027Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2025Q4",
+            "metric": "revenue",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2025Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2025Q4",
+            "metric": "revenue",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2025Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2025Q4",
+            "metric": "parent_net_profit",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2025Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2025Q4",
+            "metric": "parent_net_profit",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2025Q4"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q1",
+            "metric": "revenue",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q1",
+            "metric": "revenue",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q1",
+            "metric": "parent_net_profit",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q1",
+            "metric": "parent_net_profit",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q1"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q2",
+            "metric": "revenue",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q2"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q2",
+            "metric": "revenue",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q2"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q2",
+            "metric": "parent_net_profit",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q2"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q2",
+            "metric": "parent_net_profit",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q2"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q3",
+            "metric": "revenue",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q3"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q3",
+            "metric": "revenue",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q3"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q3",
+            "metric": "parent_net_profit",
+            "part": "predicted"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q3"
+      },
+      {
+        "artifact": "forecast",
+        "path": "backtest_rows",
+        "row": {
+          "where": {
+            "period": "2026Q3",
+            "metric": "parent_net_profit",
+            "part": "actual"
+          },
+          "field": "period"
+        },
+        "kind": "equals",
+        "value": "2026Q3"
+      }
+    ]
+  },
+  {
+    "case_id": "c2",
+    "input": {
+      "question": "贵州茅台近三年的人均创收是多少？请依据本次实际授权的数据回答；缺员工人数或口径不明确时如实说明并按方法处理，不编数。"
+    },
+    "expectations": [
+      {
+        "artifact": "scope",
+        "path": "company",
+        "kind": "contains",
+        "value": "贵州茅台"
+      }
+    ]
+  },
+  {
+    "case_id": "c3",
+    "input": {
+      "question": "五粮液近三年的营业收入走势如何？请依据本次实际授权的数据判断是否可分析，没有可用授权数据时说明并按既定的数据确认流程处理。"
+    },
+    "expectations": [
+      {
+        "artifact": "scope",
+        "path": "company",
+        "kind": "contains",
+        "value": "五粮液"
+      }
+    ]
+  }
+]
