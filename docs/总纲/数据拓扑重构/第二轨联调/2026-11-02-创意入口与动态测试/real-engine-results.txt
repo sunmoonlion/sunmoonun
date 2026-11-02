@@ -1,0 +1,4 @@
+{"run": "live-author-false", "task": "eac7f61d-5aa2-4ee2-a5d0-7d5571666a0f", "plan_version": 1, "steps": ["__method_plan__", "__method_plan__", "inspect_1", "report_1"], "status": "passed", "budget": {"used": "0.294968", "limit": "10.00", "currency": "CNY", "reserved": "0.000000"}}
+.{"run": "live-author-true", "task": "d7194c19-897e-4973-99a0-f00c01ba1594", "plan_version": 1, "steps": ["__method_plan__", "inspect1", "review1", "report1"], "status": "passed", "budget": {"used": "0.179824", "limit": "10.00", "currency": "CNY", "reserved": "0.000000"}}
+.
+2 passed in 166.12s (0:02:46)

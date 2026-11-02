@@ -1,0 +1,88 @@
+"""Opt-in local DB probe: real Kimi turns, synthetic documents and connection bootstrap.
+
+The bridge is probe-only, not a production runner. It does not exercise relay or
+knowbase MCP. No prerecorded assistant replies are used.
+"""
+import asyncio
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+from test_dynamic_incubation_db import admit, dynamic_request
+from test_knowbot_test_runs_db import (KnowbotTestConductor, ScriptedAppServer, close,
+    one_task, outputs, runner_for, setup_test_computer, status)
+from test_workbench_ledger_db import db as db
+from app.bootstrap.workbench import workbench_stores
+from app.domain.workbench.test_runs import RunRequest
+from app.infrastructure.workbench.repository import WorkbenchRepository
+
+TEMPLATE=Path('/tmp/luna-dynamic-live-template.py').read_text().replace(
+    'Synthetic planning acceptance test. Follow the task plan JSON contract. Do not use tools or execute methods.',
+    'Synthetic workflow acceptance test. Follow the requested JSON contract. The question includes the entire synthetic document. Do not use external tools or edit files.')
+EVIDENCE=Path('/tmp/luna-dynamic-live-engine.jsonl')
+
+class LiveBridge(ScriptedAppServer):
+    def __init__(self):
+        super().__init__([])
+        self.usage={}
+        self.processes=[]
+    async def handle(self, ws, msg):
+        if msg['method']!='turn/start':
+            return await super().handle(ws,msg)
+        p=msg['params']; tid=p['threadId']; prompt=p['input'][0]['text']
+        self.turn_inputs.append(prompt)
+        script=TEMPLATE.replace('__CASES__',repr([{'question':'isolated-engine','prompt':prompt}]))
+        proc=await asyncio.create_subprocess_exec('kubectl','--kubeconfig=/home/zymun/.kube/sunmoon-kind.config','-n','sandbox-platform-dev','exec','-i','sandbox-u-0c520909ee72-6984bcb89b-x26zg','--','python3','-',stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+        self.processes.append(proc)
+        proc.stdin.write(script.encode());await proc.stdin.drain();proc.stdin.close()
+        turn=None
+        async for line in proc.stdout:
+            event=json.loads(line)
+            if event['event']=='started':
+                turn=event['turn']
+                await ws.send(json.dumps({'id':msg['id'],'result':{'turn':{'id':turn,'threadId':tid}}}))
+            elif event['event']=='completed':
+                with EVIDENCE.open('a') as file:
+                    file.write(json.dumps({'prompt_sha256':hashlib.sha256(prompt.encode()).hexdigest(),'turn':turn,**event},ensure_ascii=False)+'\n')
+                if event['status']=='completed':
+                    await ws.send(json.dumps({'method':'item/completed','params':{'threadId':tid,'turnId':turn,'item':{'type':'agentMessage','id':'reply-'+turn,'text':event['text']}}}))
+                reported=event['usage']
+                if reported:
+                    total=self.usage.setdefault(tid,{})
+                    for key,value in reported['last'].items():total[key]=total.get(key,0)+value
+                    await ws.send(json.dumps({'method':'thread/tokenUsage/updated','params':{'threadId':tid,'turnId':turn,'tokenUsage':{'total':total,'last':reported['last']}}}))
+                await ws.send(json.dumps({'method':'turn/completed','params':{'threadId':tid,'turn':{'id':turn,'status':event['status']}}}))
+        await proc.wait()
+        assert proc.returncode==0, (await proc.stderr.read()).decode()[:500]
+    async def close(self):
+        for proc in self.processes:
+            if proc.returncode is None:
+                proc.terminate()
+                await proc.wait()
+        await super().close()
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('review',[False,True])
+async def test_real_model_author_intake_runner_results(db,review):
+    bridge=LiveBridge(); await bridge.start(); runner=runner_for(db)
+    try:
+        await setup_test_computer(db,bridge)
+        raw=dynamic_request('live-author-'+str(review).lower()).model_dump(mode='json')
+        raw['cases'][0]['input']['question']='核对以下完整合成文档并交回结果。'+('必须执行复核方法。' if review else '无需额外复核。')+'文档内容：{"rows":[{"id":"one"}]}。文档内容已全部给出，无须读文件。'
+        req=RunRequest.model_validate(raw)
+        await admit(db,req)
+        conductor=KnowbotTestConductor(workbench_stores(db)); await conductor.tick()
+        await runner.run_once(); await runner.wait_drivers(timeout=300)
+        await conductor.tick(); await conductor.tick()
+        done=await status(db,req.run_id)
+        assert done['status']=='passed',done
+        row=await one_task(db)
+        result=await outputs(db,req.run_id)
+        assert result['final_outputs'][0]['artifact']=={'rows':[{'id':'one'}]}
+        async with db() as session:
+            attempts=await WorkbenchRepository(session).list_attempts(str(row['id']))
+        assert len(done['cases'][0]['steps'])==(3 if review else 2)
+        print(json.dumps({'run':req.run_id,'task':str(row['id']),'plan_version':row['accepted_plan_version'],'steps':[a['step_id'] for a in attempts],'status':done['status'],'budget':row['budget']},default=str),flush=True)
+    finally:
+        await close(runner);await bridge.close()

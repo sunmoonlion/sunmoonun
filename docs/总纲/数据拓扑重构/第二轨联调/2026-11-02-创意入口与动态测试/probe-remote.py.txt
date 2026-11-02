@@ -1,0 +1,68 @@
+import asyncio
+import json
+import os
+from pathlib import Path
+import time
+import tomllib
+from websockets.asyncio.client import connect
+
+CASES = __CASES__
+
+async def main():
+    token = Path('/secrets/app-server/token').read_text().strip()
+    config = tomllib.loads((Path(os.environ.get('CODEX_HOME', '/data/codex')) / 'config.toml').read_text())
+    overrides = {f'mcp_servers.{name}.enabled': False for name in config.get('mcp_servers', {})}
+    overrides.update({'web_search': 'disabled', 'features.shell_tool': False, 'features.multi_agent': False, 'features.goals': False})
+    async with connect('ws://127.0.0.1:47800', additional_headers={'Authorization': 'Bearer ' + token}, max_size=8_000_000) as ws:
+        sequence = 0
+        pending_events = []
+        async def request(method, params):
+            nonlocal sequence
+            sequence += 1
+            await ws.send(json.dumps({'id': sequence, 'method': method, 'params': params}))
+            while True:
+                msg = json.loads(await asyncio.wait_for(ws.recv(), 30))
+                if msg.get('id') == sequence and 'method' not in msg:
+                    if 'error' in msg:
+                        raise RuntimeError(str(msg['error'])[:500])
+                    return msg.get('result') or {}
+                pending_events.append(msg)
+        await request('initialize', {'clientInfo': {'name': 'sunmoon-dynamic-plan-acceptance', 'version': '1'}, 'capabilities': {'experimentalApi': True}})
+        await ws.send(json.dumps({'method':'initialized'}))
+        for case in CASES:
+            started = await request('thread/start', {'ephemeral': True, 'cwd': '/tmp', 'approvalPolicy': 'never', 'sandbox': 'read-only', 'environments': [], 'baseInstructions': 'Synthetic planning acceptance test. Follow the task plan JSON contract. Do not use tools or execute methods.', 'config': overrides})
+            tid = started['thread']['id']
+            result = await request('turn/start', {'threadId':tid, 'input':[{'type':'text','text':case['prompt']}]})
+            turn = result['turn']['id']
+            print(json.dumps({'event':'started','question':case['question'],'thread':tid,'turn':turn,'model':started.get('model')}),flush=True)
+            deadline = time.monotonic() + 180
+            text = ''
+            usage = None
+            try:
+                while True:
+                    msg = pending_events.pop(0) if pending_events else json.loads(await asyncio.wait_for(ws.recv(),max(.01,deadline-time.monotonic())))
+                    method, params = msg.get('method'), msg.get('params') or {}
+                    if params.get('threadId') not in (None,tid):
+                        continue
+                    if method == 'item/agentMessage/delta':
+                        text += params.get('delta','')
+                    elif method == 'item/completed' and params.get('item',{}).get('type') == 'agentMessage':
+                        text = params['item'].get('text',text)
+                    elif method == 'thread/tokenUsage/updated':
+                        usage = params.get('tokenUsage')
+                    elif method == 'error':
+                        print(json.dumps({'event':'error','detail':(params.get('error') or {}).get('message','')[:500]}),flush=True)
+                    elif method == 'turn/completed':
+                        status = params['turn']['status']
+                        print(json.dumps({'event':'completed','question':case['question'],'status':status,'text':text,'usage':usage},ensure_ascii=False),flush=True)
+                        if status != 'completed':
+                            return
+                        break
+                    elif 'id' in msg and method:
+                        await ws.send(json.dumps({'id':msg['id'],'error':{'code':-32601,'message':'This planning test permits no tools or approvals'}}))
+            except TimeoutError:
+                await request('turn/interrupt',{'threadId':tid,'turnId':turn})
+                print(json.dumps({'event':'timeout','thread':tid}),flush=True)
+                return
+
+asyncio.run(main())

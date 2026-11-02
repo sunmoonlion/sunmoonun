@@ -1,0 +1,55 @@
+
+> knowlab-web-frontend@2.0.0 test /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+> vitest run
+
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/component/incubation-mode.test.tsx (3 tests) 212ms
+ ✓ tests/component/self-test.test.tsx (9 tests) 527ms
+ ✓ tests/component/dynamic-test-results.test.tsx (1 test) 347ms
+   ✓ renders every final result and file while marking invalidated attempts as history  346ms
+ ✓ tests/component/author-method-freeze.test.tsx (6 tests) 747ms
+ ✓ tests/component/ask-in-knowbench.test.tsx (3 tests) 640ms
+   ✓ 去 knowbench 请它 > 从 knowbench 找专家来的：带这一版和那一轮找专家的编号，新标签页打开  406ms
+ ✓ tests/component/lab-columns.test.tsx (6 tests) 727ms
+ ✓ tests/component/knowbots-columns.test.tsx (14 tests) 1365ms
+   ✓ 审核 > 孵化的缺口也在待办里：看得到提议，可以答「按提议」，答过的记「按提议」  536ms
+ ✓ tests/component/web-shell.test.tsx (3 tests) 364ms
+ ✓ tests/component/cross-app-link.test.tsx (7 tests) 187ms
+ ✓ tests/component/common-kernel.test.tsx (3 tests) 147ms
+ ✓ tests/component/logout-button.test.tsx (4 tests) 373ms
+ ✓ tests/component/public-home.test.tsx (1 test) 100ms
+ ✓ tests/unit/browser-session.test.ts (7 tests) 25ms
+ ✓ tests/component/knowbot-requests.test.tsx (14 tests) 2260ms
+   ✓ 申请 > 列出我的申请，按大类分；打开的那一个写着最新一版受理没有，右边是各版本  354ms
+   ✓ 申请一个创意 > 从真实方法库选版随创意提交，浏览和选择不会提前提交表单  563ms
+ ✓ tests/unit/env.test.ts (14 tests) 34ms
+ ✓ tests/component/signed-in-as.test.tsx (2 tests) 32ms
+ ✓ tests/unit/cross-app-links.test.ts (10 tests) 45ms
+ ✓ tests/component/workdraft-ai.test.tsx (13 tests) 2764ms
+   ✓ 发起一轮 > AI 起草：费用上限默认 20，电脑默认上次那台与目录  504ms
+   ✓ 缺口与导入 skill > 待你定的：列这一轮的缺口，链到审核栏去答；答过了可以让 AI 按答复改  322ms
+ ✓ tests/unit/interaction-client.test.ts (5 tests) 22ms
+ ✓ tests/unit/common-api-client.test.ts (3 tests) 26ms
+ ✓ tests/unit/run-projection.test.ts (4 tests) 6ms
+ ✓ tests/unit/i18n-time-zone.test.ts (1 test) 20ms
+ ✓ tests/component/author-method-picker.test.tsx (11 tests) 3042ms
+   ✓ author method contracts and exact binding > assembles a shortlisted idea version through preview and the real binding endpoint  1739ms
+   ✓ author method contracts and exact binding > commits the server workdraft after binding and locks the referenced method body  865ms
+ ✓ tests/component/workdraft.test.tsx (19 tests) 3150ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 改一格过一会儿自动存，带读到的 revision；存了标「作者写的」，下一次带新的 revision  434ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 步骤可以加、上移、删（删要再点一次确认），整列存  514ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 一步里的格子：规则、交回项、用上哪几步，改哪格存哪格  402ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 怎样算对：选验收模板，参数表单跟着模板换；换模板时「哪一项」留着  487ms
+ ✓ tests/unit/common-query.test.ts (3 tests) 4ms
+ ✓ tests/unit/tracked-env-contract.test.ts (2 tests) 4ms
+ ✓ tests/unit/next-path.test.ts (3 tests) 4ms
+ ✓ tests/unit/content-security-policy.test.ts (2 tests) 3ms
+ ↓ tests/unit/interaction-consumer-vectors.test.ts (2 tests | 2 skipped)
+ ✓ tests/unit/preview-server.test.ts (15 tests) 252ms
+
+ Test Files  29 passed | 1 skipped (30)
+      Tests  188 passed | 2 skipped (190)
+   Start at  20:52:00
+   Duration  5.85s (transform 2.83s, setup 5.32s, collect 10.89s, tests 17.43s, environment 14.47s, prepare 2.94s)

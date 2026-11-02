@@ -1,0 +1,14 @@
+{
+  "README.md": "8e2bbe895599d8622e08a14d5bbb06d03f62ffde35e6c81f70b5fd5b8f5759b9",
+  "frontend-tests.txt": "79a0e49b6bf1d880f65882b248e2aca81c53f9a98b2e16ce2081965b1b6efc51",
+  "intake-tests.txt": "9ac233398a650ed289dbe359538c7da1ef72a4a576841c81be384245845bd711",
+  "knowlab-tests.txt": "c8fcdd383365c5d1da07632c9ad9cc2f18dab50c10a760ea4b0fbc14d85d6c5a",
+  "planning-input.json": "a804fde412078e6d94c453c09b722e753d0cadcc0a4af35da1a63cf9c3188250",
+  "planning-probe.py.txt": "b42093fb40170576b75d43550a6bb91737545eee523f7f19c5b261aec7d0c52e",
+  "probe-isolated-engine.py.txt": "3990eee1aed81d0e159b17c93600779e23297e7a7b5ae3df6a738895d9eaf11a",
+  "probe-remote.py.txt": "29d4d0e30a78525fec18e796d737b90eb2cfdfce05d1330b628839a9fe2b430f",
+  "real-engine-results.txt": "26dbc65b7dbf29d08842b97e66e5d298fce61cb6be8e87a1d7b94bf8377f9fcf",
+  "real-engine-turns.jsonl": "496ff319a69b2a15b065df2d2372d3ab62e4f8d3de83b093bfb3e96a88fac495",
+  "real-planning.jsonl": "4aaa7de33a5c7f89daf26e8c6c7c02b2534a7372802b2c1b5af90ef85202e672",
+  "runtime-regression.txt": "e05e7e43c4047c9ddc9633792c4d5a3d263b4d102a0c554285ea9d0716969bef"
+}

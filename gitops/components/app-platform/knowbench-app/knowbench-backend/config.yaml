@@ -77,6 +77,9 @@ knowbench_backend_deployment:
       - {name: knowbot-tester, account: knowbot-tester, claim: knowbench-test-computer}
   domain_env:
     WORKBENCH_ENABLED: 'true'
+    # 第二轨作者本人测试；subject 由旧任务所属 auth_user 只读核实，不是显示名。
+    # 仅新动态孵化测试准入；不开放商城 v3、不替代数据确认。回退改为 []。
+    KNOWBOT_DYNAMIC_TEST_OWNERS: '["721f2c10-db3f-4ca4-b6bf-093bb4420ea7"]'
     WORKBENCH_REDIS_KEY_PREFIX: 'knowbench:workbench'
     WORKBENCH_ENVIRONMENT_KEY: user-pc
     WORKBENCH_POLL_SECONDS: '1.0'
