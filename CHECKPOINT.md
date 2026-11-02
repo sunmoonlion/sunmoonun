@@ -298,3 +298,12 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 迁移 20261102_0035，仅加可空正整数 accepted_plan_version；旧任务无需回填，有接受记录时禁止删除指针，回退应用保留扩展 schema。没有生产迁移、Jenkins、sources 或 qwen 发布分支修改。
 - 独立 PostgreSQL 全量 1289 passed / 92 skipped / 2 warnings（/tmp/luna-method-plan-full.txt）；启动后追加四个恢复故障案例与注释，三个受影响文件最终 54 passed（/tmp/luna-method-plan-tests-final.txt）。最终 ruff 与 app 目录项目配置下 pyright 通过。详细命令、首次测试 fixture 错误及错误 cwd 的静态检查记录均在后端 CHECKPOINT.md，不隐藏失败或把跳过计为通过。
 - 交接文件 docs/总纲/发版/2026-11-02-WP10任务计划与方法版本开发交接.md 已按所有者指定另存到 qwen 对应目录（新增文件，不提交/重置 qwen 的工作）。它是开发交接，不是当前采集修复发布候选。下一步单元 1a 补作者方法主档/版本、专家引用与三方契约，然后接有效计划视图、advisor/runner/权限/返工/页面及最终验收；动态入口仍拒绝 v3。Wind 仍 3/5、W0 未决；旧巨潮保底专家不改。
+
+
+## 2026-11-02 WP-10 单元 1a 第一段：方法主档与引用预览
+
+- knowlab 后端 422116eccd84a1d1ade34b1711378fc3c6a01d19、父仓 ee64da50d5eea767c907afbb851369456e59856d 均已推 GitHub feat/dynamic-methods。方法主档/不可变版本、作者出处核验、命名输入槽、owner 隔离、幂等及预览检查已实现；provider schema author-method/v1 在父仓，尚未由 knowmart/knowbench 消费。
+- 两个专家工作稿可预览同一旧版本；选择新版本的预览不改另一工作稿，也不改定义。测试是预览与存储层，不是已发布专家或运行 Task 的隔离验收。仍缺保存专家精确引用、作者选版/升级入口、编译/快照和三方契约/消费者锁；不能复制 preview.step 丢掉引用凑通。
+- 迁移 20261102_0025（父版 20261101_0024）：knowbot_method / knowbot_method_version、版本不可改/删触发器；非空方法历史阻止 downgrade。无旧数据回填，无生产迁移。回退应用须保留扩展 schema。
+- 全量 760 passed / 5 skipped（117.99 秒，/tmp/luna-method-library-full.txt）；之后只补 3 个故障/并发测试，最终四文件 32 passed（/tmp/luna-method-library-tests-final.txt）。全仓 ruff/pyright 已过；原 11 个 lint 与 1 个类型错误均清理，类目取值与 DeliveryReviewIn schema 与基线逐字一致（/tmp/luna-method-library-category-schema.txt）。此前交接的 knowlab 静态债务已清，不能据此替未改 knowmart 清账。
+- 新交接 docs/总纲/发版/2026-11-02-WP10方法主档开发交接.md 按所有者要求另存 qwen 对应目录；仅新增文件，不替 qwen 提交或改发布分支。Jenkins、sources、线上保底任务均未改，Wind 仍 3/5。下一段继续精确专家引用与消费者接入，而不是提前开放动态执行。
