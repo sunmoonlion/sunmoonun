@@ -262,3 +262,14 @@
 - **词表第 2 版**（2026-10-27，[0049](0049-document-types.md) 第四节，knowfeed-backend `93d887a`）：描述键带版本形态、事项、行业，类型可写大类；巨潮插件除定期报告外，临时公告、招股书、上市公告书、投资者关系活动记录、监管函件按披露时间窗逐个查相关分类、每条公告一份资料，按巨潮分类给缺省事项、按标题认细类与补事项；作业把窗里的逐份交付，回执列出每一份；只有全文年报抽表。互动问答、业务规则、政策法规与统计数据的渠道未接。
 - **证券名录**（2026-10-28，decisions ⑭「查主体」，knowfeed-backend `5b71559`）：巨潮的证券列表（沪深京 A 股：代码、简称、拼音首字母）进 `supply_security`（迁移 0018），整份换，查的时候名录空着或超过一天就经发件箱排一次刷新（worker 去取）；内部接口 `GET /internal/v1/supply/securities?q=`，同 `knowfeed:supply-demand` 服务身份，给 knowbench 第 0 步的 `find_subject`。机构名录等 knowbase 管理端登记编号后再接。
 - 平台要配：knowfeed 调 knowbase 的 `KNOWBASE_SUPPLY_URL` 与 scope `knowbase:user-data-supply`；knowbench、knowlab 调 knowfeed 的 scope `knowfeed:supply-demand` 与 `SUPPLY_SERVICE_APPS_JSON`。
+
+
+### Wind 通用查询渠道（2026-11-02 第二轨增量）
+
+按所有者服务端接入授权，增加 `wind-mcp` 目录适配器，复用既有登记、试采、审核、确认、作业、原件留存、私有交付与读法链。查询域不限股票财务，按官方 skill 审计清单覆盖七域；执行前读取工具当前 inputSchema 并验证参数，只连接固定 Wind HTTPS 主机，不接受模型指定 URL、重定向、任意工具或外部 schema 引用。
+
+渠道配置保存账号所有者；凭据来自 `WIND_API_KEY` 秘密配置，`WIND_OWNER_SUBJECT` 与登记一致才装配。当前一个账号只登记一个渠道，私有 collected/self，串行执行；更新及审核不得扩大为公开披露或跨用户分发。普通作业/发现只认已审渠道，试采由原管理端 worker 通道显式允许待审渠道。发现接口沿用应用间 supply-demand 身份，owner 由工作台实际任务身份推导。
+
+`daily_cap=0` 表示不设每日调用总数上限，仍执行每分钟/全局限频和并发限制。402 或业务额度耗尽、认证错误持久暂停渠道；空响应明确失败；未知 HTTP、超时和协议错误不盲目重放。请求意图记在现有作业载荷，已取得响应复用现有原件存储完成下游重试；有意图而无留存响应的恢复照实标记结果未知，避免工作进程重启后重复计费。平台需求单配额独立于供应商调用额度。
+
+查询以原参数及请求标识为键，响应留取数时刻、原始结果和限制。年报摘要/正文/链接可以交作查询证据，但不标为发行人 PDF、页码或标准财务事实；真正原件继续按 `annual_report` / `pages` 的巨潮渠道请求。无新增业务数据库表，无生产渠道登记或自动启用；发布及账号配置按 qwen/Jenkins 交接执行。

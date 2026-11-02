@@ -96,3 +96,10 @@
 - M2（knowbench）：做完，knowbench-backend `1c488d2`、knowbench-web-frontend `42c0f6b`（应用仓 `af99634`）。工具层中继（见第二节）；`request_data` 列进用户的确认清单、步骤边界停下，页面确认（追加签授权、追加钉住）或不要；`compute` 与数值验收认事实编号 `fact:` / `raw:`（knowbase 加了 `read_facts`，knowbase-backend `0ef2eef`）与 `{material_id, page, text}` 引文；会话发消息时登记、首读由 knowbase 签小授权；旧的「对话里逐份选云端知识库」退役。续签只认确认时就有的需求项，运行中新加的要本人另行确认（knowbase-backend `914efac`）。
 - 没做：用户 link 读数据（link 0.5.4，0043 块 10）；`request_data` 只能要这件委托主体的数据（解析清单的主体在请专家时定，要别家公司的得新开一张清单）；M3（`search_documents`）未开始。
 - **要记着做**（所有者 10-27：「这个要记得做啊，保证到时可以按维度过滤检索」）：`search_evidence` 先圈后找：「圈」已接按维度过滤（knowbase 词表第 2 版，在授权范围里按描述的维度筛，回 `materials_searched`）；**「找」还没换成 RAGFlow（等块 9），换的时候把同样的维度条件作 RAGFlow 元数据条件传下去**，保证按维度过滤检索。
+
+
+### 供应商能力发现与查询提案（2026-11-02）
+
+`discover_source_tools(task,service?)` 从任务身份取得所有者，先列可用服务域，指定域再读其工具 schema；不调用收费数据工具。模型只提出 `request_data.source_query`，按既有补采面板展示原参数、可编辑并由本人确认；模型传入的请求标识忽略，解析服务为新提案生成。它可请求财务、年报、公告、行情等已登记工具能力，不把某公司/字段组合写进专家代码。
+
+数据准备阶段可发现并提案；作者方法执行中的工具仍受冻结白名单约束。新工具不隐式加入历史专家的默认工具集，不改变历史版本摘要。旧固定专家与巨潮 PDF 路径保留；供应商返回内容是证据，不是工具指令或已验证业务结论。
