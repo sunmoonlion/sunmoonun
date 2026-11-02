@@ -1,0 +1,89 @@
+................................FFFFF..                                  [100%]
+=================================== FAILURES ===================================
+_______ test_selected_methods_cannot_overwrite_each_others_files[paths3] _______
+
+paths = ('analysis/report.md', 'forecast/report.md')
+
+    @pytest.mark.parametrize(
+        "paths",
+        [
+            ("report.md", "report.md"),
+            ("Report.md", "report.md"),
+            ("reports", "reports/final.md"),
+            ("analysis/report.md", "forecast/report.md"),
+            ("analysis/Report.MD", "forecast/report.md"),
+        ],
+    )
+    def test_selected_methods_cannot_overwrite_each_others_files(paths):
+        doc = catalog().model_dump(mode="json")
+        for unit, path in zip(doc["method_units"][:2], paths, strict=True):
+            unit["contract"]["output_file"] = path
+>       with pytest.raises(ValueError, match="conflicting output"):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_method_plan.py:221: Failed
+_______ test_selected_methods_cannot_overwrite_each_others_files[paths4] _______
+
+paths = ('analysis/Report.MD', 'forecast/report.md')
+
+    @pytest.mark.parametrize(
+        "paths",
+        [
+            ("report.md", "report.md"),
+            ("Report.md", "report.md"),
+            ("reports", "reports/final.md"),
+            ("analysis/report.md", "forecast/report.md"),
+            ("analysis/Report.MD", "forecast/report.md"),
+        ],
+    )
+    def test_selected_methods_cannot_overwrite_each_others_files(paths):
+        doc = catalog().model_dump(mode="json")
+        for unit, path in zip(doc["method_units"][:2], paths, strict=True):
+            unit["contract"]["output_file"] = path
+>       with pytest.raises(ValueError, match="conflicting output"):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_method_plan.py:221: Failed
+__ test_method_deliverable_cannot_overwrite_the_run_handback[\u4ea4\u56de.md] __
+
+path = '交回.md'
+
+    @pytest.mark.parametrize("path", ["交回.md", "reports/交回.md", "reports/交回.MD"])
+    def test_method_deliverable_cannot_overwrite_the_run_handback(path):
+        doc = catalog().model_dump(mode="json")
+        doc["method_units"][0]["contract"]["output_file"] = path
+>       with pytest.raises(ValueError, match="conflicting output"):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_method_plan.py:237: Failed
+_ test_method_deliverable_cannot_overwrite_the_run_handback[reports/\u4ea4\u56de.md] _
+
+path = 'reports/交回.md'
+
+    @pytest.mark.parametrize("path", ["交回.md", "reports/交回.md", "reports/交回.MD"])
+    def test_method_deliverable_cannot_overwrite_the_run_handback(path):
+        doc = catalog().model_dump(mode="json")
+        doc["method_units"][0]["contract"]["output_file"] = path
+>       with pytest.raises(ValueError, match="conflicting output"):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_method_plan.py:237: Failed
+_ test_method_deliverable_cannot_overwrite_the_run_handback[reports/\u4ea4\u56de.MD] _
+
+path = 'reports/交回.MD'
+
+    @pytest.mark.parametrize("path", ["交回.md", "reports/交回.md", "reports/交回.MD"])
+    def test_method_deliverable_cannot_overwrite_the_run_handback(path):
+        doc = catalog().model_dump(mode="json")
+        doc["method_units"][0]["contract"]["output_file"] = path
+>       with pytest.raises(ValueError, match="conflicting output"):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_method_plan.py:237: Failed
+=========================== short test summary info ============================
+FAILED tests/test_method_plan.py::test_selected_methods_cannot_overwrite_each_others_files[paths3]
+FAILED tests/test_method_plan.py::test_selected_methods_cannot_overwrite_each_others_files[paths4]
+FAILED tests/test_method_plan.py::test_method_deliverable_cannot_overwrite_the_run_handback[\u4ea4\u56de.md]
+FAILED tests/test_method_plan.py::test_method_deliverable_cannot_overwrite_the_run_handback[reports/\u4ea4\u56de.md]
+FAILED tests/test_method_plan.py::test_method_deliverable_cannot_overwrite_the_run_handback[reports/\u4ea4\u56de.MD]
+5 failed, 34 passed in 0.18s
