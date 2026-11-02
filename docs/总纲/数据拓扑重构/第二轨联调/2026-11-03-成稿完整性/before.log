@@ -1,0 +1,397 @@
+FFFFFFFFFFFF                                                             [100%]
+=================================== FAILURES ===================================
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response0] _
+
+response = {'content': 'YQ==', 'eof': False, 'size': 2}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response1] _
+
+response = {'content': 'YQ==', 'eof': True, 'size': 2}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response2] _
+
+response = {'content': 'YQ==', 'eof': True, 'size': 0}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response3] _
+
+response = {'content': 'YQ==', 'eof': False, 'size': 1}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response4] _
+
+response = {'content': 'YQ==!', 'size': 1}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response5] _
+
+s = '不是base64'
+
+    def _bytes_from_decode_data(s):
+        if isinstance(s, str):
+            try:
+>               return s.encode('ascii')
+                       ^^^^^^^^^^^^^^^^^
+E               UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+
+/usr/lib/python3.12/base64.py:37: UnicodeEncodeError
+
+During handling of the above exception, another exception occurred:
+
+response = {'content': '不是base64', 'size': 1}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+        with pytest.raises(AgentServiceFailed):
+>           await reader.read_bytes(owner="o", directory="/w", path="report.md")
+
+tests/test_deliverable_check.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/application/workbench/deliverable_check.py:184: in read_bytes
+    raw = base64.b64decode(str(result.get("content") or ""))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/base64.py:83: in b64decode
+    s = _bytes_from_decode_data(s)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '不是base64'
+
+    def _bytes_from_decode_data(s):
+        if isinstance(s, str):
+            try:
+                return s.encode('ascii')
+            except UnicodeEncodeError:
+>               raise ValueError('string argument should contain only ASCII characters')
+E               ValueError: string argument should contain only ASCII characters
+
+/usr/lib/python3.12/base64.py:39: ValueError
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response6] _
+
+response = {'content': 'YQ==', 'size': '1'}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response7] _
+
+response = {'content': 'YQ==', 'size': True}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response8] _
+
+response = {'content': '', 'size': -1}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response9] _
+
+response = {'content': '', 'eof': 'true', 'size': 0}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response10] _
+
+response = {'content': ''}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+_ test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response11] _
+
+response = {'size': 0}
+
+    @pytest.mark.parametrize(
+        "response",
+        [
+            {"content": "YQ==", "size": 2, "eof": False},
+            {"content": "YQ==", "size": 2, "eof": True},
+            {"content": "YQ==", "size": 0, "eof": True},
+            {"content": "YQ==", "size": 1, "eof": False},
+            {"content": "YQ==!", "size": 1},
+            {"content": "不是base64", "size": 1},
+            {"content": "YQ==", "size": "1"},
+            {"content": "YQ==", "size": True},
+            {"content": "", "size": -1},
+            {"content": "", "size": 0, "eof": "true"},
+            {"content": ""},
+            {"size": 0},
+        ],
+    )
+    async def test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file(response):
+        reader = AgentDeliverableCheck(
+            FakeService(response), stores_with({"relay_user": "u"})
+        )
+>       with pytest.raises(AgentServiceFailed):
+E       Failed: DID NOT RAISE <class 'app.application.workbench.agent_service.AgentServiceFailed'>
+
+tests/test_deliverable_check.py:208: Failed
+=========================== short test summary info ============================
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response0]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response1]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response2]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response3]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response4]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response5]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response6]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response7]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response8]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response9]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response10]
+FAILED tests/test_deliverable_check.py::test_partial_or_malformed_bytes_are_not_delivered_as_a_complete_file[response11]
+12 failed, 13 deselected in 0.20s
