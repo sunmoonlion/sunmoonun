@@ -280,3 +280,12 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - knowfeed：后端 8f4ee39a297ccd47d2cecb74a968d0291380cc57，父仓 ab901b6，远端 feat/reading-receipts。只补本人缺失读法、逐私有副本授权、拒错受益人、旧提供方缺字段不猜全齐、按读法保留成功。全量 1043 passed / 13 skipped（/tmp/luna-readings-feed-full-final.txt）；全量启动后最终中途撤权修正再跑受影响四文件 47 passed（/tmp/luna-readings-feed-revocation.txt）；最终 ruff/pyright 通过。最初一次失败源于旧测试把两个私有版本当成只需一份授权，保留原失败输出并按真实版本归属纠正，未删测试。
 - knowlab：后端 70555a6401fa03be4b109bf58c246eff4d71fa4a，父仓 3eb57dc2ec9b2e5fd191d83fc29d9433abc22196；knowmart：后端 731cf3deaf2dab6627455bc2e0e00024d46add25，父仓 1d54a7c9e9f343e25b1a414a7f8c81381147f696，均远端 feat/dynamic-methods。jsonschema 入 dev/锁，去掉 schema 测试 importorskip；发现并补齐旧测试请求 runner，增加缺 runner 拒绝。定向 71/23 passed、相关 ruff 通过；已有运行依赖版本未变，不宣称这两仓完整回归或动态功能完成。
 - qwen 使用的 fix/supply-delivery 五仓远端 SHA 已再次核验仍是交接版本，未被这些开发移动；发布结果仍以所有者通知及正式回执为准。下一步先做 WP-10 的作者/运行契约工作单元，沿 methods.md 与主计划；供应侧跨进程首次交付幂等、版本升级完整恢复及线上验收继续保留，不能以此批修复放行 Wind W1。
+
+## 2026-11-02 WP-10 单元 1 交付：作者/运行契约
+
+- 所有者再次确认运行模型只能选已孵化的方法，因此财务分析与预测专家须另孵化动态新版本；已有方法可整理为候选，作者确认适用条件/工具/输入输出/验收后冻结。先完成通用工程，再做新版专家；旧固定巨潮专家保留为演示保底，不能承诺方法库未覆盖的任意问题。
+- knowlab 后端 dad9b0e20a8270747cfd999bacd7dafc3b2df6b0，父仓 4601ac3312750ae291fbc381b447001f6906465c；knowmart 后端 a2333c49b4a83f5be03b49654dde3986ee43bb95，父仓 9801120bb68be97cdd9baeead39faf2bcd65d414；knowbench 后端 cbb6cd40e93a3819cca2fb5839caa1df09d77441，父仓 f1909597116d9a8db16d519a236ff0a317e889eb。均独立 feat/dynamic-methods，子仓先推再钉父仓，不改部署源。
+- 编译显式 v3 动态目录与 knowbench/dynamic-methods/v1，旧 v2 schema/固定编译样例/规范摘要不变。规划、条件、依赖/工具/次数边界纳入作者出处；孵化模型提议只有本人接受才落稿。目录没有可变任务 workflow，工作台运行入口暂拒绝 v3。跨应用提供方 schema、消费锁和编译样例均同步；方法目录模型复用现有步骤合同，不引入第二套执行框架。
+- 完整本地数据库回归：knowlab 736 passed / 5 skipped、knowmart 531 / 5、knowbench 1244 / 92；工作台全量开始后最终改动重跑受影响六文件 81 passed。输出 /tmp/luna-wp10-{lab-full-final,mart-full,bench-full,bench-final-affected}.txt。第一次 lab 的 2 项失败均已修（v3 旧预期、孵化 schema 更新遗漏），原日志保留。工作台最终全仓 ruff/pyright 通过；lab/mart 改动文件通过，但全仓分别遗留类型 1/4、lint 11/17，经隔离解包基线逐条重跑无新增，不能标为全仓静态检查通过。
+- 本单元没有迁移、生产修改、Wind 调用或动态运行验收。Wind 仍 3/5、W0 未通过。下一单元按 methods.md 接版本化计划、确定性校验与 Task/Artifact 事务接受；随后接规划 Attempt、实例/成果版本绑定、有效计划视图/UI及最终成果验收，不能把目录直接塞进共享 ExpertPack 缓存。
+- 发布仍交 qwen；开发交接在 docs/总纲/发版/2026-11-02-WP10作者契约开发交接.md，明确不是当前采集修复的发版候选。不要擅自更新其他工位到这批未发布代码，不重置已有开发分支。
