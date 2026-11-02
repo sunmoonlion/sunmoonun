@@ -1,0 +1,23 @@
+{
+  "status": "workdraft_saved_waiting_compiler_release",
+  "source_task": "0d35c11b-b5cc-4efa-af5d-dba1b6b777fd",
+  "pack_id": "knowlab-5814331f-b555-4de9-bee6-f01e4e84e909",
+  "source_version": "1",
+  "cells": [
+    {
+      "path": "steps/writeup/advanced",
+      "value": {
+        "tools": null,
+        "reserve": null,
+        "input_max_chars": null,
+        "output_schema": null,
+        "output_file": "财务分析报告.md"
+      }
+    }
+  ],
+  "expected_output_file": "财务分析报告.md",
+  "expected_method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户\n\n规则：\n1. 写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。\n\n用上：forecast（预测）\n\n交回一个 JSON，包含：\n- report：文字\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。先按运行时指定的项目内路径写好成稿文件，保留数据缺口与未验证说明，再交回 JSON。调用工具时照工具说明带上这件委托的委托号。",
+  "saved_revision": 30,
+  "previous_revision": 29,
+  "next_expert_version": "2"
+}
