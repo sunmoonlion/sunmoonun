@@ -30,22 +30,22 @@ applications:
     admin_parent_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
     admin_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
   knowbench:
-    parent_revision: 99f48f4fb216883a67736f823ac007104a5b4f71
-    backend_parent_revision: eb74f0b6d01fbabde0767c4a4439b49554f24291
-    backend_revision: eb74f0b6d01fbabde0767c4a4439b49554f24291
-    web_parent_revision: 8181502070ce83e2889f8ea052b0e271c3dc44fd
-    web_revision: 8181502070ce83e2889f8ea052b0e271c3dc44fd
+    parent_revision: 9364866e52c93679af80273ba1733ace6c9c060d
+    backend_parent_revision: ccc7eaa68730f7a82354f0577e9a0e8d1be51a82
+    backend_revision: ccc7eaa68730f7a82354f0577e9a0e8d1be51a82
+    web_parent_revision: 7d771c7cbaade105cbad3491fec04725a155abb4
+    web_revision: 7d771c7cbaade105cbad3491fec04725a155abb4
     admin_parent_revision: 540d9f38bf9ef5015684686f6abe576c7144aea0
     admin_revision: 540d9f38bf9ef5015684686f6abe576c7144aea0
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowlab:
-    parent_revision: c0d8445e1ca9711e86bdf7c66e26327ce749dd1f
-    backend_parent_revision: 491538c0506aa39c96352b154f979fda02b438f3
-    backend_revision: 491538c0506aa39c96352b154f979fda02b438f3
-    web_parent_revision: a2577541a9dc59c1cc4b9896ad5a28a3ebb08771
-    web_revision: a2577541a9dc59c1cc4b9896ad5a28a3ebb08771
-    admin_parent_revision: fc8b4edc9144365248a7a96c58eaac5947fed111
-    admin_revision: fc8b4edc9144365248a7a96c58eaac5947fed111
+    parent_revision: b29dea218508d95812d6a7dec825b4a6c31ebe17
+    backend_parent_revision: c5d9f4e23612252de0303ee4b1a26c4f3c840d76
+    backend_revision: c5d9f4e23612252de0303ee4b1a26c4f3c840d76
+    web_parent_revision: 67b618302e46b0b5761b149280883ccf7c7368c4
+    web_revision: 67b618302e46b0b5761b149280883ccf7c7368c4
+    admin_parent_revision: 2679f874c08a172b0372795b1da28dc3cc95182d
+    admin_revision: 2679f874c08a172b0372795b1da28dc3cc95182d
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowmart:
     parent_revision: fe5d418c4f0d94b415fd022f951d5b166c9018fe
