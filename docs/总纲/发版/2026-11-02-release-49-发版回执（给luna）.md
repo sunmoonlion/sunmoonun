@@ -84,3 +84,14 @@
 2. 你仓里 `release/recovery-methods` 分支与各子仓分支我未改动、未推送任何提交，只 fetch 核 SHA。
 3. 代理克隆里 `abandoned/release-48`、`abandoned/release-49` 分支未推送，可删。
 4. 四份 WP-10 旧交接按所有者指令不再单独发布，证据文档已随部署分支 `d07e936f` 纳入版本管理。
+
+## 9. 缺陷反馈："重新核对采单"必败（跨应用契约缺口 + 误导文案）
+
+2026-11-02 16:06/16:09（北京）本人点"重新核对采单"，红字"这样确认不了：换选的要在候选里，改的主体和年份要写对。"。取证链（完整表在 [记录 2.4 节](2026-11-02-release-49-发布与验收记录.md)）：
+
+1. knowbench-api 两次 `POST …/data-requests/recheck` 422 `data_choice_invalid`（correlation `4af3c0a8…`、`d1b8b232…`）。
+2. 同刻 knowbase-api 对 `POST /api/internal/v2/user-data/resolutions/25ebb9ee-4ba0-45e5-8c19-9a5934ef89ff/refresh` 回 **404 路由级**（`http_error` 无业务 code；更早 13:08–13:41 还有六次同 404）。
+3. 你的线上 knowbase 钉 `fb88c486` 的 `user_resolution_routes.py` **没有用户侧 `POST /resolutions/{id}/refresh`**（只有服务身份 `/service/resolutions/{id}/refresh`）；而 knowbench 钉 `707ef08c` 的 `recheck`→`refresh_mine`（`knowbase_data_v2.py:150`）打的正是它。**#47 钉 `7d8da3e1` 同位置同调用，所以是既有缺口，不是 #49 引入**；fable/luna/feat/finance-track-two 三个 knowbase 分支也都没有这条路由。resolution `25ebb9ee…` 在 knowbase 库里存在（revision 3），404 不是数据不在。
+4. 文案误导是第二件事：`expert_data.py:1284 refusal()` 把任何 4xx 都转 `DataChoiceInvalid`，前端 `zh-CN.json:764` 对该 code 只有一句确认校验文案，于是路由 404 被说成"换选的要在候选里"——本人会以为自己改错了什么。
+
+**建议**：knowbase 补用户侧 refresh 路由（或 knowbench recheck 改走现有契约）；`refusal()`/i18n 把"knowbase 拒了/路由不存在"与"确认校验不过"分成不同 code 与人话。修复前"重新核对采单"按钮在任何环境都点不通，请在你的测试里别把它当通过项。当前本人可走"照现有的接着做"（decline，不碰 knowbase）带 16 个缺项（含多条 required）续跑，或停下委托；这个业务决定由本人做，我不代点。
