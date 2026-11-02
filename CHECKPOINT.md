@@ -383,3 +383,26 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 继续检查补采并发：request_data 在远程 add_needs 前读取 detail，完成后整份覆写，
   两个并发调用可能使用相同 req 编号并丢失一次请求；knowbase add_needs 也基于旧快照
   追加。当前只是代码审查发现，尚未复现或修复，不得宣称动态补采并发/超时恢复已通过。
+
+
+## 2026-11-02 接续：补采并发写入保护
+
+- 上节审查发现已做隔离数据库复现：knowbase 的慢追加、慢修改、慢刷新均能在原版
+  覆盖已提交的新需求。新增基版条件放进既有修订锁，过期写入回 409，不生成修订。
+  后端 971747286c2b2329c8738f5735e8d76321651cc9、父仓
+  15cf2780bc3624f55ce272bc15c3dfd0b047f911，已推 feat/reading-receipts。
+  完整 733 passed / 5 skipped，ruff/pyright 通过，日志
+  /tmp/luna-resolution-cas-full.txt；原复现 /tmp/luna-resolution-cas-before.txt。
+- knowbench 正常回包重读并短事务追加，拒重复编号和取消后迟到回包，保留同期页面信息；
+  作者测试原子编号。复用既有错误协议提示重读/重试，锁内不调外部服务，相关续跑锁序
+  统一 Task → resolution。代码和细节在 knowbench-backend/docs/method-execution.md。
+- 本段不是完整恢复链：HTTP 回包丢失/落库前退出的操作收据、自动对账，以及本人确认
+  与新增提采并发的完整合并还待后续工作单元。不把 need_key_taken 猜作成功，不代确认。
+- qwen 的 release/recovery-methods 经 GitHub 再核仍为
+  2f08c6999feb03f3005393c81f430513ea197ad7，未被本次开发移动。没有新增发版卡、改
+  sources/线上采单或调用 Wind。开发边界和提供方冲突语义已写回 0043/0048。
+- 工作台后端 2b894280ce2cb3f6882c5b954e58725b09735030、父仓
+  5609ad4a1dbed9a56d01516487cd3bea07a9dab0 已推 feat/method-execution-view。
+  全量 1411 passed / 92 skipped / 2 既有 collection warnings（591.87 秒），
+  /tmp/luna-proposal-race-full.txt；ruff/pyright 通过。全部新案例已纳入完整回归。
+  最初两个新增测试夹具调用错误已修，原输出及修正说明保留在后端 CHECKPOINT。
