@@ -535,3 +535,23 @@ knowbase-data JWT；不扩大 /api，不绕过网络策略。真实 config/Jinja
 同一 Wind/年报/数据MCP交接表新增 knowmart 精确父/子SHA及第7节操作/验收/回退，
 由 qwen 原 Jenkins 同版发布，不另起发版。原始日志在子仓CHECKPOINT引用，GitHub
 子仓先推父仓后推；未操作生产账号、任务、Wind或集群。
+
+## 2026-11-02 kimi 方法库整改复核（未合并）
+
+所有者要求查看 kimi 工位。固定 knowlab parent6ce0ec4 / backendf0fd3e2 /
+web5b1eb35 到隔离归档 /tmp/luna-kimi-method-review-2los8azd；不改 kimi 应用树。
+认可完整 golden 比对/防篡改、子进程隔离、M01 空表拦截与 lint 修正。自带四文件
+33 passed；另补通用方法 DB/作者路由 13 passed（10.03s），ruff/pyright 通过。
+DB 首轮库名缺 _tests 被安全守卫阻断，改隔离库名后通过，原日志保留不算产品失败。
+
+仍有可复现 P1：当前 Luna 编译器拒绝 M20 未声明 metric 的列表；其 M04 正例产物
+对象列表接到 M20 字符串模拟上游的 covers 会失败。M02 两个真实算式结果均999999
+仍判平衡；M13 空预测三表/非零残差仍通过；M18 另一合法事项标题可空引文/page0；
+全部20项 does_not/elsewhere未随freeze进入定义。另M20三条空风险字段仍通过。
+独立真实judge+judge_numbers五个期望回归全失败（四坏样本误过、一正例误拒），不是
+改运行器造失败。后端增量仍为测试夹具/文档，前端只有夹具，无20方法正式入库。
+
+完整报告、固定SHA、可复跑脚本、日志已持久放 docs/总纲/数据拓扑重构/方法库复核/
+kimi-2026-11-02，并复制到 kimi 的独立复核目录。未推/合 kimi 分支，未改原统一
+发版候选、生产任务、Wind或Jenkins。建议先统一M04→M20契约与当前编译基线，再补
+M02/M13/M18业务单变量反例及冻结范围往返。不能只据自带测试绿色称可实战。
