@@ -262,3 +262,13 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 上述五仓 GitHub fix/supply-delivery 远端 SHA 已逐一核验，代码工作区干净。没有触发新的 Jenkins，没有更新根仓 sources，线上仍须由发布方重新核验。所有者明确将发版交给 qwen，luna 继续开发；不得同时启动第二条发布。
 - 已按指定位置写入 `/home/zymun/worktrees/qwen/sunmoonun/docs/总纲/发版/2026-11-02-采集交付修复发版交接.md`，含精确版本、Jenkins 操作、原任务恢复、验收、回退与残余问题。文件留给 qwen 纳入其根仓提交，没有替 qwen 切分支/提交其它工作。知会本机开发接续者：发布验收职责在 qwen，不在本工位。
 - 第二轨下一步仍为上节 WP-3 非公开逐读法/完成状态契约缺口、WP-10 动态方法契约与运行计划；knowbase 未发布开发不混入此次候选。Wind 仍已用 3/5 次，W0 未决，W1 不开。保底的线上财务报告尚未验收，不能用本地检查替代。
+
+## 2026-11-02 第二轨开工准备（等待所有者通知发版结果）
+
+- 本轮只读核代码、补设计和实施落点，未改应用实现、部署源或 qwen 发布分支，未调用 Wind。准备写回既有双轨计划 WP-10、methods.md 与 0045 交付节，不另建平行进度账。发布仍归 qwen，当前候选是否已发布不得凭本检查点推断。
+- 当前开发基线：knowbench-backend 7d8da3e18ef055aa38f821a17e6a7f464bc7795c、knowfeed-backend bb85408f20c78dbda0301315dfd3de0bbfc7d955 是已交接候选；knowbase-backend 5bfb60f21ed6ed65c3c3f569c137476eb0cf7ad5 是独立未发布开发；knowlab-backend bd7fe93d28cb6460dc16d4a43c5569c13dbf9610、knowmart-backend 9c3f041c56412dae752dfe5d10b25844cf9fc6c7。收到发布通知先对回执、源钉和候选差异，再接后续代码；不重置本工位未发布开发。
+- WP-10 首个工作单元是作者工作稿/运行契约：同时处理 cells 出处、编译、knowmart v2 非空 workflow 骨架、新旧运行方兼容、双端锁与固定专家往返。下一单元再做实例/成果版本隔离及计划校验；之后接 Attempt、有效计划视图、权限/返工/底稿/测试报告、UI 与恢复。重复单元不能沿用单元 ID 当唯一成果名，输入不能拿任意最新成果替代已验版本，作者包缓存不能存任务计划。
+- 供应侧已确证：knowbase `has_readings=any(ready)`，knowfeed `has_readings=True` 推断 `_expected_readings` 全齐。逐读法集合/版本与部分加工恢复是既有 0045 要求的缺口，先补它再接 Wind；不是公开收录查询 WP-3 已完成的证明。缺字段、仅正文、失败读法不得推断全齐。
+- 准备基线测试（本地 Python 3.12.3，不是生产镜像验证）：knowlab `uv run --with jsonschema==4.26.0 pytest -q tests/test_knowbot_workdraft_compile.py tests/test_knowbot_contract_locks.py`，54 passed；knowmart 同命令选 `tests/test_knowbot_manifest_v2.py tests/test_knowbot_contract.py`，23 passed；knowbench `uv run pytest -q tests/test_knowbot_contract_lock.py tests/test_workbench_knowbots.py`，19 passed。输出 /tmp/luna-track2-prep-knowlab-schema.txt、/tmp/luna-track2-prep-knowmart-schema.txt、/tmp/luna-track2-prep-knowbench.txt。合计 96 passed，仅证明旧固定契约/编译基线；动态能力未实现。
+- 首次不加 `--with`，knowlab 53 passed/1 skipped、knowmart 22 passed/1 skipped，原因是 `pytest.importorskip("jsonschema")` 且两个仓未声明该开发依赖。临时使用与 knowfeed 锁相同的 4.26.0 后补验通过；正式契约单元需把 schema 验证依赖纳入各仓开发依赖/锁，避免只跑摘要校验却跳过实例 schema。此次未修改应用依赖锁。
+- 独立工程准备无需本人再确认；需要本人输入的仍仅是作者真实方法接受、Wind 服务端许可、真实运行预算和原任务采单等具体动作，不提前重复询问。Wind 预算仍 3/5，剩余 2 次未动。工程样例用合成资料与预录模型交回物，不冒充真实模型质量或业务验收。
