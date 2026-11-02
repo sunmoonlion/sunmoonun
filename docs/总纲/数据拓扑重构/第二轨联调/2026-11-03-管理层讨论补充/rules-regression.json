@@ -1,0 +1,83 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "case": "supported_quote_and_unmentioned",
+      "expected": true,
+      "accepted": true,
+      "failures": []
+    },
+    {
+      "case": "missing_quote",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "quoted(comparisons): 没过：「comparisons」的说法附原文引文 — #0 says 支持 but quotes nothing"
+      ]
+    },
+    {
+      "case": "fabricated_quote",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "quoted(comparisons): 没过：「comparisons」的说法附原文引文 — #0 page 7: not_found"
+      ]
+    },
+    {
+      "case": "wrong_page",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "quoted(comparisons): 没过：「comparisons」的说法附原文引文 — #0 page 8: not_found"
+      ]
+    },
+    {
+      "case": "invalid_verdict",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "each_has(comparisons): 没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复"
+      ]
+    },
+    {
+      "case": "empty_reason",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "each_has(comparisons): 没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复"
+      ]
+    },
+    {
+      "case": "missing_conclusion",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "covers(comparisons): 没过：「comparisons」与第「算指标与分析」步一一对上 — missing '测试结论二'"
+      ]
+    },
+    {
+      "case": "duplicate_conclusion",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "each_has(comparisons): 没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+        "covers(comparisons): 没过：「comparisons」与第「算指标与分析」步一一对上 — twice '测试结论一'; twice '测试结论二'"
+      ]
+    },
+    {
+      "case": "missing_section_disclosed",
+      "expected": true,
+      "accepted": true,
+      "failures": []
+    },
+    {
+      "case": "empty_comparisons",
+      "expected": false,
+      "accepted": false,
+      "failures": [
+        "covers(comparisons): 没过：「comparisons」与第「算指标与分析」步一一对上 — missing '测试结论一'; missing '测试结论二'"
+      ]
+    }
+  ],
+  "passed": 10
+}

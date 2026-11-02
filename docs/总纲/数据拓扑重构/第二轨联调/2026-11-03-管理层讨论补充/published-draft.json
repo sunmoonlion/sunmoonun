@@ -1,0 +1,631 @@
+{
+  "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+  "workdraft_revision": 31,
+  "draft_id": "feec8eae-82b9-4ad0-ba59-4c8a507ccf28",
+  "version": "2",
+  "revision": 4,
+  "status": "pending_test",
+  "listed": false,
+  "tested": false,
+  "manifest": {
+    "name": "财务分析与预测",
+    "pack": {
+      "name": "财务分析与预测",
+      "scope": {
+        "does": "对一家中国 A 股上市公司，用我上传的财报（三张表与年报）：先核数据（勾稽、对照年报披露），再把问题点到的科目和一组固定的核心指标算出来、看清走势；再对营业收入、归母净利润做预测，每个预测都先回测，再给区间和假设。",
+        "does_not": "不逐科目预测整套报表；比率不单独外推；数据里没有的不硬算、不冒充，照实说算不出来；只做 A 股上市公司；不评价好坏、不下结论，不给买卖建议、评级、目标价。",
+        "elsewhere": "非 A 股公司、行业与宏观研究等去通用助手咨询。"
+      },
+      "title": "财务分析与预测",
+      "pack_id": "knowlab-5814331f-b555-4de9-bee6-f01e4e84e909",
+      "tagline": "按我的方法分析一家公司的财报",
+      "version": "2",
+      "workflow": [
+        {
+          "why": "公司不在你的数据里就不往下做，也不去别处找",
+          "title": "定范围",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "scope",
+          "summary": "看问题问的是哪家公司、要哪些科目和指标、要不要预测；你的数据里没有这家公司就停下说明",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "company",
+                "in_data"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「company」、「in_data」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：看问题问的是哪家公司、要哪些科目和指标、要不要预测；你的数据里没有这家公司就停下说明\n\n规则：\n1. 问题里的公司不在我的数据里，就停下说明，不去别处找；同一个科目有两个口径（例如合并与母公司混在一起），问我用哪个。\n\n交回一个 JSON，包含：\n- company：文字\n- in_data：文字\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "company": "string",
+            "in_data": "string"
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "scope"
+        },
+        {
+          "why": "摸清现有数据结构与期数完整度",
+          "title": "数据摸底",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "inventory",
+          "summary": "列出你的数据里有哪些表、哪些报告期、哪些科目，缺了什么；期数够不够回测和预测",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "periods"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「periods」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "scope"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：列出你的数据里有哪些表、哪些报告期、哪些科目，缺了什么；期数够不够回测和预测\n\n规则：\n1. 列出我的数据里有哪些表、哪些报告期、哪些科目；期数不够做后面的回测或预测，能做的照做、写明原因。\n\n用上：scope（定范围）\n\n交回一个 JSON，包含：\n- periods：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "periods": [
+              "string"
+            ]
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "inventory"
+        },
+        {
+          "why": "保证底层数据准确与口径自洽",
+          "title": "勾稽",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "reconcile",
+          "summary": "查四条会计恒等式，差额超过 1 元算不平；不平的照实列出，那几期不进预测",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "checks"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「checks」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "inventory"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：查四条会计恒等式，差额超过 1 元算不平；不平的照实列出，那几期不进预测\n\n规则：\n1. 查四条：资产总计 = 负债合计 + 所有者权益合计；归母净利润 + 少数股东损益 = 净利润；现金流量表期末现金 = 期初现金 + 现金净增加额；本期期初 = 上期期末。差额超过 1 元算不平；不平照实列出、写进局限，继续往下做，不平的期不进预测窗口。\n\n用上：inventory（数据摸底）\n\n交回一个 JSON，包含：\n- checks：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "checks": [
+              "string"
+            ]
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "reconcile"
+        },
+        {
+          "why": "消除季节性累计口径失真",
+          "title": "取数",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "series",
+          "summary": "把累计数换成单季：Q2 = 半年 − Q1，Q3 = 三季 − 半年，Q4 = 年报 − 三季；资产负债表不换",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "single_quarters"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「single_quarters」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "reconcile"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：把累计数换成单季：Q2 = 半年 − Q1，Q3 = 三季 − 半年，Q4 = 年报 − 三季；资产负债表不换\n\n规则：\n1. 利润表、现金流量表的累计数换成单季：Q1 = 一季报；Q2 = 半年报 − 一季报；Q3 = 三季报 − 半年报；Q4 = 年报 − 三季报。资产负债表是时点数，不换算。\n\n用上：reconcile（勾稽）\n\n交回一个 JSON，包含：\n- single_quarters：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "single_quarters": [
+              "string"
+            ]
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "series"
+        },
+        {
+          "why": "系统展现盈利与经营质量",
+          "title": "算指标与分析",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "indicators",
+          "summary": "算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "indicators"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「indicators」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "series"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用\n\n规则：\n1. 分析的科目 = 问题点到的科目 + 固定核心指标（营业收入、归母净利润、扣非净利润、经营现金流；毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速）。口径：毛利率 =（营业收入 − 营业成本）/ 营业收入；净利率 = 归母净利润 / 营业收入；净资产收益率 = 归母净利润 / 平均归母净资产；经营现金流与净利润之比 = 经营活动现金流量净额 / 归母净利润；收入与利润增速 = 同比。分母为 0、为负或缺数时标不适用。只描述，不评价好坏。\n\n用上：series（取数）\n\n交回一个 JSON，包含：\n- indicators：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "indicators": [
+              "string"
+            ]
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "indicators"
+        },
+        {
+          "why": "逐条核对分析结论是否得到管理层讨论的支持，并保留支持结论的原文依据",
+          "title": "对照管理层讨论",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "official",
+          "summary": "第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "comparisons"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「comparisons」",
+              "message": "缺交回项"
+            },
+            {
+              "keys": [
+                "conclusion",
+                "verdict",
+                "reason"
+              ],
+              "kind": "each_has",
+              "path": "comparisons",
+              "field": "verdict",
+              "label": "「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+              "values": [
+                "支持",
+                "不支持"
+              ],
+              "message": "没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+              "unique_by": [
+                "conclusion"
+              ],
+              "non_empty_keys": [
+                "conclusion",
+                "reason"
+              ]
+            },
+            {
+              "kind": "covers",
+              "path": "comparisons",
+              "field": "conclusion",
+              "label": "「comparisons」与第「算指标与分析」步一一对上",
+              "source": "indicators.indicators",
+              "message": "没过：「comparisons」与第「算指标与分析」步一一对上"
+            },
+            {
+              "kind": "quoted",
+              "path": "comparisons",
+              "field": "verdict",
+              "label": "「comparisons」的说法附原文引文",
+              "equals": "支持",
+              "message": "没过：「comparisons」的说法附原文引文"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "indicators"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。\n\n规则：\n1. 第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。\n\n用上：indicators（算指标与分析）\n\n交回一个 JSON，包含：\n- comparisons：列表，每项有：conclusion（文字）、verdict（文字）、reason（文字）；每项带 quotes：一串 {material_id, page, text}，原文照读到的抄\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "comparisons": [
+              {
+                "quotes": [
+                  {
+                    "page": "integer",
+                    "text": "string",
+                    "material_id": "string"
+                  }
+                ],
+                "reason": "string",
+                "verdict": "string",
+                "conclusion": "string"
+              }
+            ]
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "official"
+        },
+        {
+          "why": "定量给出可验证的未来业绩预期与区间",
+          "title": "预测",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "forecast",
+          "summary": "季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "forecasts"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「forecasts」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "official"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季\n\n规则：\n1. 预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。\n\n用上：official（对照管理层讨论）\n\n交回一个 JSON，包含：\n- forecasts：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+          "output_schema": {
+            "forecasts": [
+              "string"
+            ]
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "forecast"
+        },
+        {
+          "why": "交付严谨、审计留痕的最终专业报告",
+          "title": "成稿",
+          "tools": [
+            "compute",
+            "describe_items",
+            "find_subject",
+            "list_inputs",
+            "lookup",
+            "query_facts",
+            "query_metric",
+            "read_facts",
+            "read_input",
+            "request_data",
+            "search_evidence"
+          ],
+          "reserve": "0.05",
+          "step_id": "writeup",
+          "summary": "写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户",
+          "on_reject": "rework",
+          "acceptance": [
+            {
+              "kind": "json_object",
+              "label": "交回的是一个 JSON",
+              "message": "交回物不是 JSON 对象"
+            },
+            {
+              "keys": [
+                "report"
+              ],
+              "kind": "required_keys",
+              "label": "交回项都在：「report」",
+              "message": "缺交回项"
+            },
+            {
+              "kind": "no_positioning_advice",
+              "label": "没有评级、目标价、买卖建议",
+              "message": "含有评级、目标价或买卖建议的措辞"
+            }
+          ],
+          "ask_before": [],
+          "input_refs": [
+            "forecast"
+          ],
+          "max_reworks": 1,
+          "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户\n\n规则：\n1. 写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。\n\n用上：forecast（预测）\n\n交回一个 JSON，包含：\n- report：文字\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。先按运行时指定的项目内路径写好成稿文件，保留数据缺口与未验证说明，再交回 JSON。调用工具时照工具说明带上这件委托的委托号。",
+          "output_file": "财务分析报告.md",
+          "output_schema": {
+            "report": "string"
+          },
+          "input_max_chars": 8000,
+          "output_artifact": "writeup"
+        }
+      ]
+    },
+    "schema": "knowbot-manifest/v2",
+    "runtime": "knowbench",
+    "tagline": "按我的方法分析一家公司的财报",
+    "version": "2",
+    "rule_sources": [
+      {
+        "ref": "record:45d6d574-55a4-4baf-993b-f6597c7161fb",
+        "rule": "定范围：问题里的公司不在我的数据里，就停下说明，不去别处找；同一个科目有两个口径（例如合并与母公司混在一起），问我用哪个。",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:e8efc2d2-9dd9-4989-b00f-6daecdd9b806",
+        "rule": "数据摸底：列出我的数据里有哪些表、哪些报告期、哪些科目；期数不够做后面的回测或预测，能做的照做、写明原因。",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:75caa0a8-6410-4c2a-b15a-f41fd08d98a5",
+        "rule": "勾稽：查四条：资产总计 = 负债合计 + 所有者权益合计；归母净利润 + 少数股东损益 = 净利润；现金流量表期末现金 = 期初现金 + 现金净增加额；本期期初 = 上期期末。差额超过 1 元算不平；不平照实列出、写进局限，继续往下做，不平的期不进预测窗口。",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:6e1332cc-2fda-4772-a539-191bfb2877e6",
+        "rule": "取数：利润表、现金流量表的累计数换成单季：Q1 = 一季报；Q2 = 半年报 − 一季报；Q3 = 三季报 − 半年报；Q4 = 年报 − 三季报。资产负债表是时点数，不换算。",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:cf16f383-572e-42be-9878-73921b88078d",
+        "rule": "算指标与分析：分析的科目 = 问题点到的科目 + 固定核心指标（营业收入、归母净利润、扣非净利润、经营现金流；毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速）。口径：毛利率 =（营业收入 − 营业成本）/ 营业收入；净利率 = 归母净利润 / 营业收入；净资产收益率 = 归母净利润 / 平均归母净资产；经营现金流与净利润之比 = 经营活动现金流量净额 / 归母净利润；收入与…",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:5b5f256d-0c8d-4cd6-b965-e428ffd9027e",
+        "rule": "对照管理层讨论·怎样算对：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:998c4563-dd47-44d4-8cf1-6b41267a53e1",
+        "rule": "对照管理层讨论·怎样算对：「comparisons」与第「算指标与分析」步一一对上",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:2e682212-82f7-4a47-a21f-5225eadaa679",
+        "rule": "对照管理层讨论·怎样算对：「comparisons」的说法附原文引文",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:3208cd59-6f24-4ab2-9fae-5533139754bd",
+        "rule": "对照管理层讨论：第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:43358610-e9b9-43f3-a7db-b60fe37b2d60",
+        "rule": "预测：预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。",
+        "source": "user_text"
+      },
+      {
+        "ref": "record:5a3dddad-6ef1-4f2b-9e0d-261816ac7c1b",
+        "rule": "成稿：写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。",
+        "source": "user_text"
+      }
+    ]
+  },
+  "legacy_cases_unchanged": [
+    {
+      "input": {
+        "answers": {},
+        "question": "贵州茅台近三年的营业收入和归母净利润走势如何？预测下两个季度。"
+      },
+      "case_id": "c1",
+      "expectations": [
+        {
+          "kind": "approx",
+          "path": "official_by_year.2024.revenue",
+          "value": 170899152276.34,
+          "artifact": "official",
+          "tolerance": 0.001
+        },
+        {
+          "kind": "equals",
+          "path": "horizon",
+          "value": "2",
+          "artifact": "forecast",
+          "tolerance": null
+        }
+      ]
+    },
+    {
+      "input": {
+        "answers": {},
+        "question": "贵州茅台近三年的人均创收是多少？"
+      },
+      "case_id": "c2",
+      "expectations": [
+        {
+          "kind": "contains",
+          "path": "answer",
+          "value": "算不出来",
+          "artifact": "note",
+          "tolerance": null
+        }
+      ]
+    },
+    {
+      "input": {
+        "answers": {},
+        "question": "五粮液近三年的营业收入走势如何？"
+      },
+      "case_id": "c3",
+      "expectations": [
+        {
+          "kind": "equals",
+          "path": "in_data",
+          "value": "false",
+          "artifact": "scope",
+          "tolerance": null
+        },
+        {
+          "kind": "contains",
+          "path": "answer",
+          "value": "没有这家公司",
+          "artifact": "note",
+          "tolerance": null
+        }
+      ]
+    }
+  ]
+}

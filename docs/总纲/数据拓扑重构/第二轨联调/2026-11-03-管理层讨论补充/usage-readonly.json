@@ -1,0 +1,14 @@
+{
+  "read_only": true,
+  "draft_id": "feec8eae-82b9-4ad0-ba59-4c8a507ccf28",
+  "revision": 4,
+  "amendment_id": "e6df96db-a92c-43ce-8039-84d7ebcd65b6",
+  "exact_author_record_referenced": true,
+  "projected_status": "used",
+  "currently_deployed_status": [
+    [
+      "open",
+      null
+    ]
+  ]
+}
