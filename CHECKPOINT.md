@@ -314,3 +314,10 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 模板先过完整门，再同步实例；修复 knowbase 来源、401 恢复、独立错误提示，并通过全量回归发现/修复远程 Git 401 误判。模板 95 pass/2 skip；工作台 374 pass/2 skip，均 typecheck/lint/i18n/build 通过；后端真实 HTTP/数据库 34 pass、pyright 0。日志路径及完整 SHA 见合并单。
 - 三个父仓统一提供 `release/recovery-methods`；knowbench 父仓 2f08c6999feb03f3005393c81f430513ea197ad7，后端 707ef08cdb6763ccc1a47f4d5d7d2c9b0bc7ef12，前端 4b8f9de8befb6ef2b35c7deecc71755e66397ae3。knowlab/knowmart 保持上一已测候选。
 - 下一步 qwen 在 #47 根仓组装同一候选，核 0025/0035 迁移并走 Jenkins；不是直接使用 luna 旧 sources。真实登录/原任务验收未完成，需用户原页面与本人采单动作。Wind、reading-receipts、WP-3 不混入，真实动态 v3 仍未准入。luna 后续继续有效计划派发开发，不能把本轮发版视为第二轨完整上线。
+
+## 2026-11-02 WP-10 单元 3 首段完成，继续执行循环
+
+- 独立分支 `feat/method-execution-view`：knowbench-backend `0e0917aff9217be0da98fb853419b7befd734447`，父仓 `da5cc6082b05d41e13857c431873071669ed45d2`。任务局部视图、实例/成果/权限绑定、事务开步、重规划共用成果读取和取消并发修复完成。完整 1325 passed / 92 skipped / 2 既有 collection warnings；全量后最后一道跨任务视图守卫由 80 项受影响测试重跑通过。最终 ruff/pyright 通过。证据 `/tmp/luna-execution-plan-full-final.txt`、`/tmp/luna-execution-plan-final-focused.txt`、`/tmp/luna-cancel-before-fix.txt`。
+- qwen 三个应用 `release/recovery-methods` 已核仍为合并单 SHA；本轮不移动候选、不增加发布卡、不改 qwen 目录、sources、集群或采单。Wind 无调用，3/5 未变。
+- 当前继续单元 3：将规划普通 Attempt/turn 接现有沙箱；Advisor 统一读取视图并通过 Ledger 绑定输入；成功输出与游标原子提交；covers 使用绑定输入、Runner/MCP/UI/底稿/测试报告使用同一视图，最终成果必须全部验证。真实 v3 准入继续关闭，直到完整运行与恢复测试通过，不因首段落地提前开启。
+- 注意工具权限现状：workbench MCP 对 `args.task` 走身份与任务核验，但通用数据查询另有 conversation/market/no-scope 路径。真正开放动态运行前必须防止借这些入口绕过所选方法工具子集；不能只实现一个未接入的权限检查函数。当前基础入口 `active_method_step` 只是受检准备。
