@@ -524,3 +524,14 @@ knowbase-data JWT；不扩大 /api，不绕过网络策略。真实 config/Jinja
 不另拆发版任务；保留旧提问与确认单。上线后完整目录、读取和用户业务验收仍待实测，
 本地验证不能替代。原始测试输出见 /tmp/luna-data-mcp-{regression,provider}.log 与
 /tmp/luna-real-mcp-catalog.log。无数据库迁移或用户数据回填。
+
+## 2026-11-02 knowmart 演示占位审查与合版
+
+所有者确认原作者推送授权，要求审核后同版发布。Luna 工位原 web54ebccd/parent0c2a61b
+已干净提交，审查后追加 web2bf8dfd / parentfe5d418：演示组件与真实目录隔离，修正
+搜索/分类/分页，移除假 API 身份、保证点击无业务请求并复用可访问 Dialog。
+全量121 passed/2 skipped、typecheck/lint/i18n/build通过。原真实目录仅新增展示挂点，
+20卡明确不可委托；后端/管理端保持#52指针。没有上线或宣称20真实专家已孵化。
+同一 Wind/年报/数据MCP交接表新增 knowmart 精确父/子SHA及第7节操作/验收/回退，
+由 qwen 原 Jenkins 同版发布，不另起发版。原始日志在子仓CHECKPOINT引用，GitHub
+子仓先推父仓后推；未操作生产账号、任务、Wind或集群。
