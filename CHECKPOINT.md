@@ -447,3 +447,31 @@ knowbase 最终全量 714 passed / 8 skipped；真实客户端→HTTP→路由�
 开发分支同步：knowbase-app ff73867 / backend 020a420；knowbench-app 28b2ed2 / backend aeca77f / web fb942ff。保留原 CAS 与 resolution_changed 分支，定向 25 / 5 / 18 项通过、静态检查通过。发版只取独立候选，不取开发 HEAD。
 
 本轮未动发布 sources、Jenkins、集群、生产采单/任务、Wind（仍 3/5）或 agy 方法交付；v3 真任务准入不变。旧四批 WP-10 已由 #49 发布，不再拆单。下一步 qwen 按唯一补丁卡发两应用并回执；本人恢复验收前，任何需本人点击的业务验证继续暂停。
+
+
+## 2026-11-02 agy 方法库第二轮审查（仍未合并）
+
+收到 agy 整改报告，按 backend 5bc05d7 / web 986b398 / parent 06a5d9d 核验。
+前端树与 Luna a54e26c 完全相同，假引用/契约旧问题已修；已合入后端 c5bf886。
+DAG 的两步直接成稿绕过已挡住，合成标记及不覆写 golden 也有效，认可这些修复。
+产品增量仍只有 tests/fixtures/CHECKPOINT，没有真实 20 方法入库或分类筛选新实现。
+
+独立 git archive /tmp/luna-agy-review2-pg2pbp3j；原四文件 21 passed / 2 skipped；
+ruff 实测 17 errors（生命周期测试），pyright 0。补隔离 DB 的原有方法生命周期与
+routes 13 passed，不将其当财务方法业务验收。前端无代码差异，无须重复合并。
+
+真实 judge + judge_numbers 新正反例 4 failed：M20 covers 读取的 M04 roe 是对象
+不是列表，正常成稿失败；M02 value=999999 配同一个左右计算 id 仍通过；M01 空三表
+通过；M18 空 quotes 的审计意见通过。编译器会自动补凭证结构，因此不是所有 number
+类型都不兼容，缺口在具体模板组合与业务检查语义。golden 比对另一个反例 1 failed：
+把 intake acceptance 清空，原测试仍通过；它只对标题和两类数量，不是 manifest==golden。
+
+详细逐条复核/销号边界已追加 /home/zymun/worktrees/agy/方法库并行开发要求-Luna交接.md
+第 12 节，复现测试/原始日志持久放 agy/luna-review-20261102-round2/，未改 agy 应用树、
+未 merge 或 push agy 代码，未影响 #49 recheck 候选/暂停任务/Wind。下轮先修 M20 实际
+产物可通过及 M01/M02/M18 的坏样本失败，再补完整快照比较与静态检查。业务口径仍待
+真实作者确认，不能自动把合成数据转正式资产。
+
+Luna 工程侧待办：编译器应尽早拒绝 covers 的非列表源及不兼容条目字段；当前能编译
+并不等于实际验收可满足。此问题另列通用编译契约改进，不改变 runtime covers 的语义
+来迎合财务夹具，也不把未实现的工程改进写成完成。
