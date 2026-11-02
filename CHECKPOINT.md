@@ -432,3 +432,18 @@ CSRF 不匹配，Step Zod 丢 selection。后端只有测试夹具，不是真�
 继续保留 Luna 已验证的通用作者流程（lab c5bf886 / frontend a54e26c / parent 522d15e）。
 agy 应从此对齐后补作者方法和正反验收例，不再次合入已被替换的假 UI。
 本轮没有发布、改 sources/线上采单或调用 Wind。不能把 review 不通过视为第二轨全部完成。
+
+
+## 2026-11-02 收到 #49 回执：修复本人重新核对采单契约（待 qwen 发布）
+
+已读 qwen 根仓 305bafa5 的两份 #49 回执，原样归档到发版目录。#49 发布和应用检查通过，但本人在 recheck 的 404→422 误报处暂停验收，任务 9319ae09 / resolution 25ebb9ee / 10 行已钉数据及旧失败采集保持原样。不能标业务演示完成。qwen 准确钉了交接 SHA，缺路由来自原开发，fake refresh 测试未覆盖真实 provider，是开发测试遗漏。
+
+在 /home/zymun/worktrees/luna/recheck-fix 从 #49 精确版本分出独立 fix/recheck-contract：
+knowbase-app 3fcac2f / backend 60b0417；knowbench-app f69fe1c / backend 6d2eba5 / web 7685f28。
+所有子仓先推 GitHub、父仓后钉，工位干净。补用户 token refresh，复用现有 resolver，校验用户+应用、保持已选项、无变化不修订，不代确认/授权/采集；上游 generic 4xx 不再归咎于用户采单。前端已有切换账号缓存时序失败同步修复。移植 5bfb60f 的已验证基础修复但剔除父提交 WP-3 功能，未带入 reading receipts 新字段和动态执行器。
+
+knowbase 最终全量 714 passed / 8 skipped；真实客户端→HTTP→路由→隔离 DB 已运行。knowbench 全量 1296 passed / 106 skipped / 1 缺同级 knowlab 契约文件的环境失败，补齐发布 f47f401 后包含原失败用例的 58 项通过；保留首次失败日志。两后端 ruff/pyright 通过。前端 375 passed / 2 skipped、类型/lint/i18n/build 通过。细节在唯一新卡 2026-11-02-重新核对采单契约修复发版交接.md；不能把 skips 折算成通过。
+
+开发分支同步：knowbase-app ff73867 / backend 020a420；knowbench-app 28b2ed2 / backend aeca77f / web fb942ff。保留原 CAS 与 resolution_changed 分支，定向 25 / 5 / 18 项通过、静态检查通过。发版只取独立候选，不取开发 HEAD。
+
+本轮未动发布 sources、Jenkins、集群、生产采单/任务、Wind（仍 3/5）或 agy 方法交付；v3 真任务准入不变。旧四批 WP-10 已由 #49 发布，不再拆单。下一步 qwen 按唯一补丁卡发两应用并回执；本人恢复验收前，任何需本人点击的业务验证继续暂停。
