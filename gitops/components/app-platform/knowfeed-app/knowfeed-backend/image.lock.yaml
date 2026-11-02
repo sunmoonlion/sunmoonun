@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: knowfeed-backend
-digest: sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
-source_revision: b666d393ef2d23555f78f16ae39465415ceef916
-deployment_id: knowfeed-backend-77932942a5419b4a
+digest: sha256:067dcda9b44e08b438c1c77de430a560a0837cbe0d4809affa6702f8bcde9a7a
+source_revision: bb85408f20c78dbda0301315dfd3de0bbfc7d955
+deployment_id: knowfeed-backend-067dcda9b44e08b4
