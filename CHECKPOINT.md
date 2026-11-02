@@ -321,3 +321,11 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - qwen 三个应用 `release/recovery-methods` 已核仍为合并单 SHA；本轮不移动候选、不增加发布卡、不改 qwen 目录、sources、集群或采单。Wind 无调用，3/5 未变。
 - 当前继续单元 3：将规划普通 Attempt/turn 接现有沙箱；Advisor 统一读取视图并通过 Ledger 绑定输入；成功输出与游标原子提交；covers 使用绑定输入、Runner/MCP/UI/底稿/测试报告使用同一视图，最终成果必须全部验证。真实 v3 准入继续关闭，直到完整运行与恢复测试通过，不因首段落地提前开启。
 - 注意工具权限现状：workbench MCP 对 `args.task` 走身份与任务核验，但通用数据查询另有 conversation/market/no-scope 路径。真正开放动态运行前必须防止借这些入口绕过所选方法工具子集；不能只实现一个未接入的权限检查函数。当前基础入口 `active_method_step` 只是受检准备。
+
+## 2026-11-02 WP-10 单元 3 第二段：有界规划服务与输入验收
+
+- 独立 `feat/method-execution-view`：knowbench-backend `b6784a7493956d026e89377f8f91200f68349263`，父仓 `f0dd993e310040ccafe21e0dc5a7d4c61164c8cf`。与前段 `0e0917a` 连续开发，qwen 当前合并候选不移动，不另写发版卡、不改 qwen 目录/发布源/集群/任务/采单。Wind 无新增调用，仍 3/5。
+- MethodPlanner 复用原沙箱 TurnDriver 端口、Ledger/Attempt/Artifact，严格接收选择已有方法的提案，保留前缀、钉已验成果；失败计轮次及费用，重启可修正。规划完成、费用、接受指针/事件与回队列同事务；错误/中断/超限不接受部分提案，取消后只补费用且去重。后续调整必须显式带父版本，初次派发重试不会再次规划收费。
+- 动态 covers 经活动 Attempt 绑定读取确切 ID/版本/摘要，不按同名最新成果验收。TurnResult/TurnDriver/时限抽到共用 turn.py；固定 Advisor 导入兼容，未改变既有固定专家循环。
+- 独立 PostgreSQL 全量 1344 passed / 92 skipped / 2 既有 collection warnings，599.87 秒（`/tmp/luna-method-planner-full.txt`）。全量启动后增加父版本重试守卫及一例，五文件最后重跑 139 passed（`/tmp/luna-method-planner-final-focused.txt`）；最终全仓 ruff 与 app 目录 pyright 0 errors（`/tmp/luna-method-planner-{ruff,pyright}-final.txt`）。不要把追加案例冒充已纳入这次全量。
+- 状态边界：规划服务尚未由真实 Advisor 调度入口调用，Driver 测试替身不是实际沙箱闭环；v3 仍关闭。继续 Advisor/Runner 派发与成功/失败原子收尾、可信每轮身份下的工具鉴权、视图/页面/底稿/测试报告与全部 final_outputs 交付。当前 MCP 的用户/沙箱身份及客户端 args.task 不足以强制方法工具子集；不要通过全局关闭 MCP 来误伤其他会话。还须避免规划 Attempt 已完成导致首个方法范围检查被跳过。具体接线注意事项已写后端 docs/method-execution.md。
