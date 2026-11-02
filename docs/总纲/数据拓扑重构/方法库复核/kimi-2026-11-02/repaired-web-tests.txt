@@ -1,0 +1,60 @@
+
+> knowlab-web-frontend@2.0.0 test /home/zymun/worktrees/kimi/knowlab-app/knowlab-web-frontend/app
+> vitest run --run
+
+
+ RUN  v3.2.4 /home/zymun/worktrees/kimi/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/component/incubation-mode.test.tsx (3 tests) 185ms
+ ✓ tests/component/web-shell.test.tsx (3 tests) 372ms
+ ✓ tests/component/self-test.test.tsx (9 tests) 471ms
+ ✓ tests/component/author-method-freeze.test.tsx (6 tests) 631ms
+ ✓ tests/component/ask-in-knowbench.test.tsx (3 tests) 538ms
+stderr | tests/component/workdraft-ai.test.tsx > 发起一轮 > 让 AI 改…：一句话、可选某一步、费用上限与电脑可以改；没写那句话不能发
+Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["web","knowbots","detail","0b8a6c3e-1f2d-4c5b-9a7e-6d5c4b3a2f10"]
+
+ ✓ tests/component/lab-columns.test.tsx (6 tests) 759ms
+ ✓ tests/component/dynamic-test-results.test.tsx (1 test) 236ms
+ ✓ tests/component/common-kernel.test.tsx (3 tests) 182ms
+ ✓ tests/component/logout-button.test.tsx (4 tests) 445ms
+ ✓ tests/component/knowbot-requests.test.tsx (11 tests) 1909ms
+   ✓ 申请 > 列出我的申请，按大类分；打开的那一个写着最新一版受理没有，右边是各版本  340ms
+   ✓ 申请一个创意 > 第一次自己选模式，两边说明并排；请平台的带上费用上限  343ms
+ ✓ tests/component/knowbots-columns.test.tsx (14 tests) 1734ms
+   ✓ 审核 > 孵化的缺口也在待办里：看得到提议，可以答「按提议」，答过的记「按提议」  325ms
+ ✓ tests/unit/browser-session.test.ts (7 tests) 43ms
+ ✓ tests/component/cross-app-link.test.tsx (7 tests) 269ms
+ ✓ tests/component/public-home.test.tsx (1 test) 147ms
+ ✓ tests/component/author-method-picker.test.tsx (9 tests) 2328ms
+   ✓ author method contracts and exact binding > commits the server workdraft after binding and locks the referenced method body  1611ms
+ ✓ tests/component/signed-in-as.test.tsx (2 tests) 36ms
+ ✓ tests/unit/cross-app-links.test.ts (10 tests) 59ms
+ ✓ tests/unit/i18n-time-zone.test.ts (1 test) 29ms
+ ✓ tests/unit/common-api-client.test.ts (3 tests) 26ms
+stderr | tests/component/workdraft-ai.test.tsx > 缺口与导入 skill > 待你定的：列这一轮的缺口，链到审核栏去答；答过了可以让 AI 按答复改
+Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["web","knowbots","detail","0b8a6c3e-1f2d-4c5b-9a7e-6d5c4b3a2f10"]
+
+ ✓ tests/unit/interaction-client.test.ts (5 tests) 18ms
+ ✓ tests/component/workdraft-ai.test.tsx (13 tests) 3205ms
+   ✓ 发起一轮 > AI 起草：费用上限默认 20，电脑默认上次那台与目录  552ms
+   ✓ 发起一轮 > 让 AI 改…：一句话、可选某一步、费用上限与电脑可以改；没写那句话不能发  303ms
+   ✓ 格子旁边的建议 > 三个按钮：接受带 revision，改工作稿；不要不碰工作稿  314ms
+   ✓ 一键接受一步、挑数据 > 一步头上「全部接受」：带 revision 交这一步，跳过的照实说  312ms
+ ✓ tests/unit/next-path.test.ts (3 tests) 4ms
+ ✓ tests/unit/common-query.test.ts (3 tests) 9ms
+ ✓ tests/unit/run-projection.test.ts (4 tests) 6ms
+ ✓ tests/unit/env.test.ts (14 tests) 22ms
+ ✓ tests/component/workdraft.test.tsx (19 tests) 3564ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 步骤可以加、上移、删（删要再点一次确认），整列存  794ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 一步里的格子：规则、交回项、用上哪几步，改哪格存哪格  542ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 怎样算对：选验收模板，参数表单跟着模板换；换模板时「哪一项」留着  398ms
+ ✓ tests/unit/tracked-env-contract.test.ts (2 tests) 3ms
+ ✓ tests/unit/content-security-policy.test.ts (2 tests) 3ms
+ ↓ tests/unit/interaction-consumer-vectors.test.ts (2 tests | 2 skipped)
+ ✓ tests/unit/preview-server.test.ts (15 tests) 247ms
+
+ Test Files  29 passed | 1 skipped (30)
+      Tests  183 passed | 2 skipped (185)
+   Start at  20:13:08
+   Duration  5.56s (transform 2.19s, setup 5.21s, collect 9.39s, tests 17.48s, environment 14.06s, prepare 2.79s)
+
