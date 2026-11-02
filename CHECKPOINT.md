@@ -337,3 +337,25 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 后端全量 1396 passed / 92 skipped / 2 既有 warnings；之后新增规划资料元信息和 Runner→MCP→运行授权跨层测试，四文件最终 44 passed。前端 377 passed / 2 skipped；后端 ruff/pyright、前端 typecheck/lint/i18n/build 通过。固定 Codex 0.155.1 无外网合成协议探针通过，证明工具 metadata 与事件对应以及 live resume 不刷新 MCP header；实现没有全局改沙箱配置。完整日志和最初失败记录在后端 CHECKPOINT.md。
 - qwen 当前合并发布候选、sources、Jenkins、线上旧采单与保底专家未动，没有新增发布卡。保底仍巨潮，Wind W0 未决、总调用仍 3/5。agy 原交接不变，其方法内容/作者 UI 与 Luna 运行链独立。
 - v3 外部准入继续关闭。后续先补动态孵化测试的稳定断言和多最终成果回执，避免把任务实例名当作者预先知道的名字，或只传最后一个文件；再与作者流程和真实沙箱联合验收。开发可继续，供应商许可和作者方法确认不能代作。
+
+## 2026-11-02 夜间接续：动态测试契约与精确引用运行验证
+
+- knowlab-backend ad076ff2591b296d1a22a5780aa15fafc7915013、父仓
+  090c985c64cb78a87cf488a59159f3e8390581b6；knowbench-backend
+  8d1d8926b131ec00acf7b92f3d994e52e6914cc7、父仓
+  05cfbe52aa6dc8e52d523ff0596a3b8feba07985，子仓先推后钉父仓，均在
+  feat/method-execution-view。未改 qwen 的候选、Jenkins、sources 或线上任务。
+- 作者期望使用最终方法别名，经接受计划映射具体实例和已验 ID/版本/摘要；复用原判据。
+  knowlab 在建测试/签数据授权前拒绝非法期望。测试产出可选 plan_version/final_outputs/
+  current，覆盖全部最终成果/文件、返工失效历史、内容限额；旧固定字段不变。
+  只有产出 schema 和消费锁更新，请求/结果/回答 schema 字节不变。
+- 全量 lab 791 passed / 5 skipped，bench 1405 passed / 92 skipped / 2 既有 warnings；
+  全量后只补真实 conductor 落库和引用清单不同任务计划测试，四文件 11 passed。
+  双方 ruff、pyright 0 errors。日志 /tmp/luna-method-test-exports-lab-full.txt、
+  /tmp/luna-method-exports-bench-full.txt、/tmp/luna-method-exports-reference-final.txt。
+  数据库测试发现 UUID 回执序列化遗漏，已修；早期夹具错误及修复详记后端 CHECKPOINT。
+- 实际作者编译引用清单能在同一引擎执行两步/三步不同任务计划，保留冻结方法版本及
+  成果隔离。证据是非财务合成数据和预录 Driver，不是供应商/付费模型或用户验收。
+- agy 交接第 9 节补了新提交和测试页要求：稳定方法名、全部最终成果、失效与省略提示；
+  未改其代码。v3 外部准入仍关闭，下一步须作者页联调与真实沙箱验证；财务方法与许可
+  不能代本人确认。Wind 仍 3/5，保底仍巨潮。没有新增发版卡。
