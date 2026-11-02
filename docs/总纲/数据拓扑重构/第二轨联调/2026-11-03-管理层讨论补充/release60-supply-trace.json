@@ -1,0 +1,206 @@
+[
+  [
+    {
+      "channel_id": "cninfo",
+      "status": "ready",
+      "count": 15
+    }
+  ],
+  [
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "annual_report",
+        "period_end": "2023-12-31",
+        "period_start": "2023-01-01"
+      },
+      "material_id": "6fae40f2-65c3-4d68-9094-074655868806",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:58:31.765354+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "annual_report",
+        "period_end": "2024-12-31",
+        "period_start": "2024-01-01"
+      },
+      "material_id": "b798bcb1-59de-4547-b353-7ef690634d40",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:57:28.043506+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "annual_report",
+        "period_end": "2025-12-31",
+        "period_start": "2025-01-01"
+      },
+      "material_id": "84bd8a53-e609-4b3b-9718-81504b97565e",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:58:53.552204+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q1_report",
+        "period_end": "2023-03-31",
+        "period_start": "2023-01-01"
+      },
+      "material_id": "33da28a7-1a7a-4bd5-963e-ef49351f5a1d",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:59:28.731416+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q1_report",
+        "period_end": "2024-03-31",
+        "period_start": "2024-01-01"
+      },
+      "material_id": "ba4ee34a-391a-41f7-b623-510dfa3d674d",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:57:33.412219+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q1_report",
+        "period_end": "2025-03-31",
+        "period_start": "2025-01-01"
+      },
+      "material_id": "a435b3dc-0181-437d-8372-74094e806fa4",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:59:22.689835+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q1_report",
+        "period_end": "2026-03-31",
+        "period_start": "2026-01-01"
+      },
+      "material_id": "d168002a-7a75-427a-8949-ca3da4cb279c",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:59:47.707549+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q3_report",
+        "period_end": "2023-09-30",
+        "period_start": "2023-01-01"
+      },
+      "material_id": "5ac460a6-5de6-413a-82a5-1c89ed24c4e7",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:59:05.912964+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q3_report",
+        "period_end": "2024-09-30",
+        "period_start": "2024-01-01"
+      },
+      "material_id": "f716600a-89ae-4f9b-b254-d6b785dc7305",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:58:58.221855+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q3_report",
+        "period_end": "2025-09-30",
+        "period_start": "2025-01-01"
+      },
+      "material_id": "35b29918-c7ce-45e0-835f-005c50508459",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:56:38.679858+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "q3_report",
+        "period_end": "2026-09-30",
+        "period_start": "2026-01-01"
+      },
+      "material_id": "5a68e77b-9865-400d-bf5b-f9d362c055fa",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:56:42.738319+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "semiannual_report",
+        "period_end": "2023-06-30",
+        "period_start": "2023-01-01"
+      },
+      "material_id": "5655c031-ae14-4cd7-ac55-ad18220e9af1",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:57:53.897495+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "semiannual_report",
+        "period_end": "2024-06-30",
+        "period_start": "2024-01-01"
+      },
+      "material_id": "b39f36a4-89e4-45c8-9cd8-d3af32deb8e7",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:57:03.781431+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "semiannual_report",
+        "period_end": "2025-06-30",
+        "period_start": "2025-01-01"
+      },
+      "material_id": "cfa76a46-91c2-40e4-92b8-8bcce24750a8",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:59:41.877922+00:00",
+      "last_error": null
+    },
+    {
+      "key": {
+        "subject": "600519.SH",
+        "doc_type": "semiannual_report",
+        "period_end": "2026-06-30",
+        "period_start": "2026-01-01"
+      },
+      "material_id": "1b032c38-ae4b-4dae-9775-307fb346df30",
+      "channel_id": "cninfo",
+      "job_status": "done",
+      "finished_at": "2026-11-02 17:59:17.472076+00:00",
+      "last_error": null
+    }
+  ]
+]

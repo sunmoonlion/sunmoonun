@@ -1,0 +1,1 @@
+{"request_id": "5814331f-b555-4de9-bee6-f01e4e84e909", "request_version": 2, "workdraft_revision": 33, "draft_id": "6d0abd39-9ff7-433a-922a-b313c01fed14", "draft_revision": 5, "status": "pending_test", "case_expectations": [35, 1, 1], "real_test_started": false, "delivery_started": false, "manual_review_required": ["T2语义支持/章节读取", "T3人数与缺口", "T4实际授权与取数轨迹"]}

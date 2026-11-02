@@ -1,0 +1,65 @@
+[
+  {
+    "name": "knowbench-api",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:95fa92dde76b9be1110fc66cd31667e3bd902aba5ea536250b0e6c3b76774d64"
+    ]
+  },
+  {
+    "name": "knowbench-runner",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:95fa92dde76b9be1110fc66cd31667e3bd902aba5ea536250b0e6c3b76774d64"
+    ]
+  },
+  {
+    "name": "knowbench-web",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowbench-web-frontend@sha256:43e72a648786034c14c78100d0bdb8330ec6a91b38a9ef7293c721215b192d74"
+    ]
+  },
+  {
+    "name": "knowbench-worker",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:95fa92dde76b9be1110fc66cd31667e3bd902aba5ea536250b0e6c3b76774d64"
+    ]
+  },
+  {
+    "name": "knowlab-admin",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowlab-admin-frontend@sha256:cc2c423463bcb9349a3d45ec4a19db2113ce910b88e7893b007a854602fdaed2"
+    ]
+  },
+  {
+    "name": "knowlab-api",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:fa9c6f449d6fd855e0566252e2f617ff4a6e8513ca713a7639bfa7e53b5dd169"
+    ]
+  },
+  {
+    "name": "knowlab-scheduler",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:fa9c6f449d6fd855e0566252e2f617ff4a6e8513ca713a7639bfa7e53b5dd169"
+    ]
+  },
+  {
+    "name": "knowlab-web",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowlab-web-frontend@sha256:1719e98ed85300c685769bfc4bec6245c0f3b3dfd77dc49a00146dfd76246017"
+    ]
+  },
+  {
+    "name": "knowlab-worker",
+    "ready": 1,
+    "images": [
+      "harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:fa9c6f449d6fd855e0566252e2f617ff4a6e8513ca713a7639bfa7e53b5dd169"
+    ]
+  }
+]

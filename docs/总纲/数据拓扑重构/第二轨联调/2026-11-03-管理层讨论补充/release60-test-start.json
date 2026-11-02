@@ -1,0 +1,11 @@
+{
+  "draft_id": "6d0abd39-9ff7-433a-922a-b313c01fed14",
+  "test_id": "bdc4eb40-75a5-470f-bcac-3f03ad116df1",
+  "run_id": "knowlab-test-bdc4eb40-75a5-470f-bcac-3f03ad116df1",
+  "status_at_start": "queued",
+  "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+  "root": "C:\\Users\\zymun\\Desktop",
+  "budget_limit": "20.00",
+  "timeout_seconds": 3600,
+  "delivery_started": false
+}
