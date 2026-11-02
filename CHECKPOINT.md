@@ -503,3 +503,24 @@ Conductor/Ledger/Runner/最终成果回收复用既有链，不靠 SQL 改任务
 均未改变。无新迁移/公开契约版本、无付费模型/金融数据/Wind 调用。补充基线到原 agy
 交接，不合并未验财务资产。详细设计见 methods.md 单元 4 第二段，下一门是真实
 作者与沙箱联合验证以及 agy 方法业务正反例，不宣称第二轨全部完成。
+
+## 2026-11-02 #52 数据 MCP 缺路由：候选修复与同批发布依赖
+
+只读定位：工作台 Pod 到 knowbase-tls 的 /api/mcp/data 为 404 text/plain（19 字节），
+knowbase 容器本地同路径返回鉴权 401；双方签名公钥 SHA-256 相同（4fd91361…6cd）。
+模板原来只有 knowledge/user-data 两条前缀，漏了 MCP。工作台吞错误后 tools/list
+成功却无数据读工具；现有线程官方 mcpServerStatus/list 仅 6 个工具（Codex 0.155.1）。
+thread/read 中 read_project_conversation 拒绝当前会话、compute 拒绝空 inputs，均为
+正常守卫；没有证据支持放宽授权或改任务绑定。线上任务保持 WAITING，未代用户操作。
+
+本仓给 knowbase-service-access 增加 Exact /api/mcp/data，仍用原 HTTPS/CA、独立
+knowbase-data JWT；不扩大 /api，不绕过网络策略。真实 config/Jinja dev/test 渲染
+回归 1 passed。knowbench-backend 15643e2 的客户端与目录错误处理同批交付：相关
+124 passed、提供方 8 passed、真实 JWT/ASGI→中继目录 9 工具通过，静态检查通过。
+部署声明必须由 qwen 原生 components-render/stage 经同一 Jenkins/Flux 候选发布，
+本轮不手改生成 workload.yaml，不操作发布或生产 Secret，不新增 Wind 调用。
+
+原统一 Wind/年报交接会补入此修复及正式 config/mcpServer/reload 后目录检查，
+不另拆发版任务；保留旧提问与确认单。上线后完整目录、读取和用户业务验收仍待实测，
+本地验证不能替代。原始测试输出见 /tmp/luna-data-mcp-{regression,provider}.log 与
+/tmp/luna-real-mcp-catalog.log。无数据库迁移或用户数据回填。
