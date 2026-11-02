@@ -406,3 +406,29 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
   全量 1411 passed / 92 skipped / 2 既有 collection warnings（591.87 秒），
   /tmp/luna-proposal-race-full.txt；ruff/pyright 通过。全部新案例已纳入完整回归。
   最初两个新增测试夹具调用错误已修，原输出及修正说明保留在后端 CHECKPOINT。
+
+
+## 2026-11-02 agy 全量 20 方法审查：未通过，未合并
+
+所有者授权审查后符合条件才 merge。审查固定 agy 后端
+3e4a55775c00bcf598b7e63f86ae9a77b6b0ee08、前端
+9d126fac54f6958961f40d4a52ef7b8d26be9850、父仓
+72bb8736b039ff46804ae9321bd936fdae744d9e；没有合并或推 agy 分支。
+仅在 Luna 子仓 fetch 到 agy-review/method-authoring 以核对祖先，没有改变 HEAD。
+
+阻断：仍是硬编码列表、fakeDigest/假 UUID、只改 uses 的无效装配；列表信封/绑定路由/
+CSRF 不匹配，Step Zod 丢 selection。后端只有测试夹具，不是真实方法入库；20 定义
+仅 required 检查，缺公式/来源/PDF 验收。全局必需 intake 的 21 类字段没有形成分析
+依赖；实际运行计划验证允许 intake→report 两步直接成稿。分类检索后端未实现，
+测试仍覆写 fixture，原路线/数据库集成未验证。不能用测试数量扩大来认定完整交付。
+
+在 /tmp/luna-agy-audit-lae5qr7j 隔离 git archive 复跑：后端 19 passed/2 skipped，
+前端原套件 166 passed/2 skipped；新增实际组件/客户端/schema 的三条关键回归全部失败。
+日志 /tmp/luna-agy-audit-{backend-tests,frontend-baseline,frontend-regressions}.txt；
+实际目录/两步计划证据 /tmp/luna-agy-audit-runtime.json。没有改 agy 应用文件或其 JSON。
+详细行号、复跑入口和下一次交回要求已追加所有者指定
+/home/zymun/worktrees/agy/方法库并行开发要求-Luna交接.md 第 11 节。
+
+继续保留 Luna 已验证的通用作者流程（lab c5bf886 / frontend a54e26c / parent 522d15e）。
+agy 应从此对齐后补作者方法和正反验收例，不再次合入已被替换的假 UI。
+本轮没有发布、改 sources/线上采单或调用 Wind。不能把 review 不通过视为第二轨全部完成。
