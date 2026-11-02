@@ -272,3 +272,11 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 准备基线测试（本地 Python 3.12.3，不是生产镜像验证）：knowlab `uv run --with jsonschema==4.26.0 pytest -q tests/test_knowbot_workdraft_compile.py tests/test_knowbot_contract_locks.py`，54 passed；knowmart 同命令选 `tests/test_knowbot_manifest_v2.py tests/test_knowbot_contract.py`，23 passed；knowbench `uv run pytest -q tests/test_knowbot_contract_lock.py tests/test_workbench_knowbots.py`，19 passed。输出 /tmp/luna-track2-prep-knowlab-schema.txt、/tmp/luna-track2-prep-knowmart-schema.txt、/tmp/luna-track2-prep-knowbench.txt。合计 96 passed，仅证明旧固定契约/编译基线；动态能力未实现。
 - 首次不加 `--with`，knowlab 53 passed/1 skipped、knowmart 22 passed/1 skipped，原因是 `pytest.importorskip("jsonschema")` 且两个仓未声明该开发依赖。临时使用与 knowfeed 锁相同的 4.26.0 后补验通过；正式契约单元需把 schema 验证依赖纳入各仓开发依赖/锁，避免只跑摘要校验却跳过实例 schema。此次未修改应用依赖锁。
 - 独立工程准备无需本人再确认；需要本人输入的仍仅是作者真实方法接受、Wind 服务端许可、真实运行预算和原任务采单等具体动作，不提前重复询问。Wind 预算仍 3/5，剩余 2 次未动。工程样例用合成资料与预录模型交回物，不冒充真实模型质量或业务验收。
+
+## 2026-11-02 第二轨首批独立代码（qwen 发版期间）
+
+- 所有者要求不要空等发布，能做的先做。已落地非公开逐读法交付与契约测试门；方法单元仍由作者在孵化确认，运行时选择/排序，动态运行代码尚未实现。没有新增 Wind 调用、改部署源或启动 Jenkins。
+- knowbase：后端 a69436bc440624e87f81974f1ced05f6302505cd，父仓 09ab4ce4a398f7b3fa7963d471665bfacb4e7ff2，远端 feat/reading-receipts。逐内容版本回 readings/renditions，旧 has_readings 语义不变；完整 730 passed / 5 skipped，ruff/pyright 通过。父仓仍包括先前 WP-3 未发布开发，后续发布要审完整差异。
+- knowfeed：后端 8f4ee39a297ccd47d2cecb74a968d0291380cc57，父仓 ab901b6，远端 feat/reading-receipts。只补本人缺失读法、逐私有副本授权、拒错受益人、旧提供方缺字段不猜全齐、按读法保留成功。全量 1043 passed / 13 skipped（/tmp/luna-readings-feed-full-final.txt）；全量启动后最终中途撤权修正再跑受影响四文件 47 passed（/tmp/luna-readings-feed-revocation.txt）；最终 ruff/pyright 通过。最初一次失败源于旧测试把两个私有版本当成只需一份授权，保留原失败输出并按真实版本归属纠正，未删测试。
+- knowlab：后端 70555a6401fa03be4b109bf58c246eff4d71fa4a，父仓 3eb57dc2ec9b2e5fd191d83fc29d9433abc22196；knowmart：后端 731cf3deaf2dab6627455bc2e0e00024d46add25，父仓 1d54a7c9e9f343e25b1a414a7f8c81381147f696，均远端 feat/dynamic-methods。jsonschema 入 dev/锁，去掉 schema 测试 importorskip；发现并补齐旧测试请求 runner，增加缺 runner 拒绝。定向 71/23 passed、相关 ruff 通过；已有运行依赖版本未变，不宣称这两仓完整回归或动态功能完成。
+- qwen 使用的 fix/supply-delivery 五仓远端 SHA 已再次核验仍是交接版本，未被这些开发移动；发布结果仍以所有者通知及正式回执为准。下一步先做 WP-10 的作者/运行契约工作单元，沿 methods.md 与主计划；供应侧跨进程首次交付幂等、版本升级完整恢复及线上验收继续保留，不能以此批修复放行 Wind W1。
