@@ -253,3 +253,12 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 
 - 所有者返回后明确「旧采单就保持原样吧，还是预测未来」。本条取代上文要求处理旧口径任务、重提 2025Q1/Q2 的当前操作指引；原记录作为历史保留。当前演示继续使用任务 9319ae09（会话 d206f1df-54f9-4d85-a999-b73100a870c5），预测 2026Q4、2027Q1，即任务时点尚未结束的本季和下一季度，数据仍走巨潮。2025Q1/Q2 只作为独立固定回归题。
 - 08:28+08 附近只读复核：任务仍 WAITING(DATA)，采单 resolution ready，confirmation_id/demand_id 为空，八步保留；未修改采单、取消任务或代确认。保留现有采单无需新建会话，用户在原会话核对并确认后才开始供给。完整采集、分析、预测与成稿仍待验收。
+
+## 2026-11-02 上午：修复交付，发版交给 qwen
+
+- 本人已于 08:29:27+08 确认旧计划；需求 3ee2184d-63c5-4b64-be75-bf7206fb293b 实际启动后因 facts 空 label、公开 references 多传 basis 两类 422 失败。既有 DataWaiter 已核对到 failed / missing（最近缺 16 项），不是仍未确认，也不是 Kimi 400。任务与确认历史未被修改。
+- knowfeed 候选父仓 d1af123233acc926787ab16117ef743cee8bba14，后端 bb85408f20c78dbda0301315dfd3de0bbfc7d955：真实跨行标签、未匹配诊断、处理版本升级、公开引用契约及 consumer lock；1033 passed / 13 skipped，ruff/pyright 通过。真实已留存 PDF 重放保持 97 条标准值/期间/页码不变。
+- knowbench 候选父仓 5ae91f4ccb1a15b9257a2e3be25742b75c4b630e，后端 7d8da3e18ef055aa38f821a17e6a7f464bc7795c，web 089f8b0b80a9024d03a41bf5dbc0705d0d11a4a2：供应进度/失败分组展示、原任务核对后本人重试、新轮幂等键、无对话事件时等待快照刷新。后端 1206 passed / 92 skipped、ruff/pyright 通过；web pnpm check 完整通过，359 passed / 2 skipped。
+- 上述五仓 GitHub fix/supply-delivery 远端 SHA 已逐一核验，代码工作区干净。没有触发新的 Jenkins，没有更新根仓 sources，线上仍须由发布方重新核验。所有者明确将发版交给 qwen，luna 继续开发；不得同时启动第二条发布。
+- 已按指定位置写入 `/home/zymun/worktrees/qwen/sunmoonun/docs/总纲/发版/2026-11-02-采集交付修复发版交接.md`，含精确版本、Jenkins 操作、原任务恢复、验收、回退与残余问题。文件留给 qwen 纳入其根仓提交，没有替 qwen 切分支/提交其它工作。知会本机开发接续者：发布验收职责在 qwen，不在本工位。
+- 第二轨下一步仍为上节 WP-3 非公开逐读法/完成状态契约缺口、WP-10 动态方法契约与运行计划；knowbase 未发布开发不混入此次候选。Wind 仍已用 3/5 次，W0 未决，W1 不开。保底的线上财务报告尚未验收，不能用本地检查替代。
