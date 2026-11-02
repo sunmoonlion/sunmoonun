@@ -289,3 +289,12 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 完整本地数据库回归：knowlab 736 passed / 5 skipped、knowmart 531 / 5、knowbench 1244 / 92；工作台全量开始后最终改动重跑受影响六文件 81 passed。输出 /tmp/luna-wp10-{lab-full-final,mart-full,bench-full,bench-final-affected}.txt。第一次 lab 的 2 项失败均已修（v3 旧预期、孵化 schema 更新遗漏），原日志保留。工作台最终全仓 ruff/pyright 通过；lab/mart 改动文件通过，但全仓分别遗留类型 1/4、lint 11/17，经隔离解包基线逐条重跑无新增，不能标为全仓静态检查通过。
 - 本单元没有迁移、生产修改、Wind 调用或动态运行验收。Wind 仍 3/5、W0 未通过。下一单元按 methods.md 接版本化计划、确定性校验与 Task/Artifact 事务接受；随后接规划 Attempt、实例/成果版本绑定、有效计划视图/UI及最终成果验收，不能把目录直接塞进共享 ExpertPack 缓存。
 - 发布仍交 qwen；开发交接在 docs/总纲/发版/2026-11-02-WP10作者契约开发交接.md，明确不是当前采集修复的发版候选。不要擅自更新其他工位到这批未发布代码，不重置已有开发分支。
+
+
+## 2026-11-02 WP-10 单元 2 与方法组件化决定
+
+- 所有者「记账后继续」确认方法单元独立版本、专家版本精确引用、任务动态组合；决定提交 b01e7f18b0c7e91b4f3f18ada6324f58a03ab804，落 decisions.md、methods.md、0029/0046 与双轨 WP-10。现有专家内目录不是跨专家组件库；补充单元 1a 在开放动态执行之前完成，主档归 knowlab，输入槽与专家别名/连线分离，不建方法商城，不自动升级旧专家。
+- 单元 2 后端 6e54339d946d53b83f863d3863edf42c3d9221be，父仓 c859e35519e844a2f3a25aa0557bf80c91cd9777，均已推 GitHub feat/dynamic-methods。方法组合校验与 Task 计划 Artifact/指针/事件原子接受，复用 Ledger 的 Attempt 和预算；支持重启精确读版、幂等回执、取消并发、前缀保护、成果版本核验及文件冲突拒绝。
+- 迁移 20261102_0035，仅加可空正整数 accepted_plan_version；旧任务无需回填，有接受记录时禁止删除指针，回退应用保留扩展 schema。没有生产迁移、Jenkins、sources 或 qwen 发布分支修改。
+- 独立 PostgreSQL 全量 1289 passed / 92 skipped / 2 warnings（/tmp/luna-method-plan-full.txt）；启动后追加四个恢复故障案例与注释，三个受影响文件最终 54 passed（/tmp/luna-method-plan-tests-final.txt）。最终 ruff 与 app 目录项目配置下 pyright 通过。详细命令、首次测试 fixture 错误及错误 cwd 的静态检查记录均在后端 CHECKPOINT.md，不隐藏失败或把跳过计为通过。
+- 交接文件 docs/总纲/发版/2026-11-02-WP10任务计划与方法版本开发交接.md 已按所有者指定另存到 qwen 对应目录（新增文件，不提交/重置 qwen 的工作）。它是开发交接，不是当前采集修复发布候选。下一步单元 1a 补作者方法主档/版本、专家引用与三方契约，然后接有效计划视图、advisor/runner/权限/返工/页面及最终验收；动态入口仍拒绝 v3。Wind 仍 3/5、W0 未决；旧巨潮保底专家不改。
