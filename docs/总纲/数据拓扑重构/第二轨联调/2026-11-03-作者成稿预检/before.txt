@@ -1,0 +1,218 @@
+FFFFFFFFF.F                                                              [100%]
+=================================== FAILURES ===================================
+__ test_unavoidable_methods_and_their_inputs_cannot_collide[paths0-required] ___
+
+root = 'required', paths = ('analysis/report.md', 'forecast/Report.MD')
+
+    @pytest.mark.parametrize("root", ["required", "final", "dependency"])
+    @pytest.mark.parametrize("paths", [
+        ("analysis/report.md", "forecast/Report.MD"),
+        ("reports", "reports/final.md"),
+    ])
+    def test_unavoidable_methods_and_their_inputs_cannot_collide(root, paths):
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = paths[0]
+        raw["steps"][1]["advanced"]["output_file"] = paths[1]
+        if root in {"final", "dependency"}:
+            for step in raw["steps"]:
+                step["selection"]["required"] = False
+        if root == "dependency":
+            raw["planning"]["final_units"] = ["review"]
+            raw["steps"][2]["uses"] = ["report"]
+        _, problems = build(raw)
+>       assert any(p.path == "steps/inspect/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_unavoidable_methods_and_their_inputs_cannot_collide.<locals>.<genexpr> at 0x7d96ff51e8e0>)
+
+tests/test_method_delivery_preflight.py:28: AssertionError
+____ test_unavoidable_methods_and_their_inputs_cannot_collide[paths0-final] ____
+
+root = 'final', paths = ('analysis/report.md', 'forecast/Report.MD')
+
+    @pytest.mark.parametrize("root", ["required", "final", "dependency"])
+    @pytest.mark.parametrize("paths", [
+        ("analysis/report.md", "forecast/Report.MD"),
+        ("reports", "reports/final.md"),
+    ])
+    def test_unavoidable_methods_and_their_inputs_cannot_collide(root, paths):
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = paths[0]
+        raw["steps"][1]["advanced"]["output_file"] = paths[1]
+        if root in {"final", "dependency"}:
+            for step in raw["steps"]:
+                step["selection"]["required"] = False
+        if root == "dependency":
+            raw["planning"]["final_units"] = ["review"]
+            raw["steps"][2]["uses"] = ["report"]
+        _, problems = build(raw)
+>       assert any(p.path == "steps/inspect/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_unavoidable_methods_and_their_inputs_cannot_collide.<locals>.<genexpr> at 0x7d96ff51fc60>)
+
+tests/test_method_delivery_preflight.py:28: AssertionError
+_ test_unavoidable_methods_and_their_inputs_cannot_collide[paths0-dependency] __
+
+root = 'dependency', paths = ('analysis/report.md', 'forecast/Report.MD')
+
+    @pytest.mark.parametrize("root", ["required", "final", "dependency"])
+    @pytest.mark.parametrize("paths", [
+        ("analysis/report.md", "forecast/Report.MD"),
+        ("reports", "reports/final.md"),
+    ])
+    def test_unavoidable_methods_and_their_inputs_cannot_collide(root, paths):
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = paths[0]
+        raw["steps"][1]["advanced"]["output_file"] = paths[1]
+        if root in {"final", "dependency"}:
+            for step in raw["steps"]:
+                step["selection"]["required"] = False
+        if root == "dependency":
+            raw["planning"]["final_units"] = ["review"]
+            raw["steps"][2]["uses"] = ["report"]
+        _, problems = build(raw)
+>       assert any(p.path == "steps/inspect/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_unavoidable_methods_and_their_inputs_cannot_collide.<locals>.<genexpr> at 0x7d96ff5a8520>)
+
+tests/test_method_delivery_preflight.py:28: AssertionError
+__ test_unavoidable_methods_and_their_inputs_cannot_collide[paths1-required] ___
+
+root = 'required', paths = ('reports', 'reports/final.md')
+
+    @pytest.mark.parametrize("root", ["required", "final", "dependency"])
+    @pytest.mark.parametrize("paths", [
+        ("analysis/report.md", "forecast/Report.MD"),
+        ("reports", "reports/final.md"),
+    ])
+    def test_unavoidable_methods_and_their_inputs_cannot_collide(root, paths):
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = paths[0]
+        raw["steps"][1]["advanced"]["output_file"] = paths[1]
+        if root in {"final", "dependency"}:
+            for step in raw["steps"]:
+                step["selection"]["required"] = False
+        if root == "dependency":
+            raw["planning"]["final_units"] = ["review"]
+            raw["steps"][2]["uses"] = ["report"]
+        _, problems = build(raw)
+>       assert any(p.path == "steps/inspect/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_unavoidable_methods_and_their_inputs_cannot_collide.<locals>.<genexpr> at 0x7d96ff5aacf0>)
+
+tests/test_method_delivery_preflight.py:28: AssertionError
+____ test_unavoidable_methods_and_their_inputs_cannot_collide[paths1-final] ____
+
+root = 'final', paths = ('reports', 'reports/final.md')
+
+    @pytest.mark.parametrize("root", ["required", "final", "dependency"])
+    @pytest.mark.parametrize("paths", [
+        ("analysis/report.md", "forecast/Report.MD"),
+        ("reports", "reports/final.md"),
+    ])
+    def test_unavoidable_methods_and_their_inputs_cannot_collide(root, paths):
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = paths[0]
+        raw["steps"][1]["advanced"]["output_file"] = paths[1]
+        if root in {"final", "dependency"}:
+            for step in raw["steps"]:
+                step["selection"]["required"] = False
+        if root == "dependency":
+            raw["planning"]["final_units"] = ["review"]
+            raw["steps"][2]["uses"] = ["report"]
+        _, problems = build(raw)
+>       assert any(p.path == "steps/inspect/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_unavoidable_methods_and_their_inputs_cannot_collide.<locals>.<genexpr> at 0x7d96ff5abb90>)
+
+tests/test_method_delivery_preflight.py:28: AssertionError
+_ test_unavoidable_methods_and_their_inputs_cannot_collide[paths1-dependency] __
+
+root = 'dependency', paths = ('reports', 'reports/final.md')
+
+    @pytest.mark.parametrize("root", ["required", "final", "dependency"])
+    @pytest.mark.parametrize("paths", [
+        ("analysis/report.md", "forecast/Report.MD"),
+        ("reports", "reports/final.md"),
+    ])
+    def test_unavoidable_methods_and_their_inputs_cannot_collide(root, paths):
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = paths[0]
+        raw["steps"][1]["advanced"]["output_file"] = paths[1]
+        if root in {"final", "dependency"}:
+            for step in raw["steps"]:
+                step["selection"]["required"] = False
+        if root == "dependency":
+            raw["planning"]["final_units"] = ["review"]
+            raw["steps"][2]["uses"] = ["report"]
+        _, problems = build(raw)
+>       assert any(p.path == "steps/inspect/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_unavoidable_methods_and_their_inputs_cannot_collide.<locals>.<genexpr> at 0x7d96ff5abed0>)
+
+tests/test_method_delivery_preflight.py:28: AssertionError
+__________ test_optional_collision_remains_a_task_selection_decision ___________
+
+    def test_optional_collision_remains_a_task_selection_decision():
+        raw = body()
+        raw["steps"][0]["advanced"]["output_file"] = "analysis/report.md"
+        raw["steps"][2]["advanced"]["output_file"] = "forecast/report.md"
+        _, problems = build(raw)
+        assert not problems
+        raw["steps"][2]["selection"]["required"] = True
+        _, problems = build(raw)
+>       assert any(p.path == "steps/review/advanced" and "冲突" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_optional_collision_remains_a_task_selection_decision.<locals>.<genexpr> at 0x7d96ff5dc930>)
+
+tests/test_method_delivery_preflight.py:39: AssertionError
+_ test_reserved_handback_name_is_reported_on_the_author_cell[\u4ea4\u56de.md] __
+
+path = '交回.md'
+
+    @pytest.mark.parametrize("path", ["交回.md", "reports/交回.MD"])
+    def test_reserved_handback_name_is_reported_on_the_author_cell(path):
+        raw = body()
+        raw["steps"][2]["advanced"]["output_file"] = path
+        _, problems = build(raw)
+>       assert any(p.path == "steps/review/advanced" and "交回.md" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_reserved_handback_name_is_reported_on_the_author_cell.<locals>.<genexpr> at 0x7d96ff5dc790>)
+
+tests/test_method_delivery_preflight.py:47: AssertionError
+_ test_reserved_handback_name_is_reported_on_the_author_cell[reports/\u4ea4\u56de.MD] _
+
+path = 'reports/交回.MD'
+
+    @pytest.mark.parametrize("path", ["交回.md", "reports/交回.MD"])
+    def test_reserved_handback_name_is_reported_on_the_author_cell(path):
+        raw = body()
+        raw["steps"][2]["advanced"]["output_file"] = path
+        _, problems = build(raw)
+>       assert any(p.path == "steps/review/advanced" and "交回.md" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_reserved_handback_name_is_reported_on_the_author_cell.<locals>.<genexpr> at 0x7d96ff5df5e0>)
+
+tests/test_method_delivery_preflight.py:47: AssertionError
+_ test_historical_referenced_snapshot_stays_readable_but_cannot_republish_conflict _
+
+    def test_historical_referenced_snapshot_stays_readable_but_cannot_republish_conflict():
+        # build returns the exact compiled evidence even when current authoring
+        # checks reject publication; replay must not rewrite immutable evidence.
+        manifest, problems = referenced(output_file="reports/交回.md")
+>       assert any("交回.md" in p.message for p in problems)
+E       assert False
+E        +  where False = any(<generator object test_historical_referenced_snapshot_stays_readable_but_cannot_republish_conflict.<locals>.<genexpr> at 0x7d96ff60c520>)
+
+tests/test_method_delivery_preflight.py:66: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_method_delivery_preflight.py::test_unavoidable_methods_and_their_inputs_cannot_collide[paths0-required]
+FAILED tests/test_method_delivery_preflight.py::test_unavoidable_methods_and_their_inputs_cannot_collide[paths0-final]
+FAILED tests/test_method_delivery_preflight.py::test_unavoidable_methods_and_their_inputs_cannot_collide[paths0-dependency]
+FAILED tests/test_method_delivery_preflight.py::test_unavoidable_methods_and_their_inputs_cannot_collide[paths1-required]
+FAILED tests/test_method_delivery_preflight.py::test_unavoidable_methods_and_their_inputs_cannot_collide[paths1-final]
+FAILED tests/test_method_delivery_preflight.py::test_unavoidable_methods_and_their_inputs_cannot_collide[paths1-dependency]
+FAILED tests/test_method_delivery_preflight.py::test_optional_collision_remains_a_task_selection_decision
+FAILED tests/test_method_delivery_preflight.py::test_reserved_handback_name_is_reported_on_the_author_cell[\u4ea4\u56de.md]
+FAILED tests/test_method_delivery_preflight.py::test_reserved_handback_name_is_reported_on_the_author_cell[reports/\u4ea4\u56de.MD]
+FAILED tests/test_method_delivery_preflight.py::test_historical_referenced_snapshot_stays_readable_but_cannot_republish_conflict
+10 failed, 1 passed in 0.18s
