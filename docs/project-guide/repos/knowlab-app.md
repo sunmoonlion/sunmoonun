@@ -147,7 +147,7 @@ knowlab 是作者把自己的方法做成专家的地方。一个**产品**从�
 
 ## 代码和设计对不上的
 
-1. **knowbase 没有本人读表头的接口**：专家孵化方案第 8.2 节写交给 AI 的格式含表名、列标签、行标签；knowbase 只在运行授权下给格式（`run-grants/{授权}/materials/{资料}/format`），本人令牌读不到，契约 `DataFormat.tables` 先空着（`application/services/knowbot_library.py`）。
+1. **L4 表轴接口已有开发实现，待同批部署与作者验收**（2026-11-02）：knowbase 新增本人令牌 `materials/{资料}/versions/{版本}/format`，核展示、使用权、版本与摘要；knowlab 挑资料时保存表轴并随孵化契约交模型。CSV/XLSX 支持表名、第一行列标签和第一列非数值行标签；PDF、旧 xls、正文不臆造表轴。只传有界格式，不传数据区数值。后端 `c8d9a70`，59 项定向回归通过；不是生产已接通或作者已接受方法的结论。
 2. **列作者的电脑走哪条路**：0046 第七节写凭本人令牌向 knowbench 要；代码走 `knowbench:testrun` 带作者编号（`infrastructure/external/knowbot_clients.py:113`）。0046 第九节已记这处差异，第七节正文没改。
 3. **gitops 落后于代码**（Fable 工位 `knowlab-backend/config.yaml`）：
    - 还收 `knowlab:read`（`service_receivers` 第 143 行），knowbench 那边也还配着；代码已删这个接口，`infrastructure/security/relation_auth.py` 只认 `incubation-request` 与 `supply-status`。

@@ -145,3 +145,14 @@ knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
 3. **`user-data-read` 的调用方**：代码认 knowfeed 也能凭授权读（`interfaces/endpoints/user_run_routes.py:72`），`contracts/README.md:62` 也这样写；部署只给 knowbench、knowlab 开了这条关系，knowfeed 代码也不调。
 4. **knowfeed 自己认的事项规则没带版本号**：0049 第四节「规则带版本」，knowbase 上传时的识别已带（`RULES_VERSION`，记进留痕）；knowfeed 交公开原件时认细类、事项的规则版本还没交过来，knowbase 也没地方记。
 
+
+
+## 2026-11-02 开发增量：本人读取资料格式
+
+L4 的新接口 `GET /api/internal/v2/user-data/materials/{material_id}/versions/{version_no}/format`
+凭本人令牌，检查展示给代办应用、使用权覆盖版本、未禁用/清除及对象摘要；留 format 读记录。
+返回确切版本、摘要、文件类型与表轴，供 knowlab 保存为孵化格式快照。CSV/XLSX 按第一行/
+第一列标签投影，数值数据区与公式不交出；PDF/旧 xls/正文回空表轴，坏表格明确拒绝。
+最多 50 表、200 列、500 行、标签 200 字；不是全文抽表或财务科目识别。
+backend ada6ac9，提供方契约已生成；44 项首轮、24 项最终定向检查通过。
+未部署，需先于 knowlab 消费者部署；旧运行授权 format 接口不变。
