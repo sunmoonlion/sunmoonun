@@ -20,7 +20,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: frontend
-          image: harbor.sunmoonai.com:30443/platform/knowbase-admin-frontend@sha256:a259d4515d2b4ba69086b5e2b38a7d4084ca20ab43ef50bdec534228ccd28437
+          image: harbor.sunmoonai.com:30443/platform/knowbase-admin-frontend@sha256:cfb3d69998ba00447e60d59d58369b205822bf0411b1afe751b233bd09ff2531
           imagePullPolicy: IfNotPresent
           ports: [{name: http, containerPort: 3000}]
           env:
@@ -29,7 +29,7 @@ spec:
             - {name: AUTH_APP, value: knowbase}
             - {name: APP_ORIGIN, value: "https://knowbase-admin.dev.sunmoonai.com:30443"}
             - {name: BACKEND_INTERNAL_URL, value: 'http://knowbase-api.app-platform-dev.svc.cluster.local:8000'}
-            - {name: DEPLOYMENT_ID, value: "knowbase-admin-frontend-a259d4515d2b4ba6"}
+            - {name: DEPLOYMENT_ID, value: "knowbase-admin-frontend-cfb3d69998ba0044"}
             - {name: HOSTNAME, value: 0.0.0.0}
             - {name: PORT, value: '3000'}
             - {name: REFERENCE_UI_ENABLED, value: 'false'}
