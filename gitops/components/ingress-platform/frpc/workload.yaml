@@ -25,6 +25,17 @@ data:
     requestHeaders.set.x-forwarded-proto = "https"
 
     [[proxies]]
+    name = "knowmart"
+    type = "http"
+    customDomains = ["knowmart.dev.sunmoonai.com"]
+    loadBalancer.group = "knowmart"
+    loadBalancer.groupKey = "{{ .Envs.FRP_GROUP_KEY }}"
+    [proxies.plugin]
+    type = "http2https"
+    localAddr = "traefik.ingress-platform-dev.svc.cluster.local:443"
+    requestHeaders.set.x-forwarded-proto = "https"
+
+    [[proxies]]
     name = "casdoor"
     type = "http"
     customDomains = ["casdoor.dev.sunmoonai.com"]
@@ -62,7 +73,7 @@ spec:
   template:
     metadata:
       labels: {app.kubernetes.io/name: frpc}
-      annotations: {sunmoonai.com/input-sha256: '59b8ad7d742a327f44529749291dd543a459b7ee0ca3d281cfd0e93efe3a44d3'}
+      annotations: {sunmoonai.com/input-sha256: '7454863f1842d146a35b121a31d2929a1222779266f2fc20b0334c37d2d09182'}
     spec:
       serviceAccountName: frpc
       enableServiceLinks: false

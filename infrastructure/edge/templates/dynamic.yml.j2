@@ -1,4 +1,4 @@
-# 只放行三个公开域名；其它 Host 没有路由，Traefik 回 404。edge_path_allowlist 列了的域名只放行列出的路径，其余 403。
+# 只放行 edge_domains 中的公开域名；其它 Host 没有路由，Traefik 回 404。edge_path_allowlist 列了的域名只放行列出的路径，其余 403。
 http:
   routers:
     to-https:

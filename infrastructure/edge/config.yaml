@@ -1,7 +1,7 @@
 # 公网边缘第一期（SDD 0013）。只放公开参数；frp 令牌在私有文件里，不进 Git。
 ---
 # edge_public_ip 是站点事实，在 environments/<站点>/site.yaml（C2 起）；域名与公网端口也从站点拼。
-edge_domains: ['knowbench.{{ site_domain }}', 'casdoor.{{ site_domain }}', 'relay.{{ site_domain }}']
+edge_domains: ['knowbench.{{ site_domain }}', 'knowmart.{{ site_domain }}', 'casdoor.{{ site_domain }}', 'relay.{{ site_domain }}']
 edge_https_port: '{{ public_port }}'
 edge_http_port: 80
 edge_frps_port: 7000
