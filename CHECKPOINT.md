@@ -811,3 +811,8 @@ knowlab._answer改用_task_ref，和重测/knowbench一致，保留固定测试�
 ## 2026-11-03 失败测试清理入口待办 K30
 
 所有者指出页面只有删除、没有归档，要求记账。已记 docs/design/knowbot-todolist.md K30，与K29联动：先查删除实际语义和关联影响，再设计失败/终态测试归档、查看与恢复入口，保留版本/验收/费用/引用证据。当前删除是否破坏记录尚未核实，不宣称已证实丢数据。本轮仅文档，无实际删除、归档、停止或重启，不影响测试7与准专家2.6，不另开发布任务。
+
+
+## 2026-11-03 发布中断测试7 c1
+
+c1勾稽/取数已完成，indicators在10:53:07因runner重启被interrupted，task事件明确platform=true，测试用例status=error、failed_checks为空；不是新容差验收失败。新runner创建10:53:04、镜像ec8c9e2e… Ready=true，Qwen最终回执未核。第12.5节已追加Luna/Qwen交接，记录并行发布安排不妥，后续runner发布须避开在跑测试。c1已结算11.731892，失败turn成本unknown；c2已自动进入数据摸底，本轮只查证未另发起付费重试或改历史。
