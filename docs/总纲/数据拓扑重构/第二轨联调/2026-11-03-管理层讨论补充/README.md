@@ -110,3 +110,23 @@ c2已进入作者数据确认（3年年报，table/pages各3项），当前等�
 测试2、3、4均为mode=self且started_by为申请作者zymun；测试4仍waiting/c2，不是平台人员测试。平台模式也可能经授权使用作者电脑及Key，不能从设备或账号权限推断身份。
 经SessionService.rename/archive和ProjectService.rename整理6条会话，5条终态归档（4条原已归档），当前只保留“财务分析与预测 · 准专家2.5 · 作者自测4 · c2”。详见test-session-cleanup.json；任务状态/预算、确认单、测试成果未改。
 网页开发53ba520/父2439514；#60隔离候选网页3c14550/父a0eaae6，195通过2跳过及静态检查通过。发版交接第7节与compute候选合为两镜像补丁，尚未发布。未来新会话的角色/轮次自动命名未实现，需从knowlab真源传递，不能猜测。
+
+### release #61 发布后复核（2026-11-03 08:35，北京时间）
+
+所有者通知发布完成后，核对Qwen回执release-61.20261103-080449.md：deploy
+6d2a67dc41390ca011923709a8bd3fec969f4038，tag release-20261103-3。
+上述“尚未发布”为历史状态；计算变量修复及测试身份页面修复现已部署。
+
+- 集群knowbench API/runner/scheduler/worker均Ready=1，均运行镜像
+  sha256:b903dde662ecd7bef7ed72b2d448dd82e82b1cab0114fac024435b08b6057f88。
+  knowlab-web Ready=1，镜像sha256:9dce4577cb65ad90150f6e1ad5f266163ed2a961e5594e7cd24a696616abadbf。
+  与回执的f8cd18ba后端、3c14550a网页对应。
+- 在实际API容器导入MCP工具声明，compute.inputs.propertyNames已接受大小写ASCII变量；
+  A/L/E/TLE均通过名称校验，领域求值A-(L+E)以合成10/6/4得到0。
+  这是部署契约/领域冒烟，不是带真实授权事实的MCP调用，也未写入任务计算记录。
+- 只读事务调用现有测试状态服务：测试4仍waiting，c1任务CANCELLED且原预算失败保留；
+  c2任务15b7f4da-2ec4-43b0-8445-7d42c33a6e51仍WAITING/DATA，待答
+  data:15b7f4da-2ec4-43b0-8445-7d42c33a6e51:r1；c3尚未创建任务。
+  已完成用例结算6.847252元，含当前用例进度7.518288元，不能相加。
+- 未代确认、未重启测试或增加预算；无浏览器登录态，页面实际显示未验。
+  下一步由作者在knowlab核对并确认c2数据后续跑；c1仍需另轮重测，不能将本次部署视作专家验收通过。
