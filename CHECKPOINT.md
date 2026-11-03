@@ -782,3 +782,10 @@ UI dev53ba520/parent2439514；#60候选web3c14550a466f9be11164a02306e5e92167cb71
 knowlab._answer改用_task_ref，和重测/knowbench一致，保留固定测试集不追加；开发364b747/父7132998，隔离d9f13ba/父8453ed2，分支fix/test-grant-scope。两个回归修复前失败；相关26项及Ruff/Pyright开发/隔离均通过。
 通过knowlab正式运行方cancel接口停止已进入第二次无效勾稽的测试4，runtime cancelled、lab platform_error，记录/已确认数据保留。未重写授权、未重跑、未增预算。
 证据见管理层讨论补充/test4-grant-scope-failure.json；统一发版交接第10节，在第9节文案候选基础上加knowlab后端，Qwen正准备文案发布，不改其正在执行的sources或流水线。发布后新轮实际验证尚待做。
+
+
+## 2026-11-03 release #63 已核对，测试5启动
+
+- Qwen #63后端d9f13ba已在knowlab三角色对齐，数据授权ref修复在线生效。
+- 正式启动准专家2.5作者自测5（347f11ce…），原20元/3600秒，沿用测试集第2版及zymun原Windows电脑；旧测试4不续跑、不改判。
+- c1定范围已运行；真实run:case读取17份材料与1条目标fact成功。预测/报告尚未验收，确认分支的新交互尚未覆盖；记录在管理层讨论补充/release63-test5-start.json。

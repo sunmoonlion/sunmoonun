@@ -148,3 +148,12 @@ knowlab运行方cancel接口停止测试4，refresh_mine后为platform_error；�
 不撤改历史、不提高预算、不代确认；c1失败记录保留。旧授权不改写，修复发布后用新测试验证。
 开发后端364b747/父7132998；隔离后端d9f13ba/父8453ed2（含第9节网页文案），见统一交接第10节。
 当前只完成工程修复，专家第2版尚未通过财务验收、未上架。
+
+
+### release #63 后启动测试5（仍在验收，未交付）
+
+所有者通知发布完成后，核对Qwen回执32df1ef6：#63 deploy8469a22a，后端d9f13ba，镜像33e4e464…。knowlab API/worker/scheduler均Ready1且相同镜像，在线代码确认签发ref已统一，不再加question_id。
+
+按既有授权经正式start_self_test重测准专家2.5；预算仍20.00元、3600秒，作者zymun的Windows电脑与目录保持原配置，未另建电脑/换Key。测试5为347f11ce-a538-4bac-86fc-7cfd047c81fe，使用测试集第2版（上一轮c2确认后正常归档生成）；旧测试4保持platform_error。
+
+c1任务eeac0070-f04b-4fa8-9acc-f0d79332a721已开始定范围。按真实运行ref读取17份材料，并读回此前compute拒绝的目标fact，not_found为空。此只读探针验证运行授权可读，不制造compute成功记录；本轮携带测试集走已有直接签发路径，新的提问确认分支尚未实跑，不能据此替代该路径验收。后续勾稽、预测、引文及文件仍待验证；不提交交付。结构化记录见release63-test5-start.json。

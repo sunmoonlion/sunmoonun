@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-03",
+  "release": 63,
+  "deploy": "8469a22a64902adbf23a3199f35c559fa9e5f6ba",
+  "backend_source": "d9f13baa1228f7f678012b3e6021715a4dce9fe6",
+  "backend_image": "sha256:33e4e4648c37c1fc22f68c65269124e112bedee0b263542c52eafa8753d87fa6",
+  "roles_ready": [
+    "knowlab-api",
+    "knowlab-worker",
+    "knowlab-scheduler"
+  ],
+  "runtime_source_check": {
+    "stable_case_ref": true,
+    "question_suffix": false
+  },
+  "test": {
+    "number": 5,
+    "id": "347f11ce-a538-4bac-86fc-7cfd047c81fe",
+    "run_id": "knowlab-test-347f11ce-a538-4bac-86fc-7cfd047c81fe",
+    "draft": "2.5",
+    "test_set_version": 2,
+    "mode": "self",
+    "budget_limit": "20.00",
+    "timeout_seconds": 3600,
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "workspace_root": "C:\\Users\\zymun\\Desktop",
+    "initial_status": "running",
+    "initial_step": "定范围",
+    "case": "c1"
+  },
+  "read_probe": {
+    "task_id": "eeac0070-f04b-4fa8-9acc-f0d79332a721",
+    "ref": "knowlab-test-347f11ce-a538-4bac-86fc-7cfd047c81fe:c1",
+    "input_count": 17,
+    "probe_fact": "fact:6a1f795d-8095-4427-998f-bc265ae8b1e8",
+    "fact_count": 1,
+    "not_found": []
+  },
+  "limitations": [
+    "Fresh test carries previously confirmed test set; new question-confirmation branch not yet exercised in this run.",
+    "Financial reconciliation, forecasting, management discussion quotations and Markdown delivery not yet accepted.",
+    "No new business confirmation answered by agent."
+  ]
+}
