@@ -77,7 +77,7 @@ async def main():
     await check('reject_unverifiable_quote', bad, False)
     bad = copy.deepcopy(out); bad['continuity_checks'] *= 2
     await check('reject_duplicate_balance_pair', bad, False)
-    archived = json.loads((HERE.parent/'2026-11-03-release66测试11/listing-review.json').read_text())['outputs'][0]
+    archived = json.loads((HERE/'previous-continuity.json').read_text())
     bad = copy.deepcopy(out); bad['continuity_checks'] = archived['continuity_checks']; bad['continuity_missing'] = archived['continuity_missing']
     e.inventory['continuity_plan'] = archived['inventory_continuity_plan']
     await check('reject_archived_c1_flow_restatement_rows', bad, False)
