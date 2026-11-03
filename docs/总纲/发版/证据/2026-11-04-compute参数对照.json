@@ -1,0 +1,4783 @@
+{
+  "date": "2026-11-04",
+  "authorization": "User approved isolated synthetic protocol verification, total CNY 2; no financial task restart.",
+  "endpoint": "https://api.moonshot.cn/v1/responses",
+  "model": "kimi-k3",
+  "codex_version": "0.155.1",
+  "data": "Synthetic refs and numbers only; no production MCP tool executions. Auth retained in sandbox process memory, not captured.",
+  "counts": {
+    "http_200": 14,
+    "http_400": 6
+  },
+  "reported_usage_cost_cny": 0.461396,
+  "conservative_estimate_cny": 0.492116,
+  "pricing": "Application configured CNY/MTok input20, cached2, cache_write20, output100; conservative estimate additionally counts cache writes. HTTP400 reported no usage; not counted as inference. Provider bill is authoritative.",
+  "scope": "Old schema reproduced an empty single call but also succeeded on a later changed synthetic-ref prompt; not deterministic and not proof of all historical failures. Exact fixed Codex wire schema passed two single calls and one batch. Earlier equivalent full-branch schema passed both modes. Flat removal still lost fields.",
+  "service_replay": [
+    {
+      "mode": "single",
+      "arguments": {
+        "task": "probe-task",
+        "name": "sum",
+        "expression": "a+b",
+        "inputs": {
+          "a": "fact:00000000-0000-0000-0000-000000000001",
+          "b": "fact:00000000-0000-0000-0000-000000000002"
+        }
+      },
+      "result": {
+        "id": "c1",
+        "name": "sum",
+        "value": "350.35",
+        "formula": "a+b",
+        "inputs": [
+          {
+            "name": "a",
+            "ref": "fact:00000000-0000-0000-0000-000000000001",
+            "value": "100.1"
+          },
+          {
+            "name": "b",
+            "ref": "fact:00000000-0000-0000-0000-000000000002",
+            "value": "250.25"
+          }
+        ]
+      },
+      "persisted_fake_events": 1
+    },
+    {
+      "mode": "batch",
+      "arguments": {
+        "task": "probe-task",
+        "batch": [
+          {
+            "key": "sum",
+            "name": "sum",
+            "expression": "a+b",
+            "inputs": {
+              "a": "fact:00000000-0000-0000-0000-000000000001",
+              "b": "fact:00000000-0000-0000-0000-000000000002"
+            }
+          }
+        ]
+      },
+      "result": {
+        "results": [
+          {
+            "id": "c1",
+            "name": "sum",
+            "value": "350.35",
+            "formula": "a+b",
+            "inputs": [
+              {
+                "name": "a",
+                "ref": "fact:00000000-0000-0000-0000-000000000001",
+                "value": "100.1"
+              },
+              {
+                "name": "b",
+                "ref": "fact:00000000-0000-0000-0000-000000000002",
+                "value": "250.25"
+              }
+            ],
+            "key": "sum"
+          }
+        ]
+      },
+      "persisted_fake_events": 1
+    },
+    {
+      "mode": "single",
+      "arguments": {
+        "task": "probe-task",
+        "name": "sum",
+        "expression": "a+b",
+        "inputs": {
+          "a": "fact:00000000-0000-0000-0000-000000000001",
+          "b": "fact:00000000-0000-0000-0000-000000000002"
+        }
+      },
+      "result": {
+        "id": "c1",
+        "name": "sum",
+        "value": "350.35",
+        "formula": "a+b",
+        "inputs": [
+          {
+            "name": "a",
+            "ref": "fact:00000000-0000-0000-0000-000000000001",
+            "value": "100.1"
+          },
+          {
+            "name": "b",
+            "ref": "fact:00000000-0000-0000-0000-000000000002",
+            "value": "250.25"
+          }
+        ]
+      },
+      "persisted_fake_events": 1
+    }
+  ],
+  "records": [
+    {
+      "mode": "single",
+      "shape": "current",
+      "reserve_cny": 0.24762,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "name",
+                        "expression",
+                        "inputs"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "batch"
+                      ]
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "required",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [],
+      "status": 400,
+      "error": "{\"error\":{\"message\":\"invalid_request_error: responses: unsupported tool_choice value: \\\"required\\\"\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}\n",
+      "series": "initial"
+    },
+    {
+      "mode": "single",
+      "shape": "flat",
+      "reserve_cny": 0.23825999999999997,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "required",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [],
+      "status": 400,
+      "error": "{\"error\":{\"message\":\"invalid_request_error: responses: unsupported tool_choice value: \\\"required\\\"\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}\n",
+      "series": "initial"
+    },
+    {
+      "mode": "batch",
+      "shape": "current",
+      "reserve_cny": 0.2505,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "name",
+                        "expression",
+                        "inputs"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "batch"
+                      ]
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "required",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [],
+      "status": 400,
+      "error": "{\"error\":{\"message\":\"invalid_request_error: responses: unsupported tool_choice value: \\\"required\\\"\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}\n",
+      "series": "initial"
+    },
+    {
+      "mode": "batch",
+      "shape": "flat",
+      "reserve_cny": 0.24114000000000002,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "required",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [],
+      "status": 400,
+      "error": "{\"error\":{\"message\":\"invalid_request_error: responses: unsupported tool_choice value: \\\"required\\\"\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}\n",
+      "series": "initial"
+    },
+    {
+      "mode": "single",
+      "shape": "current",
+      "reserve_cny": 0.24738,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "name",
+                        "expression",
+                        "inputs"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "batch"
+                      ]
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 107,
+          "item_id": "fc_1cKpmRYR5F9YUYes6hK5Hhs2",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 108,
+          "item_id": "fc_1cKpmRYR5F9YUYes6hK5Hhs2",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 109,
+          "item_id": "fc_1cKpmRYR5F9YUYes6hK5Hhs2",
+          "output_index": 1,
+          "arguments": "{}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 110,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_1cKpmRYR5F9YUYes6hK5Hhs2",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_b02343c5",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 8.836,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_1cKpmRYR5F9YUYes6hK5Hhs2",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_b02343c5",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 454,
+          "input_tokens_details": {
+            "cache_write_tokens": 256,
+            "cached_tokens": 0
+          },
+          "output_tokens": 279,
+          "output_tokens_details": {
+            "reasoning_tokens": 233
+          },
+          "total_tokens": 733
+        }
+      ],
+      "series": "-auto"
+    },
+    {
+      "mode": "single",
+      "shape": "flat",
+      "reserve_cny": 0.23802,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 37,
+          "item_id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 38,
+          "item_id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+          "output_index": 1,
+          "delta": "\"task\":\"probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 39,
+          "item_id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+          "output_index": 1,
+          "delta": "-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 40,
+          "item_id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 41,
+          "item_id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+          "output_index": 1,
+          "arguments": "{\"task\":\"probe-task\"}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 42,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_a4355757",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\":\"probe-task\"}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 4.387,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_Q8DuPZvNK3GZrs5xKWtUEPRQ",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_a4355757",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\":\"probe-task\"}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 422,
+          "input_tokens_details": {
+            "cache_write_tokens": 256,
+            "cached_tokens": 0
+          },
+          "output_tokens": 140,
+          "output_tokens_details": {
+            "reasoning_tokens": 78
+          },
+          "total_tokens": 562
+        }
+      ],
+      "series": "-auto"
+    },
+    {
+      "mode": "batch",
+      "shape": "current",
+      "reserve_cny": 0.25026,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "name",
+                        "expression",
+                        "inputs"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "batch"
+                      ]
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 21,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 22,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 23,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "delta": "probe-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 24,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "delta": ", \"batch\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 25,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "delta": "[{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 26,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 27,
+          "item_id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 28,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_MmCcl909pWulFucglgsjAIGQ",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_c4664911",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 1.876,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_MmCcl909pWulFucglgsjAIGQ",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_c4664911",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 467,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 256
+          },
+          "output_tokens": 167,
+          "output_tokens_details": {
+            "reasoning_tokens": 70
+          },
+          "total_tokens": 634
+        }
+      ],
+      "series": "-auto"
+    },
+    {
+      "mode": "batch",
+      "shape": "flat",
+      "reserve_cny": 0.2409,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 35,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 36,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 37,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": "probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 38,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": "-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 39,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": ", \"batch\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 40,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": "[{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 41,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 42,
+          "item_id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 43,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_13379be6",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 2.887,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_0p1KndJ1uBwUejseWXr4hjTj",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_13379be6",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 435,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 256
+          },
+          "output_tokens": 214,
+          "output_tokens_details": {
+            "reasoning_tokens": 117
+          },
+          "total_tokens": 649
+        }
+      ],
+      "series": "-auto"
+    },
+    {
+      "mode": "single",
+      "shape": "legacy",
+      "reserve_cny": 0.2133,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task",
+                    "name",
+                    "expression",
+                    "inputs"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 32,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 33,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "\"expression\":\"a+b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 34,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 35,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": ",\"inputs\":{\"a"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 36,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "\":\"fact:probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 37,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "-a\",\"b\":\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 38,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "fact:probe-b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 39,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 40,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": ",\"name\":\"sum"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 41,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 42,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": ",\"task\":\"probe-task"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 43,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 44,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 45,
+          "item_id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "output_index": 1,
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 46,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_4ff84aa1",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 4.552,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_uxRZfNmL7GBoarUa6xkUp4zx",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_4ff84aa1",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 337,
+          "input_tokens_details": {
+            "cache_write_tokens": 256,
+            "cached_tokens": 0
+          },
+          "output_tokens": 196,
+          "output_tokens_details": {
+            "reasoning_tokens": 74
+          },
+          "total_tokens": 533
+        }
+      ],
+      "series": "-variants"
+    },
+    {
+      "mode": "single",
+      "shape": "union",
+      "reserve_cny": 0.252,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        },
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [],
+      "status": 400,
+      "error": "{\"error\":{\"message\":\"Invalid request: tools.function.parameters.type is required and must be \\\"object\\\"\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}\n",
+      "series": "-variants"
+    },
+    {
+      "mode": "batch",
+      "shape": "union",
+      "reserve_cny": 0.25488,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        },
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [],
+      "status": 400,
+      "error": "{\"error\":{\"message\":\"Invalid request: tools.function.parameters.type is required and must be \\\"object\\\"\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}\n",
+      "series": "-variants"
+    },
+    {
+      "mode": "single",
+      "shape": "flat_required",
+      "reserve_cny": 0.23994,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task",
+                    "name",
+                    "expression",
+                    "inputs"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 77,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 78,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "\"expression\":\"a"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 79,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "+b\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 80,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": ",\"inputs\":{\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 81,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "a\":\"fact:"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 82,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "probe-a\",\"b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 83,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "\":\"fact:probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 84,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "-b\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 85,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": ",\"name\":\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 86,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "sum\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 87,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": ",\"task\":\"probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 88,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 89,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 90,
+          "item_id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "output_index": 1,
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 91,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_8a11d8b4",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 7.38,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_6fiaKjOnUjQ17baEoxuETnmB",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_8a11d8b4",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 428,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 256
+          },
+          "output_tokens": 307,
+          "output_tokens_details": {
+            "reasoning_tokens": 185
+          },
+          "total_tokens": 735
+        }
+      ],
+      "series": "-variants"
+    },
+    {
+      "mode": "single",
+      "shape": "union_typed",
+      "reserve_cny": 0.25307999999999997,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        },
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 31,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 32,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "\"expression\":\"a+b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 33,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 34,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": ",\"inputs\":{\"a"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 35,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "\":\"fact:probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 36,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "-a\",\"b\":\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 37,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "fact:probe-b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 38,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 39,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": ",\"name\":\"sum"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 40,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 41,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": ",\"task\":\"probe-task"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 42,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 43,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 44,
+          "item_id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "output_index": 1,
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 45,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_GPtqQdODUN3krfS607EUheBU",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_126a96c0",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 4.914,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_GPtqQdODUN3krfS607EUheBU",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_126a96c0",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 472,
+          "input_tokens_details": {
+            "cache_write_tokens": 256,
+            "cached_tokens": 0
+          },
+          "output_tokens": 176,
+          "output_tokens_details": {
+            "reasoning_tokens": 54
+          },
+          "total_tokens": 648
+        }
+      ],
+      "series": "-unions"
+    },
+    {
+      "mode": "batch",
+      "shape": "union_typed",
+      "reserve_cny": 0.25596,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        },
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 75,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 76,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 77,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": "probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 78,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": "-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 79,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": ", \"batch\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 80,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": "[{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 81,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 82,
+          "item_id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 83,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_a9eb2150",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 4.18,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_dOEuR4c0m6ktvCee02rFTZhH",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_a9eb2150",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 485,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 256
+          },
+          "output_tokens": 324,
+          "output_tokens_details": {
+            "reasoning_tokens": 227
+          },
+          "total_tokens": 809
+        }
+      ],
+      "series": "-unions"
+    },
+    {
+      "mode": "single",
+      "shape": "union_merged",
+      "reserve_cny": 0.30396,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        },
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ],
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 101,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 102,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "\"expression\":\"a+b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 103,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 104,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": ",\"inputs\":{\"a"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 105,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "\":\"fact:probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 106,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "-a\",\"b\":\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 107,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "fact:probe-b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 108,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 109,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": ",\"name\":\"sum"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 110,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 111,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": ",\"task\":\"probe-task"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 112,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 113,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 114,
+          "item_id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "output_index": 1,
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 115,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_4a10c5c4",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 7.861,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_wlwyhjyQapdypFNt4SF4qnNZ",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_4a10c5c4",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"expression\":\"a+b\",\"inputs\":{\"a\":\"fact:probe-a\",\"b\":\"fact:probe-b\"},\"name\":\"sum\",\"task\":\"probe-task\"}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 643,
+          "input_tokens_details": {
+            "cache_write_tokens": 512,
+            "cached_tokens": 0
+          },
+          "output_tokens": 349,
+          "output_tokens_details": {
+            "reasoning_tokens": 227
+          },
+          "total_tokens": 992
+        }
+      ],
+      "series": "-unions"
+    },
+    {
+      "mode": "batch",
+      "shape": "union_merged",
+      "reserve_cny": 0.30684,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:probe-a and b to fact:probe-b. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        },
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ],
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 65,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 66,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 67,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": "probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 68,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": "-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 69,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": ", \"batch\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 70,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": "[{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 71,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 72,
+          "item_id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 73,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_887bc01c",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 4.803,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_RxF6pNOSlCaW9MSBS5G4sWSC",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_887bc01c",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:probe-a\", \"b\": \"fact:probe-b\"}}]}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 656,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 512
+          },
+          "output_tokens": 329,
+          "output_tokens_details": {
+            "reasoning_tokens": 232
+          },
+          "total_tokens": 985
+        }
+      ],
+      "series": "-unions"
+    },
+    {
+      "mode": "single",
+      "shape": "current",
+      "reserve_cny": 0.25085999999999997,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:00000000-0000-0000-0000-000000000001 and b to fact:00000000-0000-0000-0000-000000000002. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "name",
+                        "expression",
+                        "inputs"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {},
+                      "required": [
+                        "batch"
+                      ]
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 116,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 117,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 118,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "probe"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 119,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 120,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": ", \"name\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 121,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "sum"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 122,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 123,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": ", \"expression\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 124,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "a+b"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 125,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 126,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": ", \"inputs\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 127,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "{\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 128,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 129,
+          "item_id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 130,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_11b8c159",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 5.908,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_GTrfX6QZoaqZLOHVksN1pU8c",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_11b8c159",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 484,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 256
+          },
+          "output_tokens": 496,
+          "output_tokens_details": {
+            "reasoning_tokens": 354
+          },
+          "total_tokens": 980
+        }
+      ],
+      "series": "-final"
+    },
+    {
+      "mode": "single",
+      "shape": "fixed",
+      "reserve_cny": 0.30744,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:00000000-0000-0000-0000-000000000001 and b to fact:00000000-0000-0000-0000-000000000002. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 37,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 38,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 39,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "probe-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 40,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": ", \"name\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 41,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "sum\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 42,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": ", \"expression\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 43,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "a"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 44,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "+b\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 45,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": ", \"inputs\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 46,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "{\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 47,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 48,
+          "item_id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 49,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_6fbbd5f7",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 9.521,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_mwz2QLjcmkjXLJP1hy6KWYs0",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_6fbbd5f7",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 673,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 512
+          },
+          "output_tokens": 262,
+          "output_tokens_details": {
+            "reasoning_tokens": 120
+          },
+          "total_tokens": 935
+        }
+      ],
+      "series": "-final"
+    },
+    {
+      "mode": "batch",
+      "shape": "fixed",
+      "reserve_cny": 0.31032,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use batch mode with one row: key=sum, name=sum, expression=a+b, inputs maps a to fact:00000000-0000-0000-0000-000000000001 and b to fact:00000000-0000-0000-0000-000000000002. Do not set top-level name/expression/inputs."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 36,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 37,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": "\"task\": \"probe-tas"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 38,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": "k\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 39,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": ", \"batch\": [{\"key\": \"sum\", \"name\": \"s"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 40,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": "um\", \"expression\": \"a+b\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 41,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": ", \"inputs\": {\"a\": \"fact:00000000-0000-0000-00"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 42,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": "00-000000000001\", \"b\": \"fact:00000"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 43,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "delta": "000-0000-0000-0000-000000000002\"}}]}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 44,
+          "item_id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}]}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 45,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_2dc94d4b",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}]}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 6.49,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_jVy2FCz0CqfPvjzr6fQHnI5k",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_2dc94d4b",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"batch\": [{\"key\": \"sum\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}]}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 686,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 512
+          },
+          "output_tokens": 328,
+          "output_tokens_details": {
+            "reasoning_tokens": 197
+          },
+          "total_tokens": 1014
+        }
+      ],
+      "series": "-final"
+    },
+    {
+      "mode": "single",
+      "shape": "fixed",
+      "reserve_cny": 0.30744,
+      "request": {
+        "model": "kimi-k3",
+        "input": [
+          {
+            "role": "user",
+            "content": "Isolated protocol test with synthetic refs only. Call compute exactly once. Task is probe-task. Do not explain. Use single mode: name=sum, expression=a+b, inputs maps a to fact:00000000-0000-0000-0000-000000000001 and b to fact:00000000-0000-0000-0000-000000000002. Do not use batch."
+          }
+        ],
+        "tools": [
+          {
+            "type": "namespace",
+            "name": "mcp__sunmoon_workbench",
+            "description": "Synthetic local calculator.",
+            "tools": [
+              {
+                "type": "function",
+                "name": "compute",
+                "description": "Compute using either single {task,name,expression,inputs} or batch {task,batch:[{key,name,expression,inputs}]} mode. task is always required. All refs are fake, do not fetch data.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "batch": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expression": {
+                            "type": "string"
+                          },
+                          "inputs": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "round": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "name",
+                          "expression",
+                          "inputs"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1
+                    },
+                    "expression": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "round": {
+                      "type": "integer"
+                    },
+                    "task": {
+                      "type": "string",
+                      "description": "The task id given in the step instructions."
+                    }
+                  },
+                  "required": [
+                    "task"
+                  ],
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "expression": {
+                          "type": "string"
+                        },
+                        "inputs": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "round": {
+                          "type": "integer"
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "name",
+                        "expression",
+                        "inputs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "batch": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "expression": {
+                                "type": "string"
+                              },
+                              "inputs": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "round": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "name",
+                              "expression",
+                              "inputs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        },
+                        "task": {
+                          "type": "string",
+                          "description": "The task id given in the step instructions."
+                        }
+                      },
+                      "required": [
+                        "task",
+                        "batch"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "strict": false
+              }
+            ]
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "max_output_tokens": 768,
+        "store": false
+      },
+      "events": [
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 18,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "{"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 19,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "\"task\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 20,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "probe-task\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 21,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": ", \"name\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 22,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "sum\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 23,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": ", \"expression\": \""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 24,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "a"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 25,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "+b\""
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 26,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": ", \"inputs\": "
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 27,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "{\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}"
+        },
+        {
+          "type": "response.function_call_arguments.delta",
+          "sequence_number": 28,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "delta": "}"
+        },
+        {
+          "type": "response.function_call_arguments.done",
+          "sequence_number": 29,
+          "item_id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "output_index": 1,
+          "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}",
+          "name": "compute"
+        },
+        {
+          "type": "response.output_item.done",
+          "sequence_number": 30,
+          "output_index": 1,
+          "item": {
+            "type": "function_call",
+            "id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+            "status": "completed",
+            "call_id": "mcp__sunmoon_workbench--_--compute_0_ed3e99f2",
+            "name": "compute",
+            "namespace": "mcp__sunmoon_workbench",
+            "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}"
+          }
+        }
+      ],
+      "status": 200,
+      "duration": 2.854,
+      "calls": [
+        {
+          "type": "function_call",
+          "id": "fc_NR7zL6SdoVm3SVPy3uEtKXG1",
+          "status": "completed",
+          "call_id": "mcp__sunmoon_workbench--_--compute_0_ed3e99f2",
+          "name": "compute",
+          "namespace": "mcp__sunmoon_workbench",
+          "arguments": "{\"task\": \"probe-task\", \"name\": \"sum\", \"expression\": \"a+b\", \"inputs\": {\"a\": \"fact:00000000-0000-0000-0000-000000000001\", \"b\": \"fact:00000000-0000-0000-0000-000000000002\"}}"
+        }
+      ],
+      "usage": [
+        {
+          "input_tokens": 673,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 512
+          },
+          "output_tokens": 183,
+          "output_tokens_details": {
+            "reasoning_tokens": 41
+          },
+          "total_tokens": 856
+        }
+      ],
+      "series": "-final"
+    }
+  ]
+}
