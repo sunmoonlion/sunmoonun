@@ -1,0 +1,29 @@
+{
+  "status": "proposal_not_author_accepted",
+  "rules": [
+    {
+      "kind": "computed",
+      "path": "balance_checks",
+      "expression": "A-(L+E)",
+      "tolerance": 0.0
+    },
+    {
+      "kind": "computed",
+      "path": "profit_checks",
+      "expression": "NP-(P+M)",
+      "tolerance": 0.0
+    },
+    {
+      "kind": "computed",
+      "path": "cash_checks",
+      "expression": "END-(BEGIN+CHANGE)",
+      "tolerance": 0.0
+    },
+    {
+      "kind": "computed",
+      "path": "continuity_checks",
+      "expression": "OPEN-PREV_CLOSE",
+      "tolerance": 0.0
+    }
+  ]
+}

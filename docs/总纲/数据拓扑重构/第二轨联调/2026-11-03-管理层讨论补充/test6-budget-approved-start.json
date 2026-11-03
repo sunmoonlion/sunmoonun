@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-03",
+  "owner_decision": "60元总额，每题20元；测试5费用另计",
+  "test_id": "a5221685-7edb-4c62-adfc-ce5781a8d4aa",
+  "run_id": "knowlab-test-a5221685-7edb-4c62-adfc-ce5781a8d4aa",
+  "draft_id": "6d0abd39-9ff7-433a-922a-b313c01fed14",
+  "draft": "2.5",
+  "test_set_version": 2,
+  "budget_limit": "60.00",
+  "per_case_limit": "20.00",
+  "timeout_seconds": 3600,
+  "method_changes_accepted": false,
+  "start_method": "formal knowlab start_self_test",
+  "test5": {
+    "status": "platform_error after formal cancellation",
+    "c1_budget_used": "8.103888",
+    "reconcile_cost": "6.815732",
+    "c1_limit": "6.66",
+    "c1_compute_records": 69,
+    "c2_task_state": "CANCELLED",
+    "c2_thread_status": "idle"
+  },
+  "pending": [
+    "reconciliation semantic review",
+    "forecast and backtest",
+    "management discussion quotes",
+    "complete Markdown delivery"
+  ]
+}
