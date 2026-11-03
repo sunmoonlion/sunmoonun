@@ -1,0 +1,1934 @@
+{
+  "name": "财务分析与预测",
+  "pack": {
+    "name": "财务分析与预测",
+    "scope": {
+      "does": "共同前提：资料经本次授权；可查询/补取不代表已具备，也不保证能取到。按已有八步流程执行，不承诺任意方法组合或即时完成。报表先按原四条恒等式核对：资产=负债+权益；归母净利润+少数股东损益=净利润；期末现金=期初现金+净增加额；本期期初=上期期末。年度衔接比余额，重述差异另列。最终交付财务分析报告.md。\n\n【F1 历史财报指标与走势】\n目标：计算并描述营业收入、归母净利润、营业成本及核心财务指标的历史走势。\n范围：一家中国A股上市公司；明确历史期间及合并或母公司口径。\n方法：毛利率=(营收−营业成本)/营收；净利率=归母净利润/营收；ROE按平均归母净资产；经营现金流/归母净利润；同比；明确要求时计算CAGR。\n数据前提：授权报表与可核页码原文；同比需比较期，平均净资产需期初期末，CAGR需起止数和年数；重述版本分开。\n交付：年度金额、指标、走势、计算依据、口径及出处，纳入Markdown报告。\n\n【F2 累计报表转单季】\n目标：将利润表、现金流量表的累计金额还原为单季序列。\n范围：一家中国A股上市公司的可比季度序列，作为本专家分析或预测的输入。\n方法：Q1=一季报；Q2=半年报−Q1；Q3=三季报−半年报；Q4=年报−三季报；资产负债表时点数不差分。\n数据前提：同口径、同版本链的累计报表及相邻累计期；使用前核对原四条恒等式，差额超过1元为不平，缺项不冒充通过。\n交付：单季序列、差分计算依据、来源与不可用期间，纳入Markdown报告。\n\n【F3 分析结论与管理层讨论对照】\n目标：逐条判断本专家上游分析结论是否得到管理层讨论原文支持。\n范围：依赖本次上游结论及对应年报；只读按目录定位的管理层讨论章节。\n方法：保留每条结论原文；完整同口径支持才判支持；未提及、仅部分支持或口径不同判不支持并说明。\n数据前提：可读且有页码的年报原文、章节定位和本次上游结论。\n交付：逐条结论、支持/不支持、原因及支持项原文引文和页码，纳入Markdown报告。\n\n【F4 固定方法的两季度预测】\n目标：测算营业收入、归母净利润未来两个季度的点预测和区间。\n范围：一家中国A股上市公司；明确预测起点、两个目标季度及可比金额口径。\n方法：上年同季×(1+近4季同比中位数)；上下界用近8季同比最小/最大值；先回测最近4个单季。\n数据前提：单季还原、同比和各回测时点所需历史窗口；预测使用期通过原四式核验，差额阈值1元，缺项或不平期不冒充合格；披露时点与重述差异另列。\n交付：两季度点值及上下界、最近4季回测、计算依据、出处与局限，纳入Markdown报告。",
+      "does_not": "共同限制：不提供评级、目标价、买卖建议、收益承诺；未声明的能力不能默认存在。免费、唯一可选或数据可读均不证明适用。\n\n【F1 历史财报指标与走势】不承诺因果识别、经营诊断、审计鉴证、横向选股；人均创收等非标准指标须先确认作者方法与人数口径，不自动视为覆盖。\n不适用例：证明利润下降的唯一原因并提出经营改造方案。\n\n【F2 累计报表转单季】不把年度数平均分摊为季度，不推造缺失季度，不将重述前后数据直接混算。\n不适用例：只有年报，拆出四个季度的真实收入。\n\n【F3 分析结论与管理层讨论对照】不支持不等于计算错误；不以其他章节代替管理层讨论，不据此保证结论因果正确或无舞弊。\n不适用例：根据管理层讨论证明公司不存在财务造假。\n\n【F4 固定方法的两季度预测】不做DCF、股价/目标价、五年预测、三表联动或用户指定的其他模型；区间不是统计置信区间，不保证实际值落入。\n不适用例：用DCF给出合理股价，或预测未来五年的三张报表。",
+      "elsewhere": "原题的必要结果、主体、期间、明确方法逐项核对；不能因部分相关就直接承接。能力不足说明缺口，可选择其他专家、通用模型或通过“去knowlab提交创意”提出孵化申请。可承接的缩小问题须本人明确接受；无答复不算同意，不自动换题、加预算或确认数据。\n\n【F1 历史财报指标与走势】\n条件不足：主体、期间或口径不清先澄清；缺数走数据确认；分母不成立标不适用；原题要求缺失不能报完成。\n适用例：计算某A股公司2021至2024年的营收、归母净利润、毛利率与三年营收CAGR。\n\n【F2 累计报表转单季】\n条件不足：缺相邻累计期先提数据需求；仍缺则明确不可还原，不用估算填充实际值。\n适用例：用半年报和一季报还原第二季度营业收入。\n\n【F3 分析结论与管理层讨论对照】\n条件不足：找不到章节或无上游结论如实说明，不能编引文或把缺少材料判为已核对。\n适用例：将本次营收同比结论对照年报管理层讨论，并引用支持它的原文。\n\n【F4 固定方法的两季度预测】\n条件不足：起点不明确先澄清；缺数据先确认补取；窗口或核验仍不足则说明无法完成，不缩短回测要求冒充交付。\n适用例：按季节性同比法预测未来两季度营收和归母净利润，并回测最近4季。"
+    },
+    "title": "财务分析与预测",
+    "pack_id": "knowlab-5814331f-b555-4de9-bee6-f01e4e84e909",
+    "tagline": "单家公司财报指标计算、披露核对与固定方法季度预测",
+    "version": "4",
+    "workflow": [
+      {
+        "why": "核对问题所需结果和方法是否在本专家范围内，避免答非所问",
+        "title": "定范围",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "scope",
+        "summary": "逐项列出本题要交付的结果、指定方法与口径；超出范围或不明确时先交用户决定，不擅自改题",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "company",
+              "in_data",
+              "request_items",
+              "excluded_requests"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「company」、「in_data」、「request_items」、「excluded_requests」",
+            "message": "缺交回项"
+          },
+          {
+            "kind": "list_min",
+            "path": "request_items",
+            "label": "「request_items」至少 1 项",
+            "message": "没过：「request_items」至少 1 项",
+            "min_items": 1
+          },
+          {
+            "keys": [
+              "id",
+              "question_quote",
+              "requested_result",
+              "requested_method",
+              "scope_reason",
+              "status"
+            ],
+            "kind": "each_has",
+            "path": "request_items",
+            "label": "「request_items」每项都有「id」、「question_quote」、「requested_result」、「requested_method」、「scope_reason」、「status」；「id」、「question_quote」、「requested_result」、「requested_method」、「scope_reason」不能为空；「id」的组合不重复",
+            "message": "没过：「request_items」每项都有「id」、「question_quote」、「requested_result」、「requested_method」、「scope_reason」、「status」；「id」、「question_quote」、「requested_result」、「requested_method」、「scope_reason」不能为空；「id」的组合不重复",
+            "unique_by": [
+              "id"
+            ],
+            "non_empty_keys": [
+              "id",
+              "question_quote",
+              "requested_result",
+              "requested_method",
+              "scope_reason"
+            ]
+          },
+          {
+            "kind": "all_equal",
+            "path": "request_items",
+            "field": "status",
+            "label": "「request_items」每项的「status」都是 covered",
+            "equals": "covered",
+            "message": "没过：「request_items」每项的「status」都是 covered"
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：逐项列出本题要交付的结果、指定方法与口径；超出范围或不明确时先交用户决定，不擅自改题\n\n规则：\n1. 保留原问题。将用户要求的每项结果、主体、期间、明确指定的方法列为request_items，每项给稳定id、原题原文question_quote、requested_result、requested_method（未指定写未指定）、scope_reason。不得因只有一位免费专家、曾经被AI请回、或可读到相关数据就视为适用。不得删除明确要求或把DCF换成营收预测、把原因识别换成几个比率。相同话题不代表相同方法。\n2. 逐项按本专家公开scope/does与scope/does_not判断。必要要求超范围或口径不明确时，使用运行器的out_of_scope回复，在用户明确接受具体缩小后的问题前不继续；没有可行子问题就说明停止并建议其他专家、通用模型或提交创意。无回答、取消、过期都不视为接受。用户明确接受范围调整时，request_items只列本次明确接受的交付要求，excluded_requests逐条保留未承接的原要求和授权说明；否则不得删减原要求。仅当本次每项都在方法范围内才将status写covered；不以假设伪造覆盖。\n3. in_data只描述本次已授权数据的实际情况。能力适用性与数据是否已经齐备分开判断：方法适用但缺数据时按既有request_data及本人确认流程处理，不能把空授权清单说成公司不存在。同科目有合并/母公司等口径冲突时问用户，不能自行补定口径。未取齐不承诺已能算出。\n\n交回一个 JSON，包含：\n- company：文字\n- in_data：文字\n- request_items：表，每行有：id（文字）、question_quote（文字）、requested_result（文字）、requested_method（文字）、scope_reason（文字）、status（文字）\n- excluded_requests：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "company": "string",
+          "in_data": "string",
+          "request_items": [
+            {
+              "id": "string",
+              "status": "string",
+              "scope_reason": "string",
+              "question_quote": "string",
+              "requested_method": "string",
+              "requested_result": "string"
+            }
+          ],
+          "excluded_requests": [
+            "string"
+          ]
+        },
+        "input_max_chars": 8000,
+        "output_artifact": "scope"
+      },
+      {
+        "why": "摸清现有数据结构与期数完整度",
+        "title": "数据摸底",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "inventory",
+        "summary": "列出你的数据里有哪些表、哪些报告期、哪些科目，缺了什么；期数够不够回测和预测",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "periods",
+              "balance_plan",
+              "profit_plan",
+              "cash_plan",
+              "continuity_plan"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「periods」、「balance_plan」、「profit_plan」、「cash_plan」、「continuity_plan」",
+            "message": "缺交回项"
+          },
+          {
+            "kind": "list_min",
+            "path": "balance_plan",
+            "label": "「balance_plan」至少 1 项",
+            "message": "没过：「balance_plan」至少 1 项",
+            "min_items": 1
+          },
+          {
+            "keys": [
+              "key"
+            ],
+            "kind": "each_has",
+            "path": "balance_plan",
+            "label": "「balance_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "message": "没过：「balance_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          {
+            "kind": "list_min",
+            "path": "profit_plan",
+            "label": "「profit_plan」至少 1 项",
+            "message": "没过：「profit_plan」至少 1 项",
+            "min_items": 1
+          },
+          {
+            "keys": [
+              "key"
+            ],
+            "kind": "each_has",
+            "path": "profit_plan",
+            "label": "「profit_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "message": "没过：「profit_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          {
+            "kind": "list_min",
+            "path": "cash_plan",
+            "label": "「cash_plan」至少 1 项",
+            "message": "没过：「cash_plan」至少 1 项",
+            "min_items": 1
+          },
+          {
+            "keys": [
+              "key"
+            ],
+            "kind": "each_has",
+            "path": "cash_plan",
+            "label": "「cash_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "message": "没过：「cash_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          {
+            "kind": "list_min",
+            "path": "continuity_plan",
+            "label": "「continuity_plan」至少 1 项",
+            "message": "没过：「continuity_plan」至少 1 项",
+            "min_items": 1
+          },
+          {
+            "keys": [
+              "key"
+            ],
+            "kind": "each_has",
+            "path": "continuity_plan",
+            "label": "「continuity_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "message": "没过：「continuity_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          {
+            "keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ],
+            "kind": "each_has",
+            "path": "continuity_plan",
+            "label": "「continuity_plan」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」不能为空",
+            "message": "没过：「continuity_plan」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」不能为空",
+            "non_empty_keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ]
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "continuity_plan",
+            "field": "account_kind",
+            "label": "「continuity_plan」每项，「account_kind」只能是「stock_balance」",
+            "values": [
+              "stock_balance"
+            ],
+            "message": "没过：「continuity_plan」每项，「account_kind」只能是「stock_balance」"
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "continuity_plan",
+            "field": "comparison_kind",
+            "label": "「continuity_plan」每项，「comparison_kind」只能是「opening_to_previous_closing」",
+            "values": [
+              "opening_to_previous_closing"
+            ],
+            "message": "没过：「continuity_plan」每项，「comparison_kind」只能是「opening_to_previous_closing」"
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "scope"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：列出你的数据里有哪些表、哪些报告期、哪些科目，缺了什么；期数够不够回测和预测\n\n规则：\n1. 列出我的数据里有哪些表、哪些报告期、哪些科目；期数不够做后面的回测或预测，能做的照做、写明原因。\n2. 按本题历史分析、单季换算、回测和预测所需的期间列出四类待核清单：balance_plan、profit_plan、cash_plan、continuity_plan。前三类每项交回key，continuity_plan另外交回下列余额元数据；key 要包含期间、报表口径、来源材料版本，衔接检查还含科目及前后期。只列需要核验的实际范围，不机械扩展到无关科目。同一事实同一版本不因重复披露重复列项；不同重述版分开。需要核验但缺输入的项目也要列出，不能为验收删掉。每类至少一项。\n3. 第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_differences，不得当作本条不平，也不得仅因重述差额剔除预测期间。最新报告没有下一年度报告不构成缺项：本期报告的年初余额与上年度期末余额即可比较；有追溯调整时分别交代原版、重述版及桥接原因，不能混口径凑平。真实余额衔接差额绝对值超过1元仍按原规则处理，确实缺少前期余额则明确未核验并走原补数流程。\n4. continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inventory清单逐字传递；continuity_missing同样带这些元数据，缺原件写明而非猜测。\n\n用上：scope（定范围）\n\n交回一个 JSON，包含：\n- periods：列表\n- balance_plan：表，每行有：key（文字）\n- profit_plan：表，每行有：key（文字）\n- cash_plan：表，每行有：key（文字）\n- continuity_plan：表，每行有：key（文字）、account（文字）、balance_date（文字）、scope（文字）、opening_report（文字）、previous_report（文字）、account_kind（文字）、comparison_kind（文字）\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "periods": [
+            "string"
+          ],
+          "cash_plan": [
+            {
+              "key": "string"
+            }
+          ],
+          "profit_plan": [
+            {
+              "key": "string"
+            }
+          ],
+          "balance_plan": [
+            {
+              "key": "string"
+            }
+          ],
+          "continuity_plan": [
+            {
+              "key": "string",
+              "scope": "string",
+              "account": "string",
+              "account_kind": "string",
+              "balance_date": "string",
+              "opening_report": "string",
+              "comparison_kind": "string",
+              "previous_report": "string"
+            }
+          ]
+        },
+        "input_max_chars": 8000,
+        "output_artifact": "inventory"
+      },
+      {
+        "why": "保证底层数据准确与口径自洽",
+        "title": "勾稽",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "reconcile",
+        "summary": "查四条会计恒等式，差额超过 1 元算不平；不平的照实列出，那几期不进预测",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "checks",
+              "balance_checks",
+              "balance_missing",
+              "profit_checks",
+              "profit_missing",
+              "cash_checks",
+              "cash_missing",
+              "continuity_checks",
+              "continuity_missing",
+              "restatement_differences"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「checks」、「balance_checks」、「balance_missing」、「profit_checks」、「profit_missing」、「cash_checks」、「cash_missing」、「continuity_checks」、「continuity_missing」、「restatement_differences」",
+            "message": "缺交回项"
+          },
+          {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "A",
+              "L",
+              "E"
+            ],
+            "kind": "each_has",
+            "path": "balance_checks",
+            "label": "「balance_checks」每项都有「key」、「value」、「compute_id」、「A」、「L」、「E」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "message": "没过：「balance_checks」每项都有「key」、「value」、「compute_id」、「A」、「L」、「E」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "balance_checks",
+            "label": "「balance_checks」的数都是用计算工具算的（算式 A-(L+E)）",
+            "message": "没过：「balance_checks」的数都是用计算工具算的（算式 A-(L+E)）",
+            "tolerance": 0.0,
+            "expression": "A-(L+E)",
+            "input_keys": [
+              "A",
+              "L",
+              "E"
+            ]
+          },
+          {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "kind": "each_has",
+            "path": "balance_missing",
+            "label": "「balance_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "message": "没过：「balance_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          {
+            "also": [
+              "balance_missing"
+            ],
+            "kind": "covers",
+            "path": "balance_checks",
+            "field": "key",
+            "label": "「balance_checks」与第「数据摸底」步一一对上",
+            "source": "inventory.balance_plan",
+            "message": "没过：「balance_checks」与第「数据摸底」步一一对上",
+            "source_field": "key"
+          },
+          {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "NP",
+              "P",
+              "M"
+            ],
+            "kind": "each_has",
+            "path": "profit_checks",
+            "label": "「profit_checks」每项都有「key」、「value」、「compute_id」、「NP」、「P」、「M」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "message": "没过：「profit_checks」每项都有「key」、「value」、「compute_id」、「NP」、「P」、「M」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "profit_checks",
+            "label": "「profit_checks」的数都是用计算工具算的（算式 NP-(P+M)）",
+            "message": "没过：「profit_checks」的数都是用计算工具算的（算式 NP-(P+M)）",
+            "tolerance": 0.0,
+            "expression": "NP-(P+M)",
+            "input_keys": [
+              "NP",
+              "P",
+              "M"
+            ]
+          },
+          {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "kind": "each_has",
+            "path": "profit_missing",
+            "label": "「profit_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "message": "没过：「profit_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          {
+            "also": [
+              "profit_missing"
+            ],
+            "kind": "covers",
+            "path": "profit_checks",
+            "field": "key",
+            "label": "「profit_checks」与第「数据摸底」步一一对上",
+            "source": "inventory.profit_plan",
+            "message": "没过：「profit_checks」与第「数据摸底」步一一对上",
+            "source_field": "key"
+          },
+          {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "END",
+              "BEGIN",
+              "CHANGE"
+            ],
+            "kind": "each_has",
+            "path": "cash_checks",
+            "label": "「cash_checks」每项都有「key」、「value」、「compute_id」、「END」、「BEGIN」、「CHANGE」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "message": "没过：「cash_checks」每项都有「key」、「value」、「compute_id」、「END」、「BEGIN」、「CHANGE」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "cash_checks",
+            "label": "「cash_checks」的数都是用计算工具算的（算式 END-(BEGIN+CHANGE)）",
+            "message": "没过：「cash_checks」的数都是用计算工具算的（算式 END-(BEGIN+CHANGE)）",
+            "tolerance": 0.0,
+            "expression": "END-(BEGIN+CHANGE)",
+            "input_keys": [
+              "END",
+              "BEGIN",
+              "CHANGE"
+            ]
+          },
+          {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "kind": "each_has",
+            "path": "cash_missing",
+            "label": "「cash_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "message": "没过：「cash_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          {
+            "also": [
+              "cash_missing"
+            ],
+            "kind": "covers",
+            "path": "cash_checks",
+            "field": "key",
+            "label": "「cash_checks」与第「数据摸底」步一一对上",
+            "source": "inventory.cash_plan",
+            "message": "没过：「cash_checks」与第「数据摸底」步一一对上",
+            "source_field": "key"
+          },
+          {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "OPEN",
+              "PREV_CLOSE"
+            ],
+            "kind": "each_has",
+            "path": "continuity_checks",
+            "label": "「continuity_checks」每项都有「key」、「value」、「compute_id」、「OPEN」、「PREV_CLOSE」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "message": "没过：「continuity_checks」每项都有「key」、「value」、「compute_id」、「OPEN」、「PREV_CLOSE」；「key」、「compute_id」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "continuity_checks",
+            "label": "「continuity_checks」的数都是用计算工具算的（算式 OPEN-PREV_CLOSE）",
+            "message": "没过：「continuity_checks」的数都是用计算工具算的（算式 OPEN-PREV_CLOSE）",
+            "tolerance": 0.0,
+            "expression": "OPEN-PREV_CLOSE",
+            "input_keys": [
+              "OPEN",
+              "PREV_CLOSE"
+            ]
+          },
+          {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "kind": "each_has",
+            "path": "continuity_missing",
+            "label": "「continuity_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "message": "没过：「continuity_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          {
+            "also": [
+              "continuity_missing"
+            ],
+            "kind": "covers",
+            "path": "continuity_checks",
+            "field": "key",
+            "label": "「continuity_checks」与第「数据摸底」步一一对上",
+            "source": "inventory.continuity_plan",
+            "message": "没过：「continuity_checks」与第「数据摸底」步一一对上",
+            "source_field": "key"
+          },
+          {
+            "keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ],
+            "kind": "each_has",
+            "path": "continuity_checks",
+            "label": "「continuity_checks」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」不能为空",
+            "message": "没过：「continuity_checks」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」不能为空",
+            "non_empty_keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ]
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "continuity_checks",
+            "field": "account_kind",
+            "label": "「continuity_checks」每项，「account_kind」只能是「stock_balance」",
+            "values": [
+              "stock_balance"
+            ],
+            "message": "没过：「continuity_checks」每项，「account_kind」只能是「stock_balance」"
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "continuity_checks",
+            "field": "comparison_kind",
+            "label": "「continuity_checks」每项，「comparison_kind」只能是「opening_to_previous_closing」",
+            "values": [
+              "opening_to_previous_closing"
+            ],
+            "message": "没过：「continuity_checks」每项，「comparison_kind」只能是「opening_to_previous_closing」"
+          },
+          {
+            "keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ],
+            "kind": "each_has",
+            "path": "continuity_missing",
+            "label": "「continuity_missing」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」不能为空",
+            "message": "没过：「continuity_missing」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」不能为空",
+            "non_empty_keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ]
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "continuity_missing",
+            "field": "account_kind",
+            "label": "「continuity_missing」每项，「account_kind」只能是「stock_balance」",
+            "values": [
+              "stock_balance"
+            ],
+            "message": "没过：「continuity_missing」每项，「account_kind」只能是「stock_balance」"
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "continuity_missing",
+            "field": "comparison_kind",
+            "label": "「continuity_missing」每项，「comparison_kind」只能是「opening_to_previous_closing」",
+            "values": [
+              "opening_to_previous_closing"
+            ],
+            "message": "没过：「continuity_missing」每项，「comparison_kind」只能是「opening_to_previous_closing」"
+          },
+          {
+            "kind": "quoted",
+            "path": "continuity_checks",
+            "field": "account_kind",
+            "label": "「continuity_checks」的说法附原文引文",
+            "equals": "stock_balance",
+            "message": "没过：「continuity_checks」的说法附原文引文"
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "inventory"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：查四条会计恒等式，差额超过 1 元算不平；不平的照实列出，那几期不进预测\n\n规则：\n1. 查四条：资产总计 = 负债合计 + 所有者权益合计；归母净利润 + 少数股东损益 = 净利润；现金流量表期末现金 = 期初现金 + 现金净增加额；本期期初 = 上期期末。差额超过 1 元算不平；不平照实列出、写进局限，继续往下做，不平的期不进预测窗口。\n2. 原四条恒等式及1元阈值不变。按inventory的四类清单逐项核验，key逐字照抄。balance_checks用A-(L+E)，profit_checks用NP-(P+M)，cash_checks用END-(BEGIN+CHANGE)，continuity_checks用OPEN-PREV_CLOSE。每项交回原始compute_id、value（实际差额，元，不作展示四舍五入）和公式各输入的实际值。A为资产总计，L为负债合计，E为所有者权益合计；NP为净利润，P为归母净利润，M为少数股东损益；END/BEGIN/CHANGE为现金流量表期末/期初/净增加额；OPEN/PREV_CLOSE为同一科目的本期期初/上期期末。计算输入必须来自对应期间、口径、版本的事实或已核原文证据，不准以资产减负债反推权益再代入同一式，不准用同一事实自减凑零。资产总计与负债和权益总计对照仅是辅助，不可放入这四类原式记录，不能宣布原式通过。差额绝对值<=1元的项目平衡；>1元的项目不平，保留实际差额及局限并按原方法继续，不平期不得进入预测。缺输入先按既有工具查询事实、定位原文和补数据流程处理；仍不能计算的放对应balance_missing/profit_missing/cash_missing/continuity_missing，写key与reason，不编compute_id或0。已计算和缺项两类合起来必须逐项覆盖清单，不遗漏、不重复；缺项是未核验，不能记作通过，也不能把辅助对照描述为四式全通过。checks保留文字摘要，必须与这八张结构化表一致；未核验与不平分别写明，不能统称全部通过。\n3. 第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_differences，不得当作本条不平，也不得仅因重述差额剔除预测期间。最新报告没有下一年度报告不构成缺项：本期报告的年初余额与上年度期末余额即可比较；有追溯调整时分别交代原版、重述版及桥接原因，不能混口径凑平。真实余额衔接差额绝对值超过1元仍按原规则处理，确实缺少前期余额则明确未核验并走原补数流程。\n4. continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inventory清单逐字传递；continuity_missing同样带这些元数据，缺原件写明而非猜测。\n5. 每条continuity_checks的quotes必须分别包含两端余额原文及页码，不得引用利润表流量作为余额。计算仍用OPEN-PREV_CLOSE、实际差额和原compute_id。restatement_differences只解释版本间重述及可比来源链，无差异交空列表，不充当第五条恒等式。独立查询/计算可以批量，但不改变四式、1元阈值、期间与计算收据。\n\n用上：inventory（数据摸底）\n\n交回一个 JSON，包含：\n- checks：列表\n- balance_checks：表，每行有：key（文字）、A（数）、L（数）、E（数）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- balance_missing：表，每行有：key（文字）、reason（文字）\n- profit_checks：表，每行有：key（文字）、NP（数）、P（数）、M（数）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- profit_missing：表，每行有：key（文字）、reason（文字）\n- cash_checks：表，每行有：key（文字）、END（数）、BEGIN（数）、CHANGE（数）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- cash_missing：表，每行有：key（文字）、reason（文字）\n- continuity_checks：表，每行有：key（文字）、OPEN（数）、PREV_CLOSE（数）、account（文字）、balance_date（文字）、scope（文字）、opening_report（文字）、previous_report（文字）、account_kind（文字）、comparison_kind（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号；每项带 quotes：一串 {material_id, page, text}，原文照读到的抄\n- continuity_missing：表，每行有：key（文字）、reason（文字）、account（文字）、balance_date（文字）、scope（文字）、opening_report（文字）、previous_report（文字）、account_kind（文字）、comparison_kind（文字）\n- restatement_differences：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "checks": [
+            "string"
+          ],
+          "cash_checks": [
+            {
+              "END": "number",
+              "key": "string",
+              "BEGIN": "number",
+              "value": "number",
+              "CHANGE": "number",
+              "compute_id": "string"
+            }
+          ],
+          "cash_missing": [
+            {
+              "key": "string",
+              "reason": "string"
+            }
+          ],
+          "profit_checks": [
+            {
+              "M": "number",
+              "P": "number",
+              "NP": "number",
+              "key": "string",
+              "value": "number",
+              "compute_id": "string"
+            }
+          ],
+          "balance_checks": [
+            {
+              "A": "number",
+              "E": "number",
+              "L": "number",
+              "key": "string",
+              "value": "number",
+              "compute_id": "string"
+            }
+          ],
+          "profit_missing": [
+            {
+              "key": "string",
+              "reason": "string"
+            }
+          ],
+          "balance_missing": [
+            {
+              "key": "string",
+              "reason": "string"
+            }
+          ],
+          "continuity_checks": [
+            {
+              "key": "string",
+              "OPEN": "number",
+              "scope": "string",
+              "value": "number",
+              "quotes": [
+                {
+                  "page": "integer",
+                  "text": "string",
+                  "material_id": "string"
+                }
+              ],
+              "account": "string",
+              "PREV_CLOSE": "number",
+              "compute_id": "string",
+              "account_kind": "string",
+              "balance_date": "string",
+              "opening_report": "string",
+              "comparison_kind": "string",
+              "previous_report": "string"
+            }
+          ],
+          "continuity_missing": [
+            {
+              "key": "string",
+              "scope": "string",
+              "reason": "string",
+              "account": "string",
+              "account_kind": "string",
+              "balance_date": "string",
+              "opening_report": "string",
+              "comparison_kind": "string",
+              "previous_report": "string"
+            }
+          ],
+          "restatement_differences": [
+            "string"
+          ]
+        },
+        "input_max_chars": 40000,
+        "output_artifact": "reconcile"
+      },
+      {
+        "why": "消除季节性累计口径失真",
+        "title": "取数",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "series",
+        "summary": "把累计数换成单季：Q2 = 半年 − Q1，Q3 = 三季 − 半年，Q4 = 年报 − 三季；资产负债表不换",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "single_quarters"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「single_quarters」",
+            "message": "缺交回项"
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "reconcile"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：把累计数换成单季：Q2 = 半年 − Q1，Q3 = 三季 − 半年，Q4 = 年报 − 三季；资产负债表不换\n\n规则：\n1. 利润表、现金流量表的累计数换成单季：Q1 = 一季报；Q2 = 半年报 − 一季报；Q3 = 三季报 − 半年报；Q4 = 年报 − 三季报。资产负债表是时点数，不换算。\n2. 以上游reconcile四类*_checks的真实差额及*_missing为核验依据，不只读checks文字摘要。缺项未核验不等于不平，更不等于已通过；不能以辅助总计对照补足原四式。不平期继续按原方法剔出预测；未核验期必须明确标注并按既有补数据流程处理，不能包装成已核验数据。保留原季度换算方法与报告版本一致性。\n3. 余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。\n\n用上：reconcile（勾稽）\n\n交回一个 JSON，包含：\n- single_quarters：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "single_quarters": [
+            "string"
+          ]
+        },
+        "input_max_chars": 40000,
+        "output_artifact": "series"
+      },
+      {
+        "why": "系统展现盈利与经营质量",
+        "title": "算指标与分析",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "indicators",
+        "summary": "算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "indicators",
+              "annual_metrics",
+              "calculations",
+              "amount_calculations",
+              "missing_items"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「indicators」、「annual_metrics」、「calculations」、「amount_calculations」、「missing_items」",
+            "message": "缺交回项"
+          },
+          {
+            "keys": [
+              "year",
+              "revenue",
+              "parent_net_profit",
+              "operating_cost",
+              "quotes"
+            ],
+            "kind": "each_has",
+            "path": "annual_metrics",
+            "label": "「annual_metrics」每项都有「year」、「revenue」、「parent_net_profit」、「operating_cost」、「quotes」；「year」、「quotes」不能为空；「year」的组合不重复",
+            "message": "没过：「annual_metrics」每项都有「year」、「revenue」、「parent_net_profit」、「operating_cost」、「quotes」；「year」、「quotes」不能为空；「year」的组合不重复",
+            "unique_by": [
+              "year"
+            ],
+            "non_empty_keys": [
+              "year",
+              "quotes"
+            ]
+          },
+          {
+            "kind": "quoted",
+            "path": "annual_metrics",
+            "label": "「annual_metrics」的说法附原文引文",
+            "message": "没过：「annual_metrics」的说法附原文引文"
+          },
+          {
+            "keys": [
+              "period",
+              "metric",
+              "value",
+              "compute_id"
+            ],
+            "kind": "each_has",
+            "path": "calculations",
+            "field": "metric",
+            "label": "「calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「gross_margin」、「net_margin」、「roe_avg」、「roe」、「ocf_to_parent_net_profit」、「revenue_growth」、「parent_net_profit_growth」、「revenue_cagr」、「parent_net_profit_cagr」、「net_profit_cagr」、「ocf_cagr」、「ocf_to_parent_np」、「parent_np_growth」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+            "values": [
+              "gross_margin",
+              "net_margin",
+              "roe_avg",
+              "roe",
+              "ocf_to_parent_net_profit",
+              "revenue_growth",
+              "parent_net_profit_growth",
+              "revenue_cagr",
+              "parent_net_profit_cagr",
+              "net_profit_cagr",
+              "ocf_cagr",
+              "ocf_to_parent_np",
+              "parent_np_growth"
+            ],
+            "message": "没过：「calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「gross_margin」、「net_margin」、「roe_avg」、「roe」、「ocf_to_parent_net_profit」、「revenue_growth」、「parent_net_profit_growth」、「revenue_cagr」、「parent_net_profit_cagr」、「net_profit_cagr」、「ocf_cagr」、「ocf_to_parent_np」、「parent_np_growth」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+            "unique_by": [
+              "period",
+              "metric"
+            ],
+            "non_empty_keys": [
+              "period",
+              "metric",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "calculations",
+            "label": "「calculations」的数都是用计算工具算的",
+            "message": "没过：「calculations」的数都是用计算工具算的",
+            "tolerance": 5e-07
+          },
+          {
+            "keys": [
+              "period",
+              "metric",
+              "value",
+              "compute_id"
+            ],
+            "kind": "each_has",
+            "path": "amount_calculations",
+            "field": "metric",
+            "label": "「amount_calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「revenue」、「parent_net_profit」、「operating_cost」、「operating_cash_flow」、「deducted_net_profit」、「revenue_per_employee」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+            "values": [
+              "revenue",
+              "parent_net_profit",
+              "operating_cost",
+              "operating_cash_flow",
+              "deducted_net_profit",
+              "revenue_per_employee"
+            ],
+            "message": "没过：「amount_calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「revenue」、「parent_net_profit」、「operating_cost」、「operating_cash_flow」、「deducted_net_profit」、「revenue_per_employee」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+            "unique_by": [
+              "period",
+              "metric"
+            ],
+            "non_empty_keys": [
+              "period",
+              "metric",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "amount_calculations",
+            "label": "「amount_calculations」的数都是用计算工具算的",
+            "message": "没过：「amount_calculations」的数都是用计算工具算的",
+            "tolerance": 0.005
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "series"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用\n\n规则：\n1. 分析的科目 = 问题点到的科目 + 固定核心指标（营业收入、归母净利润、扣非净利润、经营现金流；毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速）。口径：毛利率 =（营业收入 − 营业成本）/ 营业收入；净利率 = 归母净利润 / 营业收入；净资产收益率 = 归母净利润 / 平均归母净资产；经营现金流与净利润之比 = 经营活动现金流量净额 / 归母净利润；收入与利润增速 = 同比。分母为 0、为负或缺数时标不适用。只描述，不评价好坏。\n2. 交回结构：保留 indicators 分析结论列表。annual_metrics 按问题所问的年度交回完整可读的年度营收、归母净利润和营业成本，year 为四位年份文字，金额统一为人民币元，每行 quotes 引到这些数字的授权原文。缺数字的年度不编行、不填零，在 missing_items 逐项说明。calculations 记录已算出的无量纲指标；金额类已算出的指标放 amount_calculations，两个列表遵循 precision 规则。各项，metric 用稳定名称（营业收入 revenue、归母净利润 parent_net_profit、毛利率 gross_margin、营收 CAGR revenue_cagr），period 单年写 YYYY、跨年写 YYYY-YYYY、季度写 YYYYQn；每个结果保留 compute_id 和 value。只在问题要求时计算 CAGR，沿用问题指定的起止年度，以实际年度间隔为期数；缺基数不编数。\n3. 数值精度与交回分组：calculations只放无量纲的比率/增速/CAGR，value按小数比例（不是乘100后的百分数）保留6位小数，允许与同任务compute原值相差不超过0.0000005；amount_calculations只放金额类计算（含人均创收），金额单位为人民币元，人均创收为元/人，value保留2位小数，允许与同任务compute原值相差不超过0.005。两个列表均须交回，无相应结果写空列表。每项使用稳定metric并保留真正的compute_id；保留compute原记录的完整结果，不用四舍五入后的数继续充当后续精确计算输入。正文可按万元/亿元和百分比展示，但需明确单位。annual_metrics保持原年度表和引文规则，缺项如实说明；不能为绕过精度把比率放入金额列表。\n\n用上：series（取数）\n\n交回一个 JSON，包含：\n- indicators：列表\n- annual_metrics：表，每行有：year（文字）、revenue（数）、parent_net_profit（数）、operating_cost（数）；每项带 quotes：一串 {material_id, page, text}，原文照读到的抄\n- calculations：表，每行有：period（文字）、metric（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- amount_calculations：表，每行有：period（文字）、metric（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- missing_items：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "indicators": [
+            "string"
+          ],
+          "calculations": [
+            {
+              "value": "number",
+              "metric": "string",
+              "period": "string",
+              "compute_id": "string"
+            }
+          ],
+          "missing_items": [
+            "string"
+          ],
+          "annual_metrics": [
+            {
+              "year": "string",
+              "quotes": [
+                {
+                  "page": "integer",
+                  "text": "string",
+                  "material_id": "string"
+                }
+              ],
+              "revenue": "number",
+              "operating_cost": "number",
+              "parent_net_profit": "number"
+            }
+          ],
+          "amount_calculations": [
+            {
+              "value": "number",
+              "metric": "string",
+              "period": "string",
+              "compute_id": "string"
+            }
+          ]
+        },
+        "input_max_chars": 8000,
+        "output_artifact": "indicators"
+      },
+      {
+        "why": "逐条核对分析结论是否得到管理层讨论的支持，并保留支持结论的原文依据",
+        "title": "对照管理层讨论",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "official",
+        "summary": "第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "comparisons"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「comparisons」",
+            "message": "缺交回项"
+          },
+          {
+            "keys": [
+              "conclusion",
+              "verdict",
+              "reason"
+            ],
+            "kind": "each_has",
+            "path": "comparisons",
+            "field": "verdict",
+            "label": "「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+            "values": [
+              "支持",
+              "不支持"
+            ],
+            "message": "没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+            "unique_by": [
+              "conclusion"
+            ],
+            "non_empty_keys": [
+              "conclusion",
+              "reason"
+            ]
+          },
+          {
+            "kind": "covers",
+            "path": "comparisons",
+            "field": "conclusion",
+            "label": "「comparisons」与第「算指标与分析」步一一对上",
+            "source": "indicators.indicators",
+            "message": "没过：「comparisons」与第「算指标与分析」步一一对上"
+          },
+          {
+            "kind": "quoted",
+            "path": "comparisons",
+            "field": "verdict",
+            "label": "「comparisons」的说法附原文引文",
+            "equals": "支持",
+            "message": "没过：「comparisons」的说法附原文引文"
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "indicators"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。\n\n规则：\n1. 第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。\n2. 逐条对照上游 indicators 的原结论，comparisons.conclusion 原样保留该条文字，每条恰好一次，不改写、不拆条、不合并；需要拆解说明时写在 reason 中。此处用于落实既有 covers 验收，不新增分析结论。\n3. 判支持的原文须在管理层讨论这一节内，且能印证该条完整主张。对期间、指标和统计口径有差异，或只能印证部分主张时，判不支持，在 reason 中说明已印证部分与缺失部分。趋势相近不能代替原数值口径；提到某准则影响某科目，不能自行推成另一期比较数据已经重述。\n4. 不支持只表示本节原文未充分印证该条结论，不自动表示上游计算错误。没提到、找不到该节时照原方法判不支持并如实说明；不得为了判支持转引其他章节，不得补造引文。\n\n用上：indicators（算指标与分析）\n\n交回一个 JSON，包含：\n- comparisons：列表，每项有：conclusion（文字）、verdict（文字）、reason（文字）；每项带 quotes：一串 {material_id, page, text}，原文照读到的抄\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "comparisons": [
+            {
+              "quotes": [
+                {
+                  "page": "integer",
+                  "text": "string",
+                  "material_id": "string"
+                }
+              ],
+              "reason": "string",
+              "verdict": "string",
+              "conclusion": "string"
+            }
+          ]
+        },
+        "input_max_chars": 8000,
+        "output_artifact": "official"
+      },
+      {
+        "why": "定量给出可验证的未来业绩预期与区间",
+        "title": "预测",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "forecast",
+        "summary": "季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "forecasts",
+              "horizon",
+              "forecast_rows",
+              "backtest_rows",
+              "missing_items"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「forecasts」、「horizon」、「forecast_rows」、「backtest_rows」、「missing_items」",
+            "message": "缺交回项"
+          },
+          {
+            "keys": [
+              "period",
+              "metric",
+              "part",
+              "value",
+              "compute_id"
+            ],
+            "kind": "each_has",
+            "path": "forecast_rows",
+            "field": "part",
+            "label": "「forecast_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「point」、「lower」、「upper」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+            "values": [
+              "point",
+              "lower",
+              "upper"
+            ],
+            "message": "没过：「forecast_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「point」、「lower」、「upper」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+            "unique_by": [
+              "period",
+              "metric",
+              "part"
+            ],
+            "non_empty_keys": [
+              "period",
+              "metric",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "forecast_rows",
+            "label": "「forecast_rows」的数都是用计算工具算的",
+            "message": "没过：「forecast_rows」的数都是用计算工具算的",
+            "tolerance": 0.005
+          },
+          {
+            "keys": [
+              "period",
+              "metric",
+              "part",
+              "value",
+              "compute_id"
+            ],
+            "kind": "each_has",
+            "path": "backtest_rows",
+            "field": "part",
+            "label": "「backtest_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「predicted」、「actual」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+            "values": [
+              "predicted",
+              "actual"
+            ],
+            "message": "没过：「backtest_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「predicted」、「actual」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+            "unique_by": [
+              "period",
+              "metric",
+              "part"
+            ],
+            "non_empty_keys": [
+              "period",
+              "metric",
+              "compute_id"
+            ]
+          },
+          {
+            "kind": "computed",
+            "path": "backtest_rows",
+            "label": "「backtest_rows」的数都是用计算工具算的",
+            "message": "没过：「backtest_rows」的数都是用计算工具算的",
+            "tolerance": 0.005
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "series",
+          "indicators",
+          "official",
+          "reconcile"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季\n\n规则：\n1. 预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。\n2. 交回结构：保留 forecasts 说明列表。forecast_rows 按 period（YYYYQn）、metric（营业收入 revenue、归母净利润 parent_net_profit 或问题所问的其他指标）、part（point 点预测、lower 下界、upper 上界）逐项交回实际完成的数值及 compute_id。backtest_rows 按同样的期间和指标分别交回 predicted（原方法回测预测值）、actual（对应实际值），数值也保留计算记录；不引入新的预测方法。horizon 等于实际完成预测的不同季度数，不是用户要求的季度数；没有完成时写0。缺数、缺季度或未完成回测写入 missing_items，不用零或空区间冒充完成。用户未要求预测时如实说明，不凭空增加预测。\n3. forecast_rows和backtest_rows中的收入、归母净利润等金额value统一用人民币元，保留2位小数，与同任务compute原值允许相差不超过0.005元。保留实际计算编号、原方法和完整计算记录，后续计算引用原记录，不引用展示约数；百分比和非金额指标不混入金额表。不得用容差掩盖错科目、错期间、错计算编号或缺数。\n4. 直接查看reconcile四类计算表及缺项表。预测所用期间必须有原式证据，辅助总计对照不能替代；缺项不得宣称核验通过。若预测、回测所需数据仍缺原式核验，按既有补数据流程处理，如实说明尚不能交付的部分；不缩短原回测与同比窗口，不编预测数。本条只落实上游原式证据要求，不改变季节性同比算法、两季预测、最近四季回测或1元阈值。\n5. 余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。\n\n用上：series（取数）、indicators（算指标与分析）、official（对照管理层讨论）、reconcile（勾稽）\n\n交回一个 JSON，包含：\n- forecasts：列表\n- horizon：数\n- forecast_rows：表，每行有：period（文字）、metric（文字）、part（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- backtest_rows：表，每行有：period（文字）、metric（文字）、part（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- missing_items：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+        "output_schema": {
+          "horizon": "number",
+          "forecasts": [
+            "string"
+          ],
+          "backtest_rows": [
+            {
+              "part": "string",
+              "value": "number",
+              "metric": "string",
+              "period": "string",
+              "compute_id": "string"
+            }
+          ],
+          "forecast_rows": [
+            {
+              "part": "string",
+              "value": "number",
+              "metric": "string",
+              "period": "string",
+              "compute_id": "string"
+            }
+          ],
+          "missing_items": [
+            "string"
+          ]
+        },
+        "input_max_chars": 40000,
+        "output_artifact": "forecast"
+      },
+      {
+        "why": "交付严谨、审计留痕的最终专业报告",
+        "title": "成稿",
+        "tools": [
+          "compute",
+          "describe_items",
+          "find_subject",
+          "list_inputs",
+          "lookup",
+          "query_facts",
+          "query_metric",
+          "read_facts",
+          "read_input",
+          "request_data",
+          "search_evidence"
+        ],
+        "reserve": "0.05",
+        "step_id": "writeup",
+        "summary": "写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户",
+        "on_reject": "rework",
+        "acceptance": [
+          {
+            "kind": "json_object",
+            "label": "交回的是一个 JSON",
+            "message": "交回物不是 JSON 对象"
+          },
+          {
+            "keys": [
+              "report",
+              "request_results",
+              "unanswered_requests"
+            ],
+            "kind": "required_keys",
+            "label": "交回项都在：「report」、「request_results」、「unanswered_requests」",
+            "message": "缺交回项"
+          },
+          {
+            "kind": "non_empty",
+            "path": "report",
+            "label": "「report」不能空",
+            "message": "没过：「report」不能空"
+          },
+          {
+            "kind": "list_min",
+            "path": "request_results",
+            "label": "「request_results」至少 1 项",
+            "message": "没过：「request_results」至少 1 项",
+            "min_items": 1
+          },
+          {
+            "keys": [
+              "request_id",
+              "status",
+              "answer",
+              "basis"
+            ],
+            "kind": "each_has",
+            "path": "request_results",
+            "label": "「request_results」每项都有「request_id」、「status」、「answer」、「basis」；「request_id」、「answer」、「basis」不能为空；「request_id」的组合不重复",
+            "message": "没过：「request_results」每项都有「request_id」、「status」、「answer」、「basis」；「request_id」、「answer」、「basis」不能为空；「request_id」的组合不重复",
+            "unique_by": [
+              "request_id"
+            ],
+            "non_empty_keys": [
+              "request_id",
+              "answer",
+              "basis"
+            ]
+          },
+          {
+            "keys": [],
+            "kind": "each_has",
+            "path": "request_results",
+            "field": "status",
+            "label": "「request_results」每项，「status」只能是「completed」、「unanswered」",
+            "values": [
+              "completed",
+              "unanswered"
+            ],
+            "message": "没过：「request_results」每项，「status」只能是「completed」、「unanswered」"
+          },
+          {
+            "kind": "covers",
+            "path": "request_results",
+            "field": "request_id",
+            "label": "「request_results」与第「定范围」步一一对上",
+            "source": "scope.request_items",
+            "message": "没过：「request_results」与第「定范围」步一一对上",
+            "source_field": "id"
+          },
+          {
+            "kind": "all_equal",
+            "path": "request_results",
+            "field": "status",
+            "label": "「request_results」每项的「status」都是 completed",
+            "equals": "completed",
+            "message": "没过：「request_results」每项的「status」都是 completed"
+          },
+          {
+            "kind": "list_empty",
+            "path": "unanswered_requests",
+            "label": "「unanswered_requests」必须是空的",
+            "message": "没过：「unanswered_requests」必须是空的"
+          },
+          {
+            "kind": "no_positioning_advice",
+            "label": "没有评级、目标价、买卖建议",
+            "message": "含有评级、目标价或买卖建议的措辞"
+          }
+        ],
+        "ask_before": [],
+        "input_refs": [
+          "scope",
+          "inventory",
+          "reconcile",
+          "series",
+          "indicators",
+          "official",
+          "forecast"
+        ],
+        "max_reworks": 1,
+        "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户\n\n规则：\n1. 写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。\n2. 余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。\n3. 先逐项回答scope.request_items，request_results中每个request_id恰好对应一项，不能漏、重、增或改id。answer写该要求的直接答案，basis写实际已验收的上游交回项及原有数据/计算证据；status只有completed或unanswered。没有所要求结果、用了不同方法/期间/主体、只有相关数据或一句缺数说明，都不是completed：写unanswered并在unanswered_requests列明原因。report正文必须包含这些逐项答案与未完成说明，明确列出scope.excluded_requests和用户已接受的范围，不宣称解决被排除的原要求。允许如实交回有缺口的稿，但验收不能把它记作完整完成；不能为了过验收编数、空填答案、把缺口换成已完成。\n\n用上：scope（定范围）、inventory（数据摸底）、reconcile（勾稽）、series（取数）、indicators（算指标与分析）、official（对照管理层讨论）、forecast（预测）\n\n交回一个 JSON，包含：\n- report：文字\n- request_results：表，每行有：request_id（文字）、status（文字）、answer（文字）、basis（文字）\n- unanswered_requests：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。先按运行时指定的项目内路径写好成稿文件，保留数据缺口与未验证说明，再交回 JSON。调用工具时照工具说明带上这件委托的委托号。",
+        "output_file": "财务分析报告.md",
+        "output_schema": {
+          "report": "string",
+          "request_results": [
+            {
+              "basis": "string",
+              "answer": "string",
+              "status": "string",
+              "request_id": "string"
+            }
+          ],
+          "unanswered_requests": [
+            "string"
+          ]
+        },
+        "input_max_chars": 48000,
+        "output_artifact": "writeup"
+      }
+    ]
+  },
+  "schema": "knowbot-manifest/v2",
+  "runtime": "knowbench",
+  "tagline": "单家公司财报指标计算、披露核对与固定方法季度预测",
+  "version": "4",
+  "rule_sources": [
+    {
+      "ref": "record:b8e3b2ec-2349-4f0d-98f7-01e0acd87c34",
+      "rule": "定范围·怎样算对：「request_items」至少 1 项",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:3d9e236d-b557-44af-b83a-20cd59d39937",
+      "rule": "定范围·怎样算对：「request_items」每项都有「id」、「question_quote」、「requested_result」、「requested_method」、「scope_reason」、「status」；「id」、「question_quote」、「requested_result」、「requested_method」、「scope_reason」不能为空；「id」的组合不…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:c86a15ea-4b53-423e-b7b8-c101b459108b",
+      "rule": "定范围·怎样算对：「request_items」每项的「status」都是 covered",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:3898a791-fbae-439f-a9c5-cd026ca72550",
+      "rule": "定范围：保留原问题。将用户要求的每项结果、主体、期间、明确指定的方法列为request_items，每项给稳定id、原题原文question_quote、requested_result、requested_method（未指定写未指定）、scope_reason。不得因只有一位免费专家、曾经被AI请回、或可读到相关数据就视为适用。不得删除明确要求或把DCF换成营收预测、把原因识别换成几个比率。…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:2d5cb8fd-580b-4463-8a57-fa6d0d764ef3",
+      "rule": "定范围：逐项按本专家公开scope/does与scope/does_not判断。必要要求超范围或口径不明确时，使用运行器的out_of_scope回复，在用户明确接受具体缩小后的问题前不继续；没有可行子问题就说明停止并建议其他专家、通用模型或提交创意。无回答、取消、过期都不视为接受。用户明确接受范围调整时，request_items只列本次明确接受的交付要求，excluded_requests逐…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:668eed1e-2a53-46dd-b7f7-762fd317972a",
+      "rule": "定范围：in_data只描述本次已授权数据的实际情况。能力适用性与数据是否已经齐备分开判断：方法适用但缺数据时按既有request_data及本人确认流程处理，不能把空授权清单说成公司不存在。同科目有合并/母公司等口径冲突时问用户，不能自行补定口径。未取齐不承诺已能算出。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:ab1c7a8c-0b1b-4bb8-bc89-cad111f54b5d",
+      "rule": "数据摸底·怎样算对：「balance_plan」至少 1 项",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:5a8283e2-202b-4551-83ad-a2e712686638",
+      "rule": "数据摸底·怎样算对：「balance_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:3796ba28-387c-4322-99f2-aac5d8a992f9",
+      "rule": "数据摸底·怎样算对：「profit_plan」至少 1 项",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:f59d6be2-b2e2-47fe-bd6a-abedea2c9f85",
+      "rule": "数据摸底·怎样算对：「profit_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1cd5cad3-4905-43fa-9599-cb0c6ef89516",
+      "rule": "数据摸底·怎样算对：「cash_plan」至少 1 项",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:9927967a-cd39-475b-9360-2f8ed2c8e8cf",
+      "rule": "数据摸底·怎样算对：「cash_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:9794cb9a-0c6b-4a61-b234-b9e7b57da4ab",
+      "rule": "数据摸底·怎样算对：「continuity_plan」至少 1 项",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:c82e780d-c9d2-4d60-b313-24d5712a91ef",
+      "rule": "数据摸底·怎样算对：「continuity_plan」每项都有「key」；「key」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:fe2da508-c6a9-4b60-a15a-5ccaa0e71e0a",
+      "rule": "数据摸底·怎样算对：「continuity_plan」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:714a285d-b8a2-4063-9794-4b9e1e99c339",
+      "rule": "数据摸底·怎样算对：「continuity_plan」每项，「account_kind」只能是「stock_balance」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:300fb4f6-57e3-4344-91b7-f595293eafe2",
+      "rule": "数据摸底·怎样算对：「continuity_plan」每项，「comparison_kind」只能是「opening_to_previous_closing」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:e8efc2d2-9dd9-4989-b00f-6daecdd9b806",
+      "rule": "数据摸底：列出我的数据里有哪些表、哪些报告期、哪些科目；期数不够做后面的回测或预测，能做的照做、写明原因。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1df8b8be-c0c5-4d4c-9331-c4263c7904ad",
+      "rule": "数据摸底：按本题历史分析、单季换算、回测和预测所需的期间列出四类待核清单：balance_plan、profit_plan、cash_plan、continuity_plan。前三类每项交回key，continuity_plan另外交回下列余额元数据；key 要包含期间、报表口径、来源材料版本，衔接检查还含科目及前后期。只列需要核验的实际范围，不机械扩展到无关科目。同一事实同一版本不因重复披露重…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:0eb214ee-35ba-4713-94c9-d33b880e1ca6",
+      "rule": "数据摸底：第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:133e4ae0-c15d-46cd-8e5a-18cdb51fbbab",
+      "rule": "数据摸底：continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由i…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:b4a37e47-5ca4-4cdd-8d41-3d51c53ffa88",
+      "rule": "勾稽·怎样算对：「balance_checks」每项都有「key」、「value」、「compute_id」、「A」、「L」、「E」；「key」、「compute_id」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:79adf90d-8663-4102-9235-ebc7d69dedbb",
+      "rule": "勾稽·怎样算对：「balance_checks」的数都是用计算工具算的（算式 A-(L+E)）",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:7cfc304b-d3ce-45e4-a6b8-6a30bda09295",
+      "rule": "勾稽·怎样算对：「balance_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:4f9fb833-0f98-4bbf-830b-7c465ee0ee3c",
+      "rule": "勾稽·怎样算对：「balance_checks」与第「数据摸底」步一一对上",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:44b4b6c3-50ab-4e39-a84b-d9a55319bb49",
+      "rule": "勾稽·怎样算对：「profit_checks」每项都有「key」、「value」、「compute_id」、「NP」、「P」、「M」；「key」、「compute_id」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:b5d9c11a-b5c7-4e62-89b5-68082b008f30",
+      "rule": "勾稽·怎样算对：「profit_checks」的数都是用计算工具算的（算式 NP-(P+M)）",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1ccfe07f-b0f9-4eec-b430-23a4b6ac5620",
+      "rule": "勾稽·怎样算对：「profit_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1d016710-5243-4351-8187-31fecb685618",
+      "rule": "勾稽·怎样算对：「profit_checks」与第「数据摸底」步一一对上",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1e8e1378-5690-4b49-8097-e8181a2ad961",
+      "rule": "勾稽·怎样算对：「cash_checks」每项都有「key」、「value」、「compute_id」、「END」、「BEGIN」、「CHANGE」；「key」、「compute_id」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:2fcb4ad3-a25f-473e-9cbf-e95f0a4d3584",
+      "rule": "勾稽·怎样算对：「cash_checks」的数都是用计算工具算的（算式 END-(BEGIN+CHANGE)）",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1e6036c1-0f6e-478d-a0b6-caf741f9186a",
+      "rule": "勾稽·怎样算对：「cash_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:d2256f65-dd0c-40f9-a46e-6e986116e852",
+      "rule": "勾稽·怎样算对：「cash_checks」与第「数据摸底」步一一对上",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:eff87827-b0f0-4b16-9df4-e94a42cadfae",
+      "rule": "勾稽·怎样算对：「continuity_checks」每项都有「key」、「value」、「compute_id」、「OPEN」、「PREV_CLOSE」；「key」、「compute_id」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:9196604e-b700-43aa-9efa-dd280e8602af",
+      "rule": "勾稽·怎样算对：「continuity_checks」的数都是用计算工具算的（算式 OPEN-PREV_CLOSE）",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:949e7578-318e-4ab9-94c3-cc663954f279",
+      "rule": "勾稽·怎样算对：「continuity_missing」每项都有「key」、「reason」；「key」、「reason」不能为空；「key」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:e26e6fc7-e8f6-4c8d-b0ee-13f3dc0786a5",
+      "rule": "勾稽·怎样算对：「continuity_checks」与第「数据摸底」步一一对上",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:86501665-965a-44f5-9e8e-8572167705f6",
+      "rule": "勾稽·怎样算对：「continuity_checks」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report」…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:b4bbe148-14ad-4f7f-8627-7dd0922ce703",
+      "rule": "勾稽·怎样算对：「continuity_checks」每项，「account_kind」只能是「stock_balance」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:c1cadaf6-1212-4ccc-97ee-240b4459d68f",
+      "rule": "勾稽·怎样算对：「continuity_checks」每项，「comparison_kind」只能是「opening_to_previous_closing」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:435489f0-d45c-49bc-8b56-948c3a21d07f",
+      "rule": "勾稽·怎样算对：「continuity_missing」每项都有「account」、「balance_date」、「scope」、「opening_report」、「previous_report」、「account_kind」、「comparison_kind」；「account」、「balance_date」、「scope」、「opening_report」、「previous_report…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:ef581a82-cfd9-43c6-999b-91e73670e74b",
+      "rule": "勾稽·怎样算对：「continuity_missing」每项，「account_kind」只能是「stock_balance」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:3ecbb570-e5dc-4f2f-b49e-da890afa96a0",
+      "rule": "勾稽·怎样算对：「continuity_missing」每项，「comparison_kind」只能是「opening_to_previous_closing」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:767f62fa-49e0-45e1-bdd2-9d586cade13e",
+      "rule": "勾稽·怎样算对：「continuity_checks」的说法附原文引文",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:75caa0a8-6410-4c2a-b15a-f41fd08d98a5",
+      "rule": "勾稽：查四条：资产总计 = 负债合计 + 所有者权益合计；归母净利润 + 少数股东损益 = 净利润；现金流量表期末现金 = 期初现金 + 现金净增加额；本期期初 = 上期期末。差额超过 1 元算不平；不平照实列出、写进局限，继续往下做，不平的期不进预测窗口。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:847ae629-2336-4b8d-a628-39a5b54669f6",
+      "rule": "勾稽：原四条恒等式及1元阈值不变。按inventory的四类清单逐项核验，key逐字照抄。balance_checks用A-(L+E)，profit_checks用NP-(P+M)，cash_checks用END-(BEGIN+CHANGE)，continuity_checks用OPEN-PREV_CLOSE。每项交回原始compute_id、value（实际差额，元，不作展示四舍五入）和公式各…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:d6f3d229-6e9d-4da1-a777-add32a25d6e4",
+      "rule": "勾稽：第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_di…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:a6706e69-963b-4a74-9e93-319d5c6cf419",
+      "rule": "勾稽：continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inv…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:2e6418ff-139b-4bdb-8003-4cbd95f255ad",
+      "rule": "勾稽：每条continuity_checks的quotes必须分别包含两端余额原文及页码，不得引用利润表流量作为余额。计算仍用OPEN-PREV_CLOSE、实际差额和原compute_id。restatement_differences只解释版本间重述及可比来源链，无差异交空列表，不充当第五条恒等式。独立查询/计算可以批量，但不改变四式、1元阈值、期间与计算收据。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:6e1332cc-2fda-4772-a539-191bfb2877e6",
+      "rule": "取数：利润表、现金流量表的累计数换成单季：Q1 = 一季报；Q2 = 半年报 − 一季报；Q3 = 三季报 − 半年报；Q4 = 年报 − 三季报。资产负债表是时点数，不换算。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:cb6722e8-9095-4789-a4cf-d89278017e77",
+      "rule": "取数：以上游reconcile四类*_checks的真实差额及*_missing为核验依据，不只读checks文字摘要。缺项未核验不等于不平，更不等于已通过；不能以辅助总计对照补足原四式。不平期继续按原方法剔出预测；未核验期必须明确标注并按既有补数据流程处理，不能包装成已核验数据。保留原季度换算方法与报告版本一致性。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:d19e676c-54b0-475f-bcfb-1144fdfca91b",
+      "rule": "取数：余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:a65fb962-72c6-4619-af8b-4c292762a9bd",
+      "rule": "算指标与分析·怎样算对：「annual_metrics」每项都有「year」、「revenue」、「parent_net_profit」、「operating_cost」、「quotes」；「year」、「quotes」不能为空；「year」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:ff6b77a2-2cd4-423b-a1c2-d11049909745",
+      "rule": "算指标与分析·怎样算对：「annual_metrics」的说法附原文引文",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:48d6b013-8065-457b-9d5e-07ecbb685c67",
+      "rule": "算指标与分析·怎样算对：「calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「gross_margin」、「net_margin」、「roe_avg」、「roe」、「ocf_to_parent_net_profit」、「revenue_growth」、「parent_net_profit_growth」、「rev…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:d6b72f3f-f5bb-4373-a173-b211ee402341",
+      "rule": "算指标与分析·怎样算对：「calculations」的数都是用计算工具算的",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:64eea647-41e0-43b7-99b2-56dbb335bb7a",
+      "rule": "算指标与分析·怎样算对：「amount_calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「revenue」、「parent_net_profit」、「operating_cost」、「operating_cash_flow」、「deducted_net_profit」、「revenue_per_employee…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:108347b0-d43b-48d0-88f3-6184cd36f508",
+      "rule": "算指标与分析·怎样算对：「amount_calculations」的数都是用计算工具算的",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:cf16f383-572e-42be-9878-73921b88078d",
+      "rule": "算指标与分析：分析的科目 = 问题点到的科目 + 固定核心指标（营业收入、归母净利润、扣非净利润、经营现金流；毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速）。口径：毛利率 =（营业收入 − 营业成本）/ 营业收入；净利率 = 归母净利润 / 营业收入；净资产收益率 = 归母净利润 / 平均归母净资产；经营现金流与净利润之比 = 经营活动现金流量净额 / 归母净利润；收入与…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:dd3adff4-ac32-43ab-a383-da1f73469c74",
+      "rule": "算指标与分析：交回结构：保留 indicators 分析结论列表。annual_metrics 按问题所问的年度交回完整可读的年度营收、归母净利润和营业成本，year 为四位年份文字，金额统一为人民币元，每行 quotes 引到这些数字的授权原文。缺数字的年度不编行、不填零，在 missing_items 逐项说明。calculations 记录已算出的无量纲指标；金额类已算出的指标放 amou…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:7d4cfb2b-9b71-4b4d-87a9-6f7984a70bd2",
+      "rule": "算指标与分析：数值精度与交回分组：calculations只放无量纲的比率/增速/CAGR，value按小数比例（不是乘100后的百分数）保留6位小数，允许与同任务compute原值相差不超过0.0000005；amount_calculations只放金额类计算（含人均创收），金额单位为人民币元，人均创收为元/人，value保留2位小数，允许与同任务compute原值相差不超过0.005。两个…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:5b5f256d-0c8d-4cd6-b965-e428ffd9027e",
+      "rule": "对照管理层讨论·怎样算对：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:998c4563-dd47-44d4-8cf1-6b41267a53e1",
+      "rule": "对照管理层讨论·怎样算对：「comparisons」与第「算指标与分析」步一一对上",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:2e682212-82f7-4a47-a21f-5225eadaa679",
+      "rule": "对照管理层讨论·怎样算对：「comparisons」的说法附原文引文",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:3208cd59-6f24-4ab2-9fae-5533139754bd",
+      "rule": "对照管理层讨论：第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:0604d6b1-5547-4aea-aa1d-5538e20cb4f5",
+      "rule": "对照管理层讨论：逐条对照上游 indicators 的原结论，comparisons.conclusion 原样保留该条文字，每条恰好一次，不改写、不拆条、不合并；需要拆解说明时写在 reason 中。此处用于落实既有 covers 验收，不新增分析结论。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:f202052b-f4c5-4cb0-91f8-5e7c10a597be",
+      "rule": "对照管理层讨论：判支持的原文须在管理层讨论这一节内，且能印证该条完整主张。对期间、指标和统计口径有差异，或只能印证部分主张时，判不支持，在 reason 中说明已印证部分与缺失部分。趋势相近不能代替原数值口径；提到某准则影响某科目，不能自行推成另一期比较数据已经重述。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:e3693d3f-e048-44d2-88ab-92f64689b36e",
+      "rule": "对照管理层讨论：不支持只表示本节原文未充分印证该条结论，不自动表示上游计算错误。没提到、找不到该节时照原方法判不支持并如实说明；不得为了判支持转引其他章节，不得补造引文。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:b3d682f3-a6f4-46a4-81bd-02a7e84ff3a2",
+      "rule": "预测·怎样算对：「forecast_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「point」、「lower」、「upper」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:541c32aa-0efe-4641-8a89-24e4625fa495",
+      "rule": "预测·怎样算对：「forecast_rows」的数都是用计算工具算的",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:0fc7458e-8ef6-4564-95ba-bfe0e276644d",
+      "rule": "预测·怎样算对：「backtest_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「predicted」、「actual」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:eb182382-93ae-488d-9760-44f0ccf21148",
+      "rule": "预测·怎样算对：「backtest_rows」的数都是用计算工具算的",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:43358610-e9b9-43f3-a7db-b60fe37b2d60",
+      "rule": "预测：预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:bed97771-c918-488f-b19e-440bc6cc24f2",
+      "rule": "预测：交回结构：保留 forecasts 说明列表。forecast_rows 按 period（YYYYQn）、metric（营业收入 revenue、归母净利润 parent_net_profit 或问题所问的其他指标）、part（point 点预测、lower 下界、upper 上界）逐项交回实际完成的数值及 compute_id。backtest_rows 按同样的期间和指标分别交回 p…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:385e09dc-ffea-4b04-a878-b188c8f272bc",
+      "rule": "预测：forecast_rows和backtest_rows中的收入、归母净利润等金额value统一用人民币元，保留2位小数，与同任务compute原值允许相差不超过0.005元。保留实际计算编号、原方法和完整计算记录，后续计算引用原记录，不引用展示约数；百分比和非金额指标不混入金额表。不得用容差掩盖错科目、错期间、错计算编号或缺数。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:a8fdfd03-23a0-4ab5-bd92-c89b94093e2c",
+      "rule": "预测：直接查看reconcile四类计算表及缺项表。预测所用期间必须有原式证据，辅助总计对照不能替代；缺项不得宣称核验通过。若预测、回测所需数据仍缺原式核验，按既有补数据流程处理，如实说明尚不能交付的部分；不缩短原回测与同比窗口，不编预测数。本条只落实上游原式证据要求，不改变季节性同比算法、两季预测、最近四季回测或1元阈值。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:1bc60dae-682b-4e44-9861-7e38cb7faabf",
+      "rule": "预测：余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:b258830a-0bc9-4d13-b0ec-e73a6b6b5771",
+      "rule": "成稿·怎样算对：「report」不能空",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:7a383c6f-b185-4684-aa8e-a3d523bbabb3",
+      "rule": "成稿·怎样算对：「request_results」至少 1 项",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:b5a4962d-3030-4339-92bb-e4b36d4566b5",
+      "rule": "成稿·怎样算对：「request_results」每项都有「request_id」、「status」、「answer」、「basis」；「request_id」、「answer」、「basis」不能为空；「request_id」的组合不重复",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:e837fc02-4eba-4266-8cd8-e210e9857036",
+      "rule": "成稿·怎样算对：「request_results」每项，「status」只能是「completed」、「unanswered」",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:33f90e10-9adf-4e81-a9c1-6a0310988f35",
+      "rule": "成稿·怎样算对：「request_results」与第「定范围」步一一对上",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:d634befe-5b5c-4200-8a7b-5ab3cacd3eec",
+      "rule": "成稿·怎样算对：「request_results」每项的「status」都是 completed",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:ca1bb318-55ef-44e5-ab0d-93984dddfbbb",
+      "rule": "成稿·怎样算对：「unanswered_requests」必须是空的",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:5a3dddad-6ef1-4f2b-9e0d-261816ac7c1b",
+      "rule": "成稿：写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:ac45f547-2e92-4b6c-9d2a-6da2330b8960",
+      "rule": "成稿：余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺…",
+      "source": "user_text"
+    },
+    {
+      "ref": "record:ee39b08a-7b52-4fd7-9da2-1ac06c5aad32",
+      "rule": "成稿：先逐项回答scope.request_items，request_results中每个request_id恰好对应一项，不能漏、重、增或改id。answer写该要求的直接答案，basis写实际已验收的上游交回项及原有数据/计算证据；status只有completed或unanswered。没有所要求结果、用了不同方法/期间/主体、只有相关数据或一句缺数说明，都不是completed：写un…",
+      "source": "user_text"
+    }
+  ]
+}

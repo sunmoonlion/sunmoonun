@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "four_distinct_capabilities": true,
+    "all_card_fields_present": true,
+    "scope_within_contract": true,
+    "only_scope_changed": true,
+    "frozen_workflow_unchanged": true,
+    "frozen_scope_matches": true,
+    "no_test_status": true
+  },
+  "passed": 7,
+  "model_calls": 0,
+  "limitations": "只验证声明结构、编译和原流程不变；没有进行新的模型匹配或财务实战测试。"
+}

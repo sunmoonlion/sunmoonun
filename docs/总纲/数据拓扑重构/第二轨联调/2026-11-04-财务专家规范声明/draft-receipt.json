@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-11-03T18:51:13.213169+00:00",
+  "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+  "draft_id": "1ecbfa23-3bef-47b2-8e1a-4061f0de9a52",
+  "version": "4",
+  "revision": 11,
+  "workdraft_revision": 40,
+  "body_sha256": "428e462f87790ff0a0bf46b604a592315fc14ee3985eefb83499344c705de26d",
+  "manifest_sha256": "3941621048aece760481bf71bd620d4fec82b0bbb74737a9d3ec856339d041a9",
+  "status": "pending_test",
+  "listed": false,
+  "model_tests_started": 0,
+  "authorization": "Owner asked to apply the agreed standard capability format to the financial expert and omit testing status; scope-only revision, existing eight methods unchanged."
+}
