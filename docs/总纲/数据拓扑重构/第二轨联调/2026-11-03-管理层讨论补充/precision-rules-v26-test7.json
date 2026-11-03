@@ -1,0 +1,444 @@
+{
+  "authorization": "所有者：改过来重新发布重新测试。沿用明确批准的60元总额/每题20元；旧测试费用另计。",
+  "before_revision": 33,
+  "after_revision": 35,
+  "draft": {
+    "draft_id": "4273f2c6-0df8-45c0-8e12-a70a00054ac9",
+    "version": "2",
+    "revision": 6,
+    "status": "pending_test",
+    "listed": false,
+    "tested": false
+  },
+  "changed_steps": [
+    {
+      "why": "系统展现盈利与经营质量",
+      "title": "算指标与分析",
+      "tools": [
+        "compute",
+        "describe_items",
+        "find_subject",
+        "list_inputs",
+        "lookup",
+        "query_facts",
+        "query_metric",
+        "read_facts",
+        "read_input",
+        "request_data",
+        "search_evidence"
+      ],
+      "reserve": "0.05",
+      "step_id": "indicators",
+      "summary": "算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用",
+      "on_reject": "rework",
+      "acceptance": [
+        {
+          "kind": "json_object",
+          "label": "交回的是一个 JSON",
+          "message": "交回物不是 JSON 对象"
+        },
+        {
+          "keys": [
+            "indicators",
+            "annual_metrics",
+            "calculations",
+            "amount_calculations",
+            "missing_items"
+          ],
+          "kind": "required_keys",
+          "label": "交回项都在：「indicators」、「annual_metrics」、「calculations」、「amount_calculations」、「missing_items」",
+          "message": "缺交回项"
+        },
+        {
+          "keys": [
+            "year",
+            "revenue",
+            "parent_net_profit",
+            "operating_cost",
+            "quotes"
+          ],
+          "kind": "each_has",
+          "path": "annual_metrics",
+          "label": "「annual_metrics」每项都有「year」、「revenue」、「parent_net_profit」、「operating_cost」、「quotes」；「year」、「quotes」不能为空；「year」的组合不重复",
+          "message": "没过：「annual_metrics」每项都有「year」、「revenue」、「parent_net_profit」、「operating_cost」、「quotes」；「year」、「quotes」不能为空；「year」的组合不重复",
+          "unique_by": [
+            "year"
+          ],
+          "non_empty_keys": [
+            "year",
+            "quotes"
+          ]
+        },
+        {
+          "kind": "quoted",
+          "path": "annual_metrics",
+          "label": "「annual_metrics」的说法附原文引文",
+          "message": "没过：「annual_metrics」的说法附原文引文"
+        },
+        {
+          "keys": [
+            "period",
+            "metric",
+            "value",
+            "compute_id"
+          ],
+          "kind": "each_has",
+          "path": "calculations",
+          "field": "metric",
+          "label": "「calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「gross_margin」、「net_margin」、「roe_avg」、「roe」、「ocf_to_parent_net_profit」、「revenue_growth」、「parent_net_profit_growth」、「revenue_cagr」、「parent_net_profit_cagr」、「net_profit_cagr」、「ocf_cagr」、「ocf_to_parent_np」、「parent_np_growth」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+          "values": [
+            "gross_margin",
+            "net_margin",
+            "roe_avg",
+            "roe",
+            "ocf_to_parent_net_profit",
+            "revenue_growth",
+            "parent_net_profit_growth",
+            "revenue_cagr",
+            "parent_net_profit_cagr",
+            "net_profit_cagr",
+            "ocf_cagr",
+            "ocf_to_parent_np",
+            "parent_np_growth"
+          ],
+          "message": "没过：「calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「gross_margin」、「net_margin」、「roe_avg」、「roe」、「ocf_to_parent_net_profit」、「revenue_growth」、「parent_net_profit_growth」、「revenue_cagr」、「parent_net_profit_cagr」、「net_profit_cagr」、「ocf_cagr」、「ocf_to_parent_np」、「parent_np_growth」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+          "unique_by": [
+            "period",
+            "metric"
+          ],
+          "non_empty_keys": [
+            "period",
+            "metric",
+            "compute_id"
+          ]
+        },
+        {
+          "kind": "computed",
+          "path": "calculations",
+          "label": "「calculations」的数都是用计算工具算的",
+          "message": "没过：「calculations」的数都是用计算工具算的",
+          "tolerance": 5e-07
+        },
+        {
+          "keys": [
+            "period",
+            "metric",
+            "value",
+            "compute_id"
+          ],
+          "kind": "each_has",
+          "path": "amount_calculations",
+          "field": "metric",
+          "label": "「amount_calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「revenue」、「parent_net_profit」、「operating_cost」、「operating_cash_flow」、「deducted_net_profit」、「revenue_per_employee」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+          "values": [
+            "revenue",
+            "parent_net_profit",
+            "operating_cost",
+            "operating_cash_flow",
+            "deducted_net_profit",
+            "revenue_per_employee"
+          ],
+          "message": "没过：「amount_calculations」每项都有「period」、「metric」、「value」、「compute_id」，「metric」只能是「revenue」、「parent_net_profit」、「operating_cost」、「operating_cash_flow」、「deducted_net_profit」、「revenue_per_employee」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」的组合不重复",
+          "unique_by": [
+            "period",
+            "metric"
+          ],
+          "non_empty_keys": [
+            "period",
+            "metric",
+            "compute_id"
+          ]
+        },
+        {
+          "kind": "computed",
+          "path": "amount_calculations",
+          "label": "「amount_calculations」的数都是用计算工具算的",
+          "message": "没过：「amount_calculations」的数都是用计算工具算的",
+          "tolerance": 0.005
+        },
+        {
+          "kind": "no_positioning_advice",
+          "label": "没有评级、目标价、买卖建议",
+          "message": "含有评级、目标价或买卖建议的措辞"
+        }
+      ],
+      "ask_before": [],
+      "input_refs": [
+        "series"
+      ],
+      "max_reworks": 1,
+      "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用\n\n规则：\n1. 分析的科目 = 问题点到的科目 + 固定核心指标（营业收入、归母净利润、扣非净利润、经营现金流；毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速）。口径：毛利率 =（营业收入 − 营业成本）/ 营业收入；净利率 = 归母净利润 / 营业收入；净资产收益率 = 归母净利润 / 平均归母净资产；经营现金流与净利润之比 = 经营活动现金流量净额 / 归母净利润；收入与利润增速 = 同比。分母为 0、为负或缺数时标不适用。只描述，不评价好坏。\n2. 交回结构：保留 indicators 分析结论列表。annual_metrics 按问题所问的年度交回完整可读的年度营收、归母净利润和营业成本，year 为四位年份文字，金额统一为人民币元，每行 quotes 引到这些数字的授权原文。缺数字的年度不编行、不填零，在 missing_items 逐项说明。calculations 记录已算出的无量纲指标；金额类已算出的指标放 amount_calculations，两个列表遵循 precision 规则。各项，metric 用稳定名称（营业收入 revenue、归母净利润 parent_net_profit、毛利率 gross_margin、营收 CAGR revenue_cagr），period 单年写 YYYY、跨年写 YYYY-YYYY、季度写 YYYYQn；每个结果保留 compute_id 和 value。只在问题要求时计算 CAGR，沿用问题指定的起止年度，以实际年度间隔为期数；缺基数不编数。\n3. 数值精度与交回分组：calculations只放无量纲的比率/增速/CAGR，value按小数比例（不是乘100后的百分数）保留6位小数，允许与同任务compute原值相差不超过0.0000005；amount_calculations只放金额类计算（含人均创收），金额单位为人民币元，人均创收为元/人，value保留2位小数，允许与同任务compute原值相差不超过0.005。两个列表均须交回，无相应结果写空列表。每项使用稳定metric并保留真正的compute_id；保留compute原记录的完整结果，不用四舍五入后的数继续充当后续精确计算输入。正文可按万元/亿元和百分比展示，但需明确单位。annual_metrics保持原年度表和引文规则，缺项如实说明；不能为绕过精度把比率放入金额列表。\n\n用上：series（取数）\n\n交回一个 JSON，包含：\n- indicators：列表\n- annual_metrics：表，每行有：year（文字）、revenue（数）、parent_net_profit（数）、operating_cost（数）；每项带 quotes：一串 {material_id, page, text}，原文照读到的抄\n- calculations：表，每行有：period（文字）、metric（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- amount_calculations：表，每行有：period（文字）、metric（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- missing_items：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+      "output_schema": {
+        "indicators": [
+          "string"
+        ],
+        "calculations": [
+          {
+            "value": "number",
+            "metric": "string",
+            "period": "string",
+            "compute_id": "string"
+          }
+        ],
+        "missing_items": [
+          "string"
+        ],
+        "annual_metrics": [
+          {
+            "year": "string",
+            "quotes": [
+              {
+                "page": "integer",
+                "text": "string",
+                "material_id": "string"
+              }
+            ],
+            "revenue": "number",
+            "operating_cost": "number",
+            "parent_net_profit": "number"
+          }
+        ],
+        "amount_calculations": [
+          {
+            "value": "number",
+            "metric": "string",
+            "period": "string",
+            "compute_id": "string"
+          }
+        ]
+      },
+      "input_max_chars": 8000,
+      "output_artifact": "indicators"
+    },
+    {
+      "why": "定量给出可验证的未来业绩预期与区间",
+      "title": "预测",
+      "tools": [
+        "compute",
+        "describe_items",
+        "find_subject",
+        "list_inputs",
+        "lookup",
+        "query_facts",
+        "query_metric",
+        "read_facts",
+        "read_input",
+        "request_data",
+        "search_evidence"
+      ],
+      "reserve": "0.05",
+      "step_id": "forecast",
+      "summary": "季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季",
+      "on_reject": "rework",
+      "acceptance": [
+        {
+          "kind": "json_object",
+          "label": "交回的是一个 JSON",
+          "message": "交回物不是 JSON 对象"
+        },
+        {
+          "keys": [
+            "forecasts",
+            "horizon",
+            "forecast_rows",
+            "backtest_rows",
+            "missing_items"
+          ],
+          "kind": "required_keys",
+          "label": "交回项都在：「forecasts」、「horizon」、「forecast_rows」、「backtest_rows」、「missing_items」",
+          "message": "缺交回项"
+        },
+        {
+          "keys": [
+            "period",
+            "metric",
+            "part",
+            "value",
+            "compute_id"
+          ],
+          "kind": "each_has",
+          "path": "forecast_rows",
+          "field": "part",
+          "label": "「forecast_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「point」、「lower」、「upper」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+          "values": [
+            "point",
+            "lower",
+            "upper"
+          ],
+          "message": "没过：「forecast_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「point」、「lower」、「upper」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+          "unique_by": [
+            "period",
+            "metric",
+            "part"
+          ],
+          "non_empty_keys": [
+            "period",
+            "metric",
+            "compute_id"
+          ]
+        },
+        {
+          "kind": "computed",
+          "path": "forecast_rows",
+          "label": "「forecast_rows」的数都是用计算工具算的",
+          "message": "没过：「forecast_rows」的数都是用计算工具算的",
+          "tolerance": 0.005
+        },
+        {
+          "keys": [
+            "period",
+            "metric",
+            "part",
+            "value",
+            "compute_id"
+          ],
+          "kind": "each_has",
+          "path": "backtest_rows",
+          "field": "part",
+          "label": "「backtest_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「predicted」、「actual」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+          "values": [
+            "predicted",
+            "actual"
+          ],
+          "message": "没过：「backtest_rows」每项都有「period」、「metric」、「part」、「value」、「compute_id」，「part」只能是「predicted」、「actual」；「period」、「metric」、「compute_id」不能为空；「period」、「metric」、「part」的组合不重复",
+          "unique_by": [
+            "period",
+            "metric",
+            "part"
+          ],
+          "non_empty_keys": [
+            "period",
+            "metric",
+            "compute_id"
+          ]
+        },
+        {
+          "kind": "computed",
+          "path": "backtest_rows",
+          "label": "「backtest_rows」的数都是用计算工具算的",
+          "message": "没过：「backtest_rows」的数都是用计算工具算的",
+          "tolerance": 0.005
+        },
+        {
+          "kind": "no_positioning_advice",
+          "label": "没有评级、目标价、买卖建议",
+          "message": "含有评级、目标价或买卖建议的措辞"
+        }
+      ],
+      "ask_before": [],
+      "input_refs": [
+        "series",
+        "indicators",
+        "official"
+      ],
+      "max_reworks": 1,
+      "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季\n\n规则：\n1. 预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。\n2. 交回结构：保留 forecasts 说明列表。forecast_rows 按 period（YYYYQn）、metric（营业收入 revenue、归母净利润 parent_net_profit 或问题所问的其他指标）、part（point 点预测、lower 下界、upper 上界）逐项交回实际完成的数值及 compute_id。backtest_rows 按同样的期间和指标分别交回 predicted（原方法回测预测值）、actual（对应实际值），数值也保留计算记录；不引入新的预测方法。horizon 等于实际完成预测的不同季度数，不是用户要求的季度数；没有完成时写0。缺数、缺季度或未完成回测写入 missing_items，不用零或空区间冒充完成。用户未要求预测时如实说明，不凭空增加预测。\n3. forecast_rows和backtest_rows中的收入、归母净利润等金额value统一用人民币元，保留2位小数，与同任务compute原值允许相差不超过0.005元。保留实际计算编号、原方法和完整计算记录，后续计算引用原记录，不引用展示约数；百分比和非金额指标不混入金额表。不得用容差掩盖错科目、错期间、错计算编号或缺数。\n\n用上：series（取数）、indicators（算指标与分析）、official（对照管理层讨论）\n\n交回一个 JSON，包含：\n- forecasts：列表\n- horizon：数\n- forecast_rows：表，每行有：period（文字）、metric（文字）、part（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- backtest_rows：表，每行有：period（文字）、metric（文字）、part（文字）；每个数写成 {value, compute_id}：value 是数，compute_id 是 compute 返回的编号\n- missing_items：列表\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+      "output_schema": {
+        "horizon": "number",
+        "forecasts": [
+          "string"
+        ],
+        "backtest_rows": [
+          {
+            "part": "string",
+            "value": "number",
+            "metric": "string",
+            "period": "string",
+            "compute_id": "string"
+          }
+        ],
+        "forecast_rows": [
+          {
+            "part": "string",
+            "value": "number",
+            "metric": "string",
+            "period": "string",
+            "compute_id": "string"
+          }
+        ],
+        "missing_items": [
+          "string"
+        ]
+      },
+      "input_max_chars": 32000,
+      "output_artifact": "forecast"
+    }
+  ],
+  "unchanged_steps": [
+    "scope",
+    "inventory",
+    "reconcile",
+    "series",
+    "official",
+    "writeup"
+  ],
+  "test7": {
+    "draft_id": "4273f2c6-0df8-45c0-8e12-a70a00054ac9",
+    "test_id": "f6adb6b4-4915-4c98-9593-18e7fa373a1e",
+    "run_id": "knowlab-test-f6adb6b4-4915-4c98-9593-18e7fa373a1e",
+    "status": "queued",
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "root": "C:\\Users\\zymun\\Desktop",
+    "budget_limit": "60.00",
+    "timeout_seconds": 3600,
+    "test_set_version": 2
+  },
+  "offline_probes": {
+    "checks": [
+      {
+        "case": "c1",
+        "cursor": 1049,
+        "numeric_and_structure": "pass",
+        "quoted": "not rechecked; original quote verdict retained"
+      },
+      {
+        "case": "c1",
+        "cursor": 1029,
+        "numeric_and_structure": "pass",
+        "quoted": "not rechecked; original quote verdict retained"
+      },
+      {
+        "case": "c2",
+        "cursor": 584,
+        "numeric_and_structure": "pass",
+        "quoted": "not rechecked; original quote verdict retained"
+      },
+      {
+        "case": "c2",
+        "cursor": 564,
+        "numeric_and_structure": "pass",
+        "quoted": "not rechecked; original quote verdict retained"
+      },
+      {
+        "negative": "wrong_amount",
+        "rejected": true
+      },
+      {
+        "negative": "wrong_ratio",
+        "rejected": true
+      },
+      {
+        "negative": "missing_compute",
+        "rejected": true
+      },
+      {
+        "negative": "ratio_in_amount_group",
+        "rejected": true
+      },
+      {
+        "synthetic": "forecast_rows",
+        "rounded_accepted": true,
+        "cent_error_rejected": true
+      },
+      {
+        "synthetic": "backtest_rows",
+        "rounded_accepted": true,
+        "cent_error_rejected": true
+      }
+    ],
+    "passed": 10,
+    "limitations": "Checks structural/numeric rules only. Does not establish financial completeness, quotes, forecasting, file delivery or live acceptance."
+  },
+  "deployment": "新版准专家使用已部署的既有computed.tolerance能力，已正式publish并start_self_test；第12节平台解析精度补丁仍待Qwen部署，不冒充已发布。",
+  "limits": "不改测试题、数据集、预测方法/窗口、管理层讨论、勾稽1元阈值或历史结果；尚未证明整轮通过。"
+}
