@@ -1,3 +1,7 @@
+# 长期决定（2026-11-03）：演示后删除旧固定执行与兼容
+
+所有者明确：2026-11-04 实际演示结束后彻底删除旧固定专家独立执行体系。固定是动态的特殊形态，统一引擎表达作者完全约束的计划；双轨并存只到演示结束。今晚新增兼容集中、可定位、可删除，关联K31，不为其扩出长期架构。手动选专家与不可变历史保留；现在不删除演示备用。架构真源：docs/design/SDD/architecture/methods.md 首节；执行账：docs/design/knowbot-todolist.md K31。后续接手先读，不能沿用“永久保留固定旧引擎”的理解。
+
 # 2026-11-03 当前增量：knowmart 公网 404 路由修复待发布
 
 外部演示机经 Casdoor 后到正确的 /zh-CN/knowbots 仍404。16:05只读复核：东京边缘与集群frpc实际均只有knowbench/casdoor/relay，缺knowmart。已补两端名单及frpc断言，经原生components-stage生成代理与滚动摘要；Secret/镜像/其它组件未变。模板3项回归、edge-plan、定向stage通过，未部署。
