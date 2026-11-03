@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-11-03T12:06:18.650693+00:00",
+  "owner_subject": "b5f49830-db2a-4d1b-b325-567e77b59d4a",
+  "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+  "workdraft_revision": 38,
+  "body_sha256": "3b7bd48701aeba5c1c353a5c41b93cdf773adffd25d0bbf6c027209fc311dfa3",
+  "draft_id": "4ac59f55-cf9f-4cfa-b75f-42e7732804f8",
+  "version": "3",
+  "revision": 9,
+  "manifest_sha256": "944161b1144dc84cb3848a9e1f9e94aa9eaab908913ba22b401fffd8f4170b53",
+  "status": "pending_test",
+  "model_tests_started": 0,
+  "listed": false,
+  "authorization": "Owner: 修后上架; 增加人工特批发布，修复后按特批上架",
+  "next": "Deploy audited exception API, request and approve exact digest, then normal delivery."
+}

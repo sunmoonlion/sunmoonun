@@ -1,0 +1,44 @@
+{
+  "synthetic": true,
+  "model_calls": 0,
+  "checks": {
+    "original_four_formulas_with_stock_continuity": {
+      "passed": true,
+      "expected_acceptance": true
+    },
+    "reject_flow_account_kind": {
+      "passed": true,
+      "expected_acceptance": false
+    },
+    "reject_restatement_as_fourth_identity": {
+      "passed": true,
+      "expected_acceptance": false
+    },
+    "reject_forged_calculated_difference": {
+      "passed": true,
+      "expected_acceptance": false
+    },
+    "reject_missing_balance_quotes": {
+      "passed": true,
+      "expected_acceptance": false
+    },
+    "reject_unverifiable_quote": {
+      "passed": true,
+      "expected_acceptance": false
+    },
+    "reject_duplicate_balance_pair": {
+      "passed": true,
+      "expected_acceptance": false
+    },
+    "reject_archived_c1_flow_restatement_rows": {
+      "passed": true,
+      "expected_acceptance": false
+    }
+  },
+  "unchanged_steps": [
+    "scope",
+    "indicators",
+    "official"
+  ],
+  "limitation": "Metadata and quotes do not independently prove correct financial semantics when a model mislabels inputs. No live acceptance claim."
+}
