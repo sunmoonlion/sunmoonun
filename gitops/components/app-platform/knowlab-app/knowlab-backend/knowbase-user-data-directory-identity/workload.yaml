@@ -125,7 +125,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（同 ../service-identity）：Job 的模板不可改，镜像一换名字就换
-metadata: {name: 'knowlab-knowbase-user-data-directory-identity-33e4e4648c37-v1', namespace: app-platform-dev}
+metadata: {name: 'knowlab-knowbase-user-data-directory-identity-4f491dd36a20-v1', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -139,7 +139,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:33e4e4648c37c1fc22f68c65269124e112bedee0b263542c52eafa8753d87fa6
+          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:4f491dd36a20fe30cdab677f7c92a0d4dd74a432e31e6c9c649b9e16ffffa3b7
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
