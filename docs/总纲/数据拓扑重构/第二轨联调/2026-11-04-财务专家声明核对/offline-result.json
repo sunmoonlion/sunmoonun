@@ -1,0 +1,20 @@
+{
+  "synthetic_only": true,
+  "checks": {
+    "complete": true,
+    "scope_complete": true,
+    "missing": true,
+    "duplicate": true,
+    "different_requirement": true,
+    "unanswered": true,
+    "explicit_gap": true,
+    "blank_answer": true,
+    "blank_basis": true,
+    "blank_report": true,
+    "scope_uncovered": true,
+    "scope_empty": true
+  },
+  "passed": 12,
+  "model_calls": 0,
+  "limitations": "不能独立证明模型拆题和语义判断正确，不能当作本专家已完成实战复测。"
+}

@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-11-03T18:25:38.984217+00:00",
+  "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+  "draft_id": "ec9eb6f0-9386-4028-98b0-10ca0c091294",
+  "version": "4",
+  "revision": 10,
+  "workdraft_revision": 39,
+  "body_sha256": "12f8ef3d93c4d2e18c1d8b9413c14548700147badc7fd0ef9f8c96c56c66a67a",
+  "manifest_sha256": "e907deeea42ca48de7c8c56b6d6c6727dad2b511ee6682da1fe6c581611d546b",
+  "status": "pending_test",
+  "listed": false,
+  "model_tests_started": 0,
+  "authorization": "Owner asked to implement declaration, matching, scope review and answer coverage after reviewing proposal."
+}
