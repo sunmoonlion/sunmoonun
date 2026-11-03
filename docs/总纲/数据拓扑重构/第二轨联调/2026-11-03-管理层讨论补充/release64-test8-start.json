@@ -1,0 +1,35 @@
+{
+  "authorization": "所有者明确选择：停止旧测试，用新版重新测试。沿用60元总额、每题20元；旧费用另计。",
+  "release": {
+    "number": 64,
+    "receipt_commit": "c9a460bc",
+    "deploy": "324c2f71522ed0e16eb932b0ffd095e9b5bf9f33",
+    "tag": "release-20261103-6",
+    "backend_source": "8f797e2146a36f74cbd204dd98ff322d49c5fe5c",
+    "backend_image": "sha256:ec8c9e2e7f87281466dd05c20525c897196b467ec62e678fd1087b7367fd9335",
+    "knowlab_web_source": "af091befde3003feebc50bc0b03ac032612f3070",
+    "knowlab_web_image": "sha256:744e8500f1cc0be255a55521f9ad9090e97d1c74c436df178d446b0323555433",
+    "verified": "knowbench API/runner/worker/scheduler及knowlab-web均Ready1，镜像匹配；实际API合成无损精度探针通过，无模型调用/业务写入"
+  },
+  "old_test": {
+    "id": "f6adb6b4-4915-4c98-9593-18e7fa373a1e",
+    "action": "formal runtimes.cancel + refresh_mine",
+    "lab_status": "platform_error",
+    "c2_task_state": "CANCELLED",
+    "thread_status": "idle",
+    "last_turn_status": "interrupted",
+    "history_preserved": true
+  },
+  "new_test": {
+    "draft_id": "4273f2c6-0df8-45c0-8e12-a70a00054ac9",
+    "test_id": "8f78d832-1921-4286-bc18-3f36e4212cd4",
+    "run_id": "knowlab-test-8f78d832-1921-4286-bc18-3f36e4212cd4",
+    "status": "queued",
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "root": "C:\\Users\\zymun\\Desktop",
+    "budget_limit": "60.00",
+    "timeout_seconds": 3600,
+    "test_set_version": 2
+  },
+  "limits": "未上架专家第2版，未声称整轮通过，不再同时安排runner发布；不代确认数据或回答业务问题。"
+}

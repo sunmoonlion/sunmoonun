@@ -816,3 +816,8 @@ knowlab._answer改用_task_ref，和重测/knowbench一致，保留固定测试�
 ## 2026-11-03 发布中断测试7 c1
 
 c1勾稽/取数已完成，indicators在10:53:07因runner重启被interrupted，task事件明确platform=true，测试用例status=error、failed_checks为空；不是新容差验收失败。新runner创建10:53:04、镜像ec8c9e2e… Ready=true，Qwen最终回执未核。第12.5节已追加Luna/Qwen交接，记录并行发布安排不妥，后续runner发布须避开在跑测试。c1已结算11.731892，失败turn成本unknown；c2已自动进入数据摸底，本轮只查证未另发起付费重试或改历史。
+
+
+## 2026-11-03 #64完成，停止测试7、启动测试8
+
+所有者明确“停止旧测试，用新版重新测试”。核对Qwen回执c9a460bc、deploy324c2f71、backend8f797e2/ec8c9e2e…及webaf091be/744e8500…，四后端角色与网页Ready1，实际API精度合成探针通过。正式取消测试7并核c2 CANCELLED、thread idle、turn interrupted；保留费用和失败原因。正式启动测试8 8f78d832-1921-4286-bc18-3f36e4212cd4，准专家2.6，60元/每题20元、原3题、测试集2、3600秒、原zymun电脑；不并行滚动runner，不自动无限重跑。证据release64-test8-start.json，交接第12.6节同步Qwen；完整测试待核，商城v2未交付。
