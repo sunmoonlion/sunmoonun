@@ -1,0 +1,93 @@
+
+> knowbench-web-frontend@2.0.0 test /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+> vitest run
+
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+
+ ✓ tests/unit/deliverable-export.test.ts (18 tests) 736ms
+   ✓ Word > turns headings, tables, lists, links and footnotes into a docx  303ms
+ ✓ tests/component/dossier-and-machines.test.tsx (8 tests) 1318ms
+   ✓ 我的电脑 > 接入的机器：在线、版本、白名单里的目录、它自己定的上限  715ms
+ ✓ tests/component/ask-expert-data.test.tsx (4 tests) 1109ms
+   ✓ 请专家：数据按问题定 > 清单 v2 的专家不用选数据，说明自带几份；交出的请求不带数据  682ms
+ ✓ tests/component/work-screen.test.tsx (4 tests) 1505ms
+   ✓ 工作页 > 过程收成一行，改了的文件摆在外面，右边有「改动」  980ms
+   ✓ 工作页 > 等批准的命令：把命令、目录、理由摆出来；点「拒绝这一步」，带着凭证答复  324ms
+ ✓ tests/component/expert-desk.test.tsx (5 tests) 1392ms
+   ✓ 专家首页 > 等我决定的在最上面；进行中的；两位专家；最近交回的。哪里都没有代号  780ms
+ ✓ tests/component/chat-screen.test.tsx (4 tests) 1131ms
+   ✓ 聊天页 > 挂在项目下的聊天有右栏：只读看文件，没有「改动」「终端」；不属于项目的没有右栏（0017，所有者 2026-10-18；终端 10-23 去掉）  672ms
+ ✓ tests/component/task-data-panel.test.tsx (16 tests) 1834ms
+   ✓ 确认专家提出的数据（decisions ⑭） > 列出每一样；去掉一样、改主体后确认，带上改过的整份  459ms
+ ✓ tests/component/settings-sections.test.tsx (7 tests) 1529ms
+   ✓ 设置分三类（0021） > 个人偏好：外观、主题色、侧边栏存浏览器本地并立刻套到页面上；语言是换地址前缀  497ms
+ ✓ tests/component/projects.test.tsx (6 tests) 2001ms
+   ✓ 项目列表 > 按工作区分组；归档的默认不显示，勾上才显示  839ms
+   ✓ 项目列表 > 新建项目：选工作区、填子目录；不填名字就用目录的最后一段  702ms
+ ✓ tests/component/expert-run-screen.test.tsx (10 tests) 2253ms
+   ✓ 专家处理中 > accepts the backend dynamic view and shows selected methods and reasons  430ms
+   ✓ 专家处理中 > 停止：先问一句，写明已花的不退；确认才停  323ms
+ ✓ tests/component/agent-onboarding.test.tsx (4 tests) 498ms
+ ✓ tests/component/knowbot-arrival.test.tsx (5 tests) 320ms
+ ✓ tests/component/common-kernel.test.tsx (3 tests) 158ms
+ ✓ tests/component/computer-entry.test.tsx (19 tests) 3259ms
+   ✓ 电脑接入入口 > 首次卡片依次引导设置 key 和接电脑，不重复显示下方沙箱提示  459ms
+   ✓ 电脑接入入口 > 侧栏树：工作区行有「全部」和「+」，项目与对话行有删除，确认后才发请求（0016，所有者 2026-10-12 定）  1227ms
+ ✓ tests/component/session-boundary.test.tsx (3 tests) 383ms
+   ✓ retains input, hides stale identity, stops polling, refreshes CSRF and does not replay actions  312ms
+ ✓ tests/component/logout-button.test.tsx (4 tests) 438ms
+ ✓ tests/component/new-project-dialog.test.tsx (7 tests) 1836ms
+   ✓ 新建项目：先请电脑上的代理建好，再登记（0024） > 新建文件夹：代理建好 Windows 路径的文件夹，工作台才登记  720ms
+   ✓ 新建项目：先请电脑上的代理建好，再登记（0024） > 拉取仓库：子目录默认用仓库名；要登录时弹令牌框，令牌只发给本机代理  429ms
+ ✓ tests/component/handback-line.test.tsx (7 tests) 203ms
+ ✓ tests/component/find-expert.test.tsx (9 tests) 716ms
+ ✓ tests/component/file-tree.test.tsx (9 tests) 1306ms
+   ✓ 右边栏「文件」：直接问本机代理，文件不经云端 > 探口 → 要票 → 看树；当前项目默认展开；点文件看内容  460ms
+   ✓ 右边栏「文件」：直接问本机代理，文件不经云端 > 没有表格的 Markdown：Excel 不可点；只读了开头的：不给导出  386ms
+ ✓ tests/component/cross-app-link.test.tsx (7 tests) 171ms
+ ✓ tests/component/public-home.test.tsx (1 test) 114ms
+ ✓ tests/component/open-task-from-ref.test.tsx (2 tests) 81ms
+ ✓ tests/component/conversation-session-recovery.test.tsx (1 test) 139ms
+ ✓ tests/unit/workbench-contract-samples.test.ts (4 tests) 133ms
+ ✓ tests/unit/browser-session.test.ts (7 tests) 34ms
+ ✓ tests/component/computer-section.test.tsx (8 tests) 524ms
+ ✓ tests/unit/common-api-client.test.ts (3 tests) 18ms
+ ✓ tests/component/task-data-refresh.test.tsx (1 test) 39ms
+ ✓ tests/component/link-check-banner.test.tsx (4 tests) 278ms
+ ✓ tests/unit/agent-onboarding.test.ts (16 tests) 22ms
+ ✓ tests/unit/shell-nav.test.ts (9 tests) 18ms
+ ✓ tests/unit/i18n-time-zone.test.ts (1 test) 18ms
+ ✓ tests/unit/env.test.ts (14 tests) 24ms
+ ✓ tests/component/home-start.test.tsx (1 test) 41ms
+ ✓ tests/unit/machines-client.test.ts (1 test) 14ms
+ ✓ tests/unit/cross-app-links.test.ts (10 tests) 25ms
+ ✓ tests/unit/work-timeline.test.ts (22 tests) 25ms
+ ✓ tests/unit/interaction-client.test.ts (6 tests) 24ms
+ ✓ tests/unit/knowbase-run-contract.test.ts (4 tests) 34ms
+ ✓ tests/unit/file-tree.test.ts (6 tests) 15ms
+ ✓ tests/unit/chat-thread.test.ts (7 tests) 20ms
+ ✓ tests/unit/session-recovery.test.ts (6 tests) 11ms
+ ✓ tests/unit/feature-boundaries.test.ts (16 tests) 23ms
+ ✓ tests/unit/expert-run.test.ts (11 tests) 17ms
+ ✓ tests/unit/projects-model.test.ts (5 tests) 11ms
+ ✓ tests/unit/run-projection.test.ts (4 tests) 9ms
+ ✓ tests/unit/settings-client.test.ts (4 tests) 27ms
+ ✓ tests/unit/common-query.test.ts (3 tests) 6ms
+ ✓ tests/unit/content-security-policy.test.ts (2 tests) 3ms
+ ✓ tests/unit/link-check.test.ts (12 tests) 29ms
+ ✓ tests/unit/task-data.test.ts (5 tests) 8ms
+ ✓ tests/unit/pane-widths.test.ts (4 tests) 5ms
+ ✓ tests/unit/cross-app-destinations.test.ts (1 test) 2ms
+ ✓ tests/unit/next-path.test.ts (3 tests) 3ms
+ ✓ tests/unit/tracked-env-contract.test.ts (2 tests) 4ms
+ ✓ tests/unit/link-side.test.ts (4 tests) 3ms
+ ✓ tests/unit/dossier-paths.test.ts (2 tests) 3ms
+ ↓ tests/unit/interaction-consumer-vectors.test.ts (2 tests | 2 skipped)
+ ✓ tests/unit/preview-server.test.ts (16 tests) 295ms
+
+ Test Files  59 passed | 1 skipped (60)
+      Tests  387 passed | 2 skipped (389)
+   Start at  13:07:47
+   Duration  12.89s (transform 8.43s, setup 14.60s, collect 42.83s, tests 26.19s, environment 33.79s, prepare 5.63s)
+

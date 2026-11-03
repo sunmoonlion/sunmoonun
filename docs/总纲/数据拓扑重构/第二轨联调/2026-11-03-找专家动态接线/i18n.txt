@@ -1,0 +1,5 @@
+
+> knowbench-web-frontend@2.0.0 check:i18n /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+> node scripts/check-i18n.mjs
+
+{"result":"passed","sourceLocale":"en","locales":["en","zh-CN"],"keyCount":1093}

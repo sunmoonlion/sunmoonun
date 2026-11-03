@@ -1,0 +1,4 @@
+
+> knowbench-web-frontend@2.0.0 typecheck /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+> tsc --noEmit
+
