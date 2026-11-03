@@ -1,3 +1,9 @@
+# 2026-11-03 当前：所有者授权停止测试9，维护窗口已核
+
+正式取消整轮test9并refresh_mine：runtime cancelled，knowlab映射platform_error；c3 CANCELLED/active_attempt_id=null，app-server idle/最后turn interrupted；活动任务查询为空。交接13.7已写入Qwen副本，可按13.6候选parent8829981/backend657e456继续发布，触发前重核无新任务。没有启动新付费测试、没有删数据或改写旧失败。记录费用53.485532元，不视作供应商最终结算。下一步发布后核版本与探针，后续付费重测需明确授权；第6步内容复核仍待。
+
+此前检查点：
+
 # 2026-11-03 当前：c2否定声明修复已合批
 
 按所有者“修复啊”，完整的“不给买卖建议、评级、目标价”声明不再误判；带具体价位、双重否定、模糊续句、其他句/字段实际建议仍拒绝。新候选backend657e456 / parent8829981，替代旧53da215/4c239e3，仍fix/step-acceptance-feedback，已推GitHub/Gitee。开发c804c76/77aa4bd。合批155项通过（含隔离DB），Ruff/Pyright通过；c2原文未改，本地JSON/必填/非建议检查通过，不是全链路重测成功。
