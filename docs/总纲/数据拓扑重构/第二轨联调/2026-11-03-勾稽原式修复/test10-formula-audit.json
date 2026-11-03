@@ -1,0 +1,21 @@
+{
+  "task_id": "83c28ae7-a078-4d35-ba10-ac799b92bb33",
+  "records": {
+    "c263": {
+      "name": "bs_2023Q1",
+      "expression": "A-TLE",
+      "value": "0"
+    },
+    "c287": {
+      "name": "bs_2024Q1",
+      "expression": "A-TLE",
+      "value": "0"
+    },
+    "c339": {
+      "name": "bs_2026Q1",
+      "expression": "A-TLE",
+      "value": "0"
+    }
+  },
+  "finding": "A-TLE is an auxiliary total comparison, not the required A-(L+E). Original test verdicts retained."
+}
