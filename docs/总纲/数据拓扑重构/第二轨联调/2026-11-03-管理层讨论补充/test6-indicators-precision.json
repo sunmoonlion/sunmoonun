@@ -1,0 +1,353 @@
+{
+  "task": "c13673eb-216e-495e-ae71-a63bfe8a7805",
+  "source": "只读导出模型agentMessage原始JSON与同任务knowbot/compute事件；parse_float=str保留原文十进制",
+  "messages": [
+    {
+      "cursor": 1029,
+      "calculations": [
+        {
+          "value": "0.9154029126035511",
+          "metric": "gross_margin",
+          "period": "2021",
+          "compute_id": "c873"
+        },
+        {
+          "value": "0.9186665485641155",
+          "metric": "gross_margin",
+          "period": "2022",
+          "compute_id": "c879"
+        },
+        {
+          "value": "0.9196493724135797",
+          "metric": "gross_margin",
+          "period": "2023",
+          "compute_id": "c885"
+        },
+        {
+          "value": "0.9193121663606457",
+          "metric": "gross_margin",
+          "period": "2024",
+          "compute_id": "c891"
+        },
+        {
+          "value": "0.4940207918082972",
+          "metric": "net_margin",
+          "period": "2021",
+          "compute_id": "c897"
+        },
+        {
+          "value": "0.5053708516627918",
+          "metric": "net_margin",
+          "period": "2022",
+          "compute_id": "c903"
+        },
+        {
+          "value": "0.5060074981155426",
+          "metric": "net_margin",
+          "period": "2023",
+          "compute_id": "c909"
+        },
+        {
+          "value": "0.5045557293472765",
+          "metric": "net_margin",
+          "period": "2024",
+          "compute_id": "c915"
+        },
+        {
+          "value": "0.3240774329839976",
+          "metric": "roe_avg",
+          "period": "2022",
+          "compute_id": "c1008"
+        },
+        {
+          "value": "0.36177815549605115",
+          "metric": "roe_avg",
+          "period": "2023",
+          "compute_id": "c1014"
+        },
+        {
+          "value": "0.38428268834516645",
+          "metric": "roe_avg",
+          "period": "2024",
+          "compute_id": "c1020"
+        },
+        {
+          "value": "1.2205203951750114",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2021",
+          "compute_id": "c936"
+        },
+        {
+          "value": "0.5851510966275702",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2022",
+          "compute_id": "c942"
+        },
+        {
+          "value": "0.8910694458265695",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2023",
+          "compute_id": "c948"
+        },
+        {
+          "value": "1.0723145052465904",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2024",
+          "compute_id": "c954"
+        },
+        {
+          "value": "0.16865677382786506",
+          "metric": "revenue_growth",
+          "period": "2022",
+          "compute_id": "c960"
+        },
+        {
+          "value": "0.19011918552854164",
+          "metric": "revenue_growth",
+          "period": "2023",
+          "compute_id": "c966"
+        },
+        {
+          "value": "0.15711951294790807",
+          "metric": "revenue_growth",
+          "period": "2024",
+          "compute_id": "c972"
+        },
+        {
+          "value": "0.19550650273047784",
+          "metric": "parent_net_profit_growth",
+          "period": "2022",
+          "compute_id": "c978"
+        },
+        {
+          "value": "0.19159899289165942",
+          "metric": "parent_net_profit_growth",
+          "period": "2023",
+          "compute_id": "c984"
+        },
+        {
+          "value": "0.15379966101625638",
+          "metric": "parent_net_profit_growth",
+          "period": "2024",
+          "compute_id": "c990"
+        },
+        {
+          "value": "0.17188560107883515",
+          "metric": "revenue_cagr",
+          "period": "2021-2024",
+          "compute_id": "c996"
+        }
+      ]
+    },
+    {
+      "cursor": 1049,
+      "calculations": [
+        {
+          "value": "0.9154029126035511584400534399",
+          "metric": "gross_margin",
+          "period": "2021",
+          "compute_id": "c873"
+        },
+        {
+          "value": "0.9186665485641155176480639184",
+          "metric": "gross_margin",
+          "period": "2022",
+          "compute_id": "c879"
+        },
+        {
+          "value": "0.9196493724135797573790928685",
+          "metric": "gross_margin",
+          "period": "2023",
+          "compute_id": "c885"
+        },
+        {
+          "value": "0.9193121663606456979254008694",
+          "metric": "gross_margin",
+          "period": "2024",
+          "compute_id": "c891"
+        },
+        {
+          "value": "0.4940207918082971864211739064",
+          "metric": "net_margin",
+          "period": "2021",
+          "compute_id": "c897"
+        },
+        {
+          "value": "0.5053708516627918395097512558",
+          "metric": "net_margin",
+          "period": "2022",
+          "compute_id": "c903"
+        },
+        {
+          "value": "0.5060074981155426732183636527",
+          "metric": "net_margin",
+          "period": "2023",
+          "compute_id": "c909"
+        },
+        {
+          "value": "0.5045557293472765140003363394",
+          "metric": "net_margin",
+          "period": "2024",
+          "compute_id": "c915"
+        },
+        {
+          "value": "0.3240774329839975626530775214",
+          "metric": "roe_avg",
+          "period": "2022",
+          "compute_id": "c1008"
+        },
+        {
+          "value": "0.3617781554960511349653263613",
+          "metric": "roe_avg",
+          "period": "2023",
+          "compute_id": "c1014"
+        },
+        {
+          "value": "0.3842826883451664524635357257",
+          "metric": "roe_avg",
+          "period": "2024",
+          "compute_id": "c1020"
+        },
+        {
+          "value": "1.220520395175011478440045062",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2021",
+          "compute_id": "c936"
+        },
+        {
+          "value": "0.5851510966275702193882987613",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2022",
+          "compute_id": "c942"
+        },
+        {
+          "value": "0.8910694458265695536780917276",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2023",
+          "compute_id": "c948"
+        },
+        {
+          "value": "1.072314505246590345314076202",
+          "metric": "ocf_to_parent_net_profit",
+          "period": "2024",
+          "compute_id": "c954"
+        },
+        {
+          "value": "0.1686567738278650628475458711",
+          "metric": "revenue_growth",
+          "period": "2022",
+          "compute_id": "c960"
+        },
+        {
+          "value": "0.1901191855285416433912904847",
+          "metric": "revenue_growth",
+          "period": "2023",
+          "compute_id": "c966"
+        },
+        {
+          "value": "0.1571195129479080718889266824",
+          "metric": "revenue_growth",
+          "period": "2024",
+          "compute_id": "c972"
+        },
+        {
+          "value": "0.195506502730477844808098472",
+          "metric": "parent_net_profit_growth",
+          "period": "2022",
+          "compute_id": "c978"
+        },
+        {
+          "value": "0.1915989928916594208932147195",
+          "metric": "parent_net_profit_growth",
+          "period": "2023",
+          "compute_id": "c984"
+        },
+        {
+          "value": "0.1537996610162563831869509284",
+          "metric": "parent_net_profit_growth",
+          "period": "2024",
+          "compute_id": "c990"
+        },
+        {
+          "value": "0.171885601078835154227721371",
+          "metric": "revenue_cagr",
+          "period": "2021-2024",
+          "compute_id": "c996"
+        }
+      ]
+    }
+  ],
+  "computation_values": {
+    "c1008": "0.3240774329839975626530775214",
+    "c1014": "0.3617781554960511349653263613",
+    "c1020": "0.3842826883451664524635357257",
+    "c873": "0.9154029126035511584400534399",
+    "c879": "0.9186665485641155176480639184",
+    "c885": "0.9196493724135797573790928685",
+    "c891": "0.9193121663606456979254008694",
+    "c897": "0.4940207918082971864211739064",
+    "c903": "0.5053708516627918395097512558",
+    "c909": "0.5060074981155426732183636527",
+    "c915": "0.5045557293472765140003363394",
+    "c936": "1.220520395175011478440045062",
+    "c942": "0.5851510966275702193882987613",
+    "c948": "0.8910694458265695536780917276",
+    "c954": "1.072314505246590345314076202",
+    "c960": "0.1686567738278650628475458711",
+    "c966": "0.1901191855285416433912904847",
+    "c972": "0.1571195129479080718889266824",
+    "c978": "0.195506502730477844808098472",
+    "c984": "0.1915989928916594208932147195",
+    "c990": "0.1537996610162563831869509284",
+    "c996": "0.171885601078835154227721371"
+  },
+  "checks": [
+    [
+      {
+        "pass": false,
+        "path": "annual_metrics",
+        "rule": "quoted",
+        "label": "「annual_metrics」的说法附原文引文",
+        "detail": "#0 page 59: not_found; #1 page 59: not_found; #2 page 64: not_found; #3 page 64: not_found",
+        "message": "没过：「annual_metrics」的说法附原文引文"
+      },
+      {
+        "pass": false,
+        "path": "calculations",
+        "rule": "computed",
+        "label": "「calculations」的数都是用计算工具算的",
+        "detail": "#0 c873 says 0.9154029126035511 but computed 0.9154029126035511584400534399; #1 c879 says 0.9186665485641154 but computed 0.9186665485641155176480639184; #2 c885 says 0.9196493724135797 but computed 0.9196493724135797573790928685; #3 c891 says 0.9193121663606457 but computed 0.9193121663606456979254008694; #4 c897 says 0.4940207918082972 but computed 0.4940207918082971864211739064",
+        "message": "没过：「calculations」的数都是用计算工具算的"
+      }
+    ],
+    [
+      {
+        "pass": true,
+        "path": "annual_metrics",
+        "rule": "quoted",
+        "label": "「annual_metrics」的说法附原文引文",
+        "detail": "len=4",
+        "message": ""
+      },
+      {
+        "pass": false,
+        "path": "calculations",
+        "rule": "computed",
+        "label": "「calculations」的数都是用计算工具算的",
+        "detail": "#0 c873 says 0.9154029126035511 but computed 0.9154029126035511584400534399; #1 c879 says 0.9186665485641156 but computed 0.9186665485641155176480639184; #2 c885 says 0.9196493724135798 but computed 0.9196493724135797573790928685; #3 c891 says 0.9193121663606457 but computed 0.9193121663606456979254008694; #4 c897 says 0.49402079180829717 but computed 0.4940207918082971864211739064",
+        "message": "没过：「calculations」的数都是用计算工具算的"
+      }
+    ]
+  ],
+  "local_replay": {
+    "first_round": {
+      "rows": 22,
+      "rejected": 22
+    },
+    "second_round": {
+      "rows": 22,
+      "rejected": 0
+    }
+  },
+  "limits": "仅本地数值验收回放；不改线上判定，不表示预测、回测或完整财务验收通过。"
+}
