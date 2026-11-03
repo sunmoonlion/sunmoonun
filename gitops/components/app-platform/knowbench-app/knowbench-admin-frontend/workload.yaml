@@ -20,7 +20,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: frontend
-          image: harbor.sunmoonai.com:30443/platform/knowbench-admin-frontend@sha256:7e833a38bf7ff680ea1837bdc80bb8a744a21a03ce043e98e09a242281f75b9a
+          image: harbor.sunmoonai.com:30443/platform/knowbench-admin-frontend@sha256:cc85aa059fc63fcb16262cd8bfb55d5bcab588e59fd909aefcbd698ae9fabc91
           imagePullPolicy: IfNotPresent
           ports: [{name: http, containerPort: 3000}]
           env:
@@ -29,7 +29,7 @@ spec:
             - {name: AUTH_APP, value: knowbench}
             - {name: APP_ORIGIN, value: "https://knowbench-admin.dev.sunmoonai.com:30443"}
             - {name: BACKEND_INTERNAL_URL, value: 'http://knowbench-api.app-platform-dev.svc.cluster.local:8000'}
-            - {name: DEPLOYMENT_ID, value: "knowbench-admin-frontend-7e833a38bf7ff680"}
+            - {name: DEPLOYMENT_ID, value: "knowbench-admin-frontend-cc85aa059fc63fcb"}
             - {name: HOSTNAME, value: 0.0.0.0}
             - {name: PORT, value: '3000'}
             - {name: REFERENCE_UI_ENABLED, value: 'false'}
