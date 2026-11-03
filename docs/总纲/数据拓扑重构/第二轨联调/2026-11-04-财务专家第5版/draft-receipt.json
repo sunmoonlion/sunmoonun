@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-11-03T18:56:16.303669+00:00",
+  "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+  "source_draft_id": "1ecbfa23-3bef-47b2-8e1a-4061f0de9a52",
+  "source_manifest_sha256": "3941621048aece760481bf71bd620d4fec82b0bbb74737a9d3ec856339d041a9",
+  "draft_id": "351a2cb8-0273-4edf-8b88-c46b8cd5e7bb",
+  "version": "5",
+  "revision": 12,
+  "manifest_sha256": "f97b8e3425b4520a56d8bd91434ccbea7e308066bddc935a90ab31e1bc8f6c6a",
+  "status": "pending_test",
+  "only_version_fields_changed": true,
+  "source_preserved": true,
+  "model_tests_started": 0,
+  "authorization": "Owner explicitly requested version 5; forward allocation only, no test or release approval."
+}
