@@ -1,0 +1,126 @@
+{
+  "synthetic_plans": true,
+  "real_model_calls": 0,
+  "financial_semantics_verified": false,
+  "manifest_sha256": "f9ad2945d72e806688cfb6388f20f3463cbce7a3c72927dd2a2662c373925ebe",
+  "independent_methods": 0,
+  "checks": {
+    "accepted:annual_trend": {
+      "passed": true
+    },
+    "accepted:employee_revenue": {
+      "passed": true
+    },
+    "accepted:quarter_trend": {
+      "passed": true
+    },
+    "accepted:annual_with_forecast": {
+      "passed": true
+    },
+    "missing_requested_forecast": {
+      "passed": true,
+      "reason": "plan must cover the authoritative task requirements"
+    },
+    "substituted_capability": {
+      "passed": true,
+      "reason": "plan capability does not satisfy the accepted requirement"
+    },
+    "hidden_selected_forecast": {
+      "passed": true,
+      "reason": "a selected upstream cannot be omitted"
+    },
+    "skipped_reconciliation": {
+      "passed": true,
+      "reason": "explain every unselected author method exactly once"
+    },
+    "undeclared_tool": {
+      "passed": true,
+      "reason": "tools exceed author or platform permissions"
+    },
+    "fabricated_artifact_version": {
+      "passed": true,
+      "reason": "a future output cannot claim an artifact version"
+    }
+  },
+  "cases": {
+    "annual_trend": {
+      "methods": [
+        "scope",
+        "inventory",
+        "reconcile",
+        "indicators",
+        "official",
+        "writeup"
+      ],
+      "projected_checks": {
+        "run_scope": 3,
+        "run_inventory": 11,
+        "run_reconcile": 19,
+        "run_indicators": 9,
+        "run_official": 6,
+        "run_writeup": 3
+      }
+    },
+    "employee_revenue": {
+      "methods": [
+        "scope",
+        "inventory",
+        "reconcile",
+        "indicators",
+        "official",
+        "writeup"
+      ],
+      "projected_checks": {
+        "run_scope": 3,
+        "run_inventory": 11,
+        "run_reconcile": 19,
+        "run_indicators": 9,
+        "run_official": 6,
+        "run_writeup": 3
+      }
+    },
+    "quarter_trend": {
+      "methods": [
+        "scope",
+        "inventory",
+        "reconcile",
+        "series",
+        "indicators",
+        "official",
+        "writeup"
+      ],
+      "projected_checks": {
+        "run_scope": 3,
+        "run_inventory": 11,
+        "run_reconcile": 19,
+        "run_series": 3,
+        "run_indicators": 9,
+        "run_official": 6,
+        "run_writeup": 3
+      }
+    },
+    "annual_with_forecast": {
+      "methods": [
+        "scope",
+        "inventory",
+        "reconcile",
+        "series",
+        "indicators",
+        "official",
+        "forecast",
+        "writeup"
+      ],
+      "projected_checks": {
+        "run_scope": 3,
+        "run_inventory": 11,
+        "run_reconcile": 19,
+        "run_series": 3,
+        "run_indicators": 9,
+        "run_official": 6,
+        "run_forecast": 7,
+        "run_writeup": 3
+      }
+    }
+  },
+  "source": "accepted preview; independent-method projection separately checked in disposable PostgreSQL test"
+}
