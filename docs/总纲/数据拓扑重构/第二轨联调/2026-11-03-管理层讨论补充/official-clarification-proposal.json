@@ -1,10 +1,10 @@
 {
-  "status": "proposed_only_not_author_accepted",
+  "status": "author_accepted_saved_and_published",
   "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
   "base_workdraft_revision": 35,
   "base_step_sha256": "78618c454ebde5b7f07eb3ca474b4547ed213690e1c30ebb8e0779dc80be6683",
   "previous_draft": "2.6",
-  "next_draft": "not_created",
+  "next_draft": "2.7",
   "edits": [
     [
       "steps/official/rules",
@@ -39,7 +39,10 @@
     "budget"
   ],
   "notes": [
-    "comparison_identity解释现有covers；support_scope/unsupported_meaning需作者核对，不作为已确认规则。",
-    "本文件无保存、发布、启动测试动作。应用时须重新核revision和现存规则，不能直接覆盖漂移工作稿。"
-  ]
+    "所有者已明确选择采用澄清、生成新准专家；正式save记录作者来源，publish冻结2.7。",
+    "保存前已核修订35及原步骤摘要；不覆盖旧2.6。历史提案状态见Git历史。"
+  ],
+  "accepted_at": "2026-11-03T12:57:29+08:00",
+  "saved_workdraft_revision": 36,
+  "published_draft_id": "3d962c02-8ad7-48bf-8700-e042a8a959d0"
 }

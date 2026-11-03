@@ -1,3 +1,15 @@
+# 2026-11-03 当前：准专家2.7已生成，第10次测试在跑
+
+所有者已明确接受第6步澄清，并批准一轮新原三题180元总额/60元每题、旧轮另计。正式save工作稿35→36，publish2.7 id3d962c02-8ad7-48bf-8700-e042a8a959d0；只改official.rules，其余七步、schema/验收/预测/数据不变。保留旧2.6。
+
+正式启动测试10 decf5423-155e-4160-945f-f2a8867d5ef3 / knowlab-test-decf5423-155e-4160-945f-f2a8867d5ef3，测试集3，原zymun电脑42f12749-063b-462c-ab71-080641c24269、Desktop目录、3600秒。c1 task83c28ae7-a078-4d35-ba10-ac799b92bb33已RUNNING，定范围COMPLETED、数据摸底开始，预算limit60；无待答问题，c2/c3未起。#65已核镜像与13项双进程探针通过。不得在本轮期间滚动runner或再开付费轮次。
+
+脚本/tmp/luna_publish_clarified_v27.py和/tmp/luna_test10_start.py已执行一次，不要重复；分别有revision35/len(tests)==9防重守卫。/tmp/luna_test10_status.py可只读核状态，/tmp/luna_test10_started.json含精确ID。完整证据clarified-v27-test10-start.json，Qwen交接13.9。
+
+下一步观察本轮c1数据/勾稽/指标/管理层讨论/预测回测/文件交付，c2人均和c3五粮液仍按原题，不代答采单或文件审批。运行通过与语义/最终文件验收分开记录；未上架v2，不把步骤通过当全部完成。
+
+此前检查点：
+
 # 2026-11-03 当前：release #65已核，等作者澄清/新轮预算选择
 
 #65后端657e456，运行image71bf93bb…与回执一致，API/runner/worker/scheduler各Ready1。API与runner各13项纯函数探针全部通过，无业务任务/模型调用。release65-verification.json与交接13.8保存证据。

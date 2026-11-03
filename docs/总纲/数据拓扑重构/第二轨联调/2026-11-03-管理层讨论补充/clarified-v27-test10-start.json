@@ -1,0 +1,207 @@
+{
+  "author_confirmations": {
+    "method": "采用澄清，生成新准专家",
+    "budget": "同意，一轮180元总额",
+    "prior_test9_costs_separate": true,
+    "single_new_test_only": true
+  },
+  "published": {
+    "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+    "workdraft_revision": 36,
+    "draft_id": "3d962c02-8ad7-48bf-8700-e042a8a959d0",
+    "version": "2",
+    "revision": 7,
+    "status": "pending_test",
+    "author_accepted": true,
+    "changed_step": "official",
+    "other_steps_unchanged": true,
+    "acceptance_unchanged": true,
+    "listed": false,
+    "tested": false
+  },
+  "compiled_official": {
+    "why": "逐条核对分析结论是否得到管理层讨论的支持，并保留支持结论的原文依据",
+    "title": "对照管理层讨论",
+    "tools": [
+      "compute",
+      "describe_items",
+      "find_subject",
+      "list_inputs",
+      "lookup",
+      "query_facts",
+      "query_metric",
+      "read_facts",
+      "read_input",
+      "request_data",
+      "search_evidence"
+    ],
+    "reserve": "0.05",
+    "step_id": "official",
+    "summary": "第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。",
+    "on_reject": "rework",
+    "acceptance": [
+      {
+        "kind": "json_object",
+        "label": "交回的是一个 JSON",
+        "message": "交回物不是 JSON 对象"
+      },
+      {
+        "keys": [
+          "comparisons"
+        ],
+        "kind": "required_keys",
+        "label": "交回项都在：「comparisons」",
+        "message": "缺交回项"
+      },
+      {
+        "keys": [
+          "conclusion",
+          "verdict",
+          "reason"
+        ],
+        "kind": "each_has",
+        "path": "comparisons",
+        "field": "verdict",
+        "label": "「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+        "values": [
+          "支持",
+          "不支持"
+        ],
+        "message": "没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+        "unique_by": [
+          "conclusion"
+        ],
+        "non_empty_keys": [
+          "conclusion",
+          "reason"
+        ]
+      },
+      {
+        "kind": "covers",
+        "path": "comparisons",
+        "field": "conclusion",
+        "label": "「comparisons」与第「算指标与分析」步一一对上",
+        "source": "indicators.indicators",
+        "message": "没过：「comparisons」与第「算指标与分析」步一一对上"
+      },
+      {
+        "kind": "quoted",
+        "path": "comparisons",
+        "field": "verdict",
+        "label": "「comparisons」的说法附原文引文",
+        "equals": "支持",
+        "message": "没过：「comparisons」的说法附原文引文"
+      },
+      {
+        "kind": "no_positioning_advice",
+        "label": "没有评级、目标价、买卖建议",
+        "message": "含有评级、目标价或买卖建议的措辞"
+      }
+    ],
+    "ask_before": [],
+    "input_refs": [
+      "indicators"
+    ],
+    "max_reworks": 1,
+    "method_text": "你在按一位作者写定的方法做其中一步。方法是作者的：照下面写的做，不加自己的判断，不替作者补口径、阈值、预测方法。只用这一步给你的工具读数据；每个数只能来自数据或上游的交回物，不凭记忆、不自己编。不给买卖建议、评级、目标价。\n\n这一步：第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。\n\n规则：\n1. 第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。\n2. 逐条对照上游 indicators 的原结论，comparisons.conclusion 原样保留该条文字，每条恰好一次，不改写、不拆条、不合并；需要拆解说明时写在 reason 中。此处用于落实既有 covers 验收，不新增分析结论。\n3. 判支持的原文须在管理层讨论这一节内，且能印证该条完整主张。对期间、指标和统计口径有差异，或只能印证部分主张时，判不支持，在 reason 中说明已印证部分与缺失部分。趋势相近不能代替原数值口径；提到某准则影响某科目，不能自行推成另一期比较数据已经重述。\n4. 不支持只表示本节原文未充分印证该条结论，不自动表示上游计算错误。没提到、找不到该节时照原方法判不支持并如实说明；不得为了判支持转引其他章节，不得补造引文。\n\n用上：indicators（算指标与分析）\n\n交回一个 JSON，包含：\n- comparisons：列表，每项有：conclusion（文字）、verdict（文字）、reason（文字）；每项带 quotes：一串 {material_id, page, text}，原文照读到的抄\n\n只交回一个 JSON 对象，前后不加说明、不加代码块标记；交回项缺了或类型不对，这一步不算过。这一步不改任何文件。调用工具时照工具说明带上这件委托的委托号。",
+    "output_schema": {
+      "comparisons": [
+        {
+          "quotes": [
+            {
+              "page": "integer",
+              "text": "string",
+              "material_id": "string"
+            }
+          ],
+          "reason": "string",
+          "verdict": "string",
+          "conclusion": "string"
+        }
+      ]
+    },
+    "input_max_chars": 8000,
+    "output_artifact": "official"
+  },
+  "start": {
+    "draft_id": "3d962c02-8ad7-48bf-8700-e042a8a959d0",
+    "draft_label": "2.7",
+    "test_id": "decf5423-155e-4160-945f-f2a8867d5ef3",
+    "run_id": "knowlab-test-decf5423-155e-4160-945f-f2a8867d5ef3",
+    "status": "queued",
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "root": "C:\\Users\\zymun\\Desktop",
+    "budget_limit": "180.00",
+    "timeout_seconds": 3600,
+    "test_set_version": 3,
+    "authorization": "owner approved ONE new original-three-case test, total CNY180 / CNY60 per case; test9 costs separate"
+  },
+  "initial_runtime_status": {
+    "run": {
+      "run_id": "knowlab-test-decf5423-155e-4160-945f-f2a8867d5ef3",
+      "status": "running",
+      "cost": {
+        "spent": "0.000000"
+      },
+      "progress": {
+        "case_id": "c1",
+        "cases_done": 0,
+        "cases_total": 3,
+        "step": 2,
+        "steps_total": 8,
+        "step_title": "数据摸底",
+        "attempt": 1,
+        "spent": "0.367352"
+      }
+    },
+    "questions": [],
+    "cases": [
+      {
+        "case_id": "c1",
+        "task_id": "83c28ae7-a078-4d35-ba10-ac799b92bb33",
+        "result_status": null,
+        "task": {
+          "state": "RUNNING",
+          "waiting_reason": null,
+          "active_attempt_id": "2ceccc68-0555-467c-80f5-0e1b6b57311c",
+          "created_at": "2026-11-03 04:55:52.204975+00:00",
+          "budget": {
+            "used": "0.367352",
+            "limit": "60.00",
+            "currency": "CNY",
+            "reserved": "0.05"
+          }
+        },
+        "data": null,
+        "attempts": [
+          {
+            "step_id": "scope",
+            "status": "COMPLETED",
+            "failure_code": null,
+            "created_at": "2026-11-03 04:55:58.352707+00:00",
+            "updated_at": "2026-11-03 04:56:17.371570+00:00"
+          },
+          {
+            "step_id": "inventory",
+            "status": "CREATED",
+            "failure_code": null,
+            "created_at": "2026-11-03 04:56:17.409719+00:00",
+            "updated_at": "2026-11-03 04:56:17.409719+00:00"
+          }
+        ]
+      },
+      {
+        "case_id": "c2",
+        "task_id": null,
+        "result_status": null
+      },
+      {
+        "case_id": "c3",
+        "task_id": null,
+        "result_status": null
+      }
+    ]
+  },
+  "market_v2_listed": false,
+  "business_acceptance": false
+}
