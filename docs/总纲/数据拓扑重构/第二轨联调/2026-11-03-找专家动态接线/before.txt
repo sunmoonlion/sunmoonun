@@ -3,7 +3,7 @@ E           AssertionError: {"type":"urn:sunmoonai:problem:idempotency_conflict"
 E           assert 409 == 201
 E            +  where 409 = <Response [409 Conflict]>.status_code
 E           assert (2, 1, 1, 4) == (1, 1, 1, 3)
-E             
+E
 E             At index 0 diff: 2 != 1
 E             Use -v to get more diff
 E   asyncpg.exceptions.UniqueViolationError: duplicate key value violates unique constraint "uq_workbench_tasks_idempotency"
@@ -16,11 +16,11 @@ E                   [SQL: insert into workbench_tasks (id, session_id, owner_act
 E                   [parameters: ('2088335e-116d-498c-b413-a95acd22fd16', '96497bb7-faed-485c-8d3c-11d626cfd436', '658a159e-da1f-406c-a9c2-df03a67c263a', 'default', 'find-expert-98a3863db5d8edb6174ed54fd830d2203ac670ac', 'f4ab6e4a68541f4fbcdda84883e025abdee1a5954fb13030e316395a92fe6284', 'FIND_EXPERT', '1', None, '{"input": {"text": "核对这份文件里的条款"}, "attachments": [], "client_context": {"entry": "find-expert", "queued_behind": "af05ebfa-3674-4142-924e-264aefbb70b8"}}', None, 'ac6b72fc-9a46-4fd5-abd9-8e4bbd6764d4', '/home/u/research/hengrui', '92f37188-96af-4d0b-a7e1-ffffe000d83b', <TaskState.RECEIVED: 'RECEIVED'>, '{"currency": "CNY", "limit": "2", "reserved": "0", "used": "0"}')]
 E                   (Background on this error at: https://sqlalche.me/e/20/gkpj)
 E           assert (1, 0, 0, 1) == (0, 0, 0, 0)
-E             
+E
 E             At index 0 diff: 1 != 0
 E             Use -v to get more diff
 E           assert (1, 1, 0, 3) == (0, 0, 0, 0)
-E             
+E
 E             At index 0 diff: 1 != 0
 E             Use -v to get more diff
 FAILED tests/test_find_expert_intake_db.py::test_retry_returns_the_original_task_session_and_only_one_command

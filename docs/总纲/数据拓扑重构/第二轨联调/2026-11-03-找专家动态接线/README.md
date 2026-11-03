@@ -24,6 +24,8 @@
 | 网页全量 | 387 passed / 2既有skipped，[输出](frontend.txt) |
 | 类型与文案 | [后端](backend-types.txt)、[前端](frontend-types.txt)、[i18n](i18n.txt)；定向Ruff、ESLint通过 |
 
+归档日志去除了终端颜色、行尾空格和末尾空行，内容与通过/失败计数保持。
+
 真实PostgreSQL每题独立schema，使用正式服务/HTTP受理和运行器；模型、商城与数据服务
 为合成端口，find_expert工具处理函数另直接调用核公开投影，不声称真实模型主动调用
 MCP已验。测试包含序列/并发重发、变预算、离线、入队异常、排队/取消重放及跨用户拒绝。
