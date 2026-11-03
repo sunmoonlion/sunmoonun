@@ -75,7 +75,7 @@ data:
   SERVICE_AUTH_TESTRUN_KNOWLAB_AUDIENCE: "sunmoon-knowlab-knowbench-testrun"
   SERVICE_AUTH_TESTRUN_KNOWLAB_SUBJECT_ALLOWLIST: "admin/sunmoonai-knowlab-knowbench-testrun"
   SERVICE_AUTH_TESTRUN_KNOWLAB_REQUIRED_SCOPE: "knowbench:testrun"
-  CROSS_APP_TARGETS_JSON: "{\"knowfeed\": {\"web_base_url\": \"https://knowfeed.dev.sunmoonai.com:30443\"}, \"knowbase\": {\"web_base_url\": \"https://knowbase.dev.sunmoonai.com:30443\"}, \"knowmart\": {\"web_base_url\": \"https://knowmart.dev.sunmoonai.com:30443\"}}"
+  CROSS_APP_TARGETS_JSON: "{\"knowfeed\": {\"web_base_url\": \"https://knowfeed.dev.sunmoonai.com:30443\"}, \"knowbase\": {\"web_base_url\": \"https://knowbase.dev.sunmoonai.com:30443\"}, \"knowmart\": {\"web_base_url\": \"https://knowmart.dev.sunmoonai.com:30443\"}, \"knowlab\": {\"web_base_url\": \"https://knowlab.dev.sunmoonai.com:30443\"}}"
   CROSS_APP_SOURCES_JSON: "{\"knowbase\": {}, \"knowfeed\": {}}"
   WORKBENCH_ENABLED: "true"
   WORKBENCH_REDIS_KEY_PREFIX: "knowbench:workbench"
