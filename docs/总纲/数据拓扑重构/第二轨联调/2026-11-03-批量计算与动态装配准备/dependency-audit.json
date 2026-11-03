@@ -1,0 +1,146 @@
+{
+  "status": "offline_dependency_audit_only",
+  "fixed_2_8": {
+    "source_sha256": "8592e528807bc601a160e2f2b4558ea2c11717156cba0a4ac4356a66237856af",
+    "method_count": 8,
+    "required_roots": [
+      "writeup"
+    ],
+    "minimum_dependency_closure": [
+      "forecast",
+      "indicators",
+      "inventory",
+      "official",
+      "reconcile",
+      "scope",
+      "series",
+      "writeup"
+    ],
+    "minimum_steps": 8,
+    "dependencies": {
+      "scope": [],
+      "inventory": [
+        "scope"
+      ],
+      "reconcile": [
+        "inventory"
+      ],
+      "series": [
+        "reconcile"
+      ],
+      "indicators": [
+        "series"
+      ],
+      "official": [
+        "indicators"
+      ],
+      "forecast": [
+        "series",
+        "indicators",
+        "official",
+        "reconcile"
+      ],
+      "writeup": [
+        "scope",
+        "inventory",
+        "reconcile",
+        "series",
+        "indicators",
+        "official",
+        "forecast"
+      ]
+    },
+    "production_acceptance": false
+  },
+  "synthetic_20_methods": {
+    "source_sha256": "0424c0472b085e05860eaf874d8adf95bc4c6233ce9e85ed79025c6af80e9d1d",
+    "method_count": 21,
+    "required_roots": [
+      "comprehensive_dossier_formatting",
+      "financial_data_intake"
+    ],
+    "minimum_dependency_closure": [
+      "accounting_statement_reconciliation",
+      "comprehensive_dossier_formatting",
+      "dcf_intrinsic_valuation",
+      "dupont_five_way_decomposition",
+      "earnings_quality_accrual_audit",
+      "fin_statement_restructure",
+      "financial_data_intake",
+      "non_recurring_items_purification",
+      "solvency_liquidity_stress_check",
+      "three_statement_linked_forecasting",
+      "working_capital_cash_cycle_analysis"
+    ],
+    "minimum_steps": 11,
+    "dependencies": {
+      "financial_data_intake": [],
+      "fin_statement_restructure": [
+        "financial_data_intake"
+      ],
+      "accounting_statement_reconciliation": [
+        "fin_statement_restructure"
+      ],
+      "non_recurring_items_purification": [
+        "accounting_statement_reconciliation"
+      ],
+      "dupont_five_way_decomposition": [
+        "non_recurring_items_purification"
+      ],
+      "solvency_liquidity_stress_check": [
+        "accounting_statement_reconciliation"
+      ],
+      "working_capital_cash_cycle_analysis": [
+        "accounting_statement_reconciliation"
+      ],
+      "earnings_quality_accrual_audit": [
+        "non_recurring_items_purification"
+      ],
+      "segment_volume_price_decomposition": [
+        "accounting_statement_reconciliation"
+      ],
+      "customer_supplier_concentration_scan": [
+        "accounting_statement_reconciliation"
+      ],
+      "capex_capacity_cycle_tracker": [
+        "accounting_statement_reconciliation"
+      ],
+      "rnd_capitalization_efficiency_eval": [
+        "accounting_statement_reconciliation"
+      ],
+      "historical_cagr_trend_extrapolation": [
+        "accounting_statement_reconciliation"
+      ],
+      "three_statement_linked_forecasting": [
+        "dupont_five_way_decomposition",
+        "working_capital_cash_cycle_analysis"
+      ],
+      "dcf_intrinsic_valuation": [
+        "three_statement_linked_forecasting"
+      ],
+      "relative_multiple_valuation": [
+        "non_recurring_items_purification"
+      ],
+      "pledge_reduction_related_transaction_scan": [
+        "accounting_statement_reconciliation"
+      ],
+      "goodwill_asset_impairment_stress_test": [
+        "accounting_statement_reconciliation"
+      ],
+      "kam_contingent_liability_audit": [
+        "accounting_statement_reconciliation"
+      ],
+      "competitive_moat_thesis_synthesis": [
+        "dupont_five_way_decomposition"
+      ],
+      "comprehensive_dossier_formatting": [
+        "accounting_statement_reconciliation",
+        "dupont_five_way_decomposition",
+        "solvency_liquidity_stress_check",
+        "earnings_quality_accrual_audit",
+        "dcf_intrinsic_valuation"
+      ]
+    },
+    "production_acceptance": false
+  }
+}
