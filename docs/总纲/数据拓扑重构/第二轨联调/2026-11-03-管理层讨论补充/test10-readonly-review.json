@@ -1,0 +1,285 @@
+{
+  "checked_at": "2026-11-03T07:22:10.971064+00:00",
+  "run_id": "knowlab-test-decf5423-155e-4160-945f-f2a8867d5ef3",
+  "run": {
+    "timeout_seconds": 3600,
+    "started_at": "2026-11-03 04:55:52.174721+00:00",
+    "finished_at": "2026-11-03 05:55:55.189556+00:00",
+    "waited_seconds": 0,
+    "status": "timeout",
+    "spent": "44.585272"
+  },
+  "cases": [
+    {
+      "case_id": "c1",
+      "task_id": "83c28ae7-a078-4d35-ba10-ac799b92bb33",
+      "result_status": "passed",
+      "task_state": "SUCCEEDED",
+      "budget": {
+        "used": "30.190920",
+        "limit": "60.00",
+        "currency": "CNY",
+        "reserved": "0"
+      },
+      "attempts": [
+        {
+          "step_id": "scope",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 04:55:58.352707+00:00",
+          "updated_at": "2026-11-03 04:56:17.371570+00:00"
+        },
+        {
+          "step_id": "inventory",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 04:56:17.409719+00:00",
+          "updated_at": "2026-11-03 04:56:39.819568+00:00"
+        },
+        {
+          "step_id": "reconcile",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 04:56:39.851344+00:00",
+          "updated_at": "2026-11-03 05:05:55.901619+00:00"
+        },
+        {
+          "step_id": "series",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:05:55.941364+00:00",
+          "updated_at": "2026-11-03 05:09:26.846366+00:00"
+        },
+        {
+          "step_id": "indicators",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:09:26.876539+00:00",
+          "updated_at": "2026-11-03 05:13:49.958763+00:00"
+        },
+        {
+          "step_id": "official",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:13:49.996084+00:00",
+          "updated_at": "2026-11-03 05:15:32.253310+00:00"
+        },
+        {
+          "step_id": "forecast",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:15:32.282992+00:00",
+          "updated_at": "2026-11-03 05:21:58.178185+00:00"
+        },
+        {
+          "step_id": "writeup",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:21:58.214047+00:00",
+          "updated_at": "2026-11-03 05:28:09.709531+00:00"
+        }
+      ],
+      "expectations": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "deliverable": {
+        "path": "底稿/对话-d2779527/2026-11-03-125552-财务分析与预测/财务分析报告.md",
+        "step_id": "writeup",
+        "truncated": false
+      },
+      "deliverable_characters": 9923,
+      "deliverable_note": null,
+      "forecast_rows": 12,
+      "backtest_rows": 16
+    },
+    {
+      "case_id": "c2",
+      "task_id": "31ba679a-d89e-4ac1-b69b-1dd7420242f2",
+      "result_status": "passed",
+      "task_state": "SUCCEEDED",
+      "budget": {
+        "used": "14.394352",
+        "limit": "60.00",
+        "currency": "CNY",
+        "reserved": "0"
+      },
+      "attempts": [
+        {
+          "step_id": "scope",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:28:24.671959+00:00",
+          "updated_at": "2026-11-03 05:28:40.807334+00:00"
+        },
+        {
+          "step_id": "inventory",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:28:40.838364+00:00",
+          "updated_at": "2026-11-03 05:29:16.327502+00:00"
+        },
+        {
+          "step_id": "reconcile",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:29:16.354295+00:00",
+          "updated_at": "2026-11-03 05:30:34.800180+00:00"
+        },
+        {
+          "step_id": "series",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:30:34.832456+00:00",
+          "updated_at": "2026-11-03 05:30:47.018584+00:00"
+        },
+        {
+          "step_id": "indicators",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:30:47.049218+00:00",
+          "updated_at": "2026-11-03 05:36:58.790016+00:00"
+        },
+        {
+          "step_id": "official",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:36:58.819836+00:00",
+          "updated_at": "2026-11-03 05:39:46.960428+00:00"
+        },
+        {
+          "step_id": "forecast",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:39:46.988475+00:00",
+          "updated_at": "2026-11-03 05:40:19.876548+00:00"
+        },
+        {
+          "step_id": "writeup",
+          "status": "FAILED",
+          "failure_code": "acceptance",
+          "created_at": "2026-11-03 05:40:19.905617+00:00",
+          "updated_at": "2026-11-03 05:41:49.310474+00:00"
+        },
+        {
+          "step_id": "writeup",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:41:49.338287+00:00",
+          "updated_at": "2026-11-03 05:43:07.017666+00:00"
+        }
+      ],
+      "expectations": [
+        true
+      ],
+      "deliverable": {
+        "path": "底稿/对话-100762f3/2026-11-03-132819-财务分析与预测/财务分析报告.md",
+        "step_id": "writeup",
+        "truncated": false
+      },
+      "deliverable_characters": 4048,
+      "deliverable_note": null,
+      "forecast_rows": 0,
+      "backtest_rows": 0
+    },
+    {
+      "case_id": "c3",
+      "task_id": "e92c73e3-facc-41e1-9e6d-b074bd37eb92",
+      "result_status": "error",
+      "task_state": "CANCELLED",
+      "budget": {
+        "used": "12.011364",
+        "limit": "60.00",
+        "currency": "CNY",
+        "reserved": "0.00"
+      },
+      "attempts": [
+        {
+          "step_id": "scope",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:43:23.992364+00:00",
+          "updated_at": "2026-11-03 05:44:01.539562+00:00"
+        },
+        {
+          "step_id": "inventory",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:44:01.566705+00:00",
+          "updated_at": "2026-11-03 05:44:52.915638+00:00"
+        },
+        {
+          "step_id": "reconcile",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:44:52.941343+00:00",
+          "updated_at": "2026-11-03 05:50:16.271007+00:00"
+        },
+        {
+          "step_id": "series",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:50:16.299457+00:00",
+          "updated_at": "2026-11-03 05:51:52.431128+00:00"
+        },
+        {
+          "step_id": "indicators",
+          "status": "COMPLETED",
+          "failure_code": null,
+          "created_at": "2026-11-03 05:51:52.459634+00:00",
+          "updated_at": "2026-11-03 05:55:46.098840+00:00"
+        },
+        {
+          "step_id": "official",
+          "status": "CANCELLED",
+          "failure_code": "cancelled",
+          "created_at": "2026-11-03 05:55:46.130474+00:00",
+          "updated_at": "2026-11-03 05:55:55.073690+00:00"
+        }
+      ],
+      "expectations": [
+        false
+      ],
+      "deliverable": {},
+      "deliverable_characters": 0,
+      "deliverable_note": "这条用例没有写成稿：写稿那一步没走到，或没写文件",
+      "forecast_rows": 0,
+      "backtest_rows": 0
+    }
+  ],
+  "task_cost_total": "56.596636",
+  "scope": "Read-only runtime ledger and archived outputs; not supplier billing or full source re-audit."
+}
