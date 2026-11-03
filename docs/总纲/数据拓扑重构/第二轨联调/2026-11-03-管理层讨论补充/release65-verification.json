@@ -1,0 +1,50 @@
+{
+  "verified_at": "2026-11-03T12:54:07+08:00",
+  "release": 65,
+  "deploy": "2e0e073eb1eabd9986ea7ac7c37b4f2fd5708e9f",
+  "pointer": "8f205eaed325967084fcb2697955bc31333cfd01",
+  "tag": "release-20261103-7",
+  "backend_source": "657e456647a65ef49500851b1031c0ea4077f044",
+  "image_digest": "sha256:71bf93bbe8e9cc187aed42eaa4cf0fcb3ddfb495c36a69432e03876abbc4a4c3",
+  "roles": {
+    "api": {
+      "pod": "knowbench-api-fc864bd7c-5ktz4",
+      "ready": true,
+      "runtime_image_matches": true,
+      "synthetic_probe_passed": 13
+    },
+    "runner": {
+      "pod": "knowbench-runner-6fcd98bc5-fggqp",
+      "ready": true,
+      "runtime_image_matches": true,
+      "synthetic_probe_passed": 13
+    },
+    "worker": {
+      "pod": "knowbench-worker-87899565-gwhx2",
+      "ready": true,
+      "runtime_image_matches": true
+    },
+    "scheduler": {
+      "pod": "knowbench-scheduler-5cd6886567-nzz9v",
+      "ready": true,
+      "runtime_image_matches": true
+    }
+  },
+  "preflight": {
+    "workdraft_revision": 35,
+    "draft": "2.6",
+    "draft_status": "pending_test",
+    "test_set_version": 3,
+    "zymun_computer_online": true,
+    "model_key_configured": true,
+    "provider_key_validity_tested": false,
+    "active_author_tests": []
+  },
+  "paid_test_started": false,
+  "new_draft_published": false,
+  "business_acceptance": false,
+  "pending_author_decisions": [
+    "第6步语义澄清是否采用并出新准专家",
+    "新的原三题测试是否授权总额180元/每题60元，旧轮另计"
+  ]
+}

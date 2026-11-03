@@ -1,3 +1,11 @@
+# 2026-11-03 当前：release #65已核，等作者澄清/新轮预算选择
+
+#65后端657e456，运行image71bf93bb…与回执一致，API/runner/worker/scheduler各Ready1。API与runner各13项纯函数探针全部通过，无业务任务/模型调用。release65-verification.json与交接13.8保存证据。
+
+工作稿35、准专家2.6 pending_test、最新测试集3；zymun原电脑在线，Key配置存在，无活动作者测试。用户已收到两个异步选择：是否采用第6步澄清出新准专家；是否授权新一轮原三题180元总/每题60（旧第9轮53.49另计）。此刻尚未回答，不能启动付费测试或把未接受的support_scope写成作者方法。准备文件/基线摘要在official-clarification-proposal.json；同意后先核rev35与原步骤摘要、正式保存/预览/发布，再按精确新draft启动一次并记录test/run，不覆盖旧历史。
+
+此前检查点：
+
 # 2026-11-03 当前：发布后验收准备已完成
 
 用户要求准备剩余工作。已完成发布后验收准备.md、probe_release65_acceptance.py（stdin运行，不访问DB/模型/文件）、official-clarification-proposal.json（修订35基线，未接受未保存）、post-release-preparation-checks.json。本地候选13项探针通过；澄清稿编译0问题，仅official.rules变化，其余七步/验收/schema不变；现有10项引文/覆盖合成探针通过，不能据此称语义核验通过。
