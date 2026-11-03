@@ -125,7 +125,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowbench-service-identity-b903dde662ec-v1', namespace: app-platform-dev}
+metadata: {name: 'knowbench-service-identity-ec8c9e2e7f87-v1', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -139,7 +139,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:b903dde662ecd7bef7ed72b2d448dd82e82b1cab0114fac024435b08b6057f88
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:ec8c9e2e7f87281466dd05c20525c897196b467ec62e678fd1087b7367fd9335
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
