@@ -1,0 +1,45 @@
+{
+  "status": "proposed_only_not_author_accepted",
+  "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+  "base_workdraft_revision": 35,
+  "base_step_sha256": "78618c454ebde5b7f07eb3ca474b4547ed213690e1c30ebb8e0779dc80be6683",
+  "previous_draft": "2.6",
+  "next_draft": "not_created",
+  "edits": [
+    [
+      "steps/official/rules",
+      [
+        {
+          "id": "r1",
+          "text": "第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。"
+        },
+        {
+          "id": "comparison_identity",
+          "text": "逐条对照上游 indicators 的原结论，comparisons.conclusion 原样保留该条文字，每条恰好一次，不改写、不拆条、不合并；需要拆解说明时写在 reason 中。此处用于落实既有 covers 验收，不新增分析结论。"
+        },
+        {
+          "id": "support_scope",
+          "text": "判支持的原文须在管理层讨论这一节内，且能印证该条完整主张。对期间、指标和统计口径有差异，或只能印证部分主张时，判不支持，在 reason 中说明已印证部分与缺失部分。趋势相近不能代替原数值口径；提到某准则影响某科目，不能自行推成另一期比较数据已经重述。"
+        },
+        {
+          "id": "unsupported_meaning",
+          "text": "不支持只表示本节原文未充分印证该条结论，不自动表示上游计算错误。没提到、找不到该节时照原方法判不支持并如实说明；不得为了判支持转引其他章节，不得补造引文。"
+        }
+      ]
+    ]
+  ],
+  "unchanged": [
+    "author_original_rule",
+    "step_count",
+    "input_output_schema",
+    "acceptance_rules",
+    "numeric_tolerances",
+    "forecast_method",
+    "test_questions",
+    "budget"
+  ],
+  "notes": [
+    "comparison_identity解释现有covers；support_scope/unsupported_meaning需作者核对，不作为已确认规则。",
+    "本文件无保存、发布、启动测试动作。应用时须重新核revision和现存规则，不能直接覆盖漂移工作稿。"
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "prepared_at": "2026-11-03T12:44:17+08:00",
+  "status": "local_preparation_only",
+  "deployed": false,
+  "business_acceptance": false,
+  "model_calls": 0,
+  "test_started": false,
+  "author_workdraft_saved": false,
+  "draft_published": false,
+  "release_candidate": {
+    "parent": "8829981e2d3a786cc87c3ee66cf22e40678f686f",
+    "backend": "657e456647a65ef49500851b1031c0ea4077f044"
+  },
+  "deployment_probe": {
+    "synthetic_only": true,
+    "business_acceptance": false,
+    "ok": true,
+    "checks": [
+      {
+        "check": "negative_declaration_preserved",
+        "passed": true
+      },
+      {
+        "check": "actual_target_rejected",
+        "passed": true
+      },
+      {
+        "check": "actual_advice_rejected",
+        "passed": true
+      },
+      {
+        "check": "ambiguous_negation_rejected",
+        "passed": true
+      },
+      {
+        "check": "separate_field_not_exempt",
+        "passed": true
+      },
+      {
+        "check": "missing_brace_rejected_with_diagnostic",
+        "passed": true
+      },
+      {
+        "check": "braces_inside_quotes",
+        "passed": true
+      },
+      {
+        "check": "first_attempt_receives_exact_rules",
+        "passed": true
+      },
+      {
+        "check": "retry_receives_specific_error",
+        "passed": true
+      },
+      {
+        "check": "altered_conclusion_still_rejected",
+        "passed": true
+      },
+      {
+        "check": "rounded_amount_accepted",
+        "passed": true
+      },
+      {
+        "check": "wrong_amount_rejected",
+        "passed": true
+      },
+      {
+        "check": "decimal_evidence_preserved",
+        "passed": true
+      }
+    ]
+  },
+  "official_synthetic_checks": {
+    "synthetic": true,
+    "cases": [
+      {
+        "case": "supported_quote_and_unmentioned",
+        "expected": true,
+        "accepted": true,
+        "failures": []
+      },
+      {
+        "case": "missing_quote",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "quoted(comparisons): 没过：「comparisons」的说法附原文引文 — #0 says 支持 but quotes nothing"
+        ]
+      },
+      {
+        "case": "fabricated_quote",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "quoted(comparisons): 没过：「comparisons」的说法附原文引文 — #0 page 7: not_found"
+        ]
+      },
+      {
+        "case": "wrong_page",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "quoted(comparisons): 没过：「comparisons」的说法附原文引文 — #0 page 8: not_found"
+        ]
+      },
+      {
+        "case": "invalid_verdict",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "each_has(comparisons): 没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复"
+        ]
+      },
+      {
+        "case": "empty_reason",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "each_has(comparisons): 没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复"
+        ]
+      },
+      {
+        "case": "missing_conclusion",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "covers(comparisons): 没过：「comparisons」与第「算指标与分析」步一一对上 — missing '测试结论二'"
+        ]
+      },
+      {
+        "case": "duplicate_conclusion",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "each_has(comparisons): 没过：「comparisons」每项都有「conclusion」、「verdict」、「reason」，「verdict」只能是「支持」、「不支持」；「conclusion」、「reason」不能为空；「conclusion」的组合不重复",
+          "covers(comparisons): 没过：「comparisons」与第「算指标与分析」步一一对上 — twice '测试结论一'; twice '测试结论二'"
+        ]
+      },
+      {
+        "case": "missing_section_disclosed",
+        "expected": true,
+        "accepted": true,
+        "failures": []
+      },
+      {
+        "case": "empty_comparisons",
+        "expected": false,
+        "accepted": false,
+        "failures": [
+          "covers(comparisons): 没过：「comparisons」与第「算指标与分析」步一一对上 — missing '测试结论一'; missing '测试结论二'"
+        ]
+      }
+    ],
+    "passed": 10
+  },
+  "proposal_compile": {
+    "problems": 0,
+    "changed_step": "official",
+    "changed_field": "rules",
+    "other_steps_unchanged": true,
+    "acceptance_unchanged": true,
+    "schema_unchanged": true,
+    "source_approval_validated": false,
+    "compiler_commit": "364b747162f00d94172a4aa163c383528003ba80"
+  },
+  "test_context": {
+    "request_id": "5814331f-b555-4de9-bee6-f01e4e84e909",
+    "draft_id": "4273f2c6-0df8-45c0-8e12-a70a00054ac9",
+    "draft_version": "2",
+    "draft_revision": 6,
+    "draft_status": "pending_test",
+    "test_set_version": 3
+  },
+  "test_set_comparison": {
+    "old": 2,
+    "latest": 3,
+    "unchanged_cases": [
+      "c1",
+      "c2"
+    ],
+    "added_cases": [
+      "c3"
+    ],
+    "from_test_id": "3d8f21df-e199-4ecd-90a9-d9c5c2783dfe",
+    "old_test_snapshot_unchanged": true
+  },
+  "limitations": [
+    "No deployed-image verification in this preparation.",
+    "Quoted checks establish authorized text presence, not semantic support.",
+    "Compilation does not establish author acceptance.",
+    "No real model execution, financial acceptance or file delivery revalidated."
+  ]
+}

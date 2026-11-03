@@ -1,3 +1,11 @@
+# 2026-11-03 当前：发布后验收准备已完成
+
+用户要求准备剩余工作。已完成发布后验收准备.md、probe_release65_acceptance.py（stdin运行，不访问DB/模型/文件）、official-clarification-proposal.json（修订35基线，未接受未保存）、post-release-preparation-checks.json。本地候选13项探针通过；澄清稿编译0问题，仅official.rules变化，其余七步/验收/schema不变；现有10项引文/覆盖合成探针通过，不能据此称语义核验通过。
+
+只读确认测试集已到3：从测试9归档新增c3，c1/c2与2相同；测试9原钉仍2。候选2.6 pending_test，工作稿35；未产生2.7/新付费测试/商城v2。剩余：Qwen发布8829981/657e456后核四角色镜像+API/runner纯探针；作者核对语义澄清与新轮预算后走正式流程。准备单列出c1预测12行/回测16行、真实Markdown文件交付、c2员工人数口径、c3实际授权及旧恒等式缺项局限。不得复活旧测试、无限沿用180元许可或把本地探针当业务完成。
+
+此前检查点：
+
 # 2026-11-03 当前：所有者授权停止测试9，维护窗口已核
 
 正式取消整轮test9并refresh_mine：runtime cancelled，knowlab映射platform_error；c3 CANCELLED/active_attempt_id=null，app-server idle/最后turn interrupted；活动任务查询为空。交接13.7已写入Qwen副本，可按13.6候选parent8829981/backend657e456继续发布，触发前重核无新任务。没有启动新付费测试、没有删数据或改写旧失败。记录费用53.485532元，不视作供应商最终结算。下一步发布后核版本与探针，后续付费重测需明确授权；第6步内容复核仍待。
