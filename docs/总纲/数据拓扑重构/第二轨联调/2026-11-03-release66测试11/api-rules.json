@@ -1,0 +1,135 @@
+{
+  "synthetic": true,
+  "checks": 32,
+  "results": [
+    {
+      "case": "empty_inventory_rejected",
+      "accepted": false
+    },
+    {
+      "case": "four_original_formulas",
+      "accepted": true
+    },
+    {
+      "case": "balance_substitute_formula",
+      "accepted": false
+    },
+    {
+      "case": "balance_nonzero_reported_as_zero",
+      "accepted": false
+    },
+    {
+      "case": "balance_operand_changed",
+      "accepted": false
+    },
+    {
+      "case": "balance_period_omitted",
+      "accepted": false
+    },
+    {
+      "case": "balance_period_duplicated",
+      "accepted": false
+    },
+    {
+      "case": "balance_missing_explicitly_recorded",
+      "accepted": true
+    },
+    {
+      "case": "balance_both_computed_and_missing",
+      "accepted": false
+    },
+    {
+      "case": "profit_substitute_formula",
+      "accepted": false
+    },
+    {
+      "case": "profit_nonzero_reported_as_zero",
+      "accepted": false
+    },
+    {
+      "case": "profit_operand_changed",
+      "accepted": false
+    },
+    {
+      "case": "profit_period_omitted",
+      "accepted": false
+    },
+    {
+      "case": "profit_period_duplicated",
+      "accepted": false
+    },
+    {
+      "case": "profit_missing_explicitly_recorded",
+      "accepted": true
+    },
+    {
+      "case": "profit_both_computed_and_missing",
+      "accepted": false
+    },
+    {
+      "case": "cash_substitute_formula",
+      "accepted": false
+    },
+    {
+      "case": "cash_nonzero_reported_as_zero",
+      "accepted": false
+    },
+    {
+      "case": "cash_operand_changed",
+      "accepted": false
+    },
+    {
+      "case": "cash_period_omitted",
+      "accepted": false
+    },
+    {
+      "case": "cash_period_duplicated",
+      "accepted": false
+    },
+    {
+      "case": "cash_missing_explicitly_recorded",
+      "accepted": true
+    },
+    {
+      "case": "cash_both_computed_and_missing",
+      "accepted": false
+    },
+    {
+      "case": "continuity_substitute_formula",
+      "accepted": false
+    },
+    {
+      "case": "continuity_nonzero_reported_as_zero",
+      "accepted": false
+    },
+    {
+      "case": "continuity_operand_changed",
+      "accepted": false
+    },
+    {
+      "case": "continuity_period_omitted",
+      "accepted": false
+    },
+    {
+      "case": "continuity_period_duplicated",
+      "accepted": false
+    },
+    {
+      "case": "continuity_missing_explicitly_recorded",
+      "accepted": true
+    },
+    {
+      "case": "continuity_both_computed_and_missing",
+      "accepted": false
+    },
+    {
+      "case": "genuine_imbalance_retained_not_forged_zero",
+      "accepted": true
+    },
+    {
+      "case": "test10_c263_c287_c339_shape_rejected",
+      "accepted": false
+    }
+  ],
+  "limits": "Formula/value/input/coverage verification; not a live financial test or semantic validation of report sources."
+}
