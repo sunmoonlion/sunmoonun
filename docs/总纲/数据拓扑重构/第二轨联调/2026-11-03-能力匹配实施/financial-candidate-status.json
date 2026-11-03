@@ -1,0 +1,11 @@
+{
+  "status": "author_accepted_pending_formal_creation",
+  "author_acceptance": "author-acceptance.json",
+  "source_manifest_sha256": "578affa609757f732e171c0422c1e5977fa42095977b903c3c14fb39bd0e6c0b",
+  "warnings": [],
+  "structural_problems": [],
+  "independent_method_ids": [],
+  "published": false,
+  "real_model_tested": false,
+  "fixed_test11_semantic_issue": "continuity must mean opening balance versus previous closing balance, not comparisons between disclosure versions; actual forecast eligibility still requires review"
+}
