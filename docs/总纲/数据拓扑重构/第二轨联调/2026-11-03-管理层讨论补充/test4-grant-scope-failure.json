@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-03",
+  "test_id": "bdc4eb40-75a5-470f-bcac-3f03ad116df1",
+  "task_id": "15b7f4da-2ec4-43b0-8445-7d42c33a6e51",
+  "grant_id": "635494e6-0f8b-46e8-927e-fbee4d5aed7a",
+  "runtime_ref": "knowlab-test-bdc4eb40-75a5-470f-bcac-3f03ad116df1:c2",
+  "issued_ref": "knowlab-test-bdc4eb40-75a5-470f-bcac-3f03ad116df1:c2:data:15b7f4da-2ec4-43b0-8445-7d42c33a6e51:r1",
+  "read_probe": {
+    "runtime_ref": {
+      "inputs": 0,
+      "facts": 0
+    },
+    "issued_ref": {
+      "inputs": 3,
+      "facts": 1
+    },
+    "probe_ref": "fact:6a1f795d-8095-4427-998f-bc265ae8b1e8",
+    "method": "authorized knowbase MCP list_inputs/read_facts, same subject; no grant mutation"
+  },
+  "symptom": "compute: no such fact in this task's data",
+  "stop": {
+    "method": "knowlab RuntimeGateway.cancel then refresh_mine",
+    "runtime_status": "cancelled",
+    "knowlab_status": "platform_error",
+    "reason": "unreachable confirmed test grant; avoid repeated failed calculations",
+    "read_only_verification": {
+      "task_state": "CANCELLED",
+      "thread_status": "idle",
+      "latest_turn_statuses": [
+        "interrupted",
+        "interrupted"
+      ]
+    }
+  },
+  "validation": {
+    "before_fix": "2 failed, 6 passed",
+    "after_fix": "26 passed; ruff and pyright passed, development and release candidate"
+  },
+  "candidate": {
+    "knowlab_backend": "d9f13baa1228f7f678012b3e6021715a4dce9fe6",
+    "knowlab_app": "8453ed2ba82ae4680cdf732d8e4ae233e725ae8c"
+  },
+  "limitations": [
+    "not yet deployed",
+    "no complete financial test passed",
+    "existing grants are not rewritten; use new test run after deployment"
+  ]
+}

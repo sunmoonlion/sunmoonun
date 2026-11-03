@@ -775,3 +775,10 @@ UI dev53ba520/parent2439514；#60候选web3c14550a466f9be11164a02306e5e92167cb71
 所有者明确后续测试完整在knowlab看，knowbench用户界面不应看到测试；要求先记账。
 已记docs/design/knowbot-todolist.md K29（已定待做），列范围、历史兼容、来源判别、权限及验收；替代0046测试可见的展示安排，后台执行复用保留。
 本轮仅文档，不改当前测试4、历史、运行状态或正在交接的确认文案候选。后续Luna设计开发，Qwen发布。
+
+## 2026-11-03 c2勾稽失败：测试授权ref衔接修复
+
+真实确认后的grant635494e6签为run:c2:data:task:r1，运行工具读run:c2，list_inputs空，compute找不到事实。按实际grant ref只读可返回3份材料及目标事实1条。
+knowlab._answer改用_task_ref，和重测/knowbench一致，保留固定测试集不追加；开发364b747/父7132998，隔离d9f13ba/父8453ed2，分支fix/test-grant-scope。两个回归修复前失败；相关26项及Ruff/Pyright开发/隔离均通过。
+通过knowlab正式运行方cancel接口停止已进入第二次无效勾稽的测试4，runtime cancelled、lab platform_error，记录/已确认数据保留。未重写授权、未重跑、未增预算。
+证据见管理层讨论补充/test4-grant-scope-failure.json；统一发版交接第10节，在第9节文案候选基础上加knowlab后端，Qwen正准备文案发布，不改其正在执行的sources或流水线。发布后新轮实际验证尚待做。
