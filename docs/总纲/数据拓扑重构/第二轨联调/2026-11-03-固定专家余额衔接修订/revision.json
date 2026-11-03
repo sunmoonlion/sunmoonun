@@ -1,0 +1,2360 @@
+{
+  "base_revision": 37,
+  "base_body_sha256": "fba84f2ea80902aa7f2c8c0dccdcebe7eee5d84e14d916823e3e0a34b5a3e5ee",
+  "body": {
+    "name": "财务分析与预测",
+    "scope": {
+      "does": "对一家中国 A 股上市公司，用我上传的财报（三张表与年报）：先核数据（勾稽、对照年报披露），再把问题点到的科目和一组固定的核心指标算出来、看清走势；再对营业收入、归母净利润做预测，每个预测都先回测，再给区间和假设。",
+      "does_not": "不逐科目预测整套报表；比率不单独外推；数据里没有的不硬算、不冒充，照实说算不出来；只做 A 股上市公司；不评价好坏、不下结论，不给买卖建议、评级、目标价。",
+      "elsewhere": "非 A 股公司、行业与宏观研究等去通用助手咨询。"
+    },
+    "steps": [
+      {
+        "id": "scope",
+        "why": "公司不在你的数据里就不往下做，也不去别处找",
+        "does": "看问题问的是哪家公司、要哪些科目和指标、要不要预测；你的数据里没有这家公司就停下说明",
+        "uses": [],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "问题里的公司不在我的数据里，就停下说明，不去别处找；同一个科目有两个口径（例如合并与母公司混在一起），问我用哪个。"
+          }
+        ],
+        "title": "定范围",
+        "checks": [],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "company",
+            "type": "text",
+            "items": null
+          },
+          {
+            "name": "in_data",
+            "type": "text",
+            "items": null
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": null
+        },
+        "ask_before": []
+      },
+      {
+        "id": "inventory",
+        "why": "摸清现有数据结构与期数完整度",
+        "does": "列出你的数据里有哪些表、哪些报告期、哪些科目，缺了什么；期数够不够回测和预测",
+        "uses": [
+          "scope"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "列出我的数据里有哪些表、哪些报告期、哪些科目；期数不够做后面的回测或预测，能做的照做、写明原因。"
+          },
+          {
+            "id": "reconciliation_scope",
+            "text": "按本题历史分析、单季换算、回测和预测所需的期间列出四类待核清单：balance_plan、profit_plan、cash_plan、continuity_plan。前三类每项交回key，continuity_plan另外交回下列余额元数据；key 要包含期间、报表口径、来源材料版本，衔接检查还含科目及前后期。只列需要核验的实际范围，不机械扩展到无关科目。同一事实同一版本不因重复披露重复列项；不同重述版分开。需要核验但缺输入的项目也要列出，不能为验收删掉。每类至少一项。"
+          },
+          {
+            "id": "opening_balance_continuity",
+            "text": "第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_differences，不得当作本条不平，也不得仅因重述差额剔除预测期间。最新报告没有下一年度报告不构成缺项：本期报告的年初余额与上年度期末余额即可比较；有追溯调整时分别交代原版、重述版及桥接原因，不能混口径凑平。真实余额衔接差额绝对值超过1元仍按原规则处理，确实缺少前期余额则明确未核验并走原补数流程。"
+          },
+          {
+            "id": "continuity_metadata",
+            "text": "continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inventory清单逐字传递；continuity_missing同样带这些元数据，缺原件写明而非猜测。"
+          }
+        ],
+        "title": "数据摸底",
+        "checks": [
+          {
+            "params": {
+              "path": "balance_plan"
+            },
+            "template": "list_min"
+          },
+          {
+            "params": {
+              "keys": [
+                "key"
+              ],
+              "path": "balance_plan",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "profit_plan"
+            },
+            "template": "list_min"
+          },
+          {
+            "params": {
+              "keys": [
+                "key"
+              ],
+              "path": "profit_plan",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "cash_plan"
+            },
+            "template": "list_min"
+          },
+          {
+            "params": {
+              "keys": [
+                "key"
+              ],
+              "path": "cash_plan",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "continuity_plan"
+            },
+            "template": "list_min"
+          },
+          {
+            "params": {
+              "keys": [
+                "key"
+              ],
+              "path": "continuity_plan",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_plan",
+              "keys": [
+                "account",
+                "balance_date",
+                "scope",
+                "opening_report",
+                "previous_report",
+                "account_kind",
+                "comparison_kind"
+              ],
+              "non_empty_keys": [
+                "account",
+                "balance_date",
+                "scope",
+                "opening_report",
+                "previous_report",
+                "account_kind",
+                "comparison_kind"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_plan",
+              "field": "account_kind",
+              "values": [
+                "stock_balance"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_plan",
+              "field": "comparison_kind",
+              "values": [
+                "opening_to_previous_closing"
+              ]
+            }
+          }
+        ],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "periods",
+            "type": "list",
+            "items": null
+          },
+          {
+            "name": "balance_plan",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "profit_plan",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "cash_plan",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "continuity_plan",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "account",
+                "type": "text"
+              },
+              {
+                "name": "balance_date",
+                "type": "text"
+              },
+              {
+                "name": "scope",
+                "type": "text"
+              },
+              {
+                "name": "opening_report",
+                "type": "text"
+              },
+              {
+                "name": "previous_report",
+                "type": "text"
+              },
+              {
+                "name": "account_kind",
+                "type": "text"
+              },
+              {
+                "name": "comparison_kind",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": null
+        },
+        "ask_before": []
+      },
+      {
+        "id": "reconcile",
+        "why": "保证底层数据准确与口径自洽",
+        "does": "查四条会计恒等式，差额超过 1 元算不平；不平的照实列出，那几期不进预测",
+        "uses": [
+          "inventory"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "查四条：资产总计 = 负债合计 + 所有者权益合计；归母净利润 + 少数股东损益 = 净利润；现金流量表期末现金 = 期初现金 + 现金净增加额；本期期初 = 上期期末。差额超过 1 元算不平；不平照实列出、写进局限，继续往下做，不平的期不进预测窗口。"
+          },
+          {
+            "id": "original_formula_records",
+            "text": "原四条恒等式及1元阈值不变。按inventory的四类清单逐项核验，key逐字照抄。balance_checks用A-(L+E)，profit_checks用NP-(P+M)，cash_checks用END-(BEGIN+CHANGE)，continuity_checks用OPEN-PREV_CLOSE。每项交回原始compute_id、value（实际差额，元，不作展示四舍五入）和公式各输入的实际值。A为资产总计，L为负债合计，E为所有者权益合计；NP为净利润，P为归母净利润，M为少数股东损益；END/BEGIN/CHANGE为现金流量表期末/期初/净增加额；OPEN/PREV_CLOSE为同一科目的本期期初/上期期末。计算输入必须来自对应期间、口径、版本的事实或已核原文证据，不准以资产减负债反推权益再代入同一式，不准用同一事实自减凑零。资产总计与负债和权益总计对照仅是辅助，不可放入这四类原式记录，不能宣布原式通过。差额绝对值<=1元的项目平衡；>1元的项目不平，保留实际差额及局限并按原方法继续，不平期不得进入预测。缺输入先按既有工具查询事实、定位原文和补数据流程处理；仍不能计算的放对应balance_missing/profit_missing/cash_missing/continuity_missing，写key与reason，不编compute_id或0。已计算和缺项两类合起来必须逐项覆盖清单，不遗漏、不重复；缺项是未核验，不能记作通过，也不能把辅助对照描述为四式全通过。checks保留文字摘要，必须与这八张结构化表一致；未核验与不平分别写明，不能统称全部通过。"
+          },
+          {
+            "id": "opening_balance_continuity",
+            "text": "第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_differences，不得当作本条不平，也不得仅因重述差额剔除预测期间。最新报告没有下一年度报告不构成缺项：本期报告的年初余额与上年度期末余额即可比较；有追溯调整时分别交代原版、重述版及桥接原因，不能混口径凑平。真实余额衔接差额绝对值超过1元仍按原规则处理，确实缺少前期余额则明确未核验并走原补数流程。"
+          },
+          {
+            "id": "continuity_metadata",
+            "text": "continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inventory清单逐字传递；continuity_missing同样带这些元数据，缺原件写明而非猜测。"
+          },
+          {
+            "id": "continuity_evidence",
+            "text": "每条continuity_checks的quotes必须分别包含两端余额原文及页码，不得引用利润表流量作为余额。计算仍用OPEN-PREV_CLOSE、实际差额和原compute_id。restatement_differences只解释版本间重述及可比来源链，无差异交空列表，不充当第五条恒等式。独立查询/计算可以批量，但不改变四式、1元阈值、期间与计算收据。"
+          }
+        ],
+        "title": "勾稽",
+        "checks": [
+          {
+            "params": {
+              "keys": [
+                "key",
+                "value",
+                "compute_id",
+                "A",
+                "L",
+                "E"
+              ],
+              "path": "balance_checks",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "balance_checks",
+              "tolerance": 0.0,
+              "expression": "A-(L+E)",
+              "input_keys": [
+                "A",
+                "L",
+                "E"
+              ]
+            },
+            "template": "computed"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "reason"
+              ],
+              "path": "balance_missing",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "reason"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "also": [
+                "balance_missing"
+              ],
+              "path": "balance_checks",
+              "field": "key",
+              "source_path": "balance_plan",
+              "source_step": "inventory",
+              "source_field": "key"
+            },
+            "template": "covers"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "value",
+                "compute_id",
+                "NP",
+                "P",
+                "M"
+              ],
+              "path": "profit_checks",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "profit_checks",
+              "tolerance": 0.0,
+              "expression": "NP-(P+M)",
+              "input_keys": [
+                "NP",
+                "P",
+                "M"
+              ]
+            },
+            "template": "computed"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "reason"
+              ],
+              "path": "profit_missing",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "reason"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "also": [
+                "profit_missing"
+              ],
+              "path": "profit_checks",
+              "field": "key",
+              "source_path": "profit_plan",
+              "source_step": "inventory",
+              "source_field": "key"
+            },
+            "template": "covers"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "value",
+                "compute_id",
+                "END",
+                "BEGIN",
+                "CHANGE"
+              ],
+              "path": "cash_checks",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "cash_checks",
+              "tolerance": 0.0,
+              "expression": "END-(BEGIN+CHANGE)",
+              "input_keys": [
+                "END",
+                "BEGIN",
+                "CHANGE"
+              ]
+            },
+            "template": "computed"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "reason"
+              ],
+              "path": "cash_missing",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "reason"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "also": [
+                "cash_missing"
+              ],
+              "path": "cash_checks",
+              "field": "key",
+              "source_path": "cash_plan",
+              "source_step": "inventory",
+              "source_field": "key"
+            },
+            "template": "covers"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "value",
+                "compute_id",
+                "OPEN",
+                "PREV_CLOSE"
+              ],
+              "path": "continuity_checks",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "continuity_checks",
+              "tolerance": 0.0,
+              "expression": "OPEN-PREV_CLOSE",
+              "input_keys": [
+                "OPEN",
+                "PREV_CLOSE"
+              ]
+            },
+            "template": "computed"
+          },
+          {
+            "params": {
+              "keys": [
+                "key",
+                "reason"
+              ],
+              "path": "continuity_missing",
+              "unique_by": [
+                "key"
+              ],
+              "non_empty_keys": [
+                "key",
+                "reason"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "also": [
+                "continuity_missing"
+              ],
+              "path": "continuity_checks",
+              "field": "key",
+              "source_path": "continuity_plan",
+              "source_step": "inventory",
+              "source_field": "key"
+            },
+            "template": "covers"
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_checks",
+              "keys": [
+                "account",
+                "balance_date",
+                "scope",
+                "opening_report",
+                "previous_report",
+                "account_kind",
+                "comparison_kind"
+              ],
+              "non_empty_keys": [
+                "account",
+                "balance_date",
+                "scope",
+                "opening_report",
+                "previous_report",
+                "account_kind",
+                "comparison_kind"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_checks",
+              "field": "account_kind",
+              "values": [
+                "stock_balance"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_checks",
+              "field": "comparison_kind",
+              "values": [
+                "opening_to_previous_closing"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_missing",
+              "keys": [
+                "account",
+                "balance_date",
+                "scope",
+                "opening_report",
+                "previous_report",
+                "account_kind",
+                "comparison_kind"
+              ],
+              "non_empty_keys": [
+                "account",
+                "balance_date",
+                "scope",
+                "opening_report",
+                "previous_report",
+                "account_kind",
+                "comparison_kind"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_missing",
+              "field": "account_kind",
+              "values": [
+                "stock_balance"
+              ]
+            }
+          },
+          {
+            "template": "each_has",
+            "params": {
+              "path": "continuity_missing",
+              "field": "comparison_kind",
+              "values": [
+                "opening_to_previous_closing"
+              ]
+            }
+          },
+          {
+            "template": "quoted",
+            "params": {
+              "path": "continuity_checks",
+              "field": "account_kind",
+              "equals": "stock_balance"
+            }
+          }
+        ],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "checks",
+            "type": "list",
+            "items": null
+          },
+          {
+            "name": "balance_checks",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "A",
+                "type": "number"
+              },
+              {
+                "name": "L",
+                "type": "number"
+              },
+              {
+                "name": "E",
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "name": "balance_missing",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "reason",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "profit_checks",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "NP",
+                "type": "number"
+              },
+              {
+                "name": "P",
+                "type": "number"
+              },
+              {
+                "name": "M",
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "name": "profit_missing",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "reason",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "cash_checks",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "END",
+                "type": "number"
+              },
+              {
+                "name": "BEGIN",
+                "type": "number"
+              },
+              {
+                "name": "CHANGE",
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "name": "cash_missing",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "reason",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "continuity_checks",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "OPEN",
+                "type": "number"
+              },
+              {
+                "name": "PREV_CLOSE",
+                "type": "number"
+              },
+              {
+                "name": "account",
+                "type": "text"
+              },
+              {
+                "name": "balance_date",
+                "type": "text"
+              },
+              {
+                "name": "scope",
+                "type": "text"
+              },
+              {
+                "name": "opening_report",
+                "type": "text"
+              },
+              {
+                "name": "previous_report",
+                "type": "text"
+              },
+              {
+                "name": "account_kind",
+                "type": "text"
+              },
+              {
+                "name": "comparison_kind",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "continuity_missing",
+            "type": "table",
+            "items": [
+              {
+                "name": "key",
+                "type": "text"
+              },
+              {
+                "name": "reason",
+                "type": "text"
+              },
+              {
+                "name": "account",
+                "type": "text"
+              },
+              {
+                "name": "balance_date",
+                "type": "text"
+              },
+              {
+                "name": "scope",
+                "type": "text"
+              },
+              {
+                "name": "opening_report",
+                "type": "text"
+              },
+              {
+                "name": "previous_report",
+                "type": "text"
+              },
+              {
+                "name": "account_kind",
+                "type": "text"
+              },
+              {
+                "name": "comparison_kind",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "restatement_differences",
+            "type": "list",
+            "items": null
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": 40000
+        },
+        "ask_before": []
+      },
+      {
+        "id": "series",
+        "why": "消除季节性累计口径失真",
+        "does": "把累计数换成单季：Q2 = 半年 − Q1，Q3 = 三季 − 半年，Q4 = 年报 − 三季；资产负债表不换",
+        "uses": [
+          "reconcile"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "利润表、现金流量表的累计数换成单季：Q1 = 一季报；Q2 = 半年报 − 一季报；Q3 = 三季报 − 半年报；Q4 = 年报 − 三季报。资产负债表是时点数，不换算。"
+          },
+          {
+            "id": "reconciliation_evidence",
+            "text": "以上游reconcile四类*_checks的真实差额及*_missing为核验依据，不只读checks文字摘要。缺项未核验不等于不平，更不等于已通过；不能以辅助总计对照补足原四式。不平期继续按原方法剔出预测；未核验期必须明确标注并按既有补数据流程处理，不能包装成已核验数据。保留原季度换算方法与报告版本一致性。"
+          },
+          {
+            "id": "continuity_and_restatement",
+            "text": "余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。"
+          }
+        ],
+        "title": "取数",
+        "checks": [],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "single_quarters",
+            "type": "list",
+            "items": null
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": 40000
+        },
+        "ask_before": []
+      },
+      {
+        "id": "indicators",
+        "why": "系统展现盈利与经营质量",
+        "does": "算核心指标：毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速；分母不成立的标不适用",
+        "uses": [
+          "series"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "分析的科目 = 问题点到的科目 + 固定核心指标（营业收入、归母净利润、扣非净利润、经营现金流；毛利率、净利率、净资产收益率、经营现金流与净利润之比、收入与利润增速）。口径：毛利率 =（营业收入 − 营业成本）/ 营业收入；净利率 = 归母净利润 / 营业收入；净资产收益率 = 归母净利润 / 平均归母净资产；经营现金流与净利润之比 = 经营活动现金流量净额 / 归母净利润；收入与利润增速 = 同比。分母为 0、为负或缺数时标不适用。只描述，不评价好坏。"
+          },
+          {
+            "id": "test_output",
+            "text": "交回结构：保留 indicators 分析结论列表。annual_metrics 按问题所问的年度交回完整可读的年度营收、归母净利润和营业成本，year 为四位年份文字，金额统一为人民币元，每行 quotes 引到这些数字的授权原文。缺数字的年度不编行、不填零，在 missing_items 逐项说明。calculations 记录已算出的无量纲指标；金额类已算出的指标放 amount_calculations，两个列表遵循 precision 规则。各项，metric 用稳定名称（营业收入 revenue、归母净利润 parent_net_profit、毛利率 gross_margin、营收 CAGR revenue_cagr），period 单年写 YYYY、跨年写 YYYY-YYYY、季度写 YYYYQn；每个结果保留 compute_id 和 value。只在问题要求时计算 CAGR，沿用问题指定的起止年度，以实际年度间隔为期数；缺基数不编数。"
+          },
+          {
+            "id": "precision",
+            "text": "数值精度与交回分组：calculations只放无量纲的比率/增速/CAGR，value按小数比例（不是乘100后的百分数）保留6位小数，允许与同任务compute原值相差不超过0.0000005；amount_calculations只放金额类计算（含人均创收），金额单位为人民币元，人均创收为元/人，value保留2位小数，允许与同任务compute原值相差不超过0.005。两个列表均须交回，无相应结果写空列表。每项使用稳定metric并保留真正的compute_id；保留compute原记录的完整结果，不用四舍五入后的数继续充当后续精确计算输入。正文可按万元/亿元和百分比展示，但需明确单位。annual_metrics保持原年度表和引文规则，缺项如实说明；不能为绕过精度把比率放入金额列表。"
+          }
+        ],
+        "title": "算指标与分析",
+        "checks": [
+          {
+            "params": {
+              "keys": [
+                "year",
+                "revenue",
+                "parent_net_profit",
+                "operating_cost",
+                "quotes"
+              ],
+              "path": "annual_metrics",
+              "unique_by": [
+                "year"
+              ],
+              "non_empty_keys": [
+                "year",
+                "quotes"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "annual_metrics"
+            },
+            "template": "quoted"
+          },
+          {
+            "params": {
+              "keys": [
+                "period",
+                "metric",
+                "value",
+                "compute_id"
+              ],
+              "path": "calculations",
+              "field": "metric",
+              "values": [
+                "gross_margin",
+                "net_margin",
+                "roe_avg",
+                "roe",
+                "ocf_to_parent_net_profit",
+                "revenue_growth",
+                "parent_net_profit_growth",
+                "revenue_cagr",
+                "parent_net_profit_cagr",
+                "net_profit_cagr",
+                "ocf_cagr",
+                "ocf_to_parent_np",
+                "parent_np_growth"
+              ],
+              "unique_by": [
+                "period",
+                "metric"
+              ],
+              "non_empty_keys": [
+                "period",
+                "metric",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "calculations",
+              "tolerance": 5e-07
+            },
+            "template": "computed"
+          },
+          {
+            "params": {
+              "keys": [
+                "period",
+                "metric",
+                "value",
+                "compute_id"
+              ],
+              "path": "amount_calculations",
+              "field": "metric",
+              "values": [
+                "revenue",
+                "parent_net_profit",
+                "operating_cost",
+                "operating_cash_flow",
+                "deducted_net_profit",
+                "revenue_per_employee"
+              ],
+              "unique_by": [
+                "period",
+                "metric"
+              ],
+              "non_empty_keys": [
+                "period",
+                "metric",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "amount_calculations",
+              "tolerance": 0.005
+            },
+            "template": "computed"
+          }
+        ],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "indicators",
+            "type": "list",
+            "items": null
+          },
+          {
+            "name": "annual_metrics",
+            "type": "table",
+            "items": [
+              {
+                "name": "year",
+                "type": "text"
+              },
+              {
+                "name": "revenue",
+                "type": "number"
+              },
+              {
+                "name": "parent_net_profit",
+                "type": "number"
+              },
+              {
+                "name": "operating_cost",
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "name": "calculations",
+            "type": "table",
+            "items": [
+              {
+                "name": "period",
+                "type": "text"
+              },
+              {
+                "name": "metric",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "amount_calculations",
+            "type": "table",
+            "items": [
+              {
+                "name": "period",
+                "type": "text"
+              },
+              {
+                "name": "metric",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "missing_items",
+            "type": "list",
+            "items": null
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": null
+        },
+        "ask_before": []
+      },
+      {
+        "id": "official",
+        "why": "逐条核对分析结论是否得到管理层讨论的支持，并保留支持结论的原文依据",
+        "does": "第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。",
+        "uses": [
+          "indicators"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "第 6 步改成拿分析结论对照管理层讨论：只读管理层讨论那一节，按标题在目录里找；每条结论判支持或不支持，没提到算不支持，判支持的要引原文；找不到这一节就照实说。"
+          },
+          {
+            "id": "comparison_identity",
+            "text": "逐条对照上游 indicators 的原结论，comparisons.conclusion 原样保留该条文字，每条恰好一次，不改写、不拆条、不合并；需要拆解说明时写在 reason 中。此处用于落实既有 covers 验收，不新增分析结论。"
+          },
+          {
+            "id": "support_scope",
+            "text": "判支持的原文须在管理层讨论这一节内，且能印证该条完整主张。对期间、指标和统计口径有差异，或只能印证部分主张时，判不支持，在 reason 中说明已印证部分与缺失部分。趋势相近不能代替原数值口径；提到某准则影响某科目，不能自行推成另一期比较数据已经重述。"
+          },
+          {
+            "id": "unsupported_meaning",
+            "text": "不支持只表示本节原文未充分印证该条结论，不自动表示上游计算错误。没提到、找不到该节时照原方法判不支持并如实说明；不得为了判支持转引其他章节，不得补造引文。"
+          }
+        ],
+        "title": "对照管理层讨论",
+        "checks": [
+          {
+            "params": {
+              "keys": [
+                "conclusion",
+                "verdict",
+                "reason"
+              ],
+              "path": "comparisons",
+              "field": "verdict",
+              "values": [
+                "支持",
+                "不支持"
+              ],
+              "unique_by": [
+                "conclusion"
+              ],
+              "non_empty_keys": [
+                "conclusion",
+                "reason"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "comparisons",
+              "field": "conclusion",
+              "source_path": "indicators",
+              "source_step": "indicators"
+            },
+            "template": "covers"
+          },
+          {
+            "params": {
+              "path": "comparisons",
+              "field": "verdict",
+              "equals": "支持"
+            },
+            "template": "quoted"
+          }
+        ],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "comparisons",
+            "type": "list",
+            "items": [
+              {
+                "name": "conclusion",
+                "type": "text"
+              },
+              {
+                "name": "verdict",
+                "type": "text"
+              },
+              {
+                "name": "reason",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": null
+        },
+        "ask_before": []
+      },
+      {
+        "id": "forecast",
+        "why": "定量给出可验证的未来业绩预期与区间",
+        "does": "季节性同比：下一季 = 上年同季 ×（1 + 近 4 季同比中位数），区间用近 8 季同比的最小、最大；先回测最近 4 季",
+        "uses": [
+          "series",
+          "indicators",
+          "official",
+          "reconcile"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。"
+          },
+          {
+            "id": "test_output",
+            "text": "交回结构：保留 forecasts 说明列表。forecast_rows 按 period（YYYYQn）、metric（营业收入 revenue、归母净利润 parent_net_profit 或问题所问的其他指标）、part（point 点预测、lower 下界、upper 上界）逐项交回实际完成的数值及 compute_id。backtest_rows 按同样的期间和指标分别交回 predicted（原方法回测预测值）、actual（对应实际值），数值也保留计算记录；不引入新的预测方法。horizon 等于实际完成预测的不同季度数，不是用户要求的季度数；没有完成时写0。缺数、缺季度或未完成回测写入 missing_items，不用零或空区间冒充完成。用户未要求预测时如实说明，不凭空增加预测。"
+          },
+          {
+            "id": "precision",
+            "text": "forecast_rows和backtest_rows中的收入、归母净利润等金额value统一用人民币元，保留2位小数，与同任务compute原值允许相差不超过0.005元。保留实际计算编号、原方法和完整计算记录，后续计算引用原记录，不引用展示约数；百分比和非金额指标不混入金额表。不得用容差掩盖错科目、错期间、错计算编号或缺数。"
+          },
+          {
+            "id": "reconciliation_gate",
+            "text": "直接查看reconcile四类计算表及缺项表。预测所用期间必须有原式证据，辅助总计对照不能替代；缺项不得宣称核验通过。若预测、回测所需数据仍缺原式核验，按既有补数据流程处理，如实说明尚不能交付的部分；不缩短原回测与同比窗口，不编预测数。本条只落实上游原式证据要求，不改变季节性同比算法、两季预测、最近四季回测或1元阈值。"
+          },
+          {
+            "id": "continuity_and_restatement",
+            "text": "余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。"
+          }
+        ],
+        "title": "预测",
+        "checks": [
+          {
+            "params": {
+              "keys": [
+                "period",
+                "metric",
+                "part",
+                "value",
+                "compute_id"
+              ],
+              "path": "forecast_rows",
+              "field": "part",
+              "values": [
+                "point",
+                "lower",
+                "upper"
+              ],
+              "unique_by": [
+                "period",
+                "metric",
+                "part"
+              ],
+              "non_empty_keys": [
+                "period",
+                "metric",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "forecast_rows",
+              "tolerance": 0.005
+            },
+            "template": "computed"
+          },
+          {
+            "params": {
+              "keys": [
+                "period",
+                "metric",
+                "part",
+                "value",
+                "compute_id"
+              ],
+              "path": "backtest_rows",
+              "field": "part",
+              "values": [
+                "predicted",
+                "actual"
+              ],
+              "unique_by": [
+                "period",
+                "metric",
+                "part"
+              ],
+              "non_empty_keys": [
+                "period",
+                "metric",
+                "compute_id"
+              ]
+            },
+            "template": "each_has"
+          },
+          {
+            "params": {
+              "path": "backtest_rows",
+              "tolerance": 0.005
+            },
+            "template": "computed"
+          }
+        ],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "forecasts",
+            "type": "list",
+            "items": null
+          },
+          {
+            "name": "horizon",
+            "type": "number",
+            "items": null
+          },
+          {
+            "name": "forecast_rows",
+            "type": "table",
+            "items": [
+              {
+                "name": "period",
+                "type": "text"
+              },
+              {
+                "name": "metric",
+                "type": "text"
+              },
+              {
+                "name": "part",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "backtest_rows",
+            "type": "table",
+            "items": [
+              {
+                "name": "period",
+                "type": "text"
+              },
+              {
+                "name": "metric",
+                "type": "text"
+              },
+              {
+                "name": "part",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "missing_items",
+            "type": "list",
+            "items": null
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": null,
+          "output_schema": null,
+          "input_max_chars": 40000
+        },
+        "ask_before": []
+      },
+      {
+        "id": "writeup",
+        "why": "交付严谨、审计留痕的最终专业报告",
+        "does": "写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户",
+        "uses": [
+          "scope",
+          "inventory",
+          "reconcile",
+          "series",
+          "indicators",
+          "official",
+          "forecast"
+        ],
+        "rules": [
+          {
+            "id": "r1",
+            "text": "写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。"
+          },
+          {
+            "id": "continuity_and_restatement",
+            "text": "余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。"
+          }
+        ],
+        "title": "成稿",
+        "checks": [],
+        "on_fail": {
+          "kind": "rework",
+          "back_to": null
+        },
+        "outputs": [
+          {
+            "name": "report",
+            "type": "text",
+            "items": null
+          }
+        ],
+        "advanced": {
+          "tools": null,
+          "reserve": null,
+          "output_file": "财务分析报告.md",
+          "output_schema": null,
+          "input_max_chars": 48000
+        },
+        "ask_before": []
+      }
+    ],
+    "tagline": "按我的方法分析一家公司的财报（人工特批，本修订未复测）",
+    "data_picks": [
+      "644d2e3b-4f9a-442d-b600-6b94ae07343f",
+      "fff4af12-ca71-46fd-bb09-99f99ec4f82a",
+      "44003c88-c7ce-44c5-8179-2dc388cf2608",
+      "b387da09-b743-4b13-899d-1b1dcbf17636",
+      "3864c6a5-8979-47e5-a215-274838704ad8",
+      "f2d13f6d-2843-467b-b394-ea0d63cd1fb3"
+    ]
+  },
+  "edits": [
+    [
+      "tagline",
+      "按我的方法分析一家公司的财报（人工特批，本修订未复测）"
+    ],
+    [
+      "steps/inventory/rules",
+      [
+        {
+          "id": "r1",
+          "text": "列出我的数据里有哪些表、哪些报告期、哪些科目；期数不够做后面的回测或预测，能做的照做、写明原因。"
+        },
+        {
+          "id": "reconciliation_scope",
+          "text": "按本题历史分析、单季换算、回测和预测所需的期间列出四类待核清单：balance_plan、profit_plan、cash_plan、continuity_plan。前三类每项交回key，continuity_plan另外交回下列余额元数据；key 要包含期间、报表口径、来源材料版本，衔接检查还含科目及前后期。只列需要核验的实际范围，不机械扩展到无关科目。同一事实同一版本不因重复披露重复列项；不同重述版分开。需要核验但缺输入的项目也要列出，不能为验收删掉。每类至少一项。"
+        },
+        {
+          "id": "opening_balance_continuity",
+          "text": "第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_differences，不得当作本条不平，也不得仅因重述差额剔除预测期间。最新报告没有下一年度报告不构成缺项：本期报告的年初余额与上年度期末余额即可比较；有追溯调整时分别交代原版、重述版及桥接原因，不能混口径凑平。真实余额衔接差额绝对值超过1元仍按原规则处理，确实缺少前期余额则明确未核验并走原补数流程。"
+        },
+        {
+          "id": "continuity_metadata",
+          "text": "continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inventory清单逐字传递；continuity_missing同样带这些元数据，缺原件写明而非猜测。"
+        }
+      ]
+    ],
+    [
+      "steps/inventory/outputs",
+      [
+        {
+          "name": "periods",
+          "type": "list",
+          "items": null
+        },
+        {
+          "name": "balance_plan",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "profit_plan",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "cash_plan",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "continuity_plan",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "account",
+              "type": "text"
+            },
+            {
+              "name": "balance_date",
+              "type": "text"
+            },
+            {
+              "name": "scope",
+              "type": "text"
+            },
+            {
+              "name": "opening_report",
+              "type": "text"
+            },
+            {
+              "name": "previous_report",
+              "type": "text"
+            },
+            {
+              "name": "account_kind",
+              "type": "text"
+            },
+            {
+              "name": "comparison_kind",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    ],
+    [
+      "steps/inventory/checks",
+      [
+        {
+          "params": {
+            "path": "balance_plan"
+          },
+          "template": "list_min"
+        },
+        {
+          "params": {
+            "keys": [
+              "key"
+            ],
+            "path": "balance_plan",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "profit_plan"
+          },
+          "template": "list_min"
+        },
+        {
+          "params": {
+            "keys": [
+              "key"
+            ],
+            "path": "profit_plan",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "cash_plan"
+          },
+          "template": "list_min"
+        },
+        {
+          "params": {
+            "keys": [
+              "key"
+            ],
+            "path": "cash_plan",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "continuity_plan"
+          },
+          "template": "list_min"
+        },
+        {
+          "params": {
+            "keys": [
+              "key"
+            ],
+            "path": "continuity_plan",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_plan",
+            "keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ],
+            "non_empty_keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_plan",
+            "field": "account_kind",
+            "values": [
+              "stock_balance"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_plan",
+            "field": "comparison_kind",
+            "values": [
+              "opening_to_previous_closing"
+            ]
+          }
+        }
+      ]
+    ],
+    [
+      "steps/reconcile/rules",
+      [
+        {
+          "id": "r1",
+          "text": "查四条：资产总计 = 负债合计 + 所有者权益合计；归母净利润 + 少数股东损益 = 净利润；现金流量表期末现金 = 期初现金 + 现金净增加额；本期期初 = 上期期末。差额超过 1 元算不平；不平照实列出、写进局限，继续往下做，不平的期不进预测窗口。"
+        },
+        {
+          "id": "original_formula_records",
+          "text": "原四条恒等式及1元阈值不变。按inventory的四类清单逐项核验，key逐字照抄。balance_checks用A-(L+E)，profit_checks用NP-(P+M)，cash_checks用END-(BEGIN+CHANGE)，continuity_checks用OPEN-PREV_CLOSE。每项交回原始compute_id、value（实际差额，元，不作展示四舍五入）和公式各输入的实际值。A为资产总计，L为负债合计，E为所有者权益合计；NP为净利润，P为归母净利润，M为少数股东损益；END/BEGIN/CHANGE为现金流量表期末/期初/净增加额；OPEN/PREV_CLOSE为同一科目的本期期初/上期期末。计算输入必须来自对应期间、口径、版本的事实或已核原文证据，不准以资产减负债反推权益再代入同一式，不准用同一事实自减凑零。资产总计与负债和权益总计对照仅是辅助，不可放入这四类原式记录，不能宣布原式通过。差额绝对值<=1元的项目平衡；>1元的项目不平，保留实际差额及局限并按原方法继续，不平期不得进入预测。缺输入先按既有工具查询事实、定位原文和补数据流程处理；仍不能计算的放对应balance_missing/profit_missing/cash_missing/continuity_missing，写key与reason，不编compute_id或0。已计算和缺项两类合起来必须逐项覆盖清单，不遗漏、不重复；缺项是未核验，不能记作通过，也不能把辅助对照描述为四式全通过。checks保留文字摘要，必须与这八张结构化表一致；未核验与不平分别写明，不能统称全部通过。"
+        },
+        {
+          "id": "opening_balance_continuity",
+          "text": "第四条只核同一存量科目的本期期初余额与上期期末余额。现金及现金等价物读现金流量表期初/期末；资产、负债、权益等读资产负债表年初/上年年末。两端是同一时点、同一合并范围和可比口径，保留两份报告版本及页码。营业收入、营业成本、归母净利润是期间流量，不得列入continuity_plan或continuity_checks。同一年度在两份报告中的原值和重述值比较单独记restatement_differences，不得当作本条不平，也不得仅因重述差额剔除预测期间。最新报告没有下一年度报告不构成缺项：本期报告的年初余额与上年度期末余额即可比较；有追溯调整时分别交代原版、重述版及桥接原因，不能混口径凑平。真实余额衔接差额绝对值超过1元仍按原规则处理，确实缺少前期余额则明确未核验并走原补数流程。"
+        },
+        {
+          "id": "continuity_metadata",
+          "text": "continuity各行account_kind固定为stock_balance、comparison_kind为opening_to_previous_closing；account写真实存量科目，不得把流量改名冒充。balance_date写两端共同余额时点，scope写合并范围，opening_report与previous_report注明各自报告及版本。key及全部元数据由inventory清单逐字传递；continuity_missing同样带这些元数据，缺原件写明而非猜测。"
+        },
+        {
+          "id": "continuity_evidence",
+          "text": "每条continuity_checks的quotes必须分别包含两端余额原文及页码，不得引用利润表流量作为余额。计算仍用OPEN-PREV_CLOSE、实际差额和原compute_id。restatement_differences只解释版本间重述及可比来源链，无差异交空列表，不充当第五条恒等式。独立查询/计算可以批量，但不改变四式、1元阈值、期间与计算收据。"
+        }
+      ]
+    ],
+    [
+      "steps/reconcile/outputs",
+      [
+        {
+          "name": "checks",
+          "type": "list",
+          "items": null
+        },
+        {
+          "name": "balance_checks",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "A",
+              "type": "number"
+            },
+            {
+              "name": "L",
+              "type": "number"
+            },
+            {
+              "name": "E",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "balance_missing",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "reason",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "profit_checks",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "NP",
+              "type": "number"
+            },
+            {
+              "name": "P",
+              "type": "number"
+            },
+            {
+              "name": "M",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "profit_missing",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "reason",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "cash_checks",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "END",
+              "type": "number"
+            },
+            {
+              "name": "BEGIN",
+              "type": "number"
+            },
+            {
+              "name": "CHANGE",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "cash_missing",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "reason",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "continuity_checks",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "OPEN",
+              "type": "number"
+            },
+            {
+              "name": "PREV_CLOSE",
+              "type": "number"
+            },
+            {
+              "name": "account",
+              "type": "text"
+            },
+            {
+              "name": "balance_date",
+              "type": "text"
+            },
+            {
+              "name": "scope",
+              "type": "text"
+            },
+            {
+              "name": "opening_report",
+              "type": "text"
+            },
+            {
+              "name": "previous_report",
+              "type": "text"
+            },
+            {
+              "name": "account_kind",
+              "type": "text"
+            },
+            {
+              "name": "comparison_kind",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "continuity_missing",
+          "type": "table",
+          "items": [
+            {
+              "name": "key",
+              "type": "text"
+            },
+            {
+              "name": "reason",
+              "type": "text"
+            },
+            {
+              "name": "account",
+              "type": "text"
+            },
+            {
+              "name": "balance_date",
+              "type": "text"
+            },
+            {
+              "name": "scope",
+              "type": "text"
+            },
+            {
+              "name": "opening_report",
+              "type": "text"
+            },
+            {
+              "name": "previous_report",
+              "type": "text"
+            },
+            {
+              "name": "account_kind",
+              "type": "text"
+            },
+            {
+              "name": "comparison_kind",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "restatement_differences",
+          "type": "list",
+          "items": null
+        }
+      ]
+    ],
+    [
+      "steps/reconcile/checks",
+      [
+        {
+          "params": {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "A",
+              "L",
+              "E"
+            ],
+            "path": "balance_checks",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "balance_checks",
+            "tolerance": 0.0,
+            "expression": "A-(L+E)",
+            "input_keys": [
+              "A",
+              "L",
+              "E"
+            ]
+          },
+          "template": "computed"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "path": "balance_missing",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "also": [
+              "balance_missing"
+            ],
+            "path": "balance_checks",
+            "field": "key",
+            "source_path": "balance_plan",
+            "source_step": "inventory",
+            "source_field": "key"
+          },
+          "template": "covers"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "NP",
+              "P",
+              "M"
+            ],
+            "path": "profit_checks",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "profit_checks",
+            "tolerance": 0.0,
+            "expression": "NP-(P+M)",
+            "input_keys": [
+              "NP",
+              "P",
+              "M"
+            ]
+          },
+          "template": "computed"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "path": "profit_missing",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "also": [
+              "profit_missing"
+            ],
+            "path": "profit_checks",
+            "field": "key",
+            "source_path": "profit_plan",
+            "source_step": "inventory",
+            "source_field": "key"
+          },
+          "template": "covers"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "END",
+              "BEGIN",
+              "CHANGE"
+            ],
+            "path": "cash_checks",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "cash_checks",
+            "tolerance": 0.0,
+            "expression": "END-(BEGIN+CHANGE)",
+            "input_keys": [
+              "END",
+              "BEGIN",
+              "CHANGE"
+            ]
+          },
+          "template": "computed"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "path": "cash_missing",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "also": [
+              "cash_missing"
+            ],
+            "path": "cash_checks",
+            "field": "key",
+            "source_path": "cash_plan",
+            "source_step": "inventory",
+            "source_field": "key"
+          },
+          "template": "covers"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "value",
+              "compute_id",
+              "OPEN",
+              "PREV_CLOSE"
+            ],
+            "path": "continuity_checks",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "compute_id"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "path": "continuity_checks",
+            "tolerance": 0.0,
+            "expression": "OPEN-PREV_CLOSE",
+            "input_keys": [
+              "OPEN",
+              "PREV_CLOSE"
+            ]
+          },
+          "template": "computed"
+        },
+        {
+          "params": {
+            "keys": [
+              "key",
+              "reason"
+            ],
+            "path": "continuity_missing",
+            "unique_by": [
+              "key"
+            ],
+            "non_empty_keys": [
+              "key",
+              "reason"
+            ]
+          },
+          "template": "each_has"
+        },
+        {
+          "params": {
+            "also": [
+              "continuity_missing"
+            ],
+            "path": "continuity_checks",
+            "field": "key",
+            "source_path": "continuity_plan",
+            "source_step": "inventory",
+            "source_field": "key"
+          },
+          "template": "covers"
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_checks",
+            "keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ],
+            "non_empty_keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_checks",
+            "field": "account_kind",
+            "values": [
+              "stock_balance"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_checks",
+            "field": "comparison_kind",
+            "values": [
+              "opening_to_previous_closing"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_missing",
+            "keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ],
+            "non_empty_keys": [
+              "account",
+              "balance_date",
+              "scope",
+              "opening_report",
+              "previous_report",
+              "account_kind",
+              "comparison_kind"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_missing",
+            "field": "account_kind",
+            "values": [
+              "stock_balance"
+            ]
+          }
+        },
+        {
+          "template": "each_has",
+          "params": {
+            "path": "continuity_missing",
+            "field": "comparison_kind",
+            "values": [
+              "opening_to_previous_closing"
+            ]
+          }
+        },
+        {
+          "template": "quoted",
+          "params": {
+            "path": "continuity_checks",
+            "field": "account_kind",
+            "equals": "stock_balance"
+          }
+        }
+      ]
+    ],
+    [
+      "steps/series/rules",
+      [
+        {
+          "id": "r1",
+          "text": "利润表、现金流量表的累计数换成单季：Q1 = 一季报；Q2 = 半年报 − 一季报；Q3 = 三季报 − 半年报；Q4 = 年报 − 三季报。资产负债表是时点数，不换算。"
+        },
+        {
+          "id": "reconciliation_evidence",
+          "text": "以上游reconcile四类*_checks的真实差额及*_missing为核验依据，不只读checks文字摘要。缺项未核验不等于不平，更不等于已通过；不能以辅助总计对照补足原四式。不平期继续按原方法剔出预测；未核验期必须明确标注并按既有补数据流程处理，不能包装成已核验数据。保留原季度换算方法与报告版本一致性。"
+        },
+        {
+          "id": "continuity_and_restatement",
+          "text": "余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。"
+        }
+      ]
+    ],
+    [
+      "steps/forecast/rules",
+      [
+        {
+          "id": "r1",
+          "text": "预测方法：季节性同比。下一季 = 上年同季 ×（1 + 近 4 季同比中位数）；区间 = 上年同季 ×（1 + 近 8 季同比的最小、最大）。做预测前先回测最近 4 个单季。"
+        },
+        {
+          "id": "test_output",
+          "text": "交回结构：保留 forecasts 说明列表。forecast_rows 按 period（YYYYQn）、metric（营业收入 revenue、归母净利润 parent_net_profit 或问题所问的其他指标）、part（point 点预测、lower 下界、upper 上界）逐项交回实际完成的数值及 compute_id。backtest_rows 按同样的期间和指标分别交回 predicted（原方法回测预测值）、actual（对应实际值），数值也保留计算记录；不引入新的预测方法。horizon 等于实际完成预测的不同季度数，不是用户要求的季度数；没有完成时写0。缺数、缺季度或未完成回测写入 missing_items，不用零或空区间冒充完成。用户未要求预测时如实说明，不凭空增加预测。"
+        },
+        {
+          "id": "precision",
+          "text": "forecast_rows和backtest_rows中的收入、归母净利润等金额value统一用人民币元，保留2位小数，与同任务compute原值允许相差不超过0.005元。保留实际计算编号、原方法和完整计算记录，后续计算引用原记录，不引用展示约数；百分比和非金额指标不混入金额表。不得用容差掩盖错科目、错期间、错计算编号或缺数。"
+        },
+        {
+          "id": "reconciliation_gate",
+          "text": "直接查看reconcile四类计算表及缺项表。预测所用期间必须有原式证据，辅助总计对照不能替代；缺项不得宣称核验通过。若预测、回测所需数据仍缺原式核验，按既有补数据流程处理，如实说明尚不能交付的部分；不缩短原回测与同比窗口，不编预测数。本条只落实上游原式证据要求，不改变季节性同比算法、两季预测、最近四季回测或1元阈值。"
+        },
+        {
+          "id": "continuity_and_restatement",
+          "text": "余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。"
+        }
+      ]
+    ],
+    [
+      "steps/writeup/rules",
+      [
+        {
+          "id": "r1",
+          "text": "写成一篇能逐条核对的稿子：回答、带出处的数据、勾稽与对照、指标与发现、预测表、局限、出处；结论留给用户，不给买卖建议、评级、目标价。"
+        },
+        {
+          "id": "continuity_and_restatement",
+          "text": "余额衔接只看reconcile中同一时点同一存量科目opening_to_previous_closing记录。restatement_differences是披露版本差异，不得称为会计不平或据此剔除期间；累计转单季仍固定可比来源链。不能因为没有更晚年度报告就标当前期间衔接未核验。真实四式不平、缺项、未核验继续按作者原规则处理，不降低原预测窗口与回测要求。成稿准确区分原式核验、重述说明和缺项，不宣称四式全通过。"
+        }
+      ]
+    ]
+  ],
+  "limits": "Metadata allowlists and actual quotes reject the observed flow-comparison shape; mislabeled source semantics still require review. No claim of a new live test."
+}
