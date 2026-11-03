@@ -821,3 +821,8 @@ c1勾稽/取数已完成，indicators在10:53:07因runner重启被interrupted，
 ## 2026-11-03 #64完成，停止测试7、启动测试8
 
 所有者明确“停止旧测试，用新版重新测试”。核对Qwen回执c9a460bc、deploy324c2f71、backend8f797e2/ec8c9e2e…及webaf091be/744e8500…，四后端角色与网页Ready1，实际API精度合成探针通过。正式取消测试7并核c2 CANCELLED、thread idle、turn interrupted；保留费用和失败原因。正式启动测试8 8f78d832-1921-4286-bc18-3f36e4212cd4，准专家2.6，60元/每题20元、原3题、测试集2、3600秒、原zymun电脑；不并行滚动runner，不自动无限重跑。证据release64-test8-start.json，交接第12.6节同步Qwen；完整测试待核，商城v2未交付。
+
+
+## 2026-11-03 所有者批准180元重测：测试9
+
+测试8 c1指标预算超限，累计23.752700/20元，该步11.353140；用户明确选择新轮180元/每题60元，先停旧轮。已正式cancel测试8并核c2 CANCELLED、线程idle、末turn interrupted，保留旧账。正式start_self_test测试9 3d8f21df-e199-4ecd-90a9-d9c5c2783dfe（run前缀knowlab-test-），仍准专家2.6、原3题/测试集2、原zymun电脑、3600秒、release64，不改方法和阈值，不自动无限重跑。后续核进度与最终财务交付，商城v2未交付。证据test9-budget-approved-start.json；发布交接12.7仅状态记录，不发新版本。

@@ -1,0 +1,26 @@
+{
+  "authorization": "所有者明确选择：总额180元，每题60元；先停止当前轮，再用准专家2.6正式重测。旧轮费用另计。",
+  "test8": {
+    "id": "8f78d832-1921-4286-bc18-3f36e4212cd4",
+    "c1": "指标步骤预算超限；单题结算23.752700元，超过原20元；非本轮改判",
+    "c1_indicators_cost": "11.353140",
+    "action": "formal runtimes.cancel + refresh_mine",
+    "lab_status": "platform_error",
+    "c2_task_state": "CANCELLED",
+    "thread_status": "idle",
+    "last_turn_status": "interrupted",
+    "history_preserved": true
+  },
+  "test9": {
+    "draft_id": "4273f2c6-0df8-45c0-8e12-a70a00054ac9",
+    "test_id": "3d8f21df-e199-4ecd-90a9-d9c5c2783dfe",
+    "run_id": "knowlab-test-3d8f21df-e199-4ecd-90a9-d9c5c2783dfe",
+    "status": "queued",
+    "environment_id": "42f12749-063b-462c-ab71-080641c24269",
+    "root": "C:\\Users\\zymun\\Desktop",
+    "budget_limit": "180.00",
+    "timeout_seconds": 3600,
+    "test_set_version": 2
+  },
+  "limits": "一次明确授权的新运行；原3题、测试集2、准专家2.6、release64、原电脑/目录和3600秒保持不变。不无限重测、不改变验收。"
+}
