@@ -14,13 +14,13 @@ applications:
     admin_parent_revision: 722c6b80e849d6352f28abbdd7362e1151191c14
     admin_revision: 722c6b80e849d6352f28abbdd7362e1151191c14
   knowfeed:
-    parent_revision: a4fdf431ecaea10f90757f6c5442bb0b795728fd
-    backend_parent_revision: 2bc17f152d2fc2261a731d0cbbe4bac7165c97ec
-    backend_revision: 2bc17f152d2fc2261a731d0cbbe4bac7165c97ec
+    parent_revision: c81bee9f94da2eebf1cd8cf9bde63ff9cd3906dd
+    backend_parent_revision: 15606aaf039fb39dfa81b4489760a94c9eae4f8e
+    backend_revision: 15606aaf039fb39dfa81b4489760a94c9eae4f8e
     web_parent_revision: bb03f1ac21ffea0bc4e71dd5efc678256dd354ab
     web_revision: bb03f1ac21ffea0bc4e71dd5efc678256dd354ab
-    admin_parent_revision: aad370f651e89b08de35b6728c6b76257ce09623
-    admin_revision: aad370f651e89b08de35b6728c6b76257ce09623
+    admin_parent_revision: 1bdcbcd042a45a0d19de1787778fd78f96cf49b6
+    admin_revision: 1bdcbcd042a45a0d19de1787778fd78f96cf49b6
   knowbase:
     parent_revision: a48d278e0994bdeff51f6597d09603f452c77ced
     backend_parent_revision: e6822640e15aa6bebf49c9a7d57b54da45666de5
