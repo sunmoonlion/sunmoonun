@@ -133,3 +133,8 @@
 2026-11-04所有者明确“目前的所有账号都开放”，取代本轮初始仅sig-am使用。凭据仍单份服务端保管，持权主体不变；渠道audience改为all_users，用户仍各自确认、各自收取collected/self私有副本，额度耗尽对整条渠道暂停。
 
 #81已上线：凭据加载真实有效，正常管理API已登记wind-platform，真实worker试采9ec6fc45成功（2748字节），审核pending。扩展全账号代码backend15606aa/admin1bdcbcd/parentc81bee9，82项后端+14项前端回归通过，#82发布中；待线上扩展生效后按所有者明确授权正式放行并核对至少sig-am、zymun的发现接口。不能提前宣称全账号可用。
+
+
+### 2026-11-04 全账号运行侧启用
+
+#82 已发布成功（release-20261104-10，回执 4285f41f）。wind-platform 已按所有者明确指令经正式管理 API 审核启用，audience=all_users，collected/self，串行共享供应商额度。真实 worker 试采 9ec6fc45 成功；线上 knowbench 的 source_tools 链路以 sig-am、zymun 分别验证 stock_data 和 financial_docs 均可发现真实工具。未代用户确认采单；抽象需求跨知识库/Wind/巨潮自动换源仍待完成，文本响应不等于完整 PDF 或规范事实。
