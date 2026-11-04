@@ -125,7 +125,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（同 ../service-identity）：Job 的模板不可改，镜像一换名字就换
-metadata: {name: 'knowbench-knowbase-user-data-read-identity-580854b909d9-v1', namespace: app-platform-dev}
+metadata: {name: 'knowbench-knowbase-user-data-read-identity-4cfa3ab619f7-v1', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -139,7 +139,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:580854b909d976495972f6b07a00a1dc745ff3b346fd98a023b4912bd04313f9
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:4cfa3ab619f75b189bccc7b1e9c5cd54e189ff58d1a2969ff40db6a9020ee540
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
