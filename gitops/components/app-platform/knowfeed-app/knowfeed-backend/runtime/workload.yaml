@@ -83,7 +83,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
+        sunmoonai.com/config-sha256: 529c6db728d174916e427379c7c86b3aa455804946835dc8635bc300804cf848
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -114,6 +114,7 @@ spec:
             - {secretRef: {name: knowfeed-rabbitmq-runtime}}
             - {secretRef: {name: knowfeed-redis-runtime}}
             - {secretRef: {name: knowfeed-browser-secrets}}
+            - {secretRef: {name: knowfeed-domain-runtime}}
             - {secretRef: {name: knowfeed-storage-runtime}}
             - {secretRef: {name: knowfeed-knowbase-service}}
             - {secretRef: {name: knowfeed-knowbase-user-data-supply-service}}
@@ -149,7 +150,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
+        sunmoonai.com/config-sha256: 529c6db728d174916e427379c7c86b3aa455804946835dc8635bc300804cf848
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -176,6 +177,7 @@ spec:
             - {configMapRef: {name: knowfeed-browser-identity}}
             - {secretRef: {name: knowfeed-database-runtime}}
             - {secretRef: {name: knowfeed-rabbitmq-runtime}}
+            - {secretRef: {name: knowfeed-domain-runtime}}
             - {secretRef: {name: knowfeed-storage-runtime}}
             - {secretRef: {name: knowfeed-knowbase-service}}
             - {secretRef: {name: knowfeed-knowbase-user-data-supply-service}}
@@ -211,7 +213,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
+        sunmoonai.com/config-sha256: 529c6db728d174916e427379c7c86b3aa455804946835dc8635bc300804cf848
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -352,3 +354,16 @@ spec:
     - to:
         - ipBlock: {cidr: 0.0.0.0/0}
       ports: [{protocol: TCP, port: 443}, {protocol: TCP, port: 80}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: knowfeed-wind-directory-out, namespace: app-platform-dev}
+spec:
+  podSelector:
+    matchExpressions:
+      - {key: app.kubernetes.io/name, operator: In, values: [knowfeed-api]}
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - ipBlock: {cidr: 0.0.0.0/0}
+      ports: [{protocol: TCP, port: 443}]

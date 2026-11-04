@@ -5,4 +5,5 @@ resources:
 - tls.sops.yaml
 - storage.sops.yaml
 - service.sops.yaml
+- domain.sops.yaml
 - knowbase-user-data-supply-service.sops.yaml
