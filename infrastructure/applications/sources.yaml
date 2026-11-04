@@ -22,17 +22,17 @@ applications:
     admin_parent_revision: a290cde1ffdf1abc3acc2885f23503057a8034f7
     admin_revision: a290cde1ffdf1abc3acc2885f23503057a8034f7
   knowbase:
-    parent_revision: e4aaf398d076864288c791a94250f85cd6e0f94c
-    backend_parent_revision: 45f703a7bac0213b66ff67a6b9ca4fd4a2a93afd
-    backend_revision: 45f703a7bac0213b66ff67a6b9ca4fd4a2a93afd
+    parent_revision: c2095c344167d09be31b13f4ea34a204a008af2c
+    backend_parent_revision: 032cec248028d94baca17660349ab281882228bc
+    backend_revision: 032cec248028d94baca17660349ab281882228bc
     web_parent_revision: be6d29ed6f054304aa0f38d53831f5f7fa238fa2
     web_revision: be6d29ed6f054304aa0f38d53831f5f7fa238fa2
     admin_parent_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
     admin_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
   knowbench:
-    parent_revision: d67d2f94c36fb36841ae738a569ce43007edbdeb
-    backend_parent_revision: d4b4e2c3018b511a4cf9d53bae18ca941eaef9ad
-    backend_revision: d4b4e2c3018b511a4cf9d53bae18ca941eaef9ad
+    parent_revision: 229ca6f912fe521fdbc348b019d6232d5bb4bfbd
+    backend_parent_revision: 205b2a1340da5a6296975b105edbf73c6191bb11
+    backend_revision: 205b2a1340da5a6296975b105edbf73c6191bb11
     web_parent_revision: 8cd235b6f7f8b18a0a619be94c15a2e7cc9ead6e
     web_revision: 8cd235b6f7f8b18a0a619be94c15a2e7cc9ead6e
     admin_parent_revision: 540d9f38bf9ef5015684686f6abe576c7144aea0
