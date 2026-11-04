@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: knowfeed-admin-frontend
-digest: sha256:1b75696e964dfefdb688c275a812636fd42c01d620abe02e94360161d1c6a5d8
-source_revision: aad370f651e89b08de35b6728c6b76257ce09623
-deployment_id: knowfeed-admin-frontend-1b75696e964dfefd
+digest: sha256:cf613373679c13a221db8f93cb469af93cbfcf3c5999f09f636fe070ff7abd7e
+source_revision: 1bdcbcd042a45a0d19de1787778fd78f96cf49b6
+deployment_id: knowfeed-admin-frontend-cf613373679c13a2
