@@ -91,3 +91,17 @@
 | 7 | 新 `HttpWind` 服务端适配器，股票财务查询，茅台 2021～2024 三个年度指标 | 返回 4 行、7 列表；响应 1,037 字节，SHA-256 `bcef9c3dc2fdca669ba8284eaf3ccb2b1562b573756a77d61129d9c4149202ab`；只证明响应可取，不替代单位、口径及 PDF 对照验收 |
 
 私有临时证据：`/tmp/luna-wind-server-probe.json`、`/tmp/luna-wind-server-announcements.json`、`/tmp/luna-wind-adapter-live-response.json`、`/tmp/luna-wind-adapter-finance-response.json`；仅摘要与哈希进仓，原数据与密钥不入 Git。
+
+## 2026-11-04 线上启用缺口（真实任务核验）
+
+任务b435c1e9的数据准备工具discover_source_tools真实返回sources=[]。从knowfeed-api只读核对：运行配置wind_api_key未注入、wind_owner_subject为空；supply_channel中plugin=wind-mcp记录为0。这里仅断言服务端运行配置，不能据此断言本地Skill无密钥。当前compose_data_plan已要求可用且满足需要时优先source_query，故本次没有用Wind的直接原因是生产渠道未完成配置启用，不是作者不许用Wind，也不是模型有Wind却选择忽略。
+
+此前“代码已接入/适配器探针成功”不得表述为“生产专家已能调用Wind”。所有者此前已授权服务端接入与取消总次数限制，仍有效，不重复要求同一授权。本人账号私有范围、供应商许可未知项与正式渠道试采/审核状态继续如实保留。
+
+补齐顺序：
+1. 走现有私有配置/SOPS/Secret机制，为API与worker注入同一Wind凭据和明确的账号主体；不能以domain_runtime_env塞明文（当前部署白名单仅允许STORAGE_BACKEND/SEARCH_BACKEND），不得手改Pod环境冒充持久交付。
+2. 通过正式渠道管理登记wind-mcp，max_running=1、daily_cap=0、license=self、owner_subject与账号匹配；经真实试采与正式审核启用。不能SQL置approved，不能默认为全平台共享当前账号凭据。
+3. 用该账号实际discover_source_tools看到服务目录与工具schema，再由用户正常确认source_query；核knowfeed响应留存、knowbase授权和任务恢复。未取得这条链证据前不得报已用起来。
+4. 数据选源优先复用本次授权范围内已就绪且口径/读法适合的数据；确需补数时优先可用Wind专项服务。需要PDF页码的核查保留原件渠道，Wind链接/摘要不替代PDF。
+
+本次23项已有报告的复用与等待竞态修复正在另行走既有Jenkins，不把当前已确认的报告采单暗改为Wind请求，也不为切换来源重复收费取数。
