@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowbase-migrate-ea1f230a3ee5-v4', namespace: app-platform-dev}
+metadata: {name: 'knowbase-migrate-4c755636ef9d-v4', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,14 +72,14 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:ea1f230a3ee5dd60c00273701ade5182cbec3e2462a94bd1c8d72db11fa9696a
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:4c755636ef9debd8a2a64501caed89116bf1c69ff9fb054c9d02a46f45f0bcec
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowbase-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: '45f703a7bac0213b66ff67a6b9ca4fd4a2a93afd'}
+            - {name: DEPLOYMENT_ID, value: 'e6822640e15aa6bebf49c9a7d57b54da45666de5'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowbase-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowbase.dev.sunmoonai.com:30443'}
             - {name: EXPECTED_SCHEMA_REVISION, value: '20261101_0021'}
