@@ -38,11 +38,18 @@ knowfeed_backend_deployment:
   # 0010：跨应用链接（0008-info）；数据集登记随旧版删了（decisions ⑰）
   cross_app_enabled: true
   domain_env: {}
+  # Wind凭据与账号主体沿用应用私有输入 -> SOPS；仅目录发现API与取数worker需要。
+  domain_secrets:
+    WIND_API_KEY: {source: private}
+    WIND_OWNER_SUBJECT: {source: private}
+  domain_secrets_roles: [api, worker]
     # 供给（SDD 0045）：knowbase 数据第四版的地址与身份都从下面 service_clients 那一项推出（KNOWBASE_INTERNAL_URL +
     # /api/internal/v2/user-data、KNOWBASE_USER_DATA_SUPPLY_SERVICE_*），调用方是谁由 relation_auth 校验得出，这里不另配
   domain_egress:
     # 采集走公网（巨潮、东方财富）；标准 NetworkPolicy 不认域名，先放行 80/443 到任意地址
     - {name: public-sites, roles: [worker], cidrs: ['0.0.0.0/0'], ports: [443, 80]}
+    # API需要访问固定Wind MCP端点发现工具；适配器固定供应商域名，不接受任意URL。
+    - {name: wind-directory, roles: [api], cidrs: ['0.0.0.0/0'], ports: [443]}
   # 原文只能进入对象存储；未接入S3前拒绝业务写入，不回退到容器本地目录。
   object_storage:
     enabled: true

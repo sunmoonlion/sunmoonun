@@ -7,7 +7,7 @@ knowlab_backend_deployment:
   database_bootstrap_revision: v2
   migration_job_revision: v3
   # 数据第四版：删旧版表、孵化表（20261028_0016–0018 删行，0019–0021 只加列加表；Opus 10-29 核定头 20261029_0021）
-  expected_schema_revision: '20261101_0024'
+  expected_schema_revision: '20261103_0026'
   deploy_budget_bytes: 2147483648
   redis_user: knowlab_runtime
   redis_key_pattern: 'knowlab:*'

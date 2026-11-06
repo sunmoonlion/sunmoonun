@@ -4,7 +4,7 @@ metadata: {name: knowfeed-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowfeed
-  DEPLOYMENT_ID: "knowfeed-backend-77932942a5419b4a"
+  DEPLOYMENT_ID: "knowfeed-backend-abbadcc4a6f2ae37"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowfeed-api,knowfeed-api.app-platform-dev.svc.cluster.local,knowfeed.dev.sunmoonai.com,knowfeed-admin.dev.sunmoonai.com,knowfeed-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -83,7 +83,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
+        sunmoonai.com/config-sha256: 529c6db728d174916e427379c7c86b3aa455804946835dc8635bc300804cf848
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -93,7 +93,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:abbadcc4a6f2ae3758dc63d7d75ec965470237f198c55228490cc6b896ea7ad3
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -114,6 +114,7 @@ spec:
             - {secretRef: {name: knowfeed-rabbitmq-runtime}}
             - {secretRef: {name: knowfeed-redis-runtime}}
             - {secretRef: {name: knowfeed-browser-secrets}}
+            - {secretRef: {name: knowfeed-domain-runtime}}
             - {secretRef: {name: knowfeed-storage-runtime}}
             - {secretRef: {name: knowfeed-knowbase-service}}
             - {secretRef: {name: knowfeed-knowbase-user-data-supply-service}}
@@ -149,7 +150,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
+        sunmoonai.com/config-sha256: 529c6db728d174916e427379c7c86b3aa455804946835dc8635bc300804cf848
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -159,7 +160,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:abbadcc4a6f2ae3758dc63d7d75ec965470237f198c55228490cc6b896ea7ad3
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -176,6 +177,7 @@ spec:
             - {configMapRef: {name: knowfeed-browser-identity}}
             - {secretRef: {name: knowfeed-database-runtime}}
             - {secretRef: {name: knowfeed-rabbitmq-runtime}}
+            - {secretRef: {name: knowfeed-domain-runtime}}
             - {secretRef: {name: knowfeed-storage-runtime}}
             - {secretRef: {name: knowfeed-knowbase-service}}
             - {secretRef: {name: knowfeed-knowbase-user-data-supply-service}}
@@ -211,7 +213,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 8de2b3b5b9f4186048b6478065bafab86e2daff68deba7b53a5b0d7753234644
+        sunmoonai.com/config-sha256: 529c6db728d174916e427379c7c86b3aa455804946835dc8635bc300804cf848
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -221,7 +223,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:77932942a5419b4a0f517da65405caeba6f4aafe5738b577f90643cfaf44890f
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:abbadcc4a6f2ae3758dc63d7d75ec965470237f198c55228490cc6b896ea7ad3
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]
@@ -352,3 +354,16 @@ spec:
     - to:
         - ipBlock: {cidr: 0.0.0.0/0}
       ports: [{protocol: TCP, port: 443}, {protocol: TCP, port: 80}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: knowfeed-wind-directory-out, namespace: app-platform-dev}
+spec:
+  podSelector:
+    matchExpressions:
+      - {key: app.kubernetes.io/name, operator: In, values: [knowfeed-api]}
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - ipBlock: {cidr: 0.0.0.0/0}
+      ports: [{protocol: TCP, port: 443}]
