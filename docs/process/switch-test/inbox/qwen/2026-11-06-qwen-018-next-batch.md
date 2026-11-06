@@ -1,6 +1,6 @@
 # Qwen 发布卡 qwen-018：下一批——四个应用成组发（账 180–188、K29、183）
 
-> 状态：**可执行，所有者 2026-11-06 已说「发」**（Opus 写；计划第 7 项）。第二节第 3 条查出 Wind 作业时仍停下问所有者。
+> 状态：**2026-11-06 已由 release #85 发布成功，tag `release-20261106-1`；上线工程核查通过，所有者页面验收待做。** 完整回执：`scripts/results/qwen-018.20261106-2049.md`。以下发布步骤保留为执行依据，不重复触发。
 > 为什么成组：开发头比线上 #83 多出的几处互相依赖，单发一个会坏——线上 knowlab 挑数据要的格式接口在 knowbase（账 180）；knowbench 网页发 `expert-match/v4`，线上后端不认；K29 要 knowbench 后端（迁移 0039）与 knowlab 前后端一起（账 181）。
 
 ```text
@@ -80,3 +80,10 @@ cd ~/worktrees/qwen/sunmoonun && make -C infrastructure jenkins-release-run RELE
 ## 本地执行补记（2026-11-06，Luna）
 
 环境已按所有者授权恢复；发前活动任务、测试及 Wind 队列均为空。Jenkins #84 在第 2 阶段失败：knowbench 部署真源仍期望 0038，与本卡要求的 0039 不一致。已将 `gitops/components/app-platform/knowbench-app/knowbench-backend/config.yaml` 改为 `20261106_0039`，固定后端 Git 对象迁移链离线核对通过。未部署、不改数据库、未自动重试。下轮先确认该修正已进入 Jenkins 根仓候选，再按原四应用、原 gitlink 与原审批执行。完整回执：`scripts/results/qwen-018.20261106-2049.md`。
+
+
+## 最终执行补记（2026-11-06，Luna）
+
+#84 失败后经所有者“继续”授权重跑 #85，所有者完成 Jenkins 人批，流水线 SUCCESS。已核实 0039 迁移完成、四应用部署及 Flux 就绪、运行镜像与锁一致、API/worker/runner 近 10 分钟错误扫描无命中、K29 两项 SQL 均为 0。第 4 节所有者页面操作及可选 Wind 验收未做，保留在 inbox，不冒充整卡业务验收完成。
+
+另记账 182 部分未保持：发布过程重新生成两份未引用 SOPS 文件，当前仍未被 kustomization 引用；后续需修生成/暂存范围，详情见上述回执。本次不增加发布范围。

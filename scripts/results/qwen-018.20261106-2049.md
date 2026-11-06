@@ -1,6 +1,8 @@
-# qwen-018 发布前核查回执（2026-11-06 20:49）
+# qwen-018 发布与上线核查回执（2026-11-06）
 
-状态：**发布未触发，停在环境检查**。所有者要求在 qwen 工位执行发布；按发布卡第一节核候选完成，但 `make -C infrastructure platform-status` 退出 2，未触发 Jenkins，未改钉、未构建、未部署。
+当前状态：**#85 发布成功，上线工程核查通过；所有者页面验收待做。** 版本 `release-20261106-1`，详见末节。
+
+以下保留初次核查历史：**当时发布未触发，停在环境检查**。所有者要求在 qwen 工位执行发布；按发布卡第一节核候选完成，但 `make -C infrastructure platform-status` 退出 2，未触发 Jenkins，未改钉、未构建、未部署。
 
 ## 候选核对
 
@@ -96,3 +98,38 @@ Finished: FAILURE
 第 3–12 阶段均未执行；没有新镜像、候选晋级、发布 tag 或线上迁移。流水线已撤回代理克隆中本轮未提交的改钉。控制台在 `infrastructure/.build/jenkins/release-84.log`，正式产物见 Jenkins 构建页。
 
 遵照发布卡失败即停止、不自动重试：修正提交后等待所有者确认重跑。页面验收、上线后日志、0039 迁移完成及 K29 对账仍未执行。
+
+
+## 发布 #85：已发布，上线工程核查通过
+
+所有者说“继续”后重新检查活动委托、作者测试、Wind 待派作业均为 0，再触发原四应用发布。根仓修正 `548805446d` 已进入本轮；所有者在 Jenkins 人批页批准后，流水线成功完成（SUCCESS，Make 退出 0）。
+
+- Jenkins：[release #85](https://jenkins.dev.sunmoonai.com:30443/job/release/85/)，自动回执：[release-85.20261106-214536.md](release-85.20261106-214536.md)。
+- 完成时间：2026-11-06 21:45；tag：`release-20261106-1`。
+- 部署候选：`6778c4c82118b655df83d72a8690258d49cdcc17`；晋级指针：`e4e3cfda4128ad010746b75f160386d878c94797`；流水线回执提交：`d83ba637`。
+- Flux OCI：`sha256:c26e5e5bf6ebc1650f6bb6a0c7707f2ff67d2e0a3c26979e7d4b756d86ffb139`。
+- 四应用源提交均与本卡一致；7 个镜像锁变更，完整 digest 与 source_revision 在自动回执。knowlab-admin 源码仍为 `89fe3ac1`，本次原生构建产生新 digest，审批前已明确告知；不能表述成只有 6 个镜像变化。tpl、knowmart、link 未发。
+- 第 11 阶段四应用 application-check 全通过。
+
+### 上线后只读复核
+
+| 检查 | 结果 |
+| --- | --- |
+| 四应用 Deployments | 均达到 desired/updated/ready；API、worker、runner、scheduler 与前端部署镜像逐个等于当前 image.lock 的 digest |
+| 四应用相关 Flux Kustomizations | Ready=True |
+| knowbench 本轮迁移 Job `knowbench-migrate-da0a1a48a333-v9` | Complete=True，succeeded=1，无失败 |
+| knowbench 数据库版本 | `20261106_0039` |
+| knowbase / knowfeed / knowlab 数据库版本 | `20261101_0021` / `20261030_0022` / `20261103_0026`，均保持预期 |
+| K29 非测试来源任务却关联测试用例数 | 0 |
+| K29 普通会话却含测试任务数 | 0 |
+| 四应用 API、worker 与 knowbench-runner 最近 10 分钟日志 | 全部查询成功；未命中 Traceback 或 ERROR；本次未设 tail 截断。runner 此窗口无日志，不据此推断模型执行已验证 |
+
+未代点采单或业务审批、未恢复历史失败轮次、未发起付费模型测试或 Wind 查询。
+
+### 尚未完成与保留项
+
+1. 发布卡四节第 3–5 行（工作稿挑表/GBK CSV、knowlab 作者测试展示与停止、登录回跳）需要所有者浏览器验收，尚未执行，不能记为通过。第 6 行真实 Wind 查询亦未执行。
+2. 账 182 所述两份未引用 SOPS 文件被发布流程重新生成并提交：`runtime/knowbase-user-data-import-service.sops.yaml` 与 `runtime/storage.sops.yaml`。已只查路径与 kustomization：仍无引用，不构成新增运行时对象；但“删除冗余密文文件”未保持，留后续修发布生成/暂存范围，本次不追加发布、不读解密内容。
+3. 本次成功恢复和发布不代表此前 systemd cgroup 资源冲突的深层原因已永久修复；启动恢复证据见前节。
+
+工程发布已完成，后续应用开发可基于此发布基线继续；业务验收仍按上列保留项独立记账。
