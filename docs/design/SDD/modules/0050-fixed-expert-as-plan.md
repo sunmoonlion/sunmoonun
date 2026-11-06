@@ -31,7 +31,7 @@
 | 输入 | `input_refs` 里每个名字绑到**前面最近一步产出它的**那一步 | 模型按槽绑 |
 | 最终产出 | `{最后一步 step_id: 最后一步 step_id}` | 作者 `final_units` |
 | 改计划 | 不许：`max_replans = 0`，回执只有第 1 版 | 按作者上限 |
-| 留痕 | 同动态：`__method_plan__` 第 1 版 artifact + 一次 `step_id=__method_plan__` 的平台尝试（预留与花费都是 0、没有 turn），保持「每份回执都有一次尝试」 | 规划尝试 |
+| 留痕 | `__method_plan__` 第 1 版 artifact（`attempt_id` 为空），回执的 `attempt_id` 填平台标记 `author-order`。**不开尝试**（11-06 写代码时改，原写「开一次零费用的规划尝试」）：开尝试会把委托从排队改成运行、在时间线上多一条「开始尝试」、交回的「做过什么」多一行，固定专家就不等价了 | 规划尝试 |
 
 **产出名不变。**执行时取产出名一律读 `view.pack.workflow[i].output_artifact`，不再直接拼 `output_name(instance_id)`。动态的 `project_plan` 本来就把 `output_artifact` 设成 `output_name(instance_id)`，所以动态不受影响；固定的产出仍叫作者起的名字（如 `plan`、`answer`），knowlab 测试里按名字写的断言、页面、报告都不用改。
 
@@ -58,7 +58,7 @@
 - **只对新委托。**进行中的固定委托没有回执（`accepted_plan_version` 为空），照旧路走到结束；不给它们补回执（补了会改钉正在执行的任务）。
 - **开关**：后端配置 `WORKBENCH_FIXED_AS_PLAN`，默认关；关时一切照旧。开了以后新受理的固定委托生成回执。
 - **生成不了就走旧路**：老的 v2 分身里 `input_refs` 指向没有哪一步产出的名字、或 `back_to` 不在输入里，生成失败时记一条告警、这件委托照旧路，不让它失败（替代路径未验收前保持原产品可用）。
-- **几处要放宽成两种回执都认**：`validate_receipt` 现在会调 `catalog_for_task`（固定专家没有目录）；`pack_digest` 内置包委托上没有，生成时按包的 JSON 算一个存进委托；`accepted_results` 的 `_meta` 比对改按回执的契约取。
+- **几处要放宽成两种回执都认**：`validate_receipt` 现在会调 `catalog_for_task`（固定专家没有目录）；`pack_digest` 内置包委托上没有，生成和核对时都按包的规范 JSON 现算（不写回委托，`fixed_pack_digest`）；`accepted_results` 的 `_meta` 比对改按回执的契约取。
 - **旧路退役**：开关打开后，线上已没有无回执的进行中固定委托，且第五节验收通过，所有者批准后，删旧路（advisor 等里面 `receipt is None` 的分支、`is_dynamic` 改名或删）。
 
 ## 五、等价验收（K31 列的五项）
@@ -90,8 +90,8 @@
 
 ## 八、做的顺序
 
-1. 领域层：`fixed-plan/v1` 模型、`fixed_plan(pack)` 生成、`validate_fixed_plan`；产出名改读 `pack.workflow`。
-2. 应用层：受理通过时生成回执（开关）；`validate_receipt`、`accepted_results` 认两种回执。
+1. 领域层：`fixed-plan/v1` 模型、`fixed_plan(pack)` 生成、`validate_fixed_plan`。**已写**（knowbench-backend `app/domain/workbench/fixed_plan.py`）。
+2. 应用层：写回执 `accept_fixed_plan`、`validate_receipt` 认固定回执。**已写**（`app/application/workbench/fixed_plans.py`），还没接到受理流程上，开关也还没加；产出名改读 `pack.workflow`、`accepted_results` 认固定回执随第 3 步做。
 3. 把第一节各处的分支改成按回执走（每改一处，开关关时的现有测试全过）。
 4. 第五节等价验收测试。
 5. 本地卡：测试环境开开关，跑保底题。
