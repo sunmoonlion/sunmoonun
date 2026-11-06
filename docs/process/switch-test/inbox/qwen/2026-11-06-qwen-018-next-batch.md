@@ -76,3 +76,7 @@ cd ~/worktrees/qwen/sunmoonun && make -C infrastructure jenkins-release-run RELE
 ## 回执
 
 `scripts/results/qwen-018.<时间>.md`：第一、二节输出原文；第三节 Jenkins 号、tag、人批页的改钉与镜像锁摘要、`11 检查` 结果；第四节各行（所有者的写一句结果）。提交并推到 qwen，跟所有者说「推好了」。
+
+## 本地执行补记（2026-11-06，Luna）
+
+环境已按所有者授权恢复；发前活动任务、测试及 Wind 队列均为空。Jenkins #84 在第 2 阶段失败：knowbench 部署真源仍期望 0038，与本卡要求的 0039 不一致。已将 `gitops/components/app-platform/knowbench-app/knowbench-backend/config.yaml` 改为 `20261106_0039`，固定后端 Git 对象迁移链离线核对通过。未部署、不改数据库、未自动重试。下轮先确认该修正已进入 Jenkins 根仓候选，再按原四应用、原 gitlink 与原审批执行。完整回执：`scripts/results/qwen-018.20261106-2049.md`。

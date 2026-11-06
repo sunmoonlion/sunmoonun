@@ -67,3 +67,32 @@ sunmoon-jenkins-agent.service ActiveState=inactive SubState=dead
 - 经正式 app-server 协议 initialize → thread/loaded/list 查询 4 个 ready 沙箱（含 sig-am c678ec57…）：各 loaded_threads=0、active_turns=[]。未调用模型、未恢复线程、未代批任何业务操作。
 
 发前检查通过，继续按发布卡触发 Jenkins，结果另补；此段不代表已发布。临时日志：`/tmp/qwen018-platform-start.log`、`/tmp/qwen018-platform-status-restored.log`。
+
+## 发布 #84：迁移配置检查失败，未部署
+
+正式命令：
+
+```bash
+make -C infrastructure jenkins-release-run RELEASE_BRANCH=qwen APPS="knowbase knowfeed knowbench knowlab" PIN=heads NOTE="qwen-018 下一批：账 180–188、K29、183"
+```
+
+构建页：<https://jenkins.dev.sunmoonai.com:30443/job/release/84/>。先等待定时 render-check #1445（SUCCESS）释放执行器，随后发布进入第 2 阶段。#84 显示根仓快照 `16bfd4904a`，四个应用改钉与发布卡一致。最终 FAILURE，Make 退出 2。
+
+原始错误（`2-plan-knowbench.log`）：
+
+```text
+TASK [Require the configured schema to match the immutable source chain]
+[ERROR]: Task failed: Action failed: Expected schema differs from pinned backend source. Correct the configuration before rendering or deployment.
+fatal: [localhost]: FAILED! => {"assertion": "cfg.expected_schema_revision == (pinned_schema.stdout | from_json).head", "changed": false, "evaluated_to": false, "msg": "Expected schema differs from pinned backend source. Correct the configuration before rendering or deployment."}
+localhost : ok=14 changed=0 unreachable=0 failed=1 skipped=7 rescued=0 ignored=0
+make: *** [Makefile:411: application-deployment-plan] Error 2
+Finished: FAILURE
+```
+
+原因：发布卡明确要求 knowbench `20261106_0039`，部署真源 config.yaml 仍声明 `20261104_0038`。已修正声明并更新对应注释；没有手改渲染产物或数据库。
+
+离线验证：直接读取固定后端 Git 对象 `c7d3d14dbd29177cdd85da59a54025b9b57d3276` 的全部 Alembic 文件，用 AST 提取 revision/down_revision，检查单一根、父链完整、唯一头。共 38 个迁移，唯一头 `20261106_0039` 与修正后配置一致，直接父为 `20261104_0038`。`git diff --check` 通过。下一轮仍须走正式 application-deployment-plan 和全流水线，不能把离线验证写作上线验收。
+
+第 3–12 阶段均未执行；没有新镜像、候选晋级、发布 tag 或线上迁移。流水线已撤回代理克隆中本轮未提交的改钉。控制台在 `infrastructure/.build/jenkins/release-84.log`，正式产物见 Jenkins 构建页。
+
+遵照发布卡失败即停止、不自动重试：修正提交后等待所有者确认重跑。页面验收、上线后日志、0039 迁移完成及 K29 对账仍未执行。

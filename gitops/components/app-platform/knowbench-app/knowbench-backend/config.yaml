@@ -7,8 +7,8 @@ knowbench_backend_deployment:
   database_extensions: []
   database_bootstrap_revision: v1
   migration_job_revision: v9
-  # 数据第四版：删 v1、孵化表（20261028_0030–0031 删行，20261029_0032 只加列；Opus 10-29 核定头 20261029_0032）
-  expected_schema_revision: '20261104_0038'
+  # K29：测试项目与普通工作台分离；0039 接 0038，保留历史记录。
+  expected_schema_revision: '20261106_0039'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
