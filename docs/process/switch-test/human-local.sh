@@ -2,6 +2,7 @@
 # 所有者在本地机上跑的（拉）：把全部仓和副本同步到远程助手推上来的最新状态，并列出待办。跑完之后的推回见 human-remote.sh。
 # 跑完后对 Cursor 说「请看 inbox/cursor」、对 astra 说「请看 inbox/astra」。本地助手不同步、不推；每条做完自己在被测仓本地提交（README「3c」）。
 # 用法：WS=<工位> bash ~/switch-test/human-local.sh    （工位必须给，不猜；同步该工位的五仓 + 子仓 + sunmoon-link）
+# 工位定目录 ~/worktrees/<工位>；分支默认是根仓当前所在的分支，也可 BRANCH=<分支> 指定
 # ~/switch-test 里的两个脚本只是转发器（本脚本生成），永远跑仓里当前工位的最新版；第一次或转发器还没生成时，
 # 直接跑仓里这份：WS=fable bash ~/worktrees/fable/sunmoonun/docs/process/switch-test/human-local.sh
 set -uo pipefail
@@ -12,6 +13,15 @@ fi
 WS="$WS"
 ROOT_REPO="${ROOT_REPO:-sunmoonun}"   # 根仓目录名；改名 sunmoonun 时改这里（与 infrastructure/jenkins/config.yaml 的 jenkins_root_repo 同步）
 K8S="$HOME/worktrees/$WS/$ROOT_REPO"; ST="$K8S/docs/process/switch-test"
+SYNC_SCRIPT="${SYNC_SCRIPT:-$HOME/five-repos-sync/sync-five-repos.sh}"
+# 分支：默认取工位里根仓当前所在的分支，可用 BRANCH=<分支> 指定（2026-11-06：分支名可以和工位名不同，
+# 如 work/qwen-20261106）。分支与工位同名时和原来完全一样，仍交给 sync-five-repos.sh；不同名时不调它，
+# 直接对 origin 拉推这个分支（它只认工位名或自己配置里的分支）。
+if [ -z "${BRANCH:-}" ]; then
+  BRANCH=$(git -C "$HOME/worktrees/$WS/$ROOT_REPO" branch --show-current 2>/dev/null || true)
+  [ -n "$BRANCH" ] || { echo "✗ 取不到 $HOME/worktrees/$WS/$ROOT_REPO 当前所在的分支（不存在或游离）；用 BRANCH=<分支> 指定" >&2; exit 2; }
+fi
+export BRANCH
 FIVE="$ROOT_REPO knowfeed-app knowbench-app knowbase-app tpl-app knowlab-app knowmart-app"
 # 父仓下的全部子仓（与 human-remote.sh 同一份）
 SUBS="knowfeed-app/knowfeed-backend knowfeed-app/knowfeed-web-frontend knowfeed-app/knowfeed-admin-frontend
@@ -23,7 +33,7 @@ SUBS="knowfeed-app/knowfeed-backend knowfeed-app/knowfeed-web-frontend knowfeed-
 
 pull() { # 仓目录 标签
   [ -e "$1/.git" ] || { echo "⚠ $2 不存在：$1"; return 1; }
-  git -C "$1" pull -q --ff-only origin "$WS" && printf "  %-28s %s\n" "$2" "$(git -C "$1" rev-parse --short HEAD)" || { echo "✗ $2 拉取失败（工作区有改动？分支不对？）"; return 1; }
+  git -C "$1" pull -q --ff-only origin "$BRANCH" && printf "  %-28s %s\n" "$2" "$(git -C "$1" rev-parse --short HEAD)" || { echo "✗ $2 拉取失败（工作区有改动？分支不对？）"; return 1; }
 }
 
 if [ "${1:-}" != "--after-sync" ]; then
@@ -32,10 +42,10 @@ echo "===== 0. 先看本地有没有没推回的东西"
 blocked=0
 for r in $FIVE $SUBS sunmoon-link; do
   d="$HOME/worktrees/$WS/$r"; [ -e "$d/.git" ] || continue
-  # 先取远端：远程助手把本地提交合并进去后，旧的 origin/$WS 会把它们误报成「没推回」
-  git -C "$d" fetch -q origin "$WS" 2>/dev/null || true
+  # 先取远端：远程助手把本地提交合并进去后，旧的 origin/$BRANCH 会把它们误报成「没推回」
+  git -C "$d" fetch -q origin "$BRANCH" 2>/dev/null || true
   dirty=$(git -C "$d" status --porcelain --ignore-submodules=all | head -1)
-  ahead=$(git -C "$d" rev-list --count "origin/$WS..HEAD" 2>/dev/null || echo 0)
+  ahead=$(git -C "$d" rev-list --count "origin/$BRANCH..HEAD" 2>/dev/null || echo 0)
   # 子仓按父仓 gitlink 检出，可能来自另一工位；与 human-remote.sh 一样，
   # 已在远端分支上的提交不算「没推回」。父仓和 sunmoon-link 仍须对齐本工位。
   if [[ "$r" == */* ]] && [ -n "$(git -C "$d" branch -r --contains HEAD --list 'origin/*' 2>/dev/null)" ]; then
@@ -49,12 +59,18 @@ if [ "$blocked" = 1 ]; then
   exit 2
 fi
 echo "  干净，可以拉"
-echo "===== 1. 同步全部（工位 $WS）"
-if [ -x "$HOME/five-repos-sync/sync-five-repos.sh" ]; then
-  "$HOME/five-repos-sync/sync-five-repos.sh" from-remote "$WS" || { echo "五仓同步失败，停在这里，把上面的输出贴给远程助手"; exit 1; }
+echo "===== 1. 同步全部（工位 $WS，分支 $BRANCH）"
+if [ "$BRANCH" = "$WS" ] && [ -x "$SYNC_SCRIPT" ]; then
+  "$SYNC_SCRIPT" from-remote "$WS" || { echo "五仓同步失败，停在这里，把上面的输出贴给远程助手"; exit 1; }
   for r in $FIVE; do printf "  %-28s %s\n" "$r" "$(git -C "$HOME/worktrees/$WS/$r" rev-parse --short HEAD 2>/dev/null)"; done
 else
-  for r in $FIVE; do pull "$HOME/worktrees/$WS/$r" "$r" || exit 1; done
+  # 和 sync-five-repos.sh 的 local-pull 一样：父仓只快进，再按新指针检出子仓
+  for r in $FIVE; do
+    pull "$HOME/worktrees/$WS/$r" "$r" || exit 1
+    if [ -f "$HOME/worktrees/$WS/$r/.gitmodules" ]; then
+      git -C "$HOME/worktrees/$WS/$r" submodule -q sync --recursive && git -C "$HOME/worktrees/$WS/$r" submodule -q update --init --recursive || { echo "✗ $r 子仓没对上新指针"; exit 1; }
+    fi
+  done
 fi
 pull "$HOME/worktrees/$WS/knowbench-app/knowbench-backend" "knowbench-app/knowbench-backend" || exit 1
 pull "$HOME/worktrees/$WS/knowbase-app/knowbase-backend" "knowbase-app/knowbase-backend" || exit 1
@@ -64,16 +80,16 @@ pull "$HOME/worktrees/$WS/sunmoon-link" sunmoon-link || exit 1
 # 游离状态下本地助手要先自己建分支才能提交，容易出错。这里把每个子仓接到本地 <工位> 分支：
 #   - 子仓当前提交等于、或领先于本地已有的 <工位> 分支：在当前提交上建/移到该分支（内容不动）；
 #   - 本地 <工位> 分支有没推回的提交（领先于当前提交）：不动，提示先回传。
-echo "===== 1b. 子仓接回 $WS 分支"
+echo "===== 1b. 子仓接回 $BRANCH 分支"
 for r in $SUBS; do
   d="$HOME/worktrees/$WS/$r"; [ -e "$d/.git" ] || continue
-  [ "$(git -C "$d" branch --show-current)" = "$WS" ] && continue
+  [ "$(git -C "$d" branch --show-current)" = "$BRANCH" ] && continue
   head=$(git -C "$d" rev-parse HEAD)
-  if git -C "$d" show-ref --verify --quiet "refs/heads/$WS" && ! git -C "$d" merge-base --is-ancestor "refs/heads/$WS" "$head"; then
-    echo "  ⚠ $r 本地 $WS 分支有没推回的提交，没动；先跑 human-remote.sh 回传"; continue
+  if git -C "$d" show-ref --verify --quiet "refs/heads/$BRANCH" && ! git -C "$d" merge-base --is-ancestor "refs/heads/$BRANCH" "$head"; then
+    echo "  ⚠ $r 本地 $BRANCH 分支有没推回的提交，没动；先跑 human-remote.sh 回传"; continue
   fi
-  git -C "$d" checkout -q -B "$WS" "$head" || { echo "  ⚠ $r 接不回 $WS 分支"; continue; }
-  git -C "$d" fetch -q origin "$WS" 2>/dev/null && git -C "$d" branch -q --set-upstream-to="origin/$WS" "$WS" 2>/dev/null
+  git -C "$d" checkout -q -B "$BRANCH" "$head" || { echo "  ⚠ $r 接不回 $BRANCH 分支"; continue; }
+  git -C "$d" fetch -q origin "$BRANCH" 2>/dev/null && git -C "$d" branch -q --set-upstream-to="origin/$BRANCH" "$BRANCH" 2>/dev/null
   printf "  %-44s %s\n" "$r" "$(git -C "$d" rev-parse --short HEAD)"
 done
 fi

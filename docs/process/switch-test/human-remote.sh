@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 所有者在本地机上跑的（推）：本地助手说「跑完了」之后，把它写下的结果和其它改动提交，并同步回远程。
 # 用法：WS=<工位> bash ~/switch-test/human-remote.sh    （工位必须给，不猜；先推子仓与 sunmoon-link，再由 sync-five-repos.sh 同步父仓）
+# 工位定目录 ~/worktrees/<工位>；分支默认是根仓当前所在的分支，也可 BRANCH=<分支> 指定
 # 推之前每个仓都先 fetch：远程助手这期间推了新提交的话，本地提交 rebase 到它上面再推；冲突就停。所以不必先跑 human-local.sh。
 # 跑完把最后打印的「仓 提交号」告诉远程助手。
 set -euo pipefail
@@ -12,6 +13,14 @@ WS="$WS"
 WORKTREE_ROOT="${WORKTREE_ROOT:-$HOME/worktrees/$WS}"
 SYNC_SCRIPT="${SYNC_SCRIPT:-$HOME/five-repos-sync/sync-five-repos.sh}"
 ROOT_REPO="${ROOT_REPO:-sunmoonun}"
+# 分支：默认取工位里根仓当前所在的分支，可用 BRANCH=<分支> 指定（2026-11-06：分支名可以和工位名不同，
+# 如 work/qwen-20261106）。分支与工位同名时和原来完全一样，仍交给 sync-five-repos.sh；不同名时不调它，
+# 直接对 origin 拉推这个分支（它只认工位名或自己配置里的分支）。
+if [ -z "${BRANCH:-}" ]; then
+  BRANCH=$(git -C "$WORKTREE_ROOT/$ROOT_REPO" branch --show-current 2>/dev/null || true)
+  [ -n "$BRANCH" ] || { echo "✗ 取不到 $WORKTREE_ROOT/$ROOT_REPO 当前所在的分支（不存在或游离）；用 BRANCH=<分支> 指定" >&2; exit 2; }
+fi
+export BRANCH
 FIVE="$ROOT_REPO knowfeed-app knowbench-app knowbase-app tpl-app knowlab-app knowmart-app"
 # 父仓下的全部子仓（前端也在内：2026-10-08 luna 的网页修复因只列了两个后端而没推上来）
 SUBS="knowfeed-app/knowfeed-backend knowfeed-app/knowfeed-web-frontend knowfeed-app/knowfeed-admin-frontend
@@ -28,20 +37,20 @@ check_repo() { # 仓目录 标签 是否允许 detached HEAD
   local d="$1" tag="$2" allow_detached="${3:-no}" branch
   [ -e "$d/.git" ] || { echo "✗ $tag 不存在：$d"; return 1; }
   branch=$(git -C "$d" branch --show-current) || return 1
-  if [ "$branch" != "$WS" ] && { [ -n "$branch" ] || [ "$allow_detached" != yes ]; }; then
-    echo "✗ $tag 当前分支 ${branch:-detached HEAD}，预期 $WS"
+  if [ "$branch" != "$BRANCH" ] && { [ -n "$branch" ] || [ "$allow_detached" != yes ]; }; then
+    echo "✗ $tag 当前分支 ${branch:-detached HEAD}，预期 $BRANCH"
     return 1
   fi
 }
 
 rebase_on_origin() { # 仓目录 标签：先把远程助手期间推上来的新提交拿下来，本地提交叠在上面；冲突即停
   local d="$1" tag="$2"
-  git -C "$d" ls-remote --exit-code -q origin "refs/heads/$WS" >/dev/null 2>&1 || return 0   # 远端还没有这个分支（首次推）：没什么可叠
-  git -C "$d" fetch -q origin "$WS" || { echo "✗ $tag fetch 失败"; return 1; }
-  local behind; behind=$(git -C "$d" rev-list --count "HEAD..origin/$WS" 2>/dev/null || echo 0)
+  git -C "$d" ls-remote --exit-code -q origin "refs/heads/$BRANCH" >/dev/null 2>&1 || return 0   # 远端还没有这个分支（首次推）：没什么可叠
+  git -C "$d" fetch -q origin "$BRANCH" || { echo "✗ $tag fetch 失败"; return 1; }
+  local behind; behind=$(git -C "$d" rev-list --count "HEAD..origin/$BRANCH" 2>/dev/null || echo 0)
   [ "$behind" = 0 ] && return 0
-  echo "    $tag 落后远程 $behind 个提交，rebase 到 origin/$WS"
-  git -C "$d" rebase -q "origin/$WS" || { git -C "$d" rebase --abort 2>/dev/null; echo "✗ $tag rebase 冲突，停止回传；把上面的输出贴给远程助手"; return 1; }
+  echo "    $tag 落后远程 $behind 个提交，rebase 到 origin/$BRANCH"
+  git -C "$d" rebase -q "origin/$BRANCH" || { git -C "$d" rebase --abort 2>/dev/null; echo "✗ $tag rebase 冲突，停止回传；把上面的输出贴给远程助手"; return 1; }
   # 父仓 rebase 跨过了远程改子模块指针的提交时，子模块目录还停在旧提交，会被同步脚本判成「有未提交内容」（2026-10-12 踩到）。
   # 子仓的本地改动在第 2 步已经提交并推送，这里只是把检出对到新指针上，不丢东西。
   if [ -f "$d/.gitmodules" ]; then
@@ -61,7 +70,7 @@ commit_if_dirty() { # 仓目录 标签
   fi
 }
 
-echo "===== 1. 检查本地仓库（工位 $WS）"
+echo "===== 1. 检查本地仓库（工位 $WS，分支 $BRANCH）"
 for r in $FIVE sunmoon-link; do check_repo "$WORKTREE_ROOT/$r" "$r" || exit 1; done
 for r in $SUBS; do
   check_repo "$WORKTREE_ROOT/$r" "$r" yes || exit 1
@@ -75,7 +84,7 @@ for r in $OTHERS; do
   if [ "$r" != sunmoon-link ] && [ -n "$(git -C "$d" branch -r --contains HEAD 2>/dev/null)" ]; then continue; fi
   rebase_on_origin "$d" "$r" || exit 1
   # 子模块 update 后通常 detached；推当前 HEAD，不能依赖可能不存在或过期的本地分支。
-  git -C "$d" push -q origin "HEAD:refs/heads/$WS" || { echo "✗ $r push 失败，停止回传"; exit 1; }
+  git -C "$d" push -q origin "HEAD:refs/heads/$BRANCH" || { echo "✗ $r push 失败，停止回传"; exit 1; }
   echo "  已推 $r"; pushed+=("$r")
 done
 
@@ -85,10 +94,10 @@ for r in $FIVE; do
   rebase_on_origin "$WORKTREE_ROOT/$r" "$r" || exit 1
 done
 if [ ${#changed[@]} -eq 0 ]; then echo "没有改动要提交（可能本地助手已经自己提交了）。"; fi
-if [ -x "$SYNC_SCRIPT" ]; then
+if [ "$BRANCH" = "$WS" ] && [ -x "$SYNC_SCRIPT" ]; then
   "$SYNC_SCRIPT" to-remote "$WS" || { echo "父仓 to-remote 失败，把上面的输出贴给远程助手"; exit 1; }
 else
-  for r in $FIVE; do git -C "$WORKTREE_ROOT/$r" push -q origin "$WS" || { echo "✗ $r push 失败"; exit 1; }; done
+  for r in $FIVE; do git -C "$WORKTREE_ROOT/$r" push -q origin "$BRANCH" || { echo "✗ $r push 失败"; exit 1; }; done
 fi
 
 echo "===== 4. 告诉远程助手这一句："
