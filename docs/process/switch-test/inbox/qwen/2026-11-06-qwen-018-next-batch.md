@@ -4,12 +4,12 @@
 > 为什么成组：开发头比线上 #83 多出的几处互相依赖，单发一个会坏——线上 knowlab 挑数据要的格式接口在 knowbase（账 180）；knowbench 网页发 `expert-match/v4`，线上后端不认；K29 要 knowbench 后端（迁移 0039）与 knowlab 前后端一起（账 181）。
 
 ```text
-被测仓：sunmoonun，qwen 工作树 ~/worktrees/qwen/sunmoonun，分支 work/qwen-20261106
-一次发布：knowbase knowfeed knowbench knowlab，PIN=heads（钉到四个父仓在 work/qwen-20261106 的头，子仓取父仓的 gitlink）
+被测仓：sunmoonun，qwen 工作树 ~/worktrees/qwen/sunmoonun，分支 qwen
+一次发布：knowbase knowfeed knowbench knowlab，PIN=heads（钉到四个父仓在 qwen 的头，子仓取父仓的 gitlink）
 新迁移：只有 knowbench 20261106_0039（接 0038）；knowbase 0021、knowfeed 0022、knowlab 0026 线上已在
 不发：tpl、knowmart（knowmart 与线上一致；tpl 网页多 1 笔登录恢复，另批）；本地 link 0.5.6 另卡（账 187 已改代码）
 停下的规则：任何一步 exit 不是 0 就停，输出原样进回执，不重试、不退回
-做完：回执提交并推到 work/qwen-20261106（2026-11-06 起提交即推；推不上去就停下说，不 rebase）
+做完：回执提交并推到 qwen（2026-11-06 起提交即推；推不上去就停下说，不 rebase）
 ```
 
 ## 这一批上什么
@@ -28,7 +28,7 @@
 
 ```bash
 cd ~/worktrees/qwen/sunmoonun && git log --oneline -1 && git status --short | head -3
-for a in knowbase knowfeed knowbench knowlab; do d=~/worktrees/qwen/$a-app; git -C $d fetch -q origin work/qwen-20261106; printf "%-10s 本地 %s 远端 %s\n" $a $(git -C $d rev-parse --short=8 HEAD) $(git -C $d rev-parse --short=8 origin/work/qwen-20261106); git -C $d submodule status; done
+for a in knowbase knowfeed knowbench knowlab; do d=~/worktrees/qwen/$a-app; git -C $d fetch -q origin qwen; printf "%-10s 本地 %s 远端 %s\n" $a $(git -C $d rev-parse --short=8 HEAD) $(git -C $d rev-parse --short=8 origin/qwen); git -C $d submodule status; done
 make -C infrastructure platform-status; echo "status exit=$?"
 ```
 
@@ -54,7 +54,7 @@ make -C infrastructure platform-status; echo "status exit=$?"
 ## 三、发布
 
 ```bash
-cd ~/worktrees/qwen/sunmoonun && make -C infrastructure jenkins-release-run RELEASE_BRANCH=work/qwen-20261106 APPS="knowbase knowfeed knowbench knowlab" PIN=heads NOTE="qwen-018 下一批：账 180–188、K29、183"
+cd ~/worktrees/qwen/sunmoonun && make -C infrastructure jenkins-release-run RELEASE_BRANCH=qwen APPS="knowbase knowfeed knowbench knowlab" PIN=heads NOTE="qwen-018 下一批：账 180–188、K29、183"
 ```
 
 照 Jenkins 的人批页看改钉（4 个应用的父仓与子仓号与第一节一致）、镜像锁（变的只有这四个应用的子仓）、迁移（knowbench 计划核到 `20261106_0039`，其余三个迁移头不变）再批。批完等到 `11 检查` 全过；Jenkins 推的回执在 `scripts/results/release-<号>.*.md`。
@@ -74,4 +74,4 @@ cd ~/worktrees/qwen/sunmoonun && make -C infrastructure jenkins-release-run RELE
 
 ## 回执
 
-`scripts/results/qwen-018.<时间>.md`：第一、二节输出原文；第三节 Jenkins 号、tag、人批页的改钉与镜像锁摘要、`11 检查` 结果；第四节各行（所有者的写一句结果）。提交并推到 work/qwen-20261106，跟所有者说「推好了」。
+`scripts/results/qwen-018.<时间>.md`：第一、二节输出原文；第三节 Jenkins 号、tag、人批页的改钉与镜像锁摘要、`11 检查` 结果；第四节各行（所有者的写一句结果）。提交并推到 qwen，跟所有者说「推好了」。

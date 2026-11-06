@@ -73,6 +73,8 @@ class PublishTests(unittest.TestCase):
             WS="fable",
         )
         self.env.pop("BRANCH", None)
+        if self.BRANCH != "fable":
+            self.env["BRANCH"] = self.BRANCH
 
     def publish(self, success=True):
         result = subprocess.run(
@@ -167,20 +169,17 @@ class PublishTests(unittest.TestCase):
         self.env["SYNC_SCRIPT"] = str(stub)
         return marker
 
-    def test_sync_script_only_when_branch_is_the_workstation_name(self):
-        # 同名照原来交给 sync-five-repos.sh；不同名不调它（它只认工位名），由脚本直接推
+    def test_publish_never_calls_legacy_ssh_sync(self):
+        # 即使工位与分支同名，也只能推 Git，不能调用旧机器的 SSH 同步。
         marker = self.sync_stub()
         self.publish()
-        if self.BRANCH == "fable":
-            self.assertEqual(marker.read_text().split(), ["to-remote", "fable"])
-        else:
-            self.assertFalse(marker.exists())
-            for parent in PARENTS:
-                repo = self.worktrees / parent
-                self.assertEqual(
-                    git(self.origins[parent], "rev-parse", self.BRANCH),
-                    git(repo, "rev-parse", "HEAD"),
-                )
+        self.assertFalse(marker.exists())
+        for parent in PARENTS:
+            repo = self.worktrees / parent
+            self.assertEqual(
+                git(self.origins[parent], "rev-parse", self.BRANCH),
+                git(repo, "rev-parse", "HEAD"),
+            )
 
     def test_explicit_branch_must_match_checkouts(self):
         # BRANCH 写错（仓不在这个分支上）就停，不推不提交
@@ -191,6 +190,7 @@ class PublishTests(unittest.TestCase):
         self.assertEqual(git(parent, "rev-parse", "HEAD"), before)
 
     def test_local_pull_follows_branch(self):
+        marker = self.sync_stub()
         # human-local.sh：拉的是根仓当前所在的分支，子仓接回同名分支
         for child in CHILDREN:
             git(self.worktrees / child, "push", "-q", "origin", "HEAD:refs/heads/" + self.BRANCH)
@@ -210,6 +210,7 @@ class PublishTests(unittest.TestCase):
         result = subprocess.run(["bash", str(tools / "human-local.sh")], env=env, text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("同步完成", result.stdout)
+        self.assertFalse(marker.exists())
         self.assertEqual(git(parent, "rev-parse", "HEAD"), git(self.origins[ROOT_REPO], "rev-parse", self.BRANCH))
         self.assertTrue((parent / "remote-note.txt").exists())
         for child in CHILDREN:
@@ -217,7 +218,7 @@ class PublishTests(unittest.TestCase):
 
 
 class PublishOnDifferentlyNamedBranchTests(PublishTests):
-    """2026-11-06 起分支名可以和工位名不同（如 work/qwen-20261106）：同一组用例全部照跑。"""
+    """显式 BRANCH 覆盖仍可用；日常工位默认使用同名分支。"""
     BRANCH = "work/fable-20261106"
 
 
