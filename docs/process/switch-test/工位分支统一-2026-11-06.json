@@ -1,0 +1,649 @@
+{
+  "date": "2026-11-06",
+  "note": "核验快照在本回执提交前取得；回执随后只推进根仓六个工位分支，不改业务仓提交。",
+  "branches": [
+    "master",
+    "cursor",
+    "fable",
+    "kimi",
+    "luna",
+    "qwen",
+    "agy"
+  ],
+  "remote_endpoints_verified": 52,
+  "local_checkouts_verified": 156,
+  "retired_remote_refs": 314,
+  "repos": [
+    {
+      "repo": "knowbase-app",
+      "verified_heads": {
+        "master": "a5051faf4c086e4d282217ce0e8225b4ec39bf8d",
+        "cursor": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "fable": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "kimi": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "luna": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "qwen": "cb1cb10a72e196cc949f0be4be4bbd336151ef73",
+        "agy": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "b16d7aa8c7ace36a3d84e873718c69a8e2d5f9ae",
+        "archive/stations-20261106/fable": "14e341a17a8add888d024df7fb75c00d72e63d0f",
+        "archive/stations-20261106/fix/recheck-contract": "3fcac2f43e3312f2350dfc205677f252a4a98994",
+        "archive/stations-20261106/fix/supply-confirmation-waiting": "e4aaf398d076864288c791a94250f85cd6e0f94c",
+        "archive/stations-20261106/kimi": "93964596c856de0d8f4918fe51b417733a6e4106",
+        "archive/stations-20261106/luna": "b16d7aa8c7ace36a3d84e873718c69a8e2d5f9ae",
+        "archive/stations-20261106/qwen": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "archive/stations-20261106/release/confirmed-data-recovery": "a48d278e0994bdeff51f6597d09603f452c77ced",
+        "archive/stations-20261106/release/recovery-methods": "e4aaf398d076864288c791a94250f85cd6e0f94c",
+        "archive/stations-20261106/work/cursor-20261106": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "archive/stations-20261106/work/fable-20261106": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "archive/stations-20261106/work/kimi-20261106": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "archive/stations-20261106/work/luna-20261106": "f24ea062b1235cdd47e0a7d1d8f7d2e1ab670f04",
+        "archive/stations-20261106/work/qwen-20261106": "cb1cb10a72e196cc949f0be4be4bbd336151ef73"
+      }
+    },
+    {
+      "repo": "knowbench-app",
+      "verified_heads": {
+        "master": "41e4a2b24ed8a9b3f9d1aa35ef982548df81c41b",
+        "cursor": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "fable": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "kimi": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "luna": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "qwen": "6049c865f668936630be06397a32eaca8b31bd78",
+        "agy": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "388d61bca93594dffeb18defc9d2603c79416de8",
+        "archive/stations-20261106/fable": "a4bf9aec6f96eadccd2c2e333038a8b799ea7d58",
+        "archive/stations-20261106/fix/expert-match-completion": "5f2407a0638252669f5b75a4696c9ddcb3a441bd",
+        "archive/stations-20261106/fix/expert-runtime-release": "c78a678eba62df3e244a32c61e6b3474df665d89",
+        "archive/stations-20261106/fix/recheck-contract": "f69fe1c38a0aa4b8b9065c4844a577d3128018dc",
+        "archive/stations-20261106/fix/step-acceptance-feedback": "26f815bfcb157843fdac9472c6bc6724bc95edc5",
+        "archive/stations-20261106/fix/supply-confirmation-waiting": "99f48f4fb216883a67736f823ac007104a5b4f71",
+        "archive/stations-20261106/kimi": "3ffcc7e8a0738cb1a66c7e9ff26b0bef18be1500",
+        "archive/stations-20261106/luna": "388d61bca93594dffeb18defc9d2603c79416de8",
+        "archive/stations-20261106/qwen": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "archive/stations-20261106/release/recovery-methods": "5f2407a0638252669f5b75a4696c9ddcb3a441bd",
+        "archive/stations-20261106/release/step-idle-guard": "d64fc44e15f0793d459aa3aa4885ad0dea7f866f",
+        "archive/stations-20261106/release/unbounded-expert-duration": "f973f237a78bf2362860e82a9652c8c8d341c205",
+        "archive/stations-20261106/work/cursor-20261106": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "archive/stations-20261106/work/fable-20261106": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "archive/stations-20261106/work/kimi-20261106": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "archive/stations-20261106/work/luna-20261106": "59d22e02a96ad0d64feacc8b683e85c152c4b1d8",
+        "archive/stations-20261106/work/qwen-20261106": "6049c865f668936630be06397a32eaca8b31bd78"
+      }
+    },
+    {
+      "repo": "knowfeed-app",
+      "verified_heads": {
+        "master": "808b7e1de97272f4376674f58907e94896e29d0e",
+        "cursor": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "fable": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "kimi": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "luna": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "qwen": "67638eb94e49a0a614704600b74b096fdcbba44a",
+        "agy": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "fc065ea073eb496d2b40260a4323056a5a2e9a48",
+        "archive/stations-20261106/fable": "317ffffba0afb982c8b4027b7aaf17ee878c505e",
+        "archive/stations-20261106/fix/statement-label-release": "05b60e1bf7c132d5a183e98f30de8ea66a66b83c",
+        "archive/stations-20261106/fix/supply-confirmation-waiting": "b9464a9e993724eb1331cb3d2279058bfa003937",
+        "archive/stations-20261106/kimi": "1cef79d378723d41251b45e5d0973a4169152151",
+        "archive/stations-20261106/luna": "fc065ea073eb496d2b40260a4323056a5a2e9a48",
+        "archive/stations-20261106/qwen": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "archive/stations-20261106/release/recovery-methods": "05b60e1bf7c132d5a183e98f30de8ea66a66b83c",
+        "archive/stations-20261106/release/wind-runtime-activation": "c81bee9f94da2eebf1cd8cf9bde63ff9cd3906dd",
+        "archive/stations-20261106/work/cursor-20261106": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "archive/stations-20261106/work/fable-20261106": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "archive/stations-20261106/work/kimi-20261106": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "archive/stations-20261106/work/luna-20261106": "1d1150e2f161ec7cc6fa772c19b57e280759b6aa",
+        "archive/stations-20261106/work/qwen-20261106": "67638eb94e49a0a614704600b74b096fdcbba44a"
+      }
+    },
+    {
+      "repo": "knowlab-app",
+      "verified_heads": {
+        "master": "43cd00fc7c930419474a86cee0317dfe54dad2f4",
+        "cursor": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "fable": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "kimi": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "luna": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "qwen": "43d2192ff48477e26431913b80ea300dbcc3b4c5",
+        "agy": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "ce93fbc63e2ddea6b1c435f227ec3f8af6dfbe6a",
+        "archive/stations-20261106/fable": "0488b7e5992b52e6a684df7a89bc90e66deb0962",
+        "archive/stations-20261106/fix/markdown-delivery": "c0d8445e1ca9711e86bdf7c66e26327ce749dd1f",
+        "archive/stations-20261106/fix/test-budget-disclosure": "4259d625652adcec9de46ad0c802917f52f6e07f",
+        "archive/stations-20261106/kimi": "92f075c4b694ab6ffaccd8d315282331083ac6f1",
+        "archive/stations-20261106/luna": "ce93fbc63e2ddea6b1c435f227ec3f8af6dfbe6a",
+        "archive/stations-20261106/qwen": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "archive/stations-20261106/release/recovery-methods": "af1b021bea760a2a17956d7ec428e874745d8e5a",
+        "archive/stations-20261106/work/cursor-20261106": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "archive/stations-20261106/work/fable-20261106": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "archive/stations-20261106/work/kimi-20261106": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "archive/stations-20261106/work/luna-20261106": "2ea79c5b7cae0ffe3e8d424c0b4f481cfd4fd5b2",
+        "archive/stations-20261106/work/qwen-20261106": "43d2192ff48477e26431913b80ea300dbcc3b4c5"
+      }
+    },
+    {
+      "repo": "knowmart-app",
+      "verified_heads": {
+        "master": "a7f68471d5013ee972d4aeafdc6efb19a34ec228",
+        "cursor": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "fable": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "kimi": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "luna": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "qwen": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "agy": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "5e19a4cd28817d7db4069dc1a3b8ff4954c32939",
+        "archive/stations-20261106/fable": "255ae5024c83e7d7ad70acba698d173b3a1e0ccb",
+        "archive/stations-20261106/kimi": "5b705417d0d6aef71f1846ee9204332de01b4150",
+        "archive/stations-20261106/luna": "5e19a4cd28817d7db4069dc1a3b8ff4954c32939",
+        "archive/stations-20261106/release/recovery-methods": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "archive/stations-20261106/work/cursor-20261106": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "archive/stations-20261106/work/fable-20261106": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "archive/stations-20261106/work/kimi-20261106": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "archive/stations-20261106/work/luna-20261106": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "archive/stations-20261106/work/qwen-20261106": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef"
+      }
+    },
+    {
+      "repo": "sunmoon-link",
+      "verified_heads": {
+        "master": "2a5049afe6f10aea441f6a41dee6a29f890082df",
+        "cursor": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "fable": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "kimi": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "luna": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "qwen": "5c41d1fba9af0526af9a26a802a140dba6dd77a6",
+        "agy": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "ab5679dd67f48582f3dad1c9087ab73776db9919",
+        "archive/stations-20261106/fable": "35bd1137ad51a849816c487461f1a51f2fbb7107",
+        "archive/stations-20261106/kimi": "ab5679dd67f48582f3dad1c9087ab73776db9919",
+        "archive/stations-20261106/luna": "ab5679dd67f48582f3dad1c9087ab73776db9919",
+        "archive/stations-20261106/qwen": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "archive/stations-20261106/work/cursor-20261106": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "archive/stations-20261106/work/fable-20261106": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "archive/stations-20261106/work/kimi-20261106": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "archive/stations-20261106/work/luna-20261106": "c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96",
+        "archive/stations-20261106/work/qwen-20261106": "5c41d1fba9af0526af9a26a802a140dba6dd77a6"
+      }
+    },
+    {
+      "repo": "sunmoonun",
+      "verified_heads": {
+        "master": "f1248c16dcb51432e3f33be79c37e87b99d9b03d",
+        "cursor": "685e2d591e639c5685c9a6697c17ef6baf14a6cf",
+        "fable": "685e2d591e639c5685c9a6697c17ef6baf14a6cf",
+        "kimi": "685e2d591e639c5685c9a6697c17ef6baf14a6cf",
+        "luna": "685e2d591e639c5685c9a6697c17ef6baf14a6cf",
+        "qwen": "685e2d591e639c5685c9a6697c17ef6baf14a6cf",
+        "agy": "685e2d591e639c5685c9a6697c17ef6baf14a6cf"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/agy": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/cursor": "806f2259785eff75dd2d1bd0ac82cb63878ed496",
+        "archive/stations-20261106/fable": "c00e6766b24c0d249938152d35511116f6f169ff",
+        "archive/stations-20261106/kimi": "9727ef8ff38314d147ea5e72265d2379f5f7cbb5",
+        "archive/stations-20261106/luna": "806f2259785eff75dd2d1bd0ac82cb63878ed496",
+        "archive/stations-20261106/qwen": "da2f6e3423c015cf415de39bdf16c1601893b14b",
+        "archive/stations-20261106/release/confirmed-data-recovery": "30ce061bce7e3fa378a5b7ec3bc3161e81b43d47",
+        "archive/stations-20261106/release/recovery-methods": "19eba13e55ad48e8a2e35525e99a93c6018dfa86",
+        "archive/stations-20261106/release/step-idle-guard": "63eedb218e15264f89388ad155a585367e3fc907",
+        "archive/stations-20261106/release/unbounded-expert-duration": "2a3d56cdd5fbd615f8475812121838c0a2712fc3",
+        "archive/stations-20261106/work/cursor-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/work/fable-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/work/kimi-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/work/luna-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/work/qwen-20261106": "a4fec532f13482ca58690ccf382310b0b1cc03f8",
+        "archive/stations-20261106/github/agy": "49eb4fe9b70552aa151274fa235759bb1d30583e",
+        "archive/stations-20261106/github/work/cursor-20261106": "49eb4fe9b70552aa151274fa235759bb1d30583e",
+        "archive/stations-20261106/github/work/fable-20261106": "49eb4fe9b70552aa151274fa235759bb1d30583e",
+        "archive/stations-20261106/github/work/kimi-20261106": "49eb4fe9b70552aa151274fa235759bb1d30583e",
+        "archive/stations-20261106/github/work/luna-20261106": "49eb4fe9b70552aa151274fa235759bb1d30583e",
+        "archive/stations-20261106/gitee/agy": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/gitee/work/cursor-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/gitee/work/fable-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/gitee/work/kimi-20261106": "a9486df5146eb6249257249591d15a4755289356",
+        "archive/stations-20261106/gitee/work/luna-20261106": "a9486df5146eb6249257249591d15a4755289356"
+      }
+    },
+    {
+      "repo": "tpl-app",
+      "verified_heads": {
+        "master": "2100a56869edcf0cc8e39c2d56652bf49ec1e5bf",
+        "cursor": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "fable": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "kimi": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "luna": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "qwen": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "agy": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+        "archive/stations-20261106/fable": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+        "archive/stations-20261106/luna": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+        "archive/stations-20261106/work/cursor-20261106": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "archive/stations-20261106/work/fable-20261106": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "archive/stations-20261106/work/kimi-20261106": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "archive/stations-20261106/work/luna-20261106": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8",
+        "archive/stations-20261106/work/qwen-20261106": "2ed1c71904909e8ee128d7b1dc12cbaff0b479a8"
+      }
+    },
+    {
+      "repo": "knowbase-admin-frontend",
+      "verified_heads": {
+        "master": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+        "cursor": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "fable": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "kimi": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "luna": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "qwen": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "agy": "f2f6df3163a01c71be13efdd20b87187b63693ec"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+        "archive/stations-20261106/kimi": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+        "archive/stations-20261106/luna": "f097495080ef6ef7296beb0fcc9430b4079d8011",
+        "archive/stations-20261106/work/cursor-20261106": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "archive/stations-20261106/work/fable-20261106": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "archive/stations-20261106/work/kimi-20261106": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "archive/stations-20261106/work/luna-20261106": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "archive/stations-20261106/work/qwen-20261106": "f2f6df3163a01c71be13efdd20b87187b63693ec"
+      }
+    },
+    {
+      "repo": "knowbase-backend",
+      "verified_heads": {
+        "master": "ad1e2edcceb88e43df0842e1fe3be215406b855a",
+        "cursor": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "fable": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "kimi": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "luna": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "qwen": "bf59f85d0bf619766f8a663d7965e2c57306acf2",
+        "agy": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "eedb6d06a361dd229c505ca9b721d0a6b28da807",
+        "archive/stations-20261106/fable": "fb88c4868a4245f934e59123506b9fe9c7087463",
+        "archive/stations-20261106/kimi": "eedb6d06a361dd229c505ca9b721d0a6b28da807",
+        "archive/stations-20261106/luna": "eedb6d06a361dd229c505ca9b721d0a6b28da807",
+        "archive/stations-20261106/qwen": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "archive/stations-20261106/work/cursor-20261106": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "archive/stations-20261106/work/fable-20261106": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "archive/stations-20261106/work/kimi-20261106": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "archive/stations-20261106/work/luna-20261106": "d9fba2cda1cc2ff1ef2fe3781b48df4a5f8ed9c6",
+        "archive/stations-20261106/work/qwen-20261106": "bf59f85d0bf619766f8a663d7965e2c57306acf2"
+      }
+    },
+    {
+      "repo": "knowbase-web-frontend",
+      "verified_heads": {
+        "master": "8c338db2b7222702f71cef892fd283016c148210",
+        "cursor": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "fable": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "kimi": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "luna": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "qwen": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "agy": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "8c338db2b7222702f71cef892fd283016c148210",
+        "archive/stations-20261106/kimi": "8c338db2b7222702f71cef892fd283016c148210",
+        "archive/stations-20261106/luna": "8c338db2b7222702f71cef892fd283016c148210",
+        "archive/stations-20261106/work/cursor-20261106": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "archive/stations-20261106/work/fable-20261106": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "archive/stations-20261106/work/kimi-20261106": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "archive/stations-20261106/work/luna-20261106": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "archive/stations-20261106/work/qwen-20261106": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2"
+      }
+    },
+    {
+      "repo": "knowbench-admin-frontend",
+      "verified_heads": {
+        "master": "26964553ed9d581ac855c38edeaee8e65add792f",
+        "cursor": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "fable": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "kimi": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "luna": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "qwen": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "agy": "540d9f38bf9ef5015684686f6abe576c7144aea0"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "26964553ed9d581ac855c38edeaee8e65add792f",
+        "archive/stations-20261106/kimi": "26964553ed9d581ac855c38edeaee8e65add792f",
+        "archive/stations-20261106/luna": "26964553ed9d581ac855c38edeaee8e65add792f",
+        "archive/stations-20261106/work/cursor-20261106": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "archive/stations-20261106/work/fable-20261106": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "archive/stations-20261106/work/kimi-20261106": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "archive/stations-20261106/work/luna-20261106": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "archive/stations-20261106/work/qwen-20261106": "540d9f38bf9ef5015684686f6abe576c7144aea0"
+      }
+    },
+    {
+      "repo": "knowbench-backend",
+      "verified_heads": {
+        "master": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+        "cursor": "9f3c513729919e220f5baac6bb947726d130721e",
+        "fable": "9f3c513729919e220f5baac6bb947726d130721e",
+        "kimi": "9f3c513729919e220f5baac6bb947726d130721e",
+        "luna": "9f3c513729919e220f5baac6bb947726d130721e",
+        "qwen": "c7d3d14dbd29177cdd85da59a54025b9b57d3276",
+        "agy": "9f3c513729919e220f5baac6bb947726d130721e"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+        "archive/stations-20261106/fable": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+        "archive/stations-20261106/kimi": "7fe309a37350e0fe2f4444a26403b11fc1166238",
+        "archive/stations-20261106/luna": "7a1c4beaa30fd1c66b1ec12d75fd6388109e2450",
+        "archive/stations-20261106/qwen": "9f3c513729919e220f5baac6bb947726d130721e",
+        "archive/stations-20261106/release/recovery-methods": "60ed0d34a693cf308b6c5142228a872989f70544",
+        "archive/stations-20261106/work/cursor-20261106": "9f3c513729919e220f5baac6bb947726d130721e",
+        "archive/stations-20261106/work/fable-20261106": "9f3c513729919e220f5baac6bb947726d130721e",
+        "archive/stations-20261106/work/kimi-20261106": "9f3c513729919e220f5baac6bb947726d130721e",
+        "archive/stations-20261106/work/luna-20261106": "9f3c513729919e220f5baac6bb947726d130721e",
+        "archive/stations-20261106/work/qwen-20261106": "c7d3d14dbd29177cdd85da59a54025b9b57d3276"
+      }
+    },
+    {
+      "repo": "knowbench-web-frontend",
+      "verified_heads": {
+        "master": "4748b94ebf589ee870ca5efa097f212a59a1d04e",
+        "cursor": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "fable": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "kimi": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "luna": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "qwen": "7026bfea6ad31580488f8e0e231c9a649477f2c7",
+        "agy": "68103603ad9585d6b743b29e3d20d92c0de04a9d"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "17cd09be9b83fec7483123a7f4969e2f44db6062",
+        "archive/stations-20261106/fable": "e538f00560464d922912770667bc65e008ddb052",
+        "archive/stations-20261106/kimi": "17cd09be9b83fec7483123a7f4969e2f44db6062",
+        "archive/stations-20261106/luna": "17cd09be9b83fec7483123a7f4969e2f44db6062",
+        "archive/stations-20261106/qwen": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "archive/stations-20261106/release/recovery-methods": "2a0d722ab622257a4103a81ccea8aa53d6a37119",
+        "archive/stations-20261106/work/cursor-20261106": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "archive/stations-20261106/work/fable-20261106": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "archive/stations-20261106/work/kimi-20261106": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "archive/stations-20261106/work/luna-20261106": "68103603ad9585d6b743b29e3d20d92c0de04a9d",
+        "archive/stations-20261106/work/qwen-20261106": "7026bfea6ad31580488f8e0e231c9a649477f2c7"
+      }
+    },
+    {
+      "repo": "knowfeed-admin-frontend",
+      "verified_heads": {
+        "master": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+        "cursor": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "fable": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "kimi": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "luna": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "qwen": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "agy": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+        "archive/stations-20261106/fable": "d7af6017f16f2ea2ac2d8ba71876a4be64c7f11d",
+        "archive/stations-20261106/kimi": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+        "archive/stations-20261106/luna": "b344c106c4f44522770b8cca3e9a8121e0b3ce32",
+        "archive/stations-20261106/work/cursor-20261106": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "archive/stations-20261106/work/fable-20261106": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "archive/stations-20261106/work/kimi-20261106": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "archive/stations-20261106/work/luna-20261106": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "archive/stations-20261106/work/qwen-20261106": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6"
+      }
+    },
+    {
+      "repo": "knowfeed-backend",
+      "verified_heads": {
+        "master": "6239d224d9b2fc5bd4be03923800b5cd40490e8d",
+        "cursor": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "fable": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "kimi": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "luna": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "qwen": "4b5d9ac32e9bf00a2ed24b6c16cbbe5a260badcb",
+        "agy": "15606aaf039fb39dfa81b4489760a94c9eae4f8e"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "c4cd1d683abd8b275777f82fd19b2c7d096e84ff",
+        "archive/stations-20261106/fable": "b666d393ef2d23555f78f16ae39465415ceef916",
+        "archive/stations-20261106/kimi": "c4cd1d683abd8b275777f82fd19b2c7d096e84ff",
+        "archive/stations-20261106/luna": "c4cd1d683abd8b275777f82fd19b2c7d096e84ff",
+        "archive/stations-20261106/qwen": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "archive/stations-20261106/work/cursor-20261106": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "archive/stations-20261106/work/fable-20261106": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "archive/stations-20261106/work/kimi-20261106": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "archive/stations-20261106/work/luna-20261106": "15606aaf039fb39dfa81b4489760a94c9eae4f8e",
+        "archive/stations-20261106/work/qwen-20261106": "4b5d9ac32e9bf00a2ed24b6c16cbbe5a260badcb"
+      }
+    },
+    {
+      "repo": "knowfeed-web-frontend",
+      "verified_heads": {
+        "master": "bca159f76befc47b1b38e7028c0f63c68b334759",
+        "cursor": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "fable": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "kimi": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "luna": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "qwen": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "agy": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "bca159f76befc47b1b38e7028c0f63c68b334759",
+        "archive/stations-20261106/kimi": "bca159f76befc47b1b38e7028c0f63c68b334759",
+        "archive/stations-20261106/luna": "bca159f76befc47b1b38e7028c0f63c68b334759",
+        "archive/stations-20261106/work/cursor-20261106": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "archive/stations-20261106/work/fable-20261106": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "archive/stations-20261106/work/kimi-20261106": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "archive/stations-20261106/work/luna-20261106": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "archive/stations-20261106/work/qwen-20261106": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab"
+      }
+    },
+    {
+      "repo": "knowlab-admin-frontend",
+      "verified_heads": {
+        "master": "2d5c1124c0b3f76ec0efda2371fadbd5f13787b0",
+        "cursor": "89fe3ac1f6178018186584db7542f11102896381",
+        "fable": "89fe3ac1f6178018186584db7542f11102896381",
+        "kimi": "89fe3ac1f6178018186584db7542f11102896381",
+        "luna": "89fe3ac1f6178018186584db7542f11102896381",
+        "qwen": "89fe3ac1f6178018186584db7542f11102896381",
+        "agy": "89fe3ac1f6178018186584db7542f11102896381"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "28c79f0c38d4a01753dd92f403587470585f9ac3",
+        "archive/stations-20261106/fable": "fc8b4edc9144365248a7a96c58eaac5947fed111",
+        "archive/stations-20261106/kimi": "28c79f0c38d4a01753dd92f403587470585f9ac3",
+        "archive/stations-20261106/work/cursor-20261106": "89fe3ac1f6178018186584db7542f11102896381",
+        "archive/stations-20261106/work/fable-20261106": "89fe3ac1f6178018186584db7542f11102896381",
+        "archive/stations-20261106/work/kimi-20261106": "89fe3ac1f6178018186584db7542f11102896381",
+        "archive/stations-20261106/work/luna-20261106": "89fe3ac1f6178018186584db7542f11102896381",
+        "archive/stations-20261106/work/qwen-20261106": "89fe3ac1f6178018186584db7542f11102896381"
+      }
+    },
+    {
+      "repo": "knowlab-backend",
+      "verified_heads": {
+        "master": "e3287024050aef46b6d6954e5e8ab6f59294eaad",
+        "cursor": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "fable": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "kimi": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "luna": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "qwen": "614da0abf9b66eb6daacf3ecacccf3f6761a1a10",
+        "agy": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "8684d258b452e5b755de1a67b08884a5bdf29aa2",
+        "archive/stations-20261106/fable": "bd7fe93d28cb6460dc16d4a43c5569c13dbf9610",
+        "archive/stations-20261106/kimi": "0652806000a4150a322bd689f3f32a05e6276ecd",
+        "archive/stations-20261106/luna": "8684d258b452e5b755de1a67b08884a5bdf29aa2",
+        "archive/stations-20261106/qwen": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "archive/stations-20261106/work/cursor-20261106": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "archive/stations-20261106/work/fable-20261106": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "archive/stations-20261106/work/kimi-20261106": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "archive/stations-20261106/work/luna-20261106": "85e3def5c5de99ea9bc7a94a04f07beedb5d8951",
+        "archive/stations-20261106/work/qwen-20261106": "614da0abf9b66eb6daacf3ecacccf3f6761a1a10"
+      }
+    },
+    {
+      "repo": "knowlab-web-frontend",
+      "verified_heads": {
+        "master": "d7589583436d7d42d90e390f91508acb6ed76a39",
+        "cursor": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "fable": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "kimi": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "luna": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "qwen": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "agy": "25772149330a0ff8544e51edb98f1f376f21b75e"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "3a0f2c847c220770d28177288023debc75172f19",
+        "archive/stations-20261106/fable": "4334a198dc89d95b4c71ecc3165d9f965734a7e2",
+        "archive/stations-20261106/kimi": "5b1eb358ba83212c63229bc540e9490c9f570229",
+        "archive/stations-20261106/luna": "3a0f2c847c220770d28177288023debc75172f19",
+        "archive/stations-20261106/work/cursor-20261106": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "archive/stations-20261106/work/fable-20261106": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "archive/stations-20261106/work/kimi-20261106": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "archive/stations-20261106/work/luna-20261106": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "archive/stations-20261106/work/qwen-20261106": "25772149330a0ff8544e51edb98f1f376f21b75e"
+      }
+    },
+    {
+      "repo": "knowmart-admin-frontend",
+      "verified_heads": {
+        "master": "107fda29642e9bf7259af274fa6d6c991302bfeb",
+        "cursor": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "fable": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "kimi": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "luna": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "qwen": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "agy": "5f109118ffbaca623a732ed33eaea61a2905241a"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "d14c3dc41293c660634a92aed2f1b14d46d5ef80",
+        "archive/stations-20261106/kimi": "d14c3dc41293c660634a92aed2f1b14d46d5ef80",
+        "archive/stations-20261106/luna": "d14c3dc41293c660634a92aed2f1b14d46d5ef80",
+        "archive/stations-20261106/work/cursor-20261106": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "archive/stations-20261106/work/fable-20261106": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "archive/stations-20261106/work/kimi-20261106": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "archive/stations-20261106/work/luna-20261106": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "archive/stations-20261106/work/qwen-20261106": "5f109118ffbaca623a732ed33eaea61a2905241a"
+      }
+    },
+    {
+      "repo": "knowmart-backend",
+      "verified_heads": {
+        "master": "c00eebf376e804984f3eabd070daaed50573cc13",
+        "cursor": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "fable": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "kimi": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "luna": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "qwen": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "agy": "32485623e46f989394ba95d2f7a24077ee76231a"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "884f0931efcd696dc1923c7cf9f1f341edf746be",
+        "archive/stations-20261106/fable": "9c3f041c56412dae752dfe5d10b25844cf9fc6c7",
+        "archive/stations-20261106/kimi": "884f0931efcd696dc1923c7cf9f1f341edf746be",
+        "archive/stations-20261106/luna": "884f0931efcd696dc1923c7cf9f1f341edf746be",
+        "archive/stations-20261106/release/recovery-methods": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "archive/stations-20261106/work/cursor-20261106": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "archive/stations-20261106/work/fable-20261106": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "archive/stations-20261106/work/kimi-20261106": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "archive/stations-20261106/work/luna-20261106": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "archive/stations-20261106/work/qwen-20261106": "32485623e46f989394ba95d2f7a24077ee76231a"
+      }
+    },
+    {
+      "repo": "knowmart-web-frontend",
+      "verified_heads": {
+        "master": "50e280ea37609f0ca198a5d1308aa02bc4074dc8",
+        "cursor": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "fable": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "kimi": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "luna": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "qwen": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "agy": "2bf8dfd67b3996c67de9a96134011e13ceee8246"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e",
+        "archive/stations-20261106/fable": "10b80aa56f31bb0f83270a2ae3dd46f1dccfcf12",
+        "archive/stations-20261106/kimi": "db315f20e6354ce9fdaee34b563a6d0a3ef2ef9e",
+        "archive/stations-20261106/work/cursor-20261106": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "archive/stations-20261106/work/fable-20261106": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "archive/stations-20261106/work/kimi-20261106": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "archive/stations-20261106/work/luna-20261106": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "archive/stations-20261106/work/qwen-20261106": "2bf8dfd67b3996c67de9a96134011e13ceee8246"
+      }
+    },
+    {
+      "repo": "tpl-admin-frontend",
+      "verified_heads": {
+        "master": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "cursor": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "fable": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "kimi": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "luna": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "qwen": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "agy": "722c6b80e849d6352f28abbdd7362e1151191c14"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/work/cursor-20261106": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "archive/stations-20261106/work/fable-20261106": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "archive/stations-20261106/work/kimi-20261106": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "archive/stations-20261106/work/luna-20261106": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "archive/stations-20261106/work/qwen-20261106": "722c6b80e849d6352f28abbdd7362e1151191c14"
+      }
+    },
+    {
+      "repo": "tpl-backend",
+      "verified_heads": {
+        "master": "497b422d8b923882da4bf02bcf62d8546a786d44",
+        "cursor": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "fable": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "kimi": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "luna": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "qwen": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "agy": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/work/cursor-20261106": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "archive/stations-20261106/work/fable-20261106": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "archive/stations-20261106/work/kimi-20261106": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "archive/stations-20261106/work/luna-20261106": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "archive/stations-20261106/work/qwen-20261106": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76"
+      }
+    },
+    {
+      "repo": "tpl-web-frontend",
+      "verified_heads": {
+        "master": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "cursor": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "fable": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "kimi": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "luna": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "qwen": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "agy": "bd00575d3edd9711545eb1cf6d13421f844e62e0"
+      },
+      "archive_tags": {
+        "archive/stations-20261106/cursor": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "archive/stations-20261106/fable": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "archive/stations-20261106/kimi": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "archive/stations-20261106/luna": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "archive/stations-20261106/work/cursor-20261106": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "archive/stations-20261106/work/fable-20261106": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "archive/stations-20261106/work/kimi-20261106": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "archive/stations-20261106/work/luna-20261106": "bd00575d3edd9711545eb1cf6d13421f844e62e0",
+        "archive/stations-20261106/work/qwen-20261106": "bd00575d3edd9711545eb1cf6d13421f844e62e0"
+      }
+    }
+  ]
+}
