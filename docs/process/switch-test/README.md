@@ -75,7 +75,7 @@ Qwen 跑卡时 Opus 的提交只留在本地，等 Qwen 停下再推。下面 10
 
 副本还没有的第一次，所有者用仓里的那份：`bash ~/worktrees/fable/sunmoonun/docs/process/switch-test/human-local.sh`。
 
-`human-remote.sh` 推之前每个仓先 fetch：远程助手这期间推了新提交的话，本地提交 rebase 到它上面再推，冲突就停；所以回传前不必再跑一次 `human-local.sh`。
+`human-remote.sh` 提交、推送之前每个仓先 fetch：远端有本地没有的提交（远程助手这期间推的）就整次停下，**不 rebase**（所有者 2026-11-06 定，账 64），什么都没提交、没推。照提示做：本地只有改动、没有已提交未推的，先跑 `human-local.sh` 拉下来再跑 `human-remote.sh`；两边都有新提交（分叉），把输出贴给远程助手。
 子仓同步后由 `human-local.sh` 接回本地 `<工位>` 分支（2026-10-13 起，不再游离）；回传仍按 `HEAD:refs/heads/$WS` 推，即使哪个子仓游离也不会丢。
 检出其他命名分支时停止，避免误推；拉取、提交或推送任一步失败均非零退出，不打印完成话术。
 

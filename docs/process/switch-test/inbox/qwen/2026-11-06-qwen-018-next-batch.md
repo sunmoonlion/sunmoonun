@@ -1,6 +1,6 @@
 # Qwen 发布卡 qwen-018：下一批——四个应用成组发（账 180–188、K29、183）
 
-> 状态：**可执行**（Opus 2026-11-06 写；计划第 7 项）。所有者说「发」再跑；发之前第二节有一处可能要所有者定。
+> 状态：**可执行，所有者 2026-11-06 已说「发」**（Opus 写；计划第 7 项）。第二节第 3 条查出 Wind 作业时仍停下问所有者。
 > 为什么成组：开发头比线上 #83 多出的几处互相依赖，单发一个会坏——线上 knowlab 挑数据要的格式接口在 knowbase（账 180）；knowbench 网页发 `expert-match/v4`，线上后端不认；K29 要 knowbench 后端（迁移 0039）与 knowlab 前后端一起（账 181）。
 
 ```text
@@ -69,6 +69,7 @@ cd ~/worktrees/qwen/sunmoonun && make -C infrastructure jenkins-release-run RELE
 | 4 | 所有者 | knowlab 网页打开一次正在跑的作者测试，看本轮问题、点「停止」 | 看得到问题；停下后显示已停止；knowbench 普通工作台不再列这次测试（K29） |
 | 5 | 所有者 | knowlab 网页登录过期后从「申请」「测试」等栏重新登录 | 回到原来那一栏（账 182） |
 | 6 | 所有者（可选，会花 Wind 额度） | 工作台请专家时确认一条 Wind 查询 | 作业派出去、拿到回执（账 184） |
+| 7 | Qwen | knowbench 库只读对账 K29 的两列（[SDD 0052](../../../../design/SDD/modules/0052-contract-hygiene.md) 第二节）：`select count(*) from workbench_tasks t where coalesce(t.pack_source,'') <> 'knowlab-test' and exists (select 1 from workbench_test_cases tc where tc.task_id = t.id);` 与 `select count(*) from workbench_sessions s where coalesce(s.origin,'') <> 'knowlab-test' and exists (select 1 from workbench_tasks tt where tt.session_id = s.id and tt.pack_source = 'knowlab-test');` | 两个都是 `0`；不是 0 照贴，不改库 |
 
 不做的：不代确认采单、不恢复历史失败轮次、不新开付费测试。
 
