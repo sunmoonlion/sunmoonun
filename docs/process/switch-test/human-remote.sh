@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
 # 所有者在本地机上跑的（推）：本地助手说「跑完了」之后，把它写下的结果和其它改动提交，并同步回远程。
-# 用法：WS=<工位> bash ~/switch-test/human-remote.sh    （工位必须给，不猜；先推子仓与 sunmoon-link，再由 sync-five-repos.sh 同步父仓）
-# 工位定目录 ~/worktrees/<工位>；分支默认是根仓当前所在的分支，也可 BRANCH=<分支> 指定
+# 用法：WS=<工位> bash ~/switch-test/human-remote.sh    （工位必须给，不猜；先推子仓与 sunmoon-link，再通过 origin 推送父仓）
+# 工位定目录 ~/worktrees/<工位>；分支默认与工位同名，特殊用途可显式 BRANCH=<分支>
 # 推之前每个仓都先 fetch：远端有本地没有的提交（远程助手这期间推的）就停下，不 rebase、不强推（所有者 2026-11-06 定，账 64）。
 # 第 1 步就查完，查完才提交和推。停下时：本地没有已提交未推的（只有未提交的改动也算）就先跑 human-local.sh 拉下来再跑本脚本；
 # 本地也有已提交未推的（两边分叉）就把输出贴给远程助手。
 # 跑完把最后打印的「仓 提交号」告诉远程助手。
 set -euo pipefail
 if [ -z "${WS:-}" ]; then
-  echo "✗ 要指定工位：WS=<fable|cursor|kimi|luna|qwen> bash ~/switch-test/$(basename "$0")   （不猜，和 five-repos-sync 一样）" >&2
+  echo "✗ 要指定工位：WS=<fable|cursor|kimi|luna|qwen|agy> bash ~/switch-test/$(basename "$0")   （不猜，和 five-repos-sync 一样）" >&2
   exit 2
 fi
 WS="$WS"
 WORKTREE_ROOT="${WORKTREE_ROOT:-$HOME/worktrees/$WS}"
-SYNC_SCRIPT="${SYNC_SCRIPT:-$HOME/five-repos-sync/sync-five-repos.sh}"
 ROOT_REPO="${ROOT_REPO:-sunmoonun}"
-# 分支：默认取工位里根仓当前所在的分支，可用 BRANCH=<分支> 指定（2026-11-06：分支名可以和工位名不同，
-# 如 work/qwen-20261106）。分支与工位同名时和原来完全一样，仍交给 sync-five-repos.sh；不同名时不调它，
-# 直接对 origin 拉推这个分支（它只认工位名或自己配置里的分支）。
-if [ -z "${BRANCH:-}" ]; then
-  BRANCH=$(git -C "$WORKTREE_ROOT/$ROOT_REPO" branch --show-current 2>/dev/null || true)
-  [ -n "$BRANCH" ] || { echo "✗ 取不到 $WORKTREE_ROOT/$ROOT_REPO 当前所在的分支（不存在或游离）；用 BRANCH=<分支> 指定" >&2; exit 2; }
-fi
+# 2026-11-06：每工位只有一条同名分支；日常同步只经过 Git，不 SSH 到旧开发机。
+BRANCH="${BRANCH:-$WS}"
 export BRANCH
 FIVE="$ROOT_REPO knowfeed-app knowbench-app knowbase-app tpl-app knowlab-app knowmart-app"
 # 父仓下的全部子仓（前端也在内：2026-10-08 luna 的网页修复因只列了两个后端而没推上来）
@@ -104,11 +98,9 @@ for r in $FIVE; do
   commit_if_dirty "$WORKTREE_ROOT/$r" "$r" || { echo "✗ $r 提交失败"; exit 1; }
 done
 if [ ${#changed[@]} -eq 0 ]; then echo "没有改动要提交（可能本地助手已经自己提交了）。"; fi
-if [ "$BRANCH" = "$WS" ] && [ -x "$SYNC_SCRIPT" ]; then
-  "$SYNC_SCRIPT" to-remote "$WS" || { echo "父仓 to-remote 失败，把上面的输出贴给远程助手"; exit 1; }
-else
-  for r in $FIVE; do git -C "$WORKTREE_ROOT/$r" push -q origin "$BRANCH" || { echo "✗ $r push 失败"; exit 1; }; done
-fi
+for r in $FIVE; do
+  git -C "$WORKTREE_ROOT/$r" push -q origin "$BRANCH" || { echo "✗ $r push 失败"; exit 1; }
+done
 
 echo "===== 4. 告诉远程助手这一句："
 line="本地回来了"
