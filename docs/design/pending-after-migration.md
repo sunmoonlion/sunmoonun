@@ -28,7 +28,8 @@
 
 | 主题 | 号与缺口 |
 | --- | --- |
-| **下一批发版（先做）** | **180** knowbase 版本表格式接口没上线，线上 knowlab 挑数据必 404；**181** 发版要成组；**182** knowlab 部署配置落后于代码（登录回跳缺 8 个栏目、留着不用的导入身份密文） |
+| **下一批发版（先做）** | **184** knowfeed 派发把 `daily_cap=0` 当用完，Wind 确认后的查询派不出去（高）；**180** knowbase 版本表格式接口没上线，线上 knowlab 挑数据必 404；**186** 一份表格读不出整次挑数据失败；**181** 发版要成组；**182** knowlab 部署配置落后于代码（登录回跳缺 8 个栏目、留着不用的导入身份密文） |
+| Luna 段逐文件审查（11-06）新记 | **185** 清除资料没核冻结给专家；**187** link 在 Windows 上一次探测失败就一直坏；**188** PDF 首页识别超时不起作用；**189** 停店与需求口径（等所有者定）；全文见 [Luna 段审查](../总纲/luna开发逐文件审查-2026-11-06.md) |
 | 合规（对外开放前） | 149 专家联网搜索只在有数据的阶段关了，没有数据工具的专家照旧能搜；111 余下三项（工作台到 knowbase 的检索关系、knowbase 验沙箱令牌的公钥、网页预览样例里的内置专家）；145 法律评估；126 判断类提议 |
 | 旧链退役 | 20、21、115 knowbench 的检索身份与 knowbase 那对旧服务身份还配着（后端早不读了）；B5/F3 knowbase 旧 `knowledge_routes` 与旧入库服务还挂着（见第三小节）；24、110 六个后端的转发文件、父仓与后端的旧部署目录都还在；113 模板发布锁失效（实跑报锁里的提交找不到）；53 `runner` 改名没做 |
 | 工位同步与发布流水线 | 64 `human-remote.sh` 推回前 rebase，会改写工位上已经记下的本地提交号；157 不跑平台组件检查；160 推送不带 `--atomic`；171 `git fetch` 没有时限；172 link 出包不在 Jenkins；164 文档门禁漏中文文件名；103 测试照旧失败（11-06 实跑 15 个；101 同日已修） |
@@ -248,3 +249,9 @@
 | 181 | **下一批发版成组**：按父仓 gitlink 列全受影响的子仓再发。已知三组：① knowbase 后端（含 `ada6ac9`）与 knowlab（账 180）；② knowbench 网页发 `knowbench/expert-match/v4`，线上 #83 后端不认，要同 knowbench 后端一起；③ K29 要 knowbench 后端（先跑迁移 `20261106_0039`）与 knowlab 前后端一起 | 开发头比线上多：knowbench 后端 20、网页 13，knowlab 后端 4、网页 4，knowbase 后端 3（接手核对第一节） | [接手核对](../总纲/opus接手核对-2026-11-06.md) 2.3 第 1 条；[工位对齐](../总纲/工位对齐-2026-11-06.md) | 待做；发版由 qwen 经 Jenkins |
 | 182 | **knowlab 部署配置跟上代码**：① `knowlab-backend/config.yaml` 34 行 `WEB_AUTH_ALLOWED_RETURN_PATHS` 仍是旧栏目（`knowbots`、`questions`、`ideas`、`avatars`、`data` 等），网页现有的 `applications`、`incubation`、`tests`、`delivery`、`review`、`knowledge`、`names`、`toolkit` 都不在里面，登录后回不到这些页；② `runtime/knowbase-user-data-import-service.sops.yaml` 还在，代码早已不读 `KNOWBASE_USER_DATA_IMPORT_*` | 交Fable-gitops 第 2d 节第 7 条（换登录回跳）没落进部署 | 2026-11-06 核对 | 待做；随 181 一起暂存。`knowlab:read` 接收端与 knowlab 自己的桶已撤，不用再做 |
 | 183 | **取消时限后，一步长时间没进展时给提示（只提醒、不中断）**：#83 取消了默认时限，连接活着、模型一直不交东西的那一轮会一直占着项目的执行位，只能人手停 | 不加回时限是所有者定的。所有者 2026-11-06 定加提示：「给个半小时」——一步 30 分钟没有进展就提示，只提醒、不中断，不自动停 | [接手核对](../总纲/opus接手核对-2026-11-06.md) 2.3 第 2 条 | 已定，待做 |
+| 184 | **knowfeed 派发把 `daily_cap=0` 当成「今天用完」**：`infrastructure/repositories/supply_schedule.py:96` 是 `已取 >= daily_cap 就跳过`；`a15665a` 起 `daily_cap=0` 在 `domain/supply/schedule.py` 与管理端都表示「不限份数」，这一行没跟着改，0 ≥ 0 恒成立，cap=0 的渠道一个作业都派不出去。#82 的 Wind 渠道正是 `daily_cap=0`：确认后的 Wind 查询会一直排队（试采走试采表，所以试采成功）。改成 `daily_cap > 0 and 已取 >= daily_cap`，补一条 dispatch 的库测；发前请 qwen 查线上 Wind 渠道有没有停在 queued 的 fetch 作业 | 11-06 逐文件审查 | [Luna 段审查](../总纲/luna开发逐文件审查-2026-11-06.md) KF1 | 待做；**高**，下一批发版必带 |
+| 185 | **knowbase 清除资料时没核「冻结给专家」本身**：`infrastructure/repositories/user_runs.py` `has_frozen_bindings` 只查签过授权的冻结项，没查冻结用途（`expert:<专家>@<版本>`）；已上架专家绑了这份、还没人请过时，管理端非个人信息的「清除」会真删，专家所绑数据没了 | 同上 | 同上 KB2 | 待做 |
+| 186 | **一份表格读不出表轴，整次挑数据失败**：knowbase `domain/table_format.py` 的 CSV 只按 UTF-8 解（GBK 导出常见），xlsx 单元格不带 `r` 也拒；knowlab `infrastructure/external/knowbase_library.py:_get` 把 422 当 502，挑一份读不出就整次失败。改：knowbase 先试 GB18030；knowlab 把 `format_unreadable` 的那一份按「表轴未知」带过去并提示 | 同上 | 同上 KB3、KL1 | 待做；与账 180 同批 |
+| 187 | **本地 link 在 Windows 上一次探测失败就一直坏**：`agent/src/windowsRuntime.ts` `getNotFound()` 把探测 Promise 连失败一起缓存；exec-server 没起好时第一次失败，之后新建项目、看目录全失败，直到重启 link。改：失败时清掉缓存再抛。随下一版 link 发 | 同上 | 同上 LK1 | 待做 |
+| 188 | **knowbase PDF 首页识别的 3 秒超时不起作用**：`infrastructure/external/first_page.py` 用 `with ThreadPoolExecutor`，超时后退出时仍等线程跑完，坏 PDF 照样卡住上传请求 | 同上 | 同上 KB1 | 待做 |
+| 189 | **停店的人能不能发需求、停店买家的需求进不进大厅**：knowmart `9c3f041` 三处都放开了（发需求、大厅列表、应答），测试也改成照样能发；数据拓扑写「停店只挡新的公开交易」 | 同上；要所有者定口径 | 同上 KM1 | 等所有者定 |
