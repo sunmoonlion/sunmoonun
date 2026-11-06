@@ -27,14 +27,19 @@ SUBS="knowfeed-app/knowfeed-backend knowfeed-app/knowfeed-web-frontend knowfeed-
 
 pull() { # 仓目录 标签
   [ -e "$1/.git" ] || { echo "⚠ $2 不存在：$1"; return 1; }
+  printf "  拉取 %s（origin/%s）…\n" "$2" "$BRANCH"
   git -C "$1" pull -q --ff-only origin "$BRANCH" && printf "  %-28s %s\n" "$2" "$(git -C "$1" rev-parse --short HEAD)" || { echo "✗ $2 拉取失败（工作区有改动？分支不对？）"; return 1; }
 }
 
 if [ "${1:-}" != "--after-sync" ]; then
-echo "===== 0. 先看本地有没有没推回的东西"
+echo "===== 0. 检查本地改动和未推提交（逐仓联网核对）"
+repos=($FIVE $SUBS sunmoon-link)
+checked=0
 # 本地助手的提交还没推回、或者还在做（有未提交改动）时，拉取只会报 git 的分叉错误；这里先说人话再停
 blocked=0
-for r in $FIVE $SUBS sunmoon-link; do
+for r in "${repos[@]}"; do
+  checked=$((checked + 1))
+  printf "  [%d/%d] 检查 %s…\n" "$checked" "${#repos[@]}" "$r"
   d="$HOME/worktrees/$WS/$r"; [ -e "$d/.git" ] || continue
   current=$(git -C "$d" branch --show-current)
   if [ "$current" != "$BRANCH" ] && { [[ "$r" != */* ]] || [ -n "$current" ]; }; then
@@ -64,6 +69,7 @@ echo "===== 1. 同步全部（工位 $WS，分支 $BRANCH）"
 for r in $FIVE; do
   pull "$HOME/worktrees/$WS/$r" "$r" || exit 1
   if [ -f "$HOME/worktrees/$WS/$r/.gitmodules" ]; then
+    printf "  核对 %s 子仓指针…\n" "$r"
     git -C "$HOME/worktrees/$WS/$r" submodule -q sync --recursive && git -C "$HOME/worktrees/$WS/$r" submodule -q update --init --recursive || { echo "✗ $r 子仓没对上新指针"; exit 1; }
   fi
 done
