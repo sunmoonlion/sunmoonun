@@ -29,9 +29,10 @@ knowlab_backend_deployment:
   # 集群 prune: false，桶、策略与身份对象要手工精确删（见 README）
   domain_runtime_env: {}
   domain_env:
-    # 登录完能回到「我在做的分身」与「提交一个想法」（SDD 0027 P3，前缀匹配）；其余同模板默认
-    # web端各页（SDD 0037：待我回答、创意、分身、专家、我的数据；旧的 /knowbots 转到创意）
-    WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/questions,/en/questions,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/experts,/en/experts,/zh-CN/data,/en/data'
+    # 登录完能回到网页端现有的各栏（前缀匹配）：11-01 分栏（`06d15c1`）后的申请、孵化、测试、
+    # 交付、审核、专家、知识库、名字、工具箱，加仍在的旧栏（创意、分身、待我回答、旧的
+    # /knowbots 转到创意）；没有对应页面的 /data 去掉（账 182，2026-11-06）
+    WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/applications,/en/applications,/zh-CN/incubation,/en/incubation,/zh-CN/tests,/en/tests,/zh-CN/delivery,/en/delivery,/zh-CN/review,/en/review,/zh-CN/experts,/en/experts,/zh-CN/knowledge,/en/knowledge,/zh-CN/names,/en/names,/zh-CN/toolkit,/en/toolkit,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/questions,/en/questions,/zh-CN/knowbots,/en/knowbots'
     # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
     KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
     # 数据第四版补采开关（同 knowbench 的 WORKBENCH_DATA_SUPPLY_ENABLED，fail-closed）：测试集里缺的公开披露交 knowfeed
