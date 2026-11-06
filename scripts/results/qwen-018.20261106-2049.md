@@ -52,3 +52,18 @@ sunmoon-jenkins-agent.service ActiveState=inactive SubState=dead
 活动委托、app-server turn、knowlab 测试及 Wind 队列尚未核验，不能报为空。已请所有者决定是否恢复现有环境；恢复可能续跑停机前任务。获准恢复后先完成发布卡第二节检查，有 Wind 待派作业仍交所有者决定，再走正式 Jenkins 发布及人工审批。
 
 发布卡：`docs/process/switch-test/inbox/qwen/2026-11-06-qwen-018-next-batch.md`。本轮完整 platform-status 原始日志留在执行机 `/tmp/qwen018-platform-status.log`（临时诊断路径，非持久归档）。
+
+## 20:55–21:00 所有者授权恢复后的复核
+
+所有者在定位启动错误后明确指示“那你做啊”。执行正式入口 `make -C infrastructure platform-start`，退出 0（ok=5 changed=1 failed=0）。三个既有 KIND 节点均 Ready，未重建、未删除数据。Jenkins 控制器及 agent 为 active/running，统一 target active。
+
+此前 18:17 的直接失败原因：systemd 向三个节点 cgroup 添加 PID 时返回 `Device or resource busy`；开机恢复单元 Restart=no，因此失败后不重试。恢复前已确认三个节点 PID=0、对应 cgroup 不存在。本次正常启动成功；不能据此声称已确定并永久修复此前资源冲突的深层原因。
+
+- 非已完成 Pod：82/82 Ready；Flux Kustomization：108/108 Ready 且 observedGeneration 达到当前 generation。
+- 再执行 `make -C infrastructure platform-status`：退出 0，ok=7 changed=0 failed=0。
+- 只读事务查 workbench_tasks 非终态：0 行。
+- knowbot_test queued/running/waiting：0 行。
+- 发布卡第二节 Wind 作业 SQL：0 行。
+- 经正式 app-server 协议 initialize → thread/loaded/list 查询 4 个 ready 沙箱（含 sig-am c678ec57…）：各 loaded_threads=0、active_turns=[]。未调用模型、未恢复线程、未代批任何业务操作。
+
+发前检查通过，继续按发布卡触发 Jenkins，结果另补；此段不代表已发布。临时日志：`/tmp/qwen018-platform-start.log`、`/tmp/qwen018-platform-status-restored.log`。
