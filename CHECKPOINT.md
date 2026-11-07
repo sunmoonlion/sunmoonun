@@ -1134,3 +1134,7 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 ## 2026-11-07：同步工具去掉 five-repos 命名
 
 按所有者要求，运行目录改为 `docs/sync-workertree/sync/`，入口同步改为 `sync.sh`；仓数量仍由 config.sh 与子模块发现决定。master 和各工位路径引用、测试夹具一并更新，运行逻辑不变。
+
+## 2026-11-07：协作目录统一为 sync-cowork
+
+按所有者要求，目录由 docs/sync-workertree 改为 docs/sync-cowork；当前文档、入口路径校验、收件箱读取及测试夹具同步更新。固定提交的历史链接保留原路径。

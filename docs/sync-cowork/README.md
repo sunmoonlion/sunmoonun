@@ -6,18 +6,18 @@
 
 ```bash
 # 开工：拉取已推送的代码
-./sunmoonun/docs/sync-workertree/sync/sync.sh pull
+./sunmoonun/docs/sync-cowork/sync/sync.sh pull
 
 # 修改、测试后：自己检查 diff，逐仓提交；子仓先提交，再提交父仓 gitlink
 
 # 收工：推送已经提交的内容
-./sunmoonun/docs/sync-workertree/sync/sync.sh push
+./sunmoonun/docs/sync-cowork/sync/sync.sh push
 ```
 
 查看当前机器状态（不联网）：
 
 ```bash
-./sunmoonun/docs/sync-workertree/sync/sync.sh status
+./sunmoonun/docs/sync-cowork/sync/sync.sh status
 ```
 
 推送更新 GitHub/Gitee，不更新对方的工作目录。对方下次开工自己 `pull`。不需要同步程序 SSH 登录对方，也不会在日常操作里同时更新所有工位。

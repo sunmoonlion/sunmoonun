@@ -335,7 +335,7 @@ def main():
             inbox = (
                 root
                 / os.environ.get("ROOT_REPO", "sunmoonun")
-                / "docs/sync-workertree/inbox"
+                / "docs/sync-cowork/inbox"
             )
             for card in sorted(inbox.glob("*/*.md")):
                 if card.name == "README.md":

@@ -20,7 +20,7 @@ MAP = [
     ("docs/design", "docs/design"),
     ("docs/process/pipeline.md", "docs/process/pipeline.md"),
     ("docs/process/turn", "docs/process/turn"),
-    ("docs/sync-workertree", "docs/sync-workertree"),
+    ("docs/sync-cowork", "docs/sync-cowork"),
     ("docs/process/tools", "docs/process/tools"),
     ("docs/process/README.md", "docs/process/README.md"),
     ("docs/ops/jenkins-使用说明.md", "docs/ops/jenkins-使用说明.md"),

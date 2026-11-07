@@ -5,7 +5,7 @@
 > 临时就地修授权同前：`infrastructure/environments/prod/vm/` 下脚本与本卡命令里让步骤过不去的错可以就地改、验、续跑并推 `origin/fable`，回执里写「就地修了什么」；不改机制（不改成登录任务起 vmrun、不关防火墙、不改 VM 配置）、不碰 WSL/开发集群。需要管理员权限的两步走 UAC，所有者点同意（同 c0 转发那次）。
 
 ```text
-工位 WS=fable：~/worktrees/fable/sunmoonun，分支 fable；收件箱 docs/sync-workertree/inbox/luna/
+工位 WS=fable：~/worktrees/fable/sunmoonun，分支 fable；收件箱 docs/sync-cowork/inbox/luna/
 目标：Windows 宿主的 VMware 服务与计划任务；虚拟机本身不改
 所有者要做的：第二节在 VMware 界面里勾一下；第四节重启一次 Windows
 ```
