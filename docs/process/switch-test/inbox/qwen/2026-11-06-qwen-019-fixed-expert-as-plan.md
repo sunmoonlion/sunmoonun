@@ -17,7 +17,7 @@
 
 | 子仓 | 线上（#85） → 这次 | 内容 |
 | --- | --- | --- |
-| knowbench-backend | `c7d3d14d` → `38c6c1f1` | K29 浏览只认标记列（#85 后对账 0 才动）；固定专家计划回执（生成、写入、读回）；执行核心收成一路；名单开关；十二个场景等价验收 |
+| knowbench-backend | `c7d3d14d` → `e9cf02f9` | K29 浏览只认标记列（#85 后对账 0 才动）；目录模型「接什么」照 knowmart 改成可不写（逐字段比对查出）；固定专家计划回执（生成、写入、读回）；执行核心收成一路；名单开关；十二个场景等价验收 |
 | knowbench-web-frontend | `7026bfea` 不变 | — |
 | 部署配置 | sunmoonun `gitops/…/knowbench-backend/config.yaml` | `WORKBENCH_FIXED_AS_PLAN_OWNERS: '["721f2c10-…ea7"]'` |
 
@@ -34,7 +34,7 @@ grep -n "WORKBENCH_FIXED_AS_PLAN_OWNERS\|expected_schema_revision" gitops/compon
 make -C infrastructure platform-status; echo "status exit=$?"
 ```
 
-要看到：knowbench 父仓本地与远端同号、是 `b2f9b4ba`；knowbench-backend 子仓 `38c6c1f1`、web 仍是 `7026bfea`；config 里有名单那一行、迁移版本 `20261106_0039`；`status exit=0`。不一致就先 `WS=qwen bash ~/switch-test/human-local.sh` 再核。
+要看到：knowbench 父仓本地与远端同号、是 `4ad760d5`；knowbench-backend 子仓 `e9cf02f9`、web 仍是 `7026bfea`；config 里有名单那一行、迁移版本 `20261106_0039`；`status exit=0`。不一致就先 `WS=qwen bash ~/switch-test/human-local.sh` 再核。
 
 ## 二、发前查两样（只读，有任何一样不是空就停，贴给所有者）
 
