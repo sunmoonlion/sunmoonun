@@ -44,7 +44,7 @@
 
 2026-10-17 起，GitHub 与 gitee 上的 `investment-app`（连同三个子仓）改名为 `knowbench-*`，`runtime` 改名为 `sunmoon-link`，GitHub 的旧地址自动转到新仓；两台机器的检出已换名（[0028](../design/SDD/modules/0028-knowbench-rename.md)）。
 
-工位与同步：主目录 `~/master/<仓>`，工位 `~/worktrees/<工位>/<仓>`（`mb` 管理）；两台机器（远程机写、本地机跑）之间只经 Git origin 往来，两端各自用 `~/worktrees/<工位>/sunmoonun/docs/sync-workertree/five-repos-sync/sync-five-repos.sh pull` 拉取，提交后用 `push` 推送；派活卡与回执在 [`sync-workertree/`](../sync-workertree/README.md)。
+工位与同步：主目录 `~/master/<仓>`，工位 `~/worktrees/<工位>/<仓>`（`mb` 管理）；两台机器（远程机写、本地机跑）之间只经 Git origin 往来，两端各自用 `~/worktrees/<工位>/sunmoonun/docs/sync-workertree/sync/sync.sh pull` 拉取，提交后用 `push` 推送；派活卡与回执在 [`sync-workertree/`](../sync-workertree/README.md)。
 
 ## 3. 东西跑在哪里（站点层与宿主层的概貌）
 

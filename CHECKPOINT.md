@@ -1119,7 +1119,7 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 
 ## 2026-11-07：日常同步工具回归各仓，不再安装家目录副本
 
-按所有者要求，`docs/sync-workertree/five-repos-sync/` 从旧参考副本升级为唯一运行目录，配置、入口和 Python 实现一起版本化。入口根据自身路径识别工位，master 同样适用；不读取家目录配置、外部 layout.conf 或 WS，不接受跨工位参数。旧 sibling 入口/实现、过时参考说明/配置/测试移除，历史仍在 Git。master 只补齐同步工具，不合入业务开发；两端家目录日常入口在仓内验证后删除，独立维护脚本及其配置保留。
+按所有者要求，`docs/sync-workertree/sync/` 从旧参考副本升级为唯一运行目录，配置、入口和 Python 实现一起版本化。入口根据自身路径识别工位，master 同样适用；不读取家目录配置、外部 layout.conf 或 WS，不接受跨工位参数。旧 sibling 入口/实现、过时参考说明/配置/测试移除，历史仍在 Git。master 只补齐同步工具，不合入业务开发；两端家目录日常入口在仓内验证后删除，独立维护脚本及其配置保留。
 
 验证：20 项临时 Git 测试通过，覆盖无家目录安装、无外部配置、错误 WS、master 路径及禁止传其他工位参数；ruff、Bash 语法和 diff 检查通过。qwen 与 master 真实状态查询成功。
 
@@ -1130,3 +1130,7 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 ## 2026-11-07：同步协作目录清理
 
 移除旧 done 任务卡、旧审读日志、旧对齐/维护脚本副本、已明确作废的 qwen-019 卡及 model-switch 过期配置备份。旧资料保留于 Git 历史，关联 Markdown 引用改为清理前固定提交。当前 qwen-018、qwen-020 与 luna 未结卡继续保留，不以清理代替验收。Windows hosts 脚本仍有运维用途，原样移到 docs/ops/tools/ 并更新当前说明；无主机配置操作。同步引擎未改，真实只读 status 通过，文档和 diff 检查通过。
+
+## 2026-11-07：同步工具去掉 five-repos 命名
+
+按所有者要求，运行目录改为 `docs/sync-workertree/sync/`，入口同步改为 `sync.sh`；仓数量仍由 config.sh 与子模块发现决定。master 和各工位路径引用、测试夹具一并更新，运行逻辑不变。
