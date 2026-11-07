@@ -9,8 +9,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE = ROOT / "docs/process/switch-test/workstation_sync.py"
-LAUNCHER = ROOT / "docs/process/switch-test/sync-five-repos.sh"
+ENGINE = ROOT / "docs/process/switch-test/five-repos-sync/workstation_sync.py"
+LAUNCHER = ROOT / "docs/process/switch-test/five-repos-sync/sync-five-repos.sh"
 PARENTS = ["sunmoonun", "sample-app", "sunmoon-link"]
 CHILD = "sample-app/sample-backend"
 
@@ -310,33 +310,61 @@ class SyncTests(unittest.TestCase):
         self.env.pop("WS")
         self.sync("pull", False)
 
-    def test_launcher_needs_no_ssh_configuration(self):
-        tools = self.work / "sunmoonun/docs/process/switch-test"
+    def install_launcher(self):
+        tools = self.work / "sunmoonun/docs/process/switch-test/five-repos-sync"
         tools.mkdir(parents=True)
         shutil.copy2(ENGINE, tools / ENGINE.name)
+        shutil.copy2(LAUNCHER, tools / LAUNCHER.name)
+        (tools / "config.sh").write_text(
+            "GIT_REMOTE=origin\nREPOS=(sunmoonun sample-app sunmoon-link)\n"
+        )
         repo = self.work / "sunmoonun"
         git(repo, "add", "docs")
         git(repo, "commit", "-m", "install daily engine")
         git(repo, "push")
-        config = self.base / "config.sh"
-        layout = self.base / "layout.conf"
-        layout.write_text(
-            "LAYOUT_MASTER=master\nLAYOUT_WORKTREES=worktrees\nLAYOUT_WORKSPACES=(qwen)\n"
-        )
-        config.write_text(
-            f'GIT_REMOTE=origin\nLAYOUT_CONF="{layout}"\ndeclare -A BRANCHES=()\nREPOS=(sunmoonun sample-app sunmoon-link)\n'
-        )
-        env = dict(self.env, HOME=str(self.base), FIVE_REPOS_CONFIG=str(config))
+        return tools / LAUNCHER.name
+
+    def test_launcher_needs_no_home_install_or_workspace_config(self):
+        launcher = self.install_launcher()
+        env = dict(self.env, HOME=str(self.base / "empty-home"), WS="wrong-station")
         for action in ["status", "pull", "push"]:
             with self.subTest(action=action):
                 r = subprocess.run(
-                    ["bash", str(LAUNCHER), action, "qwen"],
+                    [str(launcher), action],
                     check=False,
+                    cwd=self.base,
                     env=env,
                     text=True,
                     capture_output=True,
                 )
                 self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+                if action != "status":
+                    self.assertIn("工位 qwen", r.stdout)
+
+    def test_launcher_works_from_master_without_workspace_layout(self):
+        self.install_launcher()
+        for name in [*PARENTS, CHILD]:
+            git(self.work / name, "switch", "-c", "master")
+            git(self.work / name, "push", "-u", "origin", "master")
+        master = self.base / "master"
+        self.work.rename(master)
+        launcher = master / "sunmoonun" / LAUNCHER.relative_to(ROOT)
+        r = subprocess.run(
+            [str(launcher), "pull"],
+            check=False,
+            env=dict(self.env, HOME=str(self.base / "empty-home")),
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("工位 master", r.stdout)
+
+    def test_launcher_refuses_another_workspace_argument(self):
+        launcher = self.install_launcher()
+        r = subprocess.run(
+            [str(launcher), "pull", "fable"], check=False, text=True, capture_output=True
+        )
+        self.assertEqual(r.returncode, 2)
 
 
 if __name__ == "__main__":

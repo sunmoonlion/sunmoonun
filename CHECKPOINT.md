@@ -1116,3 +1116,9 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 所有者确认只保留 `~/five-repos-sync/sync-five-repos.sh pull|push|status <工位>`。删除仓内及两端 `~/switch-test/` 的 human-local.sh、human-remote.sh；更新当前操作说明和 inbox 发布卡命令。历史回执保留当时命令，不作为现行入口。回归改为直接验证统一安装入口的 status/pull/push，不再测试已退役的转发层。
 
 验证：18 项临时 Git 回归全部通过（9.23 秒），包含统一入口 status/pull/push；ruff、diff 检查通过。本地与远程的旧转发脚本及其空目录已移除，安装说明已更新。
+
+## 2026-11-07：日常同步工具回归各仓，不再安装家目录副本
+
+按所有者要求，`docs/process/switch-test/five-repos-sync/` 从旧参考副本升级为唯一运行目录，配置、入口和 Python 实现一起版本化。入口根据自身路径识别工位，master 同样适用；不读取家目录配置、外部 layout.conf 或 WS，不接受跨工位参数。旧 sibling 入口/实现、过时参考说明/配置/测试移除，历史仍在 Git。master 只补齐同步工具，不合入业务开发；两端家目录日常入口在仓内验证后删除，独立维护脚本及其配置保留。
+
+验证：20 项临时 Git 测试通过，覆盖无家目录安装、无外部配置、错误 WS、master 路径及禁止传其他工位参数；ruff、Bash 语法和 diff 检查通过。qwen 与 master 真实状态查询成功。

@@ -2,29 +2,29 @@
 
 ## 日常只做三件事
 
-本地和远程在**各自的机器**执行，工位和分支同名。以 qwen 为例：
+本地和远程在**各自的机器**执行，工位和分支同名。以 qwen 为例，先进入 `~/worktrees/qwen`；master 则进入 `~/master`：
 
 ```bash
 # 开工：拉取已推送的代码
-~/five-repos-sync/sync-five-repos.sh pull qwen
+./sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh pull
 
 # 修改、测试后：自己检查 diff，逐仓提交；子仓先提交，再提交父仓 gitlink
 
 # 收工：推送已经提交的内容
-~/five-repos-sync/sync-five-repos.sh push qwen
+./sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh push
 ```
 
 查看当前机器状态（不联网）：
 
 ```bash
-~/five-repos-sync/sync-five-repos.sh status qwen
+./sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh status
 ```
 
 推送更新 GitHub/Gitee，不更新对方的工作目录。对方下次开工自己 `pull`。不需要同步程序 SSH 登录对方，也不会在日常操作里同时更新所有工位。
 
 日常只保留上面的统一入口。原 `~/switch-test/` 两个转发脚本已退役，无需再安装或复制。
 
-`local-pull` / `from-remote` 是 `pull` 的兼容别名，`local-push` / `to-remote` 是 `push` 的兼容别名。**现在这些日常别名也不会 SSH 操作另一台机器。**
+脚本根据自身所在目录识别工位，配置和实现均在仓内；拉取后立即使用新版。不再安装家目录入口，也不需要传工位名。
 
 ## 速度与保护
 
@@ -47,11 +47,10 @@
 
 ## 配置与维护分开
 
-- 工位名单：两端各自 `~/toolboxes/Vlinux/utils/set-up-tools/model-switch/layout.conf`。
-- 仓列表和 Git remote：`~/five-repos-sync/config.sh`；`BRANCH` 可显式覆盖同名分支，`BRANCHES` 映射仍支持。两端各自展开 `$HOME`，不复制凭据或代理配置。
-- 日常实现：[workstation_sync.py](workstation_sync.py)；[安装入口](sync-five-repos.sh)复制到 `~/five-repos-sync/sync-five-repos.sh`。
-- 工位创建仍用 model-switch；明确要求的跨机/强制对齐保留在 [maintenance-sync.sh](maintenance-sync.sh)，安装到 `~/five-repos-sync/maintenance-sync.sh`。此入口保留旧维护行为，必须按具体授权使用；日常入口不调用它、不支持 `-all`。
-- [five-repos-sync/](five-repos-sync/) 仍只是历史参考副本，不是执行入口。
+- 创建工位的名单仍由 model-switch 管理；日常同步不依赖外部 layout.conf。
+- 唯一运行目录：[five-repos-sync/](five-repos-sync/)。其中 `config.sh` 保存仓列表，`sync-five-repos.sh` 是可执行入口，`workstation_sync.py` 是实现。
+- master 和各工位均随本仓维护这三份文件；无需复制安装。旧的参考目录已升级为正式运行目录，过时副本从当前树移除，Git 历史仍可追溯。
+- 明确要求的跨机/强制对齐仍是单独维护行为：[maintenance-sync.sh](maintenance-sync.sh)，原安装位置 `~/five-repos-sync/maintenance-sync.sh` 与其机器配置暂留；日常入口不调用它。不要用日常 `pull` 代替跨工位合并，也不要自动执行维护脚本。
 
 回归测试使用临时 Git 仓库，不访问业务环境：
 

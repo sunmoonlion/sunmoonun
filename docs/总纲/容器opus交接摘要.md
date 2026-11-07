@@ -106,6 +106,6 @@
 
 ## 八、接手第一步建议
 
-1. 本地 `~/five-repos-sync/sync-five-repos.sh pull qwen` 把这批拉下来。
+1. 本地 `~/worktrees/qwen/sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh pull` 把这批拉下来。
 2. 看第六节，先定第 1 条（Wind 回包核实）——它决定 0051 什么时候能发。
 3. 不要单发 knowbench（第一节末）。
