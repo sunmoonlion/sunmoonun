@@ -150,7 +150,7 @@ agy 那份报告在 `~/worktrees/agy/整体项目审查.md`。agy 工位五个�
 本机现状：2 核、3.6G 内存（可用约 1.6G）、磁盘用了 76%（剩 15G）。没有测试库在跑，也没有残留的测试进程；qwen 工位干净。
 
 - **已做**：清掉我在临时目录里留的旧草稿和旧脚本（10-29 补齐计划那批）。
-- **待批**：
+- **11-08 已卸（所有者批）**：`~/wsl-worktrees` 已卸载；它的用户级服务 `wsl-worktrees.service` 已停掉、关了开机自启（unit 文件没动）。以后要用时，所有者授权后执行 `systemctl --user enable --now wsl-worktrees.service`。原来的说明：
   - `~/wsl-worktrees` 这个 sshfs 挂载（经反向隧道挂上来的本地目录）已经连了 17 天，现在还挂着。任何扫家目录的命令都会穿过去（11-08 我的 `du` 就穿过去了一次）。建议先卸掉（`fusermount -u ~/wsl-worktrees`），要用时你授权再挂。
 - **不动**：
   - 边缘的 `sunmoon-edge-traefik-1`、`sunmoon-edge-frps-1` 两个容器，这台就是线上公网入口；
