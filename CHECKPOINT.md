@@ -1107,3 +1107,6 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 所有者要求双端各自提交推送、各自拉取，减少逐仓等待。以 qwen 根仓 14615532 为基线，新增 workstation_sync.py 作为唯一日常实现；human-local / human-remote 改为薄入口，five-repos-sync 日常入口只做当前机器 pull/push/status。抓取每仓一次、默认并发4；推送独立核对每个 push URL、只推差异、先子后父。取消自动提交、重复拉两个后端、默认 SSH 双端操作。跨机/强制对齐旧逻辑移到 maintenance-sync.sh，日常不调用。
 
 临时真实 Git 仓库回归覆盖：父子指针、缺对象、分叉、网络错误、双镜像端、并发上限、游离分支保护和未提交文件保护。正式测试命令 python3 -m unittest discover -s scripts -p test_switch_test_sync.py -v。程序无外部依赖；不涉及集群、应用实现、发布或付费调用。完成安装后以实际 pull/push 计时补回执；旧参考副本仍不可执行为日常真源。
+
+
+同步简化已安装至本地和远程的 ~/five-repos-sync，原 human 两个入口兼容保留。最终临时真实 Git 回归两端各19项通过；ruff、Bash语法通过。真实26仓：本地pull 15.5秒、远程pull 15.5秒；本地push核对双端15.5秒，实际推送0（全已一致）。记录 scripts/results/daily-sync-20261107.md。没有测旧版同环境耗时，不承诺固定加速倍数；日常不自动提交，未提交内容必须先处理。维护入口只迁移旧功能，本轮未运行跨机强制对齐。

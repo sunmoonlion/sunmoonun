@@ -338,11 +338,10 @@ def main():
                 / "docs/process/switch-test/inbox"
             )
             for card in sorted(inbox.glob("*/*.md")):
-                print(
-                    "待办",
-                    str(card.relative_to(inbox)),
-                    card.read_text().splitlines()[0],
-                )
+                if card.name == "README.md":
+                    continue
+                lines = card.read_text().splitlines()
+                print("待办", str(card.relative_to(inbox)), lines[0] if lines else "")
         else:
             print("已推到 Git；对方开工前在自己的机器执行 pull。")
 
