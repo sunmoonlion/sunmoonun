@@ -47,7 +47,7 @@
 
 ## 配置与维护分开
 
-[model-switch 参考副本](model-switch/来源说明.md)保存工位管理脚本和配置，供协作查阅；原工具目录不变。
+工位管理工具统一放在 `~/toolboxes/Vlinux/utils/set-up-tools/model-switch/`，`mb` 指向其中的 `model-branch.sh`；工位名单在 `layout.conf`，注册仓列表在 `repos.conf`。本目录不再保存副本，避免多份配置混淆。
 
 - 创建工位的名单仍由 model-switch 管理；日常同步不依赖外部 layout.conf。
 - 唯一运行目录：[five-repos-sync/](five-repos-sync/)。其中 `config.sh` 保存仓列表，`sync-five-repos.sh` 是可执行入口，`workstation_sync.py` 是实现。
@@ -65,7 +65,6 @@ python3 -m unittest discover -s scripts -p test_switch_test_sync.py -v
 ## 目录内容
 
 - `five-repos-sync/`：当前同步工具。
-- `model-switch/`：工位管理参考副本，仅保留现行配置和源说明。
 - `inbox/`：未完成任务；`hold/`：暂停任务；`done/`：今后已验收任务。
 
 旧任务、旧审读日志和作废发布卡已从当前目录移除，可从 Git 历史追溯。Windows hosts 工具归入 [运维工具](../ops/tools/windows_hosts_add.ps1)。
