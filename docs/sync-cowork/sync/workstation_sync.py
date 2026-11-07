@@ -90,7 +90,34 @@ class Repo:
     target: str = ""
 
 
-def discover(root, names, branch, action):
+def select_repositories(root, names, target):
+    """Select a registered root or a submodule reachable through committed gitlinks."""
+    if target is None:
+        return names, False
+    parts = target.split("/")
+    if any(part in ("", ".", "..") for part in parts) or parts[0] not in names:
+        raise SyncError("范围须为 config.sh 中的仓名或其已登记子仓路径")
+    current = parts[0]
+    while True:
+        path = root / current
+        if root.resolve() not in path.resolve().parents:
+            raise SyncError("所选仓路径超出当前工位")
+        if current == target:
+            return [target], target not in names
+        if not (path / ".git").exists():
+            raise SyncError(f"{current}: 仓不存在或子模块未初始化")
+        candidates = [
+            current + "/" + sub
+            for sub in links(path, "HEAD")
+            if target == current + "/" + sub
+            or target.startswith(current + "/" + sub + "/")
+        ]
+        if not candidates:
+            raise SyncError(f"{target}: 不是父仓已提交记录中的子模块")
+        current = max(candidates, key=len)
+
+
+def discover(root, names, branch, action, selected_submodule=False):
     repos = []
 
     def add(path, label, parent=None, slot=""):
@@ -105,7 +132,9 @@ def discover(root, names, branch, action):
         current = git(path, "branch", "--show-current")
         status = git(path, "status", "--porcelain")
         if action != "status":
-            if current != branch and not (parent and not current):
+            if current != branch and not (
+                (parent or selected_submodule) and not current
+            ):
                 raise SyncError(
                     f"{label}: 当前分支 {current or 'detached HEAD'}，预期 {branch}"
                 )
@@ -289,6 +318,7 @@ def main():
     parser.add_argument("--root", type=Path)
     parser.add_argument("--branch")
     parser.add_argument("--repos", nargs="+")
+    parser.add_argument("--target", help="registered parent or parent/submodule path")
     args = parser.parse_args()
     ws = os.environ.get("WS", "")
     if not ws or not re.fullmatch(r"[A-Za-z0-9_.-]+", ws) or ws in (".", ".."):
@@ -317,13 +347,15 @@ def main():
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as exc:
             raise SyncError("这个工位已有同步在运行") from exc
-        repos = discover(root, names, branch, args.action)
+        selected, is_submodule = select_repositories(root, names, args.target)
+        repos = discover(root, selected, branch, args.action, is_submodule)
         if args.action == "status":
             for repo in repos:
                 print(repo.label, git(repo.path, "status", "--short", "--branch"))
             return
         print(
-            f"{args.action}：工位 {ws}，分支 {branch}，{len(repos)} 仓；并行联网 {jobs}，只操作本机与 Git。",
+            f"{args.action}：工位 {ws}，分支 {branch}，范围 {args.target or '全部'}，"
+            f"{len(repos)} 仓；并行联网 {jobs}，只操作本机与 Git。",
             flush=True,
         )
         if args.action == "pull":
@@ -331,7 +363,14 @@ def main():
         else:
             push(repos, branch, remote, jobs)
         print(f"同步完成，耗时 {time.monotonic() - start:.1f} 秒。", flush=True)
-        if args.action == "pull":
+        if is_submodule:
+            print(
+                "本次未同步上级父仓；如需采用新的子仓版本，请另行核对、提交并推送父仓指针。"
+            )
+        if (
+            args.action == "pull"
+            and os.environ.get("ROOT_REPO", "sunmoonun") in selected
+        ):
             inbox = (
                 root
                 / os.environ.get("ROOT_REPO", "sunmoonun")
@@ -342,7 +381,7 @@ def main():
                     continue
                 lines = card.read_text().splitlines()
                 print("待办", str(card.relative_to(inbox)), lines[0] if lines else "")
-        else:
+        elif args.action == "push":
             print("已推到 Git；对方开工前在自己的机器执行 pull。")
 
 

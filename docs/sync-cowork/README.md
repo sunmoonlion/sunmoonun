@@ -45,6 +45,8 @@ cd ~/worktrees/agy
 ./sunmoonun/docs/sync-cowork/sync/sync.sh push
 ```
 
+需要缩小范围时，在动作后加父仓名（如 `push knowbench-app`，包含子仓）或子仓路径（如 `push knowbench-app/knowbench-backend`，不包含上级父仓）。省略范围则处理全部注册仓，推送仍由所有者执行。
+
 在 master 使用时进入 `~/master`，命令相同。脚本根据自身所在工位识别同步范围，不需要另传工位名。
 
 推送后，对方仍需在自己的机器拉取。`agy` 同步的是自己的同名分支，不会自动合入 `qwen`，也不会把其他工位全部对齐。同一工位在两端轮流接手，避免同时修改并推送同名分支。

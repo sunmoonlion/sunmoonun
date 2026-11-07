@@ -73,7 +73,7 @@ class SyncTests(unittest.TestCase):
         self.configure(path)
         return path
 
-    def sync(self, action, success=True):
+    def sync(self, action, success=True, target=None):
         r = subprocess.run(
             [
                 "python3",
@@ -83,6 +83,7 @@ class SyncTests(unittest.TestCase):
                 str(self.work),
                 "--repos",
                 *PARENTS,
+                *(["--target=" + target] if target is not None else []),
             ],
             check=False,
             env=self.env,
@@ -310,6 +311,140 @@ class SyncTests(unittest.TestCase):
         self.env.pop("WS")
         self.sync("pull", False)
 
+    def test_parent_pull_isolated_and_child_still_follows_pin(self):
+        other = self.other(CHILD)
+        pinned = self.commit(other, "pin")
+        self.commit(other, "newer-than-pin")
+        git(other, "push")
+        parent = self.other("sample-app")
+        git(parent, "update-index", "--cacheinfo", f"160000,{pinned},sample-backend")
+        git(parent, "commit", "-m", "advance pin")
+        git(parent, "push")
+        (self.work / "sunmoonun/private-note").write_text("unrelated")
+        git(
+            self.work / "sunmoon-link", "remote", "set-url", "origin", "/missing-remote"
+        )
+        result = self.sync("pull", target="sample-app")
+        self.assertIn("2 仓", result.stdout)
+        self.assertEqual(git(self.work / CHILD, "rev-parse", "HEAD"), pinned)
+        self.assertEqual(git(self.work / "sample-app", "status", "--porcelain"), "")
+
+    def test_parent_scope_launcher_pushes_children_before_parent(self):
+        launcher = self.install_launcher()
+        new = self.commit(self.work / CHILD)
+        parent = self.work / "sample-app"
+        git(parent, "add", "sample-backend")
+        git(parent, "commit", "-m", "pin")
+        hook = self.origins["sample-app"] / "hooks/pre-receive"
+        hook.write_text(
+            "#!/bin/sh\nset -eu\nwhile read old new ref; do\n"
+            'expected=$(git rev-parse "$new:sample-backend")\n'
+            f'actual=$(env -u GIT_DIR -u GIT_WORK_TREE git --git-dir="{self.origins[CHILD]}" rev-parse qwen)\n'
+            'test "$expected" = "$actual"\ndone\n'
+        )
+        hook.chmod(0o755)
+        (self.work / "sunmoonun/private-note").write_text("unrelated")
+        result = subprocess.run(
+            [str(launcher), "push", "sample-app"],
+            check=False,
+            env=self.env,
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(git(self.origins[CHILD], "rev-parse", "qwen"), new)
+        self.assertEqual(
+            git(self.origins["sample-app"], "rev-parse", "qwen:sample-backend"), new
+        )
+
+    def test_child_pull_uses_branch_without_changing_parent_commit(self):
+        parent = self.work / "sample-app"
+        before = git(parent, "rev-parse", "HEAD")
+        other = self.other(CHILD)
+        new = self.commit(other)
+        git(other, "push")
+        git(self.work / CHILD, "switch", "--detach")
+        (parent / "author-note").write_text("keep this")
+        result = self.sync("pull", target=CHILD)
+        self.assertIn("1 仓", result.stdout)
+        self.assertIn("本次未同步上级父仓", result.stdout)
+        self.assertEqual(git(self.work / CHILD, "rev-parse", "HEAD"), new)
+        self.assertEqual(git(parent, "rev-parse", "HEAD"), before)
+        self.assertIn("sample-backend", git(parent, "status", "--porcelain"))
+
+    def test_child_scope_launcher_pushes_only_child_despite_dirty_parent(self):
+        launcher = self.install_launcher()
+        parent_before = git(self.origins["sample-app"], "rev-parse", "qwen")
+        new = self.commit(self.work / CHILD)
+        (self.work / "sample-app/private-note").write_text("keep this")
+        result = subprocess.run(
+            [str(launcher), "push", CHILD],
+            check=False,
+            env=self.env,
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(git(self.origins[CHILD], "rev-parse", "qwen"), new)
+        self.assertEqual(
+            git(self.origins["sample-app"], "rev-parse", "qwen"), parent_before
+        )
+
+    def test_invalid_and_unregistered_scope_refused_before_network(self):
+        (self.work / "sample-app/unregistered").mkdir()
+        for target in [
+            "",
+            "fable",
+            "../qwen/sunmoonun",
+            str(self.work / CHILD),
+            "sample-app/../sunmoonun",
+            "sample-app/unregistered",
+        ]:
+            with self.subTest(target=target):
+                result = self.sync("pull", False, target=target)
+                self.assertNotIn("已抓取", result.stdout)
+
+    def test_scope_refuses_symlink_outside_workstation(self):
+        child = self.work / CHILD
+        outside = self.base / "outside-child"
+        child.rename(outside)
+        child.symlink_to(outside, target_is_directory=True)
+        result = self.sync("pull", False, target=CHILD)
+        self.assertIn("超出当前工位", result.stderr)
+
+    def test_child_status_does_not_include_parent_or_other_roots(self):
+        result = self.sync("status", target=CHILD)
+        self.assertEqual(len(result.stdout.splitlines()), 1)
+        self.assertTrue(result.stdout.startswith(CHILD + " "))
+
+    def test_selected_child_preserves_nested_dependency_order(self):
+        child = self.work / CHILD
+        nested = child / "nested"
+        origin = self.base / "nested.git"
+        git(self.base, "init", "--bare", str(origin))
+        git(self.base, "clone", str(origin), str(nested))
+        self.configure(nested)
+        git(nested, "switch", "-c", "qwen")
+        new = self.commit(nested)
+        (child / ".gitmodules").write_text(
+            f'[submodule "nested"]\n\tpath = nested\n\turl = {origin}\n'
+        )
+        git(child, "add", ".gitmodules", "nested")
+        git(child, "commit", "-m", "pin nested")
+        hook = self.origins[CHILD] / "hooks/pre-receive"
+        hook.write_text(
+            "#!/bin/sh\nset -eu\nwhile read old new ref; do\n"
+            'expected=$(git rev-parse "$new:nested")\n'
+            f'actual=$(env -u GIT_DIR -u GIT_WORK_TREE git --git-dir="{origin}" rev-parse qwen)\n'
+            'test "$expected" = "$actual"\ndone\n'
+        )
+        hook.chmod(0o755)
+        before = git(self.origins["sample-app"], "rev-parse", "qwen")
+        result = self.sync("push", target=CHILD)
+        self.assertIn("2 仓", result.stdout)
+        self.assertEqual(git(origin, "rev-parse", "qwen"), new)
+        self.assertEqual(git(self.origins["sample-app"], "rev-parse", "qwen"), before)
+
     def install_launcher(self):
         tools = self.work / "sunmoonun/docs/sync-cowork/sync"
         tools.mkdir(parents=True)
@@ -362,9 +497,13 @@ class SyncTests(unittest.TestCase):
     def test_launcher_refuses_another_workspace_argument(self):
         launcher = self.install_launcher()
         r = subprocess.run(
-            [str(launcher), "pull", "fable"], check=False, text=True, capture_output=True
+            [str(launcher), "pull", "fable"],
+            check=False,
+            text=True,
+            capture_output=True,
         )
-        self.assertEqual(r.returncode, 2)
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("范围须为", r.stderr)
 
 
 if __name__ == "__main__":
