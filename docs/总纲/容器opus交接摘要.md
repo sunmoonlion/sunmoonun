@@ -32,7 +32,7 @@
 
 ## 三、做完并已上线的（#85，`release-20261106-1`）
 
-按卡 [qwen-018](../process/switch-test/inbox/qwen/2026-11-06-qwen-018-next-batch.md)，四个应用成组发；回执 [qwen-018](../../scripts/results/qwen-018.20261106-2049.md)。#84 失败一次：knowbench 加了迁移 0039，部署声明的期望版本没改（我写卡时漏了），Qwen 改了声明后 #85 成功。**以后后端加迁移，同一批改部署声明的 `expected_schema_revision`。**
+按卡 [qwen-018](../sync-workertree/inbox/qwen/2026-11-06-qwen-018-next-batch.md)，四个应用成组发；回执 [qwen-018](../../scripts/results/qwen-018.20261106-2049.md)。#84 失败一次：knowbench 加了迁移 0039，部署声明的期望版本没改（我写卡时漏了），Qwen 改了声明后 #85 成功。**以后后端加迁移，同一批改部署声明的 `expected_schema_revision`。**
 
 | 账 | 修了什么 |
 | --- | --- |
@@ -83,9 +83,9 @@
 
 | 卡 | 状态 |
 | --- | --- |
-| [qwen-018](../process/switch-test/inbox/qwen/2026-11-06-qwen-018-next-batch.md) | 已发（#85） |
-| [qwen-019](../process/switch-test/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md) | 作废，由 qwen-020 取代 |
-| [qwen-020](../process/switch-test/inbox/qwen/2026-11-07-qwen-020-facts-and-fixed-plan.md) | **暂不发**（所有者 11-07：「那就没有必要发这版啊」）。等 Wind 指标对照做好后，knowbase、knowfeed、knowbench 三个一起发；卡里的号到时要重核 |
+| [qwen-018](../sync-workertree/inbox/qwen/2026-11-06-qwen-018-next-batch.md) | 已发（#85） |
+| [qwen-019](../sync-workertree/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md) | 作废，由 qwen-020 取代 |
+| [qwen-020](../sync-workertree/inbox/qwen/2026-11-07-qwen-020-facts-and-fixed-plan.md) | **暂不发**（所有者 11-07：「那就没有必要发这版啊」）。等 Wind 指标对照做好后，knowbase、knowfeed、knowbench 三个一起发；卡里的号到时要重核 |
 
 ## 六、等所有者定的
 
@@ -106,6 +106,6 @@
 
 ## 八、接手第一步建议
 
-1. 本地 `~/worktrees/qwen/sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh pull` 把这批拉下来。
+1. 本地 `~/worktrees/qwen/sunmoonun/docs/sync-workertree/five-repos-sync/sync-five-repos.sh pull` 把这批拉下来。
 2. 看第六节，先定第 1 条（Wind 回包核实）——它决定 0051 什么时候能发。
 3. 不要单发 knowbench（第一节末）。

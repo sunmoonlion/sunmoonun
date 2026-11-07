@@ -104,4 +104,4 @@
 2. 应用层：写回执 `accept_fixed_plan`、`validate_receipt` 认固定回执。**已写**（`app/application/workbench/fixed_plans.py`），还没接到受理流程上，开关也还没加；产出名改读 `pack.workflow`、`accepted_results` 认固定回执随第 3 步做。
 3. 把执行核心改成按回执走：取输入的谱系、开步、验收后复核、收尾；名单 `WORKBENCH_FIXED_AS_PLAN_OWNERS`（默认空）接到受理通过处，按委托所有者的 subject 判。**已做**。页面、测试取值、工具审批、「覆盖」验收的上游仍按固定/动态分开（第三节 #2、#5、#6、#8）。
 4. 第五节等价验收测试。**十二个场景已写**（knowbench-backend `5e2ceaf5`）。
-5. 本地卡：[qwen-019](../../../process/switch-test/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md)，发 knowbench、名单只放所有者本人，本人跑双轨 8.2 的茅台回归题。**卡已写**，等所有者说「发」。
+5. 本地卡：[qwen-019](../../../sync-workertree/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md)，发 knowbench、名单只放所有者本人，本人跑双轨 8.2 的茅台回归题。**卡已写**，等所有者说「发」。
