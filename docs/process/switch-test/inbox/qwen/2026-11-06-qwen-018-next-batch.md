@@ -32,7 +32,7 @@ for a in knowbase knowfeed knowbench knowlab; do d=~/worktrees/qwen/$a-app; git 
 make -C infrastructure platform-status; echo "status exit=$?"
 ```
 
-要看到：四个父仓本地与远端同号，且是 knowbase `cb1cb10a`、knowfeed `67638eb9`、knowbench `6049c865`、knowlab `43d2192f`；子仓号与上表一致；`status exit=0`。不一致就先 `WS=qwen bash ~/switch-test/human-local.sh` 再核。
+要看到：四个父仓本地与远端同号，且是 knowbase `cb1cb10a`、knowfeed `67638eb9`、knowbench `6049c865`、knowlab `43d2192f`；子仓号与上表一致；`status exit=0`。不一致就先 `~/five-repos-sync/sync-five-repos.sh pull qwen` 再核。
 
 ## 二、发前查三样（只读，有任何一样不是空就停，贴给所有者）
 

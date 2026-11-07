@@ -34,7 +34,7 @@ grep -n "WORKBENCH_FIXED_AS_PLAN_OWNERS\|expected_schema_revision" gitops/compon
 make -C infrastructure platform-status; echo "status exit=$?"
 ```
 
-要看到：三个父仓本地与远端同号，且是 knowbase `582efeaa`、knowfeed `56ed9df0`、knowbench `915e31c4`；子仓号与上表一致；config 里有名单那一行、knowbench 迁移版本 `20261106_0039`；`status exit=0`。不一致就先 `WS=qwen bash ~/switch-test/human-local.sh` 再核。
+要看到：三个父仓本地与远端同号，且是 knowbase `582efeaa`、knowfeed `56ed9df0`、knowbench `915e31c4`；子仓号与上表一致；config 里有名单那一行、knowbench 迁移版本 `20261106_0039`；`status exit=0`。不一致就先 `~/five-repos-sync/sync-five-repos.sh pull qwen` 再核。
 
 ## 二、发前查三样（只读，有任何一样不是空就停，贴给所有者）
 

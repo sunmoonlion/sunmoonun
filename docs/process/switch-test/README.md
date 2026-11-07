@@ -22,12 +22,7 @@
 
 推送更新 GitHub/Gitee，不更新对方的工作目录。对方下次开工自己 `pull`。不需要同步程序 SSH 登录对方，也不会在日常操作里同时更新所有工位。
 
-原来的入口继续可用，两端含义相同：
-
-```bash
-WS=qwen bash ~/switch-test/human-local.sh   # pull
-WS=qwen bash ~/switch-test/human-remote.sh  # push
-```
+日常只保留上面的统一入口。原 `~/switch-test/` 两个转发脚本已退役，无需再安装或复制。
 
 `local-pull` / `from-remote` 是 `pull` 的兼容别名，`local-push` / `to-remote` 是 `push` 的兼容别名。**现在这些日常别名也不会 SSH 操作另一台机器。**
 
@@ -54,7 +49,7 @@ WS=qwen bash ~/switch-test/human-remote.sh  # push
 
 - 工位名单：两端各自 `~/toolboxes/Vlinux/utils/set-up-tools/model-switch/layout.conf`。
 - 仓列表和 Git remote：`~/five-repos-sync/config.sh`；`BRANCH` 可显式覆盖同名分支，`BRANCHES` 映射仍支持。两端各自展开 `$HOME`，不复制凭据或代理配置。
-- 日常实现：[workstation_sync.py](workstation_sync.py)；[安装入口](sync-five-repos.sh)复制到 `~/five-repos-sync/sync-five-repos.sh`。两个 human 脚本也使用同一实现，不维护两套同步逻辑。
+- 日常实现：[workstation_sync.py](workstation_sync.py)；[安装入口](sync-five-repos.sh)复制到 `~/five-repos-sync/sync-five-repos.sh`。
 - 工位创建仍用 model-switch；明确要求的跨机/强制对齐保留在 [maintenance-sync.sh](maintenance-sync.sh)，安装到 `~/five-repos-sync/maintenance-sync.sh`。此入口保留旧维护行为，必须按具体授权使用；日常入口不调用它、不支持 `-all`。
 - [five-repos-sync/](five-repos-sync/) 仍只是历史参考副本，不是执行入口。
 

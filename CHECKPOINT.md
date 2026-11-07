@@ -1110,3 +1110,9 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 
 
 同步简化已安装至本地和远程的 ~/five-repos-sync，原 human 两个入口兼容保留。最终临时真实 Git 回归两端各19项通过；ruff、Bash语法通过。真实26仓：本地pull 15.5秒、远程pull 15.5秒；本地push核对双端15.5秒，实际推送0（全已一致）。记录 scripts/results/daily-sync-20261107.md。没有测旧版同环境耗时，不承诺固定加速倍数；日常不自动提交，未提交内容必须先处理。维护入口只迁移旧功能，本轮未运行跨机强制对齐。
+
+## 2026-11-07：退役 human 同步入口
+
+所有者确认只保留 `~/five-repos-sync/sync-five-repos.sh pull|push|status <工位>`。删除仓内及两端 `~/switch-test/` 的 human-local.sh、human-remote.sh；更新当前操作说明和 inbox 发布卡命令。历史回执保留当时命令，不作为现行入口。回归改为直接验证统一安装入口的 status/pull/push，不再测试已退役的转发层。
+
+验证：18 项临时 Git 回归全部通过（9.23 秒），包含统一入口 status/pull/push；ruff、diff 检查通过。本地与远程的旧转发脚本及其空目录已移除，安装说明已更新。

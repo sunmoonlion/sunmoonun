@@ -310,29 +310,14 @@ class SyncTests(unittest.TestCase):
         self.env.pop("WS")
         self.sync("pull", False)
 
-    def test_human_entries_share_the_same_engine(self):
-        for name in ["human-local.sh", "human-remote.sh"]:
-            r = subprocess.run(
-                [
-                    "bash",
-                    str(ENGINE.with_name(name)),
-                    "--root",
-                    str(self.work),
-                    "--repos",
-                    *PARENTS,
-                ],
-                check=False,
-                env=self.env,
-                text=True,
-                capture_output=True,
-            )
-            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-            self.assertIn("同步完成", r.stdout)
-
     def test_launcher_needs_no_ssh_configuration(self):
         tools = self.work / "sunmoonun/docs/process/switch-test"
         tools.mkdir(parents=True)
         shutil.copy2(ENGINE, tools / ENGINE.name)
+        repo = self.work / "sunmoonun"
+        git(repo, "add", "docs")
+        git(repo, "commit", "-m", "install daily engine")
+        git(repo, "push")
         config = self.base / "config.sh"
         layout = self.base / "layout.conf"
         layout.write_text(
@@ -342,14 +327,16 @@ class SyncTests(unittest.TestCase):
             f'GIT_REMOTE=origin\nLAYOUT_CONF="{layout}"\ndeclare -A BRANCHES=()\nREPOS=(sunmoonun sample-app sunmoon-link)\n'
         )
         env = dict(self.env, HOME=str(self.base), FIVE_REPOS_CONFIG=str(config))
-        r = subprocess.run(
-            ["bash", str(LAUNCHER), "status", "qwen"],
-            check=False,
-            env=env,
-            text=True,
-            capture_output=True,
-        )
-        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        for action in ["status", "pull", "push"]:
+            with self.subTest(action=action):
+                r = subprocess.run(
+                    ["bash", str(LAUNCHER), action, "qwen"],
+                    check=False,
+                    env=env,
+                    text=True,
+                    capture_output=True,
+                )
+                self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
 
 
 if __name__ == "__main__":
