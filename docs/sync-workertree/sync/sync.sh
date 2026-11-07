@@ -4,11 +4,11 @@ set -euo pipefail
 case "${1:-}" in
   -h|--help|help|'')
     cat <<'EOF'
-用法：./sync-five-repos.sh <pull|push|status>
+用法：./sync.sh <pull|push|status>
   pull    并行抓取，全部检查后快进；子仓跟随父仓指针
   push    只推已提交内容，子仓先于父仓；不自动提交
   status  只看当前工位，不联网
-从工位目录执行：./sunmoonun/docs/sync-workertree/five-repos-sync/sync-five-repos.sh pull
+从工位目录执行：./sunmoonun/docs/sync-workertree/sync/sync.sh pull
 自动使用脚本所在工位，无需家目录安装、WS、工位名单或 SSH 开发机配置。
 默认分支与工位目录同名；特殊布局可显式设置 BRANCH。SYNC_JOBS 默认 4。
 EOF
@@ -22,7 +22,7 @@ case "$action" in
 esac
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 repo="$(git -C "$script_dir" rev-parse --show-toplevel)"
-[[ "$script_dir" == "$repo/docs/sync-workertree/five-repos-sync" ]] || {
+[[ "$script_dir" == "$repo/docs/sync-workertree/sync" ]] || {
   echo '请使用 sunmoonun 仓库内的正式入口，不能复制到家目录运行' >&2; exit 2;
 }
 root="$(dirname -- "$repo")"
