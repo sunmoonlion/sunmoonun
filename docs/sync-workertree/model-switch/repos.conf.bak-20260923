@@ -1,9 +1,0 @@
-# mb 注册仓列表：每行一个路径；# 开头为注释
-# 可用 $HOME 或 ~，本机与远端同一份文件即可
-$HOME/master/k8s
-$HOME/master/info-app
-$HOME/master/investment-app
-$HOME/master/knowledge-app
-$HOME/master/tpl-app
-$HOME/master/runtime
-$HOME/master/desktop-app
