@@ -1,146 +1,370 @@
-"""Regression checks for local result publishing, using disposable Git repos."""
+"""Disposable real-Git regression tests for the single-machine handoff."""
 
+import json
 import os
-from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 import unittest
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "docs/dev-investment-agent/switch-test/human-remote.sh"
-PARENTS = ("k8s", "knowfeed-app", "knowbench-app", "knowbase-app", "tpl-app")
-CHILDREN = ("knowbench-app/knowbench-backend", "knowbase-app/knowbase-backend")
-
-
-def run(*args, **kwargs):
-    return subprocess.run(args, check=True, text=True, capture_output=True, **kwargs)
+ENGINE = ROOT / "docs/process/switch-test/five-repos-sync/workstation_sync.py"
+LAUNCHER = ROOT / "docs/process/switch-test/five-repos-sync/sync-five-repos.sh"
+PARENTS = ["sunmoonun", "sample-app", "sunmoon-link"]
+CHILD = "sample-app/sample-backend"
 
 
 def git(repo, *args):
-    return run("git", "-C", str(repo), *args).stdout.strip()
+    return subprocess.run(
+        ["git", "-C", str(repo), *args], check=True, text=True, capture_output=True
+    ).stdout.strip()
 
 
-class PublishTests(unittest.TestCase):
+class SyncTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix="switch-test-")
-        self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
-        self.worktrees = self.root / "worktrees"
+        self.tmp = tempfile.TemporaryDirectory(prefix="single-machine-sync-")
+        self.addCleanup(self.tmp.cleanup)
+        self.base = Path(self.tmp.name)
+        self.work = self.base / "worktrees/qwen"
         self.origins = {}
-        for name in (*PARENTS, "runtime", *CHILDREN):
-            origin = self.root / (name.replace("/", "-") + ".git")
-            run("git", "init", "--bare", str(origin))
-            self.origins[name] = origin
-            repo = self.worktrees / name
+        for name in [*PARENTS, CHILD]:
+            origin = self.base / (name.replace("/", "-") + ".git")
+            git(self.base, "init", "--bare", str(origin))
+            repo = self.work / name
             repo.parent.mkdir(parents=True, exist_ok=True)
-            run("git", "clone", str(origin), str(repo))
-            git(repo, "config", "user.name", "Sync Test")
-            git(repo, "config", "user.email", "sync-test@example.invalid")
-            git(repo, "config", "commit.gpgsign", "false")
-            git(repo, "config", "core.hooksPath", "/dev/null")
-            branch = "master" if name in CHILDREN else "fable"
-            git(repo, "checkout", "-b", branch)
+            git(self.base, "clone", str(origin), str(repo))
+            self.configure(repo)
+            git(repo, "switch", "-c", "qwen")
             git(repo, "commit", "--allow-empty", "-m", "base")
-            git(repo, "push", "origin", branch)
-            if name in CHILDREN:
-                git(repo, "checkout", "--detach")
-        for child in CHILDREN:
-            parent, name = child.split("/")
-            repo = self.worktrees / parent
-            (repo / ".gitmodules").write_text(
-                f'[submodule "{name}"]\n\tpath = {name}\n'
-                f'\turl = {self.origins[child]}\n'
-            )
-            git(repo, "add", ".gitmodules", name)
-            git(repo, "commit", "-m", "record submodule")
-            git(repo, "push", "origin", "fable")
-        self.env = dict(
-            os.environ,
-            WORKTREE_ROOT=str(self.worktrees),
-            SYNC_SCRIPT=str(self.root / "no-sync-script"),
-            WS="fable",
+            git(repo, "push", "-u", "origin", "qwen")
+            self.origins[name] = origin
+        parent = self.work / "sample-app"
+        (parent / ".gitmodules").write_text(
+            '[submodule "sample-backend"]\n\tpath = sample-backend\n'
+            f"\turl = {self.origins[CHILD]}\n"
         )
+        git(parent, "add", ".gitmodules", "sample-backend")
+        git(parent, "commit", "-m", "pin child")
+        git(parent, "push")
+        self.env = dict(os.environ, WS="qwen", SYNC_JOBS="4")
+        self.env.pop("BRANCH", None)
+        self.env.pop("GIT_REMOTE", None)
+        self.env.pop("GIT_CONFIG_COUNT", None)
 
-    def publish(self, success=True):
-        result = subprocess.run(
-            ["bash", str(SCRIPT)], env=self.env, text=True, capture_output=True,
+    def configure(self, repo):
+        for key, value in [
+            ("user.name", "Test"),
+            ("user.email", "test@example.invalid"),
+            ("commit.gpgsign", "false"),
+            ("core.hooksPath", "/dev/null"),
+        ]:
+            git(repo, "config", key, value)
+
+    def commit(self, repo, name="note", text="change"):
+        (repo / name).write_text(text)
+        git(repo, "add", name)
+        git(repo, "commit", "-m", name)
+        return git(repo, "rev-parse", "HEAD")
+
+    def other(self, name):
+        path = self.base / ("other-" + name.replace("/", "-"))
+        git(self.base, "clone", "-b", "qwen", str(self.origins[name]), str(path))
+        self.configure(path)
+        return path
+
+    def sync(self, action, success=True):
+        r = subprocess.run(
+            [
+                "python3",
+                str(ENGINE),
+                action,
+                "--root",
+                str(self.work),
+                "--repos",
+                *PARENTS,
+            ],
+            check=False,
+            env=self.env,
+            text=True,
+            capture_output=True,
         )
-        if success:
-            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertIn("本地回来了", result.stdout)
-        else:
-            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertNotIn("本地回来了", result.stdout)
-        return result
+        self.assertEqual(r.returncode == 0, success, r.stdout + r.stderr)
+        return r
 
-    def test_publish_rebases_onto_new_origin_commits(self):
-        # 远程助手在本地跑测试期间又推了提交：回传要先叠上去再推，不应被非快进拒绝
-        parent = self.worktrees / "k8s"
-        other = self.root / "other-k8s"
-        run("git", "clone", "-q", "-b", "fable", str(self.origins["k8s"]), str(other))
-        git(other, "config", "user.name", "Remote"); git(other, "config", "user.email", "remote@example.invalid")
-        git(other, "config", "commit.gpgsign", "false")
-        (other / "remote-note.txt").write_text("from remote\n")
-        git(other, "add", "remote-note.txt"); git(other, "commit", "-q", "-m", "remote pushed meanwhile"); git(other, "push", "-q", "origin", "fable")
-        (parent / "scripts").mkdir(exist_ok=True)
-        (parent / "scripts" / "results.txt").write_text("local result\n")
-        self.publish()
-        head = git(parent, "rev-parse", "HEAD")
-        self.assertEqual(git(parent, "ls-remote", "origin", "refs/heads/fable").split()[0], head)
-        self.assertIn("remote pushed meanwhile", git(parent, "log", "--oneline", "-3"))
-        self.assertTrue((parent / "remote-note.txt").exists())
+    def test_pull_fast_forwards_and_fetches_each_repo_only_once(self):
+        other = self.other("sunmoonun")
+        target = self.commit(other)
+        git(other, "push")
+        trace = self.base / "git-calls"
+        bindir = self.base / "bin"
+        bindir.mkdir()
+        actual = shutil.which("git")
+        wrapper = bindir / "git"
+        wrapper.write_text(
+            "#!/usr/bin/env python3\nimport os,sys,json\n"
+            f'with open({str(trace)!r}, "a") as f: f.write(json.dumps(sys.argv[1:])+"\\n")\n'
+            f"os.execv({actual!r}, [{actual!r}, *sys.argv[1:]])\n"
+        )
+        wrapper.chmod(0o755)
+        self.env["PATH"] = str(bindir) + os.pathsep + self.env["PATH"]
+        self.sync("pull")
+        self.assertEqual(git(self.work / "sunmoonun", "rev-parse", "HEAD"), target)
+        calls = [json.loads(line) for line in trace.read_text().splitlines()]
+        self.assertEqual(sum(c[2] == "fetch" for c in calls), 4)
+        self.assertFalse(any(c[2] == "pull" for c in calls))
 
-    def test_detached_children_without_local_fable(self):
-        self.publish()
-        for child in CHILDREN:
-            repo = self.worktrees / child
-            self.assertEqual(git(repo, "branch", "--show-current"), "")
-            self.assertEqual(
-                git(self.origins[child], "rev-parse", "fable"),
-                git(repo, "rev-parse", "HEAD"),
-            )
+    def test_fetch_parallelism_is_bounded(self):
+        state = self.base / "fetch-state"
+        state.write_text('{"active":0,"max":0}')
+        bindir = self.base / "parallel-bin"
+        bindir.mkdir()
+        actual = shutil.which("git")
+        wrapper = bindir / "git"
+        wrapper.write_text(
+            "#!/usr/bin/env python3\nimport os,sys,json,fcntl,time,subprocess\n"
+            f"state={str(state)!r}\n"
+            "def change(delta):\n"
+            ' with open(state,"r+") as f:\n'
+            '  fcntl.flock(f,fcntl.LOCK_EX);d=json.load(f);d["active"]+=delta;d["max"]=max(d["max"],d["active"]);f.seek(0);json.dump(d,f);f.truncate()\n'
+            'fetch=len(sys.argv)>3 and sys.argv[3]=="fetch"\n'
+            "if fetch: change(1);time.sleep(.2)\n"
+            f"r=subprocess.run([{actual!r},*sys.argv[1:]])\n"
+            "if fetch: change(-1)\n"
+            "sys.exit(r.returncode)\n"
+        )
+        wrapper.chmod(0o755)
+        self.env.update(PATH=str(bindir) + os.pathsep + self.env["PATH"], SYNC_JOBS="2")
+        self.sync("pull")
+        self.assertEqual(json.loads(state.read_text()), {"active": 0, "max": 2})
 
-    def test_new_child_commit_is_pushed_before_parent_gitlink(self):
-        child = CHILDREN[0]
-        repo = self.worktrees / child
-        (repo / "results.txt").write_text("test evidence\n")
-        # Reject a parent push if its gitlink has not already reached the child remote.
-        hook = self.origins["knowbench-app"] / "hooks/pre-receive"
+    def test_detached_child_does_not_reset_existing_branch(self):
+        repo = self.work / CHILD
+        old = git(repo, "rev-parse", "HEAD")
+        newer = self.commit(repo, "local-only")
+        git(repo, "switch", "--detach", old)
+        self.sync("pull", False)
+        self.assertEqual(git(repo, "rev-parse", "qwen"), newer)
+        self.assertEqual(git(repo, "rev-parse", "HEAD"), old)
+
+    def test_child_follows_gitlink_not_newer_branch_head(self):
+        other = self.other(CHILD)
+        new = self.commit(other)
+        git(other, "push")
+        pinned = git(self.work / CHILD, "rev-parse", "HEAD")
+        self.sync("pull")
+        self.assertEqual(git(self.work / CHILD, "rev-parse", "HEAD"), pinned)
+        self.assertNotEqual(new, pinned)
+        self.assertEqual(git(self.work / "sample-app", "status", "--porcelain"), "")
+
+    def test_new_gitlink_and_detached_child_attach_safely(self):
+        other = self.other(CHILD)
+        new = self.commit(other)
+        git(other, "push")
+        parent = self.other("sample-app")
+        git(parent, "update-index", "--cacheinfo", f"160000,{new},sample-backend")
+        git(parent, "commit", "-m", "advance pin")
+        git(parent, "push")
+        git(self.work / CHILD, "switch", "--detach")
+        self.sync("pull")
+        self.assertEqual(git(self.work / CHILD, "rev-parse", "HEAD"), new)
+        self.assertEqual(git(self.work / CHILD, "branch", "--show-current"), "qwen")
+        self.assertEqual(git(self.work / "sample-app", "status", "--porcelain"), "")
+
+    def test_pull_checks_all_before_merging_on_divergence(self):
+        first = self.other("sunmoonun")
+        self.commit(first)
+        git(first, "push")
+        other = self.other("sunmoon-link")
+        self.commit(other, "remote")
+        git(other, "push")
+        self.commit(self.work / "sunmoon-link", "local")
+        before = git(self.work / "sunmoonun", "rev-parse", "HEAD")
+        self.sync("pull", False)
+        self.assertEqual(git(self.work / "sunmoonun", "rev-parse", "HEAD"), before)
+
+    def test_dirty_files_are_never_committed(self):
+        repo = self.work / "sunmoonun"
+        before = git(repo, "rev-parse", "HEAD")
+        (repo / "private-note").write_text("do not publish")
+        self.sync("push", False)
+        self.sync("pull", False)
+        self.assertEqual(git(repo, "rev-parse", "HEAD"), before)
+        self.assertEqual(git(self.origins["sunmoonun"], "rev-parse", "qwen"), before)
+        self.assertTrue((repo / "private-note").exists())
+
+    def test_fetch_failure_stops_before_any_merge(self):
+        other = self.other("sunmoonun")
+        self.commit(other)
+        git(other, "push")
+        before = git(self.work / "sunmoonun", "rev-parse", "HEAD")
+        git(
+            self.work / "sunmoon-link",
+            "remote",
+            "set-url",
+            "origin",
+            str(self.base / "missing.git"),
+        )
+        self.sync("pull", False)
+        self.assertEqual(git(self.work / "sunmoonun", "rev-parse", "HEAD"), before)
+
+    def test_parent_is_pushed_after_child(self):
+        child = self.work / CHILD
+        new = self.commit(child)
+        parent = self.work / "sample-app"
+        git(parent, "add", "sample-backend")
+        git(parent, "commit", "-m", "pin")
+        hook = self.origins["sample-app"] / "hooks/pre-receive"
         hook.write_text(
-            '#!/usr/bin/env bash\nset -euo pipefail\n'
-            'while read -r old new ref; do\n'
-            '  expected=$(git rev-parse "$new:knowbench-backend")\n'
-            f'  actual=$(env -u GIT_DIR -u GIT_WORK_TREE git --git-dir="{self.origins[child]}" rev-parse fable)\n'
-            '  test "$expected" = "$actual"\ndone\n'
+            "#!/bin/sh\nset -eu\nwhile read old new ref; do\n"
+            'expected=$(git rev-parse "$new:sample-backend")\n'
+            f'actual=$(env -u GIT_DIR -u GIT_WORK_TREE git --git-dir="{self.origins[CHILD]}" rev-parse qwen)\n'
+            'test "$expected" = "$actual"\ndone\n'
         )
         hook.chmod(0o755)
-        self.publish()
-        child_head = git(repo, "rev-parse", "HEAD")
-        self.assertEqual(git(self.origins[child], "rev-parse", "fable"), child_head)
+        self.sync("push")
+        self.assertEqual(git(self.origins[CHILD], "rev-parse", "qwen"), new)
         self.assertEqual(
-            git(self.origins["knowbench-app"], "rev-parse", "fable:knowbench-backend"),
-            child_head,
+            git(self.origins["sample-app"], "rev-parse", "qwen:sample-backend"), new
         )
 
-    def test_child_push_failure_stops_before_parent_commit(self):
-        hook = self.origins[CHILDREN[0]] / "hooks/pre-receive"
+    def test_child_push_rejection_blocks_parent(self):
+        before = git(self.origins["sample-app"], "rev-parse", "qwen")
+        self.commit(self.work / CHILD)
+        parent = self.work / "sample-app"
+        git(parent, "add", "sample-backend")
+        git(parent, "commit", "-m", "pin")
+        hook = self.origins[CHILD] / "hooks/pre-receive"
         hook.write_text("#!/bin/sh\nexit 1\n")
         hook.chmod(0o755)
-        parent = self.worktrees / "k8s"
-        before = git(parent, "rev-parse", "HEAD")
-        (parent / "local.txt").write_text("still uncommitted\n")
-        self.publish(success=False)
-        self.assertEqual(git(parent, "rev-parse", "HEAD"), before)
-        self.assertEqual(git(self.origins["k8s"], "rev-parse", "fable"), before)
+        self.sync("push", False)
+        self.assertEqual(git(self.origins["sample-app"], "rev-parse", "qwen"), before)
 
-    def test_wrong_named_child_branch_stops_before_commits(self):
-        repo = self.worktrees / CHILDREN[0]
-        git(repo, "checkout", "master")
-        (repo / "local.txt").write_text("do not commit on master\n")
-        before = git(repo, "rev-parse", "HEAD")
-        self.publish(success=False)
-        self.assertEqual(git(repo, "rev-parse", "HEAD"), before)
+    def test_mirror_receives_commit_even_when_primary_already_has_it(self):
+        repo = self.work / "sunmoonun"
+        mirror = self.base / "mirror.git"
+        git(self.base, "clone", "--bare", str(self.origins["sunmoonun"]), str(mirror))
+        new = self.commit(repo)
+        git(repo, "push")
+        git(
+            repo,
+            "remote",
+            "set-url",
+            "--add",
+            "--push",
+            "origin",
+            str(self.origins["sunmoonun"]),
+        )
+        git(repo, "remote", "set-url", "--add", "--push", "origin", str(mirror))
+        self.sync("push")
+        self.assertEqual(git(mirror, "rev-parse", "qwen"), new)
+
+    def test_unknown_push_endpoint_is_error_not_missing_branch(self):
+        first = self.work / "sunmoonun"
+        new = self.commit(first)
+        repo = self.work / "sunmoon-link"
+        git(
+            repo,
+            "remote",
+            "set-url",
+            "--add",
+            "--push",
+            "origin",
+            str(self.base / "missing.git"),
+        )
+        self.sync("push", False)
+        self.assertNotEqual(git(self.origins["sunmoonun"], "rev-parse", "qwen"), new)
+
+    def test_push_refuses_remote_ahead_without_rebase(self):
+        other = self.other("sunmoonun")
+        self.commit(other, "remote")
+        git(other, "push")
+        before = self.commit(self.work / "sunmoonun", "local")
+        self.sync("push", False)
+        self.assertEqual(git(self.work / "sunmoonun", "rev-parse", "HEAD"), before)
+
+    def test_wrong_named_child_branch_refuses(self):
+        git(self.work / CHILD, "switch", "-c", "other")
+        self.sync("pull", False)
+        self.sync("push", False)
+
+    def test_new_remote_branch_can_be_published(self):
+        git(self.origins["sunmoonun"], "update-ref", "-d", "refs/heads/qwen")
+        self.sync("push")
+        self.assertEqual(
+            git(self.origins["sunmoonun"], "rev-parse", "qwen"),
+            git(self.work / "sunmoonun", "rev-parse", "HEAD"),
+        )
+
+    def test_status_does_not_contact_remote(self):
+        git(
+            self.work / "sunmoonun",
+            "remote",
+            "set-url",
+            "origin",
+            str(self.base / "missing.git"),
+        )
+        self.sync("status")
+
+    def test_missing_workspace_fails(self):
+        self.env.pop("WS")
+        self.sync("pull", False)
+
+    def install_launcher(self):
+        tools = self.work / "sunmoonun/docs/process/switch-test/five-repos-sync"
+        tools.mkdir(parents=True)
+        shutil.copy2(ENGINE, tools / ENGINE.name)
+        shutil.copy2(LAUNCHER, tools / LAUNCHER.name)
+        (tools / "config.sh").write_text(
+            "GIT_REMOTE=origin\nREPOS=(sunmoonun sample-app sunmoon-link)\n"
+        )
+        repo = self.work / "sunmoonun"
+        git(repo, "add", "docs")
+        git(repo, "commit", "-m", "install daily engine")
+        git(repo, "push")
+        return tools / LAUNCHER.name
+
+    def test_launcher_needs_no_home_install_or_workspace_config(self):
+        launcher = self.install_launcher()
+        env = dict(self.env, HOME=str(self.base / "empty-home"), WS="wrong-station")
+        for action in ["status", "pull", "push"]:
+            with self.subTest(action=action):
+                r = subprocess.run(
+                    [str(launcher), action],
+                    check=False,
+                    cwd=self.base,
+                    env=env,
+                    text=True,
+                    capture_output=True,
+                )
+                self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+                if action != "status":
+                    self.assertIn("工位 qwen", r.stdout)
+
+    def test_launcher_works_from_master_without_workspace_layout(self):
+        self.install_launcher()
+        for name in [*PARENTS, CHILD]:
+            git(self.work / name, "switch", "-c", "master")
+            git(self.work / name, "push", "-u", "origin", "master")
+        master = self.base / "master"
+        self.work.rename(master)
+        launcher = master / "sunmoonun" / LAUNCHER.relative_to(ROOT)
+        r = subprocess.run(
+            [str(launcher), "pull"],
+            check=False,
+            env=dict(self.env, HOME=str(self.base / "empty-home")),
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("工位 master", r.stdout)
+
+    def test_launcher_refuses_another_workspace_argument(self):
+        launcher = self.install_launcher()
+        r = subprocess.run(
+            [str(launcher), "pull", "fable"], check=False, text=True, capture_output=True
+        )
+        self.assertEqual(r.returncode, 2)
 
 
 if __name__ == "__main__":
