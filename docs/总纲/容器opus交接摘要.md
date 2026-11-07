@@ -84,7 +84,7 @@
 | 卡 | 状态 |
 | --- | --- |
 | [qwen-018](../sync-workertree/inbox/qwen/2026-11-06-qwen-018-next-batch.md) | 已发（#85） |
-| [qwen-019](../sync-workertree/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md) | 作废，由 qwen-020 取代 |
+| [qwen-019](https://github.com/sunmoonlion/sunmoonun/blob/614763f985a74ddbb2c8109391feb2af211a22a0/docs/sync-workertree/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md) | 作废，由 qwen-020 取代 |
 | [qwen-020](../sync-workertree/inbox/qwen/2026-11-07-qwen-020-facts-and-fixed-plan.md) | **暂不发**（所有者 11-07：「那就没有必要发这版啊」）。等 Wind 指标对照做好后，knowbase、knowfeed、knowbench 三个一起发；卡里的号到时要重核 |
 
 ## 六、等所有者定的

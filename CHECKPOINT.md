@@ -1126,3 +1126,7 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 ## 2026-11-07：同步目录提升并改名
 
 按所有者指定拼写，将 `docs/process/switch-test/` 整体迁移到 `docs/sync-workertree/`。更新当前操作说明、导航、脚本路径校验、收件箱读取及回归测试路径；迁移后的 Markdown 相对链接按新层级修正，历史回执中的原执行命令保留。20 项回归通过，qwen 与 master 真实状态检查通过。
+
+## 2026-11-07：同步协作目录清理
+
+移除旧 done 任务卡、旧审读日志、旧对齐/维护脚本副本、已明确作废的 qwen-019 卡及 model-switch 过期配置备份。旧资料保留于 Git 历史，关联 Markdown 引用改为清理前固定提交。当前 qwen-018、qwen-020 与 luna 未结卡继续保留，不以清理代替验收。Windows hosts 脚本仍有运维用途，原样移到 docs/ops/tools/ 并更新当前说明；无主机配置操作。同步引擎未改，真实只读 status 通过，文档和 diff 检查通过。

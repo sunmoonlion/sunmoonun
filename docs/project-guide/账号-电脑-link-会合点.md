@@ -185,7 +185,7 @@
 
 ## 实现状态
 
-本页的叫法与流程是 2026-10-23 定的；0.5.1 已由 Fable 在 2026-10-22 发出，下面这些随本地 link **0.5.2** 一起出，见待办账 128、129、141、143、163（[`pending-after-migration.md`](../design/pending-after-migration.md)），回执 [opus-052-1](../sync-workertree/done/2026-10-23-opus-052-1-link.md)。
+本页的叫法与流程是 2026-10-23 定的；0.5.1 已由 Fable 在 2026-10-22 发出，下面这些随本地 link **0.5.2** 一起出，见待办账 128、129、141、143、163（[`pending-after-migration.md`](../design/pending-after-migration.md)），回执 [opus-052-1](https://github.com/sunmoonlion/sunmoonun/blob/614763f985a74ddbb2c8109391feb2af211a22a0/docs/sync-workertree/done/2026-10-23-opus-052-1-link.md)。
 
 **已在 qwen 上做完（未发）**：
 

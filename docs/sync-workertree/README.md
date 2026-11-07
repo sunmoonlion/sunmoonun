@@ -52,7 +52,7 @@
 - 创建工位的名单仍由 model-switch 管理；日常同步不依赖外部 layout.conf。
 - 唯一运行目录：[five-repos-sync/](five-repos-sync/)。其中 `config.sh` 保存仓列表，`sync-five-repos.sh` 是可执行入口，`workstation_sync.py` 是实现。
 - master 和各工位均随本仓维护这三份文件；无需复制安装。旧的参考目录已升级为正式运行目录，过时副本从当前树移除，Git 历史仍可追溯。
-- 明确要求的跨机/强制对齐仍是单独维护行为：[maintenance-sync.sh](maintenance-sync.sh)，原安装位置 `~/five-repos-sync/maintenance-sync.sh` 与其机器配置暂留；日常入口不调用它。不要用日常 `pull` 代替跨工位合并，也不要自动执行维护脚本。
+- 日常目录不再保留旧的跨机/全工位对齐脚本；特殊维护需另按具体授权处理，不能用日常 pull 代替跨工位合并。
 
 回归测试使用临时 Git 仓库，不访问业务环境：
 
@@ -61,3 +61,11 @@ python3 -m unittest discover -s scripts -p test_switch_test_sync.py -v
 ```
 
 旧协作约定和旧脚本在 Git 历史中保留；本页的 2026-11-07 简化规则优先。
+
+## 目录内容
+
+- `five-repos-sync/`：当前同步工具。
+- `model-switch/`：工位管理参考副本，仅保留现行配置和源说明。
+- `inbox/`：未完成任务；`hold/`：暂停任务；`done/`：今后已验收任务。
+
+旧任务、旧审读日志和作废发布卡已从当前目录移除，可从 Git 历史追溯。Windows hosts 工具归入 [运维工具](../ops/tools/windows_hosts_add.ps1)。

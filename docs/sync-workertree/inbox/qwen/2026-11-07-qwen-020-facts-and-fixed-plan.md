@@ -2,7 +2,7 @@
 
 > 状态：**暂不发，等 Wind 指标对照做好后一起发**（所有者 2026-11-07：「那就没有必要发这版啊」——Wind 对照没好前，要数的只能走巨潮，比现在还慢；固定专家新路只有本人、表现不变；其余不急）。
 > **注意**：knowbench 的 `qwen` 头已带着这一批。这期间 knowbench 要急修，不能单发，要么和 knowbase、knowfeed 一起发，要么把修复单独拆出来。
-> 原状态：可执行（Opus 2026-11-07 写；取代暂停的 [qwen-019](2026-11-06-qwen-019-fixed-expert-as-plan.md)）。
+> 原状态：可执行（Opus 2026-11-07 写；取代暂停的 [qwen-019](https://github.com/sunmoonlion/sunmoonun/blob/614763f985a74ddbb2c8109391feb2af211a22a0/docs/sync-workertree/inbox/qwen/2026-11-06-qwen-019-fixed-expert-as-plan.md)）。
 > 为什么成组：knowbench 第 0 步现在会按指标要数（主体、期间、科目编码、口径），只有新的 knowbase 认得这种需求、只有新的 knowfeed 会去取；三个只要少发一个，第 0 步就会失败。所有者 11-07 定：三个一起发，Wind 的指标对照做好前，要数的先全走巨潮（下年报抽表，慢，但都是公告原件、能核页码）。
 
 ```text
