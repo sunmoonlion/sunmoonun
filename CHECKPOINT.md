@@ -1100,3 +1100,10 @@ webdec3cfa。均推GitHub和Gitee，应用工作区干净。lab隔离PG全套920
 ## 2026-11-04 AI请回界面收尾
 
 所有者要求立即修正剩余界面。knowbench后续开发父4485ff0/web3fc0915统一入口文案和适用性澄清，移除挂需求表单/网页调用；保留两条主要补救及改题、手选、结束。22项相关回归及类型/lint/i18n/build通过；详细记录在动态专家实施方案3.5.1。qwen当前发布候选不变，无生产/付费操作。
+
+
+## 2026-11-07 日常 Git 同步简化
+
+所有者要求双端各自提交推送、各自拉取，减少逐仓等待。以 qwen 根仓 14615532 为基线，新增 workstation_sync.py 作为唯一日常实现；human-local / human-remote 改为薄入口，five-repos-sync 日常入口只做当前机器 pull/push/status。抓取每仓一次、默认并发4；推送独立核对每个 push URL、只推差异、先子后父。取消自动提交、重复拉两个后端、默认 SSH 双端操作。跨机/强制对齐旧逻辑移到 maintenance-sync.sh，日常不调用。
+
+临时真实 Git 仓库回归覆盖：父子指针、缺对象、分叉、网络错误、双镜像端、并发上限、游离分支保护和未提交文件保护。正式测试命令 python3 -m unittest discover -s scripts -p test_switch_test_sync.py -v。程序无外部依赖；不涉及集群、应用实现、发布或付费调用。完成安装后以实际 pull/push 计时补回执；旧参考副本仍不可执行为日常真源。
