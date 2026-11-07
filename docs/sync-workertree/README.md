@@ -47,6 +47,8 @@
 
 ## 配置与维护分开
 
+[model-switch 参考副本](model-switch/来源说明.md)保存工位管理脚本和配置，供协作查阅；原工具目录不变。
+
 - 创建工位的名单仍由 model-switch 管理；日常同步不依赖外部 layout.conf。
 - 唯一运行目录：[five-repos-sync/](five-repos-sync/)。其中 `config.sh` 保存仓列表，`sync-five-repos.sh` 是可执行入口，`workstation_sync.py` 是实现。
 - master 和各工位均随本仓维护这三份文件；无需复制安装。旧的参考目录已升级为正式运行目录，过时副本从当前树移除，Git 历史仍可追溯。
