@@ -7,7 +7,7 @@
 以 agy 工位为例：
 
 ```bash
-cd ~/worktrees/agy/sunmoonun/docs/sync-workertree/sync
+cd ~/worktrees/agy/sunmoonun/docs/sync-cowork/sync
 
 ./sync.sh status   # 查看本机状态，不联网
 ./sync.sh pull     # 拉取 Git 远端已推送的提交
@@ -21,10 +21,10 @@ cd ~/worktrees/agy/sunmoonun/docs/sync-workertree/sync
 
 ```bash
 cd ~/worktrees/agy
-./sunmoonun/docs/sync-workertree/sync/sync.sh pull
+./sunmoonun/docs/sync-cowork/sync/sync.sh pull
 ```
 
-在 master 使用时，进入 `~/master/sunmoonun/docs/sync-workertree/sync`，执行相同命令。换工位就使用那个工位里的脚本；**不需要填写工位名或设置 WS**。脚本根据自身位置识别工位，不根据终端所在目录猜测。
+在 master 使用时，进入 `~/master/sunmoonun/docs/sync-cowork/sync`，执行相同命令。换工位就使用那个工位里的脚本；**不需要填写工位名或设置 WS**。脚本根据自身位置识别工位，不根据终端所在目录猜测。
 
 ## 三个命令分别做什么
 
