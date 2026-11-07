@@ -1,5 +1,15 @@
 # 换机测试：远程机写，本地机跑
 
+## 2026-11-07 恢复旧开发机协作（优先于下文历史约定）
+
+所有者决定停止与云端容器协作，远程开发恢复为 `zym@43.153.135.74:1022`（`VM-0-13-ubuntu`，家目录 `/home/zym`）。本地仍为 Windows 上的 WSL，家目录 `/home/zymun`。Opus 在远程开发，本地助手按交接核查、测试和发布；下面关于“当前远程是不可 SSH 的容器”的文字仅是 11-06 的历史状态。
+
+两端同名工位、同名分支：`~/worktrees/fable` ↔ `fable`、`~/worktrees/qwen` ↔ `qwen`、`~/worktrees/agy` ↔ `agy`。工位之间可以处于不同应用版本，不能把“同步两端”当成把所有工位合成同一开发分支。父仓和子仓均跟踪各自 `origin/<工位>`，子仓 HEAD 必须与父仓 gitlink 一致。
+
+代码仍通过 Git origin 交接；`human-local.sh` / `human-remote.sh` 仍只负责本地与 Git 托管端的拉取/推送，不会自动 SSH 更新开发机。需要同时更新开发机时，明确通过 SSH 核对并快进对应工位，或在核查干净后使用 `~/five-repos-sync/sync-five-repos.sh to-remote <工位>`；该旧工具更新子模块可能留下 detached HEAD，完成后还须核对并接回同名分支。任何独有提交、未提交内容或无法快进的分叉都保留，不以 reset/强推覆盖。
+
+工位名单仍在两端各自 `~/toolboxes/Vlinux/utils/set-up-tools/model-switch/layout.conf`；仓登记为同目录 `repos.conf`，部署仓使用 `sunmoonun`。本次同步与验证见 [恢复开发机与三工位同步回执](../../../scripts/results/station-sync-20261107.md)。
+
 ## 2026-11-06 分支统一（优先于下文历史约定）
 
 每仓常驻分支只有 `master`、`cursor`、`fable`、`kimi`、`luna`、`qwen`、`agy`，见[迁移和核验记录](工位分支统一-2026-11-06.md)。工位目录与分支同名；`work/*-20261106` 已迁入对应同名分支，历史修复/发布引用保存为归档标签。下文旧日期分支、旧 SSH 机器及旧分工仅为历史，不作为当前操作入口。
