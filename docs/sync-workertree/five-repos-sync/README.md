@@ -5,9 +5,9 @@
 在工位根目录（例如 `~/worktrees/qwen` 或 `~/master`）执行：
 
 ```bash
-./sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh pull
+./sunmoonun/docs/sync-workertree/five-repos-sync/sync-five-repos.sh pull
 # 修改并测试；自己逐仓提交：先子仓，再父仓 gitlink
-./sunmoonun/docs/process/switch-test/five-repos-sync/sync-five-repos.sh push
+./sunmoonun/docs/sync-workertree/five-repos-sync/sync-five-repos.sh push
 ```
 
 也可进入本目录执行 `./sync-five-repos.sh pull`、`push` 或 `status`。路径决定操作哪个工位，不依赖终端当前目录、`WS` 环境变量或外部工位名单。默认分支名等于工位目录名；不同名布局须显式设置 `BRANCH`，不会自行换分支。

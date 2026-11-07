@@ -9,8 +9,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE = ROOT / "docs/process/switch-test/five-repos-sync/workstation_sync.py"
-LAUNCHER = ROOT / "docs/process/switch-test/five-repos-sync/sync-five-repos.sh"
+ENGINE = ROOT / "docs/sync-workertree/five-repos-sync/workstation_sync.py"
+LAUNCHER = ROOT / "docs/sync-workertree/five-repos-sync/sync-five-repos.sh"
 PARENTS = ["sunmoonun", "sample-app", "sunmoon-link"]
 CHILD = "sample-app/sample-backend"
 
@@ -311,7 +311,7 @@ class SyncTests(unittest.TestCase):
         self.sync("pull", False)
 
     def install_launcher(self):
-        tools = self.work / "sunmoonun/docs/process/switch-test/five-repos-sync"
+        tools = self.work / "sunmoonun/docs/sync-workertree/five-repos-sync"
         tools.mkdir(parents=True)
         shutil.copy2(ENGINE, tools / ENGINE.name)
         shutil.copy2(LAUNCHER, tools / LAUNCHER.name)
