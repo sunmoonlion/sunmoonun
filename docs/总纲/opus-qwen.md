@@ -54,7 +54,7 @@
 | 2 | 中 | 已上线 | knowbase 同一函数；写产出路由 `user_run_routes.py` | 没有输入记录的产出默认「只许本人用」，要出处里带 `no_inputs` 才放开到「可售」，但写产出接口根本没有 `no_inputs` 参数，**永远放不开**。10-29 前写的、没有输入记录的产出，也因此从「可售」变成了「只许本人用」 | 先按 0047 核本意：是「默认收紧、调用方声明无输入才放开」，还是旧产出照旧。按前者就给接口加 `no_inputs` 参数，knowbench/knowlab 在确实没读用户数据时带上；旧产出怎么算，我核完设计稿再报你 |
 | 3 | 中 | 已上线 | knowbase `user_library_service.py:935` `deliver_collected` | knowfeed 一次给几位用户交同一份采集件。只要其中一位的旧副本被删了，整批就回 404，其他人也交不成；knowfeed 会反复重试同一批 | 被删的那位单独回「这位不收」（带原因），其他人照常交；knowfeed 的结算已经能逐项处理缺了的人，见 `_settle_delivered` |
 | 4 | 中 | **未上线（0050）** | knowbench `domain/workbench/fixed_plan.py:29` | 固定计划的「包摘要」对内置包是每次按专家包对象现算的，受理时没有钉进委托。发版只要动了专家包的模型（比如加一个带默认值的字段）或内置包内容，正在跑的固定计划委托一核对就报「计划不符」，中途失败 | 受理时把算出的摘要写进委托（`pack_digest`），之后只核对、不现算；补测试：改了包模型以后，已受理的委托照样能走完 |
-| 5 | 低 | **未上线（0051）** | knowbase `domain/fact_needs.py:200` | `fact_keys` 的返回类型注解写成 `list[FactSlot]`，实际返回的是 `list[FactKey]`。不影响运行，但说明类型检查没管到这里 | 改注解，再跑 pyright 确认 0 错 |
+| 5 | **中** | **未上线（0051）** | knowbase：0051 的类型没贯通（基线 11-08 pyright 报 13 个错误，11-02 还是 0 错） | 新加的 `AnyNeed`/`FactKey` 没有贯通 `user_resolution_service`、路由的函数签名；`fact_keys` 的返回类型标错；`expand` 把 `FactSlot` 当成 key。测试都过，但类型门是关着的，0051 发版前必须是 0 错 | 逐条改签名和注解，pyright 回到 0 错 |
 | 6 | 低-中 | 已上线 | knowbase `user_resolution.py:545` | 想表达的是：定期报告本身就披露业绩，要「业绩（results）」的不用另挂标签。可代码把整个「事项」条件都去掉了，要「业绩 + 分红」的年报，「分红」也不再核 | 只从事项里去掉 results，其余事项照旧按「任一命中」筛 |
 | 7 | 低-中 | 已上线 | knowbench `advisor.py:593`、`615` | 结算一步时，发现「这一轮不属于本委托」或「已不是当前在跑的这一轮」，就在事务里直接报错：这一轮的费用回滚没记上，委托停在「在跑」。外层只接住了另一种错误 | 这两种情况先补记费用（`record_late_cost`），再把这一轮收成失败，不让委托卡住 |
 | 8 | 低 | 已上线 | knowbase `first_page.py` | PDF 首页识别给 3 秒时限，放在只有 2 个线程的常驻池里跑。超时的线程不会被杀，连着来 2 份卡死的 PDF，之后所有 PDF 识别都排队超时，直到进程重启 | 改成子进程跑（超时能杀掉），或者池子满了就直接跳过识别；只影响上传时的自动识别，不影响存件 |
@@ -73,6 +73,8 @@
 | 21 | 低 | 已上线 | knowbase `user_run_service.py` `OutputResult` | 用 tuple 子类硬塞一个属性，没出处时回 `{"default": "self"}` 占位；同名重放时，用的是这次传进来的参数，不是存档的出处 | 改成普通的结果类；重放时回存档的出处 |
 | 23 | **中高** | 已上线 | knowbase `user_run_service.py:1515` `_check_item` 的 `frozen_binding` 分支（agy 审查 KB-BASE-1，**我第一轮漏了**） | 冻结绑定记在**作者**名下（`freeze_binding` 用的是作者），签运行授权时却拿资料的**原所有者**去查（`use_scope(material.owner, …)`）。作者把**买来的**资料绑给专家以后，查不到冻结记录，报 `not_bound`，这位专家谁都请不动；下面「是不是作者本人」的许可判断也用了原所有者。作者自己上传的资料两者是同一个人，所以测试没发现 | 按（资料、冻结用途、版本）查冻结记录，取出记录上的作者，核这位作者对这一版确有使用权，再拿作者和受益人比；补测试：买来的资料绑给专家，别人能请、许可不够时被拒 |
 | 24 | 低 | 已上线 | knowbench `acceptance_numbers.py:300`（agy KB-BENCH-2） | 「上下游条目一一对应」这条验收只对动态专家读当前这一轮绑定的输入，接了计划回执的固定专家（0050 新路）照旧读按名字取的最新产物 | 改成「有计划回执就读绑定的输入」，和第 4 条一起改；这是 0050「还分开走的 10 处」之一 |
+| 25 | 中 | 已上线 | knowbench 两条测试失败（基线 11-08，见 `scripts/results/remote-baseline.20261108.md`；agy KB-BENCH-4） | 「第几步」的显示：返回里步骤的序号对不上（期望 1，回 0），从专家入口提问时不回步骤进度 | 查根因再修；改的是代码还是测试，按设计稿定 |
+| 26 | 低 | 已上线（10-25 起） | tpl-backend `test_kernel_invariants.py` | 账 175 的迁移 0004 没写进迁移文件名清单，测试一直失败；同一个文件里有一行注释超长，ruff 报错 | 补上清单，折行 |
 | 22 | 低 | 已上线 | 零碎写法 | knowbench 的路由在函数里 import 别的模块的私有函数（`knowbot_runtime_routes.py`）；knowbase 的路由绕过服务层，直接调仓储（`raise_frozen_license` 路由）；knowfeed 的 `config.py` 里渲染那段注释挪到了 Wind 配置上面；knowfeed 的 `user_token` 里，名叫 `subject` 的变量其实存的是访问令牌 | 顺手一起改 |
 
 **另记一笔，不改**：knowbase 迁移 0019 已经上线，之后又改过它的降级部分。只动降级，不影响升级，所以不改，但以后已上线的迁移不再动，要改就加新迁移。knowmart 改过的迁移 0012 我核过：那时还没上线（线上从 0011 直接升到 0014），没问题。
@@ -130,7 +132,9 @@ agy 那份报告在 `~/worktrees/agy/整体项目审查.md`。agy 工位五个�
 | KF-FEED-2 | 订阅提的需求不实时核同意 | **错** | 调用方 `searches.py:255` 提交前刚问过 knowbase 订阅同意还在不在，撤了回 `consent_withdrawn`；`consent_checked` 只是不重复问 |
 | KF-FEED-3 | 渠道没有每分钟限速 | **错** | 渠道已有 `rate_per_minute`（`catalog.py`） |
 | PL-INFRA-1 | relay 的状态在 8Mi 临时卷，重启就丢 | 未核 | 卷确实是临时的（`relay/workload.yaml:50`），但重启后 link 会不会断、runner 会不会重推，还没核；平台线 |
-| KB-BENCH-4、LINK-2、同步脚本测试 15 项 | 现有测试失败 | 未核 | 这台远程没有测试环境；装好以后跑全量核 |
+| KB-BENCH-4 | knowbench 两条测试失败 | **真**（11-08 基线核实） | 第三节第 25 条 |
+| 同步脚本测试 15 项失败 | sunmoonun 同步脚本测试 | **错** | 11-08 在远程跑 `scripts/test_switch_test_sync.py`，28 个全过 |
+| LINK-2 | link 的 CLI 测试要先构建 | 未核 | 要装 link 的 Node 依赖；手上要修的几条都不涉及 link |
 
 ## 七、执行规划（11-08 定稿待批）
 
@@ -157,7 +161,7 @@ agy 那份报告在 `~/worktrees/agy/整体项目审查.md`。agy 工位五个�
   - `~/worktrees/agy`（agy 正在用）、`~/worktrees/fable`、`~/master`；
   - 你的个人文件和各编辑器的缓存（`.vscode-server` 5.3G、`.cursor-server` 3.5G 等）。磁盘剩 15G，够用。
 
-### 第 1 步　装测试环境并跑基线
+### 第 1 步　装测试环境并跑基线（11-08 已做，结果见 `scripts/results/remote-baseline.20261108.md`）
 
 1. **数据库**：用本机已有的镜像 `postgres:16-alpine` 起一个测试库容器，只绑 `127.0.0.1:55432`，数据放在容器卷里，不设开机自启（`--restart no`）。不装系统级 PostgreSQL，也不碰边缘那两个容器。测试库名按规矩以 `_tests` 结尾。
 2. **Python**：各后端在自己的 `app/` 下 `uv sync --frozen`（uv 已有），一个仓装完再装下一个。
