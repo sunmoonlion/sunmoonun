@@ -205,7 +205,7 @@ knowbench 内部：三种对话（[0017](../design/SDD/modules/0017-three-kinds-
 | 一次求助 / 一次委托怎么走 | [流水线](../process/pipeline.md)、[`turn/`](../process/turn/README.md) |
 | 拓扑、谁连谁、发布链 | [`k8s/docs/总纲/运行拓扑.md`](../总纲/运行拓扑.md) |
 | 部署、发版、某个组件怎么维护 | `k8s/README.md`、`infrastructure/` 与各组件目录的 `README.md`、[规则「发布」](../design/rules/constraints.md#发布) |
-| 派活卡、回执、两台机器怎么同步 | [`sync-cowork/`](../sync-cowork/README.md)（`inbox/`、`done/`、`five-repos-sync/`）；回执在各仓 `scripts/results/` |
+| 派活卡、回执、两台机器怎么同步 | [`sync-cowork/`](../sync-cowork/README.md)（`inbox-cowork/`、`inbox-review/`、`done/`、`sync/`）；回执在各仓 `scripts/results/` |
 | 改某个仓的代码 | [`repos/`](repos) 对应文件 |
 | 跨应用契约、数据、专家 | [`topics/`](topics) 对应文件（专家：[`topics/knowbot.md`](topics/knowbot.md)） |
 | 还没做的事 | [待办账](../design/pending-after-migration.md)、[接下来做什么](staging.md)；进行中的改名 investment→knowbench、runtime→sunmoon-link 见 [0028](../design/SDD/modules/0028-knowbench-rename.md) 与执行手册 `k8s/docs/process/rename-2026-10-15/README.md`（回执 `docs/process/rename-2026-10-15/receipts/`）；上一次改名（info→knowfeed、knowledge→knowbase，2026-10-14 至 16）的手册与回执已删，按 Git 历史 `3951246c:docs/rename.md` 取 |
