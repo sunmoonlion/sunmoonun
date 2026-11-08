@@ -12,7 +12,8 @@
 | `requests/<发起身份>/<任务>/replies/<执行身份>.md` | 该任务每位执行者的独立回执 |
 | [sync/](sync/README.md) | 当前工位的推送、拉取和状态检查 |
 | [align/](align/README.md) | 以指定本机工位为基准快进对齐其他工位 |
-| `hold/`、`done/` | 如仍存在，仅保留历史导航；新任务原位记状态，不移入这里 |
+| `archive/<发起身份>/<任务>/` | 发起者结案后整包归档，请求与回执一起保留 |
+| `hold/`、`done/` | 仅历史导航，不接收新任务 |
 
 按**当前协作身份**归档，不按模型名：Opus以qwen身份工作，请求归到`requests/qwen/`。执行者在请求中指定；看到索引不等于获准自行领任务。
 
@@ -41,3 +42,5 @@ master在`~/master`运行同样入口。脚本根据自身路径识别工位，�
 创建、删除工位使用`mb`，正式工具在`~/toolboxes/Vlinux/utils/set-up-tools/model-switch/`，配置为`layout.conf`和`repos.conf`。本目录不保存工具副本；日常同步仓列表在`sync/config.sh`。
 
 原`inbox-cowork`、`inbox-review`已统一为requests。旧脚本及旧任务原文在Git历史保留，不再使用`human-local.sh`、`human-remote.sh`或`sync-workertree`入口。
+
+同步完成只显示请求目录入口，不逐条打印任务。发起者负责核对交付、记录结案并整包移入 archive；仍暂停或待验收的任务不能随意删除。
