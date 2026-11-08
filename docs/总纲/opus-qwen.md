@@ -1,5 +1,7 @@
 # Opus 回来后的代码审查：10-29 之后的全部改动（qwen 工位）
 
+> 当前协作身份：qwen（由 Opus 执行）。评审请求和回执归到 `inbox-review/qwen/`，不按模型名称归档。
+
 > 写：Opus，2026-11-08，远程 qwen 工位。**只是审查意见，没改任何代码。**你批了哪几条，我照批的改，改完逐仓提交、报「已提交、未推送」。
 
 ## 一、审了什么
@@ -71,7 +73,7 @@
 | 19 | 低 | 已上线 | sunmoon-link `windowsRuntime.ts:155` | Windows 上每个文件操作都新起一个沙箱辅助进程（以前是一个常驻进程），是为了修管道超时。功能对，但文件多的时候会慢 | 先不改；Windows 实机验收时量一下耗时（写进本地卡），慢了再改回常驻进程加单次超时 |
 | 20 | 低 | 已上线；**11-08 撤回，不删** | 三个后端根目录 `CHECKPOINT.md` | Luna 的工作日志进了仓 | 删掉；有用的结论并进 `project-guide/repos/<应用>-app.md` |
 | 21 | 低 | 已上线；**11-08 已修 `7875a8b`** | knowbase `user_run_service.py` `OutputResult` | 用 tuple 子类硬塞一个属性，没出处时回 `{"default": "self"}` 占位；同名重放时，用的是这次传进来的参数，不是存档的出处 | 改成普通的结果类；重放时回存档的出处 |
-| 23 | **中高** | 已上线；**11-08 已修待审**（knowbase-backend `2ba0fb6`，审查卡 `inbox-review/opus/inbox/2026-11-08-review-qwen-23-frozen-binding.md`） | knowbase `user_run_service.py:1515` `_check_item` 的 `frozen_binding` 分支（agy 审查 KB-BASE-1，**我第一轮漏了**） | 冻结绑定记在**作者**名下（`freeze_binding` 用的是作者），签运行授权时却拿资料的**原所有者**去查（`use_scope(material.owner, …)`）。作者把**买来的**资料绑给专家以后，查不到冻结记录，报 `not_bound`，这位专家谁都请不动；下面「是不是作者本人」的许可判断也用了原所有者。作者自己上传的资料两者是同一个人，所以测试没发现 | 按（资料、冻结用途、版本）查冻结记录，取出记录上的作者，核这位作者对这一版确有使用权，再拿作者和受益人比；补测试：买来的资料绑给专家，别人能请、许可不够时被拒 |
+| 23 | **中高** | 已上线；**11-08 已修待审**（knowbase-backend `2ba0fb6`，审查卡 `inbox-review/qwen/inbox/2026-11-08-review-qwen-23-frozen-binding.md`） | knowbase `user_run_service.py:1515` `_check_item` 的 `frozen_binding` 分支（agy 审查 KB-BASE-1，**我第一轮漏了**） | 冻结绑定记在**作者**名下（`freeze_binding` 用的是作者），签运行授权时却拿资料的**原所有者**去查（`use_scope(material.owner, …)`）。作者把**买来的**资料绑给专家以后，查不到冻结记录，报 `not_bound`，这位专家谁都请不动；下面「是不是作者本人」的许可判断也用了原所有者。作者自己上传的资料两者是同一个人，所以测试没发现 | 按（资料、冻结用途、版本）查冻结记录，取出记录上的作者，核这位作者对这一版确有使用权，再拿作者和受益人比；补测试：买来的资料绑给专家，别人能请、许可不够时被拒 |
 | 24 | 低 | 已上线 | knowbench `acceptance_numbers.py:300`（agy KB-BENCH-2） | 「上下游条目一一对应」这条验收只对动态专家读当前这一轮绑定的输入，接了计划回执的固定专家（0050 新路）照旧读按名字取的最新产物 | 改成「有计划回执就读绑定的输入」，和第 4 条一起改；这是 0050「还分开走的 10 处」之一 |
 | 25 | 中 | 已上线；**11-08 已修 knowbench-backend `44f2f28`、knowbench-web `5fd34c6`（测试过时，代码没错）** | knowbench 两条测试失败（基线 11-08，见 `scripts/results/remote-baseline.20261108.md`；agy KB-BENCH-4） | 「第几步」的显示：返回里步骤的序号对不上（期望 1，回 0），从专家入口提问时不回步骤进度 | 查根因再修；改的是代码还是测试，按设计稿定 |
 | 26 | 低 | 已上线（10-25 起）；**11-08 已修 tpl-backend `2f58380`** | tpl-backend `test_kernel_invariants.py` | 账 175 的迁移 0004 没写进迁移文件名清单，测试一直失败；同一个文件里有一行注释超长，ruff 报错 | 补上清单，折行 |
@@ -146,7 +148,7 @@ agy 那份报告在 `~/worktrees/agy/整体项目审查.md`。agy 工位五个�
 | --- | --- |
 | 我（远程 qwen 工位） | 改代码、单元测试、带数据库的测试、契约比对、类型检查；逐仓提交 |
 | 本地助手（写卡） | 发版、集群部署检查、页面实测、Windows 上实跑 link、真 Codex 0.155.1 上的验证 |
-| agy | 审我每一批的提交（请求放 `inbox-review/opus/inbox/`，回执留在 qwen 工位的对应 `replies/<任务>/agy.md`） |
+| agy | 审我每一批的提交（请求放 `inbox-review/qwen/inbox/`，回执留在 qwen 工位的对应 `replies/<任务>/agy.md`） |
 | 所有者 | 批准、`sync.sh push`、定待定事项 |
 
 ### 第 0 步　清理本机环境（11-08 已做和待批的）

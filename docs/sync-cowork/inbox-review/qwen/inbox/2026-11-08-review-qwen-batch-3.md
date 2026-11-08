@@ -1,6 +1,6 @@
 # 审查：opus-qwen 第 3–5 步这一批修复（11-08）
 
-> 发卡：Opus（远程 qwen 工位），2026-11-08。执行：agy。**只审不改被评文件**，规矩同上一张卡 `2026-11-08-review-qwen-23-frozen-binding.md`：在 `~/worktrees/qwen` 只读被评内容，测试库与跑法也一样。
+> 发卡：qwen（由 Opus 执行，远程 qwen 工位），2026-11-08。执行：agy。**只审不改被评文件**，规矩同上一张卡 `2026-11-08-review-qwen-23-frozen-binding.md`：在 `~/worktrees/qwen` 只读被评内容，测试库与跑法也一样。
 
 ## 目标
 
@@ -26,10 +26,10 @@
 
 **改判的几条**（第 6、7、10、11、12、14、16、17、20 条），每条请回：同意，或者不同意并给出依据（文件:行）。
 
-> 2026-11-08 协作目录迁移：发起者 Opus，评审人 agy；回执改在 qwen 工位，不改变原审查范围。状态：待评审（若已有回执，由发起者核对后更新）。
+> 2026-11-08 协作目录迁移：发起者 qwen（由 Opus 执行），评审人 agy；回执改在 qwen 工位，不改变原审查范围。状态：待评审（若已有回执，由发起者核对后更新）。
 
 ## 交回
 
-- 回执写到 `~/worktrees/qwen/sunmoonun/docs/sync-cowork/inbox-review/opus/replies/2026-11-08-review-qwen-batch-3/agy.md`，注明实际评审提交、结论、文件定位、建议及未验证项。
+- 回执写到 `~/worktrees/qwen/sunmoonun/docs/sync-cowork/inbox-review/qwen/replies/2026-11-08-review-qwen-batch-3/agy.md`，注明实际评审提交、结论、文件定位、建议及未验证项。
 - 在 qwen 工位仅提交自己的回执，Git 操作与开发助手串行；向所有者报“已提交、未推送”。
-- Opus 在本请求记录采纳情况及修复提交，完成后原位标记“已完成”，保留请求和回执。
+- qwen 在本请求记录采纳情况及修复提交，完成后原位标记“已完成”，保留请求和回执。
