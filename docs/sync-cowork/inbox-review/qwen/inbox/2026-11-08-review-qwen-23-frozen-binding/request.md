@@ -48,6 +48,6 @@ Opus 跑的全量结果：ruff 通过；pyright 13 个错误，全是基线里 0
 
 ## 交回
 
-- 回执写到 `~/worktrees/qwen/sunmoonun/docs/sync-cowork/inbox-review/qwen/replies/2026-11-08-review-qwen-23-frozen-binding/agy.md`，注明实际评审提交、结论、文件定位、建议及未验证项。
+- 回执写到 `~/worktrees/qwen/sunmoonun/docs/sync-cowork/inbox-review/qwen/inbox/2026-11-08-review-qwen-23-frozen-binding/replies/agy.md`，注明实际评审提交、结论、文件定位、建议及未验证项。
 - 在 qwen 工位仅提交自己的回执，Git 操作与开发助手串行；向所有者报“已提交、未推送”。
 - qwen 在本请求记录采纳情况及修复提交，完成后原位标记“已完成”，保留请求和回执。
