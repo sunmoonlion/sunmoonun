@@ -12,21 +12,21 @@ knowbench_agent_releases:
   reader: knowbench_release_reader
   writer: knowbench_release_writer
   job_revision: v1
-  version: 0.5.5
+  version: 0.5.6
   codex_version: 0.155.1
-  source_revision: c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96
-  object_key: windows-x64/0.5.5/sunmoon-link-0.5.5-c75d0fd-windows-x64.zip
-  zip_sha256: 002a3b0cde74ac540f7c91f0a5c98e2b824767f94cdd719b2bd50d85502bfa7b
-  manifest_sha256: 842ed03083196eb1563fbd40dd99151415b5bcc74056fa14f241f8bbf85eba91
-  size_bytes: 180990018
+  source_revision: 795d5f831076e87d6b352b79601ac64e476ac2d2
+  object_key: windows-x64/0.5.6/sunmoon-link-0.5.6-795d5f8-windows-x64.zip
+  zip_sha256: d5e2de75c3e0cc165b824121923d7c0955beada841dc5ba728eeedefe896036a
+  manifest_sha256: 3f32bb7b7e5c5d4f05a18cd91a8ee79a1c26dc1b129f236d4923e59ae60dc0a4
+  size_bytes: 180990105
   # 平台电脑用的 Linux 包（原分身测试的测试电脑，SDD 0027 §3.4；叫法 10-29）：sunmoon-link 仓 build-linux.mjs 从下面的提交打出，
   # 同一提交打出同一个摘要（本地机打包后先 agent-release-linux-verify 核对再上传）。平台电脑读它，不给用户下载
   linux:
-    version: 0.5.5
+    version: 0.5.6
     codex_version: 0.155.1
-    source_revision: c75d0fd2bff5549fb193ba66dabb1cbf8e2b1a96
+    source_revision: 795d5f831076e87d6b352b79601ac64e476ac2d2
     site: edge-public
-    object_key: linux-x64/0.5.5/sunmoon-link-0.5.5-c75d0fd-linux-x64.tar.gz
-    tarball_sha256: 9b9640a7b55bcf28f79659a268d027eabf8f226143e83b6b8003358ab609a145
-    manifest_sha256: 757af3441f8f1c0d4c3770ad20925fb37033f573ee174530fbd17b4cd312d67f
-    size_bytes: 139186359
+    object_key: linux-x64/0.5.6/sunmoon-link-0.5.6-795d5f8-edge-public-linux-x64.tar.gz
+    tarball_sha256: 664748d735f0249c0170c723121a1e7a01523033e13c5643ab59be83b6ff1ccb
+    manifest_sha256: d00b8cbf1f9e2b047466d789564dfd577d40bb377a8d9e013ca13335ce42ed9d
+    size_bytes: 139189207
