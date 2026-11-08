@@ -371,16 +371,21 @@ def main():
             args.action == "pull"
             and os.environ.get("ROOT_REPO", "sunmoonun") in selected
         ):
-            inbox = (
+            cowork = (
                 root
                 / os.environ.get("ROOT_REPO", "sunmoonun")
-                / "docs/sync-cowork/inbox"
+                / "docs/sync-cowork"
             )
-            for card in sorted(inbox.glob("*/*.md")):
-                if card.name == "README.md":
-                    continue
-                lines = card.read_text().splitlines()
-                print("待办", str(card.relative_to(inbox)), lines[0] if lines else "")
+            for folder, pattern, label in (
+                ("inbox-cowork", "*/*.md", "协作待办"),
+                ("inbox-review", "*/inbox/*.md", "评审请求（请核对状态）"),
+            ):
+                inbox = cowork / folder
+                for card in sorted(inbox.glob(pattern)):
+                    if card.name == "README.md":
+                        continue
+                    lines = card.read_text().splitlines()
+                    print(label, str(card.relative_to(inbox)), lines[0] if lines else "")
         elif args.action == "push":
             print("已推到 Git；对方开工前在自己的机器执行 pull。")
 

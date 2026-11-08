@@ -115,6 +115,28 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(sum(c[2] == "fetch" for c in calls), 4)
         self.assertFalse(any(c[2] == "pull" for c in calls))
 
+    def test_pull_lists_cowork_and_review_requests_but_not_replies(self):
+        other = self.other("sunmoonun")
+        base = other / "docs/sync-cowork"
+        entries = {
+            "inbox-cowork/opus/build.md": "# build card\n",
+            "inbox-review/luna/inbox/methods.md": "# review request\n",
+            "inbox-review/luna/replies/methods/opus.md": "# review reply\n",
+            "inbox-review/luna/inbox/README.md": "# instructions\n",
+        }
+        for name, content in entries.items():
+            path = base / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+        git(other, "add", "docs")
+        git(other, "commit", "-m", "handoff cards")
+        git(other, "push")
+        result = self.sync("pull", target="sunmoonun")
+        self.assertIn("协作待办 opus/build.md # build card", result.stdout)
+        self.assertIn("luna/inbox/methods.md # review request", result.stdout)
+        self.assertNotIn("review reply", result.stdout)
+        self.assertNotIn("# instructions", result.stdout)
+
     def test_fetch_parallelism_is_bounded(self):
         state = self.base / "fetch-state"
         state.write_text('{"active":0,"max":0}')
