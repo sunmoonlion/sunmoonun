@@ -115,16 +115,17 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(sum(c[2] == "fetch" for c in calls), 4)
         self.assertFalse(any(c[2] == "pull" for c in calls))
 
-    def test_pull_lists_cowork_and_review_requests_but_not_replies(self):
+    def test_pull_lists_unified_requests_but_not_replies(self):
         other = self.other("sunmoonun")
         base = other / "docs/sync-cowork"
         entries = {
-            "inbox-cowork/opus/build.md": "# build card\n",
-            "inbox-review/luna/inbox/methods/request.md": "# review request\n",
-            "inbox-review/luna/inbox/data/request.md": "# second request\n",
-            "inbox-review/luna/inbox/methods/replies/opus.md": "# review reply\n",
-            "inbox-review/luna/inbox/data/replies/request.md": "# not a request\n",
-            "inbox-review/luna/inbox/README.md": "# instructions\n",
+            "requests/qwen/build/request.md": "# build card\n",
+            "requests/luna/methods/request.md": "# review request\n",
+            "requests/luna/data/request.md": "# second request\n",
+            "requests/luna/methods/replies/opus.md": "# review reply\n",
+            "requests/luna/data/replies/request.md": "# not a request\n",
+            "requests/luna/README.md": "# instructions\n",
+            "requests/luna/paused/request.md": "# paused request\n状态：暂停\n",
         }
         for name, content in entries.items():
             path = base / name
@@ -134,9 +135,11 @@ class SyncTests(unittest.TestCase):
         git(other, "commit", "-m", "handoff cards")
         git(other, "push")
         result = self.sync("pull", target="sunmoonun")
-        self.assertIn("协作待办 opus/build.md # build card", result.stdout)
-        self.assertIn("luna/inbox/methods/request.md # review request", result.stdout)
-        self.assertIn("luna/inbox/data/request.md # second request", result.stdout)
+        self.assertIn("qwen/build/request.md # build card", result.stdout)
+        self.assertIn("luna/methods/request.md # review request", result.stdout)
+        self.assertIn("luna/data/request.md # second request", result.stdout)
+        self.assertIn("协作请求（请核对指派与状态）", result.stdout)
+        self.assertIn("luna/paused/request.md # paused request", result.stdout)
         self.assertNotIn("# not a request", result.stdout)
         self.assertNotIn("review reply", result.stdout)
         self.assertNotIn("# instructions", result.stdout)
