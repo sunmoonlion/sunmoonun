@@ -42,7 +42,7 @@
 
 2026-10-17 起，GitHub 与 gitee 上的 `investment-app`（连同三个子仓）改名为 `knowbench-*`，`runtime` 改名为 `sunmoon-link`，GitHub 的旧地址自动转到新仓；两台机器的检出已换名（[0028](../dev-investment-agent/tree-build/SDD/modules/0028-knowbench-rename.md)）。
 
-工位与同步：主目录 `~/master/<仓>`，工位 `~/worktrees/<工位>/<仓>`（`mb` 管理）；两台机器（远程机写、本地机跑）之间只经 Git origin 往来，所有者用 `~/switch-test/human-local.sh`、`human-remote.sh` 同步；派活卡与回执在 [`sync-cowork/`](../dev-investment-agent/switch-test/README.md)。
+| 派活、评审、回执与两端同步 | [`sync-cowork/`](../sync-cowork/README.md)：统一 `requests/<发起身份>/<任务>/request.md`，回执在同任务 `replies/`；[详细协作规则](../sync-cowork/协作请求使用说明.md) |
 
 ## 3. 东西跑在哪里
 
@@ -190,7 +190,7 @@ knowbench 内部：三种对话（[0017](../dev-investment-agent/tree-build/SDD/
 | 一次求助 / 一次委托怎么走 | [流水线](../dev-investment-agent/pipeline.md)、[`turn/`](../dev-investment-agent/turn/README.md) |
 | 拓扑、谁连谁、发布链 | [`k8s/docs/运行拓扑.md`](../运行拓扑.md) |
 | 部署、发版、某个组件怎么维护 | `k8s/README.md`、`infrastructure/` 与各组件目录的 `README.md`、[规则「发布」](../dev-investment-agent/tree-build/rules/constraints.md#发布) |
-| 派活卡、回执、两台机器怎么同步 | [`sync-cowork/`](../dev-investment-agent/switch-test/README.md)（`inbox/`、`done/`、`human-*.sh`）；回执在各仓 `scripts/results/` |
+| 派活、评审、回执与两端同步 | [`sync-cowork/`](../sync-cowork/README.md)：统一 `requests/<发起身份>/<任务>/request.md`，回执在同任务 `replies/`；[详细协作规则](../sync-cowork/协作请求使用说明.md) |
 | 改某个仓的代码 | [`repos/`](repos/) 对应文件 |
 | 跨应用契约、数据、专家 | [`topics/`](topics/) 对应文件（专家：[`topics/knowbot.md`](topics/knowbot.md)） |
 | 还没做的事 | [待办账](../dev-investment-agent/tree-build/pending-after-migration.md)、[接下来做什么](staging.md)；进行中的改名 investment→knowbench、runtime→sunmoon-link 见 [0028](../dev-investment-agent/tree-build/SDD/modules/0028-knowbench-rename.md) 与执行手册 `k8s/docs/rename.md`（回执 `docs/rename-receipts/`）；上一次改名（info→knowfeed、knowledge→knowbase，2026-10-14 至 16）的手册与回执已删，按 Git 历史 `3951246c:docs/rename.md` 取 |
