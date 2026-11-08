@@ -378,7 +378,7 @@ def main():
             )
             for folder, pattern, label in (
                 ("inbox-cowork", "*/*.md", "协作待办"),
-                ("inbox-review", "*/inbox/*.md", "评审请求（请核对状态）"),
+                ("inbox-review", "*/inbox/*/request.md", "评审请求（请核对状态）"),
             ):
                 inbox = cowork / folder
                 for card in sorted(inbox.glob(pattern)):

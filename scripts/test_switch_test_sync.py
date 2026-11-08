@@ -120,8 +120,10 @@ class SyncTests(unittest.TestCase):
         base = other / "docs/sync-cowork"
         entries = {
             "inbox-cowork/opus/build.md": "# build card\n",
-            "inbox-review/luna/inbox/methods.md": "# review request\n",
-            "inbox-review/luna/replies/methods/opus.md": "# review reply\n",
+            "inbox-review/luna/inbox/methods/request.md": "# review request\n",
+            "inbox-review/luna/inbox/data/request.md": "# second request\n",
+            "inbox-review/luna/inbox/methods/replies/opus.md": "# review reply\n",
+            "inbox-review/luna/inbox/data/replies/request.md": "# not a request\n",
             "inbox-review/luna/inbox/README.md": "# instructions\n",
         }
         for name, content in entries.items():
@@ -133,7 +135,9 @@ class SyncTests(unittest.TestCase):
         git(other, "push")
         result = self.sync("pull", target="sunmoonun")
         self.assertIn("协作待办 opus/build.md # build card", result.stdout)
-        self.assertIn("luna/inbox/methods.md # review request", result.stdout)
+        self.assertIn("luna/inbox/methods/request.md # review request", result.stdout)
+        self.assertIn("luna/inbox/data/request.md # second request", result.stdout)
+        self.assertNotIn("# not a request", result.stdout)
         self.assertNotIn("review reply", result.stdout)
         self.assertNotIn("# instructions", result.stdout)
 
