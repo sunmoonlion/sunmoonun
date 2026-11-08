@@ -376,14 +376,7 @@ def main():
                 / os.environ.get("ROOT_REPO", "sunmoonun")
                 / "docs/sync-cowork"
             )
-            requests = cowork / "requests"
-            for card in sorted(requests.glob("*/*/request.md")):
-                lines = card.read_text().splitlines()
-                print(
-                    "协作请求（请核对指派与状态）",
-                    str(card.relative_to(requests)),
-                    lines[0] if lines else "",
-                )
+            print(f"协作请求入口：{cowork / 'requests'}（按明确指派查看；同步不派单）")
         elif args.action == "push":
             print("已推到 Git；对方开工前在自己的机器执行 pull。")
 
