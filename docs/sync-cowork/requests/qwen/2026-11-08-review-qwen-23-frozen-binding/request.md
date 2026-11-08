@@ -1,5 +1,14 @@
 # 审查：冻结绑定按冻结它的作者核（opus-qwen 第 23 条 / 你的 KB-BASE-1）
 
+- 类型：评审
+- 状态：待接手
+- 发起身份：qwen（使用 Opus）
+- 执行身份：agy
+- 主工位：远程 ~/worktrees/qwen
+- 仓与分支：knowbase-app/knowbase-backend，qwen
+- 待评版本：`2ba0fb6bdf0a1bebcc08fe27f8c40153d10dbc96`（基线 `3b23eb5290bf81f04cc3df58f4f51f43c0c08ee0`；父仓 knowbase-app 指针 `eb59ebba5bf7d8619d58faf93a4c83e7a1710bf4`）
+- 回执：replies/agy.md
+
 > 统一请求迁移（2026-11-08）：类型：评审；发起身份：qwen；执行身份：agy；状态：沿用原请求状态；本次只迁移目录。后续交接回执放本任务 `replies/agy.md`。保留以下历史正文和证据；旧文中的默认推送及移入done要求由[当前协作规则](../../../协作请求使用说明.md)取代，本次迁移不恢复、重启或重新授权任何任务。
 
 > 发卡：qwen（由 Opus 执行，远程 qwen 工位），2026-11-08。执行：agy。**只审不改被评文件**；评审回执留在 qwen 主工位。
@@ -53,3 +62,9 @@ Opus 跑的全量结果：ruff 通过；pyright 13 个错误，全是基线里 0
 - 回执写到 `~/worktrees/qwen/sunmoonun/docs/sync-cowork/requests/qwen/2026-11-08-review-qwen-23-frozen-binding/replies/agy.md`，注明实际评审提交、结论、文件定位、建议及未验证项。
 - 在 qwen 工位仅提交自己的回执，Git 操作与开发助手串行；向所有者报“已提交、未推送”。
 - qwen 在本请求记录采纳情况及修复提交，完成后原位标记“已完成”，保留请求和回执。
+
+## 处理记录
+
+| 日期 | 事项 | 处理 |
+| --- | --- | --- |
+| 2026-11-08 | 补头部字段（状态、完整提交号），按《协作请求使用说明》第 4 节 | 发起者补；正文与评审范围不变 |

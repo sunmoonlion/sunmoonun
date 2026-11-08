@@ -1,5 +1,20 @@
 # 审查：opus-qwen 第 3–5 步这一批修复（11-08）
 
+- 类型：评审
+- 状态：待接手
+- 发起身份：qwen（使用 Opus）
+- 执行身份：agy
+- 主工位：远程 ~/worktrees/qwen
+- 仓与分支：下表各仓，都在 qwen 分支
+- 待评版本（完整提交号）：
+  - knowbase-app/knowbase-backend：`1a7889421dac7a3d854541b0b3d012eceebd215a`、`7875a8b5e5b15a83163d6fe42e95aab0737f2482`、`d1b10f9a6749821ee40a8275e070d381cb786aed`、`c7dc805bdbefe2298b3080be65f55769ca6d14cd`
+  - knowbench-app/knowbench-backend：`44f2f28ec6b3b76f832050d164449494f9b5e8ba`、`4e4ba5ed4808ec221adab3f0bcb83d9267346bb3`
+  - knowbench-app/knowbench-web-frontend：`5fd34c6dbfce71e467f30fa046083f29df2ee76f`
+  - knowfeed-app/knowfeed-backend：`3390ee54c9df983bd571300476112b304ccf3af7`
+  - knowmart-app/knowmart-backend：`a326fbcc58bfef2b6bc1e75d49707864d1023083`
+  - tpl-app/tpl-backend：`2f583804214d9c2c9b77421ff25c843cd5066af4`
+- 回执：replies/agy.md
+
 > 统一请求迁移（2026-11-08）：类型：评审；发起身份：qwen；执行身份：agy；状态：沿用原请求状态；本次只迁移目录。后续交接回执放本任务 `replies/agy.md`。保留以下历史正文和证据；旧文中的默认推送及移入done要求由[当前协作规则](../../../协作请求使用说明.md)取代，本次迁移不恢复、重启或重新授权任何任务。
 
 > 发卡：qwen（由 Opus 执行，远程 qwen 工位），2026-11-08。执行：agy。**只审不改被评文件**，规矩同上一张卡 `../2026-11-08-review-qwen-23-frozen-binding/request.md`：在 `~/worktrees/qwen` 只读被评内容，测试库与跑法也一样。
@@ -35,3 +50,9 @@
 - 回执写到 `~/worktrees/qwen/sunmoonun/docs/sync-cowork/requests/qwen/2026-11-08-review-qwen-batch-3/replies/agy.md`，注明实际评审提交、结论、文件定位、建议及未验证项。
 - 在 qwen 工位仅提交自己的回执，Git 操作与开发助手串行；向所有者报“已提交、未推送”。
 - qwen 在本请求记录采纳情况及修复提交，完成后原位标记“已完成”，保留请求和回执。
+
+## 处理记录
+
+| 日期 | 事项 | 处理 |
+| --- | --- | --- |
+| 2026-11-08 | 补头部字段（状态、完整提交号），按《协作请求使用说明》第 4 节 | 发起者补；正文与评审范围不变 |
