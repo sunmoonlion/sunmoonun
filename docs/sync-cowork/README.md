@@ -22,14 +22,14 @@
 - 远程：`zym@43.153.135.74:1022`，家目录`/home/zym`。
 - 本地：所有者的WSL，家目录`/home/zymun`。
 - 具体任务在哪个工位、由谁执行，以请求为准；评审可以直接在主工位读代码、写自己的回执。
-- 默认助手修改、验证、提交并汇报；所有者统一推送。只有明确授权时助手才代推，旧卡中的默认推送要求以此规则为准。
+- 默认助手修改、验证、提交后立即推送本次涉及的仓，并汇报结果；所有者临时指定不推送、目标或时机时优先遵守。此规则取代旧卡中的“只提交不推送”默认。
 
 ```bash
 cd ~/worktrees/qwen  # 例子；应进入请求指定的主工位
 ./sunmoonun/docs/sync-cowork/sync/sync.sh status
 ./sunmoonun/docs/sync-cowork/sync/sync.sh pull sunmoonun
 
-# 所有者执行，或已有明确授权时由助手代推
+# 助手验证、提交后执行；有临时不推送指令时不执行
 ./sunmoonun/docs/sync-cowork/sync/sync.sh push sunmoonun
 ```
 
