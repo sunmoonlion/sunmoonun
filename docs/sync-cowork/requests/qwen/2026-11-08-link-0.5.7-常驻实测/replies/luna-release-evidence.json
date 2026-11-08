@@ -1,0 +1,57 @@
+{
+  "baseline": "97f3f32e9e3fbd0f2808638e172dbcec1065bd68",
+  "releaseRevision": "7ef8bdd02a16d14a5a3c8f13918db6cdad85095a",
+  "digest": "sha256:446af5da2bb388102da84b0e4a342ba964a27ea877d4afc23dd3b4b7d21ee8de",
+  "date": "2026-11-08",
+  "preflightNonterminalTasks": [],
+  "kustomizationsReady": 108,
+  "kustomizationsTotal": 108,
+  "candidateDiff": {
+    "changed_files": [
+      "gitops/components/app-platform/knowbench-app/knowbench-backend/agent-releases/config.yaml",
+      "gitops/components/app-platform/knowbench-app/knowbench-backend/platform-computer/workload.yaml",
+      "gitops/components/app-platform/knowbench-app/knowbench-backend/runtime/agent-releases.sops.yaml",
+      "gitops/components/app-platform/knowbench-app/knowbench-backend/runtime/workload.yaml"
+    ],
+    "plaintext_changed_paths": [
+      "/stringData/WORKBENCH_AGENT_DOWNLOAD"
+    ],
+    "backend_images_and_sources_unchanged": true,
+    "runtime_only_config_annotations_changed": true
+  },
+  "liveCheck": {
+    "images_unchanged": true,
+    "download_descriptor": {
+      "url": "https://knowbench.dev.sunmoonai.com:30443/api/workbench/agent/package",
+      "version": "0.5.7",
+      "zip_sha256": "2179e6d82557d0b26f215e277d4480b041cf494496efcaefdeb2405735f6fc51",
+      "manifest_sha256": "762fa2bc2021aceee04c3f906c5776d22d44ed1ef0d3ef1526fd7f4106ba0ac0",
+      "codex_version": "0.155.1",
+      "size_bytes": 180991581
+    },
+    "platform_computer": {
+      "version": "0.5.7",
+      "relay": "connected"
+    },
+    "linux_manifest_check": {
+      "root": "/data/releases/0.5.7-ea0695017627",
+      "manifestSha256": "7520e546c4c83ed3692550a0f7210eff226c6de9ff3b6040ddefa5987c395143",
+      "version": "0.5.7",
+      "sourceRevision": "686a74c463360b33a56accd41ae0904647323a8a",
+      "files": 133,
+      "mismatches": [],
+      "extra": [
+        ".verified"
+      ]
+    }
+  },
+  "browserDownload": {
+    "file": "/mnt/c/Users/zymun/Downloads/windows-x64 (1).zip",
+    "bytes": 180991581,
+    "sha256": "2179e6d82557d0b26f215e277d4480b041cf494496efcaefdeb2405735f6fc51",
+    "manifestSha256": "762fa2bc2021aceee04c3f906c5776d22d44ed1ef0d3ef1526fd7f4106ba0ac0",
+    "version": "0.5.7",
+    "filesVerified": 109,
+    "mismatches": 0
+  }
+}

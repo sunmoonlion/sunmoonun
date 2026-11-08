@@ -3,7 +3,7 @@
 - 对应请求：[request.md](../request.md)。2026-11-08，本地 qwen 工位。
 - 被测源码：sunmoon-link `686a74c463360b33a56accd41ae0904647323a8a`，版本 0.5.7。
 - 结论：本机普通、提权两种模式的计时及常驻生命周期检查通过；所有者已亲自确认网页浏览目录、建项目正常。历史 EOF 故障未复现，真实退回路径未触发，保留该限制。
-- **只完成第一、二节。未上传或发布 0.5.7；线上下载及平台电脑仍为此前已发布的 0.5.6。发布需所有者另行明确授权。**
+- 第一轮完成第一、二节后尚未发布；随后所有者明确指示“正式发布”，现已完成第三节，详见第 6 节。
 
 ## 1. 构建、测试与升级
 
@@ -65,4 +65,23 @@ Windows 使用 release-windows.mjs 原生入口，冻结依赖、编码检查及
 
 ## 5. 交回
 
-本轮只提交证据和本回执，按默认规则推送 qwen 的 sunmoon-link 与 sunmoonun；提交号及两端推送结果见实际交回。发起者核对后结案，Luna 不代归档。0.5.7 发布仍待所有者明确授权。
+本轮只提交证据和本回执，按默认规则推送 qwen 的 sunmoon-link 与 sunmoonun；提交号及两端推送结果见实际交回。发起者核对后结案，Luna 不代归档。第一轮交回时 0.5.7 发布待授权；后续授权及发布结果见第 6 节。
+
+## 6. 正式发布（所有者后续授权）
+
+所有者在本会话明确指示“正式发布”，授权已补记 request.md 处理记录。2026-11-08 执行，沿用第一轮已核验的两个候选包，未重新构建、未重装本机。
+
+- 线上基线：`97f3f32e9e3fbd0f2808638e172dbcec1065bd68`，发布前 flux-source-status 核对通过。
+- 发布提交 R：`7ef8bdd02a16d14a5a3c8f13918db6cdad85095a`。
+- OCI digest：`sha256:446af5da2bb388102da84b0e4a342ba964a27ea877d4afc23dd3b4b7d21ee8de`，仓 `oci://harbor.sunmoonai.com:30443/platform/deployments-kind`，路径 `./clusters/kind`。
+- 隔离晋级提交：`e5dbcc7f`；R 合回 qwen 的 merge：`af67f4f1078778c1f551cef684bc285f748e0b60`；本次回执提交同时更新 qwen 的正式 flux-source.yaml。
+- 相对线上基线仅 4 文件变化，33 行新增 / 33 行删除：agent-releases/config.yaml、runtime/agent-releases.sops.yaml、runtime/workload.yaml、platform-computer/workload.yaml（均在 knowbench-backend 部署目录）。
+- 明文仅 `/stringData/WORKBENCH_AGENT_DOWNLOAD` 改变；runtime/workload 仅配置摘要注解改变。image.lock.yaml、后端 config.yaml、应用源码钉版保持线上基线，qwen 中待发的业务开关未带入候选。
+- 发布前两次只读查询非终态委托均为 `[]`，没有代停任务。
+- Windows/Linux verify 各 `ok=3, changed=0, failed=0`；两次 upload 各 `ok=18, changed=2, failed=0`，独立身份完整读回摘要正确，writer 读拒绝和 reader 写拒绝均通过。没有重复覆盖对象或关闭校验。
+- 通过原生 platform-stage、flux-release、显式晋级、flux-source-apply 发布；release `ok=30, changed=9, failed=0`；apply `ok=38, changed=3, failed=0`；发布后 flux-source-status `ok=16, changed=0, failed=0`，实际 revision/digest 一致，最终 108/108 Kustomization Ready。
+- API 实际下载描述为 0.5.7；在当前已登录 Windows 默认浏览器打开正式下载接口，完整取得 `Downloads/windows-x64 (1).zip`，180991581 字节、ZIP/清单摘要与第 1 节一致，清单 109 个文件逐个核对无差异。未读取或导出浏览器凭据。
+- 平台电脑真实目录 `/data/releases/0.5.7-ea0695017627`：清单摘要一致，133 个文件逐个核对无差异，额外仅既有取包流程生成的 `.verified`；Link 0.5.7、relay connected。
+- API、runner、worker、scheduler、平台电脑的实际镜像与发布前逐项一致；本机 Windows Link 仍为 0.5.7、PID 27100、relay connected。
+
+脱敏核验结果见同目录 `luna-release-evidence.json`；本机详细日志 `/tmp/luna-link057-*.log`。原始候选证据中 `published:false` 是第一轮实测时的历史状态，保留不改写；本节记录后续正式发布事实。发布结束提交并推送 qwen 双端，对方 pull 后可读。
