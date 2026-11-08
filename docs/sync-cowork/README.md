@@ -37,6 +37,8 @@ cd ~/worktrees/qwen  # 例子；应进入请求指定的主工位
 
 master在`~/master`运行同样入口。脚本根据自身路径识别工位，不需要WS参数。同名分支推拉不会合并其他工位；独立开发成果先集成验证，再用align对齐，不能强推或硬重置掩盖分叉。
 
+所有者说“pull 某工位”，助手直接调用指定工位的 `sync.sh pull`；未指定仓就拉全部注册仓，指定仓就按范围拉取。默认在当前机器执行，明确指定机器时从其指定。具体映射和异常处理见[同步说明](sync/README.md#所有者说pull-某工位时)。
+
 ## 工位管理
 
 创建、删除工位使用`mb`，正式工具在`~/toolboxes/Vlinux/utils/set-up-tools/model-switch/`，配置为`layout.conf`和`repos.conf`。本目录不保存工具副本；日常同步仓列表在`sync/config.sh`。
