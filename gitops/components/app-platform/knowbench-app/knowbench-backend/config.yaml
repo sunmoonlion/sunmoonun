@@ -102,6 +102,10 @@ knowbench_backend_deployment:
     # 所有者 11-06 定先只放本人（subject 同 2026-11-02 Wind 发版交接里由旧任务归属只读核实的那个），
     # 跑通保底题再放开。回退改为 '[]'：已写回执的委托照回执做完，新委托回到老路
     WORKBENCH_FIXED_AS_PLAN_OWNERS: '["721f2c10-db3f-4ca4-b6bf-093bb4420ea7"]'
+    # 委托交付的成稿替用户写进 knowbase 产出区（SDD 0043 第 2.6 节；所有者 2026-11-08 定随下次
+    # knowbench 发版打开）。要 knowbase 的产出许可上限按 10-30 约定算（knowbase-backend 7875a8b，
+    # 与 knowbench 同批发）；回退改 'false'：待写的成稿留着，不推进、不计失败次数
+    WORKBENCH_OUTPUT_WRITE_ENABLED: 'true'
   domain_secrets:
     # Fernet 密钥（后端用 cryptography.Fernet 加密用户的模型 key）：2026-10-06 第 7 步登记 key 报 internal_error，原因是默认的 40 位随机串不是 Fernet 格式
     WORKBENCH_CREDENTIAL_KEY: {source: random, format: fernet}
