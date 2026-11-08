@@ -57,7 +57,7 @@ knowbase 按（主体、期末日、科目编码、口径）在**标准化层**�
 | 1 | 数据需求加「要哪些数」这一种（主体、期间、科目编码、口径）；`data-request` 出新版（加法） | knowbase（契约提供方），knowbench、knowlab 跟锁 |
 | 2 | 按（主体、期末日、科目编码、口径）查标准化层，含「首次披露 / 最新」两种取法 | knowbase |
 | 3 | knowfeed 需求项认「要哪些数」；巨潮按「落在哪份报告」认这一项 | knowfeed |
-| 4 | Wind 插件：科目编码与口径到 Wind 字段的对照（随 W0 核实的字段逐条加）；Wind 回答写成资料 + 事实行 | knowfeed |
+| 4 | Wind 插件：科目编码与口径到 Wind 字段的对照（随 W0 核实的字段逐条加）；Wind 回答写成资料 + 事实行。**11-08 补核**（[luna 回执](../../../sync-cowork/archive/qwen/2026-11-08-wind-回包核实/replies/luna.md)）：年报、半年、年初至今累计、合并／母公司可登记，表在 `payload.data.data[]`，按列名定主体、科目、口径、期间，不按列序；**单季**（回成累计值）、**首次披露／追溯调整**（丢了归母限定、无版本信息）不登记，要的转巨潮；单季的错回包做成回归测试 | knowfeed |
 | 5 | `covers` 改成按上面认；旧的 `source_query` 项照旧只认点名的渠道（过渡） | knowfeed |
 | 6 | prematch 出 v2：每项回按先后排好的候选渠道与各自怎么取（照实给用户看）、许可档 | knowfeed（提供方），knowbench、knowlab 跟锁 |
 | 7 | 确认页照 prematch 列出候选，用户可去掉某个渠道（已有的 `conditions.channels`） | knowbench 网页 |
