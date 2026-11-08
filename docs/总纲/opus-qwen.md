@@ -239,3 +239,13 @@ qwen-020 发版前必须修好。0050 是 knowbench，0051 是 knowbase。每条
 | 20 | 撤回 | `CHECKPOINT.md` 是流程规定的续接笔记（`process/turn/glossary.md`、`imp/message-rules.md`），《财务智能体双轨交付计划》多处把它当证据引用，不删 |
 
 **第 3–5 步到此做完**：除第 4、24 条（等专家新方案）和第四节待定的几件，第三节其余各条都已修完，或者核实后定为不改。各仓最后一次全量：knowbase 793、knowfeed 1108、knowbench 2050、knowmart 547、tpl 374 个通过，knowlab 没改代码（基线 931）；ruff、pyright 都是 0 错。
+
+
+## 十、第四节四件的结果（11-08）
+
+| 件 | 所有者定 | 落实 |
+| --- | --- | --- |
+| 1 Wind 每人上限 | 先不加 | 登记 `decisions.md`（`e942e82eb`），代码不动 |
+| 2 审核人和作者分开 | 现在就禁，不留例外 | knowlab-backend `0207742`：公开交付的审核、特批放行，作者本人回 403 `self_review_forbidden`；全量 933 过 |
+| 3 Wind 取不到转巨潮 | 我给的建议和 11-06 的决定「取不到（无数据、额度用完、停用）自动换巨潮」冲突，已报所有者，**待确认**。我改为建议照 11-06：Wind 一律不自动重试，取不到就转巨潮 | 0051 第 4 步一起做 |
+| 4 两个开关 | 按建议 | 成稿写入：knowbench 部署配置 `WORKBENCH_OUTPUT_WRITE_ENABLED: 'true'`（sunmoonun `8acc1cbd9`），随下次 knowbench 发版生效，和 knowbase `7875a8b` 同批发；渲染服务记账，等平台 |
