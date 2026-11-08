@@ -28,6 +28,19 @@ cd ~/worktrees/agy
 
 在 master 使用时，进入 `~/master/sunmoonun/docs/sync-cowork/sync`，执行相同命令。换工位就使用那个工位里的脚本；**不需要填写工位名或设置 WS**。脚本根据自身位置识别工位，不根据终端所在目录猜测。
 
+## 所有者说“pull 某工位”时
+
+所有者指示“pull 某工位”时，助手直接在指定工位调用该工位仓内的 `sunmoonun/docs/sync-cowork/sync/sync.sh pull`，无需再次确认，也不只回复命令。未指定仓时拉取该工位全部注册仓及脚本管理的子仓；指定仓时传入对应范围。默认操作助手当前所在机器，明确指定本地或远程时按指定机器执行。普通工位路径为 `~/worktrees/<工位>`，master 为 `~/master`；使用目标工位的脚本，不在自己工位执行 `pull <工位名>`。保留脚本对未提交改动、分叉和分支不符的检查；失败时报告具体阻碍，不自动提交他人改动、不强制覆盖。拉取结束汇报实际工位、范围和结果，不顺便执行协作任务。
+
+例如，所有者说“pull qwen”，助手执行：
+
+```bash
+cd ~/worktrees/qwen
+./sunmoonun/docs/sync-cowork/sync/sync.sh pull
+```
+
+“pull qwen 的 sunmoonun”只需将命令改为 `./sunmoonun/docs/sync-cowork/sync/sync.sh pull sunmoonun`；“pull master”则进入 `~/master` 调用其中同一路径的脚本。工位不存在或脚本缺失时说明原因，不擅自新建工位或改用另一工位。
+
 ## 三种同步范围
 
 `pull`、`push`、`status` 都支持以下三种范围。下面的推送命令默认由助手提交后执行，临时指令优先：
