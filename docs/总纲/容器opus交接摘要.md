@@ -1,7 +1,7 @@
 # 容器 Opus 交接摘要（2026-11-06 至 11-07）
 
 > 写给接手的本地助手与所有者。远程云端容器里的 Opus 这两天做了什么、做到哪、哪些没上线、哪些等所有者定、在哪里查。所有代码与文档都已提交并推到 `qwen`（sunmoonun 另推到 cursor、fable、kimi、luna、agy 五个工位分支）。
-> 详细的每项来由在 [接手计划](opus接手计划-2026-11-06.md)；审查原文在 [Luna 段逐文件审查](luna开发逐文件审查-2026-11-06.md)；待办账在 [pending-after-migration](../design/pending-after-migration.md)。
+> 详细的每项来由在 [接手计划（历史）](https://github.com/sunmoonlion/sunmoonun/blob/4ca837c7bd90a644e1dfa09a7f4d386ad9a871f9/docs/%E6%80%BB%E7%BA%B2/opus%E6%8E%A5%E6%89%8B%E8%AE%A1%E5%88%92-2026-11-06.md)；审查原文在 [Luna 段逐文件审查（历史）](https://github.com/sunmoonlion/sunmoonun/blob/4ca837c7bd90a644e1dfa09a7f4d386ad9a871f9/docs/%E6%80%BB%E7%BA%B2/luna%E5%BC%80%E5%8F%91%E9%80%90%E6%96%87%E4%BB%B6%E5%AE%A1%E6%9F%A5-2026-11-06.md)；待办账在 [pending-after-migration](../design/pending-after-migration.md)。
 
 ## 一、现在各仓的头（都在 `qwen` 分支，本地远端同号）
 
