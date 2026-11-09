@@ -176,7 +176,7 @@ Qwen交接13.6已更新，须改旧来源钉并重核维护窗口，未由Luna�
 
 # 2026-11-02 当前单元：Wind 通用查询与年报证据候选
 
-用户明确授权服务端接入、取消此前 5 次额度，要求第二轨主演示且不限定财务数据。已按七服务域实现通用查询，复用供给/权利/确认；年报文本与财务两条真实适配器探针成功，全文 PDF/pages 不冒认。各子仓及父仓已先后推 GitHub，精确矩阵和测试在 docs/总纲/发版/2026-11-02-Wind通用查询与年报证据接入发版交接.md，授权演进在 Wind-W0评估续记。生产尚未启用；无新增迁移。最后供给受影响回归 74 passed（/tmp/luna-wind-feed-final-affected.log），前序失败记录保留；比对 #52 四后端 migrations 目录无变化。
+用户明确授权服务端接入、取消此前 5 次额度，要求第二轨主演示且不限定财务数据。已按七服务域实现通用查询，复用供给/权利/确认；年报文本与财务两条真实适配器探针成功，全文 PDF/pages 不冒认。各子仓及父仓已先后推 GitHub，精确矩阵和测试在 docs/总纲/发版/2026-11-02-Wind通用查询与年报证据接入发版交接.md（2026-11-09 已删，原文见 sunmoonun 提交 `13048f793`），授权演进在 Wind-W0评估续记。生产尚未启用；无新增迁移。最后供给受影响回归 74 passed（/tmp/luna-wind-feed-final-affected.log），前序失败记录保留；比对 #52 四后端 migrations 目录无变化。
 
 qwen #52 发布修复已显式合入候选祖先，源码未退回旧版。回执 18:17 新记录表明本人已重新核对并确认，后续停在第 2 步读工具不可用提问；这是下一门，不擅自代点。需定位 DataRelay 工具发现的真实上游失败、真实作者方法/受控动态孵化与 Wind 授权数据消费；不能把本轮取数和合成执行测试写成第二轨全部完成。agy 方法仍未合并。没有调用发布工具或改集群；正式秘密/渠道/业务验收交 qwen 与本人依已授权流程推进。
 
@@ -444,7 +444,7 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - knowfeed 候选父仓 d1af123233acc926787ab16117ef743cee8bba14，后端 bb85408f20c78dbda0301315dfd3de0bbfc7d955：真实跨行标签、未匹配诊断、处理版本升级、公开引用契约及 consumer lock；1033 passed / 13 skipped，ruff/pyright 通过。真实已留存 PDF 重放保持 97 条标准值/期间/页码不变。
 - knowbench 候选父仓 5ae91f4ccb1a15b9257a2e3be25742b75c4b630e，后端 7d8da3e18ef055aa38f821a17e6a7f464bc7795c，web 089f8b0b80a9024d03a41bf5dbc0705d0d11a4a2：供应进度/失败分组展示、原任务核对后本人重试、新轮幂等键、无对话事件时等待快照刷新。后端 1206 passed / 92 skipped、ruff/pyright 通过；web pnpm check 完整通过，359 passed / 2 skipped。
 - 上述五仓 GitHub fix/supply-delivery 远端 SHA 已逐一核验，代码工作区干净。没有触发新的 Jenkins，没有更新根仓 sources，线上仍须由发布方重新核验。所有者明确将发版交给 qwen，luna 继续开发；不得同时启动第二条发布。
-- 已按指定位置写入 `/home/zymun/worktrees/qwen/sunmoonun/docs/总纲/发版/2026-11-02-采集交付修复发版交接.md`，含精确版本、Jenkins 操作、原任务恢复、验收、回退与残余问题。文件留给 qwen 纳入其根仓提交，没有替 qwen 切分支/提交其它工作。知会本机开发接续者：发布验收职责在 qwen，不在本工位。
+- 已按指定位置写入 `/home/zymun/worktrees/qwen/sunmoonun/docs/总纲/发版/2026-11-02-采集交付修复发版交接.md`（2026-11-09 已删，原文见 sunmoonun 提交 `13048f793`），含精确版本、Jenkins 操作、原任务恢复、验收、回退与残余问题。文件留给 qwen 纳入其根仓提交，没有替 qwen 切分支/提交其它工作。知会本机开发接续者：发布验收职责在 qwen，不在本工位。
 - 第二轨下一步仍为上节 WP-3 非公开逐读法/完成状态契约缺口、WP-10 动态方法契约与运行计划；knowbase 未发布开发不混入此次候选。Wind 仍已用 3/5 次，W0 未决，W1 不开。保底的线上财务报告尚未验收，不能用本地检查替代。
 
 ## 2026-11-02 第二轨开工准备（等待所有者通知发版结果）
@@ -472,7 +472,7 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 编译显式 v3 动态目录与 knowbench/dynamic-methods/v1，旧 v2 schema/固定编译样例/规范摘要不变。规划、条件、依赖/工具/次数边界纳入作者出处；孵化模型提议只有本人接受才落稿。目录没有可变任务 workflow，工作台运行入口暂拒绝 v3。跨应用提供方 schema、消费锁和编译样例均同步；方法目录模型复用现有步骤合同，不引入第二套执行框架。
 - 完整本地数据库回归：knowlab 736 passed / 5 skipped、knowmart 531 / 5、knowbench 1244 / 92；工作台全量开始后最终改动重跑受影响六文件 81 passed。输出 /tmp/luna-wp10-{lab-full-final,mart-full,bench-full,bench-final-affected}.txt。第一次 lab 的 2 项失败均已修（v3 旧预期、孵化 schema 更新遗漏），原日志保留。工作台最终全仓 ruff/pyright 通过；lab/mart 改动文件通过，但全仓分别遗留类型 1/4、lint 11/17，经隔离解包基线逐条重跑无新增，不能标为全仓静态检查通过。
 - 本单元没有迁移、生产修改、Wind 调用或动态运行验收。Wind 仍 3/5、W0 未通过。下一单元按 methods.md 接版本化计划、确定性校验与 Task/Artifact 事务接受；随后接规划 Attempt、实例/成果版本绑定、有效计划视图/UI及最终成果验收，不能把目录直接塞进共享 ExpertPack 缓存。
-- 发布仍交 qwen；开发交接在 docs/总纲/发版/2026-11-02-WP10作者契约开发交接.md，明确不是当前采集修复的发版候选。不要擅自更新其他工位到这批未发布代码，不重置已有开发分支。
+- 发布仍交 qwen；开发交接在 docs/总纲/发版/2026-11-02-WP10作者契约开发交接.md（2026-11-09 已删，原文见 sunmoonun 提交 `13048f793`），明确不是当前采集修复的发版候选。不要擅自更新其他工位到这批未发布代码，不重置已有开发分支。
 
 
 ## 2026-11-02 WP-10 单元 2 与方法组件化决定
@@ -481,7 +481,7 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 单元 2 后端 6e54339d946d53b83f863d3863edf42c3d9221be，父仓 c859e35519e844a2f3a25aa0557bf80c91cd9777，均已推 GitHub feat/dynamic-methods。方法组合校验与 Task 计划 Artifact/指针/事件原子接受，复用 Ledger 的 Attempt 和预算；支持重启精确读版、幂等回执、取消并发、前缀保护、成果版本核验及文件冲突拒绝。
 - 迁移 20261102_0035，仅加可空正整数 accepted_plan_version；旧任务无需回填，有接受记录时禁止删除指针，回退应用保留扩展 schema。没有生产迁移、Jenkins、sources 或 qwen 发布分支修改。
 - 独立 PostgreSQL 全量 1289 passed / 92 skipped / 2 warnings（/tmp/luna-method-plan-full.txt）；启动后追加四个恢复故障案例与注释，三个受影响文件最终 54 passed（/tmp/luna-method-plan-tests-final.txt）。最终 ruff 与 app 目录项目配置下 pyright 通过。详细命令、首次测试 fixture 错误及错误 cwd 的静态检查记录均在后端 CHECKPOINT.md，不隐藏失败或把跳过计为通过。
-- 交接文件 docs/总纲/发版/2026-11-02-WP10任务计划与方法版本开发交接.md 已按所有者指定另存到 qwen 对应目录（新增文件，不提交/重置 qwen 的工作）。它是开发交接，不是当前采集修复发布候选。下一步单元 1a 补作者方法主档/版本、专家引用与三方契约，然后接有效计划视图、advisor/runner/权限/返工/页面及最终验收；动态入口仍拒绝 v3。Wind 仍 3/5、W0 未决；旧巨潮保底专家不改。
+- 交接文件 docs/总纲/发版/2026-11-02-WP10任务计划与方法版本开发交接.md（2026-11-09 已删，原文见 sunmoonun 提交 `13048f793`） 已按所有者指定另存到 qwen 对应目录（新增文件，不提交/重置 qwen 的工作）。它是开发交接，不是当前采集修复发布候选。下一步单元 1a 补作者方法主档/版本、专家引用与三方契约，然后接有效计划视图、advisor/runner/权限/返工/页面及最终验收；动态入口仍拒绝 v3。Wind 仍 3/5、W0 未决；旧巨潮保底专家不改。
 
 
 ## 2026-11-02 WP-10 单元 1a 第一段：方法主档与引用预览
@@ -490,11 +490,11 @@ Casdoor真实检查先失败，原因是把Go IsGlobalAdmin()方法当JSON属性
 - 两个专家工作稿可预览同一旧版本；选择新版本的预览不改另一工作稿，也不改定义。测试是预览与存储层，不是已发布专家或运行 Task 的隔离验收。仍缺保存专家精确引用、作者选版/升级入口、编译/快照和三方契约/消费者锁；不能复制 preview.step 丢掉引用凑通。
 - 迁移 20261102_0025（父版 20261101_0024）：knowbot_method / knowbot_method_version、版本不可改/删触发器；非空方法历史阻止 downgrade。无旧数据回填，无生产迁移。回退应用须保留扩展 schema。
 - 全量 760 passed / 5 skipped（117.99 秒，/tmp/luna-method-library-full.txt）；之后只补 3 个故障/并发测试，最终四文件 32 passed（/tmp/luna-method-library-tests-final.txt）。全仓 ruff/pyright 已过；原 11 个 lint 与 1 个类型错误均清理，类目取值与 DeliveryReviewIn schema 与基线逐字一致（/tmp/luna-method-library-category-schema.txt）。此前交接的 knowlab 静态债务已清，不能据此替未改 knowmart 清账。
-- 新交接 docs/总纲/发版/2026-11-02-WP10方法主档开发交接.md 按所有者要求另存 qwen 对应目录；仅新增文件，不替 qwen 提交或改发布分支。Jenkins、sources、线上保底任务均未改，Wind 仍 3/5。下一段继续精确专家引用与消费者接入，而不是提前开放动态执行。
+- 新交接 docs/总纲/发版/2026-11-02-WP10方法主档开发交接.md（2026-11-09 已删，原文见 sunmoonun 提交 `13048f793`） 按所有者要求另存 qwen 对应目录；仅新增文件，不替 qwen 提交或改发布分支。Jenkins、sources、线上保底任务均未改，Wind 仍 3/5。下一段继续精确专家引用与消费者接入，而不是提前开放动态执行。
 
 ## 2026-11-02 #47 页面修复与待发 WP-10 合并
 
-- 所有者授权修复并将待发交接合为一版；唯一入口为 `docs/总纲/发版/2026-11-02-页面修复与WP10合并发版交接.md`，qwen 同名副本已落地，旧四卡标并入。没有覆盖 qwen 的回执或 sources，没有启动 Jenkins。
+- 所有者授权修复并将待发交接合为一版；唯一入口为 `docs/总纲/发版/2026-11-02-页面修复与WP10合并发版交接.md`（2026-11-09 已删，原文见 sunmoonun 提交 `13048f793`），qwen 同名副本已落地，旧四卡标并入。没有覆盖 qwen 的回执或 sources，没有启动 Jenkins。
 - 模板先过完整门，再同步实例；修复 knowbase 来源、401 恢复、独立错误提示，并通过全量回归发现/修复远程 Git 401 误判。模板 95 pass/2 skip；工作台 374 pass/2 skip，均 typecheck/lint/i18n/build 通过；后端真实 HTTP/数据库 34 pass、pyright 0。日志路径及完整 SHA 见合并单。
 - 三个父仓统一提供 `release/recovery-methods`；knowbench 父仓 2f08c6999feb03f3005393c81f430513ea197ad7，后端 707ef08cdb6763ccc1a47f4d5d7d2c9b0bc7ef12，前端 4b8f9de8befb6ef2b35c7deecc71755e66397ae3。knowlab/knowmart 保持上一已测候选。
 - 下一步 qwen 在 #47 根仓组装同一候选，核 0025/0035 迁移并走 Jenkins；不是直接使用 luna 旧 sources。真实登录/原任务验收未完成，需用户原页面与本人采单动作。Wind、reading-receipts、WP-3 不混入，真实动态 v3 仍未准入。luna 后续继续有效计划派发开发，不能把本轮发版视为第二轨完整上线。
