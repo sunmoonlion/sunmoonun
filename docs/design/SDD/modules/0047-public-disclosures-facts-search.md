@@ -145,7 +145,7 @@
 - 对象存储分层：宿主机大盘上的 MinIO、AIStor 分层规则、COS 存储桶与访问密钥、复制。
 - 生产机本地盘扩容（热层、两套索引）。
 - 业务用的 Elasticsearch：复用 `elk` 集群就另设业务索引、身份、保留策略（日志会按时间删），或另起一套；装 IK 分词。
-- knowbase 新服务关系（见 [待你决定](../../../总纲/数据拓扑重构/待你决定.md) 第 2 条），外加 Elasticsearch 的访问身份。
+- knowbase 新服务关系（见 待你决定（`docs/总纲/数据拓扑重构/待你决定.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第 2 条），外加 Elasticsearch 的访问身份。
 - `gitops/components/data-platform/object-storage/README.md` 里「Info原文版本为业务权威」改成「原文真源在 knowbase，knowfeed 留 30 天」（0045 已定）。
 
 ## 八、实施

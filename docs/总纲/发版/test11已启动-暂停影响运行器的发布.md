@@ -11,5 +11,5 @@ frpc/边缘路由均有knowmart。浏览器完整登录仍待本人验收。
 
 本轮活跃时不要滚动runner、替换镜像或重启共享边缘；发布前重新核所有用户任务。
 二轨批量compute等继续独立开发，不并入正在跑的固定测试。2.8未验收通过、未冻结。
-真源记录：/home/zymun/worktrees/luna/sunmoonun/docs/总纲/数据拓扑重构/第二轨联调/2026-11-03-release66测试11/README.md
+真源记录：/home/zymun/worktrees/luna/sunmoonun/scripts/results/第二轨联调/2026-11-03-release66测试11/README.md
 此索引仅交接当前活动，不自行停止用户任务或取消采集。

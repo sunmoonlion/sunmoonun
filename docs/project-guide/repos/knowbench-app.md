@@ -153,4 +153,4 @@
 
 ## 代码和设计对不上的
 
-1. **部署里还配着代码已不用的关系**（已列入 [交Fable-gitops](../../总纲/数据拓扑重构/交Fable-gitops.md) 第二节，随发版删）：后端 `config.yaml` 的 `knowlab:read`（⑰ 删了经 knowlab 读数据）、`knowbase_service`（`knowbase:retrieve`）、`KNOWBOT_TEST_SUBJECT`/`KNOWBOT_TEST_WORKSPACE`/`KNOWBOT_TEST_MONTHLY_LIMIT`（⑯ 后测试在作者账号下跑），代码里都没有读的地方；应用仓 `contracts/knowbase-retrieval-provider-lock.json` 也还在，没有调用方。
+1. **部署里还配着代码已不用的关系**（已列入 交Fable-gitops（`docs/总纲/数据拓扑重构/交Fable-gitops.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第二节，随发版删）：后端 `config.yaml` 的 `knowlab:read`（⑰ 删了经 knowlab 读数据）、`knowbase_service`（`knowbase:retrieve`）、`KNOWBOT_TEST_SUBJECT`/`KNOWBOT_TEST_WORKSPACE`/`KNOWBOT_TEST_MONTHLY_LIMIT`（⑯ 后测试在作者账号下跑），代码里都没有读的地方；应用仓 `contracts/knowbase-retrieval-provider-lock.json` 也还在，没有调用方。

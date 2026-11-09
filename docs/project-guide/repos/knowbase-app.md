@@ -136,7 +136,7 @@ knowbase 不调别的应用，只出站到对象存储和 RAGFlow。
 - `knowbase-backend/samples`：Olist 样例数据集的登记脚本（旧数据集的遗留，已列进交 Fable 的清理单）。
 - `knowbase-web-frontend`、`knowbase-admin-frontend`：两个前端。
 
-删旧兼容以后 gitops 还剩要清的（`user-data-import` 接收绑定、`USER_DATA_READER_APPS_JSON`、`KNOWBASE_DATASET_*`、`KNOWBASE_SEMANTIC_*`、knowfeed 桶只读前缀放宽、样例脚本），见 [待你决定](../../总纲/数据拓扑重构/待你决定.md) 第 6 节第 2 条，交 Fable 排；目录里的 README 还写着「Knowfeed 原文仍是权威」，是旧说法。
+删旧兼容以后 gitops 还剩要清的（`user-data-import` 接收绑定、`USER_DATA_READER_APPS_JSON`、`KNOWBASE_DATASET_*`、`KNOWBASE_SEMANTIC_*`、knowfeed 桶只读前缀放宽、样例脚本），见 待你决定（`docs/总纲/数据拓扑重构/待你决定.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第 6 节第 2 条，交 Fable 排；目录里的 README 还写着「Knowfeed 原文仍是权威」，是旧说法。
 
 ## 代码和设计对不上的
 

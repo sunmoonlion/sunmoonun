@@ -126,15 +126,15 @@ knowfeed 替用户采公开数据，采到的交给 knowbase。数据第四版�
 | 块 | 决定 | 设计 |
 | --- | --- | --- |
 | 供给的定位、三端分工 | —（所有者 10-26 原话见数据拓扑来源） | [数据拓扑](../../总纲/数据拓扑.md) 第二、三、七节；[0045](../../design/SDD/modules/0045-knowfeed-supply.md) 第一节 |
-| 需求单、提出主体、受理、需求一生 | — | 0045 第二节；[采集讨论记录](../../总纲/数据拓扑重构/采集讨论记录.md) |
+| 需求单、提出主体、受理、需求一生 | — | 0045 第二节；采集讨论记录（`docs/总纲/数据拓扑重构/采集讨论记录.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） |
 | 入口分支、确认、续签 | decisions ⑫、⑭ | [0043](../../design/SDD/modules/0043-data-v4.md) 第 2.7、3.3 节；数据拓扑第八节 |
 | 渠道、适配器、作业、切合 | — | 0045 第三、四节 |
 | 公开原件存成资料、第二区引用 | decisions ① | [0047](../../design/SDD/modules/0047-public-disclosures-facts-search.md) 第二节 |
 | 描述的维度、巨潮认法 | decisions ⑬ | [0049](../../design/SDD/modules/0049-document-types.md) 第四节 |
 | 财报抽表、原样层与标准化层 | decisions ⑥、⑦、⑨（F10 不采）、⑱（银行保险证券不抽） | 数据拓扑第十六节；0047 第四节；[0008-info-statements](../../design/SDD/modules/0008-info-statements.md) |
 | 查主体 | decisions ⑭ | [请专家方案设计](../../总纲/请专家方案设计.md) |
-| 认调用方、单独一份 knowbase 身份 | — | [交 Fable gitops](../../总纲/数据拓扑重构/交Fable-gitops.md) 第六节（答复 Fable 10-29 回执第 1、2 条） |
-| 来源目录与审站、缺口清单、队列监控、配额、状态推送、30 天删原件 | decisions「发版前补齐」（10-29，① 缺口清单取代 knowbench「缺数据的需求」） | 0045 第 2.4、2.5、3.1、3.4 节、第四节、第七节块 2、4、7；[发版前补齐计划](../../总纲/数据拓扑重构/发版前补齐计划.md) F2、F5、F8 |
+| 认调用方、单独一份 knowbase 身份 | — | 交 Fable gitops（`docs/总纲/数据拓扑重构/交Fable-gitops.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第六节（答复 Fable 10-29 回执第 1、2 条） |
+| 来源目录与审站、缺口清单、队列监控、配额、状态推送、30 天删原件 | decisions「发版前补齐」（10-29，① 缺口清单取代 knowbench「缺数据的需求」） | 0045 第 2.4、2.5、3.1、3.4 节、第四节、第七节块 2、4、7；发版前补齐计划（`docs/总纲/数据拓扑重构/发版前补齐计划.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） F2、F5、F8 |
 | 退证券专线与旧数据集 | decisions ⑰ | 0045 第六节 |
 | 叫法 | decisions「叫法」（10-29） | [叫法](../叫法.md) |
 
@@ -143,12 +143,12 @@ knowfeed 替用户采公开数据，采到的交给 knowbase。数据第四版�
 `gitops/components/app-platform/knowfeed-app/`：
 
 - `config.yaml`：应用开关。
-- `knowfeed-backend/`：`database`、`migration`、`redis`、`rabbitmq`、`identity`（web端、管理端登录）、`storage`（桶 `knowfeed-originals`）、`runtime`（API、Worker、Scheduler；只有 Worker 能出公网 80、443）、`service-identity`（旧入库身份 `knowbase:ingest`）、`knowbase-user-data-supply-identity`（供给调 knowbase 的身份）。`config.yaml` 的 `service_receivers` 收 knowbench、knowlab 的 `supply-demand`。推需求状态的 `supply-status` 出站身份（knowfeed → knowbench、knowlab）、配额变量、桶上删各版本的权限、两个告警事件，部署里还没有，要配的列在[交 Fable gitops](../../总纲/数据拓扑重构/交Fable-gitops.md) 第 2d 节第 5 条；不配时不推状态，配额用代码里的缺省。
+- `knowfeed-backend/`：`database`、`migration`、`redis`、`rabbitmq`、`identity`（web端、管理端登录）、`storage`（桶 `knowfeed-originals`）、`runtime`（API、Worker、Scheduler；只有 Worker 能出公网 80、443）、`service-identity`（旧入库身份 `knowbase:ingest`）、`knowbase-user-data-supply-identity`（供给调 knowbase 的身份）。`config.yaml` 的 `service_receivers` 收 knowbench、knowlab 的 `supply-demand`。推需求状态的 `supply-status` 出站身份（knowfeed → knowbench、knowlab）、配额变量、桶上删各版本的权限、两个告警事件，部署里还没有，要配的列在交 Fable gitops（`docs/总纲/数据拓扑重构/交Fable-gitops.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第 2d 节第 5 条；不配时不推状态，配额用代码里的缺省。
 - `knowfeed-web-frontend/`、`knowfeed-admin-frontend/`：两个前端。
 
 ## 代码和设计对不上的
 
-1. **配置名**：0045 第九节末行、[待你决定](../../总纲/数据拓扑重构/待你决定.md) 的平台配置表写 knowfeed 用 `SUPPLY_SERVICE_APPS_JSON` 认调用方、用 `KNOWBASE_SUPPLY_URL` 调 knowbase、身份沿用入库那份；代码（`relation_auth.py`、`knowbase_supply.py`）按 10-29 回执改成 `SERVICE_AUTH_SUPPLY_DEMAND_*` 和 `KNOWBASE_INTERNAL_URL` + `KNOWBASE_USER_DATA_SUPPLY_SERVICE_*`，自己一份身份，两个旧名代码里都不读。fable 工位 knowbench、knowlab 的 `config.yaml` 注释也还写着 `SUPPLY_SERVICE_APPS_JSON`。
+1. **配置名**：0045 第九节末行、待你决定（`docs/总纲/数据拓扑重构/待你决定.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 的平台配置表写 knowfeed 用 `SUPPLY_SERVICE_APPS_JSON` 认调用方、用 `KNOWBASE_SUPPLY_URL` 调 knowbase、身份沿用入库那份；代码（`relation_auth.py`、`knowbase_supply.py`）按 10-29 回执改成 `SERVICE_AUTH_SUPPLY_DEMAND_*` 和 `KNOWBASE_INTERNAL_URL` + `KNOWBASE_USER_DATA_SUPPLY_SERVICE_*`，自己一份身份，两个旧名代码里都不读。fable 工位 knowbench、knowlab 的 `config.yaml` 注释也还写着 `SUPPLY_SERVICE_APPS_JSON`。
 2. **旧写入口已关（F3）**：0045 第六节退旧线已关停 `POST /admin/distributions/knowledge` 与分发调度，fail-closed 返回 410 Gone；旧通用文档模型与分发只投 knowbase 休眠声明退役。
 3. **web端提需求与订阅管理**：已落地（0045 第一节、数据拓扑第三节）。web端支持用户通过网页直接提需求、查看我的需求进度，以及对持续关注的公开主题/网址进行订阅管理（包含订阅生命周期、暂停、续期与撤销）。
 4. **管理端旧页已退（F3）**：旧通用采集「资讯采集」页面与导航项已清理退役；来源目录、待审网站、缺口清单、队列监控四页在用。待审网站页和过时限定时任务就绪，通用网页适配器已接进渠道插件。

@@ -152,6 +152,6 @@ knowlab 是作者把自己的方法做成专家的地方。一个**产品**从�
 3. **gitops 落后于代码**（Fable 工位 `knowlab-backend/config.yaml`）：
    - 还收 `knowlab:read`（`service_receivers` 第 143 行），knowbench 那边也还配着；代码已删这个接口，`infrastructure/security/relation_auth.py` 只认 `incubation-request` 与 `supply-status`。
    - 还配 `knowbase:user-data-import`（注释已写随 qwen 删）出站身份和 `object_storage` 桶，代码都不用。
-   - `WEB_AUTH_ALLOWED_RETURN_PATHS` 列的是旧页面（`knowbots`、`ideas`、`avatars`、`questions`、`data`；不在列表里的登录后退回首页，不会出错），没有 `applications`、`review`、`names` 与新栏；后端默认值（`core/config.py`）已改成首页、登录与各栏、名称页两种语言；要换的列在[交 Fable gitops](../../总纲/数据拓扑重构/交Fable-gitops.md) 第 2d 节第 7 条。
+   - `WEB_AUTH_ALLOWED_RETURN_PATHS` 列的是旧页面（`knowbots`、`ideas`、`avatars`、`questions`、`data`；不在列表里的登录后退回首页，不会出错），没有 `applications`、`review`、`names` 与新栏；后端默认值（`core/config.py`）已改成首页、登录与各栏、名称页两种语言；要换的列在交 Fable gitops（`docs/总纲/数据拓扑重构/交Fable-gitops.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第 2d 节第 7 条。
    - 组件 `README.md` 还写「空应用」「我的数据」「分身」。
 4. **文档落后于代码**：[topics/knowbot.md](../topics/knowbot.md)（10-17）还写运营贴清单、「我的数据」、`knowlab:read`。
