@@ -132,7 +132,7 @@ knowfeed 替用户采公开数据，采到的交给 knowbase。数据第四版�
 | 公开原件存成资料、第二区引用 | decisions ① | [0047](../../design/SDD/modules/0047-public-disclosures-facts-search.md) 第二节 |
 | 描述的维度、巨潮认法 | decisions ⑬ | [0049](../../design/SDD/modules/0049-document-types.md) 第四节 |
 | 财报抽表、原样层与标准化层 | decisions ⑥、⑦、⑨（F10 不采）、⑱（银行保险证券不抽） | 数据拓扑第十六节；0047 第四节；[0008-info-statements](../../design/SDD/modules/0008-info-statements.md) |
-| 查主体 | decisions ⑭ | [请专家方案设计](../../总纲/请专家方案设计.md) |
+| 查主体 | decisions ⑭ | [请专家方案设计](../../总纲/专家方案设计/专家使用方案/opus/请专家方案设计.md) |
 | 认调用方、单独一份 knowbase 身份 | — | 交 Fable gitops（`docs/总纲/数据拓扑重构/交Fable-gitops.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） 第六节（答复 Fable 10-29 回执第 1、2 条） |
 | 来源目录与审站、缺口清单、队列监控、配额、状态推送、30 天删原件 | decisions「发版前补齐」（10-29，① 缺口清单取代 knowbench「缺数据的需求」） | 0045 第 2.4、2.5、3.1、3.4 节、第四节、第七节块 2、4、7；发版前补齐计划（`docs/总纲/数据拓扑重构/发版前补齐计划.md`，2026-11-09 已删，原文见本仓提交 `cd049767f`） F2、F5、F8 |
 | 退证券专线与旧数据集 | decisions ⑰ | 0045 第六节 |
