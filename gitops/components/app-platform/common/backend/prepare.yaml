@@ -56,6 +56,7 @@
       - cfg.identity_organization == 'built-in'
       - cfg.identity_user_organization == 'sunmoonai'
       - cfg.identity_revision is match('^[a-z0-9-]{1,16}$')
+      - cfg.public_signup is not defined or application_name == 'knowbench'
       # SDD 0042：只有读 knowbase 用户资料的应用开令牌交换；只有 knowbase 带 audience 目标应用，名字按固定格式
       - (cfg.identity_token_exchange | default(false)) in [true, false]
       - cfg.identity_audience_application is not defined or (cfg.identity_audience_application.name == 'sunmoonai-' + application_name + '-user-data' and cfg.identity_audience_application.client_id == cluster_name + '-' + application_name + '-user-data')
@@ -72,6 +73,9 @@
       - not receiver_enabled | bool or service_bindings.ingest.client_id != service_bindings.retrieve.client_id
       - not receiver_enabled | bool or service_bindings.ingest.organization != service_bindings.retrieve.organization
       - cfg.domain_runtime_env | default({}) | list | difference(['STORAGE_BACKEND','SEARCH_BACKEND']) | length == 0
+- name: Prepare the public registration SMTP input before other mutations
+  ansible.builtin.include_tasks: '{{ mechanism_root }}/identity/signup-prepare.yaml'
+  when: cfg.public_signup is defined
 - name: Require capacity for the whole database and migration unit
   ansible.builtin.include_tasks:
     file: '{{ playbook_dir }}/../host/tasks/capacity.yaml'
@@ -465,7 +469,7 @@
         apiVersion: v1
         kind: Secret
         metadata: {name: '{{ application_name }}-identity-provision', namespace: '{{ app_namespace }}'}
-        stringData: {clients.json: '{{ identity_credentials | to_json }}'}
+        stringData: '{{ {"clients.json": identity_credentials | to_json} | combine({"smtp-password": signup_smtp_password} if (cfg.public_signup.enabled | default(false)) else {}) }}'
     - file: '{{ application_object }}/identity/runtime.sops.yaml'
       manifest:
         apiVersion: v1

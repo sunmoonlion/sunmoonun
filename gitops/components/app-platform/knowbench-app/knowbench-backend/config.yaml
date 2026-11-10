@@ -22,8 +22,13 @@ knowbench_backend_deployment:
   identity_organization: built-in
   # 普通用户所在组织（决策 D21、SDD 0014）：网页端应用挂这里；管理端仍在 built-in。
   identity_user_organization: sunmoonai
-  # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
-  identity_revision: v6
+  # v7：公开注册，邮箱验证码必填、无邀请码；SMTP 密码只读宿主私有文件。
+  identity_revision: v7
+  public_signup:
+    enabled: true
+    smtp_host: smtpdm.aliyun.com
+    smtp_port: 465
+    smtp_username: noreply@notify.sunmoonai.com
   # SDD 0042：网页端用用户令牌向 Casdoor 换给 knowbase 的令牌（RFC 8693），Casdoor 要给这个应用开令牌交换授权类型
   identity_token_exchange: true
   api_port: 8000

@@ -68,6 +68,8 @@
 
 ## 账号与注册（2026-09-26 所有者定）
 
+**2026-11-10 所有者更新**：KnowBench 开放公开注册，邮箱验证码通过即可建号，不需要邀请码。发信改用阿里云邮件推送（杭州 SMTP，465 TLS，`noreply@notify.sunmoonai.com`）。普通用户仍进 `sunmoonai`，管理组织和其它应用不开放独立注册，跨应用沿用已有 SSO。以下 2026-09-26 的邀请码与腾讯云安排保留作历史，由本决定取代。现行实现与私有输入见 [浏览器身份与公开注册](../../../../gitops/components/app-platform/common/backend/identity/README.md)；此次配置源尚未部署，真实验证码邮件和公网注册仍待部署机恢复连接后验收。
+
 （Casdoor 的"组织"只是账号分组，不等于我们的租户，见 `D21`。）真实用户**自助注册**，第一期加三道闸；配额与计费就绪后去掉邀请码即全开。账号在 Casdoor 的 `sunmoonai` 组织里，只有投资网页（`sunmoonai-knowbench-web`）开注册；管理端与 knowfeed、knowbase 各应用照旧关闭。
 
 | 闸 | 定法 | Casdoor 3.42 里怎么落 |

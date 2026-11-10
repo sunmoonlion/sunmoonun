@@ -1,0 +1,77 @@
+---
+- name: Validate the public signup policy before reading any credential
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - application_name == 'knowbench'
+      - cfg.public_signup.enabled is boolean
+      - not cfg.public_signup.enabled or cfg.public_signup.smtp_host == 'smtpdm.aliyun.com'
+      - not cfg.public_signup.enabled or cfg.public_signup.smtp_port == 465
+      - not cfg.public_signup.enabled or cfg.public_signup.smtp_username is match('^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+- name: Read and preserve the operator-supplied SMTP password
+  when: cfg.public_signup.enabled
+  no_log: true
+  block:
+    - name: Inspect the primary and backup SMTP input
+      ansible.builtin.stat:
+        path: '{{ item }}/casdoor-smtp-password'
+        follow: false
+      loop: ['{{ services_config_dir }}', '{{ services_backup_dir }}']
+      register: signup_smtp_files
+    - name: Require root-only regular SMTP input files
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - not item.stat.islnk | default(false)
+          - not item.stat.exists or (item.stat.isreg | default(false) and item.stat.uid == 0 and item.stat.mode == '0600')
+      loop: '{{ signup_smtp_files.results }}'
+    - name: Stop if neither copy of the SMTP password exists
+      ansible.builtin.assert:
+        quiet: true
+        that: signup_smtp_files.results[0].stat.exists or signup_smtp_files.results[1].stat.exists
+        fail_msg: 'Place the SMTP password in services_config_dir/casdoor-smtp-password (root, 0600); no password is generated.'
+    - name: Ensure private primary and backup directories exist
+      ansible.builtin.file:
+        path: '{{ item }}'
+        state: directory
+        owner: root
+        group: root
+        mode: '0700'
+      loop: ['{{ services_config_dir }}', '{{ services_backup_dir }}']
+    - name: Restore a preserved SMTP password without changing the credential
+      ansible.builtin.copy:
+        src: '{{ services_backup_dir }}/casdoor-smtp-password'
+        dest: '{{ services_config_dir }}/casdoor-smtp-password'
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0600'
+        force: false
+      when: not signup_smtp_files.results[0].stat.exists
+    - name: Preserve an independent SMTP password backup without overwriting it
+      ansible.builtin.copy:
+        src: '{{ services_config_dir }}/casdoor-smtp-password'
+        dest: '{{ services_backup_dir }}/casdoor-smtp-password'
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0600'
+        force: false
+    - name: Require byte-identical SMTP password copies
+      ansible.builtin.command:
+        argv: [cmp, --silent, '{{ services_config_dir }}/casdoor-smtp-password', '{{ services_backup_dir }}/casdoor-smtp-password']
+      changed_when: false
+    - name: Read the private SMTP password without logging
+      ansible.builtin.slurp:
+        src: '{{ services_config_dir }}/casdoor-smtp-password'
+      register: signup_smtp_input
+    - name: Decode the SMTP password allowing the editor's final newline
+      ansible.builtin.set_fact:
+        signup_smtp_password: '{{ signup_smtp_input.content | b64decode | regex_replace("[\r\n]+$", "") }}'
+    - name: Reject empty, multiline or whitespace-corrupted SMTP passwords
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - signup_smtp_password | length >= 10
+          - signup_smtp_password | length <= 128
+          - signup_smtp_password is not search('\s')

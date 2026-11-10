@@ -29,6 +29,20 @@ http:
         {}
 {% endif %}
 {% if allow %}
+{% if host.split('.')[0] == 'casdoor' and '/api/send-verification-code' in allow.get('paths', []) %}
+    casdoor-verification:
+      entryPoints: [websecure]
+      rule: "Host(`{{ host }}`) && Path(`/api/send-verification-code`)"
+      priority: 300
+      middlewares: [per-ip-limit, verification-limit]
+      service: tunnel
+      tls:
+{% if edge_tls_mode in ['acme', 'acme-staging'] %}
+        certResolver: le
+{% else %}
+        {}
+{% endif %}
+{% endif %}
     # {{ host }} 上没放行的路径一律 403（edge_path_allowlist）。
     {{ host.split('.')[0] }}-deny:
       entryPoints: [websecure]
@@ -45,6 +59,12 @@ http:
 {% endif %}
 {% endfor %}
   middlewares:
+    verification-limit:
+      rateLimit:
+        average: {{ edge_verification_rate_limit.average }}
+        period: {{ edge_verification_rate_limit.period }}
+        burst: {{ edge_verification_rate_limit.burst }}
+        sourceCriterion: {ipStrategy: {depth: 0}}
     deny-all:
       ipAllowList: {sourceRange: ["0.0.0.0/32"]}
     to-https:

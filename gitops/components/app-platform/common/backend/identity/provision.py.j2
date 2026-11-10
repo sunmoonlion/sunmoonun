@@ -7,6 +7,10 @@ import re
 from urllib.parse import urlsplit
 
 import httpx
+{% if cfg.public_signup is defined %}
+
+from signup import configure_signup, validate_settings
+{% endif %}
 
 # RFC 8693. Web clients of the applications that read user data in knowbase trade the user's
 # token for one addressed to knowbase (SDD 0042); Casdoor only allows that for applications
@@ -35,6 +39,12 @@ def run():
     require(exchange_surfaces <= {'web', 'admin'}, 'Unexpected token exchange surfaces')
     secrets = json.loads(Path('/run/app/clients.json').read_text())
     initialization = json.loads(Path('/run/admin/init_data.json').read_text())
+{% if cfg.public_signup is defined %}
+    signup_settings = json.loads(os.environ['PUBLIC_SIGNUP'])
+    signup_password = Path('/run/app/smtp-password').read_text().rstrip('\r\n') if signup_settings['enabled'] else ''
+    validate_settings(signup_settings, signup_password)
+    signup_acceptance = None
+{% endif %}
     admins = [u for u in initialization['users'] if u['owner'] == 'built-in' and u['name'] == 'admin']
     require(len(admins) == 1 and organization == 'built-in', 'Unexpected administrator or organization')
     require(user_organization == 'sunmoonai', 'Unexpected user organization')
@@ -143,6 +153,12 @@ def run():
                 require(added == 'Affected', 'Application was not created')
                 created.append(surface)
                 existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
+{% if cfg.public_signup is defined %}
+            if surface == 'web':
+                # The dedicated reconciliation below owns this flag and validates the
+                # complete signup policy, including already-enabled and rollback runs.
+                desired['enableSignUp'] = existing.get('enableSignUp')
+{% endif %}
             drift = {k for k, v in desired.items() if existing.get(k) != v}
             if drift == {'organization'} and surface == 'web' and existing.get('organization') == organization:
                 # First allowed migration: a web client registered before SDD 0014 moves
@@ -197,7 +213,16 @@ def run():
                 existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
             require(existing and all(existing.get(k) == v for k, v in desired.items()),
                     'Existing browser application differs; explicit migration required')
+{% if cfg.public_signup is defined %}
+            if surface == 'web':
+                signup_application = existing
+{% endif %}
             checked.append(surface)
+{% if cfg.public_signup is defined %}
+        # Check both clients before changing public signup; never enable it after a
+        # failed administrator boundary check.
+        signup_acceptance = configure_signup(api, signup_application, signup_settings, signup_password)
+{% endif %}
         if audience_application:
             # The token-target application (knowbase): no grant type, no redirect, sign-in
             # disabled. Its client ID is the `aud` the exchanging backends ask for and knowbase
@@ -247,7 +272,12 @@ def run():
                       'admin_roles_created': roles_created, 'admin_role_members_added': role_members_added,
                       'user_organization': user_organization, 'admin_organization': organization,
                       'distinct_identities': True, 'exact_redirects': True, 'client_secrets_match': True,
+{% if cfg.public_signup is defined %}
+                      'authorization_code_only': True, 'signup_disabled': not signup_settings['enabled'],
+                      'public_signup': signup_acceptance,
+{% else %}
                       'authorization_code_only': True, 'signup_disabled': True,
+{% endif %}
                       'issuer': origin, 'pkce_s256': True, 'jwks_available': True,
                       'full_browser_login_verified': False}))
 

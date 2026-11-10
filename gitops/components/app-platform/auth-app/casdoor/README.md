@@ -4,6 +4,8 @@
 
 ## 输入和初始化
 
+公开邮箱注册由 [应用身份 Job](../../common/backend/identity/README.md) 管理，SMTP 输入为 `services_config_dir/casdoor-smtp-password`，走私有主备与 SOPS；不在 Casdoor 管理页面手工维护第二套配置。
+
 services_config_dir/credentials.yaml保存casdoor_db_password、casdoor_admin_password；引导用户固定built-in/admin。casdoor_application_secret是预留平台输入，不是各应用Web/Admin的client_secret，应用私有身份由自身Job管理。
 
 独立database Job初始化库/角色，init隔离服务导入身份并写/files/.initialized-v1；runtime不重复导入。marker存在时仅做不覆盖身份的检查；Casdoor官方服务仍有内置schema行为，不宣称与业务独立迁移完全相同。

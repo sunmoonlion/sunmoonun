@@ -60,7 +60,7 @@ class PublicRoutes(unittest.TestCase):
         values = configuration('dev.sunmoonai.com')
         routers = yaml.safe_load(render(EDGE / 'templates/dynamic.yml.j2', values))['http']['routers']
         self.assertEqual(set(routers), {
-            'to-https', 'knowbench', 'knowmart', 'casdoor', 'casdoor-deny', 'relay',
+            'to-https', 'knowbench', 'knowmart', 'casdoor', 'casdoor-verification', 'casdoor-deny', 'relay',
         })
         login = routers['casdoor']
         self.assertIn('Path(`/login/oauth/authorize`)', login['rule'])
@@ -69,6 +69,22 @@ class PublicRoutes(unittest.TestCase):
         deny = routers['casdoor-deny']
         self.assertIn('deny-all', deny['middlewares'])
         self.assertGreater(login['priority'], deny['priority'])
+
+    def test_signup_routes_have_bounded_email_sending_and_no_admin_access(self):
+        values = configuration('dev.sunmoonai.com')
+        http = yaml.safe_load(render(EDGE / 'templates/dynamic.yml.j2', values))['http']
+        rules = http['routers']['casdoor']['rule']
+        for path in ('/api/signup', '/api/send-verification-code', '/api/get-captcha-status'):
+            self.assertIn(f'Path(`{path}`)', rules)
+        for path in ('/api/add-user', '/api/update-application', '/api/send-email', '/api/get-providers'):
+            self.assertNotIn(path, rules)
+        route = http['routers']['casdoor-verification']
+        self.assertEqual(route['rule'], 'Host(`casdoor.dev.sunmoonai.com`) && Path(`/api/send-verification-code`)')
+        self.assertGreater(route['priority'], http['routers']['casdoor']['priority'])
+        self.assertEqual(route['middlewares'], ['per-ip-limit', 'verification-limit'])
+        self.assertEqual(http['middlewares']['verification-limit']['rateLimit'], {
+            'average': 1, 'period': '1m', 'burst': 3, 'sourceCriterion': {'ipStrategy': {'depth': 0}},
+        })
 
     def test_staged_manifest_contains_same_domain_list_as_both_templates(self):
         values = configuration('dev.sunmoonai.com')
