@@ -24,7 +24,8 @@ knowbench_backend_deployment:
   identity_user_organization: sunmoonai
   # v7：公开注册，邮箱验证码必填、无邀请码；SMTP 密码只读宿主私有文件。
   # v8: 网页端登录凭证 24 小时，管理端仍 1 小时（所有者 2026-11-11）。
-  identity_revision: v8
+  # v9: 管理端也统一为 24 小时，保持原有登录与组织隔离策略（所有者 2026-11-11）。
+  identity_revision: v9
   public_signup:
     enabled: true
     smtp_host: smtpdm.aliyun.com

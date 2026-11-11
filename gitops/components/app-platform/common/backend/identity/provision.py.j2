@@ -136,9 +136,9 @@ def run():
                 'homepageUrl': config['origin'], 'cert': baseline['cert'],
                 'grantTypes': ['authorization_code'] + ([TOKEN_EXCHANGE] if surface in exchange_surfaces else []),
                 'tokenFormat': 'JWT', 'tokenSigningMethod': 'RS256',
-                # Owner 2026-11-11: browser sessions and web tokens last at most 24 h;
-                # admin consoles keep one hour. The backend also enforces token expiry.
-                'expireInHours': 24 if surface == 'web' else 1, 'refreshExpireInHours': 0,
+                # Owner 2026-11-11: both web and admin sessions last at most 24 h.
+                # The backend also enforces token expiry.
+                'expireInHours': 24, 'refreshExpireInHours': 0,
                 'enablePassword': True, 'enableSignUp': False, 'enableGuestSignin': False,
                 'enableSigninSession': single_sign_on, 'enableAutoSignin': single_sign_on, 'isShared': False,
                 'signinMethods': [{'name': 'Password', 'displayName': 'Password', 'rule': 'All'}],
@@ -198,6 +198,15 @@ def run():
                 require(changed == 'Affected', 'Site domain move was not applied')
                 domain_migrated.append(surface)
                 existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
+            # Owner 2026-11-11: migrate only the exact previous lifetime (web 12 h,
+            # admin 1 h). Credentials, grants and organization must already match.
+            drift = {k for k, v in desired.items() if existing.get(k) != v}
+            previous_lifetime = 12 if surface == 'web' else 1
+            if drift == {'expireInHours'} and existing.get('expireInHours') == previous_lifetime:
+                changed = api('POST', '/api/update-application', dict(existing, expireInHours=24),
+                              params={'id': 'admin/' + config['name'], 'columns': 'expireInHours'})
+                require(changed == 'Affected', 'Browser session lifetime was not applied')
+                existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
             # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from the pre-0042
             # shape (authorization code only, one-hour tokens): add the token exchange grant and
             # the longer web token. Everything else must already match.
@@ -209,14 +218,6 @@ def run():
                               params={'id': 'admin/' + config['name']})
                 require(changed == 'Affected', 'Token exchange settings were not applied')
                 exchange_migrated.append(surface)
-                existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
-            # Owner 2026-11-11: only the web lifetime may move from the exact
-            # previous 12-hour policy. Credentials, grants and organization must match.
-            drift = {k for k, v in desired.items() if existing.get(k) != v}
-            if surface == 'web' and drift == {'expireInHours'} and existing.get('expireInHours') == 12:
-                changed = api('POST', '/api/update-application', dict(existing, expireInHours=24),
-                              params={'id': 'admin/' + config['name'], 'columns': 'expireInHours'})
-                require(changed == 'Affected', 'Web session lifetime was not applied')
                 existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
             require(existing and all(existing.get(k) == v for k, v in desired.items()),
                     'Existing browser application differs; explicit migration required')

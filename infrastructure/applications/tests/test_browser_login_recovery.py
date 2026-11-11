@@ -131,11 +131,11 @@ class LoginRecoveryChecks(unittest.TestCase):
             CHECK.check_login_entry(Browser([html_response(LOGIN_META, 'text/plain')]), ORIGIN, 'web')
 
     def test_expiry_and_cookie_both_have_exact_surface_bounds(self):
-        CHECK.check_lifetime(Browser([]), ORIGIN, 'web', session())
-        CHECK.check_lifetime(Browser([], age=3599), ORIGIN, 'admin', session('admin', 3599))
-        for age, seconds in [(3599, 86399), (86399, 3599), (172800, 172800)]:
-            with self.subTest(age=age, seconds=seconds), self.assertRaises(RuntimeError):
-                CHECK.check_lifetime(Browser([], age=age), ORIGIN, 'web', session(seconds=seconds))
+        for surface in ('web', 'admin'):
+            CHECK.check_lifetime(Browser([]), ORIGIN, surface, session(surface))
+            for age, seconds in [(3599, 3599), (3599, 86399), (86399, 3599), (172800, 172800)]:
+                with self.subTest(surface=surface, age=age, seconds=seconds), self.assertRaises(RuntimeError):
+                    CHECK.check_lifetime(Browser([], age=age), ORIGIN, surface, session(surface, seconds))
 
     def test_passwordless_sso_uses_cookie_only_and_checks_callback_identity(self):
         query = {'client_id': CLIENT['client_id'], 'redirect_uri': ORIGIN + '/api/auth/web/callback',
