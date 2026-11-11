@@ -1,0 +1,67 @@
+{
+  "status": "built; not uploaded or deployed",
+  "authorization": "Owner requested publication and explicitly requires Windows and platform computer versions both 0.5.8",
+  "baseline_platform": "349eead44c8ab2b3945d07cb6465851f915068e3",
+  "branch": "link-release-20261111",
+  "windows": {
+    "name": "sunmoon-link-0.5.8-2dfecd2-windows-x64",
+    "sourceRevision": "2dfecd273480b643754f34b9eff26bd9d0f9ab15",
+    "agentVersion": "0.5.8",
+    "codexVersion": "0.155.1",
+    "nodeVersion": "24.19.0",
+    "site": "dev-kind.json",
+    "zip": "/home/zymun/sunmoon-probe-runs/link-058-release-20261111/windows/sunmoon-link-0.5.8-2dfecd2-windows-x64.zip",
+    "zipSha256": "7a82a087ac64db683e4b61c488740b2770311d0341e10ff69625215e5f206dcc",
+    "zipBytes": 180992033,
+    "zipEntries": 110,
+    "manifestSha256": "a7858fbf193e06b8dc859db1749a927c6033432b34b07abdd463721426673588",
+    "files": 110,
+    "checks": {
+      "frozenInstall": "pnpm --frozen-lockfile --ignore-scripts --prod --os win32 --cpu x64",
+      "platformPackage": "@openai/codex-win32-x64",
+      "encoding": {
+        "ps1": 2,
+        "ascii": 5,
+        "parsed": 2
+      },
+      "candidate": "pass"
+    },
+    "builder": {
+      "platform": "wsl",
+      "node": "v24.18.0",
+      "zlib": "1.3.1-e00f703",
+      "pnpm": "10.24.0"
+    },
+    "startedAt": "2026-11-11T06:03:06.995Z",
+    "finishedAt": "2026-11-11T06:03:46.643Z",
+    "status": "candidate; not uploaded, no agent started on this computer"
+  },
+  "linux": {
+    "output": "/home/zymun/sunmoon-probe-runs/link-058-release-20261111/linux/sunmoon-link-0.5.8-2dfecd2-edge-public-linux-x64",
+    "tarball": "/home/zymun/sunmoon-probe-runs/link-058-release-20261111/linux/sunmoon-link-0.5.8-2dfecd2-edge-public-linux-x64.tar.gz",
+    "tarballSha256": "452a15ac2741abd97e5f7bac7bb47aad290ba6883b7342d45749f55068c2840a",
+    "tarballBytes": 139190032,
+    "manifestSha256": "ada1b9d1f2160d410c4789960cab85a06f3a7c34a10275dd4830acbfbd1c3be6",
+    "sourceRevision": "2dfecd273480b643754f34b9eff26bd9d0f9ab15",
+    "files": 134,
+    "status": "candidate; no agent started and no installation performed"
+  },
+  "validation": {
+    "unit_pass": 373,
+    "windows_only_skipped": 33,
+    "distribution_pass": 41,
+    "pairing_regressions_pass": 22,
+    "chromium_cases_pass": 4,
+    "independent_review": "passed; verify idle before platform computer Recreate and preserve PVC identity"
+  },
+  "scope": [
+    "Windows package",
+    "Linux platform-computer package",
+    "synchronize existing installer template fixes"
+  ],
+  "unchanged": [
+    "application source pins",
+    "login and 24-hour web/admin session policy",
+    "platform computer PVC and machine identity"
+  ]
+}
