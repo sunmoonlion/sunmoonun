@@ -18,7 +18,18 @@ CLIENT = {'name': 'example-web', 'client_id': 'example-client', 'origin': ORIGIN
 
 
 def response(status=200, body=None, location=None):
-    return status, ({'location': location} if location else {}), json.dumps(body).encode()
+    headers = {'content-type': 'application/json'}
+    if location:
+        headers['location'] = location
+    return status, headers, json.dumps(body).encode()
+
+
+def html_response(body, content_type='text/html; charset=utf-8'):
+    return 200, {'content-type': content_type}, body.encode()
+
+
+LOGIN_TARGET = '/api/auth/web/login?return_to=%2Fzh-CN%2Fdashboard'
+LOGIN_META = '<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=' + LOGIN_TARGET + '">'
 
 
 class Browser:
@@ -73,14 +84,51 @@ class LoginRecoveryChecks(unittest.TestCase):
         self.assertEqual(yaml.safe_load(environment.from_string(variables['sso_browser_clients']).render(context)), {})
 
     def test_login_entry_requires_exact_web_redirect_and_admin_page(self):
-        CHECK.check_login_entry(Browser([response(307, location='/api/auth/web/login?return_to=%2Fzh-CN%2Fdashboard')]), ORIGIN, 'web')
-        CHECK.check_login_entry(Browser([response()]), ORIGIN, 'admin')
+        for destination in [LOGIN_TARGET, ORIGIN + LOGIN_TARGET]:
+            CHECK.check_login_entry(Browser([response(307, location=destination)]), ORIGIN, 'web')
+        CHECK.check_login_entry(Browser([html_response('<main>Sign in</main>')]), ORIGIN, 'admin')
         for destination in ['https://other.example/api/auth/web/login?return_to=%2Fzh-CN%2Fdashboard',
-                            '/api/auth/web/login?return_to=%2Fzh-CN%2Flogin', '/api/auth/web/signup']:
+                            '/api/auth/web/login?return_to=%2Fzh-CN%2Flogin', '/api/auth/web/signup',
+                            LOGIN_TARGET + '&extra=', LOGIN_TARGET + '&return_to=%2Fzh-CN%2Fdashboard',
+                            LOGIN_TARGET + '#fragment']:
             with self.subTest(destination=destination), self.assertRaisesRegex(RuntimeError, 'exact local SSO entry'):
                 CHECK.check_login_entry(Browser([response(307, location=destination)]), ORIGIN, 'web')
         with self.assertRaises(RuntimeError):
             CHECK.check_login_entry(Browser([response()]), ORIGIN, 'web')
+
+    def test_streaming_200_accepts_only_the_real_next_redirect(self):
+        for body in [LOGIN_META,
+                     # Exact HTML observed from the isolated built tpl image (HTTP 200).
+                     '<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=/api/auth/web/login?return_to=%2Fzh-CN%2Fdashboard"/>',
+                     '<html><body>Loading' + LOGIN_META + '</body></html>',
+                     '<META CONTENT="1;url=' + ORIGIN + LOGIN_TARGET.replace('?', '&#63;') +
+                     '" HTTP-EQUIV="Refresh" ID="__next-page-redirect" />',
+                     '<script>const html = ' + json.dumps(LOGIN_META) + ';</script>' + LOGIN_META,
+                     '<!-- ' + LOGIN_META + ' -->' + LOGIN_META]:
+            with self.subTest(body=body):
+                CHECK.check_login_entry(Browser([html_response(body)]), ORIGIN, 'web')
+
+    def test_streaming_rejects_inert_missing_ambiguous_and_unsafe_redirects(self):
+        inert = ['<!-- ' + LOGIN_META + ' -->'] + [
+            '<' + tag + '>' + LOGIN_META + '</' + tag + '>'
+            for tag in ['script', 'style', 'template', 'noscript', 'textarea']]
+        invalid = [
+            '<main>Sign in</main>', LOGIN_META + LOGIN_META,
+            '<div id="__next-page-redirect"></div>' + LOGIN_META,
+            LOGIN_META + '<meta http-equiv="refresh" content="1;url=https://attacker.example">',
+            '<base href="https://attacker.example">' + LOGIN_META,
+            LOGIN_META.replace('__next-page-redirect', 'some-other-meta'),
+            LOGIN_META.replace('1;url=', '0;url='),
+            LOGIN_META.replace('http-equiv="refresh"', 'http-equiv="refresh" http-equiv="none"'),
+            LOGIN_META.replace('1;url=', '1;url=https://attacker.example'),
+            LOGIN_META.replace('%2Fzh-CN%2Fdashboard', '%2Fzh-CN%2Flogin'),
+            LOGIN_META.replace('dashboard', 'dashboard&amp;extra='),
+            LOGIN_META.replace('/api/auth/web/login', '/api/auth/web/signup')]
+        for body in inert + invalid:
+            with self.subTest(body=body), self.assertRaises(RuntimeError):
+                CHECK.check_login_entry(Browser([html_response(body)]), ORIGIN, 'web')
+        with self.assertRaises(RuntimeError):
+            CHECK.check_login_entry(Browser([html_response(LOGIN_META, 'text/plain')]), ORIGIN, 'web')
 
     def test_expiry_and_cookie_both_have_exact_surface_bounds(self):
         CHECK.check_lifetime(Browser([]), ORIGIN, 'web', session())

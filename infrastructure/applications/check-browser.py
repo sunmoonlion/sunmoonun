@@ -1,6 +1,7 @@
 """Verify browser protocol and SSR against an explicit TLS entry; never print secrets."""
 import http.client
 from http.cookies import SimpleCookie
+from html.parser import HTMLParser
 from datetime import datetime, timezone
 import json
 import secrets
@@ -19,15 +20,74 @@ def require(value, label):
         raise RuntimeError(label)
 
 
+class LoginRedirectHTML(HTMLParser):
+    """Read Next's actual streamed redirect, not strings in RSC scripts or inert HTML."""
+    inert_tags = {'script', 'style', 'template', 'noscript', 'textarea', 'title', 'xmp',
+                  'iframe', 'noembed', 'noframes', 'plaintext'}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.inert = []
+        self.refresh = []
+        self.redirect_ids = 0
+        self.has_base = False
+
+    def handle_starttag(self, tag, attributes):
+        if tag in self.inert_tags:
+            self.inert.append(tag)
+            return
+        if self.inert:
+            return
+        attrs = dict(attributes)
+        if tag == 'base' and 'href' in attrs:
+            self.has_base = True
+        if attrs.get('id') == '__next-page-redirect':
+            self.redirect_ids += 1
+        if tag == 'meta':
+            require(len(attrs) == len(attributes), 'web: ambiguous redirect HTML attributes')
+            if (attrs.get('http-equiv') or '').lower() == 'refresh':
+                self.refresh.append(attrs)
+
+    def handle_startendtag(self, tag, attributes):
+        # HTML void elements (meta/base) may use '/>'; non-void inert elements
+        # remain inert even if written with a self-closing slash.
+        self.handle_starttag(tag, attributes)
+
+    def handle_endtag(self, tag):
+        if self.inert and self.inert[-1] == tag and tag != 'plaintext':
+            self.inert.pop()
+
+    def destination(self):
+        require(not self.has_base and self.redirect_ids == 1 and len(self.refresh) == 1,
+                'web: missing or conflicting streamed redirect')
+        meta = self.refresh[0]
+        content = meta.get('content') or ''
+        require(meta.get('id') == '__next-page-redirect' and content.startswith('1;url='),
+                'web: invalid streamed redirect')
+        return content[len('1;url='):]
+
+
 def check_login_entry(browser, origin, surface):
-    status, headers, _ = browser.request(origin + '/zh-CN/login')
+    status, headers, body = browser.request(origin + '/zh-CN/login')
     if surface == 'admin':
         require(status == 200, 'admin: login page unavailable')
         return
-    target = urlsplit(urljoin(origin, headers.get('location', '')))
-    require(status == 307 and target.scheme + '://' + target.netloc == origin and
+    if status == 307:
+        destination = headers.get('location', '')
+    else:
+        require(status == 200 and headers.get('content-type', '').split(';')[0].strip().lower() == 'text/html',
+                'web: login did not return an HTTP or streamed redirect')
+        parser = LoginRedirectHTML()
+        parser.feed(body.decode('utf-8'))
+        parser.close()
+        destination = parser.destination()
+    require(destination and destination == destination.strip() and
+            not any(ord(char) <= 32 or ord(char) == 127 for char in destination) and '\\' not in destination,
+            'web: invalid login redirect destination')
+    target = urlsplit(urljoin(origin, destination))
+    require(target.scheme + '://' + target.netloc == origin and
             target.path == '/api/auth/web/login' and not target.fragment and
-            parse_qs(target.query) == {'return_to': ['/zh-CN/dashboard']},
+            parse_qs(target.query, keep_blank_values=True) == {'return_to': ['/zh-CN/dashboard']},
             'web: login did not continue to the exact local SSO entry')
 
 
