@@ -1,0 +1,119 @@
+{
+  "scope": "All 2026-11-11 login fixes plus 2026-11-10 automatic SSO and template recovery prerequisite",
+  "tier": "T1: reversible multi-repository release; independent source/verification review",
+  "authorization": "Owner explicitly requested deployment and online verification, including all morning fixes",
+  "sources": {
+    "tpl": {
+      "previous": {
+        "parent_revision": "4df23f1e89d529cd3d76f531edfd83add0e53afb",
+        "backend_parent_revision": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "backend_revision": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+        "web_parent_revision": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "web_revision": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+        "admin_parent_revision": "722c6b80e849d6352f28abbdd7362e1151191c14",
+        "admin_revision": "722c6b80e849d6352f28abbdd7362e1151191c14"
+      },
+      "components": {
+        "backend": "28b5026281fb73b52589bcd1048aee6dde16a9e0",
+        "web": "6f46aef4bcbca07b126682c24ec1b2cedb42d52c",
+        "admin": "722c6b80e849d6352f28abbdd7362e1151191c14"
+      },
+      "parent": "2bfba2077da1e5fff80c960fc84f11e80716050b"
+    },
+    "knowbench": {
+      "previous": {
+        "parent_revision": "6049c865f668936630be06397a32eaca8b31bd78",
+        "backend_parent_revision": "c7d3d14dbd29177cdd85da59a54025b9b57d3276",
+        "backend_revision": "c7d3d14dbd29177cdd85da59a54025b9b57d3276",
+        "web_parent_revision": "7026bfea6ad31580488f8e0e231c9a649477f2c7",
+        "web_revision": "7026bfea6ad31580488f8e0e231c9a649477f2c7",
+        "admin_parent_revision": "540d9f38bf9ef5015684686f6abe576c7144aea0",
+        "admin_revision": "540d9f38bf9ef5015684686f6abe576c7144aea0"
+      },
+      "components": {
+        "backend": "fbc587762030aceb1e6b24800a1350dc5d40af86",
+        "web": "4b8248e06366802b9b5e97014110332a66e6a9a7",
+        "admin": "540d9f38bf9ef5015684686f6abe576c7144aea0"
+      },
+      "parent": "47df038cdaacbcad8a2eee78d3c5aa66782ee359"
+    },
+    "knowlab": {
+      "previous": {
+        "parent_revision": "43d2192ff48477e26431913b80ea300dbcc3b4c5",
+        "backend_parent_revision": "614da0abf9b66eb6daacf3ecacccf3f6761a1a10",
+        "backend_revision": "614da0abf9b66eb6daacf3ecacccf3f6761a1a10",
+        "web_parent_revision": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "web_revision": "25772149330a0ff8544e51edb98f1f376f21b75e",
+        "admin_parent_revision": "89fe3ac1f6178018186584db7542f11102896381",
+        "admin_revision": "89fe3ac1f6178018186584db7542f11102896381"
+      },
+      "components": {
+        "backend": "2b4fe92db36529890667692ab75bc9acdffa47df",
+        "web": "fea8a24438fa5fa81d4a5b29c025b198a1441a14",
+        "admin": "89fe3ac1f6178018186584db7542f11102896381"
+      },
+      "parent": "db764f830370d7847fbd4aed3c5db0625f9fdc94"
+    },
+    "knowbase": {
+      "previous": {
+        "parent_revision": "cb1cb10a72e196cc949f0be4be4bbd336151ef73",
+        "backend_parent_revision": "bf59f85d0bf619766f8a663d7965e2c57306acf2",
+        "backend_revision": "bf59f85d0bf619766f8a663d7965e2c57306acf2",
+        "web_parent_revision": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "web_revision": "be6d29ed6f054304aa0f38d53831f5f7fa238fa2",
+        "admin_parent_revision": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+        "admin_revision": "f2f6df3163a01c71be13efdd20b87187b63693ec"
+      },
+      "components": {
+        "backend": "a82300526afa3180417990b168b5d6b1cb2c21a2",
+        "web": "3188c01da4bffe81511c09062b804bc043c919e7",
+        "admin": "f2f6df3163a01c71be13efdd20b87187b63693ec"
+      },
+      "parent": "f409c07f69f2ada8841f1eacbe08aacd9cd87608"
+    },
+    "knowfeed": {
+      "previous": {
+        "parent_revision": "67638eb94e49a0a614704600b74b096fdcbba44a",
+        "backend_parent_revision": "4b5d9ac32e9bf00a2ed24b6c16cbbe5a260badcb",
+        "backend_revision": "4b5d9ac32e9bf00a2ed24b6c16cbbe5a260badcb",
+        "web_parent_revision": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "web_revision": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+        "admin_parent_revision": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+        "admin_revision": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6"
+      },
+      "components": {
+        "backend": "fa0a58e233655cd9cc5adcd591ec19ec6abe1ef3",
+        "web": "5ef58d640154cf6c9b7de3a0d2cadc75f41bc32e",
+        "admin": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6"
+      },
+      "parent": "3ce23720b6fa423ec527eef6e17367c229c6266d"
+    },
+    "knowmart": {
+      "previous": {
+        "parent_revision": "7cd605ddcd44a1b0234c43d650f5d651ed6281ef",
+        "backend_parent_revision": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "backend_revision": "32485623e46f989394ba95d2f7a24077ee76231a",
+        "web_parent_revision": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "web_revision": "2bf8dfd67b3996c67de9a96134011e13ceee8246",
+        "admin_parent_revision": "5f109118ffbaca623a732ed33eaea61a2905241a",
+        "admin_revision": "5f109118ffbaca623a732ed33eaea61a2905241a"
+      },
+      "components": {
+        "backend": "b43d100d77d688ad77af21fe05aa15ad74a8e522",
+        "web": "6a893cecddeea70fd14cb93e6c027679bdbd9ea1",
+        "admin": "5f109118ffbaca623a732ed33eaea61a2905241a"
+      },
+      "parent": "39a3cbcf0025b6640daa9972896f1b5eb8d8f09c"
+    }
+  },
+  "backend_tests": 516,
+  "frontend_tests": 132,
+  "typecheck": "passed",
+  "i18n": "passed",
+  "backend_test_logs": "/tmp/login-release-<app>-tests.log",
+  "frontend_test_logs": "/tmp/login-release-<app>-web-tests.log",
+  "builds": "pending",
+  "deployment": "pending",
+  "previous_flux_digest": "sha256:d826b376f5ed177b1492c4c1b8cc1425869cf79f562a9a9f2f936015d2d218c5",
+  "excluded": "Nov 6-8 pending business changes; admin source unchanged; no database migration changes"
+}
