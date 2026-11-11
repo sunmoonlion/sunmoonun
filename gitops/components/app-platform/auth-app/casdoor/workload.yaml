@@ -10,7 +10,7 @@ spec:
     metadata:
       labels: {app.kubernetes.io/name: casdoor, sunmoonai.com/postgresql-client: 'true'}
       # Casdoor reads app.conf only at startup; a changed config rolls the pod.
-      annotations: {sunmoonai.com/input-sha256: '5b1cbd6a7ad819aeafc514c474a7fbbcd4a20f9aeeec2615b893df37926e85ac'}
+      annotations: {sunmoonai.com/input-sha256: 'ff901d46b1bc98dc46a5cd61f701a967517a9cc18baab8c64ee4465c7d12b851'}
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]

@@ -164,11 +164,14 @@ def render_identity(name, enabled=None):
 
 
 class ManifestBoundaries(unittest.TestCase):
-    def test_other_five_applications_keep_byte_identical_identity_manifests(self):
+    def test_other_five_applications_match_candidates_without_public_signup(self):
         for name in ('tpl', 'knowfeed', 'knowbase', 'knowlab', 'knowmart'):
             with self.subTest(application=name):
                 existing = ROOT / f'gitops/components/app-platform/{name}-app/{name}-backend/identity/workload.yaml'
-                self.assertEqual(render_identity(name), existing.read_text())
+                rendered = render_identity(name)
+                self.assertEqual(rendered, existing.read_text())
+                self.assertNotIn('signup.py:', rendered)
+                self.assertNotIn('smtp-password', rendered)
 
     def test_knowbench_rolls_job_and_keeps_smtp_secret_out_of_public_manifests(self):
         rendered = render_identity('knowbench')
@@ -178,7 +181,8 @@ class ManifestBoundaries(unittest.TestCase):
         compile(script['signup.py'], '<signup>', 'exec')
         self.assertNotIn(PASSWORD, rendered)
         job = next(obj for obj in objects if obj['kind'] == 'Job')
-        self.assertTrue(job['metadata']['name'].endswith('-v7'))
+        cfg = yaml.safe_load((ROOT / 'gitops/components/app-platform/knowbench-app/knowbench-backend/config.yaml').read_text())['knowbench_backend_deployment']
+        self.assertTrue(job['metadata']['name'].endswith('-' + cfg['identity_revision']))
         env = job['spec']['template']['spec']['containers'][0]['env']
         self.assertTrue(json.loads(next(x['value'] for x in env if x['name'] == 'PUBLIC_SIGNUP'))['enabled'])
         smtp = next(obj for obj in objects if obj['metadata']['name'] == 'knowbench-signup-smtp')

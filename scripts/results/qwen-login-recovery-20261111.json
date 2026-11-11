@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-11",
+  "kind": "login-recovery-source-fix",
+  "request": "Distinguish login failures, allow account switching, retain ordinary web sessions for 24h",
+  "scope": {
+    "apps": [
+      "tpl",
+      "knowbench",
+      "knowlab",
+      "knowbase",
+      "knowfeed",
+      "knowmart"
+    ],
+    "draft_preserving_recovery": [
+      "tpl",
+      "knowbench"
+    ],
+    "admin_max_hours": 1,
+    "web_max_hours": 24,
+    "provider_expiry_enforced": true,
+    "login_transaction_ttl_unchanged_seconds": 300,
+    "casdoor_global_sso_hours": 24,
+    "casdoor_console_uses_global_sso_policy": true
+  },
+  "commits": {
+    "tpl": {
+      "backend": "c4d03e8de48bea7b87f1ba76b8ca73af6ba2a4e1",
+      "web-frontend": "ab68ebc5d6d6afe8a80ab4178554b61f388a4fc6",
+      "parent": "5549693ec9c22217f310d674c8359a434d49da26"
+    },
+    "knowbench": {
+      "backend": "73893e2331f2086da90ba340feaab6fe375bc719",
+      "web-frontend": "67a74c703a9c0adb78d82d3a2648687f17b89ca5",
+      "parent": "363fd516a0228482c6669b4b257c46e08bfc1181"
+    },
+    "knowlab": {
+      "backend": "28d1cc7d264a2cdbfb44b5ea2df4220f09913874",
+      "web-frontend": "36fd5c70cdd8a643198a0fb6111dd268f1d1e879",
+      "parent": "fba6ad1fe9f1e3406b8ae519ca1d126060615678"
+    },
+    "knowbase": {
+      "backend": "5cb3b954cda49b5d8bd3e988ea5ad422af9af43c",
+      "web-frontend": "884d235418f63676a88002978bf99bd99112cdb1",
+      "parent": "944ba6cc78e044119c0e9f1de43ce0c487cdb7a1"
+    },
+    "knowfeed": {
+      "backend": "d32384e4481dbbefe61e128f805c98db842fa3b0",
+      "web-frontend": "f49953404ed46fa007a4db40ae5c7b7519af3419",
+      "parent": "6db90bc9f7388eca1adaddd3dbbdb59ef71b8da5"
+    },
+    "knowmart": {
+      "backend": "9e6d1ebd79159ff027a5d2a9f95c8b6ac66656f7",
+      "web-frontend": "305f0876c9a1174e625f840c8d907da935c4b006",
+      "parent": "c5c7296e000b29b78a66e8f870c088393d988e21"
+    }
+  },
+  "validation": {
+    "backend_auth_tests_passed": 516,
+    "frontend_tests_passed": 132,
+    "frontend_typecheck": "passed",
+    "frontend_eslint": "passed",
+    "frontend_i18n": "passed",
+    "backend_ruff": "passed",
+    "identity_lifetime_tests_passed": 2,
+    "independent_review": "completed; secure cookie deletion correction applied",
+    "frontend_test_runtime": "Node v24.21.0, within package >=24.18.0 <25 requirement",
+    "real_browser_account_switch": "not_run",
+    "existing_user_session_24h": "requires new login after rollout",
+    "identity_tests_passed": 16,
+    "casdoor_encrypted_configuration": "Both init and runtime config decoded in memory; only sessionCookieLifeTime changed 43200 to 86400; native render bytes matched"
+  },
+  "release": {
+    "deployed": false,
+    "application_sources_lock_changed": false,
+    "images_built": false,
+    "flux_source_changed": false,
+    "identity_candidates": "native platform-stage completed serially for six backend identities and Casdoor; scoped candidates match native render",
+    "excluded_from_candidate": [
+      "Application runtime workloads, TLS and agent release render drift",
+      "Casdoor TLS render drift"
+    ],
+    "full_component_render_consistency": "not claimed: unrelated existing runtime drift remains"
+  },
+  "constraints": [
+    "No passwords, codes, session cookies or tokens recorded",
+    "No weakening of allowed user organizations or token verification",
+    "Serial tests and preparation to protect cloud VM memory",
+    "Existing unrelated runtime render drift must be reviewed separately before rollout"
+  ],
+  "push": {
+    "tpl": {
+      "status": "succeeded",
+      "repos": [
+        "tpl-app/tpl-backend",
+        "tpl-app/tpl-web-frontend",
+        "tpl-app"
+      ],
+      "log": "/tmp/tpl-login-push.log"
+    },
+    "knowbench": {
+      "status": "succeeded",
+      "repos": [
+        "knowbench-app/knowbench-backend",
+        "knowbench-app/knowbench-web-frontend",
+        "knowbench-app"
+      ],
+      "log": "/tmp/knowbench-login-push.log"
+    },
+    "knowlab": {
+      "status": "succeeded",
+      "repos": [
+        "knowlab-app/knowlab-backend",
+        "knowlab-app/knowlab-web-frontend",
+        "knowlab-app"
+      ],
+      "log": "/tmp/knowlab-login-push.log"
+    },
+    "knowbase": {
+      "status": "succeeded",
+      "repos": [
+        "knowbase-app/knowbase-backend",
+        "knowbase-app/knowbase-web-frontend",
+        "knowbase-app"
+      ],
+      "log": "/tmp/knowbase-login-push.log"
+    },
+    "knowfeed": {
+      "status": "succeeded",
+      "repos": [
+        "knowfeed-app/knowfeed-backend",
+        "knowfeed-app/knowfeed-web-frontend",
+        "knowfeed-app"
+      ],
+      "log": "/tmp/knowfeed-login-push.log"
+    },
+    "knowmart": {
+      "status": "succeeded",
+      "repos": [
+        "knowmart-app/knowmart-backend",
+        "knowmart-app/knowmart-web-frontend",
+        "knowmart-app"
+      ],
+      "log": "/tmp/knowmart-login-push.log"
+    }
+  }
+}

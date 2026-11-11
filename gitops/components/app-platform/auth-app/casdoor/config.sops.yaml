@@ -4,19 +4,19 @@ metadata:
     name: casdoor-config
     namespace: app-platform-dev
 stringData:
-    app.conf: ENC[AES256_GCM,data:GgSthez8ueDiH79CJWSmMF6zwOj4uIDXkz1IPRW83VGaXD1jw5RAQTNI++sKI8x3rt8tkPoB3U4A8x13FE1pwe8gFy6NAyQktgFIjYkh5fxsHTrgFsC+A/XMqEkSS+L4pIqfEVQpXV980QP3+VH03W2xTylBEom6nzaVluwWwNJVQefbHTzAdRR4y7ZSQOxh2NpCt2bYcgxMdlYz3Umjinuynvj57H4KTHaGW3Cj2xs4cC6I+9MKH8iZgWTkRhigRoeMtjLrgQRtbP5mtSsxpxQEX5pOB272IbfdcCKlrhtIs8eUSuisO3ZEW9OvZx0rhecIRSs6NNUugcX7Kmt4XwGEg02IPq/k2ma1PrbIe74UMQBnNGugt5AFOhSETtvsunHTcrE7l4Pe9VLYMKYbiJt0ldLMTSa6clQSNRMWe86q7ci0n2H/ofbWvnQUzl59rlKqbSynAt5QfKEA3aFGzkjIoJZAGbGy6nP4D5sDdkmFw/ptekJqFu/MwDtWT5IE2GondxxHhrp2rx3Qvyk868YNrJCNoqM8aLqSGl0amJ5ztiVL8u2CotyGpNOG0N6XFLth+R/j0YIkG5kthiirvxcj/9TWvp0op0NcVG/+H8OiRupcRLvIJPHiDIC9bmB1kbRpzbFrkm7w8DC3IMRnaoxWdbWg9xeNYNF9X7PmUXPhfGnAeMWcrOhh1XlHfe2r3v51bs2BOfEOrP7QOZQOF+YdzaPIxPmBg22ExgqPLbD4Vq3c3LkkWS8=,iv:ONmjToVYC51htrUb4dOpzR/TRzImC/bDby/E/mUCqLk=,tag:MmnSElkloxZNAF3L8kaNxg==,type:str]
+    app.conf: ENC[AES256_GCM,data:xWK8mFVmeZQiSoznUNgYig82elrsvGFxRVlF3u5k+AyF0j6j+fSCaPnzczJut2QiKnxY2kTbn3HinKt+3h8zai2HVqi2ZR8+D2jXQzX+MVQ0YjrG1LCi19YtOPvOFckkeu+YK0uWICMRUEVPvdTXy+yNJ0k5h+8FVo5/BSGFFL5Dkm191jBTPq1u0EWd7i1TCO4/9OQ0eLRzPC99vpWhJhk8+RN35JeSrP+BbGUPdzFqnyobAYDXp+Qm+CtP+wGwCaowQlyPHEN+smia0JWuMbMUDs6uYFL6qqqqtbdM9nV+cdfUsvY3LPb9SyDR+Q2tv+l6UsYsKjoUGJfed4XyABqR3IFDkVcFjpcZYQoGV41L5CEVxjx86iqmpqdm5aF02cLxFxHspRnnVpa/3CpagfFWjn3I4g2rXsI6LFeL0RdmIYXX86idx9MPgDFGUcwNIWOJ8W9SwMYpJRE68bV+m67KS/SSb0Tu9XML3OljYcEgWHOXEkqBAZD6zXlaDCs8adP3SObfEh4NCmDeVN/bsN3NpgQF6uzatvfUoKSrcB9yEkEvyFwHh+cLVKJOWAERU0k814NgEACQ5mOOF5ZvqEgDVW/v/8YzxLXRMq4fBX9+XpaYdLlHUVy3iDC5fQwSUCg0SJ2letSOUdYF0tRQ8h+LuG1ZArfath9bP2E+pnSOpy6iIob1UGhpcBBbH1pfLpkpjH10n5Z2gqIJ6dRVwAZ24ZHdH0uxTPdKhdbWyugsCJwx48OAPJU=,iv:OWi+IYbM8ecbuNphgyi4z0n0CMGc8vW58fFeWlfixKY=,tag:SAr4i+HM4gEsND+suxk/RQ==,type:str]
 sops:
     age:
         - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBtU3FBUnFpaFhIVC9zY3VH
-            N21KazNoNllKM1VuanpoeXN4VldKNEF0VXhvCm9lREJ1UFdSQnRPVGd6KzBBS09D
-            blVCYVNrc0NaL1dmTjFVZkllN0RQNmcKLS0tIGEzQ3RudmlISFp3QkZ1K08rYjBi
-            dVplcGE1M3dWdyt3VndKd2JGV3IzMEUK1ySgx0/EgklUi7sWVh5RKnxangzsh6fJ
-            x5mdq1G1ZulqU0Skb3vUG7/F4tdfQeHh0l+G1HY77Sc3HzEV5J6aHw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4MytZb3ZLWDlOanB5NmNn
+            c3pZVnQydmRLYUFnRGlXZGI3ZFczSVlEN25jCnRBVXRZaE85dXgrekxCRWRtWE5F
+            ZlRwNmVxTUpJenRRUlhaWHZ0SEpiN2MKLS0tIHRmZzBhVnhuR09kSzAxN1ZkWDV1
+            ZE92elRFSmJRTkwyVWNnWmFVVXowNUUK/TnpOiNLfSeloNCs/TJjuAKIT1z1nvuj
+            x96QtxzGxyCL4kQd49mp7e31xgFowV1P3C39MKsnp24swFjpwxPKYg==
             -----END AGE ENCRYPTED FILE-----
           recipient: age1usl2cz5ltxz7au5tdpjqz7t77nzh3a29dgyewwfexqcctjfp2edq5yy6ge
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-10-22T01:30:27Z"
-    mac: ENC[AES256_GCM,data:xCzy9xuX3vnDSgG2rgffzgKtuVqDrSjACk6HiY6RZYigcnDnoKkYq8bLRWV1+WCg8JAWkXef1gfvlrQl2pV66SEMQAk1/EzsmtwcmmUQWm5QXwmAW3VmAWzOANb2OK2wFBJdD6u4OhnlSdaFIxaBeoYDyTqR9poMs3S0wcPJ97I=,iv:mWSGcPYqi6jeuLfVPivkD1Qq6QAI3a6n+CRAo6A9+WA=,tag:vt9acTckAbO5ap1dRrXm8A==,type:str]
+    lastmodified: "2026-11-11T02:39:20Z"
+    mac: ENC[AES256_GCM,data:Kd3MJs5LAUjXesbzwAaifFYXWF+uD9rVds+7kBuenywHusm8MmRHEwq97aVNMoFGv0KohOzi1f8E2Ol+qRvUnRutAKQCnzldEYrcwU/vK8Z2uRnQ5U1oLkZYHhj8tRYUBf14Z4RhIM2rdanYEfsLXQgU4yWJgSCQRqLzltSN6wQ=,iv:hDG0yBJhB99iKqP89fsJakLO4CiDhJc6MvBNl4PUiMI=,tag:QUNifSYRtKbPxm5Xn9aN8g==,type:str]
     version: 3.13.3
