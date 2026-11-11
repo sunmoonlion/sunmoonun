@@ -41,6 +41,15 @@
     browser_clients:
       web: {name: '{{ web_cfg.casdoor_application }}', client_id: '{{ web_cfg.casdoor_client_id }}', origin: '{{ web_cfg.origin }}'}
       admin: {name: '{{ admin_cfg.casdoor_application }}', client_id: '{{ admin_cfg.casdoor_client_id }}', origin: '{{ admin_cfg.origin }}'}
+    sso_browser_clients: >-
+      {%- set peers = {} -%}
+      {%- if application_name == 'knowbench' -%}
+        {%- for app in (lookup('file', playbook_dir + '/sources.yaml') | from_yaml).applications.keys() if app != application_name -%}
+          {%- set web = (lookup('template', repo + '/gitops/components/app-platform/' + app + '-app/' + app + '-web-frontend/config.yaml', convert_data=False) | from_yaml)[app + '_web_deployment'] -%}
+          {%- set _ = peers.update({app: {'name': web.casdoor_application, 'client_id': web.casdoor_client_id, 'origin': web.origin}}) -%}
+        {%- endfor -%}
+      {%- endif -%}
+      {{ peers }}
     source_lock: '{{ (lookup("file", playbook_dir + "/sources.yaml") | from_yaml).applications[application_name] }}'
     images: '{{ (lookup("file", playbook_dir + "/../artifacts/upstream-images.lock.json") | from_json).images }}'
     image_map: '{{ dict(images | map(attribute="id") | zip(images)) }}'
@@ -209,7 +218,7 @@
         - name: Verify actual login and session boundaries through only selected frontend routes
           ansible.builtin.command:
             argv: [/usr/bin/python3, '{{ playbook_dir }}/check-browser.py']
-            stdin: '{{ {"clients":selected_browser_clients,"provider":"https://" + casdoor_hostname + ":" + (public_port | string),"organization":cfg.identity_organization,"user_organization":cfg.identity_user_organization,"username":"admin","password":(selected_browser_input.content | b64decode | from_yaml).service_credentials.casdoor_admin_password,"application":application_name,"ca_file":registry_config_dir + "/tls/ca.crt","entry_port":application_check_port | int} | to_json }}'
+            stdin: '{{ {"clients":selected_browser_clients,"sso_clients":sso_browser_clients,"provider":"https://" + casdoor_hostname + ":" + (public_port | string),"organization":cfg.identity_organization,"user_organization":cfg.identity_user_organization,"username":"admin","password":(selected_browser_input.content | b64decode | from_yaml).service_credentials.casdoor_admin_password,"application":application_name,"ca_file":registry_config_dir + "/tls/ca.crt","entry_port":application_check_port | int} | to_json }}'
           register: selected_browser_result
           changed_when: false
           no_log: true
@@ -570,7 +579,7 @@
         - name: Verify real authorization callback SSR and security boundaries through the selected entry
           ansible.builtin.command:
             argv: [/usr/bin/python3, '{{ playbook_dir }}/check-browser.py']
-            stdin: '{{ {"clients":browser_clients, "provider":"https://" + casdoor_hostname + ":" + (public_port | string), "organization":cfg.identity_organization,"user_organization":cfg.identity_user_organization, "username":"admin", "password":(browser_acceptance_input.content | b64decode | from_yaml).service_credentials.casdoor_admin_password, "application":application_name, "admin_list_path":(application_cfg.admin_list_path | default("")), "ca_file":registry_config_dir + "/tls/ca.crt", "entry_port":application_check_port | int} | to_json }}'
+            stdin: '{{ {"clients":browser_clients, "sso_clients":sso_browser_clients, "provider":"https://" + casdoor_hostname + ":" + (public_port | string), "organization":cfg.identity_organization,"user_organization":cfg.identity_user_organization, "username":"admin", "password":(browser_acceptance_input.content | b64decode | from_yaml).service_credentials.casdoor_admin_password, "application":application_name, "admin_list_path":(application_cfg.admin_list_path | default("")), "ca_file":registry_config_dir + "/tls/ca.crt", "entry_port":application_check_port | int} | to_json }}'
           register: browser_acceptance
           changed_when: false
           no_log: true
