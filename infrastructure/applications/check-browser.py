@@ -121,7 +121,10 @@ def check_switch(settings, browser, client):
     require(status == 401, 'Switched local session still accepted')
     status, _, body = browser.request(provider + '/api/get-account')
     account = json.loads(body)
-    require(status in (200, 401) and account.get('status') == 'error' and not account.get('data'),
+    # Casdoor 4.12.0 repeats the anonymous error message in data; it is not a user.
+    require(status in (200, 401) and account.get('status') == 'error' and
+            account.get('msg') == 'Please login first' and
+            account.get('data') in (None, 'Please login first'),
             'Provider identity survived explicit switch')
 
 

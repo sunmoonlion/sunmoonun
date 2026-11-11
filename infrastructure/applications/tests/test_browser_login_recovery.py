@@ -48,7 +48,7 @@ def switch_replies():
             *[response(403) for _ in range(4)], response(body=identity), response(),
             response(body={'logout_url': logout}), response(302, location=landing + '?state=test-state'),
             response(302, location=ORIGIN + '/zh-CN/dashboard'), response(401),
-            response(body={'status': 'error', 'data': None})]
+            response(body={'status': 'error', 'msg': 'Please login first', 'data': 'Please login first'})]
 
 
 class LoginRecoveryChecks(unittest.TestCase):
@@ -126,6 +126,7 @@ class LoginRecoveryChecks(unittest.TestCase):
         for index, replacement, error in [
             (9, response(body={'status': 'error'}), 'Provider logout return rejected'),
             (12, response(body={'status': 'ok', 'data': {'name': 'still-signed-in'}}), 'identity survived'),
+            (12, response(body={'status': 'error', 'msg': 'Backend unavailable', 'data': None}), 'identity survived'),
             (6, response(body={'status': 'error'}), 'preparation or rejected request'),
             (2, response(), 'missing or mismatched CSRF')]:
             with self.subTest(index=index), self.assertRaisesRegex(RuntimeError, error):
