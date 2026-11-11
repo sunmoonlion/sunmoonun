@@ -1,0 +1,56 @@
+{
+  "status": "awaiting Jenkins stage 8 human approval; not deployed",
+  "authorization": "Owner requested deployment through Jenkins of all morning login fixes, and 24-hour web and administrator sessions",
+  "tier": "T1: reversible multi-repository change with independent review",
+  "jenkins_build": 89,
+  "jenkins_url": "https://jenkins.dev.sunmoonai.com:30443/job/release/89/",
+  "release_branch": "login-release-20261111",
+  "candidate_revision": "5452131b0a74953e7fb3b60c7f3695836d552d8f",
+  "candidate_digest": "sha256:12bc455cdc2239534ccd1e31debf2e34ca5621310de5d0340d3d77d2d8fcc889",
+  "previous_live_revision": "35d35e271e875b2694e445475a15207b4c5215ee",
+  "previous_live_digest": "sha256:d826b376f5ed177b1492c4c1b8cc1425869cf79f562a9a9f2f936015d2d218c5",
+  "platform_source_commit": "87b28eaba4640d603f26e9c9e1df61263ebea2f9",
+  "backend_source_commits": {
+    "tpl": "09779706aa9ae28b3f89aa325663b3d056a7fddf",
+    "knowbench": "3cb341fedf9516ee949a477a555ced22017b448c",
+    "knowlab": "08376387809080c6e102fee3eb2c05b72920d9c9",
+    "knowbase": "31e7ffb876216e5d14ddac867823c78355c89d6a",
+    "knowfeed": "1ed7151b14ced67161869834d7a62583512f4324",
+    "knowmart": "b5f83b27bb02d39c983be020b0e2994de161b213"
+  },
+  "session_policy": {
+    "web_seconds": 86400,
+    "admin_seconds": 86400,
+    "provider_expiry_cap": true,
+    "existing_sessions_extended": false
+  },
+  "validation": {
+    "backend_tests_qwen": 522,
+    "backend_tests_exact_release_sources": 522,
+    "frontend_tests_unchanged_release_sources": 132,
+    "frontend_typecheck": "passed",
+    "frontend_i18n": "passed",
+    "identity_tests_final_generated_candidate": 18,
+    "protocol_verifier_tests": 9,
+    "real_built_web_streamed_redirect": "accepted by verifier",
+    "independent_review": "passed; identified stale documentation corrected",
+    "jenkins_build_and_plan": "passed for all six applications",
+    "candidate_secret_comparison": "Only Casdoor app.conf sessionCookieLifeTime 43200 to 86400; other changed ciphertext has identical plaintext",
+    "database_schema": "unchanged",
+    "live_login_verification": "pending human approval and deployment",
+    "browser_ui_clicks_verified": false
+  },
+  "sync": "Implementation commits pushed and pulled on cloud qwen and WSL qwen; isolated release branches pushed to both endpoints",
+  "approval_gate": "ci/release.groovy stage 8 input; human account approval required in Jenkins",
+  "aborted_builds": {
+    "86": "pre-promotion verifier mismatch: actual Casdoor anonymous response",
+    "87": "pre-promotion verifier mismatch: Next.js streamed redirect",
+    "88": "pre-promotion user change: admin sessions also 24 hours"
+  },
+  "scope_notes": [
+    "All morning login fixes and automatic SSO prerequisites included",
+    "Pending unrelated business changes excluded",
+    "Administrator frontend source unchanged; native whole-application build includes all eighteen images",
+    "SMTP password remains in WSL private input and backup, not Git"
+  ]
+}
