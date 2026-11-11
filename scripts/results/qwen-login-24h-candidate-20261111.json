@@ -1,5 +1,5 @@
 {
-  "status": "awaiting Jenkins stage 8 human approval; not deployed",
+  "status": "deployed and verified; Jenkins SUCCESS",
   "authorization": "Owner requested deployment through Jenkins of all morning login fixes, and 24-hour web and administrator sessions",
   "tier": "T1: reversible multi-repository change with independent review",
   "jenkins_build": 89,
@@ -37,10 +37,20 @@
     "jenkins_build_and_plan": "passed for all six applications",
     "candidate_secret_comparison": "Only Casdoor app.conf sessionCookieLifeTime 43200 to 86400; other changed ciphertext has identical plaintext",
     "database_schema": "unchanged",
-    "live_login_verification": "pending human approval and deployment",
-    "browser_ui_clicks_verified": false
+    "live_login_verification": "passed for all six applications: web and admin 86400-second sessions, PKCE, SSR, secure cookie, cross-surface rejection, CSRF, logout and explicit account switch",
+    "browser_ui_clicks_verified": false,
+    "cross_application_sso": {
+      "from": "knowbench",
+      "without_reentering_credentials": [
+        "knowbase",
+        "knowfeed",
+        "knowlab",
+        "knowmart",
+        "tpl"
+      ]
+    }
   },
-  "sync": "Implementation commits pushed and pulled on cloud qwen and WSL qwen; isolated release branches pushed to both endpoints",
+  "sync": "Implementation commits synchronized between cloud qwen and WSL qwen; Jenkins published release branch and tag to GitHub and Gitee; final release declarations retained on login-release-20261111",
   "approval_gate": "ci/release.groovy stage 8 input; human account approval required in Jenkins",
   "aborted_builds": {
     "86": "pre-promotion verifier mismatch: actual Casdoor anonymous response",
@@ -52,5 +62,16 @@
     "Pending unrelated business changes excluded",
     "Administrator frontend source unchanged; native whole-application build includes all eighteen images",
     "SMTP password remains in WSL private input and backup, not Git"
-  ]
+  ],
+  "approval": {
+    "account": "admin",
+    "time": "2026-11-11T12:24:29+08:00"
+  },
+  "pointer_commit": "65c04425dbe9e79b0ae2845436611461f1dc2698",
+  "release_tag": "release-20261111-1",
+  "jenkins_result": "SUCCESS",
+  "release_pushes": {
+    "github": "success",
+    "gitee": "success"
+  }
 }
