@@ -21,7 +21,8 @@ tpl_backend_deployment:
   identity_user_organization: sunmoonai
   # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
   # v7: 网页端登录凭证 24 小时，管理端仍 1 小时（所有者 2026-11-11）。
-  identity_revision: v7
+  # v8: 管理端也统一为 24 小时，保持原有登录与组织隔离策略（所有者 2026-11-11）。
+  identity_revision: v8
   api_port: 8000
   api_replicas: 1
   worker_replicas: 1

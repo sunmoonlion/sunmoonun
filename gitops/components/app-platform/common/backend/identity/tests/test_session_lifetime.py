@@ -74,7 +74,7 @@ class Casdoor:
         return SimpleNamespace(status_code=200, json=lambda: data)
 
 
-class WebLifetime(unittest.TestCase):
+class BrowserLifetime(unittest.TestCase):
     def setUp(self):
         source = list(yaml.safe_load_all(render_identity("tpl")))[0]["data"][
             "provision.py"
@@ -111,21 +111,23 @@ class WebLifetime(unittest.TestCase):
         ):
             self.module["run"]()
 
-    def test_migrates_only_web_lifetime_and_is_idempotent(self):
+    def test_migrates_both_lifetimes_and_is_idempotent(self):
         self.run_reconciler()
         web = self.api.objects["application"]["admin/test-web"]
         self.assertEqual(web["expireInHours"], 24)
         self.assertEqual(
-            self.api.objects["application"]["admin/test-admin"]["expireInHours"], 1
+            self.api.objects["application"]["admin/test-admin"]["expireInHours"], 24
         )
         web["expireInHours"] = 12
+        self.api.objects["application"]["admin/test-admin"]["expireInHours"] = 1
         before = copy.deepcopy(self.api.objects)
         self.api.writes.clear()
         self.run_reconciler()
         before["application"]["admin/test-web"]["expireInHours"] = 24
+        before["application"]["admin/test-admin"]["expireInHours"] = 24
         self.assertEqual(self.api.objects, before)
         self.assertEqual(
-            [path for path, _ in self.api.writes], ["/api/update-application"]
+            [path for path, _ in self.api.writes], ["/api/update-application"] * 2
         )
         self.api.writes.clear()
         self.run_reconciler()
@@ -140,6 +142,32 @@ class WebLifetime(unittest.TestCase):
             self.run_reconciler()
         self.assertEqual(self.api.writes, [])
         self.assertEqual(web["expireInHours"], 12)
+
+    def test_admin_lifetime_change_preserves_security_boundaries(self):
+        self.run_reconciler()
+        admin = self.api.objects["application"]["admin/test-admin"]
+        self.assertFalse(admin["enableSigninSession"])
+        self.assertFalse(admin["enableAutoSignin"])
+        self.assertFalse(admin["enableSignUp"])
+        for field, value in [("clientSecret", "unexpected-secret"), ("organization", "sunmoonai"),
+                             ("grantTypes", ["client_credentials"])]:
+            original = copy.deepcopy(admin)
+            admin.update(expireInHours=1, **{field: value})
+            self.api.writes.clear()
+            with self.subTest(field=field), self.assertRaisesRegex(RuntimeError, "explicit migration required"):
+                self.run_reconciler()
+            self.assertEqual(self.api.writes, [])
+            admin.clear()
+            admin.update(original)
+
+    def test_unrecognized_admin_lifetime_is_not_silently_changed(self):
+        self.run_reconciler()
+        admin = self.api.objects["application"]["admin/test-admin"]
+        admin["expireInHours"] = 2
+        self.api.writes.clear()
+        with self.assertRaisesRegex(RuntimeError, "explicit migration required"):
+            self.run_reconciler()
+        self.assertEqual(self.api.writes, [])
 
 
 if __name__ == "__main__":

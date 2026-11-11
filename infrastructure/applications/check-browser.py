@@ -92,7 +92,7 @@ def check_login_entry(browser, origin, surface):
 
 
 def check_lifetime(browser, origin, surface, session):
-    expected = 86400 if surface == 'web' else 3600
+    expected = 86400
     remaining = (datetime.fromisoformat(session['user']['expires_at'].replace('Z', '+00:00')) -
                  datetime.now(timezone.utc)).total_seconds()
     ages = browser.session_ages.get(urlsplit(origin).hostname, {})
@@ -405,7 +405,7 @@ def _check_surfaces(settings, Browser, member, outcomes):
             check_switch(settings, browser, client)
         outcomes[surface] = {'pkce_callback': True, 'authenticated_ssr': True,
             'secure_cookie': True, 'cross_surface_denied': True, 'csrf_required': True,
-            'logout_revoked': True, 'session_lifetime_seconds': 86400 if surface == 'web' else 3600,
+            'logout_revoked': True, 'session_lifetime_seconds': 86400,
             'explicit_switch_verified': True if surface == 'web' else None,
             'passwordless_sso_apps': sorted(settings.get('sso_clients', {})) if surface == 'web' else [],
             'unprivileged_admin_diagnostic_denied': permission_denied,
