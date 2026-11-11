@@ -14,11 +14,11 @@
         "admin_revision": "722c6b80e849d6352f28abbdd7362e1151191c14"
       },
       "components": {
-        "backend": "28b5026281fb73b52589bcd1048aee6dde16a9e0",
+        "backend": "75482b2602b1300a3244e915b1465ea8d417e60b",
         "web": "6f46aef4bcbca07b126682c24ec1b2cedb42d52c",
         "admin": "722c6b80e849d6352f28abbdd7362e1151191c14"
       },
-      "parent": "2bfba2077da1e5fff80c960fc84f11e80716050b"
+      "parent": "1de0d8b3af685df0b102bd5810ccc8f66e6b670e"
     },
     "knowbench": {
       "previous": {
@@ -31,11 +31,11 @@
         "admin_revision": "540d9f38bf9ef5015684686f6abe576c7144aea0"
       },
       "components": {
-        "backend": "fbc587762030aceb1e6b24800a1350dc5d40af86",
+        "backend": "1d1fdda4e9d1134d6040abd5c26d0f0d64a36b3f",
         "web": "4b8248e06366802b9b5e97014110332a66e6a9a7",
         "admin": "540d9f38bf9ef5015684686f6abe576c7144aea0"
       },
-      "parent": "47df038cdaacbcad8a2eee78d3c5aa66782ee359"
+      "parent": "a1a007e2301dcd7fe891d9cc775925596b90fe25"
     },
     "knowlab": {
       "previous": {
@@ -48,11 +48,11 @@
         "admin_revision": "89fe3ac1f6178018186584db7542f11102896381"
       },
       "components": {
-        "backend": "2b4fe92db36529890667692ab75bc9acdffa47df",
+        "backend": "07d81cdcac06d9644264740b5db350caf2a2d5b7",
         "web": "fea8a24438fa5fa81d4a5b29c025b198a1441a14",
         "admin": "89fe3ac1f6178018186584db7542f11102896381"
       },
-      "parent": "db764f830370d7847fbd4aed3c5db0625f9fdc94"
+      "parent": "f802a10f276d4f9b33f299f1cfb66368bce1b6d3"
     },
     "knowbase": {
       "previous": {
@@ -65,11 +65,11 @@
         "admin_revision": "f2f6df3163a01c71be13efdd20b87187b63693ec"
       },
       "components": {
-        "backend": "a82300526afa3180417990b168b5d6b1cb2c21a2",
+        "backend": "5d78176c5d0e899d9b5fa649c927641c2e8acdfd",
         "web": "3188c01da4bffe81511c09062b804bc043c919e7",
         "admin": "f2f6df3163a01c71be13efdd20b87187b63693ec"
       },
-      "parent": "f409c07f69f2ada8841f1eacbe08aacd9cd87608"
+      "parent": "512fdd0e25a9f0de8a54d59679bc1417fe381bd7"
     },
     "knowfeed": {
       "previous": {
@@ -82,11 +82,11 @@
         "admin_revision": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6"
       },
       "components": {
-        "backend": "fa0a58e233655cd9cc5adcd591ec19ec6abe1ef3",
+        "backend": "0fa4b9e9b60ca632345f09f5fcdd017b9010ae6c",
         "web": "5ef58d640154cf6c9b7de3a0d2cadc75f41bc32e",
         "admin": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6"
       },
-      "parent": "3ce23720b6fa423ec527eef6e17367c229c6266d"
+      "parent": "9be5089a1dc9080d5e81db2a59c40a17825b7ed4"
     },
     "knowmart": {
       "previous": {
@@ -99,14 +99,14 @@
         "admin_revision": "5f109118ffbaca623a732ed33eaea61a2905241a"
       },
       "components": {
-        "backend": "b43d100d77d688ad77af21fe05aa15ad74a8e522",
+        "backend": "d6b53ba2148f90cd3adbfacb0843b9d6de8ea471",
         "web": "6a893cecddeea70fd14cb93e6c027679bdbd9ea1",
         "admin": "5f109118ffbaca623a732ed33eaea61a2905241a"
       },
-      "parent": "39a3cbcf0025b6640daa9972896f1b5eb8d8f09c"
+      "parent": "058283cf0fb35a145168c026039e480ba0019f9a"
     }
   },
-  "backend_tests": 516,
+  "backend_tests": 522,
   "frontend_tests": 132,
   "typecheck": "passed",
   "i18n": "passed",
@@ -115,5 +115,18 @@
   "builds": "pending",
   "deployment": "pending",
   "previous_flux_digest": "sha256:d826b376f5ed177b1492c4c1b8cc1425869cf79f562a9a9f2f936015d2d218c5",
-  "excluded": "Nov 6-8 pending business changes; admin source unchanged; no database migration changes"
+  "excluded": "Nov 6-8 pending business changes; admin source unchanged; no database migration changes",
+  "session_policy": {
+    "web_seconds": 86400,
+    "admin_seconds": 86400,
+    "provider_expiry_cap": true
+  },
+  "identity_lifetime_tests": 4,
+  "protocol_tests": 9,
+  "review": "Independent T1 code review passed for the administrator 24-hour addition",
+  "aborted_builds": {
+    "86": "pre-promotion: Casdoor anonymous response verifier mismatch",
+    "87": "pre-promotion: Next.js streamed redirect verifier mismatch",
+    "88": "pre-promotion: owner extended administrator sessions to 24 hours"
+  }
 }
