@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowfeed-migrate-53e9f3924a0c-v5', namespace: app-platform-dev}
+metadata: {name: 'knowfeed-migrate-afe1c8ddc9e2-v5', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,14 +72,14 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:53e9f3924a0c6ce6d17da8691d21b4c0257fe5c33b6f3ca0209a3b658280a5f1
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:afe1c8ddc9e2d5c69b19961f1749e4d6f5eab0a51c4c8c9465f1aa6bbc627294
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowfeed-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: '4b5d9ac32e9bf00a2ed24b6c16cbbe5a260badcb'}
+            - {name: DEPLOYMENT_ID, value: '0fa4b9e9b60ca632345f09f5fcdd017b9010ae6c'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowfeed-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowfeed.dev.sunmoonai.com:30443'}
             - {name: EXPECTED_SCHEMA_REVISION, value: '20261030_0022'}

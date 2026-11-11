@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: tpl-web-frontend
-digest: sha256:be8c8f9af7da10848af7faccf3ddcce3790d2d4c13402a4538fe3b963534a9fa
-source_revision: 76b50b6c49dfa92df6cee09ed3fe6fb0d1065160
-deployment_id: tpl-web-frontend-be8c8f9af7da1084
+digest: sha256:64b5426d9b68d288b089e5b3941725daba43be1b5c794bf178f68540081312ab
+source_revision: 6f46aef4bcbca07b126682c24ec1b2cedb42d52c
+deployment_id: tpl-web-frontend-64b5426d9b68d288

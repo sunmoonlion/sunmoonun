@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: 'tpl-identity-provision-v7', namespace: app-platform-dev}
+metadata: {name: 'tpl-identity-provision-v8', namespace: app-platform-dev}
 data:
   provision.py: |
     """Register the two browser clients through Casdoor's supported API."""
@@ -131,9 +131,9 @@ data:
                     'homepageUrl': config['origin'], 'cert': baseline['cert'],
                     'grantTypes': ['authorization_code'] + ([TOKEN_EXCHANGE] if surface in exchange_surfaces else []),
                     'tokenFormat': 'JWT', 'tokenSigningMethod': 'RS256',
-                    # Owner 2026-11-11: browser sessions and web tokens last at most 24 h;
-                    # admin consoles keep one hour. The backend also enforces token expiry.
-                    'expireInHours': 24 if surface == 'web' else 1, 'refreshExpireInHours': 0,
+                    # Owner 2026-11-11: both web and admin sessions last at most 24 h.
+                    # The backend also enforces token expiry.
+                    'expireInHours': 24, 'refreshExpireInHours': 0,
                     'enablePassword': True, 'enableSignUp': False, 'enableGuestSignin': False,
                     'enableSigninSession': single_sign_on, 'enableAutoSignin': single_sign_on, 'isShared': False,
                     'signinMethods': [{'name': 'Password', 'displayName': 'Password', 'rule': 'All'}],
@@ -187,6 +187,15 @@ data:
                     require(changed == 'Affected', 'Site domain move was not applied')
                     domain_migrated.append(surface)
                     existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
+                # Owner 2026-11-11: migrate only the exact previous lifetime (web 12 h,
+                # admin 1 h). Credentials, grants and organization must already match.
+                drift = {k for k, v in desired.items() if existing.get(k) != v}
+                previous_lifetime = 12 if surface == 'web' else 1
+                if drift == {'expireInHours'} and existing.get('expireInHours') == previous_lifetime:
+                    changed = api('POST', '/api/update-application', dict(existing, expireInHours=24),
+                                  params={'id': 'admin/' + config['name'], 'columns': 'expireInHours'})
+                    require(changed == 'Affected', 'Browser session lifetime was not applied')
+                    existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
                 # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from the pre-0042
                 # shape (authorization code only, one-hour tokens): add the token exchange grant and
                 # the longer web token. Everything else must already match.
@@ -198,14 +207,6 @@ data:
                                   params={'id': 'admin/' + config['name']})
                     require(changed == 'Affected', 'Token exchange settings were not applied')
                     exchange_migrated.append(surface)
-                    existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
-                # Owner 2026-11-11: only the web lifetime may move from the exact
-                # previous 12-hour policy. Credentials, grants and organization must match.
-                drift = {k for k, v in desired.items() if existing.get(k) != v}
-                if surface == 'web' and drift == {'expireInHours'} and existing.get('expireInHours') == 12:
-                    changed = api('POST', '/api/update-application', dict(existing, expireInHours=24),
-                                  params={'id': 'admin/' + config['name'], 'columns': 'expireInHours'})
-                    require(changed == 'Affected', 'Web session lifetime was not applied')
                     existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
                 require(existing and all(existing.get(k) == v for k, v in desired.items()),
                         'Existing browser application differs; explicit migration required')
@@ -297,7 +298,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'tpl-identity-1f1c52b5e8d5-v7', namespace: app-platform-dev}
+metadata: {name: 'tpl-identity-887f4611cecf-v8', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -311,7 +312,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/tpl-backend@sha256:1f1c52b5e8d5585d1331550bf73c0b61d83b0240f30318119ca5f10568a6fc3b
+          image: harbor.sunmoonai.com:30443/platform/tpl-backend@sha256:887f4611cecf9589941064b09d6afd45584f9069b2d3e295f04623326b72915c
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
@@ -332,7 +333,7 @@ spec:
             - {name: app, mountPath: /run/app, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: script, configMap: {name: 'tpl-identity-provision-v7'}}
+        - {name: script, configMap: {name: 'tpl-identity-provision-v8'}}
         - {name: admin, secret: {secretName: casdoor-initial-identity, items: [{key: init_data.json, path: init_data.json}], defaultMode: 0440}}
         - {name: app, secret: {secretName: tpl-identity-provision, defaultMode: 0440}}
         - {name: tmp, emptyDir: {sizeLimit: 32Mi}}

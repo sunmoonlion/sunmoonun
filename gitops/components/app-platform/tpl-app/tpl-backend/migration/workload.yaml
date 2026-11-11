@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'tpl-migrate-1f1c52b5e8d5-v1', namespace: app-platform-dev}
+metadata: {name: 'tpl-migrate-887f4611cecf-v1', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,14 +72,14 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/tpl-backend@sha256:1f1c52b5e8d5585d1331550bf73c0b61d83b0240f30318119ca5f10568a6fc3b
+          image: harbor.sunmoonai.com:30443/platform/tpl-backend@sha256:887f4611cecf9589941064b09d6afd45584f9069b2d3e295f04623326b72915c
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: tpl-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: 'c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76'}
+            - {name: DEPLOYMENT_ID, value: '75482b2602b1300a3244e915b1465ea8d417e60b'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://tpl-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://tpl.dev.sunmoonai.com:30443'}
             - {name: EXPECTED_SCHEMA_REVISION, value: '20261025_0004'}
