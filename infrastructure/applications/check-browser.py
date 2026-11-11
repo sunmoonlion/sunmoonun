@@ -7,7 +7,7 @@ import secrets
 import socket
 import ssl
 import sys
-from urllib.parse import parse_qs, urlencode, urlsplit
+from urllib.parse import parse_qs, urlencode, urljoin, urlsplit
 
 
 # 管理员读得出的一张管理端列表（只读）：路径由应用在 gitops 的 <app>_deployment.admin_list_path 声明（账 173），
@@ -19,12 +19,122 @@ def require(value, label):
         raise RuntimeError(label)
 
 
+def check_login_entry(browser, origin, surface):
+    status, headers, _ = browser.request(origin + '/zh-CN/login')
+    if surface == 'admin':
+        require(status == 200, 'admin: login page unavailable')
+        return
+    target = urlsplit(urljoin(origin, headers.get('location', '')))
+    require(status == 307 and target.scheme + '://' + target.netloc == origin and
+            target.path == '/api/auth/web/login' and not target.fragment and
+            parse_qs(target.query) == {'return_to': ['/zh-CN/dashboard']},
+            'web: login did not continue to the exact local SSO entry')
+
+
+def check_lifetime(browser, origin, surface, session):
+    expected = 86400 if surface == 'web' else 3600
+    remaining = (datetime.fromisoformat(session['user']['expires_at'].replace('Z', '+00:00')) -
+                 datetime.now(timezone.utc)).total_seconds()
+    ages = browser.session_ages.get(urlsplit(origin).hostname, {})
+    require(expected - 90 <= remaining <= expected, surface + ': unexpected session lifetime')
+    require(len(ages) == 1 and all(expected - 90 <= age <= expected for age in ages.values()),
+            surface + ': unexpected session cookie lifetime')
+
+
+def sso_login(settings, browser, client, application):
+    """Complete authorization using only the existing provider cookie, never a password."""
+    origin = client['origin']
+    check_login_entry(browser, origin, 'web')
+    status, headers, _ = browser.request(origin + '/api/auth/web/login')
+    require(status == 302, 'SSO login start failed')
+    target = urlsplit(headers.get('location', ''))
+    query = {key: values[0] for key, values in parse_qs(target.query).items()}
+    require(target.scheme + '://' + target.netloc == settings['provider'] and
+            query.get('client_id') == client['client_id'] and
+            query.get('redirect_uri') == origin + '/api/auth/web/callback' and
+            query.get('code_challenge_method') == 'S256' and bool(query.get('state')),
+            'SSO authorization identity mismatch')
+    aliases = {'client_id': 'clientId', 'response_type': 'responseType', 'redirect_uri': 'redirectUri'}
+    login_query = {aliases.get(key, key): value for key, value in query.items()}
+    status, _, body = browser.request(settings['provider'] + '/api/login?' + urlencode(login_query),
+        method='POST', data={'application': client['name'], 'type': 'code'},
+        headers={'Origin': settings['provider']})
+    result = json.loads(body)
+    require(status == 200 and result.get('status') == 'ok' and
+            isinstance(result.get('data'), str) and bool(result['data']), 'Passwordless SSO rejected')
+    status, headers, _ = browser.request(query['redirect_uri'] + '?' +
+        urlencode({'code': result['data'], 'state': query['state']}))
+    require(status == 302 and headers.get('location') == origin + '/zh-CN/dashboard',
+            'SSO callback rejected')
+    status, _, body = browser.request(origin + '/api/auth/web/me')
+    session = json.loads(body)
+    require(status == 200 and session.get('authenticated') is True and
+            session['user']['app'] == application and session['user']['surface'] == 'web',
+            'SSO session identity mismatch')
+    check_lifetime(browser, origin, 'web', session)
+    return session
+
+
+def check_switch(settings, browser, client):
+    origin = client['origin']
+    provider = settings['provider']
+    status, _, before = browser.request(provider + '/api/get-account')
+    account = json.loads(before)
+    require(status == 200 and account.get('status') == 'ok' and isinstance(account.get('data'), dict) and
+            all(isinstance(account['data'].get(k), str) and account['data'][k] for k in ('owner', 'name')),
+            'Provider session missing before switch')
+    status, _, body = browser.request(origin + '/api/auth/web/switch-account')
+    require(status == 200, 'Switch preparation failed')
+    token = json.loads(body).get('csrf_token')
+    require(isinstance(token, str) and len(token) == 43, 'Switch preparation token invalid')
+    for headers in ({}, {'Origin': origin}, {'Origin': 'https://invalid.example', 'X-CSRF-Token': token},
+                    {'Origin': origin, 'X-CSRF-Token': 'x' * 43}):
+        status, _, _ = browser.request(origin + '/api/auth/web/switch-account', method='POST', headers=headers)
+        require(status == 403, 'Switch accepted missing or mismatched CSRF/origin')
+    status, _, body = browser.request(provider + '/api/get-account')
+    current = json.loads(body)
+    require(status == 200 and current.get('status') == 'ok' and
+            all(current['data'].get(k) == account['data'].get(k) for k in ('owner', 'name')),
+            'Switch preparation or rejected request changed provider identity')
+    status, _, _ = browser.request(origin + '/api/auth/web/me')
+    require(status == 200, 'Switch preparation ended local session')
+    status, _, body = browser.request(origin + '/api/auth/web/switch-account', method='POST',
+        headers={'Origin': origin, 'X-CSRF-Token': token})
+    require(status == 200, 'Explicit switch failed')
+    logout_url = json.loads(body).get('logout_url', '')
+    target = urlsplit(logout_url)
+    query = parse_qs(target.query)
+    landing = origin + '/api/auth/web/logged-out'
+    require(target.scheme + '://' + target.netloc == provider and target.path == '/api/logout' and
+            not target.fragment and query.get('client_id') == [client['client_id']] and
+            query.get('post_logout_redirect_uri') == [landing] and
+            set(query) <= {'client_id', 'post_logout_redirect_uri', 'state'}, 'Unsafe switch logout URL')
+    status, headers, _ = browser.request(logout_url)
+    returned = urlsplit(headers.get('location', ''))
+    require(status == 302 and returned.scheme + '://' + returned.netloc + returned.path == landing and
+            not returned.fragment and parse_qs(returned.query) ==
+            ({'state': query['state']} if 'state' in query else {}), 'Provider logout return rejected')
+    status, headers, _ = browser.request(headers['location'])
+    require(status == 302 and headers.get('location') == origin + '/zh-CN/dashboard',
+            'Local logout landing rejected')
+    status, _, _ = browser.request(origin + '/api/auth/web/me')
+    require(status == 401, 'Switched local session still accepted')
+    status, _, body = browser.request(provider + '/api/get-account')
+    account = json.loads(body)
+    require(status in (200, 401) and account.get('status') == 'error' and not account.get('data'),
+            'Provider identity survived explicit switch')
+
+
 def run(settings):
     origins = {surface: client['origin'] for surface, client in settings['clients'].items()}
-    allowed = {urlsplit(o).hostname for o in [settings['provider'], *origins.values()]}
+    peers = settings.get('sso_clients', {})
+    require((settings['application'] == 'knowbench' and set(peers) == {'tpl', 'knowfeed', 'knowbase', 'knowlab', 'knowmart'})
+            or (settings['application'] != 'knowbench' and not peers), 'Unexpected SSO client selection')
+    peer_origins = [client['origin'] for client in peers.values()]
+    allowed = {urlsplit(o).hostname for o in [settings['provider'], *origins.values(), *peer_origins]}
     # URLs carry the site's public port; every connection still goes to the local entry_port.
     public_port = urlsplit(settings['provider']).port
-    require(public_port and all(urlsplit(o).port == public_port for o in origins.values()),
+    require(public_port and all(urlsplit(o).port == public_port for o in [*origins.values(), *peer_origins]),
             'Provider and frontend origins disagree on the public port')
     context = ssl.create_default_context(cafile=settings['ca_file'])
 
@@ -38,6 +148,7 @@ def run(settings):
     class Browser:
         def __init__(self):
             self.cookies = {}
+            self.session_ages = {}
 
         def request(self, url, method='GET', data=None, headers=None):
             target = urlsplit(url)
@@ -65,10 +176,12 @@ def run(settings):
                             jar = self.cookies.setdefault(target.hostname, {})
                             if cookie['max-age'] == '0':
                                 jar.pop(name, None)
+                                self.session_ages.get(target.hostname, {}).pop(name, None)
                             else:
                                 if name.endswith('_sid'):
                                     require(bool(cookie['secure']) and bool(cookie['httponly']) and
-                                            cookie['samesite'].lower() == 'lax', 'Insecure session cookie')
+                                            cookie['samesite'].lower() == 'lax' and not cookie['domain'], 'Insecure session cookie')
+                                    self.session_ages.setdefault(target.hostname, {})[name] = int(cookie['max-age'])
                                 jar[name] = cookie.value
                 return response.status, {k.lower(): v for k, v in pairs}, body
             finally:
@@ -120,8 +233,7 @@ def _check_surfaces(settings, Browser, member, outcomes):
         client = settings['clients'][surface]
         origin = client['origin']
         browser = Browser()
-        status, _, _ = browser.request(origin + '/zh-CN/login')
-        require(status == 200, surface + ': login page unavailable')
+        check_login_entry(browser, origin, surface)
         status, _, _ = browser.request(origin + '/api/auth/' + surface + '/me')
         require(status == 401, surface + ': anonymous session was accepted')
         status, headers, _ = browser.request(origin + '/api/auth/' + surface + '/login')
@@ -161,6 +273,10 @@ def _check_surfaces(settings, Browser, member, outcomes):
         session = json.loads(body)
         require(session['authenticated'] and session['user']['app'] == settings['application'] and
                 session['user']['surface'] == surface, surface + ': session identity mismatch')
+        check_lifetime(browser, origin, surface, session)
+        if surface == 'web':
+            for application, peer in settings.get('sso_clients', {}).items():
+                sso_login(settings, browser, peer, application)
         status, _, _ = browser.request(origin + '/zh-CN/dashboard')
         require(status == 200, surface + ': authenticated SSR failed')
         opposite = 'admin' if surface == 'web' else 'web'
@@ -219,9 +335,17 @@ def _check_surfaces(settings, Browser, member, outcomes):
         require(status in (200, 204), surface + ': logout rejected')
         status, _, _ = browser.request(origin + '/api/auth/' + surface + '/me')
         require(status == 401, surface + ': logged-out session accepted')
+        if surface == 'web':
+            # The regular logout contract above revokes the local session only until
+            # its provider URL is visited. Reuse SSO, then exercise the explicit action.
+            sso_login(settings, browser, client, settings['application'])
+            check_switch(settings, browser, client)
         outcomes[surface] = {'pkce_callback': True, 'authenticated_ssr': True,
             'secure_cookie': True, 'cross_surface_denied': True, 'csrf_required': True,
-            'logout_revoked': True, 'unprivileged_admin_diagnostic_denied': permission_denied,
+            'logout_revoked': True, 'session_lifetime_seconds': 86400 if surface == 'web' else 3600,
+            'explicit_switch_verified': True if surface == 'web' else None,
+            'passwordless_sso_apps': sorted(settings.get('sso_clients', {})) if surface == 'web' else [],
+            'unprivileged_admin_diagnostic_denied': permission_denied,
             'admin_list_read': admin_list_read,
             'user_organization_denied': True if surface == 'admin' and member is not None else None}
     return install_issued
