@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-11",
+  "site": "kind",
+  "deployment_host": "wsl-dev",
+  "edge_host": "VM-0-13-ubuntu",
+  "declaration_revision": "35d35e271e875b2694e445475a15207b4c5215ee",
+  "promotion_commit_prefix": "2795cca03",
+  "source_digest": "sha256:d826b376f5ed177b1492c4c1b8cc1425869cf79f562a9a9f2f936015d2d218c5",
+  "identity_job": "knowbench-identity-da0a1a48a333-v7",
+  "scope": {
+    "published_generated_files": [
+      "gitops/components/app-platform/knowbench-app/knowbench-backend/identity/workload.yaml",
+      "gitops/components/app-platform/knowbench-app/knowbench-backend/identity/provision.sops.yaml"
+    ],
+    "generated_identity_files_match_renderer": true,
+    "unrelated_runtime_stage_changes_restored": true,
+    "application_images_changed": false,
+    "whole_component_render_consistency_claimed": false
+  },
+  "checks": {
+    "smtp_primary_and_backup_root_0600": true,
+    "smtp_backup_byte_identical": true,
+    "smtp_secret_sops_encrypted": true,
+    "native_deployment_plan": "passed",
+    "native_flux_release": "passed",
+    "native_flux_source_apply": "passed",
+    "native_edge_deploy": "passed",
+    "flux_platform_identity_runtime_ready": true,
+    "identity_job_complete": true,
+    "builtin_admin_signup_disabled": true,
+    "email_verification_required": true,
+    "invitation_required": false,
+    "oidc_redirects_and_client_secrets_validated_by_identity_job": true,
+    "pkce_s256_and_jwks_validated_by_identity_job": true,
+    "casdoor_and_knowbench_deployments_ready": true,
+    "public_admin_api_http": 403,
+    "public_signup_entry_http": 200,
+    "public_signup_entry_path": "/signup/oauth/authorize",
+    "public_send_verification_code_status": "ok",
+    "test_mail_receipt_confirmed_by_owner": true,
+    "native_application_check": "incomplete: old service identity job has no retained Pod; log read failed",
+    "missing_log_job": "knowbench-service-identity-da0a1a48a333-v1"
+  },
+  "network_observation": {
+    "initial_proxy_mode": "global",
+    "initial_smtp_dns": "198.18.1.12",
+    "initial_failure": "TLS EOF before SMTP authentication",
+    "owner_action": "Switched FlClash to rule mode",
+    "after_owner_action": "Public verification-code API succeeded; owner confirmed receipt",
+    "tls_verification_disabled": false,
+    "smtp_ip_pinned": false
+  },
+  "pending_manual_acceptance": [
+    "Complete browser registration with the received code and an owner-chosen password",
+    "Verify invalid or missing code rejection and duplicate-email rejection",
+    "Verify the new account has ordinary-user privileges",
+    "Verify cross-application browser single sign-on"
+  ],
+  "privacy": "No mailbox address, password, verification code or session credential is recorded here."
+}
