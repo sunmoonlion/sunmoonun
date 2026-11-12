@@ -14,4 +14,6 @@ opus 的三份第一稿是 11-09 从同一份《专家方案》拆出来的，�
 
 **共用竞品研究**：[四家专家团与长期 Agent 比较](参考资料/agent-team-luna.md)（OpenAI dots、Grok Bot、WorkBuddy、Meta Muse，更新于 2026-11-09）、[WorkBuddy 详细介绍](参考资料/workbuddy-luna.md)（资料核对于 2026-11-08）。2026-11-09 从 luna 工位归入此处，供专家与专家团两套方案共同引用；研究事实、分析建议及待核实项按各文说明区分。同主题 opus 独立写的两份（只用厂商第一手资料，写时没读 luna 的正文）：[四家产品对照](参考资料/agent-team-opus.md)、[WorkBuddy](参考资料/workbuddy-opus.md)。同主题 argon 独立写的两份（只用厂商第一手官方资料独立取证）：[四家产品一手对照](参考资料/agent-team-argon.md)、[WorkBuddy 全栈深度调研](参考资料/workbuddy-argon.md)。
 
+**开源框架研究**：[Agently 和我们项目的借鉴](参考资料/agently和我们项目的借鉴.md)（2026-11-12）：基于本机 Agently `4.1.4.11` 源码，研究步骤 DAG、Action 工具注册与分发、MCP 两端接入，以及与方法六要素、模板、市场和既有任务账本的衔接。区分源码事实、设计建议与待验证事项，未接入或部署框架。
+
 所有者看过以后提要求，各自在自己目录里改；定稿后再写成 SDD、记进 `decisions.md`。这里的方案不是开工依据，定稿前不动代码。
