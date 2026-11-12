@@ -51,7 +51,7 @@
 | 研究运行时（`/research/runtime`） | 模板留下的占位页，没有功能 |
 | 治理控制台、CRUD 参考、富能力参考、设置 | 模板自带 |
 
-### 流程一：用户自己请专家（⑭，[请专家与执行](../../总纲/专家方案设计/专家使用方案/opus/请专家与执行.md) 第 5.6 节）
+### 流程一：用户自己请专家（⑭，[请专家与执行](../../总纲/专家方案设计/专家使用方案/opus/请专家与执行.md) 第五节）
 
 1. 用户在请专家页选一位、写问题，点交 → 后端新建一段专家对话和一件委托；专家这一版的清单快照写进委托，之后编排、验收只读快照。作者挑选的数据（冻结的绑定）由用户本人当场签运行授权、钉住，页面只说「专家自带 N 份」。
 2. 第 0 步「定数据」：沙箱里用户的模型读专家逻辑和问题，用 `find_subject` 按名字查证券代码，用 `request_data` 提出要哪些数据（一次最多 20 样）→ knowbase 在用户能用的范围里解析 → 面板对「待确认」项向 knowfeed 问一次预切合（能不能取、预计多久、哪一档许可，`knowfeed-supply-prematch/v1`）→ 委托停在步骤之间，等用户确认。
@@ -130,7 +130,7 @@
 | 叫法 | 10-29「叫法：账号不分类型……」 | [叫法](../叫法.md)、[账号-电脑-link-会合点](../账号-电脑-link-会合点.md) |
 | 三种对话、设置三项、侧栏 | — | [0017](../../design/SDD/modules/0017-three-kinds-of-conversation.md)、[0021](../../design/SDD/modules/0021-settings-three-kinds.md)、[0016](../../design/SDD/modules/0016-sidebar.md)、[0024](../../design/SDD/modules/0024-new-project.md) |
 | 专家从 knowmart 请、钉住 | ⑰（只认 v2） | [0027](../../design/SDD/modules/0027-knowbot-first-path.md) P4、[0018](../../design/SDD/modules/0018-advisor-market.md) |
-| 第 0 步定数据、预切合、用户确认、等数据、写产出区 | ⑫ ⑭ | [请专家与执行](../../总纲/专家方案设计/专家使用方案/opus/请专家与执行.md) 第 4.3、4.8 节，[0043](../../design/SDD/modules/0043-data-v4.md) 第 2.6、2.7、3、4.1 节，[0045](../../design/SDD/modules/0045-knowfeed-supply.md) |
+| 第 0 步定数据、预切合、用户确认、等数据、写产出区 | ⑫ ⑭ | [请专家与执行](../../总纲/专家方案设计/专家使用方案/opus/请专家与执行.md) 第五、八节（原《请专家方案设计》第 4.3、4.8 节），[0043](../../design/SDD/modules/0043-data-v4.md) 第 2.6、2.7、3、4.1 节，[0045](../../design/SDD/modules/0045-knowfeed-supply.md) |
 | 数据工具中继 | — | [0048](../../design/SDD/modules/0048-model-data-tools.md)、[0030](../../design/SDD/modules/0030-knowbot-compute.md)（`compute`） |
 | AI 请专家 | ⑭ 晚补、10-29「AI 请专家」 | [请专家与执行](../../总纲/专家方案设计/专家使用方案/opus/请专家与执行.md) 第 4.2、4.3 节，[专家孵化方案](../../总纲/专家方案设计/专家孵化方案/opus/专家孵化方案.md) 第十三节、第十八节第 6 步 |
 | 运行方：测试 | ⑯ | [0027](../../design/SDD/modules/0027-knowbot-first-path.md) 第 3.4 节、[0046](../../design/SDD/modules/0046-knowlab-self-service.md) 第三节 |
