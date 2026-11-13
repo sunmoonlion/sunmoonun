@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-11-14T00:46:50.882726+08:00",
+  "status": "verification_complete_independent_review_pending",
+  "task_list": "docs/总纲/专家方案设计/专家使用方案/luna/mcp和skill接入实施方案.md §17.6",
+  "tested_revisions": {
+    "knowbench-backend": "d5241e423684490095f769c84d01710c65aee872",
+    "knowbench-app": "539213c0507f6559b4461436dd07b4089c7cfb61",
+    "platform_configuration": "be1639b9cbb0a0b21053db98611b1e55c783c623"
+  },
+  "scope": "Final full KnowBench backend regression; this increment changes test setup only. Authoring-gate and frontend checks retain their separately recorded earlier evidence.",
+  "pytest": {
+    "command": ".venv/bin/pytest -q tests -ra",
+    "exit_code": 0,
+    "passed": 2187,
+    "skipped": 3,
+    "failed": 0,
+    "duration_seconds": 1243.15,
+    "log": "capabilities-remediation-20261114-pytest.txt",
+    "sha256": "c3c11345eba32bc380266f3669dad6bd816e19f73d54d2eb4e7382294749777c",
+    "skips": [
+      "test_workbench_pack_view.py::test_every_listed_pack_can_be_explained_to_a_user",
+      "test_workbench_pack_view.py::test_words_shown_to_users_carry_no_code_names",
+      "test_workbench_pack_view.py::test_the_dossier_layout_points_at_things_the_steps_return"
+    ],
+    "skip_reason": "These tests parameterize the withdrawn built-in public pack list, which is empty. They remain uncovered; no database, broker or consumer-vector test was skipped for missing configuration."
+  },
+  "ruff": {
+    "command": ".venv/bin/ruff check .",
+    "exit_code": 0,
+    "result": "All checks passed!"
+  },
+  "pyright": {
+    "command": ".venv/bin/pyright",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0
+  },
+  "previous_attempt": {
+    "status": "interrupted_after_known_failure",
+    "passed": 1216,
+    "skipped": 3,
+    "failed": 1,
+    "log": "/tmp/capability-full-final-20261114.log",
+    "cause": "Broker tests did not load the deployed Celery exclusive queue policy; RabbitMQ 4.3 rejected a transient non-exclusive queue.",
+    "fix": "Opt-in test fixture reads native celeryconfig.py from the platform workload ConfigMap; child processes preserve its import path. No deprecated broker feature enabled.",
+    "targeted_retest": "5 passed in 44.76s"
+  },
+  "environment": {
+    "database": "AGENT_TEST_DATABASE_URL and DELIVERY_TEST_DATABASE_URL explicitly set to a disposable *_tests database; independent schemas",
+    "broker": "Disposable loopback RabbitMQ 4.3.6-management, 512 MiB / 1 CPU limit; CELERY_PROBE_TEST_BROKER_URL set",
+    "broker_image_identity": "sha256:54cb013d76cd1fd6c0a0708f34062ad61c452bb6f016b434c6c33f1a765d2b58",
+    "vectors": "WEB_INTERACTION_CONSUMER_VECTORS=tpl-app/contracts/web-interaction-v1.consumer-vectors.json",
+    "execution": "serial pytest, no external service accounts or paid model requests"
+  },
+  "cleanup": {
+    "temporary_broker_container": "removed",
+    "anonymous_volume": "removed",
+    "downloaded_test_image": "removed",
+    "existing_test_postgres": "preserved"
+  },
+  "deployment": "not performed; independent reviews and final release-candidate validation still required",
+  "remaining": "Tasks 3–12; task 2 independent review and release conditions remain open"
+}

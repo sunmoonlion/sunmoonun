@@ -1,7 +1,7 @@
 # 能力调用结果、连接变更与轮次授权修复复审
 
 - 类型：评审。
-- 状态：待接手，最终补充回归通过，提交已固定；本批未发布。
+- 状态：待接手；2026-11-14 最终全量验证已完成，详见补充记录；本批未发布。
 - 发起身份：luna。
 - 执行身份：评审方 qwen，承接 `opus-qwen.md` 第十二节；由所有者协调复审，不自动启动其它代理。
 - 主工位：远程 `/home/zym/worktrees/qwen`，应用与平台分支均为 `qwen`。
@@ -45,3 +45,15 @@
 - 前端组件/契约 **15 passed**；TypeScript、改动 ESLint、i18n 通过。后端 Ruff 通过、Pyright **0 errors / 0 warnings**。
 
 评审通过后另按既有 Jenkins 原生流程发布，人工晋级不代批。qwen 分支还包含其它未发布工作，不能直接整支发布；须基于 #93 的隔离发布分支摘取本批提交并复验。
+
+## 2026-11-14 补充：最终全量验证已完成，仍待独立复审
+
+原待评提交及上述历史结果保留。行为修复仍是 `3897e3d`；此后 `eb1465b` 仅缩短生成契约模块说明，`d5241e423684490095f769c84d01710c65aee872` 仅修正真实 broker 测试配置及 Redis ACL 来源路径。当前 KnowBench 父仓为 `539213c0507f6559b4461436dd07b4089c7cfb61`，文档规则收敛为平台 `be1639b9c`。本补充没有改动业务执行逻辑，也没有部署。
+
+在确切后端 `d5241e4` 上串行执行完整 `pytest -q tests -ra`：**2187 passed、3 skipped、0 failed，20m43s**；全量 Ruff 通过，Pyright **0 errors / 0 warnings**。本次同时启用 AGENT/DELIVERY 隔离数据库、独立 RabbitMQ 4.3.6 和跨仓 WEB_INTERACTION_CONSUMER_VECTORS。完整日志和结构化环境/提交/清理证据随平台仓保存：`scripts/results/capabilities-remediation-20261114-pytest.txt`、`scripts/results/capabilities-remediation-20261114.json`。
+
+3 项跳过是 `test_workbench_pack_view.py` 中按 `LISTED` 参数化的展示用例：内置公开专家已撤下，集合为空。本次明确记为未覆盖，不通过恢复已撤下产品来填充该集合；请复审方核对其是否影响本批变更。数据库、消息队列和交互契约向量没有因缺环境跳过。
+
+首轮启用真实 broker 后发现测试未读取部署现有的独占队列配置，受控中止时为 1 failed / 1216 passed / 3 skipped，原日志保留 `/tmp/capability-full-final-20261114.log`。修正使用平台 ConfigMap 中的原生 Celery 配置，子进程保留导入路径；没有启用 RabbitMQ 旧队列兼容开关。5 项真实 broker/ACL 定向复验通过后，才对固定提交重新完整运行。本轮临时 broker、匿名卷及新下载镜像均已清理，既有测试 PostgreSQL 未改动。
+
+请求仍为待接手，发起者不代填复审结论。作者入口限制仍按另一张请求单独评审；首批通过后，摘取到 #93 发布基线的最终候选还须复验，再走 Jenkins 和既有人工晋级。
