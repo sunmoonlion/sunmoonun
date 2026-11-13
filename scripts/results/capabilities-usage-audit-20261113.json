@@ -1,0 +1,28 @@
+{
+  "checked_on": "2026-11-13",
+  "environment": "local WSL sunmoon-kind, app-platform-dev",
+  "method": "Read-only transactions through each application's deployed API Python environment; statement timeout 10 seconds; aggregate counts only",
+  "capability_key_search": ["managed_capabilities", "managedCapabilities"],
+  "knowbench": {
+    "workbench_capability_assets": 0,
+    "workbench_capability_selections": 0,
+    "workbench_capability_calls": 0,
+    "tasks": 55,
+    "task_snapshots_with_capability_keys": 0,
+    "session_kinds": {"chat": 3, "work": 3, "expert": 54}
+  },
+  "knowlab": {
+    "workdrafts": 1,
+    "workdrafts_with_capability_keys": 0,
+    "draft_manifests": 12,
+    "draft_manifests_with_capability_keys": 0,
+    "method_versions": 0
+  },
+  "knowmart": {
+    "version_manifests": 3,
+    "version_manifests_with_capability_keys": 0
+  },
+  "decision": "No currently used method-capability field requires a compatibility execution path. Existing expert sessions must be migrated and reconciled when their type changes; do not delete them. Recheck usage before release.",
+  "mutations": false,
+  "private_content_returned": false
+}
