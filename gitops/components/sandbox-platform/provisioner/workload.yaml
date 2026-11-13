@@ -15,6 +15,12 @@ rules:
   - apiGroups: ['']
     resources: [pods]
     verbs: [get, list]
+  - apiGroups: ['']
+    resources: [pods/log]
+    verbs: [get]
+  - apiGroups: [batch]
+    resources: [jobs]
+    verbs: [get, list, create, delete]
   - apiGroups: [apps]
     resources: [deployments]
     verbs: [get, list, create, update, delete]
@@ -46,7 +52,7 @@ spec:
   template:
     metadata:
       labels: {app.kubernetes.io/name: sandbox-provisioner}
-      annotations: {sunmoonai.com/input-sha256: '7e6ed25c498709109c5614ad50f20c65ee08e33f9ab4ebdf0e6c231e96caa6a6'}
+      annotations: {sunmoonai.com/input-sha256: 'c0e6c3bd7cf2afd4fe2f16a1498a8d4d3728fb2dc0b25183abadb0c57be1a87b'}
     spec:
       serviceAccountName: sandbox-provisioner
       enableServiceLinks: false
@@ -54,11 +60,11 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 10003, runAsGroup: 10003, fsGroup: 10003, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provisioner
-          image: harbor.sunmoonai.com:30443/platform/sandbox-provisioner@sha256:a4255a4d9eea7fe6373ff093ef19b67dba97855c14a6c1b6b8637d31cd7f5271
+          image: harbor.sunmoonai.com:30443/platform/sandbox-provisioner@sha256:597b736dd220e653ad8413b78acf8ba78d673a9ce03229fa42bbd41128c1e008
           imagePullPolicy: IfNotPresent
           env:
             - {name: SANDBOX_NAMESPACE, value: 'sandbox-platform-dev'}
-            - {name: SANDBOX_IMAGE, value: 'harbor.sunmoonai.com:30443/platform/sandbox@sha256:ec14e4a591d7401ad222b579d745fa4c5c6e9292c28055c696b9671661f7823c'}
+            - {name: SANDBOX_IMAGE, value: 'harbor.sunmoonai.com:30443/platform/sandbox@sha256:0fd50c3fe714cbb004367fe32120843d71b6e82668b22805d41df8270ab2dc9f'}
             - {name: RELAY_URL, value: 'ws://relay.relay-platform-dev.svc.cluster.local:47100'}
             # 新体系按环境参数化：沙箱的网络策略里，应用（两个 MCP、runner）和会合点各在哪个命名空间
             - {name: APP_NAMESPACE, value: 'app-platform-dev'}
