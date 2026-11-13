@@ -1,3 +1,18 @@
+# 2026-11-13 本地能力入口发布候选
+
+所有者明确要求到本地按原方式发布；确认外部MCP目录先空，发布三个入口与纯指令Skill。
+基于Jenkins #90回执 a81adda3f8e66c2ea083f279a928c9c5e70d2e6d；
+独立工位/分支 capabilities-release-20261113。仅摘取本次前后端提交，不发布qwen的
+其他专家/数据清单改动，保留现网24小时登录和Link0.5.8。
+配置将迁移0039升0040、job v9升v10、MCP目录[]、平台网关配置为现站点HTTPS地址。
+回退使用旧发布摘要 sha256:7ff7dbe5ef3a7907fc3101042dc046afdf5b62785d4dee7807fadcf82e96088d，
+保留新增表与回执；不自动降级删表。
+本地候选：后端单元29、隔离DB/原runner等79、前端新增7通过；Ruff/Pyright/typecheck通过。
+证据 /home/zymun/sunmoon-probe-runs/capabilities-release-20261113/。
+首次只读表计数误用attempts.state已更正status；现网tasks/attempts/tests均终态，commands均done/failed。
+构建前计划初次使用构建后校验模式被镜像锁保护拦下；切到原生PLAN_EXTRA模式，并补独立工位工具目录后重验。
+待Jenkins构建、核对候选差异、沿既有门禁晋级并检查线上，不代用户操作业务审批或付费任务。
+
 # 2026-11-04 所有者指定财务专家第5版
 
 最新候选5.12：draft 351a2cb8-0273-4edf-8b88-c46b8cd5e7bb，manifest摘要

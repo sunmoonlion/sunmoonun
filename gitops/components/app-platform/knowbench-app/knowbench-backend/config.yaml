@@ -6,9 +6,9 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v9
-  # K29：测试项目与普通工作台分离；0039 接 0038，保留历史记录。
-  expected_schema_revision: '20261106_0039'
+  migration_job_revision: v10
+  # 受管能力资产、会话选择和审批回执；0040 接 0039，保留历史记录。
+  expected_schema_revision: '20261113_0040'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
@@ -84,6 +84,9 @@ knowbench_backend_deployment:
       - {name: knowbot-tester, account: knowbot-tester, claim: knowbench-test-computer}
   domain_env:
     WORKBENCH_ENABLED: 'true'
+    # 首期外部目录为空（所有者确认）；使用公网平台地址兼容用户电脑与集群沙箱。
+    WORKBENCH_CAPABILITY_MCP_URLS: '[]'
+    WORKBENCH_CAPABILITY_MCP_URL: 'https://knowbench.{{ site_domain }}:{{ public_port }}/api/mcp/capabilities'
     WORKBENCH_REDIS_KEY_PREFIX: 'knowbench:workbench'
     WORKBENCH_ENVIRONMENT_KEY: user-pc
     WORKBENCH_POLL_SECONDS: '1.0'
