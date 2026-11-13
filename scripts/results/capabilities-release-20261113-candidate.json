@@ -1,0 +1,79 @@
+{
+  "status": "candidate building; not deployed",
+  "jenkins_build": 93,
+  "jenkins_url": "https://jenkins.dev.sunmoonai.com:30443/job/release/93/",
+  "branch": "capabilities-release-20261113",
+  "workspace": "/home/zymun/worktrees/capabilities-release-20261113",
+  "candidate_platform": "59480f14ab",
+  "targets": [
+    "knowbench",
+    "knowlab",
+    "sandbox"
+  ],
+  "development_commits": {
+    "knowbench_backend": "5644bfc",
+    "knowbench_web": "bf308dc",
+    "knowlab_backend": "507a07f",
+    "knowlab_web": "c26f1c5",
+    "platform": "8fee0080a",
+    "platform_sources": "069322355"
+  },
+  "release_commits": {
+    "knowbench_backend": "23ed718",
+    "knowbench_web": "b17271c",
+    "knowbench_parent": "0c10107",
+    "knowlab_backend": "a042df0",
+    "knowlab_web": "e1bb080",
+    "knowlab_parent": "f55d83e",
+    "platform_source": "baea88db"
+  },
+  "release_baseline_policy": "Only this task cherry-picked onto existing published baselines; fixed_as_plan_owners changes not included in conflict resolution.",
+  "validation": {
+    "knowbench_unit": 102,
+    "knowbench_postgresql": 29,
+    "knowbench_frontend": 15,
+    "knowlab_backend": 59,
+    "knowlab_frontend": 5,
+    "provisioner": 18,
+    "frontend_typecheck": "both passed",
+    "browser": "KnowBench installation/dependencies/artifacts; KnowLab desktop/mobile dependency declarations; recorded HTTP responses, not production accounts",
+    "external_mcp": null,
+    "paid_model_calls": 0
+  },
+  "preflight": {
+    "unfinished_tasks": 0,
+    "unfinished_attempts": 0,
+    "unfinished_test_runs": 0,
+    "pending_commands": 0,
+    "unfinished_recent_turns": 0
+  },
+  "configuration": {
+    "external_mcp_catalog": [],
+    "script_execution_enabled": false,
+    "script_enablement": "Requires deployed provisioner and real cluster package/network probe before enablement via deployment configuration."
+  },
+  "cleanup": "Own temporary test databases/anonymous volumes, previews and browsers stopped; local temporary venv symlink removed. User workspaces and business services preserved.",
+  "limitations": [
+    "No OAuth or business resource scopes",
+    "No connector bridge inside package scripts",
+    "No live provider or paid-model acceptance",
+    "Human Jenkins promotion remains required"
+  ],
+  "evidence": {
+    "remote_ui": [
+      "/tmp/connector-ui-walkthrough",
+      "/tmp/connector-author-evidence"
+    ],
+    "local_logs": [
+      "/tmp/capabilities-release-final-unit.log",
+      "/tmp/capabilities-release-final-db.log",
+      "/tmp/capabilities-release-knowlab-tests.log",
+      "/tmp/capabilities-release-kb-ui.log",
+      "/tmp/capabilities-release-knowlab-ui.log",
+      "/tmp/capabilities-release-provisioner.log",
+      "/tmp/capabilities-release-93.log"
+    ]
+  },
+  "authorization_update": "2026-11-13 owner explicitly confirmed releasing current verified scope first, then implementing the remaining connector features. No stop request was submitted.",
+  "follow_up": "docs/总纲/专家方案设计/专家使用方案/luna/mcp和skill接入实施方案.md section 17.6, C1-C6"
+}
