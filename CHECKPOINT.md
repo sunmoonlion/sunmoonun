@@ -1,3 +1,20 @@
+# 2026-11-13 清理后继续：安装、连接依赖、方法步骤与隔离脚本候选
+
+本轮完成临时测试容器/匿名卷和预览进程清理；现有业务容器、用户数据和独立发布工位保留。检查时远程可用内存恢复约 2.2 GiB，本地 WSL 可用约 73 GiB、磁盘约 590 GiB。后续构建继续放本地，不在小内存远程同时启动多个构建。
+
+| 工作 | 当前状态 | 后续事项 |
+| --- | --- | --- |
+| 清理 | 已完成本轮测试库和预览资源清理；保留测试日志/截图 | 发布后继续收尾自己的临时资源 |
+| 安装、连接与技能依赖 | 公开仓库预览/安装、完整包、按需读取、统一账号候选和状态已有候选；安装不授权；技术依赖使用服务 URL/工具名 | 真实外部服务仍为空；业务操作/资源授权及 OAuth 未实现 |
+| 方法步骤接入 | 作者选 Skill 同时声明依赖工具，运行者选择自己的账号；冻结范围与真实依赖匹配；补 HTTP contract_version 校验遗漏 | 本地构建及部署验收 |
+| 包内脚本 | 供给器 Job、API/runner 账本、结果下载；停止必须确认旧 Job/Pod 终止；以 Job UID 读结果；公开回执区分 source_asset_id/connection_id | 真实集群探针及部署开关；脚本内调用连接器未实现 |
+| 前端走查 | KnowBench 安装/依赖/产物已走查并修正窄屏导航；KnowLab 使用录制 HTTP 响应走查桌面和窄屏，依赖联动通过 | 这些是预览/测试服务证据，不是线上真实用户或付费模型验收 |
+| 发布 | 已提交四个应用子仓候选；尚未开始新 Jenkins 构建 | 子仓及父仓推送、独立本地发布工位摘取、来源钉与原生构建发布 |
+
+本轮定向验证：KnowBench 19 项纯函数、15 项真实 PostgreSQL 回归、15 项前端组件/契约；KnowLab 59 项后端、5 项前端组件/实际接口契约；供给器脚本执行 11 项通过。Python 类型检查、两端 TypeScript、改动 lint 与 i18n 通过。继承先前更广回归记录，不以定向数量替代全量声明。新增依赖上限校验在入库前拒绝超过 30 项；原冻结快照省略空字段保持摘要。
+
+证据：/tmp/connector-method-final-db.log、/tmp/connector-final-unit.log、/tmp/connector-provider-final.log、/tmp/connector-knowlab-backend.log、/tmp/connector-method-ui-tests.log；界面 /tmp/connector-ui-walkthrough/ 与 /tmp/connector-author-evidence/。KnowLab 预览采用真实 HTTP 输出、内存仓库及按提供方模型校验的合成目录，未重放写入；持久保存和编译另有后端回归。候选不是已发布版本，线上仍以 Jenkins #92 回执为准。
+
 # 2026-11-13 替换首次候选
 
 Jenkins #91在构建阶段主动停止，ABORTED，未部署。真实Codex补验发现无预置MCP时

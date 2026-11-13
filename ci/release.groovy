@@ -93,6 +93,7 @@ echo "total=\$n"
             }
             stage('3 构建') {
                 if (releaseSandbox) { logged('3-build-sandbox', 'make -C infrastructure platform-build OBJECT=sandbox-platform/sandbox') }
+                if (releaseSandbox) { logged('3-build-provisioner', 'make -C infrastructure platform-build OBJECT=sandbox-platform/provisioner') }
                 for (app in apps) { logged("3-build-${app}", "make -C infrastructure platform-build OBJECT=app-platform/${app}-app") }
                 sh """
 for f in \$(git diff --name-only -- gitops | grep image.lock.yaml || true); do echo "\$f: \$(grep -E '^(source_revision|digest)' "\$f" | tr '\\n' ' ')"; done > '${out}/3-image-locks.txt'

@@ -19,10 +19,13 @@ import secrets
 from base64 import b64encode
 from pathlib import Path
 from typing import Any
+from uuid import UUID
 
 import httpx
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel, Field
+from script_contract import ScriptExecution, ScriptStatus, ScriptStopped
+from script_jobs import ScriptJobs
 
 log = logging.getLogger("provisioner")
 
@@ -97,6 +100,7 @@ class KubeClient:
             "services": "/api/v1",
             "pods": "/api/v1",
             "deployments": "/apis/apps/v1",
+            "jobs": "/apis/batch/v1",
             "networkpolicies": "/apis/networking.k8s.io/v1",
         }[kind]
         base = f"{group}/namespaces/{NAMESPACE}/{kind}"
@@ -129,8 +133,11 @@ class KubeClient:
         r.raise_for_status()
         return r.json()
 
-    async def delete(self, kind: str, name: str) -> bool:
-        r = await self.client.request("DELETE", self.path(kind, name), json={"propagationPolicy": "Foreground"})
+    async def delete(self, kind: str, name: str, *, uid: str | None = None) -> bool:
+        options: dict[str, Any] = {"propagationPolicy": "Foreground"}
+        if uid is not None:
+            options["preconditions"] = {"uid": uid}
+        r = await self.client.request("DELETE", self.path(kind, name), json=options)
         if r.status_code == 404:
             return False
         r.raise_for_status()
@@ -338,6 +345,22 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
     @app.get("/healthz")
     async def healthz() -> dict[str, Any]:
         return {"ok": True, "namespace": NAMESPACE, "app_namespace": APP_NAMESPACE, "relay_namespace": RELAY_NAMESPACE, "image_configured": bool(SANDBOX_IMAGE)}
+
+    def scripts(prov: Provisioner = Depends(get_provisioner)) -> ScriptJobs:
+        return ScriptJobs(prov.kube, namespace=NAMESPACE, image=SANDBOX_IMAGE, pull_secret=IMAGE_PULL_SECRET)
+
+    @app.put("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStatus)
+    async def start_script(owner: UUID, run: UUID, spec: ScriptExecution, jobs: ScriptJobs = Depends(scripts)):
+        return await jobs.start(owner, run, spec)
+
+    @app.get("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStatus)
+    async def script_status(owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)):
+        return await jobs.status(owner, run)
+
+    @app.delete("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStopped)
+    async def cancel_script(owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)):
+        await jobs.cancel(owner, run)
+        return {"stopped": True}
 
     @app.put("/sandboxes/{user}", dependencies=[Depends(require_token)])
     async def put_sandbox(user: str, spec: SandboxSpec, prov: Provisioner = Depends(get_provisioner)) -> dict[str, Any]:
