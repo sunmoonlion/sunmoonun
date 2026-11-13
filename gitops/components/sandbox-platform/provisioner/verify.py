@@ -27,8 +27,16 @@ def main():
     require(result.returncode == 0, result.stderr.strip() or 'provisioner healthz exec failed')
     body = json.loads(result.stdout)
     require(body.get('ok') is True and body.get('image_configured') is True, 'Provisioner healthz payload is incomplete')
+    script_check = subprocess.run(
+        [args.kubectl, '--kubeconfig', args.kubeconfig, '--context', args.context,
+         '-n', args.namespace, 'exec', 'deployment/sandbox-provisioner', '--', 'python', '/opt/provisioner/script_probe.py'],
+        check=False, capture_output=True, text=True, timeout=150)
+    require(script_check.returncode == 0, 'Isolated package execution probe failed: ' + script_check.stderr[-2000:])
+    execution = json.loads(script_check.stdout)
+    require(execution.get('passed') is True, 'Script execution acceptance did not pass')
     print(json.dumps({'passed': True, 'namespace': args.namespace, 'healthz': True,
-        'scope': 'In-cluster /healthz; per-user sandbox create/update/delete and restricted PSS of dynamic pods require a rebuilt image'}))
+        'execution': execution,
+        'scope': 'Health, synthetic package execution, denied cluster network and returned artifact; no user workspace or paid model'}))
 
 
 if __name__ == '__main__':
