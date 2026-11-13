@@ -567,7 +567,7 @@ A 可使用模拟推理端检查真实请求载荷，无需付费模型调用或
 
 ## 15. 2026-11-13 三个入口的首期代码与设计差异
 
-本节记录首期实现边界；不改变第 11.2 节的完整验收目标。详细 API、配置、回滚与测试说明在 [knowbench 受管能力说明](../../../../../../knowbench-app/knowbench-backend/docs/managed-capabilities.md)，代码真源是 knowbench-backend 与 knowbench-web-frontend。本节不是线上发布记录。首期代码提交：knowbench-backend `58ea7ce`、knowbench-web-frontend `e9a7ab9`；对应验证与未完成范围见两仓 `CHECKPOINT.md`。
+本节记录首期实现边界；不改变第 11.2 节的完整验收目标。详细 API、配置、回滚与测试说明在 [knowbench 受管能力说明](../../../../../../knowbench-app/knowbench-backend/docs/managed-capabilities.md)，代码真源是 knowbench-backend 与 knowbench-web-frontend。首期实现边界如下；后续已通过本地 Jenkins #92 发布，发布依据见[2026-11-13 回执](../../../../../scripts/results/capabilities-release-20261113.json)。首期代码提交：knowbench-backend `58ea7ce`、knowbench-web-frontend `e9a7ab9`；对应验证与未完成范围见两仓 `CHECKPOINT.md`。
 
 已实现「连接与工具」「技能」「本次能力」三个入口，普通聊天／工作接通后端资产、版本选择、runner 准备、受限 MCP 网关和逐次参数审批。连接可多账号保存、验证、启停、更新凭据、刷新工具和本地断开；默认值只在创建新会话时固化。技能首期是版本固定的纯 Markdown 指令，可声明依赖本人的具体连接工具。页面显示后端状态，保存选择不冒充加载成功；范围应用以对应 turn/start 回执确认。
 
@@ -583,3 +583,5 @@ A 可使用模拟推理端检查真实请求载荷，无需付费模型调用或
 专家页已复用只读面板，展示当前冻结步骤声明的平台工具；聊天选择不会被冒充为专家权限。**冻结方法的新增受管连接／Skill 需求字段、任务绑定和步骤调用尚未实现**，所以不能把这次代码称为第 11.2.7 节“聊天、工作、方法同一连接跨场景执行”全部通过。后续仍按既定方法契约扩展与实施阶段交付，不临时修改已发布财务专家的授权语义。
 
 同样未实现 OAuth、原生 SaaS 连接器目录、任意 stdio 安装、技能脚本包、市场候选与 A2A。页面只提供已有实现；返回设置来源只是受限站内导航，回到会话重新取后端状态，不将跳转成功作为授权。涉及上述能力的完整流程仍以第 11.2 节为完成条件。
+
+发布前补验发现：无预置 MCP 配置时仅设置 `enabled=false` 会被 Codex 0.155.1 拒绝（invalid transport）。#91 因此在部署前中止；#92 已包含完整禁用传输定义的修复。修复探针从空 MCP 配置启动，验证首次建线程、A/B 轮换和再次禁用。线上已核 0040、三张新表的逐项 CRUD 权限、候选镜像与网关拒绝未授权请求；外部目录按所有者要求为空，没有发起真实账号的付费模型验收。

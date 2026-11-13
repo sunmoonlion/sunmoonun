@@ -1,0 +1,91 @@
+{
+  "status": "published and verified; Jenkins SUCCESS",
+  "authorization": "Owner requested local release using the existing process and confirmed an empty external MCP catalog.",
+  "host": "wsl-dev",
+  "branch": "capabilities-release-20261113",
+  "workspace": "/home/zymun/worktrees/capabilities-release-20261113",
+  "baseline_platform": "a81adda3f8e66c2ea083f279a928c9c5e70d2e6d",
+  "jenkins_build": 92,
+  "jenkins_url": "https://jenkins.dev.sunmoonai.com:30443/job/release/92/",
+  "candidate_revision": "3b50aa703678501fab13821b8d914208f6eda7c6",
+  "candidate_digest": "sha256:2f27e3f93dc10d22228a1973c25ffaf60873abd7fa3f05e366e4ebb86eee667c",
+  "pointer_commit": "563c33e9ab6f746262aea093da81e268809d23f6",
+  "receipt_commit": "0b99fcac9a396e4f350d3a4c5bb8b94214537e15",
+  "approval": {
+    "account": "admin",
+    "time": "2026-11-13T13:47:28+08:00",
+    "source": "Jenkins 8-approval.txt; observer did not submit the approval"
+  },
+  "source": {
+    "backend": "a128987fed884906df5134fc9f45e9513cec0d04",
+    "web": "af17aff5e9bcc252ef50d213cb6b5b05ca3e4031",
+    "qwen_changes": [
+      "58ea7ce",
+      "e9a7ab9",
+      "21fe905"
+    ],
+    "selection": "Only capability commits cherry-picked onto release 90 runtime bases; other unreleased expert/data-list changes excluded."
+  },
+  "images": {
+    "backend": "sha256:b4bf22d5ac66e624655009876e1b7728078e9e7e570a1a2999cfda333e8448b1",
+    "web": "sha256:bde4ecf4e7cd4d047b0dc20cf3f8e86844ea86b0aafe9a2720c9885e357706ff"
+  },
+  "configuration": {
+    "schema": "20261113_0040",
+    "migration_job": "knowbench-migrate-b4bf22d5ac66-v10",
+    "external_mcp_catalog": [],
+    "gateway": "https://knowbench.dev.sunmoonai.com:30443/api/mcp/capabilities"
+  },
+  "validation": {
+    "candidate_backend_unit_structure": 29,
+    "candidate_database_runner_regressions": 79,
+    "post_fix_database_runner_regressions": 61,
+    "frontend_component_contract": 7,
+    "static_checks": "Ruff, Pyright and frontend typecheck passed",
+    "codex_probe": "Actual 0.155.1, networkless synthetic services: empty MCP configuration start, explicit Skill instruction body, A/B tool and header rotation, disable removes tools. No local execution.",
+    "jenkins_all_stages": "SUCCESS",
+    "migration": "0039 to 0040; separate identities, runtime CRUD allowed, runtime DDL and migration metadata writes denied",
+    "new_tables": "All three exist; SELECT/INSERT/UPDATE/DELETE each individually checked for runtime role",
+    "runtime": "API/runner/worker/scheduler and web Ready=1 with candidate digests; admin and platform-computer image unchanged",
+    "gateway": "HTTPS certificate validation from platform computer passed; no header 401, invalid bearer 403; catalog unauthenticated 401",
+    "external_catalog_empty": true,
+    "credential_encryption_configured": true,
+    "model_spend": 0,
+    "real_account_skill_model_turn": "not run"
+  },
+  "aborted_candidate": {
+    "jenkins_build": 91,
+    "result": "ABORTED before deployment",
+    "reason": "Extra probe found Codex requires transport even when managed MCP disabled; initial probe incorrectly preconfigured this server. Fixed and repeated with empty MCP home before release 92."
+  },
+  "preflight": {
+    "unfinished_tasks": 0,
+    "unfinished_attempts": 0,
+    "unfinished_test_runs": 0,
+    "pending_commands": 0,
+    "recent_unfinished_chat_turn_events": 0
+  },
+  "probe_corrections": [
+    "Prebuild plan needs PLAN_EXTRA=plan_before_build=true, and isolated workspace needed existing infrastructure tools path.",
+    "Unauthenticated MCP endpoint deliberately returns 401; initial live probe expected 403, corrected per route contract and separately verified invalid bearer returns 403."
+  ],
+  "unchanged": [
+    "Other applications",
+    "Link 0.5.8 packages and platform computer image",
+    "24-hour web/admin sessions",
+    "Existing frozen expert contract"
+  ],
+  "limitations": [
+    "Managed MCP/Skill binding to expert method steps remains unimplemented.",
+    "No external MCP provider configured or exercised.",
+    "Instruction-only Markdown Skills; no OAuth or native script/attachment packages.",
+    "Deployment and protocol checks do not substitute for a real-user paid model/Skill task."
+  ],
+  "rollback": {
+    "previous_digest": "sha256:7ff7dbe5ef3a7907fc3101042dc046afdf5b62785d4dee7807fadcf82e96088d",
+    "data": "Retain additive capability tables and receipts; no destructive downgrade performed."
+  },
+  "evidence_dir": "/home/zymun/sunmoon-probe-runs/capabilities-release-20261113",
+  "cleanup": "Dedicated PostgreSQL test containers and temporary volumes removed; existing services untouched.",
+  "synchronization": "Release receipt pulled into local release worktree; local qwen knowbench synchronized with final development fix."
+}

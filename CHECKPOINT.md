@@ -1,3 +1,13 @@
+# 2026-11-13 本地发布：能力入口与纯指令Skill
+
+Jenkins #92 SUCCESS，独立发布分支 capabilities-release-20261113，回执提交
+0b99fcac9a396e4f350d3a4c5bb8b94214537e15；现网基线见 scripts/results/capabilities-release-20261113.json。
+仅摘本次能力提交到#90基线，未将qwen其他专家/数据清单改动发布。#91空配置探针发现问题后
+主动停止未部署；#92带修复。schema0040、3新表逐项CRUD、API/runner/web镜像、匿名/无效token拒绝
+均已核。外部目录按用户确认为空；原专家新增受管能力绑定仍未实施，无付费模型验收。
+本地发布工位已pull正式回执，本地qwen已pull最终代码修复。qwen部署声明不是本次现网基线；
+后续发布从上述已发布分支/回执增量准备，不能直接用旧sources覆盖现网。无临时测试容器遗留。
+
 # 2026-11-04 所有者指定财务专家第5版
 
 最新候选5.12：draft 351a2cb8-0273-4edf-8b88-c46b8cd5e7bb，manifest摘要
