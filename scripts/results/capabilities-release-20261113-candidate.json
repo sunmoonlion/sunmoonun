@@ -1,5 +1,5 @@
 {
-  "status": "candidate building; not deployed",
+  "status": "published and verified; Jenkins SUCCESS",
   "jenkins_build": 93,
   "jenkins_url": "https://jenkins.dev.sunmoonai.com:30443/job/release/93/",
   "branch": "capabilities-release-20261113",
@@ -75,5 +75,47 @@
     ]
   },
   "authorization_update": "2026-11-13 owner explicitly confirmed releasing current verified scope first, then implementing the remaining connector features. No stop request was submitted.",
-  "follow_up": "docs/总纲/专家方案设计/专家使用方案/luna/mcp和skill接入实施方案.md section 17.6, C1-C6"
+  "follow_up": "docs/总纲/专家方案设计/专家使用方案/luna/mcp和skill接入实施方案.md section 17.6, C1-C6",
+  "deploy_commit": "f7dde164138f4568631a6feaf822339c568906e9",
+  "pointer_commit": "af64946576a8bed4daeac31a82985e121b5a97c3",
+  "receipt_commit": "f622b6e67",
+  "tag": "release-20261113-2",
+  "deployment_digest": "sha256:90945a3aa0360dc2f0fc45c14953f1233345639971e90d998dfc77d870dc8fb0",
+  "approval": {
+    "account": "admin",
+    "time": "2026-11-13T18:08:00+08:00",
+    "source": "Jenkins 8-approval.txt; assistant did not submit approval"
+  },
+  "synchronization": "Release branch and tag pushed to GitHub and Gitee; local isolated release worktree pulled through official sync entry.",
+  "online_validation": {
+    "knowbench_application_and_browser": "passed",
+    "knowlab_application_and_browser": "passed",
+    "desired_and_ready_replicas": {
+      "knowbench-api": "1/1",
+      "knowbench-runner": "1/1",
+      "knowbench-web": "1/1",
+      "knowlab-api": "1/1",
+      "knowlab-web": "1/1",
+      "sandbox-provisioner": "1/1"
+    },
+    "candidate_image_digests_match": true,
+    "synthetic_cluster_script_probe": {
+      "passed": true,
+      "python_shell_node": true,
+      "credential_free": true,
+      "cluster_network_denied": true,
+      "artifact_return": true,
+      "cleanup": "DELETE confirmed original Job termination"
+    },
+    "user_script_execution_flag": false,
+    "real_external_provider_and_paid_model": "not exercised"
+  },
+  "remaining_work": {
+    "C1": "Cluster probe passed; user-facing script enablement and its live action-card verification remain pending",
+    "C2": "Business connector and resource permission contract",
+    "C3": "OAuth and credential lifecycle",
+    "C4": "Connection + operation + resource authorization and approval",
+    "C5": "Controlled connector calls inside scripts and child action receipts",
+    "C6": "One real connector across chat/work/method, expiry/revocation/recovery acceptance"
+  }
 }
