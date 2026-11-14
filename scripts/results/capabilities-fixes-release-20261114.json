@@ -1,0 +1,356 @@
+{
+  "status": "isolated candidate validation passed; Jenkins #94 running; not promoted",
+  "authorization": "Owner delegated release timing, then asked whether to publish and instructed to continue; release proceeding now.",
+  "workspace": "/home/zymun/worktrees/capabilities-release-20261113",
+  "branch": "capabilities-release-20261113",
+  "baseline": {
+    "jenkins_build": 93,
+    "tag": "release-20261113-2",
+    "platform": "f622b6e675a6f162c7b7f1979221a0e4417b8001"
+  },
+  "targets": [
+    "knowbench",
+    "knowlab"
+  ],
+  "candidate_versions": {
+    "knowbench-app": "e7c71c6f9630f85851516bba625495d373805f11",
+    "knowbench-app/knowbench-backend": "5f1c7d71baf01d240eb41376d46d3064882178eb",
+    "knowbench-app/knowbench-web-frontend": "4ffb93f6d79a9bdf308921b129642a3a52101499",
+    "knowlab-app": "68fc9eb9f719f7906cac7b00e4cf6f5d1435ea9f",
+    "knowlab-app/knowlab-backend": "b6fde6004d28053db949d21d71540e6eb1871fc6",
+    "knowlab-app/knowlab-web-frontend": "c5bd91046ef4816c0244d823cce264973fc283f8",
+    "sunmoonun": "828ef89ce8540a773fd93356eefdc0b0ae3490db"
+  },
+  "scope": [
+    "unknown external call outcomes and no replay",
+    "stale connections degrade chat but block required method capability",
+    "persisted turn/sandbox authorization revocation",
+    "method capability authoring gate",
+    "generated schemas and consumer locks",
+    "existing test snapshot corrections"
+  ],
+  "excluded": [
+    "unreviewed registry foundation 7d8e759",
+    "C2-C6 implementation",
+    "user script enablement"
+  ],
+  "first_candidate_regression": {
+    "passed": 2132,
+    "failed": 4,
+    "skipped": 11,
+    "seconds": 795.03,
+    "causes": [
+      "test provider pointed at newer KnowBase development contract instead of published version",
+      "two stale pre-November-4 test expectations already corrected by 44f2f28 and 5fd34c6"
+    ],
+    "resolved_focused_tests": 4
+  },
+  "final_regression": {
+    "knowbench_backend": {
+      "passed": 2141,
+      "skipped": 6,
+      "failed": 0
+    },
+    "knowlab_backend": {
+      "passed": 953,
+      "skipped": 3,
+      "failed": 0
+    },
+    "knowbench_web": {
+      "passed": 458,
+      "skipped": 2,
+      "failed": 0,
+      "skipped_consumer_vectors_rerun_passed": 2
+    },
+    "knowlab_web": {
+      "passed": 240,
+      "skipped": 2,
+      "failed": 0,
+      "skipped_consumer_vectors_rerun_passed": 2
+    },
+    "static_checks": "Both backend Ruff/Pyright and both web ESLint/TypeScript/i18n passed",
+    "backend_skip_reasons": [
+      "No disposable RabbitMQ configured (3 per backend)",
+      "Removed built-in expert empty parameter sets (3 KnowBench)"
+    ]
+  },
+  "preflight": {
+    "unfinished_tasks": 0,
+    "unfinished_attempts": 0,
+    "pending_commands": 0,
+    "unfinished_test_runs": 0
+  },
+  "user_scripts_enabled": false,
+  "deployment": "Jenkins #94 running; native admin promotion pending after candidate build; no assistant-submitted approval",
+  "evidence_directory_local": "/tmp/capability-fixes-20261114",
+  "validation_runs": {
+    "running": null,
+    "completed": {
+      "knowbench-blockers": {
+        "exit_code": 0,
+        "seconds": 4.8,
+        "command": [
+          ".venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/test_knowbase_data_request_lock.py",
+          "tests/test_run_data_contract_db.py",
+          "tests/test_workbench_expert_routes.py::test_asking_an_expert_from_the_expert_entry",
+          "-ra"
+        ]
+      },
+      "knowbench-full": {
+        "exit_code": 0,
+        "seconds": 830.58,
+        "command": [
+          ".venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests",
+          "-ra"
+        ]
+      },
+      "knowbench-ruff": {
+        "exit_code": 0,
+        "seconds": 0.08,
+        "command": [
+          ".venv/bin/ruff",
+          "check",
+          "app",
+          "tests"
+        ]
+      },
+      "knowbench-pyright": {
+        "exit_code": 0,
+        "seconds": 15.37,
+        "command": [
+          ".venv/bin/pyright"
+        ]
+      },
+      "knowlab-full": {
+        "exit_code": 0,
+        "seconds": 124.2,
+        "command": [
+          ".venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests",
+          "-ra"
+        ]
+      },
+      "knowlab-ruff": {
+        "exit_code": 0,
+        "seconds": 0.02,
+        "command": [
+          ".venv/bin/ruff",
+          "check",
+          "app",
+          "tests"
+        ]
+      },
+      "knowlab-pyright": {
+        "exit_code": 0,
+        "seconds": 10.17,
+        "command": [
+          ".venv/bin/pyright"
+        ]
+      },
+      "knowbench-web-tests": {
+        "exit_code": 0,
+        "seconds": 9.82,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run"
+        ]
+      },
+      "knowbench-web-lint": {
+        "exit_code": 0,
+        "seconds": 9.33,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/eslint/bin/eslint.js",
+          "."
+        ]
+      },
+      "knowbench-web-types": {
+        "exit_code": 0,
+        "seconds": 3.88,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/typescript/bin/tsc",
+          "--noEmit"
+        ]
+      },
+      "knowbench-web-i18n": {
+        "exit_code": 0,
+        "seconds": 0.04,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "scripts/check-i18n.mjs"
+        ]
+      },
+      "knowlab-web-tests": {
+        "exit_code": 0,
+        "seconds": 6.7,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run"
+        ]
+      },
+      "knowlab-web-lint": {
+        "exit_code": 0,
+        "seconds": 7.01,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/eslint/bin/eslint.js",
+          "."
+        ]
+      },
+      "knowlab-web-types": {
+        "exit_code": 0,
+        "seconds": 3.17,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/typescript/bin/tsc",
+          "--noEmit"
+        ]
+      },
+      "knowlab-web-i18n": {
+        "exit_code": 0,
+        "seconds": 0.03,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "scripts/check-i18n.mjs"
+        ]
+      },
+      "knowbench-web-consumer-vectors": {
+        "exit_code": 0,
+        "seconds": 0.86,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/unit/interaction-consumer-vectors.test.ts"
+        ]
+      },
+      "knowlab-web-consumer-vectors": {
+        "exit_code": 0,
+        "seconds": 0.79,
+        "command": [
+          "/home/zymun/.nvm/versions/node/v24.18.0/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/unit/interaction-consumer-vectors.test.ts"
+        ]
+      }
+    }
+  },
+  "environment_corrections": [
+    "Pin neighboring provider contracts to published versions instead of development heads",
+    "Install KnowLab frozen Python dependencies in own environment; domestic cp313 wheel returned 403, frozen offline Python 3.12 install succeeded without lock changes",
+    "Add matchMedia desktop default only in Vitest setup; preserve browser implementation",
+    "Provide template consumer vectors path for both frontend skipped test reruns"
+  ],
+  "jenkins_build": 94,
+  "jenkins_url": "https://jenkins.dev.sunmoonai.com:30443/job/release/94/",
+  "log_manifest": {
+    "knowlab-test-environment.log": {
+      "bytes": 848,
+      "sha256": "f2c027ea6f50d34abc2826fe17b75ec87eb12efa21389c10343a55ddd79ff650"
+    },
+    "knowlab-test-environment-offline.log": {
+      "bytes": 1553,
+      "sha256": "a9651f1c89f166867c72ca9c3ca20f6c89614237f168617d83bf935916f4e703"
+    },
+    "knowbench-full.log": {
+      "bytes": 16636,
+      "sha256": "71720320e7d84f14cd3c092496190c43e00d203fed261cecf592b6cf9502984c"
+    },
+    "final/knowlab-web-tests.log": {
+      "bytes": 4159,
+      "sha256": "9cac108f603204227a387c8d83f512856fa60c8968cee44bc0e4f871fdc8bb4a"
+    },
+    "final/knowlab-web-i18n.log": {
+      "bytes": 81,
+      "sha256": "4e48c2577bfd24c2e96d8e80bc75e96385b2f667be5807658821b321ef69015b"
+    },
+    "final/knowbench-blockers.log": {
+      "bytes": 98,
+      "sha256": "c2d70b947f974885260618989b058e7f705c6d27f17db7f731d304acb16371c3"
+    },
+    "final/knowlab-pyright.log": {
+      "bytes": 191,
+      "sha256": "46a6c7834c9080ada23a415afd925abecc37d531f5c6e3d14ad0a7ff579096cb"
+    },
+    "final/knowbench-web-types.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final/knowbench-ruff.log": {
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "final/knowbench-web-consumer-vectors.log": {
+      "bytes": 357,
+      "sha256": "44b4eb7ff6dde0abcd4ea67ff1e5aff5eb6710cd978afdcaedae69558eee4262"
+    },
+    "final/knowbench-web-tests.log": {
+      "bytes": 6144,
+      "sha256": "2647bbd526322e56b257b3741da6eb055eb82fb39e62a9abfdee5b37e0df05ad"
+    },
+    "final/knowlab-web-types.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final/knowbench-web-lint.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final/knowlab-web-consumer-vectors.log": {
+      "bytes": 353,
+      "sha256": "49f2b011e1bd491ed8836d95287d246256f8afa8f7ae0372a23e6aea190197b5"
+    },
+    "final/knowlab-web-lint.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final/knowlab-ruff.log": {
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "final/knowbench-web-i18n.log": {
+      "bytes": 81,
+      "sha256": "0858c4f611d46c4e2c4f7d4247a4fa24bfb4c57f5d93da032eae861cd125d4c6"
+    },
+    "final/knowlab-full.log": {
+      "bytes": 1556,
+      "sha256": "d29d38f7b3af329ab64272f6883df3d6b1041d421d1c5b6856149f4077c81017"
+    },
+    "final/knowlab-collection-missing-dependency.log": {
+      "bytes": 8875,
+      "sha256": "47f968ce26945002f01f359eb7fe789c089a340f23415b91b3482d22c6dc86e4"
+    },
+    "final/knowbench-full.log": {
+      "bytes": 3102,
+      "sha256": "d39991e7c2e8b5e96241c899ab0e03dc7e907eca38d766d1b35c2ff5741a491e"
+    },
+    "final/knowbench-web-tests-before-matchmedia.log": {
+      "bytes": 11286,
+      "sha256": "c66a52a7c5b2e127bc3490e13a95d844120229df2c4f370b36276cf0b0b059fb"
+    },
+    "final/knowbench-pyright.log": {
+      "bytes": 191,
+      "sha256": "46a6c7834c9080ada23a415afd925abecc37d531f5c6e3d14ad0a7ff579096cb"
+    }
+  },
+  "cleanup": {
+    "own_test_databases_removed": 4,
+    "test_container_removed": false,
+    "shared_development_environments_modified": false
+  }
+}
