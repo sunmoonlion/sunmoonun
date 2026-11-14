@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-14",
+  "environment": "remote qwen; isolated per-test PostgreSQL schemas; no live service calls",
+  "knowlab_parent": "59d58cc9d9ea2916f576cf3f8f42b71e42d1fc1a",
+  "knowlab_backend": "e4c7633d75ef9efe7d011cba8fa5f1600bc74165",
+  "knowbench_parent_contract_fix": "001f1b2e9ec638e649f7baf9ee491e15f8da130b",
+  "knowbench_release_backend": "d5241e423684490095f769c84d01710c65aee872",
+  "knowbench_consumer_test_backend": "7d8e759 (development registry increment; only consumer lock tests run; excluded from release)",
+  "knowlab_full": {
+    "command": "timeout 1200 python /tmp/run-capability-regression.py tests -ra",
+    "passed": 957,
+    "skipped": 5,
+    "failed": 0,
+    "seconds": 198.51,
+    "skip_reasons": {
+      "broker_not_configured": 3,
+      "web_vectors_not_configured": 2
+    }
+  },
+  "knowlab_vectors_supplement": {
+    "passed": 2,
+    "failed": 0,
+    "source": "tpl-app/contracts/web-interaction-v1.consumer-vectors.json"
+  },
+  "knowbench_consumer": {
+    "passed": 5,
+    "failed": 0
+  },
+  "ruff": "passed",
+  "pyright": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "change_scope": "provider-generated schema + manifest; consumer digest only; no runtime model, database or authoring gate change",
+  "review": "Fable reviewed behavior; Luna resolved generated-file blocker and verified full suite; original reviewer receipts preserved",
+  "release": "not deployed; defer Jenkins until isolated candidate verification; first fixes and authoring gate form one separate release, exclude C2 registry increment",
+  "logs": {
+    "knowlab-full": {
+      "path": "scripts/results/capability-review-closure-20261114-knowlab-full.txt",
+      "sha256": "1f9dec0088f0982774b51d19740c179f42455ad0266b85f1fa3afe78d48797dc"
+    },
+    "knowlab-ruff": {
+      "path": "scripts/results/capability-review-closure-20261114-knowlab-ruff.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "knowlab-pyright": {
+      "path": "scripts/results/capability-review-closure-20261114-knowlab-pyright.txt",
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332"
+    },
+    "knowbench-consumer": {
+      "path": "scripts/results/capability-review-closure-20261114-knowbench-consumer.txt",
+      "sha256": "9283bc0cfe6dd43784c86307a819582ade7ad829a40fb5d227f22d0e119a09d1"
+    },
+    "knowlab-vectors": {
+      "path": "scripts/results/capability-review-closure-20261114-knowlab-vectors.txt",
+      "sha256": "0a97b591ab7ce9644866a9aea8e19c37ff6647585418c546d0481e0cb92bfbc7"
+    }
+  }
+}
