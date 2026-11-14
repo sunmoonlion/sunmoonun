@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/unit/interaction-consumer-vectors.test.ts (2 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  23:59:07
+   Duration  559ms (transform 36ms, setup 89ms, collect 49ms, tests 8ms, environment 201ms, prepare 68ms)
+

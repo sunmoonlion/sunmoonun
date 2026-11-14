@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-15",
+  "task": "Continue complete C2 on local luna",
+  "status": "incomplete",
+  "deployed": false,
+  "legacy_managed_author_entry_open": false,
+  "script_execution_open": false,
+  "environment": {
+    "execution_host": "wsl-dev",
+    "workspace": "/home/zymun/worktrees/luna",
+    "local_memory_gib": 94,
+    "local_available_gib_at_start": 68,
+    "remote_memory_gib_previous": 3.7,
+    "parallel_heavy_jobs_remote": false,
+    "test_database": {
+      "container": "luna-c2-tests-pg",
+      "endpoint": "127.0.0.1:55440/luna_c2_tests",
+      "isolated_schemas": true,
+      "storage": "tmpfs",
+      "memory_limit": "1GiB",
+      "cleanup": "Stopped and removed the task-owned container and its temporary volumes after all DB tests; pre-existing services untouched"
+    }
+  },
+  "commits": {
+    "knowlab-app/knowlab-backend": "bfa7841fb60de66b2060ae425cc92e4a0c567a11",
+    "knowlab-app/knowlab-web-frontend": "9f577ca8e4c0f70a7e51d27271579bc49e687c11",
+    "knowlab-app": "0bb57feb57493d43cda2eea3b3e45bc4c634fba5",
+    "knowbench-app/knowbench-backend": "a74d6365f4a192d31eb94232837e47464dfb04c4",
+    "knowbench-app": "8e12c7290ee9082a73823aa2a82fe5a7a89457e3"
+  },
+  "verification": {
+    "knowlab_backend_full": {
+      "passed": 989,
+      "failed": 0,
+      "skipped": 5,
+      "seconds": 123.21,
+      "log": "c2-local-20261115/knowlab-backend-full.txt",
+      "skip_resolution": "2 consumer-vector tests separately passed; 3 broker tests remain skipped (CELERY_PROBE_TEST_BROKER_URL absent)",
+      "warnings": 5
+    },
+    "knowlab_backend_vectors": {
+      "passed": 2,
+      "failed": 0,
+      "log": "c2-local-20261115/knowlab-backend-vectors.txt"
+    },
+    "knowlab_web_full": {
+      "passed": 251,
+      "failed": 0,
+      "skipped": 2,
+      "log": "c2-local-20261115/knowlab-web-full.txt",
+      "skip_resolution": "2 consumer-vector tests separately passed",
+      "commit": "3a219df6e28f257cca255f78a42f490664b30359"
+    },
+    "knowlab_web_vectors": {
+      "passed": 2,
+      "failed": 0,
+      "log": "c2-local-20261115/knowlab-web-vectors.txt"
+    },
+    "knowlab_web_checks": {
+      "typescript": "passed",
+      "eslint": "passed",
+      "i18n": "passed",
+      "build": "passed",
+      "build_log": "c2-local-20261115/knowlab-web-build.txt",
+      "browser_end_to_end": false
+    },
+    "knowbench_first_full": {
+      "passed": 2329,
+      "failed": 1,
+      "skipped": 6,
+      "seconds": 742.88,
+      "log": "c2-local-20261115/knowbench-first-full.txt",
+      "failure": "Old collected formal validation test expected request_id uniqueness; corrected semantics permit independent run_id for revisions of the same author request. Final rerun required."
+    },
+    "knowbench_final_full": {
+      "passed": 2368,
+      "failed": 0,
+      "skipped": 6,
+      "warnings": 2,
+      "seconds": 756.11,
+      "log": "c2-local-20261115/knowbench-full.txt",
+      "skips": "3 missing CELERY_PROBE_TEST_BROKER_URL; 3 empty builtin pack parameter sets",
+      "source_frozen_files": 557,
+      "source_hashes_unchanged": true,
+      "commit": "780c6d666f011c5c77365898bc1b56fdc632fbad",
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q -ra --durations=15 --junitxml=/tmp/luna-c2-kb-full-final.xml",
+      "cwd": "knowbench-app/knowbench-backend/app",
+      "scope": "Frozen baseline before the subsequent source-license catalog increment; later delta has its own targeted verification."
+    },
+    "knowbench_formal_http": {
+      "passed": 24,
+      "failed": 0,
+      "log": "c2-local-20261115/knowbench-formal-http.txt"
+    },
+    "knowbench_formal_db": {
+      "passed": 16,
+      "failed": 0,
+      "log": "c2-local-20261115/knowbench-formal-db.txt"
+    },
+    "knowbench_cancel_usage": {
+      "passed": 32,
+      "failed": 0,
+      "log": "c2-local-20261115/knowbench-cancel-usage.txt"
+    },
+    "knowbench_directed_first": {
+      "passed": 90,
+      "failed": 1,
+      "log": "c2-local-20261115/knowbench-directed-first.txt",
+      "failure": "Answer-wait timing test failed once; isolated rerun passed without code change; final full retains the test."
+    },
+    "knowbench_answer_wait_rerun": {
+      "passed": 1,
+      "failed": 0,
+      "log": "c2-local-20261115/knowbench-answer-wait-rerun.txt"
+    },
+    "backend_static": {
+      "knowbench_ruff": "passed",
+      "knowbench_pyright": "0 errors, 0 warnings",
+      "knowlab_ruff": "passed",
+      "knowlab_pyright": "0 errors, 0 warnings"
+    },
+    "independent_formal_review": false,
+    "internal_cross_review": "identified runtime stop and usage cases fixed; not a formal qwen approval",
+    "real_codex_protocol": false,
+    "real_supplier": false,
+    "paid_model": false,
+    "knowlab_web_license_delta": {
+      "commit": "9f577ca8e4c0f70a7e51d27271579bc49e687c11",
+      "passed": 11,
+      "failed": 0,
+      "typescript": "passed",
+      "eslint": "passed",
+      "i18n": "passed",
+      "log": "c2-local-20261115/knowlab-license-ui-tests.txt",
+      "scope": "Current source rights presentation and translations; no repeated build/full suite for this small delta"
+    },
+    "knowbench_license_delta": {
+      "passed": 96,
+      "failed": 0,
+      "seconds": 13.13,
+      "log": "c2-local-20261115/knowbench-license-focused.txt",
+      "scope": "Source license model/config and operation config, formal HTTP and real database admission/registration; no repeated full suite after this increment",
+      "commit": "a74d6365f4a192d31eb94232837e47464dfb04c4",
+      "ruff": "passed",
+      "pyright": "0 errors, 0 warnings",
+      "format": "passed",
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests .venv/bin/pytest -q tests/test_source_licenses.py tests/test_tool_operations.py tests/test_formal_method_routes.py tests/test_formal_method_admission_db.py",
+      "cwd": "knowbench-app/knowbench-backend/app"
+    },
+    "knowbench_license_independent": {
+      "passed": 68,
+      "failed": 0,
+      "seconds": 6.88,
+      "log": "c2-local-20261115/knowbench-license-review.txt",
+      "scope": "Independent internal review and non-DB regression, not formal external approval"
+    },
+    "knowbench_license_review_interrupted": {
+      "exit_code": 130,
+      "status": "Sandbox run interrupted after partial progress (42 dots, FF, one dot); no traceback or final test summary. Completed sandbox-external rerun separately records 68 passed.",
+      "log": "c2-local-20261115/knowbench-license-review-interrupted.txt"
+    }
+  },
+  "migrations": {
+    "head": "20261115_0044",
+    "applied_to_production": false,
+    "0043": "Persist formal validation intake and immutable method projection; idempotency by run_id, not author request_id",
+    "0044": "Revoke previous implicitly delegable authorizations and pending actions/runtime scopes; preserve originals in common call evidence. Explicit direct grants bind exact recipient_call_id."
+  },
+  "remaining": [
+    "Actual formal validation executor: cases, budget, timeout, execution environment and trusted Task/Attempt governance and outcome evidence; current API honestly persists pending",
+    "Formal method direct dispatch and expert/team orchestration through common runtime; no legacy-format fallback",
+    "Actual reviewed source-license entries and platform implementation source records; operator catalog mechanism implemented with default empty configuration, no real evidence supplied",
+    "Platform/KnowBase resource-owner authority and explicit persistent delegation evidence",
+    "Formal independent review and real protocol acceptance before release; no deployment in this work"
+  ],
+  "scope_notes": [
+    "Synthetic successful receipts in tests exercise freeze and registration guards only; they are not actual incubation outcomes.",
+    "Unconfirmed cost retains the precise attempt reservation; incremental usage is not final and cannot settle pending fees.",
+    "No stopping or changing pre-existing test services; only the task-owned PostgreSQL container is eligible for cleanup.",
+    "Full M2/M3 replanning and reincubation are separate from the C2 common runtime foundation."
+  ],
+  "sync": {
+    "knowlab-app": "both baseline and license presentation delta succeeded on both configured endpoints",
+    "knowbench-app": "baseline and source license delta succeeded on both configured endpoints"
+  },
+  "artifacts_sha256": {
+    "c2-local-20261115/knowbench-answer-wait-rerun.txt": "6ef13314fea0fd30702c66cef85bba2d4cea92b898f6d6486fb1080d93da74e0",
+    "c2-local-20261115/knowbench-cancel-usage.txt": "89ac6c1a738ea33b96ba18ff1cf91a3e55a59e80b6659aa924c2c2253c106d54",
+    "c2-local-20261115/knowbench-directed-first.txt": "3b23b5dc07246a6e8ecd2e9e6e6cdbdddb8dbeb076b91ffc46b1802ce781de79",
+    "c2-local-20261115/knowbench-first-full.txt": "c0e2088bfcc314c37fa47f60cc012884b7d94af7cfa9ef34080e49e43906c8e5",
+    "c2-local-20261115/knowbench-formal-db.txt": "14908f0cf4eb727e169379513aca07f64e262e4dcc2ea0bc6f310c71f34924e7",
+    "c2-local-20261115/knowbench-formal-http.txt": "cab29d1648e1704935ee371c5077f402ed7756c4607919d0dc8858023d6ab0bd",
+    "c2-local-20261115/knowbench-frozen-files.json": "99e711c144ec2d62c354410a28d09927c72910fabbd233e9be754ce82ea49f02",
+    "c2-local-20261115/knowbench-full.txt": "cf6ee77c27b831748d7b35a7fb44fa484ac0a17b501d5ad3981b38cd1e9d0fc4",
+    "c2-local-20261115/knowbench-license-focused.txt": "4242badde49b50d5a356406b709631fe466655e968983f0a3ba6c01b372da0bb",
+    "c2-local-20261115/knowbench-license-format.txt": "0321fffcb91606a42c0a19d8c1121d5c544379d663821fce616c71a7bb62f6b5",
+    "c2-local-20261115/knowbench-license-pyright.txt": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+    "c2-local-20261115/knowbench-license-review-interrupted.txt": "6d97de92e35bf7af10db2e23c526df0d4994070015a8e85675e013b31b25a52c",
+    "c2-local-20261115/knowbench-license-review.txt": "b097f7ee6839de89687ddcb5500c05b568e58a54e1ed8c87c5754fa036f37a31",
+    "c2-local-20261115/knowbench-license-ruff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-local-20261115/knowbench-pyright.txt": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+    "c2-local-20261115/knowbench-ruff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-local-20261115/knowlab-backend-full.txt": "f8cc55a75da2242e7800e18715878d784d1f5ab455d3f842b4182146a75e97a9",
+    "c2-local-20261115/knowlab-backend-pyright.txt": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+    "c2-local-20261115/knowlab-backend-ruff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-local-20261115/knowlab-backend-vectors.txt": "f4c61c0ac8f55c6c9a2d6c593731bf5f8c4a6c5bebbe514284fd4f899818f9e0",
+    "c2-local-20261115/knowlab-license-ui-eslint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c2-local-20261115/knowlab-license-ui-i18n.txt": "abdd4ae4d9a1971edccda97063db6e55fb1379fd682fbe8707f147d4161a7820",
+    "c2-local-20261115/knowlab-license-ui-tests.txt": "ca3e956a3eac89654028067b341bd947c9d23b8daebdbb5da34a0361a696085c",
+    "c2-local-20261115/knowlab-license-ui-types.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c2-local-20261115/knowlab-web-build.txt": "d85202df58968f1fd6a8f7f190b71a33cc49972e98b3798bf4828aa7fa298b25",
+    "c2-local-20261115/knowlab-web-full.txt": "047a3e05c0a594cf517f3ead313596011dc8d7339fc0b810dd77db07103999a8",
+    "c2-local-20261115/knowlab-web-vectors.txt": "fa876e930a0f57d5463d1c3277be2542ea0a0e092f0328b1b3e64f5c10b3c622",
+    "c2-local-20261115/pending-usage-db.txt": "2d7ace42875318d45203cbc5f3508e872c4e68a2543e340fe0aa95265128cd42"
+  }
+}

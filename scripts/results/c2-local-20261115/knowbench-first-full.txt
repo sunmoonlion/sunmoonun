@@ -1,0 +1,83 @@
+........................................................................ [  3%]
+........................................................................ [  6%]
+........................................................................ [  9%]
+........................................................................ [ 12%]
+........................................................................ [ 15%]
+........................................................................ [ 18%]
+........................................................................ [ 21%]
+........................................................................ [ 24%]
+..................................................................s..... [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+................................................................F....... [ 36%]
+........................................................................ [ 40%]
+........................................................................ [ 43%]
+........................................................................ [ 46%]
+........................................................................ [ 49%]
+........................................................................ [ 52%]
+........................................................................ [ 55%]
+........................................................................ [ 58%]
+........................................................................ [ 61%]
+....................................................s................... [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 70%]
+........................................................................ [ 73%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 83%]
+.................................s...s..s............................... [ 86%]
+........................................................................ [ 89%]
+........................................................................ [ 92%]
+........................................................................ [ 95%]
+........................................................................ [ 98%]
+...............................s                                         [100%]
+=================================== FAILURES ===================================
+_______ test_intake_persists_missing_governance_without_fabricating_pass _______
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7c4eacb04750>, autoflush=False, expire_on_commit=False)
+
+>   ???
+E   Failed: DID NOT RAISE <class 'app.domain.workbench.errors.IdempotencyConflict'>
+
+tests/test_formal_method_admission_db.py:146: Failed
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 00:26:40 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 00:26:40 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+=============================== warnings summary ===============================
+app/application/workbench/test_folders.py:40
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/test_folders.py:40: PytestCollectionWarning: cannot collect test class 'TestFolders' because it has a __init__ constructor (from: app/application/workbench/test_folders.py)
+    class TestFolders(Protocol):
+
+app/application/workbench/test_folders.py:40
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/test_folders.py:40: PytestCollectionWarning: cannot collect test class 'TestFolders' because it has a __init__ constructor (from: app/application/workbench/test_runs.py)
+    class TestFolders(Protocol):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 15 durations =============================
+15.22s call     tests/test_preview_fixtures.py::test_the_full_world
+12.13s call     tests/test_workbench_runner_db.py::test_time_spent_waiting_for_an_answer_does_not_count_against_the_step
+8.02s call     tests/test_compute_progress_guard_db.py::test_formal_step_stops_empty_computation_loop_and_requires_confirmed_stop[True]
+7.57s call     tests/test_step_progress_db.py::test_fixed_step_waits_without_automatic_rework[True-True-no_progress]
+7.56s call     tests/test_expert_lookup_guard_db.py::test_failed_lookup_settles_cost_without_retry_or_extra_budget[unconfirmed-None]
+7.49s call     tests/test_data_planning_runner_db.py::test_guard_only_limits_data_planning_and_confirms_stop[data-plan-False-True-None]
+7.49s call     tests/test_method_permission_runner_db.py::test_permission_revocation_stops_only_current_attempt[True]
+6.32s call     tests/test_workbench_runner_db.py::test_after_a_decline_even_allowed_changes_ask_and_say_so
+3.96s call     tests/test_capabilities_db.py::test_dedupe_is_not_limited_to_latest_100_and_expiry
+2.63s call     tests/test_workbench_runner_db.py::test_cancelling_while_the_step_waits_for_approval_stops_the_turn_now
+2.60s call     tests/test_workbench_runner_db.py::test_stop_interrupts_the_turn_and_parks_the_step_for_the_user
+2.45s call     tests/test_logging_policy.py::test_runtime_logging_policy[DEBUG-api]
+2.22s call     tests/test_logging_policy.py::test_runtime_logging_policy[INFO-api]
+1.83s call     tests/test_preview_fixtures.py::test_a_machine_that_is_offline
+1.73s call     tests/test_method_capabilities_db.py::test_http_method_tool_waits_for_decision_and_returns_real_result[accept]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_delivery_progress_worker.py:32: requires disposable CELERY_PROBE_TEST_BROKER_URL
+SKIPPED [1] tests/test_scheduler_activity_broker.py:32: requires disposable CELERY_PROBE_TEST_BROKER_URL
+SKIPPED [1] tests/test_workbench_pack_view.py:24: got empty parameter set for (pack_id)
+SKIPPED [1] tests/test_workbench_pack_view.py:57: got empty parameter set for (pack_id)
+SKIPPED [1] tests/test_workbench_pack_view.py:135: got empty parameter set for (pack_id)
+SKIPPED [1] tests/test_worker_readiness_broker.py:22: requires disposable CELERY_PROBE_TEST_BROKER_URL
+FAILED tests/test_formal_method_admission_db.py::test_intake_persists_missing_governance_without_fabricating_pass
+1 failed, 2329 passed, 6 skipped, 2 warnings in 742.88s (0:12:22)
