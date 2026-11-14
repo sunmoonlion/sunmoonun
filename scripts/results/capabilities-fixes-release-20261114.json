@@ -1,5 +1,5 @@
 {
-  "status": "isolated candidate validation passed; Jenkins #94 running; not promoted",
+  "status": "published and verified; Jenkins #94 SUCCESS",
   "authorization": "Owner delegated release timing, then asked whether to publish and instructed to continue; release proceeding now.",
   "workspace": "/home/zymun/worktrees/capabilities-release-20261113",
   "branch": "capabilities-release-20261113",
@@ -81,7 +81,19 @@
     "unfinished_test_runs": 0
   },
   "user_scripts_enabled": false,
-  "deployment": "Jenkins #94 running; native admin promotion pending after candidate build; no assistant-submitted approval",
+  "deployment": {
+    "result": "SUCCESS",
+    "duration_ms": 1094312,
+    "tag": "release-20261114-1",
+    "deploy_commit": "cd1b6ceed06d63c6180fda3247fbd4155eb760b4",
+    "pointer_commit": "9a53427f900e7921a75192a8fab17d8f2692625c",
+    "receipt_commit": "d7b044b507e88862f13d2034feb90077384e81fc",
+    "digest": "sha256:ea7cc14c2cd52ba6577e8add762fb23573dcb640f6e3a608c49a29f16469c61a",
+    "approved_by": "admin",
+    "approved_at": "2026-11-14T11:01:09+08:00",
+    "receipt": "release-94.20261114-110824.md",
+    "assistant_submitted_approval": false
+  },
   "evidence_directory_local": "/tmp/capability-fixes-20261114",
   "validation_runs": {
     "running": null,
@@ -352,5 +364,56 @@
     "own_test_databases_removed": 4,
     "test_container_removed": false,
     "shared_development_environments_modified": false
+  },
+  "online_verification": {
+    "checked_at": "2026-11-14T03:08:01.580390+00:00",
+    "deployments": [
+      {
+        "name": "knowbench-api",
+        "image": "harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02",
+        "ready": 1,
+        "updated": 1
+      },
+      {
+        "name": "knowbench-runner",
+        "image": "harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02",
+        "ready": 1,
+        "updated": 1
+      },
+      {
+        "name": "knowbench-web",
+        "image": "harbor.sunmoonai.com:30443/platform/knowbench-web-frontend@sha256:e3ccaf944a9be191fce4bb4d960465731198248f3c97b1b958ab651f0d7ee275",
+        "ready": 1,
+        "updated": 1
+      },
+      {
+        "name": "knowlab-api",
+        "image": "harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:5aa0b7131a5671ba829bccd46b88fc68474b87d492e3d076baff4ed21799da5a",
+        "ready": 1,
+        "updated": 1
+      },
+      {
+        "name": "knowlab-web",
+        "image": "harbor.sunmoonai.com:30443/platform/knowlab-web-frontend@sha256:ee9d51342307eb6502747ef6adf3d30cc21e48e298719e2e416a8e4d6d09af55",
+        "ready": 1,
+        "updated": 1
+      }
+    ],
+    "knowbench_readonly_probe": {
+      "scripts_enabled": false,
+      "unreviewed_registry_present": false,
+      "unknown_outcome_code": "capability_outcome_unknown"
+    },
+    "knowlab_readonly_probe": {
+      "gate_code": "method_access_not_ready",
+      "bindings_detected": true,
+      "empty_method_allowed": true
+    },
+    "real_external_mcp_actions": 0,
+    "paid_model_calls": 0
+  },
+  "failure_provenance": {
+    "matchMedia": "Introduced by 2026-11-13 frontend bf308dc; missing test setup introduced with new sidebar change, prior grouped tests did not cover it. Fixed a9dfe11 (release 4ffb93f).",
+    "jsonschema": "Already declared by 2026-11-02 backend 70555a6; initial reused local environment was incomplete. Frozen isolated install fixed environment without dependency changes."
   }
 }
