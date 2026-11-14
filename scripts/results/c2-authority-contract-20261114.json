@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-14",
+  "task": "Complete C2",
+  "status": "incomplete",
+  "deployed": false,
+  "author_entry_open": false,
+  "script_execution_open": false,
+  "commits": {
+    "knowbench-app/knowbench-backend": "d3f7dbad9bbad7bcd576f6d1716b8dfb2117c4cc",
+    "knowbench-app/knowbench-web-frontend": "378923a0ae0ca8711794be2582c86b7c870de70a",
+    "knowlab-app/knowlab-backend": "b0d379996c23053aa0b8b97281dedf5e17270137",
+    "knowlab-app": "8925db96fded76940de2465ade6c078a74dc4f7e",
+    "knowbench-app": "c28aafcc225f430f0095b8ebc35dfe7c4f9d2a50"
+  },
+  "verification": {
+    "knowbench_first_full": {
+      "passed": 2281,
+      "failed": 2,
+      "skipped": 6,
+      "seconds": 1293.53,
+      "log": "/tmp/c2-completion-first-full.log",
+      "failures": [
+        "test_capabilities_db.py::test_migration_down_up_preserves_existing_sessions",
+        "test_capability_routes_db.py::test_provider_schema_export_is_current"
+      ]
+    },
+    "knowbench_corrected_scoped": {
+      "passed": 26,
+      "failed": 0,
+      "log": "/tmp/c2-completion-tests.log",
+      "includes_both_full_run_failures": true
+    },
+    "authority_host_regression": {
+      "passed": 32,
+      "failed": 0,
+      "log": "/tmp/c2-completion-authority-tests.log"
+    },
+    "knowlab_definition_incubation_layering": {
+      "passed": 23,
+      "failed": 0,
+      "log": "/tmp/c2-formal-method-tests.log"
+    },
+    "web_node24": {
+      "node": "24.21.0",
+      "passed": 17,
+      "failed": 0,
+      "log": "/tmp/c2-completion-web-node24.log",
+      "typescript": "passed",
+      "eslint": "passed",
+      "i18n": "passed"
+    },
+    "backend_pyright": {
+      "knowbench": 0,
+      "knowlab": 0
+    },
+    "final_full_rerun": false,
+    "real_codex_protocol": false,
+    "real_supplier": false
+  },
+  "remaining": [
+    "Verified incubation source and licensing, actual test evidence and frozen method admission",
+    "Author workflow and front-end integration with admitted method selection",
+    "Formal tool direct dispatch and common expert/team orchestration integration",
+    "KnowBase/workspace child authority and end-to-end revocation recovery",
+    "Final full suites, independent review and real protocol acceptance"
+  ]
+}
