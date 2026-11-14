@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowbench-migrate-d18a641187c6-v10', namespace: app-platform-dev}
+metadata: {name: 'knowbench-migrate-018f51eb0ec8-v10', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,14 +72,14 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:d18a641187c6c136ac9fa1a7a3592a609c4aacee95e8ec92c4cd6680d3aa2d08
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowbench-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: '23ed7182a562c799ba990249f286f7c22120b6e9'}
+            - {name: DEPLOYMENT_ID, value: '5f1c7d71baf01d240eb41376d46d3064882178eb'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowbench-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowbench.dev.sunmoonai.com:30443'}
             - {name: EXPECTED_SCHEMA_REVISION, value: '20261113_0040'}

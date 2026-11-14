@@ -4,7 +4,7 @@ metadata: {name: knowbench-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowbench
-  DEPLOYMENT_ID: "knowbench-backend-d18a641187c6c136"
+  DEPLOYMENT_ID: "knowbench-backend-018f51eb0ec8d2a5"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowbench-api,knowbench-api.app-platform-dev.svc.cluster.local,knowbench.dev.sunmoonai.com,knowbench-admin.dev.sunmoonai.com,knowbench-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -140,7 +140,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:d18a641187c6c136ac9fa1a7a3592a609c4aacee95e8ec92c4cd6680d3aa2d08
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -212,7 +212,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:d18a641187c6c136ac9fa1a7a3592a609c4aacee95e8ec92c4cd6680d3aa2d08
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -273,7 +273,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:d18a641187c6c136ac9fa1a7a3592a609c4aacee95e8ec92c4cd6680d3aa2d08
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]
@@ -330,7 +330,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: runner
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:d18a641187c6c136ac9fa1a7a3592a609c4aacee95e8ec92c4cd6680d3aa2d08
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:018f51eb0ec8d2a541c7382f01533d5deb9bb75beb4cbed32877948465cf4a02
           imagePullPolicy: IfNotPresent
           # 0001-workbench：runner 是每个用户沙箱里 app-server 的唯一客户端；不开端口，靠进程存活
           command: [python]
