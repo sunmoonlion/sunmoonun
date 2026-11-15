@@ -1,0 +1,273 @@
+{
+  "date": "2026-11-15",
+  "task": "C2 caller-specific formal method incubation tests",
+  "status": "caller_probe_slice_verified_C2_incomplete",
+  "deployed": false,
+  "scope": "A model caller may test one pinned direct-MCP candidate through one existing app-server turn, real Task/Attempt and exact owner approval; caller-specific evidence permits private freeze/registration. Ordinary chat/work model selection remains closed.",
+  "environment": {
+    "host": "wsl-dev",
+    "local_memory_gib": 94,
+    "remote_previous_memory_gib": 3.7,
+    "remote_parallel_heavy_jobs": false,
+    "database_container": "luna-c2-model-tests-pg",
+    "database": "127.0.0.1:55440/luna_c2_tests",
+    "database_storage": "tmpfs",
+    "database_memory_limit": "1GiB",
+    "cleanup": "Task-owned tmpfs PostgreSQL container removed after final tests; disposable probe containers auto-removed; pre-existing services and images untouched"
+  },
+  "baseline": {
+    "knowbench-app/knowbench-backend": "fa6cfa9e9710d085aaa5096f1909e7c163cb1c4c",
+    "knowbench-app/knowbench-web-frontend": "d2b2fe34209aae9e3a59bdd4655b0c881a64fedf",
+    "knowbench-app": "c51ee07231744790dad66e55c26a46c38d7be755",
+    "knowlab-app/knowlab-backend": "fb7f3694e52f55a4a50b7847d793f07dcd3d2ed9",
+    "knowlab-app/knowlab-web-frontend": "4d058035eb4b871eeb7813fbcd624903e191ab69",
+    "knowlab-app": "946fcb93673ecb791eb3f39c9d4332c0e527262a",
+    "sunmoonun": "b22186b35c464a3dd30769139dce437d1652334e"
+  },
+  "contract": {
+    "version": "formal-method-execution/v1 unpublished additive extension",
+    "host_omitted_defaults_preserve_existing_canonical_digest": true,
+    "callers": [
+      "host",
+      "model"
+    ],
+    "outer_model_probe": {
+      "max_turns": 1,
+      "max_method_calls": 1
+    },
+    "implementation_model_turns": 0,
+    "all_inference_requests_in_turn_billed": true,
+    "new_migrations": false,
+    "each_declared_caller_requires_actual_positive_success": true
+  },
+  "verification": {
+    "kl_backend_full": {
+      "passed": 1032,
+      "skipped": 3,
+      "failed": 0,
+      "seconds": 110.49,
+      "log": "c2-model-kl-backend-full.txt",
+      "skips": "Dedicated broker unavailable",
+      "cwd": "/home/zymun/worktrees/luna/knowlab-app/knowlab-backend/app",
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q"
+    },
+    "kb_backend_full": {
+      "status": "passed",
+      "log": "c2-model-kb-backend-full.txt",
+      "source_freeze": "kb-source-freeze.json",
+      "frozen_files": 538,
+      "cwd": "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app",
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q -rs",
+      "passed": 2608,
+      "skipped": 6,
+      "failed": 0,
+      "warnings": 3,
+      "seconds": 881.05,
+      "source_unchanged_after_tests": true,
+      "skips": "3 dedicated broker unavailable; 3 empty builtin-pack parameter sets"
+    },
+    "kb_targeted": {
+      "passed": 65,
+      "failed": 0,
+      "seconds": 31.58,
+      "log": "c2-model-kb-targeted-final2.txt",
+      "scope": "Real WS/HTTP/owner approval and database, usage/recovery/cancellation, model provenance mutations, registration, cleanup and protocol guards"
+    },
+    "kb_targeted_extra": {
+      "passed": 7,
+      "failed": 0,
+      "seconds": 20.91,
+      "log": "c2-model-kb-targeted-extra.txt",
+      "scope": "Adds mixed host/model real execution and cancellation while awaiting owner approval; overlaps earlier targeted tests, do not sum as unique cases"
+    },
+    "kb_host_regression": {
+      "passed": 47,
+      "failed": 0,
+      "seconds": 40.25,
+      "log": "c2-model-host-regression-first.txt"
+    },
+    "kl_targeted": {
+      "passed": 46,
+      "failed": 0,
+      "seconds": 9.72,
+      "log": "c2-model-kl-targeted.txt"
+    },
+    "kb_web": {
+      "passed": 479,
+      "failed": 0,
+      "skipped": 0,
+      "build": "passed default Turbopack production build",
+      "log": "c2-model-kb-web-full.txt",
+      "build_log": "c2-model-kb-web-build-final.txt"
+    },
+    "kl_web": {
+      "passed": 303,
+      "failed": 0,
+      "skipped": 0,
+      "build": "passed default Turbopack production build",
+      "log": "c2-model-kl-web-full.txt",
+      "build_log": "c2-model-kl-web-build-final.txt"
+    },
+    "static": "Both backend Ruff/Pyright and web TypeScript/ESLint/i18n passed; changed source formatting passed; provider Python/web generated contracts checked for drift",
+    "fixed_codex": {
+      "version": "0.155.1",
+      "image": "sunmoon-build/sandbox:baea88dbbbbe-e8b3d46bcea0",
+      "network": "none, loopback synthetic inference and MCP only",
+      "limits": "1GiB / 2 CPU / 256 pids",
+      "positive": "codex-verified",
+      "negative": "codex-negative-verified",
+      "actual_candidate_calls": 1,
+      "positive_inference_requests_after_resume": 2,
+      "remaining_helpers": [
+        "list_mcp_resources",
+        "list_mcp_resource_templates",
+        "read_mcp_resource",
+        "request_user_input"
+      ],
+      "enforcement": "No served MCP resources; gateway refuses resources and foreign tools; runner rejects question/elicitation and unexpected tools. Actual startup multi-agent/goals features must be disabled; thread/resume alone is insufficient.",
+      "no_real_credentials_or_billable_requests": true,
+      "image_id": "sha256:a932609efa2a1306b73dcca6740ed5a164165f13cb825efeaaccf734a2815f2e"
+    }
+  },
+  "preserved_failures": [
+    {
+      "log": "c2-model-runtime-db-first.txt",
+      "failure": "Candidate scope rejected before any approval"
+    },
+    {
+      "log": "c2-model-runtime-db-second.txt",
+      "failure": "Raw UUID vs normalized string identity mismatch; fixed strict identity normalization"
+    },
+    {
+      "log": "c2-model-kb-targeted-final.txt",
+      "failure": "11 passed then second model case hit fake shared thread configuration; fixture now isolates per-thread config"
+    },
+    {
+      "log": "c2-model-kb-pyright-final.txt",
+      "failure": "Optional thread_id in new question guard; narrowed before repository lookup"
+    },
+    {
+      "log": "c2-model-probe-isolation-first.txt",
+      "failure": "Probe output directory ownership; startup permissive also exposed child-agent tools"
+    },
+    {
+      "log": "c2-model-probe-isolation-startup.txt",
+      "failure": "request_user_input helper remains despite feature flag; runtime must reject it"
+    },
+    {
+      "log": "c2-model-probe-isolation-final.txt",
+      "failure": "Early inventory-only success did not actually invoke MCP because missing annotations triggered native denial; superseded by verified artifacts asserting one actual successful MCP call"
+    },
+    {
+      "log": "c2-model-provider-consumer-final.txt",
+      "failure": "Root invocation omitted PYTHONPATH, not contract drift; corrected invocation passed"
+    },
+    {
+      "log": "kl-model-probe-build.txt",
+      "failure": "Child sandbox denied production build port bind; root final build passed"
+    }
+  ],
+  "internal_review": [
+    "Cleanup pending exception must not starve other expired runs; fixed and 3 regressions passed",
+    "Cancelled terminal model attempt must retain late completion/usage and release only its own stopped turn",
+    "Owner approval WAITING still has a live model turn; cancellation now holds project until completion"
+  ],
+  "limitations": [
+    "No formal independent review or deployment acceptance",
+    "No real paid model or supplier calls and no business-quality assessment",
+    "No ordinary chat/work model-selected formal methods yet",
+    "No complete expert/expert-team orchestration, platform/KnowBase resource authority or explicit delegation",
+    "C2 remains incomplete"
+  ],
+  "commits": {
+    "knowlab-app/knowlab-backend": "206fcabce7d41a63893fc6875f81987f73cd85d3",
+    "knowlab-app/knowlab-web-frontend": "d1ffea079311954110e3249e93e5d23aaa931d84",
+    "knowbench-app/knowbench-backend": "43b553c71d3986784ab923fbcacfe315b3721f18",
+    "knowbench-app/knowbench-web-frontend": "35f847b41e3263a1109a1297fcc2ab9d6311b25c",
+    "knowlab-app": "b0046aec856b02a1671bee380661ee0e3fc0349a",
+    "knowbench-app": "4bc9a166e45d8b68e80a5f45ead39083fa614c3a"
+  },
+  "push": {
+    "knowbench-app": {
+      "status": "both configured endpoints succeeded",
+      "repo_endpoints_pushed": 6,
+      "unchanged_admin": "already equal",
+      "log": "push-knowbench.txt",
+      "seconds": 24.5
+    },
+    "knowlab-app": {
+      "status": "both configured endpoints succeeded",
+      "repo_endpoints_pushed": 6,
+      "unchanged_admin": "already equal",
+      "log": "push-knowlab.txt",
+      "seconds": 16.7
+    }
+  },
+  "rules_review": {
+    "C-C3/C-C4/C-C10": "Provider owns optional-default contract extension; Python/web generated locks checked together; previous host canonical bytes preserved.",
+    "C-D1/C-D11/C-A9": "Existing Task/Attempt, shared invocation/approval/budget ledger; no new execution service or database migration.",
+    "C-I5": "Runner-observed invocation and persisted owner authorization; arbitrary model or browser success/approval claims cannot qualify.",
+    "C-C7/C-A7": "Pinned Codex app-server protocol tested using network-none synthetic endpoints; startup feature assertions plus thread tool-scope check.",
+    "C-L1–C-L5": "Only engineering fixtures; no supplied financial logic, real investment output or paid call."
+  },
+  "evidence_files": {
+    "c2-model-evidence-unit.txt": "d38431bc8d641d81d3bf5666abd77ed5f937a76363bd127d65b35e872bf2a986",
+    "c2-model-host-regression-first.txt": "a48061dd33e9477e02cd2177a601f26aaf03deb7d34bd90c56a751cb31febc45",
+    "c2-model-kb-backend-full.txt": "53a6d968f759d2ae2b604c30dd5df7c38b2c3756113166af7de6d02eb0abb66f",
+    "c2-model-kb-pyright-final.txt": "526116febe5d3c4779243286e8a0f4c2e3113f7d1cd0492369e5d6db95cdba1c",
+    "c2-model-kb-pyright-final3.txt": "46a6c7834c9080ada23a415afd925abecc37d531f5c6e3d14ad0a7ff579096cb",
+    "c2-model-kb-ruff-final3.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-model-kb-targeted-extra.txt": "c9c33f5e851db5cc657395d7bd9d9f380a2a4655998c19ee964a22da7811ecb6",
+    "c2-model-kb-targeted-final.txt": "565a5726b49131956671c883cabbc88ebd23b1c8421a9af44e21be6b83a407c3",
+    "c2-model-kb-targeted-final2.txt": "c4a385532d195cbe82aad5ba961f04e93a7f7806fb9866f816e59368e0f8d2a4",
+    "c2-model-kb-web-build-final.txt": "2765243da7070cfd47757017696dfc539df9ccfc2c953f4d998bc67db9fa44d6",
+    "c2-model-kb-web-full.txt": "d2e8b1962eeb6a5347267b0dc4fca8ff33efb37a1617f424564b1498f51b8ee1",
+    "c2-model-kl-backend-full.txt": "6f6e554d5f95ed3aff251920d4a2d08f1553be4cbe17c085d07bb83f11d1394a",
+    "c2-model-kl-pyright-final.txt": "46a6c7834c9080ada23a415afd925abecc37d531f5c6e3d14ad0a7ff579096cb",
+    "c2-model-kl-ruff-final.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-model-kl-targeted.txt": "3b1c29f007089763eca7f79734ca0253c94f3eeac50e3c0363bf83f2f47abcea",
+    "c2-model-kl-web-build-final.txt": "0cfa0ae76a3f9400cd3b4f1a9a07732a1d21d1408d52432bb4240cf1d6d44495",
+    "c2-model-kl-web-full.txt": "4311170e2fa6ced219f915953f559c28196b68c33d47c1f03677e3e2f03d44d6",
+    "c2-model-knowbench-web-frontend-format.txt": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+    "c2-model-knowlab-web-frontend-format.txt": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+    "c2-model-probe-isolation-final.txt": "c85da76555b6b041ab57a85c0a575c87079c923d4e0a56348f2b1fee1d2dbfa1",
+    "c2-model-probe-isolation-first.txt": "a5f8c2c94a43e348a40d727ebbe4b2bc3cf94234ffdb51feb61c27165742779b",
+    "c2-model-probe-isolation-negative-verified.txt": "7be227c962e9e18f6193cd58287dd35a79ba02b5a54ff07b97f6e2b32d0b5199",
+    "c2-model-probe-isolation-negative.txt": "5a2b63b5276419b598b077a6c1e93a673aaa34a04339af955f484f795d382c1a",
+    "c2-model-probe-isolation-startup.txt": "7edc9adbc0205afff25fb1a6752314655d94054b4597299b015a821227631980",
+    "c2-model-probe-isolation-verified.txt": "bf9efe1f457f30b439c3dc85b989804ef8b7ee6dd1188d19d618b9655288f59c",
+    "c2-model-provider-consumer-final.txt": "3f8042bdfb9ad148a81926674a24fbe9ebbd880e96ab9b70ed1c58c9df733186",
+    "c2-model-provider-consumer-final2.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "c2-model-provider-contract.txt": "9ddafd28c0a3a5d0e156a224adf4438efd934e7efc57caf7b60814e29554e5f8",
+    "c2-model-runtime-db-first.txt": "1ed4079571b0cd0b20517053405f22d0d0c06f835a6a87223cbb147f326bdcd9",
+    "c2-model-runtime-db-second.txt": "b23fe5a7add285b291922f4fa63a8d3a3ee40d857ac44169672a5d99cc881fbf",
+    "c2-model-runtime-db-third.txt": "99b50d0365952afd6f688b623a8fd306e97a1344950ed3dc68f29b000e32adf7",
+    "c2-model-runtime-unit4.txt": "f08ab9d2289051451d10e6046c23eabf879569d79c5bb4a272eaa0212f16334b",
+    "codex-negative-verified/events.json": "2947976cd85b105e217ba164abcdb25fef6f9bde4199174eae5586ad9266cfeb",
+    "codex-negative-verified/model_requests.json": "e5043e641ade14a7f0790cf6b5256e4fa0de7d32fc7ab1cf5881c222712adeca",
+    "codex-negative-verified/stderr.log": "a286c16e9b0c80f8b468342a25fc505e9f295e34b5176197c2df81349d88cc56",
+    "codex-negative-verified/summary.json": "b947b0d7aeebd5fcef82014bd6497621938b03a9de1a744398d8805415eae750",
+    "codex-verified/events.json": "e5589876bec3e3e4c7d3a3cc8241ae2a9da382abb72960ea431c1d079d82d904",
+    "codex-verified/model_requests.json": "3eadb8d16700176c8446752ccea3edefbd9529c618de49e2ed084c63521740b7",
+    "codex-verified/stderr.log": "379b4de1c67c734ce12279f7a336f428b4026053165179b13636c73f513f0633",
+    "codex-verified/summary.json": "67ec5f29d5194cbdd9eaedf2536b07e2fdfb0a6e99a178516d02ebed3a1b5849",
+    "kb-changed-python-format.txt": "6ed8d1cb172b51dddf192664f6e4b2a6c56db357a990dcce6f028de11201bd61",
+    "kb-model-probe-cleanup-tests.txt": "09fe4441627f625ef92c265990f13e7b462b863c5c79a8b5dc18c887f0020ca0",
+    "kb-model-probe-web-eslint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kb-model-probe-web-i18n.txt": "34a0cb070994d7da780a2f3ca3801aff1aac1fec7ccb78a9b3e3d4154fa07271",
+    "kb-model-probe-web-targeted.txt": "d382773d2ff633a64ff492ba92286a1d840e67974f8dc0b9e2b47449b7342017",
+    "kb-model-probe-web-tsc.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kb-source-freeze.json": "392a1693c122cbc9a4418f43226f7ec37967d3487a881ace1b50a0f69243ef4b",
+    "kl-changed-python-format.txt": "5b9f70ad96522f492ef846065642c069b5627379aff2ab3f74acd2e3b9ecfe34",
+    "kl-model-probe-build.txt": "6e45acd33576fcad138abf6cfb86acba85e997a5113d0e113e832101d137f343",
+    "kl-model-probe-eslint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kl-model-probe-i18n.txt": "9c273aad3a39e5f4b5e79118c153b8f04d252cf91ede8922077be5fbe8b5290c",
+    "kl-model-probe-provider-lock.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kl-model-probe-targeted.txt": "c78f21806454a6900e3b29cf93b4ccd4d2b1cb0cc30853101b53b79ababdd6f2",
+    "kl-model-probe-tsc.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "knowbench-web-changed-format.txt": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+    "knowlab-web-changed-format.txt": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+    "push-knowbench.txt": "38f7f31f13f384dd95cb932dc0cb1a126edd6c5b5a3e9d5abe907ca59b9f47dd",
+    "push-knowlab.txt": "1afc35957635a76b28e1d10ae163c5a83d304a53aac4e9556ffd1a48e98d1f4e"
+  }
+}

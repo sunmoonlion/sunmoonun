@@ -1,0 +1,110 @@
+
+> knowlab-web-frontend@2.0.0 test /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+> vitest run
+
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/component/workdraft-capabilities.test.tsx (3 tests) 1014ms
+   ✓ 作者明确保存公开承诺和私有支撑，同一请求重开保持全部字段  747ms
+ ✓ tests/component/atomic-methods.test.tsx (2 tests) 1184ms
+   ✓ 作者选取输入字段后保存独立定义，不把执行策略发送为方法正文  875ms
+   ✓ 读取独立方法时保留真实定义，并把当前专家执行设置独立送去预览  308ms
+ ✓ tests/component/author-method-freeze.test.tsx (6 tests) 1629ms
+   ✓ creates a real method identity only after explicit slot naming and confirmation  458ms
+   ✓ adds the explicitly chosen next version to an existing identity  345ms
+ ✓ tests/component/lab-columns.test.tsx (6 tests) 1203ms
+   ✓ 孵化栏 > 按模式分；自己来的给工作稿入口，平台孵化的是平台视图  461ms
+   ✓ 交付栏 > 列各版专家与交付到哪了：自动查没过交人看、授权与进小店  370ms
+ ✓ tests/component/self-test.test.tsx (17 tests) 2317ms
+   ✓ 自助测试（SDD 0046 第三节） > 在测时不显示旧准专家的发起表单，并区分等待、作者自测与失败用例  375ms
+   ✓ 自助测试（SDD 0046 第三节） > 三题显示整轮180分钟，作者可改时限，费用不随时限改变  540ms
+   ✓ 测试在 knowlab 处理 > 本人确认才停止；运行方失败保留错误，不自动重新提交  311ms
+ ✓ tests/component/formal-method-editor.test.tsx (17 tests) 3686ms
+   ✓ imports into an empty draft and pins an existing source without reinstalling it  1117ms
+   ✓ leaves an incomplete validation unfrozen and only sends the saved revision and run identity  337ms
+   ✓ shows the validated caller from the frozen server receipt  320ms
+ ✓ tests/component/knowbots-columns.test.tsx (14 tests) 3111ms
+   ✓ 审核 > 孵化的缺口也在待办里：看得到提议，可以答「按提议」，答过的记「按提议」  694ms
+   ✓ 审核 > 审核准专家：看我的话用在了哪；不行要写意见  545ms
+   ✓ 审核 > 用户同意门：看成稿与测试结果，提交交付（授权审核员才点得了）  333ms
+   ✓ 审核：工具审批与数据 > 自助测试里的工具审批：批准、拒绝  301ms
+ ✓ tests/component/login-sso.test.tsx (18 tests) 776ms
+   ✓ automatic web SSO entry > shows callback errors and a manual retry instead of automatically looping  392ms
+ ✓ tests/component/dynamic-test-results.test.tsx (1 test) 498ms
+   ✓ renders every final result and file while marking invalidated attempts as history  493ms
+ ✓ tests/component/logout-button.test.tsx (4 tests) 705ms
+   ✓ LogoutButton > uses POST with the session CSRF token and then returns to login  353ms
+ ✓ tests/component/knowbot-requests.test.tsx (21 tests) 4560ms
+   ✓ 表格行测试条件 > 旧版本带入选行条件，编辑数值不丢条件或改变类型  530ms
+   ✓ 申请一个创意 > 从真实方法库选版随创意提交，浏览和选择不会提前提交表单  736ms
+   ✓ 申请一个创意 > 方法组合成可编辑创意，保留原创和来源但不自动绑定或提交  511ms
+   ✓ 申请一个创意 > 被拒了照说，不离开这一页  489ms
+ ✓ tests/component/author-method-picker.test.tsx (14 tests) 5740ms
+   ✓ author method contracts and exact binding > assembles a shortlisted idea version through preview and the real binding endpoint  2566ms
+   ✓ author method contracts and exact binding > commits the server workdraft after binding and locks the referenced method body  1866ms
+   ✓ author method contracts and exact binding > shows version changes and requires a new preview before explicitly upgrading  379ms
+ ✓ tests/component/ask-in-knowbench.test.tsx (3 tests) 644ms
+   ✓ 去 knowbench 请它 > 从 knowbench 找专家来的：带这一版和那一轮找专家的编号，新标签页打开  377ms
+ ✓ tests/component/formal-method-execution.test.tsx (11 tests) 1921ms
+   ✓ starts a real suite without a model key and keeps assertions separate from tool input  727ms
+ ✓ tests/component/workdraft-ai.test.tsx (13 tests) 6675ms
+   ✓ 发起一轮 > AI 起草：费用上限默认 20，电脑默认上次那台与目录  1412ms
+   ✓ 发起一轮 > 让 AI 改…：一句话、可选某一步、费用上限与电脑可以改；没写那句话不能发  787ms
+   ✓ 发起一轮 > 没有能用的电脑、已有一轮在跑：照说怎么办  544ms
+   ✓ 发起前就拦、带测试报告（SDD 0046 第三节；专家孵化方案第 8.4 节） > 模型 key 没填：说清楚去 knowbench 填，发起点不了  392ms
+   ✓ 发起前就拦、带测试报告（SDD 0046 第三节；专家孵化方案第 8.4 节） > 让 AI 改…：最近一次测试没通过时默认带上报告，可以不带  456ms
+   ✓ 格子旁边的建议 > 三个按钮：接受带 revision，改工作稿；不要不碰工作稿  456ms
+   ✓ 格子旁边的建议 > 出处核不上的：接受点不了，只能改了再接受，带改后的话  506ms
+   ✓ 格子旁边的建议 > 加一步的建议在步骤列表里是待接受的新步；别处改过回 409 就重新载入  483ms
+   ✓ 一键接受一步、挑数据 > 一步头上「全部接受」：带 revision 交这一步，跳过的照实说  483ms
+   ✓ 一键接受一步、挑数据 > 数据：从知识库栏挑一份，后端记下格式，显示名字与读法  306ms
+   ✓ 缺口与导入 skill > 待你定的：列这一轮的缺口，链到审核栏去答；答过了可以让 AI 按答复改  327ms
+ ✓ tests/component/test-execution.test.tsx (1 test) 262ms
+ ✓ tests/component/web-shell.test.tsx (3 tests) 771ms
+   ✓ web端外壳 > lists the first-level pages in the user order, with no tab strip  492ms
+ ✓ tests/component/manual-release.test.tsx (2 tests) 420ms
+   ✓ binds author consent and offline evidence to the exact revision without starting a test  321ms
+ ✓ tests/component/workdraft.test.tsx (20 tests) 7093ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 成稿文件随工作稿保存，重新载入保留，清空恢复仅对话交回  1028ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 改一格过一会儿自动存，带读到的 revision；存了标「作者写的」，下一次带新的 revision  353ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 别处改过（409）：提示已重新载入，换成后端那一份  351ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 步骤可以加、上移、删（删要再点一次确认），整列存  854ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 一步里的格子：规则、交回项、用上哪几步，改哪格存哪格  1144ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 保存零目标值、计算输入绑定和表格约束，清空可选值才移除规则参数  613ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 怎样算对：选验收模板，参数表单跟着模板换；换模板时「哪一项」留着  886ms
+ ✓ tests/component/incubation-mode.test.tsx (3 tests) 572ms
+   ✓ 孵化方式（SDD 0046 第四节） > 自己来的名称：请平台孵化先看确认框，写明看到什么、用谁的 key、谁出钱，同意才授权  446ms
+ ✓ tests/component/public-home.test.tsx (1 test) 503ms
+   ✓ PublicHome > renders semantic navigation without product-specific content  499ms
+ ✓ tests/unit/cross-app-links.test.ts (10 tests) 68ms
+ ✓ tests/component/common-kernel.test.tsx (3 tests) 647ms
+   ✓ Web common frontend kernel > covers empty and paginated table states  495ms
+ ✓ tests/component/workdraft-managed-capabilities.test.tsx (2 tests) 641ms
+   ✓ explains the paused method entry without loading a capability catalog  374ms
+ ✓ tests/component/cross-app-link.test.tsx (7 tests) 748ms
+   ✓ CrossAppLink > opens the other application in a new tab and carries no identity  532ms
+ ✓ tests/component/method-demand-reference.test.tsx (2 tests) 295ms
+ ✓ tests/component/switch-account.test.tsx (2 tests) 453ms
+   ✓ switches only after a click using the issued CSRF token  375ms
+ ✓ tests/unit/browser-session.test.ts (7 tests) 48ms
+ ✓ tests/component/signed-in-as.test.tsx (2 tests) 85ms
+ ✓ tests/unit/interaction-consumer-vectors.test.ts (2 tests) 53ms
+ ✓ tests/unit/i18n-time-zone.test.ts (1 test) 76ms
+ ✓ tests/unit/env.test.ts (14 tests) 32ms
+ ✓ tests/unit/common-api-client.test.ts (3 tests) 48ms
+ ✓ tests/unit/interaction-client.test.ts (5 tests) 24ms
+ ✓ tests/unit/formal-model-probe.test.ts (33 tests) 119ms
+ ✓ tests/unit/tracked-env-contract.test.ts (2 tests) 7ms
+ ✓ tests/unit/run-projection.test.ts (4 tests) 12ms
+ ✓ tests/unit/common-query.test.ts (3 tests) 6ms
+ ✓ tests/unit/next-path.test.ts (3 tests) 11ms
+ ✓ tests/unit/preview-server.test.ts (15 tests) 556ms
+ ✓ tests/unit/author-capabilities-contract.test.ts (1 test) 26ms
+ ✓ tests/unit/content-security-policy.test.ts (2 tests) 7ms
+
+ Test Files  42 passed (42)
+      Tests  303 passed (303)
+   Start at  09:41:36
+   Duration  14.09s (transform 4.42s, setup 12.59s, collect 28.54s, tests 49.25s, environment 32.20s, prepare 6.82s)
+

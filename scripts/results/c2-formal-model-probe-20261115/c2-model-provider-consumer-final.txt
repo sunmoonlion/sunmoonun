@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/zymun/worktrees/luna/knowlab-app/knowlab-backend/app/scripts/export_formal_method.py", line 14, in <module>
+    from app.domain.knowbots.formal_method_admission import (
+ModuleNotFoundError: No module named 'app'

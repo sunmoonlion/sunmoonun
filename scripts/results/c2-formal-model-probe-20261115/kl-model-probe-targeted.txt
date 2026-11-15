@@ -1,0 +1,12 @@
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/unit/formal-model-probe.test.ts (33 tests) 28ms
+ ✓ tests/component/formal-method-execution.test.tsx (11 tests) 512ms
+ ✓ tests/component/formal-method-editor.test.tsx (17 tests) 927ms
+
+ Test Files  3 passed (3)
+      Tests  61 passed (61)
+   Start at  09:38:10
+   Duration  1.96s (transform 323ms, setup 316ms, collect 846ms, tests 1.47s, environment 770ms, prepare 251ms)
+

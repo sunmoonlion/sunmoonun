@@ -1,0 +1,46 @@
+
+> knowbench-web-frontend@2.0.0 build /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+> next build
+
+▲ Next.js 16.2.2 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 8.9s
+  Running TypeScript ...
+  Finished TypeScript in 9.7s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/25) ...
+  Generating static pages using 11 workers (6/25) 
+  Generating static pages using 11 workers (12/25) 
+  Generating static pages using 11 workers (18/25) 
+✓ Generating static pages using 11 workers (25/25) in 187ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /[locale]
+├ ƒ /[locale]/dashboard
+├ ƒ /[locale]/login
+├ ƒ /[locale]/toolkit
+├ ƒ /[locale]/workbench
+├ ƒ /[locale]/workbench/chat/[conversation]
+├ ƒ /[locale]/workbench/expert
+├ ƒ /[locale]/workbench/machines
+├ ƒ /[locale]/workbench/memory
+├ ƒ /[locale]/workbench/projects
+├ ƒ /[locale]/workbench/projects/[project]
+├ ƒ /[locale]/workbench/projects/[project]/c/[conversation]
+├ ƒ /[locale]/workbench/projects/[project]/expert/new
+├ ƒ /[locale]/workbench/settings
+├ ƒ /[locale]/workbench/settings/[section]
+├ ƒ /healthz
+├ ○ /robots.txt
+└ ƒ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
