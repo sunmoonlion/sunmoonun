@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-15",
+  "task": "C2 private formal method use in ordinary chat/work sessions",
+  "status": "session_use_slice_verified_C2_incomplete",
+  "deployed": false,
+  "scope": "Explicit browser-selected private real-admitted host-only direct MCP method; root and implementation call, new exact approval, common dispatch, typed result and history; no model turns or expert Task/Attempt",
+  "environment": {
+    "host": "wsl-dev",
+    "local_memory_gib": 94,
+    "remote_memory_gib_previous": 3.7,
+    "remote_parallel_heavy_jobs": false,
+    "database_container": "luna-c2-formal-use-tests-pg",
+    "database": "127.0.0.1:55440/luna_c2_tests",
+    "database_memory_limit": "1GiB",
+    "database_storage": "tmpfs",
+    "cleanup": "Task-owned luna-c2-formal-use-tests-pg and temporary volumes removed after tests; pre-existing services untouched"
+  },
+  "baseline": {
+    "knowbench-app/knowbench-backend": "6ddad125ca8c2a9945175ba4925b00cf2f951efc",
+    "knowbench-app/knowbench-web-frontend": "e32ec56f8267de7928b3d3d7810c61be6b80a9a2",
+    "knowbench-app": "79c76b35f59b32c668144f9351bc5aa310d6b1e3",
+    "sunmoonun": "2d1d755e00889d5e5b0af73e17ae6104fee61d71"
+  },
+  "verification": {
+    "backend_targeted": {
+      "passed": 40,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 39.63,
+      "log": "backend-targeted-final.txt",
+      "scope": "13 catalog DB, 20 session call DB, 3 real browser boundary HTTP, 2 provider contract, 2 output boundary projection"
+    },
+    "backend_pyright": {
+      "errors": 0,
+      "warnings": 0,
+      "log": "backend-pyright.txt"
+    },
+    "backend_ruff": "All checks passed (app tests scripts)",
+    "changed_python_format": "16 files already formatted",
+    "backend_full": {
+      "passed": 2539,
+      "skipped": 8,
+      "failed": 0,
+      "warnings": 2,
+      "seconds": 861.05,
+      "log": "backend-full.txt",
+      "frozen_files": 572,
+      "freeze": "backend-source-freeze.json",
+      "source_unchanged_after_tests": true,
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests .venv/bin/pytest -q -rs",
+      "skips": "2 provider interaction vectors not enabled; supplemented separately below. Remaining 3 missing dedicated broker, 3 empty builtin-pack parameter sets"
+    },
+    "web_full_final": {
+      "passed": 477,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 11.83,
+      "log": "web-full-final.txt",
+      "command": "WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json pnpm test",
+      "scope": "Final frozen web source, all 66 suites including preview server and provider interaction vectors",
+      "source_freeze": "web-changed-source-freeze.json",
+      "changed_files": 16,
+      "source_unchanged_after_commit": true
+    },
+    "web_build_final": {
+      "status": "passed",
+      "log": "web-build-final.txt",
+      "command": "pnpm build",
+      "node": "24.18.0",
+      "bundler": "Next default Turbopack"
+    },
+    "web_targeted_final": {
+      "passed": 30,
+      "failed": 0,
+      "log": "web-targeted-final.txt"
+    },
+    "web_static": {
+      "typecheck": "passed",
+      "eslint": "passed",
+      "i18n": "1333 keys passed",
+      "changed_source_prettier": "passed",
+      "logs": [
+        "web-typecheck.txt",
+        "web-eslint.txt",
+        "web-i18n.txt",
+        "web-format.txt"
+      ]
+    },
+    "backend_vector_supplement": {
+      "passed": 2,
+      "skipped": 0,
+      "failed": 0,
+      "log": "backend-vectors.txt",
+      "command": "WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q -rs tests/test_interaction_consumer_vectors.py",
+      "remaining_unverified_skips": 6
+    }
+  },
+  "first_failures": [
+    {
+      "log": "catalog-first.txt",
+      "result": "2 passed, 1 failed",
+      "cause": "Test referenced knowbot_test_runs instead of workbench_test_runs; fixture fixed"
+    },
+    {
+      "log": "catalog-history-first.txt",
+      "result": "12 passed, 1 failed",
+      "cause": "History fixture reused a digest violating the existing session/digest unique constraint; distinct fixture digests fixed"
+    },
+    {
+      "log": "concurrency-first.txt",
+      "result": "15 passed, 1 failed, interrupted teardown",
+      "cause": "Concurrent formal decision/session projection and common receipt writes had reversed row-lock order. Receipt now locks session before child for formal_method, across success/error/unknown. Test gathers all tasks before asserting; root terminated task-owned idle DB connection and interrupted stuck test teardown; no pre-existing service touched"
+    },
+    {
+      "log": "http-first.txt",
+      "result": "0 passed, 1 failed",
+      "cause": "Test expected private,no-store exactly; global middleware emits no-store. Assertion now checks the required no-store directive"
+    },
+    {
+      "log": "http-auth-fixture-first.txt",
+      "result": "2 passed, 1 failed",
+      "cause": "BrowserSession is Pydantic, test used dataclasses.replace; switched fixture to model_copy"
+    },
+    {
+      "log": "web-build-sandbox-first.txt",
+      "cause": "Child-agent sandbox denied Turbopack CSS subprocess port bind (EPERM). Identical default build completed in root local environment; no bundler/config change"
+    }
+  ],
+  "review": {
+    "classification": "T1 continuation of agreed C2 path A; reversible unpublished local candidate, no new DDL or externally published contract",
+    "internal_cross_review": true,
+    "formal_independent_review": false,
+    "release_acceptance": false
+  },
+  "limitations": [
+    "Only private author-owned real-execution-admitted host-only direct MCP methods with one exact access requirement and operator zero-incremental-cost evidence",
+    "No real supplier/source-license/cost records configured, no paid calls, no real browser-to-backend end-to-end or fixed Codex/provider acceptance",
+    "No market composition/derivation/distribution rights granted",
+    "Formal model dispatch, expert orchestration and platform/KnowBase resource-side explicit delegation still incomplete",
+    "C2 incomplete; no deployment"
+  ],
+  "commits": {
+    "knowbench-app/knowbench-backend": "fa6cfa9e9710d085aaa5096f1909e7c163cb1c4c",
+    "knowbench-app/knowbench-web-frontend": "d2b2fe34209aae9e3a59bdd4655b0c881a64fedf",
+    "knowbench-app": "c51ee07231744790dad66e55c26a46c38d7be755"
+  },
+  "push": {
+    "knowbench-app": {
+      "command": "SYNC_JOBS=1 docs/sync-cowork/sync/sync.sh push knowbench-app",
+      "exit_code": 0,
+      "result": "Both configured endpoints updated for backend, web and parent (6 repo/endpoint pushes); untouched admin already synchronized",
+      "log": "push-knowbench.txt"
+    }
+  },
+  "evidence_sha256": {
+    "backend-full.txt": "b53d0273e5d881125f923d2a2d2b82201e486e82bd85cbd297b67c9e7c13c3aa",
+    "backend-pyright.txt": "46a6c7834c9080ada23a415afd925abecc37d531f5c6e3d14ad0a7ff579096cb",
+    "backend-source-freeze.json": "acb1ec6e4307f8398e558ab3648c2abe77410118a262583685bc91fe18707c1b",
+    "backend-targeted-final.txt": "0f2d02778c8393af5fbc7ccebae31499c92b0c55cb5651e4a4e2845c3c9cb123",
+    "backend-vectors.txt": "68683c941f53fd55547c17b6a1b7a966702a2b51e89bd6832b00e772606b6b6e",
+    "catalog-first.txt": "d8e078a5f8c281c455f8dfcbbce27e6ff1a8140cfeb5ac90759cb2618f830a36",
+    "catalog-history-first.txt": "bda779e4545c1cdd6497fc52f2f9002133a985d9f80be067df891dd1d96f35b3",
+    "concurrency-first.txt": "2e350a720c68a6135e85cba4afa1b6036e72e23f99e0a434b9c3a0bd8ecb74e7",
+    "http-auth-fixture-first.txt": "9ff09ecd1e94a1dc81a8dc5a2dc05fb43234ace05e1c05c759cff0865f043be3",
+    "http-first.txt": "68fef8912e7623f090c9553bc9ea794ad1805a5fde0a9559242c5efd0a7e5f4d",
+    "push-knowbench.txt": "036c3236f2d4ddfcc4cb72ad73975b06907941105c31334fbdc916e57a72e83a",
+    "web-build-final.txt": "345480401e025f006401249a0b0b9e1151643dbf59586be89905b47af439ea6a",
+    "web-build-sandbox-first.txt": "91be27f1a311ae57692dfa07b4db211c8e3bd8fe75915f929b94cad14040850a",
+    "web-changed-source-freeze.json": "98976381cabe3ff7f4d69736d1b5a962f4f8953687646206757ee5aafa22cc4d",
+    "web-eslint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "web-format.txt": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+    "web-full-final.txt": "18ecc06f6d6f914c8923c37cd138f6ee226f2a7154299ab67ebaf73b1fcabec9",
+    "web-i18n.txt": "22707188ac034b42ac20ed34aae655e7d9c563eeb2e47a592ed9a0664f243403",
+    "web-targeted-final.txt": "c2651e3283cc17b2fc3b79647fc83e0dd05c02802120a73ebc756393a6441ae0",
+    "web-typecheck.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

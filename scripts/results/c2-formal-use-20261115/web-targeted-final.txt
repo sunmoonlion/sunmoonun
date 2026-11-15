@@ -1,0 +1,13 @@
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+
+ ✓ tests/unit/capability-contract.test.ts (5 tests) 24ms
+ ✓ tests/component/capabilities.test.tsx (17 tests) 951ms
+ ✓ tests/component/formal-method-panel.test.tsx (8 tests) 950ms
+   ✓ selects an exact owned version and answers its actual operation: accept  303ms
+
+ Test Files  3 passed (3)
+      Tests  30 passed (30)
+   Start at  09:07:38
+   Duration  1.97s (transform 351ms, setup 300ms, collect 971ms, tests 1.93s, environment 757ms, prepare 291ms)
+

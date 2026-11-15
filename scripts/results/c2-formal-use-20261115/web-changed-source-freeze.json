@@ -1,0 +1,18 @@
+{
+  "app/components/workbench/capability-action-card.tsx": "f9b3a10f73118dab71aa866787d27d51c4f9fb00a3ec180a60d17c61ce9c8ae3",
+  "app/components/workbench/capability-panel.tsx": "50d9d29aa71ce6f795f65dc113cf4b14157fc380e1468fc7967c6fa1f6e71ffd",
+  "app/components/workbench/formal-method-panel.tsx": "0b626f9f8a97386fc90eff2e81f3a5374dc6335668956348422a9e15c08f792a",
+  "app/contracts/provider-locks/capabilities-v1.json": "de61fd4c01c1568b3a3c7b5b4134741916fd1ab0f1c64815df3c9701a0726f5a",
+  "app/contracts/provider-locks/capabilities-v1.lock.json": "b466903d8e9f88774fb7e33ef2926a1285cc0cf23d70abc88116fd6d48324627",
+  "app/contracts/provider-locks/capabilities-v1.samples.json": "195ebb44c27f341418aa65b9950fb01a060f083b1169e3259d489abb5f3c46aa",
+  "app/features/chat/ui/chat-screen.tsx": "1ec02892ff6930eb64cbebd911562293b70a8e1ab2d9a0f6b46a26905dd7f6b7",
+  "app/features/work/ui/work-screen.tsx": "98579501b295f0a9684d6ccfc68bee52517470c34289b0bc36f3b69b5755e033",
+  "app/lib/workbench/capabilities.ts": "4245b52050c45cf389fb9a59098e2d510da18ce456da1ab26c66f391c0d35332",
+  "app/lib/workbench/formal-methods.ts": "de813cd1aa3a7f9eea0e359121d7849e3e6cfdd1ab77a4da89780a9f2ed0b067",
+  "app/messages/en.json": "52d00582781183706d101e70e8ab0662cb63c79073dbce50d4c1cb187eab98f9",
+  "app/messages/zh-CN.json": "ff2d284647c39f9c14ea309855ac439b00ba3a68dc014a2745690944c67248a4",
+  "app/tests/component/capabilities.test.tsx": "7da6676a9e4c3dc5ddb51308ea9f5a5ea9c1af71b56be007a2e9eba5a73a3529",
+  "app/tests/component/formal-method-panel.test.tsx": "be6a5bc2979cc4a24db05a8816ba289c642674ea3bca0852682b53d37de2262e",
+  "app/tests/fixtures/capabilities-v1.samples.json": "195ebb44c27f341418aa65b9950fb01a060f083b1169e3259d489abb5f3c46aa",
+  "app/tests/unit/capability-contract.test.ts": "7e9d086b0a72c8e316e7f202dbfc83f45d76f9741bc019b05f7160dd054c183c"
+}

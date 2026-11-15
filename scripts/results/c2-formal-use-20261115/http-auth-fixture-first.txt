@@ -1,0 +1,57 @@
+..F
+=================================== FAILURES ===================================
+_________ test_browser_auth_csrf_and_strict_request_cannot_be_bypassed _________
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7ee331184890>, autoflush=False, expire_on_commit=False)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ee3311f8320>
+
+    async def test_browser_auth_csrf_and_strict_request_cannot_be_bypassed(db, monkeypatch):
+        frozen, _, remote, factory, sid = await admitted(db)
+        app = application(db, factory)
+        del app.dependency_overrides[auth.get_web_current_user]
+        browser = session("web", "profile:read")
+>       browser = dataclasses.replace(
+            browser, principal=principal(OWNER)
+        )
+
+tests/test_formal_method_use_routes_db.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = BrowserSession(contract_version=1, principal=Principal(actor_type='user', subject='user-123', issuer='https://identity...atetime.timezone.utc), policy_version='knowbench-web-v2'), csrf_token='csrf-token-with-at-least-thirty-two-characters')
+changes = {'principal': Principal(actor_type='user', subject='sub-50381bae-1bc5-44c5-b23f-8c8caf52466e', issuer='https://casdoor...at=datetime.datetime(2026, 11, 15, 2, 5, 40, 501917, tzinfo=datetime.timezone.utc), policy_version='knowbench-web-v2')}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+>           raise TypeError("replace() should be called on dataclass instances")
+E           TypeError: replace() should be called on dataclass instances
+
+/usr/lib/python3.12/dataclasses.py:1552: TypeError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 09:05:39 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 09:05:39 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 09:05:40 - root - INFO - 日志系统初始化完成
+=========================== short test summary info ============================
+FAILED tests/test_formal_method_use_routes_db.py::test_browser_auth_csrf_and_strict_request_cannot_be_bypassed
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 2 passed in 5.16s
