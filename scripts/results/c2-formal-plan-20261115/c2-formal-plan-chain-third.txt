@@ -1,0 +1,55 @@
+....F
+=================================== FAILURES ===================================
+_ test_second_step_failure_never_replays_first_or_qualifies_expert[source_changed] _
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7e447fdd3a10>, autoflush=False, expire_on_commit=False)
+failure = 'source_changed'
+
+    @pytest.mark.parametrize(
+        "failure", ["decline", "unknown", "invalid_output", "source_changed", "cancel"]
+    )
+    async def test_second_step_failure_never_replays_first_or_qualifies_expert(db, failure):
+        ctx = await setup_plan(db)
+        first = await advance(db, ctx)
+        await approve(db, ctx.request, ctx.factory, first)
+        second = await advance(db, ctx)
+        assert len(ctx.remote.calls) == 1
+        if failure == "unknown":
+            ctx.remote.fail = True
+        if failure == "invalid_output":
+            ctx.remote.invalid = True
+        if failure == "source_changed":
+            async with db() as session:
+                async with WorkbenchRepository(session).transaction():
+                    await session.execute(
+                        text(
+                            "UPDATE workbench_capability_assets SET revision=revision+1 WHERE id=:id"
+                        ),
+                        {"id": ctx.asset["id"]},
+                    )
+            with pytest.raises(CapabilityError):
+                await approve(db, ctx.request, ctx.factory, second)
+        elif failure == "cancel":
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                await FormalExecutions(repo, ctx.factory(repo)).cancel(
+                    "author", str(ctx.request.run_id), caller="knowlab"
+                )
+        else:
+            await approve(
+                db,
+                ctx.request,
+                ctx.factory,
+                second,
+                decision="decline" if failure == "decline" else "accept",
+            )
+        result = await advance(db, ctx)
+>       assert result["status"] in ("failed", "cancelled"), result
+E       AssertionError: {'actions': [{'call_id': '69f03162-ba1c-46f1-bce4-21b61ef911e8', 'case_id': 'expert', 'expires_at': '2026-11-15T04:54:...f03162-ba1c-46f1-bce4-21b61ef911e8', 'case_id': 'expert', ...}], 'contract': 'knowlab/formal-method-execution/v1', ...}
+E       assert 'waiting' in ('failed', 'cancelled')
+
+tests/test_formal_orchestration_db.py:122: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_formal_orchestration_db.py::test_second_step_failure_never_replays_first_or_qualifies_expert[source_changed]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 4 passed in 9.80s

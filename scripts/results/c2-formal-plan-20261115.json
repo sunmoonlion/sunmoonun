@@ -1,0 +1,418 @@
+{
+  "date": "2026-11-15",
+  "task": "C2 private host-only deterministic one-level expert incubation execution",
+  "status": "private_host_unique_expert_plan_verified_C2_incomplete",
+  "deployed": false,
+  "environment": {
+    "host": "wsl-dev",
+    "local_memory_gib": 94,
+    "remote_previous_memory_gib": 3.7,
+    "remote_parallel_heavy_jobs": false,
+    "database_container": "luna-c2-formal-plan-tests-pg",
+    "database_container_id": "cedc9941f312d8303233818b3e7b78aa8c088954c82a735ce2a5abbc517bb4ff",
+    "database_storage": "tmpfs",
+    "database_memory_limit": "1GiB",
+    "databases": [
+      "127.0.0.1:55440/luna_c2_tests",
+      "127.0.0.1:55440/luna_kl_tests"
+    ],
+    "database_cleanup": "Task-owned tmpfs PostgreSQL container removed after final tests by verified container ID; existing services and images untouched."
+  },
+  "baseline": {
+    "knowbench-app/knowbench-backend": "af13826fac35aceeab82e9a8e5f223ef12f27041",
+    "knowbench-app/knowbench-web-frontend": "d1e58d8352077dac2e4a3e107f86ee2e7d666970",
+    "knowbench-app": "00f9106910dc288bc61a15e77ccaf7fd2f3c4d83",
+    "knowlab-app/knowlab-backend": "206fcabce7d41a63893fc6875f81987f73cd85d3",
+    "knowlab-app/knowlab-web-frontend": "d1ffea079311954110e3249e93e5d23aaa931d84",
+    "knowlab-app": "b0046aec856b02a1671bee380661ee0e3fc0349a",
+    "sunmoonun": "c9d28578cc5cef499e70038b534040fcb5fe0d15"
+  },
+  "contract": {
+    "visibility": "private",
+    "allowed_callers": [
+      "host"
+    ],
+    "method_kind": "expert",
+    "depth": "one-level; direct MCP tool leaves only",
+    "all_steps_required": true,
+    "candidates_per_step": 1,
+    "step_failure_behavior": "fail",
+    "max_replans": 0,
+    "bindings": [
+      "CallerValue",
+      "LiteralValue",
+      "StepValue"
+    ],
+    "automatic_resource_binding": false,
+    "leaf_exact_version_digest": true,
+    "leaf_real_host_execution_qualification": true,
+    "current_source_license_policy_rechecked": true,
+    "same_leaf_distinct_actual_calls": true,
+    "exact_non_delegable_per_action_grant": true,
+    "historical_parent_child_approval_snapshots": true,
+    "new_formal_ref_resource_delegation": false,
+    "ordinary_expert_conversation_entry": false,
+    "nested_expert_or_team_execution": false,
+    "model_turns": 0,
+    "new_migrations": false,
+    "unknown_automatic_retry": false,
+    "private_freeze_and_registration": true,
+    "public_freeze": false
+  },
+  "verification": {
+    "kb_backend_full": {
+      "status": "passed",
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q -rs",
+      "passed": 2766,
+      "skipped": 6,
+      "failed": 0,
+      "warnings": 3,
+      "seconds": 1023.63,
+      "exit_code": 0,
+      "log": "c2-formal-plan-kb-backend-full-final.txt",
+      "frozen_files": 620,
+      "source_unchanged_after_tests": true,
+      "source_freeze_before": "c2-formal-plan-source-freeze-before.json",
+      "source_freeze_after": "c2-formal-plan-source-freeze-after.json",
+      "skips": "3 dedicated broker tests unavailable; 3 empty builtin expert-pack parameter sets",
+      "warnings_detail": "Existing TestFolders protocol and TestCleanupPending exception names are not test classes."
+    },
+    "kb_real_database_chain": {
+      "passed": 22,
+      "seconds": 34.96,
+      "log": "c2-formal-plan-chain-fourth.txt",
+      "coverage": [
+        "real leaf test and registration",
+        "two real independent approvals and outputs",
+        "restart and old approval idempotency",
+        "unknown, decline, source change, bad output, cancellation",
+        "tampered step bindings, artifacts and parent-child authorization evidence",
+        "parallel drives and failure recovery",
+        "first registration rechecks source"
+      ],
+      "superseded_by_final_full": true
+    },
+    "kb_wait_rounding_regression": {
+      "passed": 2,
+      "deselected": 11,
+      "seconds": 4.1,
+      "log": "c2-formal-plan-wait-first.txt",
+      "cases": [
+        "0.9+0.9 seconds accounts 1 second",
+        "30.9+30.9 seconds accounts 61 seconds and exceeds 60-second limit"
+      ]
+    },
+    "kb_static": {
+      "ruff": "passed",
+      "pyright": "0 errors, 0 warnings",
+      "changed_python_format": "16 files passed",
+      "logs": [
+        "c2-formal-plan-kb-ruff-final.txt",
+        "c2-formal-plan-kb-pyright-final.txt",
+        "c2-formal-plan-kb-format-final.txt"
+      ]
+    },
+    "kl_backend_full": {
+      "passed": 1062,
+      "skipped": 3,
+      "failed": 0,
+      "warnings": 5,
+      "seconds": 110.4,
+      "exit_code": 0,
+      "log": "c2-formal-plan-kl-backend-full.txt",
+      "skips": "3 dedicated broker tests require disposable CELERY_PROBE_TEST_BROKER_URL",
+      "warnings_detail": "Existing TestToolActivity, TestStepActivity, TestPlanView, TestCaseExecution and TestExecutionV1 model class names are not test classes.",
+      "command": "DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_kl_tests WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q -rs"
+    },
+    "kl_static": {
+      "ruff": "passed",
+      "pyright": "0 errors, 0 warnings",
+      "changed_python_format": "6 files passed",
+      "logs": [
+        "c2-formal-plan-kl-ruff.txt",
+        "c2-formal-plan-kl-pyright.txt",
+        "c2-formal-plan-kl-format.txt"
+      ]
+    },
+    "kl_web_full": {
+      "passed": 321,
+      "skipped": 0,
+      "suites": 42,
+      "seconds": 9.1,
+      "exit_code": 0,
+      "log": "c2-formal-plan-kl-web-full.txt"
+    },
+    "kl_web_build": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "c2-formal-plan-kl-web-build.txt"
+    },
+    "kl_web_targeted": {
+      "passed": 79,
+      "log": "kl-expert-dag-web-targeted.txt",
+      "note": "Overlaps full run; not additive."
+    },
+    "kl_web_static": {
+      "typecheck": "passed",
+      "eslint": "passed",
+      "i18n": "1327 keys validated",
+      "prettier": "9 files passed",
+      "logs": [
+        "kl-expert-dag-web-tsc.txt",
+        "kl-expert-dag-web-eslint.txt",
+        "kl-expert-dag-web-i18n.txt",
+        "kl-expert-dag-web-prettier.txt"
+      ]
+    },
+    "kl_visibility_fixture": {
+      "passed": 1,
+      "seconds": 0.31,
+      "log": "kl-expert-visibility-service.txt",
+      "note": "Synthetic Memory/Runtime receipt exercises freeze service visibility boundary; not real admission evidence."
+    },
+    "provider_consumer_export": {
+      "status": "passed",
+      "logs": [
+        "c2-formal-plan-export-backend-check.txt",
+        "c2-formal-plan-export-web-check.txt"
+      ],
+      "commands": [
+        "PYTHONPATH=. .venv/bin/python scripts/export_formal_method.py --consumer /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app --check",
+        "PYTHONPATH=. .venv/bin/python scripts/export_formal_method.py --web-consumer /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app --check"
+      ]
+    },
+    "kb_web": "unchanged; previous-turn 497 tests not rerun or claimed as current-turn evidence",
+    "source_freeze_scope": "Only KnowBench app source has captured before/after SHA manifest. KnowLab owners froze code before successful full tests and made only checkpoint changes thereafter; no cryptographic pre-test KnowLab manifest is claimed."
+  },
+  "failures_and_fixes": [
+    {
+      "log": "c2-formal-plan-chain-first.txt",
+      "reason": "Positive real chain succeeded, but test fetched child method with managed-only capability_call lookup. Fixed test to call_by_key."
+    },
+    {
+      "log": "c2-formal-plan-chain-second.txt",
+      "reason": "Declined step lacked governance; final policy access raised TypeError. Guard missing governance and reject incomplete evidence."
+    },
+    {
+      "log": "c2-formal-plan-chain-third.txt",
+      "reason": "Source revision invalidated approval correctly but left unexecuted pending action. Driver now rechecks under Task lock, expires only awaiting_approval action and fails the declared step; dispatching/unknown untouched."
+    },
+    {
+      "log": "c2-formal-plan-kb-backend-full.txt",
+      "reason": "Manually interrupted first full after readonly review found per-step wait rounding loses fractional time. 631 passed, 3 warnings, 114.16 seconds, exit 2; no observed test failure. Fixed cumulative timedelta rounding and added 2 regressions."
+    },
+    {
+      "log": "c2-formal-plan-kb-backend-full-missing-env.txt",
+      "reason": "Second full command omitted DELIVERY_TEST_DATABASE_URL and consumer vectors. Unexpected database skips discovered; interrupted and restarted with complete explicit environment. Not final validation. SIGINT did not finish promptly; terminated only the verified task-owned pytest PID with SIGTERM before restart. Raw incomplete output retained.",
+      "exit_code": 143
+    }
+  ],
+  "limitations": [
+    "C2 incomplete; recursive qualified experts/teams, ordinary expert plan confirmation and use remain",
+    "Platform/KnowBase resource authority and full M2-M3 orchestration/reincubation remain",
+    "No real supplier or paid model calls, deployment, public release or new schema migration",
+    "Synthetic MCP responses through actual application/PostgreSQL/approval/call-ledger paths; no real browser business UAT",
+    "Internal agent review does not substitute formal independent review",
+    "Purchased/referenced frozen method does not acquire modification, derivation or delivery rights"
+  ],
+  "commits": {
+    "knowlab-app/knowlab-backend": "48cd95dac6ee3eab5fa42598fffd199c3934e4e6",
+    "knowlab-app/knowlab-web-frontend": "e17c6e06f04eaa89004f7ca2d80452e9a3ce0c11",
+    "knowlab-app": "d272be99485b1db610e9beb5513bede424316d2f",
+    "knowbench-app/knowbench-backend": "054ae24f160bce14dd8c9a93394e582a88e2e012",
+    "knowbench-app/knowbench-web-frontend": "d1e58d8352077dac2e4a3e107f86ee2e7d666970",
+    "knowbench-app": "becb24578abd2e11ad4ee1a9d529d890f98075c9"
+  },
+  "push": {
+    "knowlab": {
+      "status": "passed",
+      "exit_code": 0,
+      "command": "SYNC_JOBS=1 docs/sync-cowork/sync/sync.sh push knowlab-app",
+      "actual_endpoints_pushed": 6,
+      "unchanged_admin": "already consistent",
+      "seconds": 22.3,
+      "log": "c2-formal-plan-push-knowlab.txt",
+      "both_configured_endpoints": true
+    },
+    "documentation": "Containing sunmoonun commit is pushed after application evidence; final delivery reports its SHA and push result.",
+    "knowbench": {
+      "status": "passed",
+      "exit_code": 0,
+      "command": "SYNC_JOBS=1 docs/sync-cowork/sync/sync.sh push knowbench-app",
+      "actual_endpoints_pushed": 4,
+      "unchanged_web_and_admin": "already consistent",
+      "both_configured_endpoints": true,
+      "seconds": 17.9,
+      "log": "c2-formal-plan-push-knowbench.txt"
+    }
+  },
+  "artifacts": {
+    "c2-formal-plan-chain-first.txt": {
+      "sha256": "484fde2754441d24dc6864b96804cb019e2e39c4deaf319d40a71ee4d0556502",
+      "bytes": 3618
+    },
+    "c2-formal-plan-chain-fourth.txt": {
+      "sha256": "a18f4b3a7b0361f23cfe4c5461e88a91712219d3ee9ccd53e1475a0f6aa576fb",
+      "bytes": 100
+    },
+    "c2-formal-plan-chain-second.txt": {
+      "sha256": "91c6a17ce862265c032fc1f38e5a28c06605da929d2c2ac6cfd90550790241d9",
+      "bytes": 3448
+    },
+    "c2-formal-plan-chain-third.txt": {
+      "sha256": "fbf3b28916c94ee9388259111408a57255db2f018f60634ee7d1967e9b40c482",
+      "bytes": 2820
+    },
+    "c2-formal-plan-export-backend-check.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c2-formal-plan-export-web-check.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c2-formal-plan-kb-backend-full-final.txt": {
+      "sha256": "ce7e85e1fab8cd6350ec51520d4d0b30fbb3a45835b547d8f11a056a00e9e3ad",
+      "bytes": 5005
+    },
+    "c2-formal-plan-kb-backend-full-missing-env.txt": {
+      "sha256": "50735b83525628189479eee68c04bf28d39983673e5d5c19740d415de0d3da3f",
+      "bytes": 917
+    },
+    "c2-formal-plan-kb-backend-full.txt": {
+      "sha256": "ead1cc651a07715328dc20b7af8a9c8cd0f70b18eae00b3440c4d859da1716b4",
+      "bytes": 2118
+    },
+    "c2-formal-plan-kb-format-final.txt": {
+      "sha256": "7ff2df5e4a19c344d6ea2dfc25c25d2370159894cbac570f392753b22180e09c",
+      "bytes": 27
+    },
+    "c2-formal-plan-kb-format.txt": {
+      "sha256": "7ff2df5e4a19c344d6ea2dfc25c25d2370159894cbac570f392753b22180e09c",
+      "bytes": 27
+    },
+    "c2-formal-plan-kb-pyright-final.txt": {
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+      "bytes": 37
+    },
+    "c2-formal-plan-kb-pyright.txt": {
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+      "bytes": 37
+    },
+    "c2-formal-plan-kb-ruff-final.txt": {
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    "c2-formal-plan-kb-ruff.txt": {
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    "c2-formal-plan-kl-backend-full.txt": {
+      "sha256": "2d1476faf050220c344afe8b6eb974330603e10f364cfc1805bc64a522a8f752",
+      "bytes": 3469
+    },
+    "c2-formal-plan-kl-format.txt": {
+      "sha256": "ef7d13d02214e98ca902b05257cdbe6a8e84f3b4714508efdc19766460b54209",
+      "bytes": 26
+    },
+    "c2-formal-plan-kl-pyright.txt": {
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+      "bytes": 37
+    },
+    "c2-formal-plan-kl-ruff.txt": {
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    "c2-formal-plan-kl-web-build.txt": {
+      "sha256": "b7b092d1a7d52c5cf0d45c8e794987d4ba183fa0d4a14c8930bae13d2f396e39",
+      "bytes": 1493
+    },
+    "c2-formal-plan-kl-web-full.txt": {
+      "sha256": "0cdc6838859e43e0f2633bbbfcf2a44e2e8edb4cae626a3a015949a6d7308b53",
+      "bytes": 5211
+    },
+    "c2-formal-plan-push-knowlab.txt": {
+      "sha256": "d07880690e12963aa6a413f054a92d2327a737a4cd4b4c55af4d116fd9c33938",
+      "bytes": 486
+    },
+    "c2-formal-plan-root-pyright-first.txt": {
+      "sha256": "46a6c7834c9080ada23a415afd925abecc37d531f5c6e3d14ad0a7ff579096cb",
+      "bytes": 191
+    },
+    "c2-formal-plan-runtime-pyright-first.txt": {
+      "sha256": "128aaf2ee4fa07ffffe8c91dcf6abe578a27fade421511d8cd296cc3e4476c3c",
+      "bytes": 347
+    },
+    "c2-formal-plan-runtime-pyright-fourth.txt": {
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+      "bytes": 37
+    },
+    "c2-formal-plan-runtime-pyright-second.txt": {
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+      "bytes": 37
+    },
+    "c2-formal-plan-runtime-pyright-third.txt": {
+      "sha256": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+      "bytes": 37
+    },
+    "c2-formal-plan-source-freeze-after.json": {
+      "sha256": "071a135473d905163ce8374e9e733cb938716ae4785fd8ea5f7244479f6a5504",
+      "bytes": 69998
+    },
+    "c2-formal-plan-source-freeze-before.json": {
+      "sha256": "071a135473d905163ce8374e9e733cb938716ae4785fd8ea5f7244479f6a5504",
+      "bytes": 69998
+    },
+    "c2-formal-plan-source-freeze-interrupted.json": {
+      "sha256": "13ddbde01d97445def60ff4102f457e56185d44cd7ceb797918c54987b231335",
+      "bytes": 70014
+    },
+    "c2-formal-plan-test-container-cleanup.txt": {
+      "sha256": "35a1ece9dd3f4807c00ce3d85f7e8844ac4465597d7b5e766b947391b00c5b22",
+      "bytes": 65
+    },
+    "c2-formal-plan-wait-first.txt": {
+      "sha256": "741713a126a24c9424ea7795dcd76b85939069a9005d1efe4ceccb2e5699c988",
+      "bytes": 113
+    },
+    "kl-expert-dag-web-diffcheck.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "kl-expert-dag-web-eslint.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "kl-expert-dag-web-i18n.txt": {
+      "sha256": "5ac5c3c99eea87adca77b10537479e04d939e0caf8a39d0aa4284db4456acb7c",
+      "bytes": 81
+    },
+    "kl-expert-dag-web-prettier.txt": {
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "bytes": 66
+    },
+    "kl-expert-dag-web-targeted.txt": {
+      "sha256": "ed397cb1e30c8c05e28acf817fd9fda9e7892213f1b4c9914120434d0c854583",
+      "bytes": 468
+    },
+    "kl-expert-dag-web-tsc.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "kl-expert-visibility-service.txt": {
+      "sha256": "7d42ef5504b9f8dea803cd978f146b4a7a910815a154ed9e4e59883957d8862e",
+      "bytes": 98
+    },
+    "c2-formal-plan-push-knowbench.txt": {
+      "sha256": "a8028333a8302b4605ef104a371f5b15d6152426cfd3f8f0aea9f9256d0f205d",
+      "bytes": 502
+    }
+  },
+  "review": {
+    "kind": "internal implementation review only; not formal independent review",
+    "finding": "Per-step integer truncation lost fractional approval wait; fixed timedelta aggregation before one integer conversion and verified two actual graph regressions.",
+    "provider_agent_checks": "Final plan unit suite 29 passed/0.82s; earlier contract subset 49 passed/2 DB deselected/1.48s. Agent did not save raw /tmp logs; primary retained evidence is full KnowLab run.",
+    "initial_static_issues": "Provider/evidence implementation initially required line formatting and type-narrowing/complexity corrections; final Ruff/format/Pyright passed. No raw agent log files existed for these early checks."
+  },
+  "raw_logs_preserved_byte_for_byte": true
+}

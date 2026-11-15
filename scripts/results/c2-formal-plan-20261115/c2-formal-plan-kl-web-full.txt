@@ -1,0 +1,73 @@
+
+> knowlab-web-frontend@2.0.0 test /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+> vitest run
+
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/component/workdraft-capabilities.test.tsx (3 tests) 376ms
+ ✓ tests/component/atomic-methods.test.tsx (2 tests) 440ms
+   ✓ 作者选取输入字段后保存独立定义，不把执行策略发送为方法正文  337ms
+ ✓ tests/component/author-method-freeze.test.tsx (6 tests) 823ms
+ ✓ tests/component/self-test.test.tsx (17 tests) 1205ms
+ ✓ tests/component/lab-columns.test.tsx (6 tests) 931ms
+   ✓ 孵化栏 > 按模式分；自己来的给工作稿入口，平台孵化的是平台视图  420ms
+ ✓ tests/component/login-sso.test.tsx (18 tests) 199ms
+ ✓ tests/component/knowbots-columns.test.tsx (14 tests) 1445ms
+   ✓ 审核 > 孵化的缺口也在待办里：看得到提议，可以答「按提议」，答过的记「按提议」  445ms
+ ✓ tests/component/formal-method-editor.test.tsx (18 tests) 2200ms
+   ✓ imports into an empty draft and pins an existing source without reinstalling it  446ms
+ ✓ tests/component/cross-app-link.test.tsx (7 tests) 283ms
+ ✓ tests/component/web-shell.test.tsx (3 tests) 569ms
+   ✓ web端外壳 > lists the first-level pages in the user order, with no tab strip  358ms
+ ✓ tests/component/logout-button.test.tsx (4 tests) 377ms
+ ✓ tests/component/common-kernel.test.tsx (3 tests) 296ms
+ ✓ tests/component/formal-method-execution.test.tsx (28 tests) 1152ms
+   ✓ starts a real suite without a model key and keeps assertions separate from tool input  328ms
+ ✓ tests/component/workdraft-ai.test.tsx (13 tests) 3108ms
+   ✓ 发起一轮 > AI 起草：费用上限默认 20，电脑默认上次那台与目录  673ms
+   ✓ 发起一轮 > 让 AI 改…：一句话、可选某一步、费用上限与电脑可以改；没写那句话不能发  465ms
+ ✓ tests/component/workdraft-managed-capabilities.test.tsx (2 tests) 168ms
+ ✓ tests/component/knowbot-requests.test.tsx (21 tests) 3237ms
+   ✓ 表格行测试条件 > 旧版本带入选行条件，编辑数值不丢条件或改变类型  417ms
+   ✓ 申请一个创意 > 从真实方法库选版随创意提交，浏览和选择不会提前提交表单  357ms
+   ✓ 申请一个创意 > 方法组合成可编辑创意，保留原创和来源但不自动绑定或提交  380ms
+ ✓ tests/component/author-method-picker.test.tsx (14 tests) 3730ms
+   ✓ author method contracts and exact binding > assembles a shortlisted idea version through preview and the real binding endpoint  2106ms
+   ✓ author method contracts and exact binding > commits the server workdraft after binding and locks the referenced method body  831ms
+ ✓ tests/component/public-home.test.tsx (1 test) 123ms
+ ✓ tests/component/workdraft.test.tsx (20 tests) 3930ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 成稿文件随工作稿保存，重新载入保留，清空恢复仅对话交回  511ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 步骤可以加、上移、删（删要再点一次确认），整列存  538ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 一步里的格子：规则、交回项、用上哪几步，改哪格存哪格  530ms
+   ✓ 工作稿：格子与自动保存（专家孵化方案第六节） > 怎样算对：选验收模板，参数表单跟着模板换；换模板时「哪一项」留着  429ms
+ ✓ tests/component/ask-in-knowbench.test.tsx (3 tests) 527ms
+   ✓ 去 knowbench 请它 > 从 knowbench 找专家来的：带这一版和那一轮找专家的编号，新标签页打开  330ms
+ ✓ tests/component/switch-account.test.tsx (2 tests) 207ms
+ ✓ tests/component/incubation-mode.test.tsx (3 tests) 346ms
+ ✓ tests/component/dynamic-test-results.test.tsx (1 test) 219ms
+ ✓ tests/component/method-demand-reference.test.tsx (2 tests) 186ms
+ ✓ tests/component/signed-in-as.test.tsx (2 tests) 76ms
+ ✓ tests/component/manual-release.test.tsx (2 tests) 332ms
+ ✓ tests/unit/i18n-time-zone.test.ts (1 test) 41ms
+ ✓ tests/unit/cross-app-links.test.ts (10 tests) 47ms
+ ✓ tests/unit/browser-session.test.ts (7 tests) 24ms
+ ✓ tests/unit/interaction-consumer-vectors.test.ts (2 tests) 15ms
+ ✓ tests/component/test-execution.test.tsx (1 test) 192ms
+ ✓ tests/unit/env.test.ts (14 tests) 37ms
+ ✓ tests/unit/common-api-client.test.ts (3 tests) 12ms
+ ✓ tests/unit/formal-model-probe.test.ts (33 tests) 54ms
+ ✓ tests/unit/author-capabilities-contract.test.ts (1 test) 9ms
+ ✓ tests/unit/next-path.test.ts (3 tests) 3ms
+ ✓ tests/unit/run-projection.test.ts (4 tests) 13ms
+ ✓ tests/unit/interaction-client.test.ts (5 tests) 38ms
+ ✓ tests/unit/common-query.test.ts (3 tests) 7ms
+ ✓ tests/unit/tracked-env-contract.test.ts (2 tests) 8ms
+ ✓ tests/unit/content-security-policy.test.ts (2 tests) 11ms
+ ✓ tests/unit/preview-server.test.ts (15 tests) 511ms
+
+ Test Files  42 passed (42)
+      Tests  321 passed (321)
+   Start at  12:39:00
+   Duration  9.10s (transform 4.64s, setup 8.12s, collect 22.87s, tests 27.50s, environment 19.25s, prepare 4.05s)
+

@@ -1,0 +1,27 @@
+........................................................................ [  2%]
+........................................................................ [  5%]
+........................................................................ [  7%]
+........................................................................ [ 10%]
+........................................................................ [ 12%]
+........................................................................ [ 15%]
+........................................................................ [ 18%]
+........................................................................ [ 20%]
+.......................................................
+=============================== warnings summary ===============================
+app/application/workbench/test_folders.py:40
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/test_folders.py:40: PytestCollectionWarning: cannot collect test class 'TestFolders' because it has a __init__ constructor (from: app/application/workbench/test_folders.py)
+    class TestFolders(Protocol):
+
+app/application/workbench/test_folders.py:40
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/test_folders.py:40: PytestCollectionWarning: cannot collect test class 'TestFolders' because it has a __init__ constructor (from: app/application/workbench/test_runs.py)
+    class TestFolders(Protocol):
+
+app/domain/workbench/errors.py:24
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/domain/workbench/errors.py:24: PytestCollectionWarning: cannot collect test class 'TestCleanupPending' because it has a __init__ constructor (from: app/application/workbench/test_runs.py)
+    class TestCleanupPending(ValueError):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/usr/lib/python3.12/asyncio/runners.py:123: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+631 passed, 3 warnings in 114.16s (0:01:54)
