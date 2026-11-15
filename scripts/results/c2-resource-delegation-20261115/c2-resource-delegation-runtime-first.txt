@@ -1,0 +1,55 @@
+...........F
+=================================== FAILURES ===================================
+___ test_live_withdrawal_persists_stop_and_requires_explicit_reconfirmation ____
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7970e0b41650>, autoflush=False, expire_on_commit=False)
+
+    async def test_live_withdrawal_persists_stop_and_requires_explicit_reconfirmation(db):
+        ctx = await setup(db)
+        await confirm(db, ctx)
+        opened, token = await prepare(db, ctx)
+        async with db() as session:
+            repo = WorkbenchRepository(session)
+            staged = await request_call(
+                ctx.service(repo), ctx.sid, token, ctx.key, {"to": "test@example.test"}
+            )
+            call = await repo.capability_call(OWNER, staged["call_id"])
+        ctx.records.clear()
+        async with db() as session:
+            repo = WorkbenchRepository(session)
+            svc = ctx.service(repo)
+            await svc.refresh_method_authority((ctx.tid, opened["attempt_id"]))
+            await svc.refresh_method_authority((ctx.tid, opened["attempt_id"]))
+            attempt = await repo.get_attempt(opened["attempt_id"])
+            assert attempt["refs"]["permission_revocation"]
+            root = await repo.call_by_key(OWNER, ctx.sid, "task:" + ctx.tid)
+            assert root is not None
+            authority = await repo.method_authorization(OWNER, root["id"])
+            assert authority is not None and authority["revoked"] is True
+            selected = await repo.capability_selection(OWNER, ctx.sid)
+            assert selected["runtime"]["aborted"]
+            snapshot = await repo.get_task(ctx.tid)
+            assert await recover_revoked_method(repo, snapshot, stopped=False) is None
+            assert (
+                await recover_revoked_method(repo, snapshot, stopped=True)
+                == TaskState.WAITING
+            )
+            attempt = await repo.get_attempt(opened["attempt_id"])
+            assert attempt["refs"]["usage_pending"]
+>           assert (await repo.capability_call(OWNER, call["id"]))["status"] == "expired"
+E           AssertionError: assert 'awaiting_approval' == 'expired'
+E             
+E             - expired
+E             + awaiting_approval
+
+tests/test_resource_delegation_runtime_db.py:287: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:11:14 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:11:14 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+=========================== short test summary info ============================
+FAILED tests/test_resource_delegation_runtime_db.py::test_live_withdrawal_persists_stop_and_requires_explicit_reconfirmation
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 11 passed in 10.66s

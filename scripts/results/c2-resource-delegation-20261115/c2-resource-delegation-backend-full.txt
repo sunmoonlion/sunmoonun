@@ -1,0 +1,2811 @@
+........................................................................ [  2%]
+........................................................................ [  5%]
+........................................................................ [  7%]
+........................................................................ [ 10%]
+...............FFFFFFFFFFFF............................................. [ 13%]
+........................................................................ [ 15%]
+........................................................................ [ 18%]
+....
+=================================== FAILURES ===================================
+_ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[False-False-2] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be0176b10>, autoflush=False, expire_on_commit=False)
+review = False, existing_conversation = False, match_version = '2'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:27 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:27 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:28 - websockets.server - INFO - server listening on 127.0.0.1:45663
+2026-11-15 11:26:28 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:28 - app.application.workbench.runner - INFO - took over sandbox=2ebfc0e0-337f-46fb-9fbe-ae2c09c825fb expired_approvals=0
+2026-11-15 11:26:28 - websockets.server - INFO - connection open
+2026-11-15 11:26:28 - app.application.workbench.runner - INFO - sandbox link up sandbox=2ebfc0e0-337f-46fb-9fbe-ae2c09c825fb url=ws://127.0.0.1:45663
+2026-11-15 11:26:28 - app.application.workbench.runner - INFO - advisor stopped task=aea5eca9-adb5-43bc-b0e6-85d0dab8350c state=SUCCEEDED
+2026-11-15 11:26:29 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-67c97bf8
+2026-11-15 11:26:29 - app.application.workbench.runner - INFO - advisor stopped task=dfca7c3b-46c9-47be-b2e3-f4e62395af0a state=FAILED
+2026-11-15 11:26:29 - websockets.server - INFO - server closing
+2026-11-15 11:26:29 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:45663
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=2ebfc0e0-337f-46fb-9fbe-ae2c09c825fb expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=2ebfc0e0-337f-46fb-9fbe-ae2c09c825fb url=ws://127.0.0.1:45663
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=aea5eca9-adb5-43bc-b0e6-85d0dab8350c state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-67c97bf8
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=dfca7c3b-46c9-47be-b2e3-f4e62395af0a state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+_ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[False-False-3] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be1c15cd0>, autoflush=False, expire_on_commit=False)
+review = False, existing_conversation = False, match_version = '3'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:29 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:29 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:29 - websockets.server - INFO - server listening on 127.0.0.1:37009
+2026-11-15 11:26:29 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:29 - app.application.workbench.runner - INFO - took over sandbox=b6e0c005-209c-4061-9bf8-4f1d4a8bef95 expired_approvals=0
+2026-11-15 11:26:29 - websockets.server - INFO - connection open
+2026-11-15 11:26:29 - app.application.workbench.runner - INFO - sandbox link up sandbox=b6e0c005-209c-4061-9bf8-4f1d4a8bef95 url=ws://127.0.0.1:37009
+2026-11-15 11:26:29 - app.application.workbench.runner - INFO - advisor stopped task=37962575-cc5a-47ae-be5d-5f44faa513ca state=SUCCEEDED
+2026-11-15 11:26:30 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-05513d54
+2026-11-15 11:26:30 - app.application.workbench.runner - INFO - advisor stopped task=beba3046-233d-4723-9ef3-711a48581aa7 state=FAILED
+2026-11-15 11:26:30 - websockets.server - INFO - server closing
+2026-11-15 11:26:30 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:37009
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=b6e0c005-209c-4061-9bf8-4f1d4a8bef95 expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=b6e0c005-209c-4061-9bf8-4f1d4a8bef95 url=ws://127.0.0.1:37009
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=37962575-cc5a-47ae-be5d-5f44faa513ca state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-05513d54
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=beba3046-233d-4723-9ef3-711a48581aa7 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+_ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[False-False-4] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be33136d0>, autoflush=False, expire_on_commit=False)
+review = False, existing_conversation = False, match_version = '4'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:30 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:30 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:30 - websockets.server - INFO - server listening on 127.0.0.1:43521
+2026-11-15 11:26:30 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:30 - app.application.workbench.runner - INFO - took over sandbox=7cdeecc3-e017-4c8f-b2b6-2e927ab59aea expired_approvals=0
+2026-11-15 11:26:30 - websockets.server - INFO - connection open
+2026-11-15 11:26:30 - app.application.workbench.runner - INFO - sandbox link up sandbox=7cdeecc3-e017-4c8f-b2b6-2e927ab59aea url=ws://127.0.0.1:43521
+2026-11-15 11:26:30 - app.application.workbench.runner - INFO - advisor stopped task=ca7e5070-6c17-41b6-bbe5-73e59b1c3f2e state=SUCCEEDED
+2026-11-15 11:26:31 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-57370de9
+2026-11-15 11:26:31 - app.application.workbench.runner - INFO - advisor stopped task=018aa135-6b55-4abf-8137-a0d6312119ca state=FAILED
+2026-11-15 11:26:31 - websockets.server - INFO - server closing
+2026-11-15 11:26:31 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:43521
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=7cdeecc3-e017-4c8f-b2b6-2e927ab59aea expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=7cdeecc3-e017-4c8f-b2b6-2e927ab59aea url=ws://127.0.0.1:43521
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=ca7e5070-6c17-41b6-bbe5-73e59b1c3f2e state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-57370de9
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=018aa135-6b55-4abf-8137-a0d6312119ca state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[False-True-2] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be2fb9dd0>, autoflush=False, expire_on_commit=False)
+review = True, existing_conversation = False, match_version = '2'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:31 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:31 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:31 - websockets.server - INFO - server listening on 127.0.0.1:41363
+2026-11-15 11:26:31 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:31 - app.application.workbench.runner - INFO - took over sandbox=6f82579f-84d9-49c7-94dd-2f1fa2d554ff expired_approvals=0
+2026-11-15 11:26:31 - websockets.server - INFO - connection open
+2026-11-15 11:26:31 - app.application.workbench.runner - INFO - sandbox link up sandbox=6f82579f-84d9-49c7-94dd-2f1fa2d554ff url=ws://127.0.0.1:41363
+2026-11-15 11:26:31 - app.application.workbench.runner - INFO - advisor stopped task=da82f2c6-d443-45f9-a627-10d8677d02f6 state=SUCCEEDED
+2026-11-15 11:26:32 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-1f715fbf
+2026-11-15 11:26:32 - app.application.workbench.runner - INFO - advisor stopped task=b0c545f6-0af5-41ff-aad7-b6b4be52d3b3 state=FAILED
+2026-11-15 11:26:32 - websockets.server - INFO - server closing
+2026-11-15 11:26:32 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:41363
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=6f82579f-84d9-49c7-94dd-2f1fa2d554ff expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=6f82579f-84d9-49c7-94dd-2f1fa2d554ff url=ws://127.0.0.1:41363
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=da82f2c6-d443-45f9-a627-10d8677d02f6 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-1f715fbf
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=b0c545f6-0af5-41ff-aad7-b6b4be52d3b3 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[False-True-3] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be2f0b050>, autoflush=False, expire_on_commit=False)
+review = True, existing_conversation = False, match_version = '3'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:32 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:32 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:32 - websockets.server - INFO - server listening on 127.0.0.1:33115
+2026-11-15 11:26:32 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:32 - app.application.workbench.runner - INFO - took over sandbox=6645d731-98d4-43ab-9e0e-4e9ac6580dca expired_approvals=0
+2026-11-15 11:26:32 - websockets.server - INFO - connection open
+2026-11-15 11:26:32 - app.application.workbench.runner - INFO - sandbox link up sandbox=6645d731-98d4-43ab-9e0e-4e9ac6580dca url=ws://127.0.0.1:33115
+2026-11-15 11:26:32 - app.application.workbench.runner - INFO - advisor stopped task=37549ffd-180b-44b5-845f-2079208394a2 state=SUCCEEDED
+2026-11-15 11:26:33 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-7c51d3b8
+2026-11-15 11:26:33 - app.application.workbench.runner - INFO - advisor stopped task=ea9ec73e-d81b-4487-8c50-43f9ca8ee319 state=FAILED
+2026-11-15 11:26:33 - websockets.server - INFO - server closing
+2026-11-15 11:26:33 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:33115
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=6645d731-98d4-43ab-9e0e-4e9ac6580dca expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=6645d731-98d4-43ab-9e0e-4e9ac6580dca url=ws://127.0.0.1:33115
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=37549ffd-180b-44b5-845f-2079208394a2 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-7c51d3b8
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=ea9ec73e-d81b-4487-8c50-43f9ca8ee319 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[False-True-4] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be220a5d0>, autoflush=False, expire_on_commit=False)
+review = True, existing_conversation = False, match_version = '4'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:33 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:33 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:33 - websockets.server - INFO - server listening on 127.0.0.1:38087
+2026-11-15 11:26:33 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:33 - app.application.workbench.runner - INFO - took over sandbox=03be122d-8216-471a-af5a-a0050835eefd expired_approvals=0
+2026-11-15 11:26:33 - websockets.server - INFO - connection open
+2026-11-15 11:26:33 - app.application.workbench.runner - INFO - sandbox link up sandbox=03be122d-8216-471a-af5a-a0050835eefd url=ws://127.0.0.1:38087
+2026-11-15 11:26:33 - app.application.workbench.runner - INFO - advisor stopped task=e6b4b36d-81a4-4d77-8748-15bc141ce834 state=SUCCEEDED
+2026-11-15 11:26:33 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-733400bb
+2026-11-15 11:26:34 - app.application.workbench.runner - INFO - advisor stopped task=84901780-9ed3-4991-922c-561b459a0cc4 state=FAILED
+2026-11-15 11:26:34 - websockets.server - INFO - server closing
+2026-11-15 11:26:34 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:38087
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=03be122d-8216-471a-af5a-a0050835eefd expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=03be122d-8216-471a-af5a-a0050835eefd url=ws://127.0.0.1:38087
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=e6b4b36d-81a4-4d77-8748-15bc141ce834 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-733400bb
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=84901780-9ed3-4991-922c-561b459a0cc4 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[True-False-2] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be2f52650>, autoflush=False, expire_on_commit=False)
+review = False, existing_conversation = True, match_version = '2'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:34 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:34 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:34 - websockets.server - INFO - server listening on 127.0.0.1:33895
+2026-11-15 11:26:34 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:34 - app.application.workbench.runner - INFO - took over sandbox=48f01bf7-e3c3-4a75-9d88-20394a65dfdc expired_approvals=0
+2026-11-15 11:26:34 - websockets.server - INFO - connection open
+2026-11-15 11:26:34 - app.application.workbench.runner - INFO - sandbox link up sandbox=48f01bf7-e3c3-4a75-9d88-20394a65dfdc url=ws://127.0.0.1:33895
+2026-11-15 11:26:34 - app.application.workbench.runner - INFO - advisor stopped task=8adae1dd-9811-4e9e-96eb-5b84e4c21da5 state=SUCCEEDED
+2026-11-15 11:26:34 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-f5b70935
+2026-11-15 11:26:34 - app.application.workbench.runner - INFO - advisor stopped task=7fc1c227-18aa-4447-a35b-1a976d693db9 state=FAILED
+2026-11-15 11:26:34 - websockets.server - INFO - server closing
+2026-11-15 11:26:34 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:33895
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=48f01bf7-e3c3-4a75-9d88-20394a65dfdc expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=48f01bf7-e3c3-4a75-9d88-20394a65dfdc url=ws://127.0.0.1:33895
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=8adae1dd-9811-4e9e-96eb-5b84e4c21da5 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-f5b70935
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=7fc1c227-18aa-4447-a35b-1a976d693db9 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[True-False-3] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be313a650>, autoflush=False, expire_on_commit=False)
+review = False, existing_conversation = True, match_version = '3'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:35 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:35 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:35 - websockets.server - INFO - server listening on 127.0.0.1:41485
+2026-11-15 11:26:35 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:35 - app.application.workbench.runner - INFO - took over sandbox=ff1415c8-0c8f-496d-a66e-109924747ed9 expired_approvals=0
+2026-11-15 11:26:35 - websockets.server - INFO - connection open
+2026-11-15 11:26:35 - app.application.workbench.runner - INFO - sandbox link up sandbox=ff1415c8-0c8f-496d-a66e-109924747ed9 url=ws://127.0.0.1:41485
+2026-11-15 11:26:35 - app.application.workbench.runner - INFO - advisor stopped task=37a0a379-8d17-4895-aa6f-a8e7960d91ea state=SUCCEEDED
+2026-11-15 11:26:36 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-934e227c
+2026-11-15 11:26:36 - app.application.workbench.runner - INFO - advisor stopped task=01c0f882-17ed-473b-b15a-2a789d09a220 state=FAILED
+2026-11-15 11:26:36 - websockets.server - INFO - server closing
+2026-11-15 11:26:36 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:41485
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=ff1415c8-0c8f-496d-a66e-109924747ed9 expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=ff1415c8-0c8f-496d-a66e-109924747ed9 url=ws://127.0.0.1:41485
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=37a0a379-8d17-4895-aa6f-a8e7960d91ea state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-934e227c
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=01c0f882-17ed-473b-b15a-2a789d09a220 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[True-False-4] __
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be1bcc590>, autoflush=False, expire_on_commit=False)
+review = False, existing_conversation = True, match_version = '4'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:36 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:36 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:36 - websockets.server - INFO - server listening on 127.0.0.1:41621
+2026-11-15 11:26:36 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:36 - app.application.workbench.runner - INFO - took over sandbox=49dafa6b-cc81-4dfe-899d-ab7a5a5b297e expired_approvals=0
+2026-11-15 11:26:36 - websockets.server - INFO - connection open
+2026-11-15 11:26:36 - app.application.workbench.runner - INFO - sandbox link up sandbox=49dafa6b-cc81-4dfe-899d-ab7a5a5b297e url=ws://127.0.0.1:41621
+2026-11-15 11:26:36 - app.application.workbench.runner - INFO - advisor stopped task=f066bf85-9cd6-4111-ad5d-e4dfea41d7f1 state=SUCCEEDED
+2026-11-15 11:26:37 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-056bb458
+2026-11-15 11:26:37 - app.application.workbench.runner - INFO - advisor stopped task=dad1104a-2669-4b47-8f31-d0a31a6a847d state=FAILED
+2026-11-15 11:26:37 - websockets.server - INFO - server closing
+2026-11-15 11:26:37 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:41621
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=49dafa6b-cc81-4dfe-899d-ab7a5a5b297e expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=49dafa6b-cc81-4dfe-899d-ab7a5a5b297e url=ws://127.0.0.1:41621
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=f066bf85-9cd6-4111-ad5d-e4dfea41d7f1 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-056bb458
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=dad1104a-2669-4b47-8f31-d0a31a6a847d state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[True-True-2] ___
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be1d44250>, autoflush=False, expire_on_commit=False)
+review = True, existing_conversation = True, match_version = '2'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:37 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:37 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:37 - websockets.server - INFO - server listening on 127.0.0.1:45969
+2026-11-15 11:26:37 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:37 - app.application.workbench.runner - INFO - took over sandbox=278f676a-3d5d-4ecf-bb67-fed2c5079d0c expired_approvals=0
+2026-11-15 11:26:37 - websockets.server - INFO - connection open
+2026-11-15 11:26:37 - app.application.workbench.runner - INFO - sandbox link up sandbox=278f676a-3d5d-4ecf-bb67-fed2c5079d0c url=ws://127.0.0.1:45969
+2026-11-15 11:26:37 - app.application.workbench.runner - INFO - advisor stopped task=0d97dc01-9163-4666-b728-92da2d5527b0 state=SUCCEEDED
+2026-11-15 11:26:38 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-147b3406
+2026-11-15 11:26:38 - app.application.workbench.runner - INFO - advisor stopped task=39d2637e-70a9-4871-a245-0a1592ec0755 state=FAILED
+2026-11-15 11:26:38 - websockets.server - INFO - server closing
+2026-11-15 11:26:38 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:45969
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=278f676a-3d5d-4ecf-bb67-fed2c5079d0c expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=278f676a-3d5d-4ecf-bb67-fed2c5079d0c url=ws://127.0.0.1:45969
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=0d97dc01-9163-4666-b728-92da2d5527b0 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-147b3406
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=39d2637e-70a9-4871-a245-0a1592ec0755 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[True-True-3] ___
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be05b2650>, autoflush=False, expire_on_commit=False)
+review = True, existing_conversation = True, match_version = '3'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:38 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:38 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:38 - websockets.server - INFO - server listening on 127.0.0.1:41409
+2026-11-15 11:26:38 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:38 - app.application.workbench.runner - INFO - took over sandbox=0a231da5-427c-4b6c-a517-2ce87aca9d92 expired_approvals=0
+2026-11-15 11:26:38 - websockets.server - INFO - connection open
+2026-11-15 11:26:38 - app.application.workbench.runner - INFO - sandbox link up sandbox=0a231da5-427c-4b6c-a517-2ce87aca9d92 url=ws://127.0.0.1:41409
+2026-11-15 11:26:38 - app.application.workbench.runner - INFO - advisor stopped task=143bb6f2-2e2a-4e1a-8ff3-da06388f9e8f state=SUCCEEDED
+2026-11-15 11:26:39 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-f803ac9f
+2026-11-15 11:26:39 - app.application.workbench.runner - INFO - advisor stopped task=b3ab80bb-2c77-4c93-8794-6dc5551042e9 state=FAILED
+2026-11-15 11:26:39 - websockets.server - INFO - server closing
+2026-11-15 11:26:39 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:41409
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=0a231da5-427c-4b6c-a517-2ce87aca9d92 expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=0a231da5-427c-4b6c-a517-2ce87aca9d92 url=ws://127.0.0.1:41409
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=143bb6f2-2e2a-4e1a-8ff3-da06388f9e8f state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-f803ac9f
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=b3ab80bb-2c77-4c93-8794-6dc5551042e9 state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+__ test_new_matching_receipt_is_used_by_the_real_dynamic_runner[True-True-4] ___
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x752be01f1a90>, autoflush=False, expire_on_commit=False)
+review = True, existing_conversation = True, match_version = '4'
+
+    @pytest.mark.parametrize("match_version", ["2", "3", "4"])
+    @pytest.mark.parametrize("review", [False, True])
+    @pytest.mark.parametrize("existing_conversation", [False, True])
+    async def test_new_matching_receipt_is_used_by_the_real_dynamic_runner(
+        db, review, existing_conversation, match_version
+    ):
+        doc = json.loads(
+            (
+                Path(__file__).parent / "fixtures/capability-methods-manifest.json"
+            ).read_text()
+        )
+        doc["rule_sources"] = [
+            {"rule": "合成核对", "source": "user_confirmed", "ref": "synthetic:test"}
+        ]
+        entries = directory()
+        entry = entries["experts"][0]
+        entry.update(
+            knowbot_id=KNOWBOT,
+            digest=manifest_digest(doc),
+            public_capabilities=doc["pack"]["public_capabilities"],
+        )
+        port = Directory(entries)
+        choice = (
+            declaration_result()
+            if match_version == "4"
+            else demand_result()
+            if match_version == "3"
+            else result()
+        )
+        cap = "double_check" if review else "check"
+        choice["picks"][0]["knowbot_id"] = KNOWBOT
+        if match_version == "4":
+            choice["picks"][0]["declarations"] = [{"capability_id": cap, "quote": cap}]
+        else:
+            for row in choice["picks"][0]["coverage"]:
+                row.update(capability_id=cap, declaration_quote=cap)
+        question = QUESTION if review else "核对文件，交付报告。"
+        if not review:
+            choice["requirements"][0].update(
+                statement="核对文件", question_quote="核对文件"
+            )
+        plan = proposal(review=review)
+        plan["requirement_coverage"] = {"r1": cap, "r2": cap}
+        report = plan["steps"][-1]
+        report["inputs"][0]["slot"] = "inspect"
+        if review:
+            report["inputs"][-1]["slot"] = "review"
+        else:
+            report["omitted_inputs"] = {"review": "not_selected"}
+        final = {**json.loads(ROWS), "review_summary": "checked" if review else "本题未选"}
+        fake = ScriptedAppServer(
+            [json.dumps(choice), json.dumps(plan), "All inputs are in the question.", ROWS]
+            + (['{"notes":"checked"}'] if review else [])
+            + [json.dumps(final)]
+        )
+        await fake.start()
+        runner = runner_for(db, records=True)
+        try:
+            await setup_test_computer(db, fake)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                project = await ProjectService(repo).create(
+                    owner_actor_id=OWNER,
+                    environment_id=ENV,
+                    workspace_root=WORKSPACE,
+                    path="capability-match",
+                )
+                svc = FindExpertService(repo, directory=port)
+                found = await svc.start(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    question=question,
+                    idempotency_key="synthetic-capability-match",
+                    match_contract=f"knowbench/expert-match/v{match_version}",
+                    expert=f"knowbot:{KNOWBOT}@1" if existing_conversation else None,
+                )
+                task = await repo.get_task(found["task_id"])
+                assert task["profile_version"] == match_version
+                first = await find_expert(repo, port, task)
+                assert first["complete"] and "method_sources" not in json.dumps(first)
+                assert await find_expert(repo, port, task) == first
+                assert (
+                    len(
+                        await repo.list_task_events(
+                            found["task_id"], types=("task/expert_directory",)
+                        )
+                    )
+                    == 1
+                )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                matched = await FindExpertService(repo, directory=port).result(
+                    OWNER, found["task_id"]
+                )
+                assert matched["outcome"] == "summon"
+                if match_version == "3":
+                    assert matched["method_proposals"][0]["id"] == "compare"
+                    assert matched["picks"][0]["solution"]["data_conditions"]
+                summoner = FakeSummoner()
+                summoner.give(AUTHOR, doc)
+                pinned = await pin_knowbot(
+                    repo,
+                    summoner,
+                    owner_actor_id=OWNER,
+                    owner_subject=AUTHOR,
+                    ref=f"{KNOWBOT}@1",
+                    dynamic_method_owners=frozenset({AUTHOR}),
+                )
+    
+                async def token():
+                    return "synthetic-token"
+    
+                selection = MatchSelection(
+                    match_task_id=found["task_id"],
+                    match_artifact_version=matched["match_artifact_version"],
+                    question_revision=1,
+                    knowbot_id=KNOWBOT,
+                    version="1",
+                )
+                service = DelegationService(
+                    repo, dynamic_method_owners=frozenset({AUTHOR}), directory=port
+                )
+                args = dict(
+                    owner_actor_id=OWNER,
+                    project_id=project["id"],
+                    profile_id=pinned.profile_id,
+                    question=question,
+                    idempotency_key="synthetic-capability-delegation",
+                    user_token=token,
+                    expert_data=ExpertData(
+                        FakeKnowbase(), FakeSupply(), supply_enabled=False
+                    ),
+                    match=selection,
+                )
+                if existing_conversation:
+                    conversation = await SessionService(repo).start(
+                        owner_actor_id=OWNER, kind="work", project_id=project["id"]
+                    )
+                    request = HandoverRequest(
+                        session_id=conversation["session_id"],
+                        profile_id=pinned.profile_id,
+                        original_input={"text": question},
+                        match=selection,
+                        idempotency_key=args["idempotency_key"],
+                    )
+                    kwargs = {
+                        k: args[k] for k in ("owner_actor_id", "user_token", "expert_data")
+                    }
+                    made = await service.handover(request, **kwargs)
+                    assert (await service.handover(request, **kwargs))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.handover(
+                            request.model_copy(
+                                update={
+                                    "match": selection.model_copy(
+                                        update={"question_revision": 2}
+                                    )
+                                }
+                            ),
+                            **kwargs,
+                        )
+                    # Existing conversation endpoint normally schedules this command.
+                    row = await repo.get_session(conversation["session_id"])
+                    async with repo.transaction():
+                        await repo.enqueue_command(
+                            session_id=conversation["session_id"],
+                            sandbox_id=str(row["sandbox_id"]),
+                            kind="task.drive",
+                            payload={"task_id": made["task_id"]},
+                        )
+                else:
+                    made = await service.from_expert_entry(**args)
+                    assert (await service.from_expert_entry(**args))["task_id"] == made[
+                        "task_id"
+                    ]
+                    with pytest.raises(IdempotencyConflict):
+                        await service.from_expert_entry(
+                            **{
+                                **args,
+                                "match": selection.model_copy(
+                                    update={"question_revision": 2}
+                                ),
+                            }
+                        )
+            await drive(runner)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                task = await repo.get_task(made["task_id"])
+>               assert task["state"] == "SUCCEEDED", task
+E               AssertionError: {'acceptance_contract': {'pack_id': 'synthetic-capabilities', 'runtime_contract': 'knowbench/dynamic-methods/v3'}, 'accepted_plan_version': None, 'active_attempt_id': None, 'active_interaction_id': None, ...}
+E               assert 'FAILED' == 'SUCCEEDED'
+E                 
+E                 - SUCCEEDED
+E                 + FAILED
+
+tests/test_capability_find_execution_db.py:244: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 11:26:39 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 11:26:39 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 11:26:39 - websockets.server - INFO - server listening on 127.0.0.1:42623
+2026-11-15 11:26:39 - app.application.workbench.project_service - WARNING - project directory not checked
+2026-11-15 11:26:39 - app.application.workbench.runner - INFO - took over sandbox=21604a16-6251-413b-8b0a-273f77ea9187 expired_approvals=0
+2026-11-15 11:26:39 - websockets.server - INFO - connection open
+2026-11-15 11:26:39 - app.application.workbench.runner - INFO - sandbox link up sandbox=21604a16-6251-413b-8b0a-273f77ea9187 url=ws://127.0.0.1:42623
+2026-11-15 11:26:39 - app.application.workbench.runner - INFO - advisor stopped task=656fc6dd-4dc3-4f41-a32e-b36e0db871a2 state=SUCCEEDED
+2026-11-15 11:26:40 - app.application.workbench.runner - WARNING - stage tool configuration failed thread=thread-7380c11b
+2026-11-15 11:26:40 - app.application.workbench.runner - INFO - advisor stopped task=2c655a86-6eca-4308-9740-f114f840432d state=FAILED
+2026-11-15 11:26:40 - websockets.server - INFO - server closing
+2026-11-15 11:26:40 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:42623
+WARNING  app.application.workbench.project_service:project_service.py:114 project directory not checked
+INFO     app.application.workbench.runner:runner.py:2256 took over sandbox=21604a16-6251-413b-8b0a-273f77ea9187 expired_approvals=0
+INFO     websockets.server:server.py:529 connection open
+INFO     app.application.workbench.runner:runner.py:230 sandbox link up sandbox=21604a16-6251-413b-8b0a-273f77ea9187 url=ws://127.0.0.1:42623
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=656fc6dd-4dc3-4f41-a32e-b36e0db871a2 state=SUCCEEDED
+WARNING  app.application.workbench.runner:runner.py:887 stage tool configuration failed thread=thread-7380c11b
+INFO     app.application.workbench.runner:runner.py:2817 advisor stopped task=2c655a86-6eca-4308-9740-f114f840432d state=FAILED
+INFO     websockets.server:server.py:440 server closing
+INFO     websockets.server:server.py:473 server closed
+=============================== warnings summary ===============================
+app/application/workbench/test_folders.py:40
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/test_folders.py:40: PytestCollectionWarning: cannot collect test class 'TestFolders' because it has a __init__ constructor (from: app/application/workbench/test_folders.py)
+    class TestFolders(Protocol):
+
+app/application/workbench/test_folders.py:40
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/test_folders.py:40: PytestCollectionWarning: cannot collect test class 'TestFolders' because it has a __init__ constructor (from: app/application/workbench/test_runs.py)
+    class TestFolders(Protocol):
+
+app/domain/workbench/errors.py:24
+  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/domain/workbench/errors.py:24: PytestCollectionWarning: cannot collect test class 'TestCleanupPending' because it has a __init__ constructor (from: app/application/workbench/test_runs.py)
+    class TestCleanupPending(ValueError):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/usr/lib/python3.12/asyncio/runners.py:123: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+12 failed, 496 passed, 3 warnings in 81.58s (0:01:21)
