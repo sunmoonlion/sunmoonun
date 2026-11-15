@@ -1,0 +1,224 @@
+........F
+=================================== FAILURES ===================================
+____________ test_deselect_cannot_commit_ahead_of_an_approval_check ____________
+
+fut = <coroutine object Event.wait at 0x7298d73c7680>, timeout = 5
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        If the task suppresses the cancellation and returns a value instead,
+        that value is returned.
+    
+        This function is a coroutine.
+        """
+        # The special case for timeout <= 0 is for the following case:
+        #
+        # async def test_waitfor():
+        #     func_started = False
+        #
+        #     async def func():
+        #         nonlocal func_started
+        #         func_started = True
+        #
+        #     try:
+        #         await asyncio.wait_for(func(), 0)
+        #     except asyncio.TimeoutError:
+        #         assert not func_started
+        #     else:
+        #         assert False
+        #
+        # asyncio.run(test_waitfor())
+    
+    
+        if timeout is not None and timeout <= 0:
+            fut = ensure_future(fut)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise TimeoutError from exc
+    
+        async with timeouts.timeout(timeout):
+>           return await fut
+                   ^^^^^^^^^
+
+/usr/lib/python3.12/asyncio/tasks.py:520: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <asyncio.locks.Event object at 0x7298d5230590 [unset]>
+
+    async def wait(self):
+        """Block until the internal flag is true.
+    
+        If the internal flag is true on entry, return True
+        immediately.  Otherwise, block until another coroutine calls
+        set() to set the flag to true, then return True.
+        """
+        if self._value:
+            return True
+    
+        fut = self._get_loop().create_future()
+        self._waiters.append(fut)
+        try:
+>           await fut
+E           asyncio.exceptions.CancelledError
+
+/usr/lib/python3.12/asyncio/locks.py:212: CancelledError
+
+The above exception was the direct cause of the following exception:
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7298d5356bd0>, autoflush=False, expire_on_commit=False)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7298d5314380>
+
+    
+    async def test_session_state_lock_allows_event_foreign_key_and_cursor_progress(db):
+        _, _, sid = await seed(db)
+    
+        async def write_event():
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                async with repo.transaction():
+                    return await repo.append_event(
+                        session_id=sid,
+                        kind="runtime",
+                        event_type="item/started",
+                        payload={},
+                    )
+    
+        async with db() as session:
+            repo = WorkbenchRepository(session)
+            async with repo.transaction():
+                await repo.get_session(sid, for_update=True)
+                # A writer owns the cursor advisory lock before its event's FK read.
+                # It must finish while this action owns the stable Session row.
+                first = await asyncio.wait_for(write_event(), 3)
+                second = await repo.append_event(
+                    session_id=sid,
+                    kind="approval",
+                    event_type="interaction/opened",
+                    payload={},
+                )
+                assert second["cursor"] == first["cursor"] + 1
+    
+    
+    async def test_deselect_cannot_commit_ahead_of_an_approval_check(db, monkeypatch):
+        _, factory, remote, sid, sandbox, fake, runner = await setup(db)
+        entered, release, saving = asyncio.Event(), asyncio.Event(), asyncio.Event()
+        tasks = []
+        try:
+            await start_turn(db, runner, sid, sandbox)
+            call = await wait_call(db, sid)
+            assert call, fake.failures
+>           original = FormalSessionTools.resolve
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_formal_session_model_concurrency_db.py:57: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Timeout [expired]>
+exc_type = <class 'asyncio.exceptions.CancelledError'>
+exc_val = CancelledError(), exc_tb = <traceback object at 0x7298d4b6ea40>
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> Optional[bool]:
+        assert self._state in (_State.ENTERED, _State.EXPIRING)
+    
+        if self._timeout_handler is not None:
+            self._timeout_handler.cancel()
+            self._timeout_handler = None
+    
+        if self._state is _State.EXPIRING:
+            self._state = _State.EXPIRED
+    
+            if self._task.uncancel() <= self._cancelling and exc_type is exceptions.CancelledError:
+                # Since there are no new cancel requests, we're
+                # handling this.
+>               raise TimeoutError from exc_val
+E               TimeoutError
+
+/usr/lib/python3.12/asyncio/timeouts.py:115: TimeoutError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 10:34:44 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 10:34:44 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 10:34:44 - websockets.server - INFO - server listening on 127.0.0.1:37981
+2026-11-15 10:34:44 - root - INFO - 日志系统初始化完成
+2026-11-15 10:34:45 - app.application.workbench.runner - INFO - took over sandbox=f15d6396-02cf-416d-beb6-a590bfdd9412 expired_approvals=0
+2026-11-15 10:34:45 - websockets.server - INFO - connection open
+2026-11-15 10:34:45 - app.application.workbench.runner - INFO - sandbox link up sandbox=f15d6396-02cf-416d-beb6-a590bfdd9412 url=ws://127.0.0.1:37981
+2026-11-15 10:34:45 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/2faa91bf-7097-4a03-8e8b-ba1bb8233bd1 status=200 actor_id=- correlation_id=185f0d49-1412-4e78-a855-baf7a8bddcff operation_id=- reason_present=False
+2026-11-15 10:34:45 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/2faa91bf-7097-4a03-8e8b-ba1bb8233bd1 status=200 actor_id=- correlation_id=e86d98d9-5421-4fc2-a6f2-d57c3cee3c06 operation_id=- reason_present=False
+2026-11-15 10:34:45 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/workbench/capability-calls/cd1e076c-eaee-4827-815a-e797afda4b49/decision status=200 actor_id=- correlation_id=71518a68-69a6-438b-9a4d-5660a6981b28 operation_id=- reason_present=False
+2026-11-15 10:34:46 - app.application.workbench.runner - INFO - advisor stopped task=e7d36c03-fa8d-456d-b22d-62a277a20ed8 state=SUCCEEDED
+2026-11-15 10:34:46 - websockets.server - INFO - server closing
+2026-11-15 10:34:46 - websockets.server - INFO - server closed
+2026-11-15 10:34:46 - websockets.server - INFO - server listening on 127.0.0.1:32961
+2026-11-15 10:34:46 - root - INFO - 日志系统初始化完成
+2026-11-15 10:34:46 - app.application.workbench.runner - INFO - took over sandbox=ba971478-8d4d-45db-bd52-9650b152e051 expired_approvals=0
+2026-11-15 10:34:46 - websockets.server - INFO - connection open
+2026-11-15 10:34:46 - app.application.workbench.runner - INFO - sandbox link up sandbox=ba971478-8d4d-45db-bd52-9650b152e051 url=ws://127.0.0.1:32961
+2026-11-15 10:34:47 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/c51cd1b2-f115-487c-87fe-9da9db5f397e status=200 actor_id=- correlation_id=e359eabf-2000-4fa8-a337-11a312f88ade operation_id=- reason_present=False
+2026-11-15 10:34:52 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/workbench/capability-calls/40fd6706-bee6-43c2-8305-5f69499f070d/decision status=500 actor_id=- correlation_id=950099ec-ffe7-4020-b717-d249f317543a operation_id=- reason_present=False
+2026-11-15 10:34:52 - sqlalchemy.pool.impl.AsyncAdaptedQueuePool - ERROR - Exception terminating connection <AdaptedConnection <asyncpg.connection.Connection object at 0x7298d631f110>>
+Traceback (most recent call last):
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 373, in _close_connection
+    self._dialect.do_terminate(connection)
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 1127, in do_terminate
+    dbapi_connection.terminate()
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 402, in terminate
+    self.await_(asyncio.shield(self._terminate_graceful_close()))  # type: ignore[attr-defined] # noqa: E501
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7298d508ba70 by <Task cancelling name='Task-1726' coro=<AsyncClient.post() running at /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/httpx/_client.py:1859> cb=[gather.<locals>._done_callback() at /usr/lib/python3.12/asyncio/tasks.py:767]>
+2026-11-15 10:34:52 - sqlalchemy.pool.impl.AsyncAdaptedQueuePool - ERROR - Exception terminating connection <AdaptedConnection <asyncpg.connection.Connection object at 0x7298d6bd6300>>
+Traceback (most recent call last):
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 373, in _close_connection
+    self._dialect.do_terminate(connection)
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 1127, in do_terminate
+    dbapi_connection.terminate()
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 402, in terminate
+    self.await_(asyncio.shield(self._terminate_graceful_close()))  # type: ignore[attr-defined] # noqa: E501
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7298d574ae70 by <Task cancelling name='Task-1708' coro=<ModelServer.handle() running at /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/tests/formal_model_support.py:58> cb=[gather.<locals>._done_callback() at /usr/lib/python3.12/asyncio/tasks.py:767]>
+2026-11-15 10:34:52 - websockets.server - INFO - server closing
+2026-11-15 10:34:52 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:37981
+=========================== short test summary info ============================
+FAILED tests/test_formal_session_model_concurrency_db.py::test_deselect_cannot_commit_ahead_of_an_approval_check
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 8 passed in 37.71s

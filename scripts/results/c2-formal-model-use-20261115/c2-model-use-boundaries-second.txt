@@ -1,0 +1,77 @@
+.......F
+=================================== FAILURES ===================================
+________ test_gateway_rejects_unobserved_identity_and_changed_arguments ________
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7e744f9f1490>, autoflush=False, expire_on_commit=False)
+
+    async def test_gateway_rejects_unobserved_identity_and_changed_arguments(db):
+        _, _, remote, sid, sandbox, fake, runner = await setup(db)
+        try:
+            await start_turn(db, runner, sid, sandbox)
+            call = await wait_call(db, sid)
+            assert call, fake.failures
+            invocation = call["detail"]["invocation"]
+            connection = fake.thread_configs[invocation["thread_id"]][
+                "mcp_servers.sunmoon_capabilities"
+            ]
+            request = {
+                "id": 88,
+                "method": "tools/call",
+                "params": {
+                    "name": fake.tool_name,
+                    "arguments": call["detail"]["arguments"],
+                    "_meta": {
+                        "threadId": invocation["thread_id"],
+                        "callId": "unobserved-call",
+                        "x-codex-turn-metadata": {
+                            "thread_id": invocation["thread_id"],
+                            "turn_id": invocation["turn_id"],
+                        },
+                    },
+                },
+            }
+            async with AsyncClient(
+                transport=ASGITransport(fake.app), base_url="http://testserver"
+            ) as http:
+                response = await http.post(
+                    connection["url"], headers=connection["http_headers"], json=request
+                )
+>               assert response.status_code == 403, response.text
+E               AssertionError: {"jsonrpc":"2.0","id":88,"error":{"code":-32001,"message":"tool call has not been verified by the runner"}}
+E               assert 200 == 403
+E                +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_formal_session_model_boundaries_db.py:164: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 10:33:17 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 10:33:17 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 10:33:17 - websockets.server - INFO - server listening on 127.0.0.1:41385
+2026-11-15 10:33:18 - root - INFO - 日志系统初始化完成
+2026-11-15 10:33:18 - app.application.workbench.runner - INFO - took over sandbox=7dc3ee5f-ede7-49bc-9f3e-74cfa89076ae expired_approvals=0
+2026-11-15 10:33:18 - websockets.server - INFO - connection open
+2026-11-15 10:33:18 - app.application.workbench.runner - INFO - sandbox link up sandbox=7dc3ee5f-ede7-49bc-9f3e-74cfa89076ae url=ws://127.0.0.1:41385
+2026-11-15 10:33:18 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/b0e3f1b1-acd0-4222-8892-fdb817fa4081 status=200 actor_id=- correlation_id=ecdc4646-263d-4e52-9211-8dbe6e17848d operation_id=- reason_present=False
+2026-11-15 10:33:18 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/b0e3f1b1-acd0-4222-8892-fdb817fa4081 status=200 actor_id=- correlation_id=91b96bb6-7a90-48b4-bc24-a2b49e6781d4 operation_id=- reason_present=False
+2026-11-15 10:33:18 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/workbench/capability-calls/b2cf1a66-c5ab-417c-a829-2a2510d5006e/decision status=200 actor_id=- correlation_id=044af808-7ce8-4273-982e-ada14bdf750c operation_id=- reason_present=False
+2026-11-15 10:33:19 - app.application.workbench.runner - INFO - advisor stopped task=f14a6461-afd9-475f-965e-db38ed94b419 state=SUCCEEDED
+2026-11-15 10:33:19 - websockets.server - INFO - server closing
+2026-11-15 10:33:19 - websockets.server - INFO - server closed
+2026-11-15 10:33:19 - websockets.server - INFO - server listening on 127.0.0.1:38983
+2026-11-15 10:33:19 - root - INFO - 日志系统初始化完成
+2026-11-15 10:33:20 - app.application.workbench.runner - INFO - took over sandbox=402fc6cd-e758-4a33-ac49-53a7f623c393 expired_approvals=0
+2026-11-15 10:33:20 - websockets.server - INFO - connection open
+2026-11-15 10:33:20 - app.application.workbench.runner - INFO - sandbox link up sandbox=402fc6cd-e758-4a33-ac49-53a7f623c393 url=ws://127.0.0.1:38983
+2026-11-15 10:33:20 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/6bf555fa-725a-4339-8477-61b45950aee0 status=200 actor_id=- correlation_id=caf91d23-5bd8-4f37-a6d0-6e8bce773d6d operation_id=- reason_present=False
+2026-11-15 10:33:22 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/6bf555fa-725a-4339-8477-61b45950aee0 status=200 actor_id=- correlation_id=fd8a58e4-0ff9-458c-911d-195ca96bd9e2 operation_id=- reason_present=False
+2026-11-15 10:33:22 - websockets.server - INFO - server closing
+2026-11-15 10:33:22 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:41385
+=========================== short test summary info ============================
+FAILED tests/test_formal_session_model_boundaries_db.py::test_gateway_rejects_unobserved_identity_and_changed_arguments
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 7 passed in 29.86s

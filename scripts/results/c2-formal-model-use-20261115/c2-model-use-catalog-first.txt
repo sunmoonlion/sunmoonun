@@ -1,0 +1,67 @@
+F
+=================================== FAILURES ===================================
+_____ test_real_model_and_mixed_caller_eligibility_survives_cleanup[False] _____
+
+db = async_sessionmaker(class_='AsyncSession', autocommit=False, bind=<sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7bcab01d48d0>, autoflush=False, expire_on_commit=False)
+mixed = False
+
+    @pytest.mark.parametrize("mixed", [False, True])
+    async def test_real_model_and_mixed_caller_eligibility_survives_cleanup(db, mixed):
+        frozen, request, factory, remote = await model_admitted(db, mixed=mixed)
+        async with db() as session:
+            repo = WorkbenchRepository(session)
+            service = catalog(repo, factory)
+            for purge in (False, True):
+                if purge:
+                    async with repo.transaction():
+                        await repo.purge_test_run(str(request.run_id))
+                assert (
+>                   await service.resolve_owned(OWNER, frozen.reference, caller="model")
+                ).frozen == frozen
+
+tests/test_formal_model_catalog_db.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/application/workbench/formal_method_catalog.py:297: in resolve_owned
+    return await self._resolve(owner, reference, row, caller)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/application/workbench/formal_method_catalog.py:452: in _resolve
+    self._verify_cases(owner, frozen, request, evidence, registration, policy)
+app/application/workbench/formal_method_catalog.py:552: in _verify_cases
+    model_cost += _verify_model_case(
+app/application/workbench/formal_method_catalog.py:131: in _verify_model_case
+    _require(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+issue = 'Model execution isolation is not the reviewed probe scope'
+
+    def _require(condition, issue):
+        if not condition:
+>           raise CapabilityError(issue)
+E           app.domain.workbench.capabilities.CapabilityError: Model execution isolation is not the reviewed probe scope
+
+app/application/workbench/formal_method_catalog.py:56: CapabilityError
+---------------------------- Captured stderr setup -----------------------------
+2026-11-15 10:18:25 - alembic.runtime.migration - INFO - Context impl PostgresqlImpl.
+2026-11-15 10:18:25 - alembic.runtime.migration - INFO - Will assume transactional DDL.
+------------------------------ Captured log setup ------------------------------
+INFO     alembic.runtime.migration:migration.py:210 Context impl PostgresqlImpl.
+INFO     alembic.runtime.migration:migration.py:213 Will assume transactional DDL.
+----------------------------- Captured stderr call -----------------------------
+2026-11-15 10:18:26 - websockets.server - INFO - server listening on 127.0.0.1:38087
+2026-11-15 10:18:26 - root - INFO - 日志系统初始化完成
+2026-11-15 10:18:26 - app.application.workbench.runner - INFO - took over sandbox=8929f29f-a70a-4274-b9a7-abe7e2e440ea expired_approvals=0
+2026-11-15 10:18:26 - websockets.server - INFO - connection open
+2026-11-15 10:18:26 - app.application.workbench.runner - INFO - sandbox link up sandbox=8929f29f-a70a-4274-b9a7-abe7e2e440ea url=ws://127.0.0.1:38087
+2026-11-15 10:18:26 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/f64f5bcf-0f06-40e0-bebd-5ca8e71b6ea9 status=200 actor_id=- correlation_id=94d24451-7313-40f6-832f-c4b9a6c4e2ef operation_id=- reason_present=False
+2026-11-15 10:18:26 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/mcp/capabilities/f64f5bcf-0f06-40e0-bebd-5ca8e71b6ea9 status=200 actor_id=- correlation_id=f2421d1d-6184-4e00-840b-d35ab0cb37b4 operation_id=- reason_present=False
+2026-11-15 10:18:26 - app.bootstrap.api - INFO - audit_mutation method=POST path=/api/workbench/capability-calls/e3fabaac-8d4b-44b5-9614-d0972b680cd9/decision status=200 actor_id=- correlation_id=000645ff-d27e-47fd-86b4-a6547bab5239 operation_id=- reason_present=False
+2026-11-15 10:18:27 - app.application.workbench.runner - INFO - advisor stopped task=f225e65e-3db9-4fe6-a321-509587fe2f95 state=SUCCEEDED
+2026-11-15 10:18:27 - websockets.server - INFO - server closing
+2026-11-15 10:18:27 - websockets.server - INFO - server closed
+------------------------------ Captured log call -------------------------------
+INFO     websockets.server:server.py:341 server listening on 127.0.0.1:38087
+=========================== short test summary info ============================
+FAILED tests/test_formal_model_catalog_db.py::test_real_model_and_mixed_caller_eligibility_survives_cleanup[False]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 4.20s

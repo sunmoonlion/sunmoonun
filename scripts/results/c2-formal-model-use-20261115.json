@@ -1,0 +1,228 @@
+{
+  "date": "2026-11-15",
+  "task": "C2 explicit ordinary-session model use of qualified private formal methods",
+  "status": "ordinary_model_use_verified_C2_incomplete",
+  "deployed": false,
+  "scope": "User-selected exact private MethodRefs with real model-caller qualification enter ordinary chat/work model tools; each actual operation requires exact owner approval and a fresh nondelegable grant; shared root/child calls return typed method outputs.",
+  "environment": {
+    "host": "wsl-dev",
+    "local_memory_gib": 94,
+    "remote_previous_memory_gib": 3.7,
+    "remote_parallel_heavy_jobs": false,
+    "database_container": "luna-c2-model-use-tests-pg",
+    "database": "127.0.0.1:55440/luna_c2_tests",
+    "database_storage": "tmpfs",
+    "database_memory_limit": "1GiB",
+    "cleanup": "Task-owned tmpfs PostgreSQL container removed after final tests; existing services and images untouched."
+  },
+  "baseline": {
+    "knowbench-app/knowbench-backend": "43b553c71d3986784ab923fbcacfe315b3721f18",
+    "knowbench-app/knowbench-web-frontend": "35f847b41e3263a1109a1297fcc2ab9d6311b25c",
+    "knowbench-app": "4bc9a166e45d8b68e80a5f45ead39083fa614c3a",
+    "sunmoonun": "130e8811890df9667ba57de1d47cf17b5aa63d29"
+  },
+  "contract": {
+    "explicit_model_selection": true,
+    "maximum_methods_per_conversation": 20,
+    "one_version_per_method": true,
+    "selection_confers_grant": false,
+    "old_host_receipt_confers_model_qualification": false,
+    "mixed_callers_require_separate_real_evidence": true,
+    "expert_task_or_attempt_created_for_ordinary_call": false,
+    "implementation_model_turns": 0,
+    "new_migrations": false,
+    "same_model_identity_redispatch": false,
+    "unknown_result_automatic_retry": false
+  },
+  "verification": {
+    "backend_full": {
+      "status": "passed",
+      "log": "c2-model-use-backend-full.txt",
+      "source_freeze": "c2-model-use-source-freeze-before.json",
+      "frozen_files": 605,
+      "command": "AGENT_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests DELIVERY_TEST_DATABASE_URL=postgresql://postgres@127.0.0.1:55440/luna_c2_tests WEB_INTERACTION_CONSUMER_VECTORS=/home/zymun/worktrees/luna/tpl-app/contracts/web-interaction-v1.consumer-vectors.json .venv/bin/pytest -q -rs",
+      "passed": 2638,
+      "skipped": 6,
+      "failed": 0,
+      "warnings": 3,
+      "seconds": 948.7,
+      "exit_code": 0,
+      "source_unchanged_after_tests": true,
+      "skips": "3 dedicated broker unavailable; 3 empty builtin expert-pack parameter sets",
+      "warnings_detail": "Existing TestFolders protocol and TestCleanupPending exception classes are not test classes."
+    },
+    "backend_qualified_catalog_and_positive_chain": {
+      "passed": 26,
+      "seconds": 48.88,
+      "log": "c2-model-use-chain-third.txt"
+    },
+    "backend_boundaries_concurrency_and_host_regressions": {
+      "passed": 38,
+      "seconds": 74.51,
+      "log": "c2-model-use-boundaries-fourth.txt"
+    },
+    "backend_legacy_method_lock_regressions": {
+      "passed": 21,
+      "seconds": 34.42,
+      "log": "c2-model-use-legacy-locks.txt"
+    },
+    "backend_cross_session_asset_order": {
+      "passed": 1,
+      "seconds": 2.0,
+      "log": "c2-model-use-catalog-locks.txt"
+    },
+    "backend_pure_runtime_regression": {
+      "passed": 24,
+      "log": "c2-model-use-lock-unit3.txt"
+    },
+    "backend_static": {
+      "ruff": "passed",
+      "pyright": "0 errors, 0 warnings",
+      "changed_python_format": "22 files formatted",
+      "logs": [
+        "c2-model-use-ruff-final.txt",
+        "c2-model-use-pyright-final.txt",
+        "c2-model-use-format-final.txt"
+      ]
+    },
+    "web_full": {
+      "passed": 487,
+      "suites": 66,
+      "seconds": 9.72,
+      "log": "c2-model-use-web-full.txt",
+      "exit_code": 0
+    },
+    "web_build": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "c2-model-use-web-build.txt"
+    },
+    "web_targeted": {
+      "passed": 40,
+      "log": "kb-model-selection-web-targeted.txt"
+    },
+    "web_static": {
+      "typescript": "passed",
+      "eslint": "passed",
+      "i18n": "1351 keys passed",
+      "prettier": "12 hand-written files passed; no source changes",
+      "logs": [
+        "kb-model-selection-web-tsc.txt",
+        "kb-model-selection-web-eslint.txt",
+        "kb-model-selection-web-i18n.txt",
+        "kb-model-selection-web-prettier.txt"
+      ]
+    },
+    "suite_counts_overlap": true,
+    "provider_consumer_contract": {
+      "schema_samples_fixture_byte_equality": true,
+      "consumer_lock_digests_match": true
+    }
+  },
+  "preserved_failures": [
+    {
+      "logs": [
+        "c2-model-use-catalog-first.txt",
+        "c2-model-use-catalog-second.txt"
+      ],
+      "reason": "Catalog initially rejected valid selection revision zero and compared UUID identity against string; fixed exact comparisons without loosening evidence requirements."
+    },
+    {
+      "log": "c2-formal-session-tools-unit2.txt",
+      "reason": "New schema reference test lacked a referenced definitions node; fixture corrected, final 4 passed in unit3."
+    },
+    {
+      "log": "c2-model-use-root-pyright-first.txt",
+      "reason": "Catalog caller Literal annotation and SelectionPut typed construction corrected."
+    },
+    {
+      "log": "c2-model-use-review-selection-race.txt",
+      "reason": "Internal review deterministically reproduced stale selection accepted after deselection commit; approval/request now lock current selection under session, matching selection and recovery order; result rechecks runtime after locks."
+    },
+    {
+      "log": "c2-model-use-boundaries-first.txt",
+      "reason": "Six tests passed then teardown blocked synchronous schema DROP behind an async notification-reader transaction; cancelled only task-owned test query/process. Fixture now drains reader before schema teardown."
+    },
+    {
+      "log": "c2-model-use-boundaries-second.txt",
+      "reason": "Seven tests passed; forged-call assertion expected HTTP403 but existing protocol correctly returned HTTP200 JSON-RPC RecordsRefused. Test now asserts exact error code and message, and no dispatch."
+    },
+    {
+      "log": "c2-model-use-boundaries-third.txt",
+      "reason": "Eight tests passed; new concurrency fixture waited for selection read that correctly blocked behind approval Session lock. Read baseline revision before launching approval; mutation race then tested correctly."
+    }
+  ],
+  "review": {
+    "kind": "internal implementation cross-check",
+    "formal_independent_review": false,
+    "fixed_findings": [
+      "selection/approval race",
+      "result token read before session lock",
+      "legacy Task/Session/Selection recovery lock inversion",
+      "event cursor advisory lock versus Session foreign-key lock",
+      "cross-session directory source ordering versus sorted selection asset locks"
+    ]
+  },
+  "limits": [
+    "All model and supplier responses are engineering fixtures; real WebSocket/HTTP/PostgreSQL execution and provenance are used.",
+    "No new real-browser end-to-end or fixed-Codex binary verification of this ordinary-session entry.",
+    "No real supplier, paid model call, deployment, or public marketplace release.",
+    "C2 incomplete: formal expert/team orchestration, platform/KnowBase resource authority and explicit delegation remain; full M2-M3 orchestration/reincubation follows main design.",
+    "KnowLab unchanged in this slice; prior full results are not claimed as reruns."
+  ],
+  "commits": {
+    "knowbench-app/knowbench-backend": "37ea706dcc27292d6a6bd0edb2f8bd1bf17c05ba",
+    "knowbench-app/knowbench-web-frontend": "f36640a9a3fe2a599aae84f361a38f2ec1368730",
+    "knowbench-app": "fa780f44dcf832eec80b461ce15bf9c0297f34bc"
+  },
+  "push": {
+    "knowbench-app": {
+      "status": "passed",
+      "exit_code": 0,
+      "command": "SYNC_JOBS=1 sunmoonun/docs/sync-cowork/sync/sync.sh push knowbench-app",
+      "pushed_repository_endpoints": 6,
+      "seconds": 20.5,
+      "both_configured_endpoints": true,
+      "unchanged_admin": "already consistent, skipped",
+      "log": "c2-model-use-push-knowbench.txt"
+    },
+    "documentation": "Containing sunmoonun commit is pushed after application evidence; final delivery reports its SHA and push result."
+  },
+  "artifact_sha256": {
+    "c2-formal-session-tools-unit2.txt": "3aeefe35f63f2d1990af1772643619e2fa86e5a23d21a2b160538514c9bbc008",
+    "c2-formal-session-tools-unit3.txt": "d7f461594ebe1e51f44098d5cb6545a45cb2850243e783c6022d004c4d960f96",
+    "c2-model-use-backend-full.txt": "96b5206296b0cd78df92afd44da2755696c243d918b593bd21b193b972c9f9ea",
+    "c2-model-use-boundaries-first.txt": "e354d3a46a5b2f01033cdbfa766825efe1c4c9ec32537c2e5c5cedf80a2cc25a",
+    "c2-model-use-boundaries-fourth.txt": "c58e7caebe2483f079e7a44e75a3d3e9bffd2b4690ab3ff0817871af851b35ff",
+    "c2-model-use-boundaries-second.txt": "35605b1e7b2fda59163d258b1f7e2dc9164af0c1147d44302ed959f9c6236aae",
+    "c2-model-use-boundaries-third.txt": "6e47321ade0d6cbe16946aca0e0d8c4428e96f9b699889b2058a203e86ff803b",
+    "c2-model-use-catalog-first.txt": "1750ebf11a1cb198976f179ba8d07b59e5254e75b19ed160c8586c8db19d795c",
+    "c2-model-use-catalog-locks.txt": "ee70ad2a9637f19dd78754dedc6bc17782962379e7403b6daf4300515ca292db",
+    "c2-model-use-catalog-second.txt": "e7f687c41cceea55333d048081266e0a76ca2dbd606d1d2751980d98f0a7c8a3",
+    "c2-model-use-chain-third.txt": "4d084802f91e1d8bf50224473d85695ab3f2bb3893bbbe15e72b4b425be78e47",
+    "c2-model-use-cleanup.txt": "19581a9a27c0a3d5c1a308a8d6fe7ee91f60ced731789fc33837db03c9c102e1",
+    "c2-model-use-format-final.txt": "7b4549ac2e9820f695aa60c4695796689a11c0dce1a49f0b01a6250eca9f55aa",
+    "c2-model-use-legacy-locks.txt": "52de1fd72c1b3c996860bd1a08fddfac9d14476ad5ec764c774f8305bea4756c",
+    "c2-model-use-lock-pyright.txt": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+    "c2-model-use-lock-unit.txt": "f07760095346d2eee786d2e37e4bebf497824ff0051e0cf555b395c79de200d2",
+    "c2-model-use-lock-unit2.txt": "7e96a15cc5c7a2280ccc3a0a714e37a47b5065f016a97f5e45b5e7130c0f28b7",
+    "c2-model-use-lock-unit3.txt": "f07760095346d2eee786d2e37e4bebf497824ff0051e0cf555b395c79de200d2",
+    "c2-model-use-push-knowbench.txt": "cb65a1b814c532a50074ecd9f1e8245f6d452c84f4a891ebeef73676f73d612c",
+    "c2-model-use-pyright-final.txt": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+    "c2-model-use-pyright-second.txt": "6d88a1b220adb7a3d62092b6e38431f0b3fe8babe9864fab90e5849766260332",
+    "c2-model-use-review-selection-race.txt": "c163e6fb53aa7d04f34ff5e25ca3d07865a7aa885ad8b9e23cb825dd9b8529c5",
+    "c2-model-use-root-pyright-first.txt": "f3376c8880f68453b07ed150d568272f81fd5f3185a9a9d3324ff64d5782fbbb",
+    "c2-model-use-ruff-final.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-model-use-ruff-first.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "c2-model-use-source-freeze-after.json": "a82c02700175bbbc9c69850c4a24f9d521244d6d0a3af3f15eba72824535e1ec",
+    "c2-model-use-source-freeze-before.json": "df076e9a2c6319571911dd7bdb1517136117704b212bdb8d844f5e09a7518734",
+    "c2-model-use-web-build.txt": "5baa24f74d4653c82fc65cb909d5c241a0af6324674293732cabfa570275987e",
+    "c2-model-use-web-full.txt": "f45a4cd033ce0dfb2202132f3541932be56754ecbcf56dfcfa7c0796ac99f26a",
+    "kb-model-selection-web-eslint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kb-model-selection-web-i18n.txt": "c0bfff8b86b79569ce4b41b5b18f16e9afa110dc05f8761d55d168ed40c3caae",
+    "kb-model-selection-web-prettier.txt": "59edb4de35493b05849cf743a460f66475cac52c9374fb74e35259ba53be3b6b",
+    "kb-model-selection-web-targeted.txt": "0f87c0a031c782e4e615164a0fd86a5758c57f0e22356d3d2ac83eb41c3adb6e",
+    "kb-model-selection-web-tsc.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "artifact_policy": "Captured logs are preserved byte-for-byte, including pytest traceback whitespace and terminal carriage returns; Markdown/JSON source diff whitespace checks exclude these raw captures."
+}

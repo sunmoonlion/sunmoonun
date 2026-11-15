@@ -1,0 +1,85 @@
+
+> knowbench-web-frontend@2.0.0 test /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+> vitest run
+
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app
+
+ ✓ tests/component/find-expert.test.tsx (28 tests) 918ms
+ ✓ tests/component/dossier-and-machines.test.tsx (8 tests) 671ms
+ ✓ tests/component/new-project-dialog.test.tsx (7 tests) 1161ms
+ ✓ tests/component/file-tree.test.tsx (9 tests) 1002ms
+ ✓ tests/component/projects.test.tsx (6 tests) 1025ms
+   ✓ 项目列表 > 新建项目：选工作区、填子目录；不填名字就用目录的最后一段  338ms
+ ✓ tests/component/task-data-panel.test.tsx (16 tests) 1055ms
+ ✓ tests/component/settings-sections.test.tsx (7 tests) 994ms
+ ✓ tests/component/ask-expert-data.test.tsx (8 tests) 993ms
+   ✓ 请专家：数据按问题定 > 澄清后保留问题与指定专家，由用户另点查找才重新匹配  354ms
+ ✓ tests/component/chat-screen.test.tsx (4 tests) 1090ms
+   ✓ 聊天页 > 挂在项目下的聊天有右栏：只读看文件，没有「改动」「终端」；不属于项目的没有右栏（0017，所有者 2026-10-18；终端 10-23 去掉）  526ms
+ ✓ tests/component/expert-run-screen.test.tsx (12 tests) 1744ms
+ ✓ tests/component/session-boundary.test.tsx (6 tests) 489ms
+ ✓ tests/component/computer-section.test.tsx (8 tests) 427ms
+ ✓ tests/component/knowbot-arrival.test.tsx (5 tests) 359ms
+ ✓ tests/component/link-check-banner.test.tsx (4 tests) 314ms
+ ✓ tests/component/computer-entry.test.tsx (24 tests) 2623ms
+   ✓ 电脑接入入口 > 侧栏树：工作区行有「全部」和「+」，项目与对话行有删除，确认后才发请求（0016，所有者 2026-10-12 定）  523ms
+ ✓ tests/unit/deliverable-export.test.ts (18 tests) 314ms
+ ✓ tests/component/agent-onboarding.test.tsx (4 tests) 368ms
+ ✓ tests/component/work-screen.test.tsx (4 tests) 1111ms
+   ✓ 工作页 > 过程收成一行，改了的文件摆在外面，右边有「改动」  680ms
+ ✓ tests/component/expert-desk.test.tsx (5 tests) 843ms
+ ✓ tests/component/cross-app-link.test.tsx (7 tests) 186ms
+ ✓ tests/component/common-kernel.test.tsx (3 tests) 131ms
+ ✓ tests/component/formal-method-panel.test.tsx (9 tests) 1592ms
+   ✓ selects an exact owned version and answers its actual operation: accept  531ms
+ ✓ tests/component/logout-button.test.tsx (4 tests) 293ms
+ ✓ tests/component/switch-account.test.tsx (2 tests) 159ms
+ ✓ tests/component/login-sso.test.tsx (18 tests) 178ms
+ ✓ tests/component/capabilities.test.tsx (22 tests) 1993ms
+ ✓ tests/component/handback-line.test.tsx (7 tests) 227ms
+ ✓ tests/component/public-home.test.tsx (1 test) 116ms
+ ✓ tests/component/conversation-session-recovery.test.tsx (1 test) 145ms
+ ✓ tests/component/open-task-from-ref.test.tsx (2 tests) 88ms
+ ✓ tests/unit/common-api-client.test.ts (3 tests) 17ms
+ ✓ tests/unit/env.test.ts (14 tests) 21ms
+ ✓ tests/unit/chat-thread.test.ts (7 tests) 27ms
+ ✓ tests/unit/shell-nav.test.ts (9 tests) 15ms
+ ✓ tests/unit/workbench-contract-samples.test.ts (4 tests) 114ms
+ ✓ tests/component/home-start.test.tsx (1 test) 48ms
+ ✓ tests/component/expert-finder-retry.test.tsx (2 tests) 39ms
+ ✓ tests/unit/agent-onboarding.test.ts (16 tests) 23ms
+ ✓ tests/unit/work-timeline.test.ts (23 tests) 30ms
+ ✓ tests/component/task-data-refresh.test.tsx (1 test) 40ms
+ ✓ tests/unit/browser-session.test.ts (7 tests) 45ms
+ ✓ tests/unit/capability-contract.test.ts (9 tests) 54ms
+ ✓ tests/unit/session-recovery.test.ts (6 tests) 11ms
+ ✓ tests/unit/knowbase-run-contract.test.ts (4 tests) 42ms
+ ✓ tests/unit/i18n-time-zone.test.ts (1 test) 25ms
+ ✓ tests/unit/interaction-client.test.ts (6 tests) 31ms
+ ✓ tests/unit/projects-model.test.ts (5 tests) 20ms
+ ✓ tests/unit/cross-app-links.test.ts (10 tests) 55ms
+ ✓ tests/unit/feature-boundaries.test.ts (16 tests) 24ms
+ ✓ tests/unit/expert-run.test.ts (11 tests) 21ms
+ ✓ tests/unit/run-projection.test.ts (4 tests) 6ms
+ ✓ tests/unit/task-data.test.ts (7 tests) 11ms
+ ✓ tests/unit/pane-widths.test.ts (4 tests) 8ms
+ ✓ tests/unit/file-tree.test.ts (6 tests) 9ms
+ ✓ tests/unit/link-check.test.ts (12 tests) 8ms
+ ✓ tests/unit/next-path.test.ts (3 tests) 6ms
+ ✓ tests/unit/interaction-consumer-vectors.test.ts (2 tests) 13ms
+ ✓ tests/unit/common-query.test.ts (3 tests) 12ms
+ ✓ tests/unit/settings-client.test.ts (4 tests) 15ms
+ ✓ tests/unit/machines-client.test.ts (1 test) 12ms
+ ✓ tests/unit/link-side.test.ts (4 tests) 3ms
+ ✓ tests/unit/cross-app-destinations.test.ts (1 test) 3ms
+ ✓ tests/unit/content-security-policy.test.ts (2 tests) 3ms
+ ✓ tests/unit/tracked-env-contract.test.ts (2 tests) 2ms
+ ✓ tests/unit/dossier-paths.test.ts (2 tests) 3ms
+ ✓ tests/unit/preview-server.test.ts (16 tests) 254ms
+
+ Test Files  66 passed (66)
+      Tests  487 passed (487)
+   Start at  10:22:48
+   Duration  9.72s (transform 4.29s, setup 10.35s, collect 23.37s, tests 23.68s, environment 26.54s, prepare 5.28s)
+

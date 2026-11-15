@@ -1,0 +1,23 @@
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+_______ test_schema_reference_relocation_does_not_rewrite_literal_values _______
+
+    def test_schema_reference_relocation_does_not_rewrite_literal_values():
+        literal = {"$ref": "#/$defs/a"}
+>       slot = ValueSlot.model_validate(
+            {
+                "description": "Literal object",
+                "schema": {"const": literal, "default": literal, "examples": [literal]},
+                "required": True,
+                "meaning": {},
+                "on_missing": "fail",
+            }
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ValueSlot
+E         Value error, Method schema reference does not exist [type=value_error, input_value={'description': 'Literal ...}, 'on_missing': 'fail'}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.12/v/value_error
+
+tests/test_formal_session_tools.py:70: ValidationError
+=========================== short test summary info ============================
+FAILED tests/test_formal_session_tools.py::test_schema_reference_relocation_does_not_rewrite_literal_values
+1 failed, 3 passed in 1.94s
