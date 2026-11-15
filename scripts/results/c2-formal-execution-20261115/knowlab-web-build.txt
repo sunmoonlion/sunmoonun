@@ -1,0 +1,53 @@
+
+> knowlab-web-frontend@2.0.0 build /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+> next build
+
+▲ Next.js 16.2.2 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.2s
+  Running TypeScript ...
+  Finished TypeScript in 9.2s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/41) ...
+  Generating static pages using 11 workers (10/41) 
+  Generating static pages using 11 workers (20/41) 
+  Generating static pages using 11 workers (30/41) 
+✓ Generating static pages using 11 workers (41/41) in 208ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /[locale]
+├ ƒ /[locale]/applications
+├ ƒ /[locale]/applications/[requestId]/revise
+├ ƒ /[locale]/applications/new
+├ ƒ /[locale]/avatars
+├ ƒ /[locale]/dashboard
+├ ƒ /[locale]/delivery
+├ ƒ /[locale]/experts
+├ ƒ /[locale]/ideas
+├ ƒ /[locale]/ideas/new
+├ ƒ /[locale]/incubation
+├ ƒ /[locale]/knowbots
+├ ƒ /[locale]/knowbots/new
+├ ƒ /[locale]/knowledge
+├ ƒ /[locale]/login
+├ ƒ /[locale]/names/[requestId]
+├ ƒ /[locale]/names/[requestId]/formal-method
+├ ƒ /[locale]/names/[requestId]/workdraft
+├ ƒ /[locale]/questions
+├ ƒ /[locale]/review
+├ ƒ /[locale]/tests
+├ ƒ /[locale]/toolkit
+├ ƒ /healthz
+├ ○ /robots.txt
+└ ƒ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

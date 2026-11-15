@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /home/zymun/worktrees/luna/knowlab-app/knowlab-web-frontend/app
+
+ ✓ tests/unit/preview-server.test.ts (15 tests) 223ms
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  08:18:40
+   Duration  702ms (transform 63ms, setup 113ms, collect 88ms, tests 223ms, environment 0ms, prepare 84ms)
+

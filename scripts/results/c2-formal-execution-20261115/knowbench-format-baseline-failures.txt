@@ -1,0 +1,122 @@
+unformatted: File would be reformatted
+   --> scripts/pair_fixture.py:1:1
+    |
+50  |     now = datetime.now(UTC)
+    -     roles = ("operator",) if operator else (
+    -         ("admin",) if surface == "admin" else ("member",)
+51  +     roles = (
+52  +         ("operator",)
+53  +         if operator
+54  +         else (("admin",) if surface == "admin" else ("member",))
+55  |     )
+--------------------------------------------------------------------------------
+108 | async def admin_me(
+    -     session_id: str | None = Cookie(default=None, alias="sunmoonai_knowbench_admin_sid"),
+109 +     session_id: str | None = Cookie(
+110 +         default=None, alias="sunmoonai_knowbench_admin_sid"
+111 +     ),
+112 | ) -> Response | dict[str, object]:
+    |
+
+unformatted: File would be reformatted
+   --> tests/test_agent_onboarding_db.py:1:1
+    |
+117 |
+    -     assert len([row for row in await asyncio.gather(*(consume() for _ in range(7))) if row]) == 5
+118 +     assert (
+119 +         len(
+120 +             [row for row in await asyncio.gather(*(consume() for _ in range(7))) if row]
+121 +         )
+122 +         == 5
+123 +     )
+124 |     async with db() as session:
+--------------------------------------------------------------------------------
+128 |     assert result == {"pairings": 0, "install_credentials": 1}
+    -
+    |
+
+unformatted: File would be reformatted
+   --> tests/test_auth_routes_security.py:1:1
+    |
+171 |         (("operator",), (), {"knowbench:admin"}),  # 只有基本权限
+    -         (("operator",), ("knowbench:release",), {"knowbench:admin", "knowbench:release"}),
+172 +         (
+173 +             ("operator",),
+174 +             ("knowbench:release",),
+175 +             {"knowbench:admin", "knowbench:release"},
+176 +         ),
+177 |         (("editor",), (), set()),
+    |
+
+unformatted: File would be reformatted
+   --> tests/test_cross_app.py:1:1
+    |
+126 |     assert (
+    -         set_up.cross_app_targets()["knowfeed"].web_base_url == "https://knowfeed.example.test"
+127 +         set_up.cross_app_targets()["knowfeed"].web_base_url
+128 +         == "https://knowfeed.example.test"
+129 |     )
+    |
+
+unformatted: File would be reformatted
+  --> tests/test_method_access_db.py:1:1
+   |
+77 |         assert key not in svc.runtime_tools(runtime)
+   -         with pytest.raises(CapabilityError, match="permission.*(changed|no longer covers)"):
+78 +         with pytest.raises(
+79 +             CapabilityError, match="permission.*(changed|no longer covers)"
+80 +         ):
+81 |             await svc.decide(OWNER, call["id"], approval(call))
+   |
+
+unformatted: File would be reformatted
+  --> tests/test_relay_permissions_contract.py:1:1
+   |
+12 |     assert hashlib.sha256(canonical.encode()).hexdigest() == lock["canonical_sha256"]
+   -     provider = root.parents[2] / "k8s/infrastructure/applications/component-images/relay/local-permission-v1.json"
+13 +     provider = (
+14 +         root.parents[2]
+15 +         / "k8s/infrastructure/applications/component-images/relay/local-permission-v1.json"
+16 +     )
+17 |     if provider.exists():
+   |
+
+unformatted: File would be reformatted
+   --> tests/test_workbench_agent_reports.py:1:1
+    |
+138 |     store = AuditStore(item)
+    -     assert await record_agent_reports(
+    -         store, owner=OWNER_A, environment_id=store.row["environment_id"], reports=[item]
+    -     ) == []
+139 +     assert (
+140 +         await record_agent_reports(
+141 +             store,
+142 +             owner=OWNER_A,
+143 +             environment_id=store.row["environment_id"],
+144 +             reports=[item],
+145 +         )
+146 +         == []
+147 +     )
+148 |     item["report"]["decision"] = "denied"
+    |
+
+unformatted: File would be reformatted
+   --> tests/test_workbench_projects_db.py:1:1
+    |
+139 |     async with db() as s:
+    -         listed = await ProjectService(WorkbenchRepository(s)).listing(owner_actor_id=OWNER)
+140 +         listed = await ProjectService(WorkbenchRepository(s)).listing(
+141 +             owner_actor_id=OWNER
+142 +         )
+143 |     assert [p["title"] for p in listed] == [created["title"]]
+    |
+
+unformatted: File would be reformatted
+   --> tests/test_workbench_usage_db.py:1:1
+    |
+332 |         }
+333 +
+334 |         # 0034: cancellation is immediate; the interrupted sandbox reply settles
+    |
+
+9 files would be reformatted, 486 files already formatted
