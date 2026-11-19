@@ -1,0 +1,90 @@
+{
+  "scope": "私有孵化的 KnowBase 与平台产物共同核权，作者自验",
+  "knowbench_backend": "21f14eeb24caf084fc2821c458d41b936bdffe16",
+  "knowbench_app": "1ab9c1b21b06fcfd7fd68b34d191e07d19fc0916",
+  "knowlab_app": "a498ed059fc45661554c4ca18976c5ff27e7242b",
+  "knowbase_app": "9552fba44565e0a71b5a8f0d9d921b217537bbba",
+  "knowbench_first_full_run": {
+    "tests": 2854,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 6,
+    "passed": 2847,
+    "groups": {
+      "0": {
+        "tests": 461,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 4,
+        "junit_sha256": "2d383981c96d5080bfeb29bca7830b698dc03ceb25c37c65d85b1a91f490f848"
+      },
+      "1": {
+        "tests": 450,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "junit_sha256": "f9dd8372e0f2fc49ad34edb1ad4285885b0426a2a15c0343c55b5c3794f2ab0b"
+      },
+      "2": {
+        "tests": 475,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "junit_sha256": "9b1973d87367bc92b7fe05f76496cf707a65dd101277f94309f35f2eaeebee27"
+      },
+      "3": {
+        "tests": 528,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "junit_sha256": "3bd016e21bb8ad76e71fc973c6f06abe5833c945877b1db82924c8e6d7995a61"
+      },
+      "4": {
+        "tests": 493,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "junit_sha256": "963d590514a374cb4a7d1804557ea86cfc382142bebd94c75533a1e69544fbbf"
+      },
+      "5": {
+        "tests": 447,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "junit_sha256": "29cff948f1f5656853b645bf042e4a6e0f4833da5e6500ec2d7cfae99d95f8c0"
+      }
+    },
+    "failed_cases": [
+      "tests.test_workbench_outputs_db::test_a_draft_changed_after_delivery_is_not_written"
+    ]
+  },
+  "recheck": {
+    "test": "tests/test_workbench_outputs_db.py::test_a_draft_changed_after_delivery_is_not_written",
+    "result": "单项通过，同文件30项全部通过。全量时委托停在 WAITING，未写出交付记录，差异原因未定位。",
+    "junit_sha256": "e3b92f77f2f458071cfd6dd4b8553c57c51c9fdedf5d0aa6ef7947941f07fd43"
+  },
+  "additional_checks": [
+    {
+      "scope": "KnowLab 作者持久化、私有登记、递归计划及消费者导出",
+      "passed": 58
+    },
+    {
+      "scope": "KnowLab 正式方法服务、执行及作者路由",
+      "passed": 28
+    },
+    {
+      "scope": "KnowBase 与 KnowBench 双后端 KnowBase 读取联调",
+      "passed": 1
+    },
+    {
+      "scope": "KnowBench 平台资源授权与两个入口（含于全量）",
+      "passed": 6
+    },
+    {
+      "scope": "KnowLab 导出至 KnowBench 后端与 KnowLab 网页的两份契约，KnowBench Ruff 与 Pyright",
+      "result": "通过"
+    }
+  ],
+  "environment": "本地 PostgreSQL 16 隔离数据库、合成数据、WebSocket 与 HTTP 协议夹具",
+  "review_request": "docs/sync-cowork/requests/luna/2026-11-19-C2私有方法共同核权复审/request.md"
+}
