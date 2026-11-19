@@ -9,6 +9,7 @@ import asyncio
 import json
 import os
 import sys
+from copy import copy
 from pathlib import Path
 from uuid import uuid4
 
@@ -83,7 +84,10 @@ else:
 async def test_method_read_across_services(db):
     import httpx
     from test_knowbase_method_read_db import (
-        test_read_through_frozen_child_with_separate_owner_consent,
+        read_candidate,
+        run_host_denial,
+        run_host_tree,
+        run_model_read,
     )
 
     from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
@@ -102,11 +106,14 @@ async def test_method_read_across_services(db):
         stdout=asyncio.subprocess.PIPE,
     )
 
+    wire = asyncio.Lock()
+
     async def exchange(message):
-        provider.stdin.write((json.dumps(message) + "\n").encode())
-        await provider.stdin.drain()
-        line = await asyncio.wait_for(provider.stdout.readline(), timeout=30)
-        return json.loads(line)
+        async with wire:
+            provider.stdin.write((json.dumps(message) + "\n").encode())
+            await provider.stdin.drain()
+            line = await asyncio.wait_for(provider.stdout.readline(), timeout=30)
+            return json.loads(line)
 
     try:
         material = await exchange({"public": issuer.public_pem()})
@@ -120,7 +127,10 @@ async def test_method_read_across_services(db):
             }
             status, body = await exchange(message)
             rpc = message["body"] or {}
-            if rpc.get("method") == "tools/call":
+            if (
+                rpc.get("method") == "tools/call"
+                and not json.loads(body)["result"]["isError"]
+            ):
                 receipt = json.loads(body)["result"]["structuredContent"]["source"]
                 # Keep the dispatch token intact. Changing only the input must fail.
                 changed = json.loads(request.content)
@@ -146,9 +156,13 @@ async def test_method_read_across_services(db):
             transport=httpx.MockTransport(forward),
         )
         client.material_id = material["material"]
-        await test_read_through_frozen_child_with_separate_owner_consent(
-            db, (issuer, client)
-        )
+        ctx, remote, sandbox = await read_candidate(db, (issuer, client))
+        await run_host_tree(db, copy(ctx), client)
+        for mode in ("missing", "revoked"):
+            await run_host_denial(db, ctx, client, mode)
+        for mode in ("allowed", "missing", "revoked"):
+            await run_model_read(db, ctx, sandbox, client, mode)
+        assert remote.calls == []
     finally:
         provider.stdin.close()
         try:

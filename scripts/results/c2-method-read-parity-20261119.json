@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-19",
+  "scope": "C2 第 2 项，KnowBase 资料在私有宿主及模型试跑中的同权读取和递归任务产物的来源核验",
+  "commits": {
+    "knowbench-app": "743d938fcdeb16c1bba04f5a4f47b21a396dcf2c",
+    "knowbench-app/knowbench-backend": "e9a3e0ce13c573906444bffc0f47afc6eeee9571",
+    "knowbase-app": "9552fba44565e0a71b5a8f0d9d921b217537bbba",
+    "knowlab-app": "a498ed059fc45661554c4ca18976c5ff27e7242b"
+  },
+  "knowbench": {
+    "unique_tests": 2848,
+    "passed": 2842,
+    "skipped": 6,
+    "failed": 0,
+    "groups": {
+      "0": {
+        "cases": 457,
+        "junit_sha256": "28636a19febba1e407ad7b39a12041fc11eafddc989bfc38246b92ff07994e15"
+      },
+      "1": {
+        "cases": 448,
+        "junit_sha256": "499bd60dddc57abf985ea7de84143899ff36744f2c6f87d6a51f9c2e5f7c63f2"
+      },
+      "2": {
+        "cases": 475,
+        "junit_sha256": "1ff095d36fa73f77a4d55292a064b18e4b9725cda094db52314fa9022708bef4"
+      },
+      "3": {
+        "cases": 528,
+        "junit_sha256": "7d53bbdc78fde84d2220f89f000b8121ae2eb4b96bd7d8390c0168ffa244db18"
+      },
+      "4": {
+        "cases": 492,
+        "junit_sha256": "ec6cd4921209aa16cf88fe5eef71da50fa3660e7337fea0899e8f3b066c30f85"
+      },
+      "5-recheck": {
+        "cases": 447,
+        "junit_sha256": "a5b78623df668703f2b4c697b8d8ce6a706e76e8303aa84a10965314a5ce2462"
+      },
+      "final-0": {
+        "cases": 40,
+        "junit_sha256": "acd9c3dcc46052a5e9e41ba05db114fd9c42c41158a9c5f5a02722bf17534bd7"
+      },
+      "final-1": {
+        "cases": 23,
+        "junit_sha256": "8470245141106f5da40bc4fc1b03fee5411e130004d3b21c25b04431da8fdf34"
+      },
+      "final-2": {
+        "cases": 13,
+        "junit_sha256": "8ef5750dc1b4a7df0a1f06ce09eeb8b92c1ca86529c1c04340aadb04f1d07a6f"
+      },
+      "final-3": {
+        "cases": 40,
+        "junit_sha256": "95b9dc47bbb1e61923b50bc8983216ae19c1b22d6ff1c007e33f2ca6f8b7f37c"
+      }
+    },
+    "method": "全量按文件分到独立 PostgreSQL 数据库；最终改动涉及的宿主、模型、递归执行、递归证据和准入按文件重跑，按 pytest 用例去重。",
+    "skips": [
+      "3 项缺少专用 RabbitMQ 测试 vhost",
+      "3 项内置包参数为空"
+    ]
+  },
+  "cross_service": {
+    "file": "scripts/local-integration/c2_method_read.py",
+    "scope": "两后端独立进程与真实 PostgreSQL，同一份合成文本、同一用途；宿主和 WS 模型试跑都覆盖成功、缺授权与执行前撤权，核对实际返回结果以及换资料拒绝。",
+    "boundaries": "模拟账号、对象存储和模型，无部署或付费调用。"
+  },
+  "recursive_artifacts": "验生产方法路径、导出种类、明确版本；目标库持久化两份内容相同的步骤产物和一份方法导出，核对正确产物、错误来源与无效版本。",
+  "contracts": "KnowLab 正式方法的 KnowBench 后端与 KnowLab 网页消费者锁均通过；递归计划和网页导出测试 12 项通过。",
+  "static_checks": [
+    "KnowBench Ruff、改动文件格式、Pyright 0 errors",
+    "跨服务脚本 Ruff 与格式"
+  ],
+  "validation_notes": [
+    "首次分组中固定专家崩溃恢复等价用例有一次轮次差异，随后单测连续两次通过，整组 447 项复跑通过；未定位首次差异的根因。",
+    "一个既有测试在断言后删除临时 schema 时被该测试的空闲事务阻塞，清理此测试连接后继续。"
+  ],
+  "remaining": [
+    "平台任务产物的显式资源授权",
+    "父子委派的逐层收窄和相应恢复验收",
+    "独立复审与发布"
+  ]
+}
