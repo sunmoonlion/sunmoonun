@@ -151,5 +151,5 @@
     }
   ],
   "environment": "本地 PostgreSQL 16 隔离数据库、合成数据、WebSocket 与 HTTP 协议夹具",
-  "review_request": "docs/sync-cowork/requests/luna/2026-11-19-C2私有方法共同核权复审/request.md"
+  "review_request": "docs/sync-cowork/archive/luna/2026-11-19-C2私有方法共同核权复审/request.md"
 }
