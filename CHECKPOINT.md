@@ -2,7 +2,13 @@
 
 两位 Luna 交替接手同一本地工作区。当前开发基线已在私有递归孵化上接通 KnowBase 的单项读取授权。接手时从第一条未勾选任务开始，开发顺序见 [Luna 待办](docs/总纲/luna-待办.md)。
 
-**当前接手点 · 第 2 项已结案，下一项为第 3 项。** agy 已通过 KnowBench 后端 `21f14ee` 的私有 C2 候选，Luna 已核对回执。Luna 随后在后端 `ac19fbf`、应用 `b3687cf` 修复了首轮计划正文早于轮次记账的接收竞态。接下来按待办第 3 项稳定 MCP 配置和每轮授权。[agy 复审结案](docs/sync-cowork/archive/luna/2026-11-19-C2私有方法共同核权复审/request.md) · [runner 修复验收](scripts/results/runner-turn-receipt-fix-20261119.json)
+**当前接手点 · 第 3 项开发自验完成，待独立复核。** 当前沙箱和两端配套的执行器以 **Codex 0.170.0** 为开发基线，Link 候选为 **0.5.9**。第 3 项的 MCP 订阅与每轮授权在 KnowBench 后端 `9548ca9` 实现，升级后的受审提交为后端 `de6e586`、应用 `69ca442`。独立回执归入 [Luna 的请求目录](docs/sync-cowork/requests/luna/2026-11-19-MCP稳定配置与每轮授权复核/request.md)。收回回执后结案，下一个开发项是 Skill 目录与正文分离。[Luna 待办](docs/总纲/luna-待办.md)
+
+**本轮验收。** 真实 Codex 在断网容器中连续两轮沿用同一网关，每次调用与各自的宿主 turn/call 对应。新版默认多暴露一个 `view_image`，私有模型试跑已显式关闭。并发换轮时，旧的 Skill 目录与正文请求均被拒绝；取消和重连后的旧审批失效。已有 0.155.1 证据仍按其原版本与实际配置核对。KnowBench 后端按最终用例去重 2,859 通过、6 跳过，另有双后端联调通过。首轮投递心跳用例在并发负载下失败，复跑结果及跳过原因见[验证记录](scripts/results/codex-0170-mcp-20261119.json)。
+
+**构建与部署。** 沙箱构建源码 `5b11c8563`，已从 Dockerfile 构建本地镜像，经实际入口完成带令牌的 WebSocket 握手，并在新镜像内通过连续两轮调用和私有试跑隔离探针。Link 两包源码 `318f79e`。Windows 候选已用随包 Node 在临时目录完成自检；Linux 已对清单逐文件校验。两端包内 exec-server 的真实初始化均报告 0.170.0。当前公开下载仍为 0.5.8，其对象摘要与上传回执继续对应原包。未发布或部署本轮候选。
+
+**上一步 · 第 2 项已结案。** agy 已通过 KnowBench 后端 `21f14ee` 的私有 C2 候选，Luna 核对了回执，并在后端 `ac19fbf`、应用 `b3687cf` 修复首轮计划正文早于轮次记账的接收竞态。[agy 复审结案](docs/sync-cowork/archive/luna/2026-11-19-C2私有方法共同核权复审/request.md) · [runner 修复验收](scripts/results/runner-turn-receipt-fix-20261119.json)
 
 **runner 修复验收。** 本轮 KnowBench 后端全量 2,849 通过、6 跳过、0 失败；另跑 KnowBench 与 KnowBase 双后端联调通过。相同的真实行锁复现条件下连续 3 次成功交付。新增的永久回归在旧提交失败，修复后通过。Ruff、改动文件格式与 Pyright 通过。应用代码已固定于上方提交，未部署。
 

@@ -289,7 +289,7 @@ item/started，工具名和完整参数也必须相同。元信息和模型填�
 放行，不静默降级。原生审批另核当前方法和 turn_id，历史任务授权或重复请求不能扩大
 作者明确 deny 的边界。这里只处理既有审批通道，不声称另建或屏蔽全部只读宿主工具。
 
-固定 Codex 0.155.1 的隔离探针已验证 metadata 与工具事件对应；也证实活线程 resume
+Codex 0.170.0 开发基线和原 0.155.1 的断网探针均已验证 metadata 与工具事件对应；也证实活线程 resume
 不会更新 MCP header，卸载后 resume 才更新。实现不改全局沙箱配置。探针使用无外网
 一次性容器、合成 Responses/MCP，保存在后端 scripts/probes/codex_mcp_provenance.py；
 运行方法、适用版本和未验边界见后端 docs/method-execution.md。协议升级要复跑，不能

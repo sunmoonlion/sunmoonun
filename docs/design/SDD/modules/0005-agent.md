@@ -75,7 +75,7 @@ Windows 开工前先探两件，都是上线门：
 
 ## 三份 Codex，一个程序
 
-`codex` 是一个二进制，子命令决定角色。用户机器上可能有他自己装的 `codex`（任意版本，家 `~/.codex`，与我们无关）和我们随代理带的 `codex exec-server`（0.155.1，家 `~/.sunmoon-agent/codex-home`，只执行、无凭据）；沙箱里是同版本的 `codex app-server`（家 `/data/codex`，用户的 key、我们的 skill 与 MCP 配置、thread 记录）。产品说的"同一实例"指沙箱里的同一个 thread。exec-server 只从家里读 `[mcp_servers]`，别的配置对它无效。
+`codex` 是一个二进制，子命令决定角色。用户机器上可能有他自己装的 `codex`（任意版本，家 `~/.codex`，与我们无关）和我们随代理带的 `codex exec-server`（0.5.9 开发包使用 0.170.0，家 `~/.sunmoon-agent/codex-home`，只执行、无凭据）；沙箱里是同版本的 `codex app-server`（家 `/data/codex`，用户的 key、我们的 skill 与 MCP 配置、thread 记录）。产品说的"同一实例"指沙箱里的同一个 thread。exec-server 只从家里读 `[mcp_servers]`，别的配置对它无效。
 
 ## 本地上限由谁挡
 

@@ -32,7 +32,7 @@ pod（每用户）
 
 ## 实现状态（2026-09-24）
 
-镜像 `k8s/infrastructure/applications/component-images/sandbox-platform/image/`（node 22 + `@openai/codex@0.155.1` + 桥），入口脚本生成 `config.toml`/`environments.toml`、把 `OPENAI_API_KEY` 落成 `auth.json` 后 unset、起桥、前台起 `app-server --listen ws://0.0.0.0:47800 --ws-auth capability-token`；桥 `bridge/sandbox_bridge.py`；演示用户清单 `resources/demo-user.yaml`（Deployment + PVC + NetworkPolicy）。容器形态联调 pass：工作台角色经 ws + 令牌连入，turn 经会合点到本机代理执行（`runtime/scripts/integration-sandbox-image.sh`）。镜像 1.38 GB，待瘦身。
+镜像 `k8s/infrastructure/applications/component-images/sandbox-platform/image/`（开发基线 Node 24.21.0 + `@openai/codex@0.170.0` + 桥），入口脚本生成 `config.toml`/`environments.toml`、把 `OPENAI_API_KEY` 落成 `auth.json` 后 unset、起桥、前台起 `app-server --listen ws://0.0.0.0:47800 --ws-auth capability-token`；桥 `bridge/sandbox_bridge.py`；演示用户清单 `resources/demo-user.yaml`（Deployment + PVC + NetworkPolicy）。容器形态联调 pass：工作台角色经 ws + 令牌连入，turn 经会合点到本机代理执行（`runtime/scripts/integration-sandbox-image.sh`）。镜像 1.38 GB，待瘦身。
 
 ## 第一期
 
