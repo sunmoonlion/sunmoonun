@@ -60,8 +60,73 @@
   },
   "recheck": {
     "test": "tests/test_workbench_outputs_db.py::test_a_draft_changed_after_delivery_is_not_written",
-    "result": "单项通过，同文件30项全部通过。全量时委托停在 WAITING，未写出交付记录，差异原因未定位。",
-    "junit_sha256": "e3b92f77f2f458071cfd6dd4b8553c57c51c9fdedf5d0aa6ef7947941f07fd43"
+    "result": "单项通过，同文件 30 项全部通过。首轮日志显示 plan 交人、委托停在 WAITING；下方为在同一提交上所做的时序诊断。",
+    "junit_sha256": "e3b92f77f2f458071cfd6dd4b8553c57c51c9fdedf5d0aa6ef7947941f07fd43",
+    "diagnosis": {
+      "commit": "21f14eeb24caf084fc2821c458d41b936bdffe16",
+      "cause": "run_turn 收到 turn/start 返回的轮次 ID 后，先等待 record_capability_turn 写库，再登记 turn_waiters。此间 item/completed 可以落入事件账，但找不到本轮 waiter，验收拿不到正文。",
+      "experiment": "沿用失败用例的交付夹具、两条脚本回复和真实 PostgreSQL。对照组照常发送；复现组在回复第一轮 turn/start 前，由另一事务锁住对应 workbench_capability_selections 行，发送相同回复，直到第一条 agentMessage 通知处理完再释放。仅观测通知处理时 waiter 是否存在。",
+      "control": {
+        "state": "SUCCEEDED",
+        "output_rows": 1,
+        "plan_waiter_present": true
+      },
+      "locked": [
+        {
+          "turn": "turn-b9fd14",
+          "plan_waiter_present": false,
+          "plan_event_persisted": true,
+          "state": "WAITING",
+          "output_rows": 0
+        },
+        {
+          "turn": "turn-c92b39",
+          "plan_waiter_present": false,
+          "plan_event_persisted": true,
+          "state": "WAITING",
+          "output_rows": 0
+        },
+        {
+          "turn": "turn-b2d4f7",
+          "plan_waiter_present": false,
+          "plan_event_persisted": true,
+          "state": "WAITING",
+          "output_rows": 0
+        }
+      ],
+      "step_rejections": [
+        {
+          "step": "plan",
+          "failures": [
+            "json_object: no JSON object found; return one complete JSON object"
+          ],
+          "returned": {
+            "raw": "",
+            "content": null
+          }
+        },
+        {
+          "step": "plan",
+          "failures": [
+            "required_keys: 缺 plan",
+            "list_min(plan): plan 为空"
+          ],
+          "returned": {
+            "raw": null,
+            "content": {
+              "answer": "The project has one README.",
+              "citations": [
+                "README.md"
+              ],
+              "conclusion": ""
+            }
+          }
+        }
+      ],
+      "historical_limit": "全量首轮日志未采集事件与 waiter 登记的先后，不能反推出当时具体哪次等待延长了窗口。",
+      "baseline_comparison": "从 e9a3e0c 到 21f14ee，runner、advisor、交付测试及其脚本服务夹具无改动；轮次记账先于 waiter 登记的代码已在 58ea7ce7 出现。",
+      "status": "已定位和复现；受审候选代码未修改。"
+    }
   },
   "additional_checks": [
     {
