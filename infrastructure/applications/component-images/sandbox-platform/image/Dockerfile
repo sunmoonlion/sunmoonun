@@ -4,7 +4,7 @@
 # Codex 的 linux-x64 二进制是静态链接的，glibc 和 musl 的基底都能跑。
 ARG NODE_IMAGE=node:24.21.0-trixie-slim
 FROM ${NODE_IMAGE}
-ARG CODEX_VERSION=0.155.1
+ARG CODEX_VERSION=0.170.0
 ARG NPM_CONFIG_REGISTRY=https://registry.npmjs.org
 ARG PYPI_INDEX_URL=https://pypi.org/simple
 # Debian 软件源：构建链按下载模式传（国内 mirrors.tuna.tsinghua.edu.cn），不传就用官方
