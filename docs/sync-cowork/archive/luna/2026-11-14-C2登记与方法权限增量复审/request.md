@@ -20,7 +20,7 @@
 
 后端范围包括此前尚未独立复审的共同登记、真实宿主调用身份及可信操作映射，不能只审最后一个方法权限提交。KnowBench 父仓范围为本轮 Schema/消费锁及指针；KnowLab 仍保留作者入口限制。KnowMart 无源码修改，仅在 `b5f83b27bb02d39c983be020b0e2994de161b213` 重跑消费验证。
 
-依据：[接入实施方案 §17.6–17.7](../../../../总纲/mcp和skill接入实施方案.md)、[方法主稿](../../../../总纲/专家方案设计/专家孵化方案/luna/专家及专家团孵化模板.md)、[实现与限制](../../../../../../knowbench-app/knowbench-backend/docs/managed-capabilities.md)。Jenkins #94 首批缺陷修复已发布；本卡的 C2 候选不在 #94 中。
+依据：[接入实施方案 §17.6–17.7](../../../../总纲/mcp和skill接入实施方案.md)、[方法主稿](../../../../总纲/专家方案设计/专家孵化方案/luna/专家方法孵化与递归编排方案.md)、[实现与限制](../../../../../../knowbench-app/knowbench-backend/docs/managed-capabilities.md)。Jenkins #94 首批缺陷修复已发布；本卡的 C2 候选不在 #94 中。
 
 ## 重点检查
 
