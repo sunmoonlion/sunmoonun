@@ -6,6 +6,8 @@
 
 **全局审查。** 已按所有者要求向 agy（Opus）提交[全程逐行代码审查请求](docs/sync-cowork/requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)，附 12 个仓、898 个历史路径的逐文件清单。意见由 Luna 逐条吸收和复验，进入下一版。
 
+**主稿执行方式更新。** §1.8.2 按场景明确分工。聊天和工作使用 Codex 原生会话。聊天中请专家会提交委托，专家由 KnowBench runtime 按确认清单执行、递归调用、验收和恢复。步骤内需要模型时由 runtime 发起该轮推理。此次仅修订设计与实施文档。
+
 **主稿术语更新。** §1.9 改为“专家执行清单与调用分工”。作者在 KnowLab 选择可引用版本，当前固定计划沿冻结步骤递归展开。同一版本可复用，每次调用独立记账。宿主解析依赖与 KnowBench 核权的代码依据分别见[计划展开](../knowbench-app/knowbench-backend/app/app/domain/workbench/formal_method_plan_generated.py)和[孵化依赖解析](../knowbench-app/knowbench-backend/app/app/application/workbench/formal_orchestration.py)。本次只修订文档。
 
 **当前接手点 · 第 11 项已接通作者孵化时引用平台和市场工具。** KnowMart 应用 `267baef`（后端 `f8e021d`、Web `14515db`），KnowLab 应用 `d89d7fe`（后端 `d43e124`、Web `56ab5f5`），KnowBench 应用 `71d0c3a`（后端 `a35fdde`）。发布者在“我的小店 → 孵化引用许可”按公开版本开放给已获取者，或以经核验的平台身份开放给所有作者。已有上架与获取记录的引用许可默认关闭。KnowLab 作者在专家工作稿“工具来源”选本人已登记工具或获准引用的平台和市场工具。外部版本须匹配作者本人有执行权的 MCP 连接或隔离脚本安装；有多份时先选账号或安装。编排记录原方法 ID、版本和摘要，实际调用与费用落在使用者任务上。
