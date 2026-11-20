@@ -6,6 +6,8 @@
 
 **全局审查。** 已按所有者要求向 agy（Opus）提交[全程逐行代码审查请求](docs/sync-cowork/requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)，附 12 个仓、898 个历史路径的逐文件清单。意见由 Luna 逐条吸收和复验，进入下一版。
 
+**主稿术语更新。** §1.9 改为“专家执行清单与调用分工”。作者在 KnowLab 选择可引用版本，当前固定计划沿冻结步骤递归展开。同一版本可复用，每次调用独立记账。宿主解析依赖与 KnowBench 核权的代码依据分别见[计划展开](../knowbench-app/knowbench-backend/app/app/domain/workbench/formal_method_plan_generated.py)和[孵化依赖解析](../knowbench-app/knowbench-backend/app/app/application/workbench/formal_orchestration.py)。本次只修订文档。
+
 **当前接手点 · 第 11 项已接通作者孵化时引用平台和市场工具。** KnowMart 应用 `267baef`（后端 `f8e021d`、Web `14515db`），KnowLab 应用 `d89d7fe`（后端 `d43e124`、Web `56ab5f5`），KnowBench 应用 `71d0c3a`（后端 `a35fdde`）。发布者在“我的小店 → 孵化引用许可”按公开版本开放给已获取者，或以经核验的平台身份开放给所有作者。已有上架与获取记录的引用许可默认关闭。KnowLab 作者在专家工作稿“工具来源”选本人已登记工具或获准引用的平台和市场工具。外部版本须匹配作者本人有执行权的 MCP 连接或隔离脚本安装；有多份时先选账号或安装。编排记录原方法 ID、版本和摘要，实际调用与费用落在使用者任务上。
 
 **本地验收。** 三个后端通过 HTTPS 验过先获取、再开通引用、按版本展示公开接口、绑定作者自己的连接、编译、批准和派发。发布者在第二步批准前撤回许可，目录移除该版本，后端拦住第二次发送。KnowBench 的双账号 PostgreSQL 用例另验了拒绝发布者的连接、拒绝过期修订、专家私有冻结后被上层专家再次调用、阻止连带公开交付，以及隔离脚本两次执行记入使用方根预算。市场与工作台迁移 `0017`、`0050` 已在临时库降级再升级，原买方获取记录保留。测试使用本地服务身份、合成 MCP 与脚本执行回执。专项用例见[跨作者运行](../knowbench-app/knowbench-backend/app/tests/test_incubation_shared_tools_db.py)；[作者页面](../knowlab-app/knowlab-web-frontend/app/tests/component/formal-method-editor.test.tsx)；[许可与上架](../knowmart-app/knowmart-backend/app/tests/test_market_db.py)。
