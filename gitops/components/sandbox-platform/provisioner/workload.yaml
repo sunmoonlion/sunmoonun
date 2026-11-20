@@ -14,13 +14,16 @@ rules:
     verbs: [get, list, create, update, delete]
   - apiGroups: ['']
     resources: [pods]
-    verbs: [get, list]
+    verbs: [get, list, patch]
   - apiGroups: ['']
     resources: [pods/log]
     verbs: [get]
+  - apiGroups: ['']
+    resources: [pods/attach]
+    verbs: [get, create]
   - apiGroups: [batch]
     resources: [jobs]
-    verbs: [get, list, create, delete]
+    verbs: [get, list, create, patch, delete]
   - apiGroups: [apps]
     resources: [deployments]
     verbs: [get, list, create, update, delete]
@@ -52,7 +55,7 @@ spec:
   template:
     metadata:
       labels: {app.kubernetes.io/name: sandbox-provisioner}
-      annotations: {sunmoonai.com/input-sha256: 'c0e6c3bd7cf2afd4fe2f16a1498a8d4d3728fb2dc0b25183abadb0c57be1a87b'}
+      annotations: {sunmoonai.com/input-sha256: 'b004a36a64a8234e9ae604823b8273e128f83f7f664918c15bfbd9b76effb2c4'}
     spec:
       serviceAccountName: sandbox-provisioner
       enableServiceLinks: false
@@ -60,11 +63,11 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 10003, runAsGroup: 10003, fsGroup: 10003, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provisioner
-          image: harbor.sunmoonai.com:30443/platform/sandbox-provisioner@sha256:597b736dd220e653ad8413b78acf8ba78d673a9ce03229fa42bbd41128c1e008
+          image: harbor.sunmoonai.com:30443/platform/sandbox-provisioner@sha256:3eeb6761c7ffc69dc5943b6cf3346e6f5e559e2f87402926bc5e9e12b348d9fb
           imagePullPolicy: IfNotPresent
           env:
             - {name: SANDBOX_NAMESPACE, value: 'sandbox-platform-dev'}
-            - {name: SANDBOX_IMAGE, value: 'harbor.sunmoonai.com:30443/platform/sandbox@sha256:0fd50c3fe714cbb004367fe32120843d71b6e82668b22805d41df8270ab2dc9f'}
+            - {name: SANDBOX_IMAGE, value: 'harbor.sunmoonai.com:30443/platform/sandbox@sha256:aaf941ee938d30b6a938f7e46ed2d1521142dc654e75fe8ff61fb483bb05f46b'}
             - {name: RELAY_URL, value: 'ws://relay.relay-platform-dev.svc.cluster.local:47100'}
             # 新体系按环境参数化：沙箱的网络策略里，应用（两个 MCP、runner）和会合点各在哪个命名空间
             - {name: APP_NAMESPACE, value: 'app-platform-dev'}

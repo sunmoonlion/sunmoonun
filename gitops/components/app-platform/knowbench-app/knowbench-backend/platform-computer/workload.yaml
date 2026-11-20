@@ -8,7 +8,7 @@ data:
     # 取钉住的 Linux 包：只读身份从私有桶取、核归档摘要、解开、按清单逐字节核对。已核过的版本不重取
     set -eu
     umask 0077
-    target="/data/releases/0.5.8-452a15ac2741"
+    target="/data/releases/0.5.9-6c0cd50f8409"
     if [ ! -f "$target/.verified" ]; then
       rm -rf /data/releases/.incoming
       mkdir -p /data/releases/.incoming/x
@@ -16,11 +16,11 @@ data:
       curl -q --config /tmp/curl.conf --fail --silent --show-error --proto '=https' --max-redirs 0 \
         --cacert /run/download/ca.crt --aws-sigv4 "aws:amz:$(cat /run/download/region):s3" \
         -o /data/releases/.incoming/agent.tar.gz \
-        "$(cat /run/download/endpoint)/agent-releases/linux-x64/0.5.8/sunmoon-link-0.5.8-2dfecd2-edge-public-linux-x64.tar.gz"
+        "$(cat /run/download/endpoint)/agent-releases/linux-x64/0.5.9/sunmoon-link-0.5.9-318f79e-edge-public-linux-x64.tar.gz"
       rm -f /tmp/curl.conf
-      echo "452a15ac2741abd97e5f7bac7bb47aad290ba6883b7342d45749f55068c2840a  /data/releases/.incoming/agent.tar.gz" | sha256sum -c -
+      echo "6c0cd50f84095739a5f7fb8459da3618d242dc7c55cb1c6131bda371b677e35c  /data/releases/.incoming/agent.tar.gz" | sha256sum -c -
       tar -xzf /data/releases/.incoming/agent.tar.gz -C /data/releases/.incoming/x --no-same-owner --no-same-permissions
-      node /data/releases/.incoming/x/installer/verify-linux.mjs /data/releases/.incoming/x ada1b9d1f2160d410c4789960cab85a06f3a7c34a10275dd4830acbfbd1c3be6
+      node /data/releases/.incoming/x/installer/verify-linux.mjs /data/releases/.incoming/x 5f8e4c0ad6ba9bb5b206cf4005425b789c9ee61ac7f256a063f793d71047a9b9
       mv /data/releases/.incoming/x "$target"
       touch "$target/.verified"
       rm -rf /data/releases/.incoming
@@ -81,9 +81,9 @@ spec:
         sunmoonai.com/platform-computer: 'knowbot-tester'
         sunmoonai.com/object-storage-client: 'true'
       annotations:
-        sunmoonai.com/agent-package: '452a15ac2741abd97e5f7bac7bb47aad290ba6883b7342d45749f55068c2840a'
+        sunmoonai.com/agent-package: '6c0cd50f84095739a5f7fb8459da3618d242dc7c55cb1c6131bda371b677e35c'
         # 脚本改了 Pod 就换：ConfigMap 卷不会让在跑的进程重读（R5.3 改 run.sh 后旧 Pod 崩到第 11 次才用上新脚本）
-        sunmoonai.com/scripts: 'b6de77c18f55d6a8afd19037db2eb757c4b0c8d650863190ec71e5c3e55c6683'
+        sunmoonai.com/scripts: '43cd3aeaab5b76a4e611f9fd413b5c0aaebda811c5ae37caacc9299c0524824d'
     spec:
       automountServiceAccountToken: false
       # 镜像在 Harbor 的 platform 项目：和沙箱一样显式带拉取凭据（不用运行时的服务账号，平台电脑不需要别的身份）
@@ -97,7 +97,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 10001, runAsGroup: 10001, fsGroup: 10001, seccompProfile: {type: RuntimeDefault}}
       initContainers:
         - name: fetch
-          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:0fd50c3fe714cbb004367fe32120843d71b6e82668b22805d41df8270ab2dc9f
+          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:aaf941ee938d30b6a938f7e46ed2d1521142dc654e75fe8ff61fb483bb05f46b
           imagePullPolicy: IfNotPresent
           command: [/bin/bash, /scripts/fetch.sh]
           env: [{name: HOME, value: /tmp}]
@@ -110,7 +110,7 @@ spec:
             - {name: tmp, mountPath: /tmp}
       containers:
         - name: agent
-          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:0fd50c3fe714cbb004367fe32120843d71b6e82668b22805d41df8270ab2dc9f
+          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:aaf941ee938d30b6a938f7e46ed2d1521142dc654e75fe8ff61fb483bb05f46b
           imagePullPolicy: IfNotPresent
           command: [/usr/bin/tini, --, /bin/bash, /scripts/run.sh]
           env:
