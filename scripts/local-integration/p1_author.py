@@ -8,6 +8,7 @@ the installed MCP peer and the test computer use local fixtures.
 """
 
 import asyncio
+import copy
 import json
 import os
 import re
@@ -207,6 +208,8 @@ async def author(peer, template):
                     ).id
                 )
 
+            strict_request = await new_request("P1 input with no predecessor")
+            reselect_request = await new_request("P1 replacement expert")
             leaf_request = await new_request("P1 provider")
             expert_request = await new_request("P1 expert")
             draft = template["draft"]
@@ -225,6 +228,16 @@ async def author(peer, template):
             await KnowbotWorkdraftService(repo).save(
                 "author", leaf_request, revision=0, edits=[("formal_method", draft)]
             )
+            strict = copy.deepcopy(draft)
+            strict["definition"]["capability_declaration"]["title"] = (
+                "Verify a deployment ticket"
+            )
+            strict["definition"]["procedure"]["inputs"]["to"]["meaning"] = {
+                "unit": "deployment-ticket"
+            }
+            await KnowbotWorkdraftService(repo).save(
+                "author", strict_request, revision=0, edits=[("formal_method", strict)]
+            )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app),
             base_url="http://testserver",
@@ -237,14 +250,12 @@ async def author(peer, template):
                 assert response.is_success, (path, response.status_code, response.text)
                 return response.json()
 
-            async def trial(mid, request_id, steps, cancel=False):
-                import copy
-
+            async def trial(mid, request_id, steps, cancel=False, *, input_alias="to", expert_graph=False):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
                 spec["suite"]["suite_id"] = str(uuid4())
                 spec["suite"]["cases"][0]["input"]["values"] = {
-                    "to": "sandbox-provisioner"
+                    input_alias: "sandbox-provisioner"
                 }
                 spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = (
                     provisioner_revision()
@@ -298,7 +309,7 @@ async def author(peer, template):
                     json={**command, "visibility": "private"},
                 )
                 assert frozen["definition"]["procedure"]["kind"] == (
-                    "direct" if steps == 1 else "orchestration"
+                    "orchestration" if expert_graph or steps == 2 else "direct"
                 )
                 if steps == 2:
                     evidence = await rpc({"evidence": run})
@@ -313,6 +324,8 @@ async def author(peer, template):
 
             leaf_id, expert_id = str(uuid4()), str(uuid4())
             leaf = await trial(leaf_id, leaf_request, 1)
+            strict_id, reselect_id = str(uuid4()), str(uuid4())
+            await trial(strict_id, strict_request, 1)
             wanted = draft["definition"]["procedure"]["inputs"]["to"]
             for mismatch in (
                 {"meaning": {"unit": "other"}},
@@ -351,6 +364,9 @@ async def author(peer, template):
                             "LUNA_P1_URL": url,
                             "LUNA_P1_REQUEST": expert_request,
                             "LUNA_P1_METHOD": expert_id,
+                            "LUNA_P1_STRICT": strict_id,
+                            "LUNA_P1_RESELECT_REQUEST": reselect_request,
+                            "LUNA_P1_RESELECT_METHOD": reselect_id,
                             "LUNA_P1_LEAF": leaf_id,
                         },
                     )
@@ -358,6 +374,24 @@ async def author(peer, template):
                 finally:
                     server.should_exit = True
                     await serving
+            replaced = await trial(
+                reselect_id,
+                reselect_request,
+                1,
+                input_alias="buildSource",
+                expert_graph=True,
+            )
+            graph = replaced["definition"]["procedure"]
+            assert graph["steps"][0]["candidates"] == [
+                {"method_id": leaf_id, "version": 1, "digest": leaf["digest"]}
+            ]
+            assert graph["steps"][0]["inputs"]["to"]["binding"] == {
+                "source": "caller",
+                "name": "buildSource",
+            }
+            assert graph["exports"]["receipt"]["output"] == "receipt"
+            for field in ("capability_declaration", "how_to_validate"):
+                assert replaced["definition"][field] == strict["definition"][field]
             await trial(expert_id, expert_request, 2, cancel=True)
             expert = await trial(expert_id, expert_request, 2)
             async with sessions() as session:
@@ -461,7 +495,7 @@ async def author(peer, template):
                 for endpoint in ("formal-method-validations", "formal-method-executions")
             }
             print(
-                "P1 verified: indexed retrieval, author adoption and reload, mid-run cancellation, two artifacts and frozen expert",
+                "P1 verified: indexed predecessor and downstream replacement, both graphs reopened and frozen, mid-run cancellation and two-step artifacts",
                 expert["digest"],
             )
     finally:
