@@ -455,3 +455,43 @@ async def test_shared_script_policy_creation_race_and_drift():
         assert api.calls.count("POST jobs/") == 2
     finally:
         await kube.client.aclose()
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize("code, replaced", [(409, False), (422, False), (409, True)])
+async def test_metered_stop_rereads_same_pod_after_patch_conflict(code, replaced):
+    from unittest.mock import AsyncMock, Mock
+
+    owner, run = uuid4(), uuid4()
+    uid = str(uuid4())
+    kube = Mock()
+    kube.get = AsyncMock(
+        return_value={"metadata": {"annotations": {"sunmoonai.com/call": str(run)}}}
+    )
+    response = httpx.Response(
+        code, request=httpx.Request("PATCH", "https://kube.test/pod")
+    )
+    kube.client.patch = AsyncMock(return_value=response)
+    jobs = ScriptJobs(kube, namespace="test", image="test", pull_secret="")
+    running = {
+        "metadata": {"uid": uid, "name": "script"},
+        "status": {"phase": "Running"},
+    }
+    terminal = {
+        "metadata": {"uid": str(uuid4()) if replaced else uid},
+        "status": {"phase": "Succeeded"},
+    }
+    jobs.owned_pod = AsyncMock(
+        side_effect=[
+            running,
+            terminal,
+            {**running, "spec": {"activeDeadlineSeconds": 1}},
+        ]
+    )
+    if replaced:
+        with pytest.raises(httpx.HTTPStatusError):
+            await jobs.stop_metered(owner, run)
+    else:
+        await jobs.stop_metered(owner, run)
+    await jobs.stop_metered(owner, run)
+    kube.client.patch.assert_awaited_once()

@@ -231,7 +231,13 @@ class ScriptJobs:
         pod = await self.owned_pod(job)
         if not pod:
             raise HTTPException(409, "The controller has not exposed its Pod")
-        if pod.get("status", {}).get("phase") not in ("Succeeded", "Failed"):
+
+        def stopping_or_done(current):
+            return current.get("spec", {}).get(
+                "activeDeadlineSeconds"
+            ) == 1 or current.get("status", {}).get("phase") in ("Succeeded", "Failed")
+
+        if not stopping_or_done(pod):
             # Kubernetes permits shortening an active Pod deadline. The UID
             # guard excludes a replacement, and its terminal status remains readable.
             response = await self.kube.client.patch(
@@ -246,6 +252,14 @@ class ScriptJobs:
                     {"op": "add", "path": "/spec/activeDeadlineSeconds", "value": 1},
                 ],
             )
+            if response.status_code in (409, 422):
+                current = await self.owned_pod(job)
+                if (
+                    current
+                    and current["metadata"]["uid"] == pod["metadata"]["uid"]
+                    and stopping_or_done(current)
+                ):
+                    return
             response.raise_for_status()
 
     async def container_meter(self, owner, run):
