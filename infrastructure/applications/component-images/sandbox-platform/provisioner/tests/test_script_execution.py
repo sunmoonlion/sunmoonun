@@ -265,6 +265,10 @@ async def test_result_only_reads_pod_owned_by_the_exact_job():
             "labels": {"batch.kubernetes.io/controller-uid": job["metadata"]["uid"]},
         }
     }
+    assert (await jobs.status(owner, run)).state == "failed"
+    api.objects[("pods", "correct-execution")]["metadata"]["ownerReferences"] = [
+        {"kind": "Job", "controller": True, "uid": job["metadata"]["uid"]}
+    ]
     result = await jobs.status(owner, run)
     assert result.state == "finished" and result.result.stdout == "42\n"
     await kube.client.aclose()
@@ -336,3 +340,116 @@ def test_truncated_frame_cannot_start_a_package(tmp_path):
         and not marker.exists()
         and b"SUNMOON_INPUT_ACCEPTED" not in proc.stdout
     )
+
+
+@pytest.mark.anyio
+async def test_container_meter_uses_owned_pod_and_kubelet_timestamps():
+    api = JobsApi()
+    kube = provisioner.KubeClient(
+        base_url="https://kube.test",
+        token="service-only",
+        transport=httpx.MockTransport(api.handler),
+    )
+    jobs = ScriptJobs(
+        kube, namespace="sandbox-pool", image="pinned-image", pull_secret=""
+    )
+    owner, run = uuid4(), uuid4()
+    _, job = await jobs.reserve(owner, run, execution_frame(body())[0])
+    job_uid = job["metadata"]["uid"]
+    pod_uid = str(uuid4())
+    pod = {
+        "metadata": {
+            "name": "measured",
+            "uid": pod_uid,
+            "labels": {"batch.kubernetes.io/controller-uid": job_uid},
+            "ownerReferences": [{"uid": job_uid, "kind": "Job", "controller": True}],
+        },
+        "status": {
+            "containerStatuses": [
+                {
+                    "name": "script",
+                    "restartCount": 0,
+                    "containerID": "containerd://test",
+                    "state": {
+                        "terminated": {
+                            "startedAt": "2026-11-20T00:00:00Z",
+                            "finishedAt": "2026-11-20T00:00:04Z",
+                        }
+                    },
+                }
+            ]
+        },
+    }
+    api.objects[("pods", "measured")] = pod
+    meter = await jobs.container_meter(owner, run)
+    assert (
+        str(meter.job_uid) == job_uid
+        and str(meter.pod_uid) == pod_uid
+        and meter.run_id == run
+    )
+    assert (meter.finished_at - meter.started_at).total_seconds() == 4
+    with pytest.raises(provisioner.HTTPException, match="404"):
+        await jobs.container_meter(owner, uuid4())
+    pod["spec"] = {"nodeName": "test"}
+    pod["status"] = {
+        "phase": "Failed",
+        "containerStatuses": [
+            {
+                "name": "script",
+                "restartCount": 0,
+                "state": {"waiting": {"reason": "ErrImagePull"}},
+            }
+        ],
+    }
+    assert (await jobs.container_meter(owner, run)).reason == "ErrImagePull"
+    pod["status"]["containerStatuses"][0]["lastState"] = {"running": {}}
+    with pytest.raises(provisioner.HTTPException, match="409"):
+        await jobs.container_meter(owner, run)
+    pod["status"] = {"phase": "Pending"}
+    pod["spec"] = {}
+    with pytest.raises(provisioner.HTTPException, match="409"):
+        await jobs.container_meter(owner, run)
+    pod["status"]["phase"] = "Failed"
+    assert (await jobs.container_meter(owner, run)).reason == "unscheduled"
+    pod["metadata"]["ownerReferences"][0]["uid"] = str(uuid4())
+    with pytest.raises(provisioner.HTTPException, match="409"):
+        await jobs.container_meter(owner, run)
+    await kube.client.aclose()
+
+
+@pytest.mark.anyio
+async def test_shared_script_policy_creation_race_and_drift():
+    api = JobsApi()
+    first = True
+
+    def race(request):
+        nonlocal first
+        response = api.handler(request)
+        if (
+            first
+            and request.method == "POST"
+            and request.url.path.endswith("/networkpolicies")
+        ):
+            # The concurrent account wins the create; this request receives AlreadyExists.
+            first = False
+            return httpx.Response(409, json={"reason": "AlreadyExists"})
+        return response
+
+    kube = provisioner.KubeClient(
+        base_url="https://kube.test", token="test", transport=httpx.MockTransport(race)
+    )
+    jobs = ScriptJobs(kube, namespace="sandbox-pool", image="test", pull_secret="")
+    try:
+        frame, _ = execution_frame(body())
+        for _ in range(2):
+            assert (await jobs.reserve(uuid4(), uuid4(), frame))[0]
+        assert api.calls.count("POST networkpolicies/") == 1
+        assert not any(c.startswith("PUT networkpolicies/") for c in api.calls)
+        api.objects[("networkpolicies", "skill-execution-deny-all")]["spec"][
+            "egress"
+        ] = [{}]
+        with pytest.raises(provisioner.HTTPException, match="isolation policy"):
+            await jobs.reserve(uuid4(), uuid4(), frame)
+        assert api.calls.count("POST jobs/") == 2
+    finally:
+        await kube.client.aclose()

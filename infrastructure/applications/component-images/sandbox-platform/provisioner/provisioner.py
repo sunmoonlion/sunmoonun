@@ -27,8 +27,10 @@ import httpx
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel, Field
 from script_contract import (
+    ScriptContainerMeter,
     ScriptExecution,
     ScriptFrame,
+    ScriptNotStarted,
     ScriptStatus,
     ScriptStopped,
     execution_frame,
@@ -152,35 +154,56 @@ class KubeClient:
                 "tty": "false",
             },
         )
-        async with (
-            asyncio.timeout(15),
-            connect(
-                str(url),
-                ssl=self.attach_tls,
-                proxy=None,
-                additional_headers={
-                    "Authorization": self.client.headers["Authorization"]
-                },
-                subprotocols=["v4.channel.k8s.io"],
-                max_size=2_000_000,
-            ) as socket,
-        ):
-            if socket.subprotocol != "v4.channel.k8s.io":
-                raise RuntimeError("Kubernetes did not negotiate the input protocol")
-            for offset in range(0, len(raw), 65536):
-                await socket.send(b"\x00" + raw[offset : offset + 65536])
-            ack = b""
-            while len(ack) < 64:
-                msg = await socket.recv()
-                if not isinstance(msg, bytes) or not msg:
-                    raise RuntimeError("Invalid script input acknowledgment")
-                if msg[:1] == b"\x01":
-                    ack += msg[1:]
-                    if ack.startswith(b"SUNMOON_INPUT_ACCEPTED\n"):
-                        return
-                elif msg[:1] == b"\x03":
-                    break
-            raise RuntimeError("Script input was not confirmed")
+        clock = asyncio.get_running_loop().time
+        start = clock()
+        connected = written = None
+        accepted = False
+        try:
+            async with (
+                asyncio.timeout(15),
+                connect(
+                    str(url),
+                    ssl=self.attach_tls,
+                    proxy=None,
+                    additional_headers={
+                        "Authorization": self.client.headers["Authorization"]
+                    },
+                    subprotocols=["v4.channel.k8s.io"],
+                    max_size=2_000_000,
+                ) as socket,
+            ):
+                if socket.subprotocol != "v4.channel.k8s.io":
+                    raise RuntimeError(
+                        "Kubernetes did not negotiate the input protocol"
+                    )
+                connected = clock()
+                for offset in range(0, len(raw), 65536):
+                    await socket.send(b"\x00" + raw[offset : offset + 65536])
+                written = clock()
+                ack = b""
+                while len(ack) < 64:
+                    msg = await socket.recv()
+                    if not isinstance(msg, bytes) or not msg:
+                        raise RuntimeError("Invalid script input acknowledgment")
+                    if msg[:1] == b"\x01":
+                        ack += msg[1:]
+                        if ack.startswith(b"SUNMOON_INPUT_ACCEPTED\n"):
+                            accepted = True
+                            return
+                    elif msg[:1] == b"\x03":
+                        break
+                raise RuntimeError("Script input was not confirmed")
+        finally:
+            end = clock()
+            logging.getLogger("uvicorn.error.script_attach").info(
+                "script_attach bytes=%d accepted=%s connect_ms=%s write_ms=%s ack_ms=%s elapsed_ms=%d",
+                len(raw),
+                accepted,
+                round(1000 * (connected - start)) if connected is not None else None,
+                round(1000 * (written - connected)) if written is not None else None,
+                round(1000 * (end - written)) if written is not None else None,
+                round(1000 * (end - start)),
+            )
 
     async def apply(self, kind: str, body: dict[str, Any]) -> dict[str, Any]:
         name = body["metadata"]["name"]
@@ -446,6 +469,27 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
     @app.get("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStatus)
     async def script_status(owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)):
         return await jobs.status(owner, run)
+
+    @app.post(
+        "/v1/script-executions/{owner}/{run}/stop-metered",
+        dependencies=[Depends(require_token)],
+        status_code=202,
+    )
+    async def stop_metered_script(
+        owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)
+    ):
+        await jobs.stop_metered(owner, run)
+        return {"requested": True}
+
+    @app.get(
+        "/v1/script-executions/{owner}/{run}/container-meter",
+        dependencies=[Depends(require_token)],
+        response_model=ScriptContainerMeter | ScriptNotStarted,
+    )
+    async def script_container_meter(
+        owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)
+    ):
+        return await jobs.container_meter(owner, run)
 
     @app.delete("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStopped)
     async def cancel_script(owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)):
