@@ -27,6 +27,9 @@ def main():
     profile = modes[args.mode]
     indexes = {m['python_index'] for m in modes.values()}
     prefixes = {m['python_packages'] for m in modes.values()}
+    # 2026-11-20：清华源对当前构建机返回 403。国内模式改到阿里云后，仍承认锁文件里的清华地址并投影过去。
+    indexes.add('https://pypi.tuna.tsinghua.edu.cn/simple')
+    prefixes.add('https://pypi.tuna.tsinghua.edu.cn/packages/')
 
     def map_url(url):
         if url in indexes:
