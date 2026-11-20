@@ -201,3 +201,25 @@ def test_policy_namespaces_come_from_the_environment():
     assert ns(by_port[8000]) == target.APP_NAMESPACE and ns(by_port[47100]) == target.RELAY_NAMESPACE
     # 没有显式给会合点命名空间时，从 RELAY_URL 的集群内地址推出来
     assert target.RELAY_NAMESPACE == "edge"
+
+
+def test_gateway_credential_rotates_as_one_projection_and_legacy_spec_omits_it():
+    from uuid import uuid4
+
+    def rendered(**options):
+        return target.render("u-demo", target.SandboxSpec(**spec(**options)), "t" * 32)
+
+    assert "instruction-provider.json" not in rendered()["secret"]["data"]
+    first, second = str(uuid4()), str(uuid4())
+    versions = []
+    for cid, key, url in ((first,"old-synthetic-key","https://one.test/v1"),
+                          (second,"new-synthetic-key","https://two.test/v1")):
+        manifest = rendered(model_credential_id=cid, model_key=key, provider_base_url=url)
+        data = manifest["secret"]["data"]
+        assert json.loads(base64.b64decode(data["instruction-provider.json"])) == {
+            "credential_id":cid,"key":key,"provider":"kimi","model":"kimi-k3","base_url":url,
+        }
+        pod = manifest["deployment"]["spec"]["template"]
+        assert "instruction-provider.json" not in json.dumps(pod["spec"])
+        versions.append(pod["metadata"]["annotations"]["sunmoonai.com/secret-sha256"])
+    assert versions[0] != versions[1]

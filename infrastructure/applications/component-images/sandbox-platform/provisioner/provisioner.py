@@ -66,6 +66,7 @@ class SandboxSpec(BaseModel):
     model: str = Field(default="", max_length=128)
     provider_base_url: str = Field(default="", max_length=512)
     model_key: str = Field(min_length=8, max_length=512)
+    model_credential_id: UUID | None = None
     relay_token: str = Field(min_length=16, max_length=512)
     relay_user: str = Field(min_length=1, max_length=64)
     knowbase_mcp_token: str | None = Field(default=None, max_length=512)
@@ -247,6 +248,13 @@ def render(user: str, spec: SandboxSpec, app_server_token: str) -> dict[str, dic
         "knowbase-token": spec.knowbase_mcp_token or KNOWBASE_MCP_SHARED_TOKEN or "",
         "workbench-token": (spec.records_mcp_token or "") if spec.records_mcp_url else "",
     }
+    if spec.model_credential_id and spec.model_provider and spec.model and spec.provider_base_url:
+        # The dedicated gateway reads one projected item, so rotation cannot mix
+        # the key of one installation with the identity or URL of another.
+        data["instruction-provider.json"] = json.dumps({
+            "credential_id": str(spec.model_credential_id), "provider": spec.model_provider,
+            "model": spec.model, "base_url": spec.provider_base_url, "key": spec.model_key,
+        }, separators=(",", ":"))
     secret = {
         "apiVersion": "v1",
         "kind": "Secret",
