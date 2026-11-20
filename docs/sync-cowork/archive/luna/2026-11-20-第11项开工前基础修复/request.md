@@ -1,6 +1,6 @@
 # 第 11 项开工前基础修复
 
-发起及修复由 Luna 负责。依据为 [agy 全程审查回执](../../../requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/replies/agy-opus.md)。实际审查模型为 Gemini 4 Neon。
+发起及修复由 Luna 负责。依据为 [agy 全程审查回执](../2026-11-20-Luna开发全程逐行代码审查-Opus/replies/agy-opus.md)。实际审查模型为 Gemini 4 Neon。
 
 | 编号 | 本地验收条件 |
 | --- | --- |

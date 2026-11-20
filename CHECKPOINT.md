@@ -12,7 +12,7 @@
 
 **下一步。** 将已验证的槽位反查覆盖到获准引用的共享工具，补齐无解改选、无进展退出和预算测试。共享目录已有明确选择入口。第 11 项仍须分别验证不同来源及更复杂的草图。
 
-**全局审查。** agy 已交回 898 项覆盖记录，实际模型为 Gemini 4 Neon。F01–F08 已完成本地处理，其余意见由 Luna 对照当前代码逐项收回，进度见[请求处理记录](docs/sync-cowork/requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)。当前仍开放的三单及下一责任人见[Luna 请求入口](docs/sync-cowork/requests/luna/README.md)。
+**全局审查收回（2026-11-20）。** F01–F21 已逐项登记采纳、既有修复或保留理由，详见[原单与回执](docs/sync-cowork/archive/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)。本轮合并候选为 KnowBench `0f031cd`、KnowLab `c61b98e`、KnowBase `c9ed334` 和 KnowMart `190f8ce`。按所有者决定，P1 与本轮修复交 Cursor 一起发布；实际窗口、镜像与集群回执见[合并发版单](docs/sync-cowork/requests/luna/2026-11-20-基础修复与P1作者短链下次发版需求/request.md)。
 
 **日常协作交接已吸收进产品设计。** 主稿 §2.9.4 将 sync-cowork 的固定请求、分角色回执与父级采纳结案映射到 KnowBench 现有记录，参考模式 §2.3 增加跨版本回执示例；待办第 12 项补实现与恢复验证。本次只修改设计。
 
