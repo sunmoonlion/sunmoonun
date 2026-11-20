@@ -133,6 +133,8 @@ async def author(peer, template):
             await peer.stdin.drain()
             return json.loads(await asyncio.wait_for(peer.stdout.readline(), 30))
 
+    review_requests = {}
+
     async def forward(request):
         code, body = await rpc(
             {
@@ -142,6 +144,13 @@ async def author(peer, template):
                 "content": request.content.decode(),
             }
         )
+        if request.method == "POST" and request.url.path.endswith(
+            ("/formal-method-validations", "/formal-method-executions")
+        ):
+            graph = json.loads(request.content)["draft"]["definition"]["procedure"]
+            if "collaboration" in graph:
+                assert code == 409 and json.loads(body)["code"] == "runtime_capability_gap"
+                review_requests[request.url.path.rsplit("/", 1)[1]] = graph["collaboration"]
         if code >= 400:
             print(request.url.path, code, body[:1000], file=sys.stderr)
         return httpx.Response(code, content=body)
@@ -447,6 +456,10 @@ async def author(peer, template):
                 refused_run.status_code == 409
                 and refused_run.json()["code"] == "runtime_capability_gap"
             )
+            assert review_requests == {
+                endpoint: saved["body"]["collaboration"]
+                for endpoint in ("formal-method-validations", "formal-method-executions")
+            }
             print(
                 "P1 verified: indexed retrieval, author adoption and reload, mid-run cancellation, two artifacts and frozen expert",
                 expert["digest"],
