@@ -2,7 +2,7 @@
 
 **状态：暂停发版。Cursor 请等待 Luna 在本卡发出正式发布通知。** 所有者于 2026-11-20 明确要求，相关分项复核和 [agy（Opus）全局逐行审查](../2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)全部交回后，Luna 逐条登记采纳、修复或保留理由，完成针对性复验并重新固定候选，随后才把正式发版需求交给 Cursor。此次已推送的需求作为草案留档，当前仅进行审查。
 
-Luna 发起，Cursor 负责后续发布。请 agy 复核本项测试并在本目录提交 `replies/agy.md`。Cursor 在 `replies/cursor.md` 记录发布范围、实际部署版本、线上核验和结果。C5 的复核归[原请求](../2026-11-20-C5专家分步执行与脚本计费复核/request.md)。
+Luna 发起，Cursor 负责后续发布。请 agy 复核本项测试并在本目录提交 `replies/agy.md`。Cursor 在 `replies/cursor.md` 记录发布范围、实际部署版本、线上核验和结果。C5 [分项回执](../2026-11-20-C5专家分步执行与脚本计费复核/replies/agy.md)已收到，结论为通过，五条建议待 Luna 吸收复验。
 
 ## 候选版本
 
@@ -23,6 +23,8 @@ Luna 发起，Cursor 负责后续发布。请 agy 复核本项测试并在本目
 - 在 KnowBench 后端独立 PostgreSQL 测试库设置 `AGENT_TEST_DATABASE_URL`，执行 `.venv/bin/pytest -q tests/test_connector_cross_scene_db.py`。同一账号的同一个连接 ID 在聊天、工作和三步专家的读写叶子中出现。合成 HTTPS MCP 服务校验同一凭据，记录每次读取和发送。聊天与工作中的批准、拒绝、读授权复用、撤销或到期按调用账核对。发送端收件后断开，重建服务后仍按原调用返回未知，服务端发送计数只增加一次。此用例的专家脚本由测试执行器驱动；C5 原请求另有专家调用真实容器的证据。
 - 构建对应 KnowBench Web，使用 KnowBench 后端的虚拟环境运行[脚本操作卡联调](../../../../../scripts/local-integration/script_card.py)。入口需本机独立 PostgreSQL 的 `*_tests` 库和隔离测试供给器，通过 `AGENT_TEST_DATABASE_URL`、`SCRIPT_TEST_PROVISIONER_URL`、`SCRIPT_TEST_PROVISIONER_TOKEN` 提供。本地 Chromium 点击批准后下载 `answer.txt`，文件字节为 `42`。第二个脚本运行中刷新页面，再从原卡停止，核对两条原始调用及两份 Job 均已回收。浏览器登录和 Codex 工具事件使用测试夹具，能力路由、数据库、执行供给器与 KIND 容器实际参与。
 - 真实供应商待提供专用测试账号、授权范围和已登记的回调地址。按所有者决定先交本地结果；外部凭据的授权、刷新、撤销和供应商侧结果另记。
+
+本地回归收集 2,940 项，首轮 2,930 通过、9 跳过、1 项在清理测试 schema 时出现数据库死锁。相同代码重跑受影响的完整分片为 494 通过、3 跳过，与其余分片合计核对为 2,931 通过、9 跳过。首轮死锁已交 Opus 核查。三个跳过的真实容器用例另行通过；另六项为三个可选消息队列探针和三个退役样例空参数组。KnowBench Web 单元与组件 503 通过、2 跳过，Playwright 常规 9 通过，另以 PostgreSQL、真实供给器与 KIND 跑通专用操作卡用例。构建、类型、国际化、变更测试文件的 ESLint 均通过。断网容器内以 Codex 0.170.0 和合成 Responses/MCP 核对两轮事件的线程、轮次及调用 ID。旧研究表单用例调整为配对 Run API 的事件流、授权引用与人工确认检查。
 
 ## Cursor 发布与交回
 
