@@ -35,8 +35,11 @@
   - [x] Luna 已修订并复验五条建议，受审候选、修订提交和证据见分项请求。
 - [ ] **10. 完成跨场景验收与发布（C1、C6）。** 用同一连接器覆盖聊天、工作和专家调用，验通脚本操作卡、真实服务与恢复；在最终候选完成全量、复审、发布和线上核验。
   - [x] 本地已验证同一连接在聊天、工作和专家中复用，以及发送回执丢失后的原调用恢复。浏览器已验真实 KIND 脚本的批准、下载、刷新后停止和 Job 清理。
-  - [x] Cursor 已通过 Jenkins #96 发布 `release-20261120-1`，新沙箱及 Windows、Linux Link 0.5.9 已验 Codex 0.170.0。[发布回执](../sync-cowork/requests/luna/2026-11-20-C1-C6跨场景验收发版需求/replies/cursor.md)
-  - [ ] 用户脚本开关保持关闭。待 agy 的 C1/C6 分项回执、目标集群收费流水、用户操作卡及其余发布证据。真实供应商待账号与回调。[发布请求处理记录](../sync-cowork/requests/luna/2026-11-20-C1-C6跨场景验收发版需求/request.md)；[agy 全局审查及逐项结案](../sync-cowork/archive/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)已核对 F01–F21，改动随[同一张 P1 发版单](../sync-cowork/requests/luna/2026-11-20-基础修复与P1作者短链下次发版需求/request.md)交 Cursor。 Luna 已在 #96 目标集群验过脚本成功、失败、取消及回收，三次容器计量各为 2 秒。线上价目为空。[集群回执](../sync-cowork/requests/luna/2026-11-20-C1-C6跨场景验收发版需求/replies/luna.md)
+  - [x] Cursor 已通过 Jenkins #96 发布 `release-20261120-1`，新沙箱及 Windows、Linux Link 0.5.9 已验 Codex 0.170.0。[发布回执](../sync-cowork/archive/luna/2026-11-20-C1-C6跨场景验收发版需求/replies/cursor.md)
+  - [x] #96 发布单已归档。Luna 在目标集群验过脚本成功、失败、取消和回收，三次容器计量各为 2 秒。[集群回执](../sync-cowork/archive/luna/2026-11-20-C1-C6跨场景验收发版需求/replies/luna.md)
+  - [ ] agy 独立复核 C1/C6，Luna 收回分项意见。可引用已有 C6 实测并核对版本差异。[全局审查及逐项结案](../sync-cowork/archive/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)
+  - [ ] 用户脚本开关保持关闭。待运营价目、测试预算和获准入口就绪，由 Cursor 核对启动前零扣费、成功／失败／取消按容器秒数结算、释放余款及重复收集只扣一次；按启用流程实测页面批准、授权取数、下载和停止。
+  - [ ] Cursor 在后续窗口按实测版本补正式下载对象读回摘要、设置页、Linux 心跳、在途任务及备份恢复证据。真实供应商 OAuth 待专用账号、授权范围和回调后再验。[原发布范围](../sync-cowork/archive/luna/2026-11-20-C1-C6跨场景验收发版需求/request.md)
   - 发版分工（所有者 2026-11-20 确认）：Luna 整理候选版本、本地验收、待验项、开关与回滚要求，写发版需求交给 Cursor。Cursor 执行发布并交回线上核验结果。
 
 以上沿用[接入实施方案 §17.6](mcp和skill接入实施方案.md#176-本次先发布发布后补齐的工作单所有者-2026-11-13-确认)的实施顺序与完成条件。
