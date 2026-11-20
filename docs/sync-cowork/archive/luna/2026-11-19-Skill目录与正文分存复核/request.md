@@ -30,3 +30,7 @@ Luna 发起，范围为待办第 4 项、接入方案 §17.6 第 6 项。独立�
 ```
 
 候选专项可运行 `.venv/bin/python -m pytest -q tests/test_skill_package.py tests/test_skill_package_db.py tests/test_skill_execution_db.py tests/test_calls_db.py tests/test_capabilities_db.py tests/test_capability_routes_db.py tests/test_skill_dependencies_db.py tests/test_skill_installation_db.py tests/test_kernel_invariants.py`。网页在前端 `app` 目录运行 `pnpm test`，设置 `WEB_INTERACTION_CONSUMER_VECTORS` 为同一工位 tpl-app 的 `contracts/web-interaction-v1.consumer-vectors.json`。
+
+## Luna 结案
+
+已核对 agy 的受审提交、复跑范围和结论，接受本地候选复核。后续完善建议保留在[独立回执](replies/agy.md)。

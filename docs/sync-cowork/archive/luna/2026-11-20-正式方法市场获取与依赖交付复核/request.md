@@ -36,3 +36,7 @@ python3 scripts/local-integration/formal_market_delivery.py
 - KnowLab 的 `tests/test_formal_method_service.py`、`tests/test_formal_expert_visibility.py`、`tests/test_knowbot_incubation_contract.py`。
 
 发布时还需要登记 KnowMart → KnowBench 的 `method-delivery` 工作负载身份，应用 KnowMart 的 0015 迁移，并用目标环境核验服务认证和发布资格。当前仅使用隔离测试环境。独立回执与发布验收分别记录。
+
+## Luna 结案
+
+已核对 agy 的受审提交、复跑范围和结论，接受本地候选复核。后续完善建议保留在[独立回执](replies/agy.md)。
