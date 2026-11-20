@@ -402,7 +402,10 @@ async def author(peer, template):
                             "path": "collaboration",
                             "value": {
                                 "prepare": {"isolation_group": "independent"},
-                                "step_1": {"handoff_from": ["prepare"]},
+                                "step_1": {
+                                    "handoff_from": ["prepare"],
+                                    "review_requirements": {"prepare": "different_model_family"},
+                                },
                             },
                         }
                     ],
@@ -414,6 +417,8 @@ async def author(peer, template):
             assert {(g["step"], g["primitive"]) for g in reopened["runtime_gaps"]} == {
                 ("prepare", "isolation_group"),
                 ("step_1", "staged_handoff"),
+                ("step_1", "isolated_reviewer"),
+                ("step_1", "different_model_family"),
             }
             blocked = await client.post(
                 f"/api/web/v1/method-units/{expert_id}/validations",
