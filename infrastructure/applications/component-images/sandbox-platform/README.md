@@ -1,5 +1,7 @@
 # 沙箱与供给器镜像源码（0003-sandbox）
 
+开发镜像固定使用 Codex 0.170.0，搭配 SunMoon Link 0.5.9 的 Windows 或 Linux 执行器。relay 核对两端实际报告的 Codex 版本。切换部署时应同步晋级沙箱与已上传、读回校验的客户端包。当前公开下载由 agent-releases 清单中的发行回执决定。
+
 每用户一个 pod：钉版 `codex app-server`（模型循环，BYOK）+ 沙箱侧出站桥（到会合点）。设计见
 [`docs/design/SDD/modules/0003-sandbox.md`](../../../../docs/design/SDD/modules/0003-sandbox.md)。
 

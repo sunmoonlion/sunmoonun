@@ -4,11 +4,18 @@ from __future__ import annotations
 
 import asyncio
 import base64
-import hashlib
 from uuid import UUID
 
 from fastapi import HTTPException
-from script_contract import ScriptExecution, ScriptResult, ScriptStatus
+from script_contract import (
+    ScriptContainerMeter,
+    ScriptExecution,
+    ScriptFrame,
+    ScriptNotStarted,
+    ScriptResult,
+    ScriptStatus,
+    execution_frame,
+)
 
 
 def job_name(owner: UUID) -> str:
@@ -36,46 +43,65 @@ class ScriptJobs:
     async def start(
         self, owner: UUID, run: UUID, body: ScriptExecution
     ) -> ScriptStatus:
+        frame, raw = execution_frame(body)
+        created, _ = await self.reserve(owner, run, frame)
+        if created:
+            await self.ready(owner, run, frame)
+            await self.deliver(owner, run, frame, raw)
+        return await self.status(owner, run)
+
+    async def ensure_isolation_policy(self, run):
+        name = "skill-execution-deny-all"
+        selector = {"matchLabels": {"app": "skill-execution"}}
+        current = await self.kube.get("networkpolicies", name)
+        if current is None:
+            response = await self.kube.client.post(
+                self.kube.path("networkpolicies"),
+                json={
+                    "apiVersion": "networking.k8s.io/v1",
+                    "kind": "NetworkPolicy",
+                    "metadata": {"name": name, "namespace": self.namespace},
+                    "spec": {
+                        "podSelector": selector,
+                        "policyTypes": ["Ingress", "Egress"],
+                        "ingress": [],
+                        "egress": [],
+                    },
+                },
+            )
+            if response.status_code == 409:
+                current = await self.kube.get("networkpolicies", name)
+            else:
+                response.raise_for_status()
+                current = response.json()
+        spec = (current or {}).get("spec", {})
+        if (
+            not current
+            or current["metadata"].get("deletionTimestamp")
+            or spec.get("podSelector") != selector
+            or set(spec.get("policyTypes", [])) != {"Ingress", "Egress"}
+            or spec.get("ingress")
+            or spec.get("egress")
+        ):
+            raise HTTPException(
+                409,
+                {"code": "isolation_unavailable_before_creation", "run_id": str(run)},
+            )
+
+    async def reserve(self, owner: UUID, run: UUID, frame: ScriptFrame):
         name = job_name(owner)
-        raw = body.model_dump_json().encode()
-        checksum = hashlib.sha256(raw).hexdigest()
         existing = await self.kube.get("jobs", name)
         if existing:
-            annotations = existing["metadata"].get("annotations", {})
-            if (
-                annotations.get("sunmoonai.com/call") != str(run)
-                or annotations.get("sunmoonai.com/input") != checksum
-            ):
-                raise HTTPException(
-                    409, "Another script occupies this account's execution slot"
-                )
-            return await self.status(owner, run)
+            self.check_slot(existing, run)
+            self.check_frame(existing, run, frame)
+            return False, existing
         labels = {
             "app": "skill-execution",
             "sunmoonai.com/owner": owner.hex,
             "sunmoonai.com/call": run.hex,
         }
         meta = {"name": name, "namespace": self.namespace, "labels": labels}
-        # A static deny-all policy for all package executors; no connection to Codex,
-        # the Kubernetes API, cloud metadata or a user's local link.
-        await self.kube.apply(
-            "networkpolicies",
-            {
-                "apiVersion": "networking.k8s.io/v1",
-                "kind": "NetworkPolicy",
-                "metadata": {
-                    "name": "skill-execution-deny-all",
-                    "namespace": self.namespace,
-                },
-                "spec": {
-                    "podSelector": {"matchLabels": {"app": "skill-execution"}},
-                    "policyTypes": ["Ingress", "Egress"],
-                    "ingress": [],
-                    "egress": [],
-                },
-            },
-        )
-        chunks = [raw[i : i + 400000] for i in range(0, len(raw), 400000)]
+        await self.ensure_isolation_policy(run)
         job = {
             "apiVersion": "batch/v1",
             "kind": "Job",
@@ -83,7 +109,9 @@ class ScriptJobs:
                 **meta,
                 "annotations": {
                     "sunmoonai.com/call": str(run),
-                    "sunmoonai.com/input": checksum,
+                    "sunmoonai.com/input": frame.sha256,
+                    "sunmoonai.com/bytes": str(frame.size),
+                    "sunmoonai.com/delivery": "waiting",
                 },
             },
             "spec": {
@@ -118,7 +146,11 @@ class ScriptJobs:
                                     "--",
                                     "/usr/bin/python3",
                                     "/opt/sandbox/skill_execute.py",
+                                    str(frame.size),
+                                    frame.sha256,
                                 ],
+                                "stdin": True,
+                                "stdinOnce": True,
                                 "securityContext": {
                                     "allowPrivilegeEscalation": False,
                                     "readOnlyRootFilesystem": True,
@@ -133,11 +165,6 @@ class ScriptJobs:
                                     },
                                 },
                                 "volumeMounts": [
-                                    {
-                                        "name": "input",
-                                        "mountPath": "/input",
-                                        "readOnly": True,
-                                    },
                                     {"name": "work", "mountPath": "/tmp"},
                                 ],
                             }
@@ -147,26 +174,6 @@ class ScriptJobs:
                                 "name": "work",
                                 "emptyDir": {"medium": "Memory", "sizeLimit": "32Mi"},
                             },
-                            {
-                                "name": "input",
-                                "projected": {
-                                    "defaultMode": 0o440,
-                                    "sources": [
-                                        {
-                                            "secret": {
-                                                "name": f"{name}-{i}",
-                                                "items": [
-                                                    {
-                                                        "key": "input",
-                                                        "path": f"chunk-{i:03d}",
-                                                    }
-                                                ],
-                                            }
-                                        }
-                                        for i in range(len(chunks))
-                                    ],
-                                },
-                            },
                         ],
                     },
                 },
@@ -175,39 +182,204 @@ class ScriptJobs:
         # Create only. Concurrent requests never replace a Job or change its input.
         response = await self.kube.client.post(self.kube.path("jobs"), json=job)
         if response.status_code == 409:
-            raise HTTPException(409, "Script execution slot is occupied")
+            current = await self.kube.get("jobs", name)
+            self.check_slot(current, run)
+            self.check_frame(current, run, frame)
+            return False, current
         response.raise_for_status()
-        created = response.json()
-        reference = {
-            "apiVersion": "batch/v1",
-            "kind": "Job",
-            "name": name,
-            "uid": created["metadata"]["uid"],
-            "controller": True,
-            "blockOwnerDeletion": True,
-        }
-        try:
-            for i, chunk in enumerate(chunks):
-                await self.kube.apply(
-                    "secrets",
+        return True, response.json()
+
+    @staticmethod
+    def check_slot(job, run):
+        if job and job["metadata"]["annotations"].get("sunmoonai.com/call") != str(run):
+            raise HTTPException(
+                409, {"code": "slot_occupied_before_creation", "run_id": str(run)}
+            )
+
+    @staticmethod
+    def check_frame(job, run, frame):
+        annotations = (job or {}).get("metadata", {}).get("annotations", {})
+        if (
+            annotations.get("sunmoonai.com/call") != str(run)
+            or annotations.get("sunmoonai.com/input") != frame.sha256
+            or annotations.get("sunmoonai.com/bytes") != str(frame.size)
+        ):
+            raise HTTPException(409, "Script slot or approved input changed")
+
+    async def owned_pod(self, job):
+        uid = job["metadata"]["uid"]
+        pods = await self.kube.list("pods", f"batch.kubernetes.io/controller-uid={uid}")
+        if len(pods) != 1:
+            return None
+        pod = pods[0]
+        if not any(
+            ref.get("controller") is True
+            and ref.get("uid") == uid
+            and ref.get("kind") == "Job"
+            for ref in pod["metadata"].get("ownerReferences", [])
+        ):
+            return None
+        return pod
+
+    async def stop_metered(self, owner, run):
+        """Keep the terminal Pod available for metering before its normal cleanup."""
+        job = await self.kube.get("jobs", job_name(owner))
+        if not job or job["metadata"].get("annotations", {}).get(
+            "sunmoonai.com/call"
+        ) != str(run):
+            raise HTTPException(404, "Execution is unavailable")
+        pod = await self.owned_pod(job)
+        if not pod:
+            raise HTTPException(409, "The controller has not exposed its Pod")
+
+        def stopping_or_done(current):
+            return current.get("spec", {}).get(
+                "activeDeadlineSeconds"
+            ) == 1 or current.get("status", {}).get("phase") in ("Succeeded", "Failed")
+
+        if not stopping_or_done(pod):
+            # Kubernetes permits shortening an active Pod deadline. The UID
+            # guard excludes a replacement, and its terminal status remains readable.
+            response = await self.kube.client.patch(
+                self.kube.path("pods", pod["metadata"]["name"]),
+                headers={"Content-Type": "application/json-patch+json"},
+                json=[
                     {
-                        "apiVersion": "v1",
-                        "kind": "Secret",
-                        "type": "Opaque",
-                        "immutable": True,
-                        "metadata": {
-                            **meta,
-                            "name": f"{name}-{i}",
-                            "ownerReferences": [reference],
-                        },
-                        "data": {"input": base64.b64encode(chunk).decode()},
+                        "op": "test",
+                        "path": "/metadata/uid",
+                        "value": pod["metadata"]["uid"],
                     },
-                )
-        except Exception:
-            # All projected Secrets are required: no container can start with a
-            # partial package. If this process dies, the Job deadline still runs.
-            await self.kube.delete("jobs", name, uid=created["metadata"]["uid"])
-            raise
+                    {"op": "add", "path": "/spec/activeDeadlineSeconds", "value": 1},
+                ],
+            )
+            if response.status_code in (409, 422):
+                current = await self.owned_pod(job)
+                if (
+                    current
+                    and current["metadata"]["uid"] == pod["metadata"]["uid"]
+                    and stopping_or_done(current)
+                ):
+                    return
+            response.raise_for_status()
+
+    async def container_meter(self, owner, run):
+        job = await self.kube.get("jobs", job_name(owner))
+        if not job or job["metadata"].get("annotations", {}).get(
+            "sunmoonai.com/call"
+        ) != str(run):
+            raise HTTPException(404, "No container meter for this execution")
+        pod = await self.owned_pod(job)
+        if pod:
+            for container in pod.get("status", {}).get("containerStatuses", []):
+                if (
+                    container.get("name") != "script"
+                    or container.get("restartCount") != 0
+                ):
+                    continue
+                state = container.get("state", {})
+                interval = state.get("terminated") or state.get("running") or {}
+                if container.get("containerID") and interval.get("startedAt"):
+                    return ScriptContainerMeter(
+                        run_id=run,
+                        job_uid=job["metadata"]["uid"],
+                        pod_uid=pod["metadata"]["uid"],
+                        container_id=container["containerID"],
+                        started_at=interval["startedAt"],
+                        finished_at=interval.get("finishedAt"),
+                    )
+            status = pod.get("status", {})
+            containers = status.get("containerStatuses", [])
+            if status.get("phase") == "Failed" and not any(
+                c.get("containerID")
+                or c.get("restartCount")
+                or c.get("lastState")
+                or c.get("state", {}).get("running")
+                or c.get("state", {}).get("terminated")
+                for c in containers
+            ):
+                reason = None
+                if "spec" in pod and not pod["spec"].get("nodeName"):
+                    reason = "unscheduled"
+                elif len(containers) == 1 and containers[0].get("name") == "script":
+                    reason = (
+                        containers[0].get("state", {}).get("waiting", {}).get("reason")
+                    )
+                if reason in (
+                    "unscheduled",
+                    "ErrImagePull",
+                    "ImagePullBackOff",
+                    "CreateContainerConfigError",
+                ):
+                    return ScriptNotStarted(
+                        run_id=run,
+                        job_uid=job["metadata"]["uid"],
+                        pod_uid=pod["metadata"]["uid"],
+                        reason=reason,
+                    )
+        raise HTTPException(409, "No authoritative container interval is available")
+
+    async def waiting_pod(self, job):
+        pod = await self.owned_pod(job)
+        if pod is None or pod["metadata"].get("deletionTimestamp"):
+            return None
+        if any(
+            c.get("name") == "script" and "running" in c.get("state", {})
+            for c in pod.get("status", {}).get("containerStatuses", [])
+        ):
+            return pod["metadata"]["name"]
+        return None
+
+    async def ready(self, owner, run, frame):
+        async with asyncio.timeout(50):
+            while True:
+                job = await self.kube.get("jobs", job_name(owner))
+                self.check_frame(job, run, frame)
+                if (
+                    job["metadata"]["annotations"].get("sunmoonai.com/delivery")
+                    == "claimed"
+                ):
+                    return
+                if await self.waiting_pod(job):
+                    return
+                if job.get("status", {}).get("failed") or job.get("status", {}).get(
+                    "succeeded"
+                ):
+                    raise HTTPException(409, "Script slot is already closed")
+                await asyncio.sleep(0.25)
+
+    async def deliver(self, owner, run, frame, raw):
+        job = await self.kube.get("jobs", job_name(owner))
+        self.check_frame(job, run, frame)
+        if job["metadata"]["annotations"].get("sunmoonai.com/delivery") == "claimed":
+            return await self.status(owner, run)
+        pod = await self.waiting_pod(job)
+        if not pod:
+            raise HTTPException(409, "Script input receiver is unavailable")
+        # One immutable delivery claim across concurrent requests and provisioner restarts.
+        field = "/metadata/annotations/sunmoonai.com~1delivery"
+        response = await self.kube.client.patch(
+            self.kube.path("jobs", job_name(owner)),
+            headers={"Content-Type": "application/json-patch+json"},
+            json=[
+                {
+                    "op": "test",
+                    "path": "/metadata/uid",
+                    "value": job["metadata"]["uid"],
+                },
+                {"op": "test", "path": field, "value": "waiting"},
+                {"op": "replace", "path": field, "value": "claimed"},
+            ],
+        )
+        if response.status_code in (409, 422):
+            current = await self.kube.get("jobs", job_name(owner))
+            self.check_frame(current, run, frame)
+            if (
+                current["metadata"]["annotations"].get("sunmoonai.com/delivery")
+                == "claimed"
+            ):
+                return await self.status(owner, run)
+        response.raise_for_status()
+        await self.kube.send_script_input(pod, raw)
         return ScriptStatus(state="running")
 
     async def status(self, owner: UUID, run: UUID) -> ScriptStatus:
@@ -219,20 +391,24 @@ class ScriptJobs:
             return ScriptStatus(state="absent")
         status = job.get("status", {})
         if status.get("succeeded"):
-            pods = await self.kube.list(
-                "pods", f"batch.kubernetes.io/controller-uid={job['metadata']['uid']}"
-            )
-            if len(pods) != 1:
+            pod = await self.owned_pod(job)
+            if pod is None:
                 return ScriptStatus(
                     state="failed", error="Cannot identify a unique script result"
                 )
-            path = self.kube.path("pods", pods[0]["metadata"]["name"]) + "/log"
+            path = self.kube.path("pods", pod["metadata"]["name"]) + "/log"
             response = await self.kube.client.get(
                 path, params={"container": "script", "limitBytes": 2000000}
             )
             response.raise_for_status()
             try:
-                result = ScriptResult.model_validate_json(response.content)
+                raw = response.content
+                if "sunmoonai.com/bytes" in job["metadata"].get("annotations", {}):
+                    marker = b"SUNMOON_INPUT_ACCEPTED\n"
+                    if not raw.startswith(marker):
+                        raise ValueError("Script input was never acknowledged")
+                    raw = raw[len(marker) :]
+                result = ScriptResult.model_validate_json(raw)
                 if (
                     sum(len(base64.b64decode(a.data_base64)) for a in result.artifacts)
                     > 512 * 1024

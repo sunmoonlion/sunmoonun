@@ -8,11 +8,11 @@ from pathlib import Path
 from uuid import uuid4
 
 import httpx
-import pytest
-from test_provisioner import FakeApiServer
 import provisioner
-from script_contract import ScriptExecution
+import pytest
+from script_contract import ScriptExecution, execution_frame
 from script_jobs import ScriptJobs, job_name
+from test_provisioner import FakeApiServer
 
 
 def file(path, content):
@@ -42,7 +42,8 @@ class JobsApi(FakeApiServer):
         if request.url.path.endswith("/log"):
             return httpx.Response(
                 200,
-                text=json.dumps(
+                text="SUNMOON_INPUT_ACCEPTED\n"
+                + json.dumps(
                     {
                         "exit_code": 0,
                         "stdout": "42\n",
@@ -63,10 +64,16 @@ class JobsApi(FakeApiServer):
             ):
                 return httpx.Response(409, json={"code": 409})
         if request.method == "PATCH":
-            self.objects[("jobs", name)]["spec"]["suspend"] = json.loads(
-                request.content
-            )["spec"]["suspend"]
-            return httpx.Response(200, json=self.objects[("jobs", name)])
+            job = self.objects[("jobs", name)]
+            uid, waiting, claim = json.loads(request.content)
+            annotations = job["metadata"]["annotations"]
+            if (
+                uid["value"] != job["metadata"]["uid"]
+                or annotations["sunmoonai.com/delivery"] != waiting["value"]
+            ):
+                return httpx.Response(422)
+            annotations["sunmoonai.com/delivery"] = claim["value"]
+            return httpx.Response(200, json=job)
         response = super().handler(request)
         if request.method == "POST" and "/jobs" in request.url.path:
             obj = response.json()
@@ -90,7 +97,30 @@ async def test_job_is_secretless_bounded_and_immutable():
         kube, namespace="sandbox-pool", image="pinned-image", pull_secret="puller"
     )
     owner, run = uuid4(), uuid4()
-    assert (await jobs.start(owner, run, body())).state == "running"
+    frame, raw = execution_frame(body())
+    created, job = await jobs.reserve(owner, run, frame)
+    assert created
+    assert not any(kind == "secrets" for kind, _name in api.objects)
+    assert "print(42)" not in json.dumps(job)
+    uid = job["metadata"]["uid"]
+    api.objects[("pods", "recipient")] = {
+        "metadata": {
+            "name": "recipient",
+            "labels": {"batch.kubernetes.io/controller-uid": uid},
+            "ownerReferences": [{"uid": uid, "kind": "Job", "controller": True}],
+        },
+        "status": {"containerStatuses": [{"name": "script", "state": {"running": {}}}]},
+    }
+    received = []
+
+    async def receive(pod, data):
+        received.append((pod, data))
+
+    kube.send_script_input = receive
+    await jobs.ready(owner, run, frame)
+    await jobs.deliver(owner, run, frame, raw)
+    await jobs.deliver(owner, run, frame, raw)
+    assert received == [("recipient", raw)]
     job = api.objects[("jobs", job_name(owner))]
     pod = job["spec"]["template"]["spec"]
     assert pod["automountServiceAccountToken"] is False
@@ -133,7 +163,7 @@ async def test_cancel_waits_for_job_and_running_pod_to_stop():
         cancel_timeout=0,
     )
     owner, run = uuid4(), uuid4()
-    await jobs.start(owner, run, body())
+    await jobs.reserve(owner, run, execution_frame(body())[0])
     api.objects[("pods", "still-running")] = {
         "metadata": {
             "name": "still-running",
@@ -151,7 +181,7 @@ async def test_cancel_waits_for_job_and_running_pod_to_stop():
     assert ("jobs", job_name(owner)) not in api.objects
     # A new run may occupy the slot while the old Pod is terminating.
     replacement = uuid4()
-    await jobs.start(owner, replacement, body())
+    await jobs.reserve(owner, replacement, execution_frame(body())[0])
     api.objects[("pods", "still-running")]["status"]["phase"] = "Failed"
     await jobs.cancel(owner, run)
     assert api.objects[("jobs", job_name(owner))]["metadata"]["annotations"][
@@ -179,7 +209,7 @@ async def test_cancel_cannot_delete_a_replacement_job():
         kube, namespace="sandbox-pool", image="pinned-image", pull_secret=""
     )
     owner, run = uuid4(), uuid4()
-    await jobs.start(owner, run, body())
+    await jobs.reserve(owner, run, execution_frame(body())[0])
     with pytest.raises(httpx.HTTPStatusError) as exc:
         await jobs.cancel(owner, run)
     assert exc.value.response.status_code == 409
@@ -216,7 +246,7 @@ async def test_result_only_reads_pod_owned_by_the_exact_job():
         kube, namespace="sandbox-pool", image="pinned-image", pull_secret=""
     )
     owner, run = uuid4(), uuid4()
-    await jobs.start(owner, run, body())
+    await jobs.reserve(owner, run, execution_frame(body())[0])
     job = api.objects[("jobs", job_name(owner))]
     job["status"] = {"succeeded": 1}
     api.objects[("pods", "other-execution")] = {
@@ -235,6 +265,10 @@ async def test_result_only_reads_pod_owned_by_the_exact_job():
             "labels": {"batch.kubernetes.io/controller-uid": job["metadata"]["uid"]},
         }
     }
+    assert (await jobs.status(owner, run)).state == "failed"
+    api.objects[("pods", "correct-execution")]["metadata"]["ownerReferences"] = [
+        {"kind": "Job", "controller": True, "uid": job["metadata"]["uid"]}
+    ]
     result = await jobs.status(owner, run)
     assert result.state == "finished" and result.result.stdout == "42\n"
     await kube.client.aclose()
@@ -267,3 +301,197 @@ def test_worker_timeout_output_limit_and_links(tmp_path):
     assert result["exit_code"] == 0 and result["output_truncated"]
     assert len(result["stdout"]) == 65536 and result["artifacts"] == []
     assert result["artifact_error"]
+
+
+@pytest.mark.parametrize("names", [["../a"], ["x", "x"], ["x"] * 9])
+def test_input_files_are_named_and_bounded(names):
+    with pytest.raises(ValueError):
+        ScriptExecution.model_validate(
+            {**body().model_dump(), "inputs": [file(n, "a") for n in names]}
+        )
+
+
+def test_reject_aggregate_business_inputs_above_two_mib():
+    spec = body().model_dump()
+    spec["inputs"] = [file(str(i), "a" * 524288) for i in range(4)]
+    ScriptExecution.model_validate(spec)
+    spec["inputs"].append(file("overflow", "1"))
+    with pytest.raises(ValueError, match="2 MiB"):
+        ScriptExecution.model_validate(spec)
+
+
+def test_truncated_frame_cannot_start_a_package(tmp_path):
+    import subprocess
+    import sys
+
+    marker = tmp_path / "started"
+    spec = body(f"from pathlib import Path; Path({str(marker)!r}).touch()")
+    frame, raw = execution_frame(spec)
+    path = Path(__file__).resolve().parents[2] / "image/skill_execute.py"
+    proc = subprocess.run(
+        [sys.executable, str(path), str(frame.size), frame.sha256],
+        input=raw[:-1],
+        capture_output=True,
+        check=False,
+        timeout=5,
+    )
+    assert (
+        proc.returncode != 0
+        and not marker.exists()
+        and b"SUNMOON_INPUT_ACCEPTED" not in proc.stdout
+    )
+
+
+@pytest.mark.anyio
+async def test_container_meter_uses_owned_pod_and_kubelet_timestamps():
+    api = JobsApi()
+    kube = provisioner.KubeClient(
+        base_url="https://kube.test",
+        token="service-only",
+        transport=httpx.MockTransport(api.handler),
+    )
+    jobs = ScriptJobs(
+        kube, namespace="sandbox-pool", image="pinned-image", pull_secret=""
+    )
+    owner, run = uuid4(), uuid4()
+    _, job = await jobs.reserve(owner, run, execution_frame(body())[0])
+    job_uid = job["metadata"]["uid"]
+    pod_uid = str(uuid4())
+    pod = {
+        "metadata": {
+            "name": "measured",
+            "uid": pod_uid,
+            "labels": {"batch.kubernetes.io/controller-uid": job_uid},
+            "ownerReferences": [{"uid": job_uid, "kind": "Job", "controller": True}],
+        },
+        "status": {
+            "containerStatuses": [
+                {
+                    "name": "script",
+                    "restartCount": 0,
+                    "containerID": "containerd://test",
+                    "state": {
+                        "terminated": {
+                            "startedAt": "2026-11-20T00:00:00Z",
+                            "finishedAt": "2026-11-20T00:00:04Z",
+                        }
+                    },
+                }
+            ]
+        },
+    }
+    api.objects[("pods", "measured")] = pod
+    meter = await jobs.container_meter(owner, run)
+    assert (
+        str(meter.job_uid) == job_uid
+        and str(meter.pod_uid) == pod_uid
+        and meter.run_id == run
+    )
+    assert (meter.finished_at - meter.started_at).total_seconds() == 4
+    with pytest.raises(provisioner.HTTPException, match="404"):
+        await jobs.container_meter(owner, uuid4())
+    pod["spec"] = {"nodeName": "test"}
+    pod["status"] = {
+        "phase": "Failed",
+        "containerStatuses": [
+            {
+                "name": "script",
+                "restartCount": 0,
+                "state": {"waiting": {"reason": "ErrImagePull"}},
+            }
+        ],
+    }
+    assert (await jobs.container_meter(owner, run)).reason == "ErrImagePull"
+    pod["status"]["containerStatuses"][0]["lastState"] = {"running": {}}
+    with pytest.raises(provisioner.HTTPException, match="409"):
+        await jobs.container_meter(owner, run)
+    pod["status"] = {"phase": "Pending"}
+    pod["spec"] = {}
+    with pytest.raises(provisioner.HTTPException, match="409"):
+        await jobs.container_meter(owner, run)
+    pod["status"]["phase"] = "Failed"
+    assert (await jobs.container_meter(owner, run)).reason == "unscheduled"
+    pod["metadata"]["ownerReferences"][0]["uid"] = str(uuid4())
+    with pytest.raises(provisioner.HTTPException, match="409"):
+        await jobs.container_meter(owner, run)
+    await kube.client.aclose()
+
+
+@pytest.mark.anyio
+async def test_shared_script_policy_creation_race_and_drift():
+    api = JobsApi()
+    first = True
+
+    def race(request):
+        nonlocal first
+        response = api.handler(request)
+        if (
+            first
+            and request.method == "POST"
+            and request.url.path.endswith("/networkpolicies")
+        ):
+            # The concurrent account wins the create; this request receives AlreadyExists.
+            first = False
+            return httpx.Response(409, json={"reason": "AlreadyExists"})
+        return response
+
+    kube = provisioner.KubeClient(
+        base_url="https://kube.test", token="test", transport=httpx.MockTransport(race)
+    )
+    jobs = ScriptJobs(kube, namespace="sandbox-pool", image="test", pull_secret="")
+    try:
+        frame, _ = execution_frame(body())
+        for _ in range(2):
+            assert (await jobs.reserve(uuid4(), uuid4(), frame))[0]
+        assert api.calls.count("POST networkpolicies/") == 1
+        assert not any(c.startswith("PUT networkpolicies/") for c in api.calls)
+        api.objects[("networkpolicies", "skill-execution-deny-all")]["spec"][
+            "egress"
+        ] = [{}]
+        with pytest.raises(
+            provisioner.HTTPException, match="isolation_unavailable_before_creation"
+        ):
+            await jobs.reserve(uuid4(), uuid4(), frame)
+        assert api.calls.count("POST jobs/") == 2
+    finally:
+        await kube.client.aclose()
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize("code, replaced", [(409, False), (422, False), (409, True)])
+async def test_metered_stop_rereads_same_pod_after_patch_conflict(code, replaced):
+    from unittest.mock import AsyncMock, Mock
+
+    owner, run = uuid4(), uuid4()
+    uid = str(uuid4())
+    kube = Mock()
+    kube.get = AsyncMock(
+        return_value={"metadata": {"annotations": {"sunmoonai.com/call": str(run)}}}
+    )
+    response = httpx.Response(
+        code, request=httpx.Request("PATCH", "https://kube.test/pod")
+    )
+    kube.client.patch = AsyncMock(return_value=response)
+    jobs = ScriptJobs(kube, namespace="test", image="test", pull_secret="")
+    running = {
+        "metadata": {"uid": uid, "name": "script"},
+        "status": {"phase": "Running"},
+    }
+    terminal = {
+        "metadata": {"uid": str(uuid4()) if replaced else uid},
+        "status": {"phase": "Succeeded"},
+    }
+    jobs.owned_pod = AsyncMock(
+        side_effect=[
+            running,
+            terminal,
+            {**running, "spec": {"activeDeadlineSeconds": 1}},
+        ]
+    )
+    if replaced:
+        with pytest.raises(httpx.HTTPStatusError):
+            await jobs.stop_metered(owner, run)
+    else:
+        await jobs.stop_metered(owner, run)
+    await jobs.stop_metered(owner, run)
+    kube.client.patch.assert_awaited_once()

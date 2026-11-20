@@ -10,12 +10,14 @@ Service、NetworkPolicy。工作台经内网 HTTP 调它（Bearer PROVISIONER_TO
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 import logging
 import os
 import re
 import secrets
+import ssl
 from base64 import b64encode
 from pathlib import Path
 from typing import Any
@@ -24,8 +26,17 @@ from uuid import UUID
 import httpx
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel, Field
-from script_contract import ScriptExecution, ScriptStatus, ScriptStopped
+from script_contract import (
+    ScriptContainerMeter,
+    ScriptExecution,
+    ScriptFrame,
+    ScriptNotStarted,
+    ScriptStatus,
+    ScriptStopped,
+    execution_frame,
+)
 from script_jobs import ScriptJobs
+from websockets.asyncio.client import connect
 
 log = logging.getLogger("provisioner")
 
@@ -78,17 +89,30 @@ def require_token(authorization: str | None = Header(default=None)) -> None:
 class KubeClient:
     """够用的 API server 客户端：get / create / replace / delete 四个动作，命名空间固定。"""
 
-    def __init__(self, base_url: str = K8S_API, token: str | None = None, verify: Any = None, transport: httpx.BaseTransport | None = None) -> None:
+    def __init__(
+        self,
+        base_url: str = K8S_API,
+        token: str | None = None,
+        verify: Any = None,
+        transport: httpx.BaseTransport | None = None,
+    ) -> None:
         if token is None and (SA_DIR / "token").is_file():
             token = (SA_DIR / "token").read_text().strip()
         if verify is None:
             ca = SA_DIR / "ca.crt"
             verify = str(ca) if ca.is_file() else True
+        self.attach_tls = ssl.create_default_context(
+            cafile=verify if isinstance(verify, str) else None
+        )
         self.client = httpx.AsyncClient(
             base_url=base_url,
-            headers={"Authorization": f"Bearer {token or ''}", "Accept": "application/json"},
+            headers={
+                "Authorization": f"Bearer {token or ''}",
+                "Accept": "application/json",
+            },
             verify=verify,
             transport=transport,
+            trust_env=False,
             timeout=30,
         )
 
@@ -117,6 +141,69 @@ class KubeClient:
         r = await self.client.get(self.path(kind), params={"labelSelector": selector})
         r.raise_for_status()
         return r.json().get("items", [])
+
+    async def send_script_input(self, pod: str, raw: bytes):
+        # Kubernetes remotecommand channel 0 carries stdin, channel 1 carries stdout.
+        url = self.client.base_url.join(self.path("pods", pod) + "/attach").copy_with(
+            scheme="wss",
+            params={
+                "container": "script",
+                "stdin": "true",
+                "stdout": "true",
+                "stderr": "false",
+                "tty": "false",
+            },
+        )
+        clock = asyncio.get_running_loop().time
+        start = clock()
+        connected = written = None
+        accepted = False
+        try:
+            async with (
+                asyncio.timeout(15),
+                connect(
+                    str(url),
+                    ssl=self.attach_tls,
+                    proxy=None,
+                    additional_headers={
+                        "Authorization": self.client.headers["Authorization"]
+                    },
+                    subprotocols=["v4.channel.k8s.io"],
+                    max_size=2_000_000,
+                ) as socket,
+            ):
+                if socket.subprotocol != "v4.channel.k8s.io":
+                    raise RuntimeError(
+                        "Kubernetes did not negotiate the input protocol"
+                    )
+                connected = clock()
+                for offset in range(0, len(raw), 65536):
+                    await socket.send(b"\x00" + raw[offset : offset + 65536])
+                written = clock()
+                ack = b""
+                while len(ack) < 64:
+                    msg = await socket.recv()
+                    if not isinstance(msg, bytes) or not msg:
+                        raise RuntimeError("Invalid script input acknowledgment")
+                    if msg[:1] == b"\x01":
+                        ack += msg[1:]
+                        if ack.startswith(b"SUNMOON_INPUT_ACCEPTED\n"):
+                            accepted = True
+                            return
+                    elif msg[:1] == b"\x03":
+                        break
+                raise RuntimeError("Script input was not confirmed")
+        finally:
+            end = clock()
+            logging.getLogger("uvicorn.error.script_attach").info(
+                "script_attach bytes=%d accepted=%s connect_ms=%s write_ms=%s ack_ms=%s elapsed_ms=%d",
+                len(raw),
+                accepted,
+                round(1000 * (connected - start)) if connected is not None else None,
+                round(1000 * (written - connected)) if written is not None else None,
+                round(1000 * (end - written)) if written is not None else None,
+                round(1000 * (end - start)),
+            )
 
     async def apply(self, kind: str, body: dict[str, Any]) -> dict[str, Any]:
         name = body["metadata"]["name"]
@@ -353,9 +440,56 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
     async def start_script(owner: UUID, run: UUID, spec: ScriptExecution, jobs: ScriptJobs = Depends(scripts)):
         return await jobs.start(owner, run, spec)
 
+    @app.post(
+        "/v1/script-executions/{owner}/{run}/prepare",
+        dependencies=[Depends(require_token)],
+        response_model=ScriptStatus,
+    )
+    async def prepare_script(
+        owner: UUID, run: UUID, frame: ScriptFrame, jobs: ScriptJobs = Depends(scripts)
+    ):
+        await jobs.reserve(owner, run, frame)
+        await jobs.ready(owner, run, frame)
+        return ScriptStatus(state="running")
+
+    @app.put(
+        "/v1/script-executions/{owner}/{run}/input",
+        dependencies=[Depends(require_token)],
+        response_model=ScriptStatus,
+    )
+    async def deliver_script(
+        owner: UUID,
+        run: UUID,
+        spec: ScriptExecution,
+        jobs: ScriptJobs = Depends(scripts),
+    ):
+        frame, raw = execution_frame(spec)
+        return await jobs.deliver(owner, run, frame, raw)
+
     @app.get("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStatus)
     async def script_status(owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)):
         return await jobs.status(owner, run)
+
+    @app.post(
+        "/v1/script-executions/{owner}/{run}/stop-metered",
+        dependencies=[Depends(require_token)],
+        status_code=202,
+    )
+    async def stop_metered_script(
+        owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)
+    ):
+        await jobs.stop_metered(owner, run)
+        return {"requested": True}
+
+    @app.get(
+        "/v1/script-executions/{owner}/{run}/container-meter",
+        dependencies=[Depends(require_token)],
+        response_model=ScriptContainerMeter | ScriptNotStarted,
+    )
+    async def script_container_meter(
+        owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)
+    ):
+        return await jobs.container_meter(owner, run)
 
     @app.delete("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStopped)
     async def cancel_script(owner: UUID, run: UUID, jobs: ScriptJobs = Depends(scripts)):
