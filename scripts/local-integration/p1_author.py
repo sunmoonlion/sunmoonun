@@ -258,7 +258,7 @@ async def author(peer, template):
                 assert response.is_success, (path, response.status_code, response.text)
                 return response.json()
 
-            async def trial(mid, request_id, steps, cancel=False, *, input_alias="to", expert_graph=False):
+            async def trial(mid, request_id, steps, cancel=False, *, input_alias="to", expert_graph=False, revision=1):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
                 spec["suite"]["suite_id"] = str(uuid4())
@@ -269,7 +269,7 @@ async def author(peer, template):
                     provisioner_revision()
                 )
                 run = str(uuid4())
-                command = {"request_id": request_id, "revision": 1, "run_id": run}
+                command = {"request_id": request_id, "revision": revision, "run_id": run}
                 prefix = f"method-units/{mid}/executions"
                 await call("POST", prefix, json={**command, "execution": spec})
                 endpoint = f"{prefix}/{run}"
@@ -317,17 +317,17 @@ async def author(peer, template):
                     json={**command, "visibility": "private"},
                 )
                 assert frozen["definition"]["procedure"]["kind"] == (
-                    "orchestration" if expert_graph or steps == 2 else "direct"
+                    "orchestration" if expert_graph or steps > 1 else "direct"
                 )
-                if steps == 2:
+                if steps > 1:
                     evidence = await rpc({"evidence": run})
-                    assert evidence["validated"] and len(evidence["steps"]) == 2
-                    first, second = evidence["steps"]
-                    assert second["input_bindings"] == [
-                        {"step_id": "prepare", **first["artifact"]}
-                    ]
-                    assert first["artifact"]["id"] != second["artifact"]["id"]
-                    assert second["outputs"]["receipt"] == provisioner_revision()
+                    chain = frozen["definition"]["procedure"]["steps"]
+                    results = evidence["steps"]
+                    assert evidence["validated"] and len(results) == len(chain) == steps
+                    assert len({r["artifact"]["id"] for r in results}) == steps
+                    for producer, first, second in zip(chain, results, results[1:]):
+                        assert second["input_bindings"] == [{"step_id": producer["id"], **first["artifact"]}]
+                    assert results[-1]["outputs"]["receipt"] == provisioner_revision()
                 return frozen
 
             leaf_id, expert_id = str(uuid4()), str(uuid4())
@@ -400,8 +400,8 @@ async def author(peer, template):
             assert graph["exports"]["receipt"]["output"] == "receipt"
             for field in ("capability_declaration", "how_to_validate"):
                 assert replaced["definition"][field] == strict["definition"][field]
-            await trial(expert_id, expert_request, 2, cancel=True)
-            expert = await trial(expert_id, expert_request, 2)
+            await trial(expert_id, expert_request, 3, cancel=True, revision=2)
+            expert = await trial(expert_id, expert_request, 3, revision=2)
             async with sessions() as session:
                 refs = (
                     (
@@ -447,7 +447,7 @@ async def author(peer, template):
                 "POST",
                 path + "/cells",
                 json={
-                    "revision": 1,
+                    "revision": 2,
                     "cells": [
                         {
                             "path": "collaboration",
@@ -462,7 +462,7 @@ async def author(peer, template):
                     ],
                 },
             )
-            assert saved["revision"] == 2
+            assert saved["revision"] == 3
             reopened = await call("GET", path)
             assert reopened["body"]["collaboration"] == saved["body"]["collaboration"]
             assert {(g["step"], g["primitive"]) for g in reopened["runtime_gaps"]} == {
@@ -475,7 +475,7 @@ async def author(peer, template):
                 f"/api/web/v1/method-units/{expert_id}/validations",
                 json={
                     "request_id": expert_request,
-                    "revision": 2,
+                    "revision": 3,
                     "run_id": str(uuid4()),
                 },
             )
@@ -489,7 +489,7 @@ async def author(peer, template):
                 f"/api/web/v1/method-units/{expert_id}/executions",
                 json={
                     "request_id": expert_request,
-                    "revision": 2,
+                    "revision": 3,
                     "run_id": str(uuid4()),
                     "execution": spec,
                 },
@@ -503,7 +503,7 @@ async def author(peer, template):
                 for endpoint in ("formal-method-validations", "formal-method-executions")
             }
             print(
-                "P1 verified: indexed predecessor and downstream replacement, both graphs reopened and frozen, mid-run cancellation and two-step artifacts",
+                "P1 verified: indexed predecessor and downstream replacement, both graphs reopened and frozen, mid-run cancellation and three-step artifacts",
                 expert["digest"],
             )
     finally:
