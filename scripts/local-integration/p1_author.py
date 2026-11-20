@@ -9,6 +9,7 @@ the installed MCP peer and the test computer use local fixtures.
 
 import asyncio
 import copy
+import hashlib
 import json
 import os
 import re
@@ -168,6 +169,7 @@ async def author(peer, template):
             return json.loads(await asyncio.wait_for(peer.stdout.readline(), 30))
 
     review_requests = {}
+    submitted_runs = set()
 
     async def forward(request):
         code, body = await rpc(
@@ -181,7 +183,9 @@ async def author(peer, template):
         if request.method == "POST" and request.url.path.endswith(
             ("/formal-method-validations", "/formal-method-executions")
         ):
-            graph = json.loads(request.content)["draft"]["definition"]["procedure"]
+            payload = json.loads(request.content)
+            submitted_runs.add(payload["run_id"])
+            graph = payload["draft"]["definition"]["procedure"]
             if "collaboration" in graph:
                 assert code == 409 and json.loads(body)["code"] == "runtime_capability_gap"
                 review_requests[request.url.path.rsplit("/", 1)[1]] = graph["collaboration"]
@@ -218,6 +222,7 @@ async def author(peer, template):
 
             strict_request = await new_request("P1 input with no predecessor")
             reselect_request = await new_request("P1 replacement expert")
+            invalid_request = await new_request("P1 invalid fixed parameter")
             leaf_request = await new_request("P1 provider")
             expert_request = await new_request("P1 expert")
             draft = template["draft"]
@@ -233,6 +238,7 @@ async def author(peer, template):
             for side in ("inputs", "outputs"):
                 for slot in draft["definition"]["procedure"][side].values():
                     slot["meaning"] = {"unit": "image-build-reference"}
+                    slot["schema"]["minLength"] = 1
             await KnowbotWorkdraftService(repo).save(
                 "author", leaf_request, revision=0, edits=[("formal_method", draft)]
             )
@@ -262,9 +268,9 @@ async def author(peer, template):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
                 spec["suite"]["suite_id"] = str(uuid4())
-                spec["suite"]["cases"][0]["input"]["values"] = {
-                    input_alias: "sandbox-provisioner"
-                }
+                spec["suite"]["cases"][0]["input"]["values"] = (
+                    {input_alias: "sandbox-provisioner"} if input_alias is not None else {}
+                )
                 spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = (
                     provisioner_revision()
                 )
@@ -325,6 +331,12 @@ async def author(peer, template):
                     results = evidence["steps"]
                     assert evidence["validated"] and len(results) == len(chain) == steps
                     assert len({r["artifact"]["id"] for r in results}) == steps
+                    if input_alias is None:
+                        assert chain[0]["inputs"]["to"]["binding"] == {
+                            "source": "literal", "value": "sandbox-provisioner",
+                        }
+                        expected = hashlib.sha256(b'{"to":"sandbox-provisioner"}').hexdigest()
+                        assert results[0]["inputs_digest"] == expected
                     for producer, first, second in zip(chain, results, results[1:]):
                         assert second["input_bindings"] == [{"step_id": producer["id"], **first["artifact"]}]
                     assert results[-1]["outputs"]["receipt"] == provisioner_revision()
@@ -400,8 +412,8 @@ async def author(peer, template):
             assert graph["exports"]["receipt"]["output"] == "receipt"
             for field in ("capability_declaration", "how_to_validate"):
                 assert replaced["definition"][field] == strict["definition"][field]
-            await trial(expert_id, expert_request, 3, cancel=True, revision=2)
-            expert = await trial(expert_id, expert_request, 3, revision=2)
+            await trial(expert_id, expert_request, 3, cancel=True, input_alias=None, revision=3)
+            expert = await trial(expert_id, expert_request, 3, input_alias=None, revision=3)
             async with sessions() as session:
                 refs = (
                     (
@@ -443,11 +455,24 @@ async def author(peer, template):
                     )
                     assert deps.scalars().all() == [leaf["digest"]]
             path = f"knowbot-requests/{expert_request}/workdraft"
+            invalid = (await call("GET", path))["body"]["formal_method"]
+            invalid["definition"]["procedure"]["steps"][0]["inputs"]["to"]["binding"]["value"] = ""
+            await call(
+                "POST", f"knowbot-requests/{invalid_request}/workdraft/cells",
+                json={"revision": 0, "cells": [{"path": "formal_method", "value": invalid}]},
+            )
+            invalid_run = str(uuid4())
+            bad = await client.post(
+                f"/api/web/v1/method-units/{uuid4()}/validations",
+                json={"request_id": invalid_request, "revision": 1, "run_id": invalid_run},
+            )
+            assert bad.status_code == 400 and bad.json()["code"] == "formal_method_invalid", bad.text
+            assert "Fixed input" in bad.json()["detail"] and invalid_run not in submitted_runs
             saved = await call(
                 "POST",
                 path + "/cells",
                 json={
-                    "revision": 2,
+                    "revision": 3,
                     "cells": [
                         {
                             "path": "collaboration",
@@ -462,7 +487,7 @@ async def author(peer, template):
                     ],
                 },
             )
-            assert saved["revision"] == 3
+            assert saved["revision"] == 4
             reopened = await call("GET", path)
             assert reopened["body"]["collaboration"] == saved["body"]["collaboration"]
             assert {(g["step"], g["primitive"]) for g in reopened["runtime_gaps"]} == {
@@ -475,7 +500,7 @@ async def author(peer, template):
                 f"/api/web/v1/method-units/{expert_id}/validations",
                 json={
                     "request_id": expert_request,
-                    "revision": 3,
+                    "revision": 4,
                     "run_id": str(uuid4()),
                 },
             )
@@ -489,7 +514,7 @@ async def author(peer, template):
                 f"/api/web/v1/method-units/{expert_id}/executions",
                 json={
                     "request_id": expert_request,
-                    "revision": 3,
+                    "revision": 4,
                     "run_id": str(uuid4()),
                     "execution": spec,
                 },
@@ -503,7 +528,7 @@ async def author(peer, template):
                 for endpoint in ("formal-method-validations", "formal-method-executions")
             }
             print(
-                "P1 verified: indexed predecessor and downstream replacement, both graphs reopened and frozen, mid-run cancellation and three-step artifacts",
+                "P1 verified: indexed predecessor and downstream replacement, both graphs reopened and frozen, fixed first input with no caller values, mid-run cancellation and three-step artifacts",
                 expert["digest"],
             )
     finally:
