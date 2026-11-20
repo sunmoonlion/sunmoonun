@@ -106,24 +106,57 @@ async def bench():
         await schema.aclose()
 
 
+def configure_lab(sessions, runtime, subjects):
+    from app.application.services.formal_methods import FormalMethodService
+    from app.application.services.knowbot_incubation import KnowbotIncubationService
+    from app.interfaces.endpoints import knowbot_routes as routes
+    from app.interfaces.http.middleware import auth
+    from tests.test_auth_routes_security import FakeAuthService, session as login
+    from app.infrastructure.repositories.knowbots import SqlKnowlabRepository
+    from app.main import app
+    from tests.knowbot_fakes import FakeRuntime
+
+    async def sql():
+        async with sessions() as session:
+            yield session
+
+    async def methods():
+        async with sessions() as session:
+            yield FormalMethodService(SqlKnowlabRepository(session), runtime)
+
+    async def incubation():
+        async with sessions() as session:
+            yield KnowbotIncubationService(
+                SqlKnowlabRepository(session), None, FakeRuntime()
+            )
+
+    app.dependency_overrides[routes.incubation_service] = incubation
+    accounts = {}
+    for subject in subjects:
+        user = login("web", "profile:read")
+        accounts[subject] = user.model_copy(
+            update={"principal": user.principal.model_copy(update={"subject": subject})}
+        )
+    auth.web_auth_service = FakeAuthService(accounts)
+    routes.runtime_clients = lambda: runtime
+    app.dependency_overrides.update(
+        {routes.get_db_session: sql, routes.formal_service: methods}
+    )
+
+
 async def author(peer, template):
     import httpx
     import uvicorn
     from sqlalchemy import text
-    from app.application.services.formal_methods import FormalMethodService
-    from app.application.services.knowbot_incubation import KnowbotIncubationService
     from app.application.services.knowbot_service import KnowbotCreationService
     from app.application.services.knowbot_workdraft import KnowbotWorkdraftService
     from app.domain.knowbots.drafts import KnowbotRequestIn
     from app.infrastructure.repositories.knowbots import SqlKnowlabRepository
     from app.infrastructure.external.knowbot_clients import RuntimeTestClients
-    from app.interfaces.endpoints import knowbot_routes as routes
-    from app.interfaces.http.middleware import auth
     from app.main import app
     from tests.knowbot_fakes import FakeRuntime, request_body
     from tests.test_knowbot_clients import FakeOidc, KNOWBENCH
     from tests.test_knowbot_repository_db import db
-    from tests.test_auth_routes_security import FakeAuthService, session as login
     from tests.test_knowbot_workdraft_routes import WEB as HEADERS, WEB_SID
 
     lock = asyncio.Lock()
@@ -168,32 +201,7 @@ async def author(peer, template):
     sessions = await anext(schema)
     try:
 
-        async def sql():
-            async with sessions() as session:
-                yield session
-
-        async def methods():
-            async with sessions() as session:
-                yield FormalMethodService(SqlKnowlabRepository(session), runtime)
-
-        async def incubation():
-            async with sessions() as session:
-                yield KnowbotIncubationService(
-                    SqlKnowlabRepository(session), None, FakeRuntime()
-                )
-
-        app.dependency_overrides[routes.incubation_service] = incubation
-        user = login("web", "profile:read")
-        user = user.model_copy(
-            update={
-                "principal": user.principal.model_copy(update={"subject": "author"})
-            }
-        )
-        auth.web_auth_service = FakeAuthService({"author": user})
-        routes.runtime_clients = lambda: runtime
-        app.dependency_overrides.update(
-            {routes.get_db_session: sql, routes.formal_service: methods}
-        )
+        configure_lab(sessions, runtime, ["author"])
         async with sessions() as session:
             repo = SqlKnowlabRepository(session)
             creation = KnowbotCreationService(repo, FakeRuntime())
