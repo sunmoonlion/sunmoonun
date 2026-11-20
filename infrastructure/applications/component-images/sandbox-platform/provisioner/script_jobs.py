@@ -50,7 +50,7 @@ class ScriptJobs:
             await self.deliver(owner, run, frame, raw)
         return await self.status(owner, run)
 
-    async def ensure_isolation_policy(self):
+    async def ensure_isolation_policy(self, run):
         name = "skill-execution-deny-all"
         selector = {"matchLabels": {"app": "skill-execution"}}
         current = await self.kube.get("networkpolicies", name)
@@ -84,7 +84,8 @@ class ScriptJobs:
             or spec.get("egress")
         ):
             raise HTTPException(
-                409, "Script isolation policy is unavailable or has changed"
+                409,
+                {"code": "isolation_unavailable_before_creation", "run_id": str(run)},
             )
 
     async def reserve(self, owner: UUID, run: UUID, frame: ScriptFrame):
@@ -100,7 +101,7 @@ class ScriptJobs:
             "sunmoonai.com/call": run.hex,
         }
         meta = {"name": name, "namespace": self.namespace, "labels": labels}
-        await self.ensure_isolation_policy()
+        await self.ensure_isolation_policy(run)
         job = {
             "apiVersion": "batch/v1",
             "kind": "Job",

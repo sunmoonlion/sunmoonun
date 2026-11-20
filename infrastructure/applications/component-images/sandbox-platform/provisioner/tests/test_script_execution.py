@@ -448,7 +448,9 @@ async def test_shared_script_policy_creation_race_and_drift():
         api.objects[("networkpolicies", "skill-execution-deny-all")]["spec"][
             "egress"
         ] = [{}]
-        with pytest.raises(provisioner.HTTPException, match="isolation policy"):
+        with pytest.raises(
+            provisioner.HTTPException, match="isolation_unavailable_before_creation"
+        ):
             await jobs.reserve(uuid4(), uuid4(), frame)
         assert api.calls.count("POST jobs/") == 2
     finally:
