@@ -6,6 +6,10 @@
 
 **全局审查。** 已按所有者要求向 agy（Opus）提交[全程逐行代码审查请求](docs/sync-cowork/requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)，附 12 个仓、898 个历史路径的逐文件清单。意见由 Luna 逐条吸收和复验，进入下一版。
 
+**会话手动执行入口已撤回。** KnowBench 开发分支 `042dc9b`（后端 `fb8d49b`、Web `ed6ed7a`）。聊天用于对话，工作用于操作项目文件和资料，均由 Codex 按本轮授权使用工具。网页保留“请专家”和工具授权设置。已移除手填参数直接发起正式方法的表单与 POST 接口。旧调用仍可查看，待审批记录可按原调用 ID 批准或拒绝；未知结果只查询。专家 runtime 按清单递归调用作者自己的工具方法。从工作页委托本人已自用上架的专家版本并收回交付结果，仍待第 12 项验通。开发顺序继续第 11 项槽位编辑。
+
+**验证。** PostgreSQL 专项 40 项通过，覆盖聊天和工作拒绝新建、旧调用查验与审批、模型调用、作用域和专家递归。Web 全量 504 项通过，生产构建通过。Chromium 核验会话工具审批及撤权通过。本次为开发分支变更。[主稿 §1.8.2](docs/总纲/专家方案设计/专家孵化方案/luna/专家方法孵化与递归编排方案.md) · [开发待办](docs/总纲/luna-待办.md)
+
 **主稿执行方式更新。** §1.8.2 按场景明确分工。聊天和工作使用 Codex 原生会话。聊天中请专家会提交委托，专家由 KnowBench runtime 按确认清单执行、递归调用、验收和恢复。步骤内需要模型时由 runtime 发起该轮推理。此次仅修订设计与实施文档。
 
 **主稿术语更新。** §1.9 改为“专家执行清单与调用分工”。作者在 KnowLab 选择可引用版本，当前固定计划沿冻结步骤递归展开。同一版本可复用，每次调用独立记账。宿主解析依赖与 KnowBench 核权的代码依据分别见[计划展开](../knowbench-app/knowbench-backend/app/app/domain/workbench/formal_method_plan_generated.py)和[孵化依赖解析](../knowbench-app/knowbench-backend/app/app/application/workbench/formal_orchestration.py)。本次只修订文档。
