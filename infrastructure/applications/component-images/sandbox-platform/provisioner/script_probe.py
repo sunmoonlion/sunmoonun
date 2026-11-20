@@ -13,19 +13,23 @@ import urllib.error
 import urllib.request
 import uuid
 
+from script_contract import ScriptExecution, execution_frame
 
-def main():
+
+def main(base_url="http://127.0.0.1:8080"):
     owner, run = uuid.uuid4(), uuid.uuid4()
-    url = f"http://127.0.0.1:8080/v1/script-executions/{owner}/{run}"
+    url = f"{base_url}/v1/script-executions/{owner}/{run}"
     token = os.environ["PROVISIONER_TOKEN"]
 
-    def request(method, body=None, *, authenticated=True):
+    def request(method, body=None, *, authenticated=True, suffix=""):
         data = json.dumps(body).encode() if body is not None else None
         headers = {"Content-Type": "application/json"}
         if authenticated:
             headers["Authorization"] = "Bearer " + token
-        req = urllib.request.Request(url, method=method, headers=headers, data=data)
-        with urllib.request.urlopen(req, timeout=20) as response:
+        req = urllib.request.Request(
+            url + suffix, method=method, headers=headers, data=data
+        )
+        with urllib.request.urlopen(req, timeout=65) as response:
             return json.load(response)
 
     code = """import os, socket, subprocess, sys
@@ -42,6 +46,10 @@ else:
     connection.close()
     raise AssertionError('Cluster network access was not denied')
 assert Path('references/value.txt').read_text()=='21'
+inputs=Path(os.environ['SUNMOON_INPUT_DIR'])
+assert (inputs/'material.txt').read_text()=='business data'
+assert (inputs/'previous.json').read_text()=='21'
+assert not Path('/input').exists()
 assert subprocess.check_output(['bash','scripts/calculate.sh'],text=True).strip()=='42'
 assert subprocess.check_output(['node','scripts/calculate.js'],text=True).strip()=='42'
 Path('outputs/answer.txt').write_text('42')
@@ -58,6 +66,17 @@ print('PACKAGE_EXECUTION_AND_NETWORK_ISOLATION_OK')
         "path": "scripts/main.py",
         "args": [os.environ["KUBERNETES_SERVICE_HOST"]],
         "stdin": "",
+        "inputs": [
+            {
+                "path": name,
+                "sha256": hashlib.sha256(value).hexdigest(),
+                "data_base64": base64.b64encode(value).decode(),
+            }
+            for name, value in [
+                ("material.txt", b"business data"),
+                ("previous.json", b"21"),
+            ]
+        ],
         "files": [
             {
                 "path": path,
@@ -74,7 +93,9 @@ print('PACKAGE_EXECUTION_AND_NETWORK_ISOLATION_OK')
             assert error.code == 401
         else:
             raise AssertionError("Anonymous execution was allowed")
-        request("PUT", body)
+        frame, _ = execution_frame(ScriptExecution.model_validate(body))
+        request("POST", frame.model_dump(), suffix="/prepare")
+        request("PUT", body, suffix="/input")
         deadline = time.monotonic() + 110
         while time.monotonic() < deadline:
             receipt = request("GET")
@@ -94,6 +115,7 @@ print('PACKAGE_EXECUTION_AND_NETWORK_ISOLATION_OK')
                 {
                     "passed": True,
                     "script_package": True,
+                    "named_inputs": True,
                     "python_shell_node": True,
                     "credential_free": True,
                     "cluster_network_denied": True,

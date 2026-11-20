@@ -8,11 +8,11 @@ from pathlib import Path
 from uuid import uuid4
 
 import httpx
-import pytest
-from test_provisioner import FakeApiServer
 import provisioner
-from script_contract import ScriptExecution
+import pytest
+from script_contract import ScriptExecution, execution_frame
 from script_jobs import ScriptJobs, job_name
+from test_provisioner import FakeApiServer
 
 
 def file(path, content):
@@ -42,7 +42,8 @@ class JobsApi(FakeApiServer):
         if request.url.path.endswith("/log"):
             return httpx.Response(
                 200,
-                text=json.dumps(
+                text="SUNMOON_INPUT_ACCEPTED\n"
+                + json.dumps(
                     {
                         "exit_code": 0,
                         "stdout": "42\n",
@@ -63,10 +64,16 @@ class JobsApi(FakeApiServer):
             ):
                 return httpx.Response(409, json={"code": 409})
         if request.method == "PATCH":
-            self.objects[("jobs", name)]["spec"]["suspend"] = json.loads(
-                request.content
-            )["spec"]["suspend"]
-            return httpx.Response(200, json=self.objects[("jobs", name)])
+            job = self.objects[("jobs", name)]
+            uid, waiting, claim = json.loads(request.content)
+            annotations = job["metadata"]["annotations"]
+            if (
+                uid["value"] != job["metadata"]["uid"]
+                or annotations["sunmoonai.com/delivery"] != waiting["value"]
+            ):
+                return httpx.Response(422)
+            annotations["sunmoonai.com/delivery"] = claim["value"]
+            return httpx.Response(200, json=job)
         response = super().handler(request)
         if request.method == "POST" and "/jobs" in request.url.path:
             obj = response.json()
@@ -90,7 +97,30 @@ async def test_job_is_secretless_bounded_and_immutable():
         kube, namespace="sandbox-pool", image="pinned-image", pull_secret="puller"
     )
     owner, run = uuid4(), uuid4()
-    assert (await jobs.start(owner, run, body())).state == "running"
+    frame, raw = execution_frame(body())
+    created, job = await jobs.reserve(owner, run, frame)
+    assert created
+    assert not any(kind == "secrets" for kind, _name in api.objects)
+    assert "print(42)" not in json.dumps(job)
+    uid = job["metadata"]["uid"]
+    api.objects[("pods", "recipient")] = {
+        "metadata": {
+            "name": "recipient",
+            "labels": {"batch.kubernetes.io/controller-uid": uid},
+            "ownerReferences": [{"uid": uid, "kind": "Job", "controller": True}],
+        },
+        "status": {"containerStatuses": [{"name": "script", "state": {"running": {}}}]},
+    }
+    received = []
+
+    async def receive(pod, data):
+        received.append((pod, data))
+
+    kube.send_script_input = receive
+    await jobs.ready(owner, run, frame)
+    await jobs.deliver(owner, run, frame, raw)
+    await jobs.deliver(owner, run, frame, raw)
+    assert received == [("recipient", raw)]
     job = api.objects[("jobs", job_name(owner))]
     pod = job["spec"]["template"]["spec"]
     assert pod["automountServiceAccountToken"] is False
@@ -133,7 +163,7 @@ async def test_cancel_waits_for_job_and_running_pod_to_stop():
         cancel_timeout=0,
     )
     owner, run = uuid4(), uuid4()
-    await jobs.start(owner, run, body())
+    await jobs.reserve(owner, run, execution_frame(body())[0])
     api.objects[("pods", "still-running")] = {
         "metadata": {
             "name": "still-running",
@@ -151,7 +181,7 @@ async def test_cancel_waits_for_job_and_running_pod_to_stop():
     assert ("jobs", job_name(owner)) not in api.objects
     # A new run may occupy the slot while the old Pod is terminating.
     replacement = uuid4()
-    await jobs.start(owner, replacement, body())
+    await jobs.reserve(owner, replacement, execution_frame(body())[0])
     api.objects[("pods", "still-running")]["status"]["phase"] = "Failed"
     await jobs.cancel(owner, run)
     assert api.objects[("jobs", job_name(owner))]["metadata"]["annotations"][
@@ -179,7 +209,7 @@ async def test_cancel_cannot_delete_a_replacement_job():
         kube, namespace="sandbox-pool", image="pinned-image", pull_secret=""
     )
     owner, run = uuid4(), uuid4()
-    await jobs.start(owner, run, body())
+    await jobs.reserve(owner, run, execution_frame(body())[0])
     with pytest.raises(httpx.HTTPStatusError) as exc:
         await jobs.cancel(owner, run)
     assert exc.value.response.status_code == 409
@@ -216,7 +246,7 @@ async def test_result_only_reads_pod_owned_by_the_exact_job():
         kube, namespace="sandbox-pool", image="pinned-image", pull_secret=""
     )
     owner, run = uuid4(), uuid4()
-    await jobs.start(owner, run, body())
+    await jobs.reserve(owner, run, execution_frame(body())[0])
     job = api.objects[("jobs", job_name(owner))]
     job["status"] = {"succeeded": 1}
     api.objects[("pods", "other-execution")] = {
@@ -267,3 +297,42 @@ def test_worker_timeout_output_limit_and_links(tmp_path):
     assert result["exit_code"] == 0 and result["output_truncated"]
     assert len(result["stdout"]) == 65536 and result["artifacts"] == []
     assert result["artifact_error"]
+
+
+@pytest.mark.parametrize("names", [["../a"], ["x", "x"], ["x"] * 9])
+def test_input_files_are_named_and_bounded(names):
+    with pytest.raises(ValueError):
+        ScriptExecution.model_validate(
+            {**body().model_dump(), "inputs": [file(n, "a") for n in names]}
+        )
+
+
+def test_reject_aggregate_business_inputs_above_two_mib():
+    spec = body().model_dump()
+    spec["inputs"] = [file(str(i), "a" * 524288) for i in range(4)]
+    ScriptExecution.model_validate(spec)
+    spec["inputs"].append(file("overflow", "1"))
+    with pytest.raises(ValueError, match="2 MiB"):
+        ScriptExecution.model_validate(spec)
+
+
+def test_truncated_frame_cannot_start_a_package(tmp_path):
+    import subprocess
+    import sys
+
+    marker = tmp_path / "started"
+    spec = body(f"from pathlib import Path; Path({str(marker)!r}).touch()")
+    frame, raw = execution_frame(spec)
+    path = Path(__file__).resolve().parents[2] / "image/skill_execute.py"
+    proc = subprocess.run(
+        [sys.executable, str(path), str(frame.size), frame.sha256],
+        input=raw[:-1],
+        capture_output=True,
+        check=False,
+        timeout=5,
+    )
+    assert (
+        proc.returncode != 0
+        and not marker.exists()
+        and b"SUNMOON_INPUT_ACCEPTED" not in proc.stdout
+    )

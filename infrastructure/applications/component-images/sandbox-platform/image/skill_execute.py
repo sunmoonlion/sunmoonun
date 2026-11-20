@@ -14,6 +14,8 @@ import selectors
 import signal
 import stat
 import subprocess
+import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -39,6 +41,17 @@ def execute(body: dict, work: Path, *, timeout: float = 30) -> dict:
         if hashlib.sha256(raw).hexdigest() != file["sha256"]:
             raise ValueError("Package digest mismatch")
         target.write_bytes(raw)
+    input_dir = work.parent / (work.name + "-inputs")
+    input_dir.mkdir()
+    for item in body.get("inputs", []):
+        name = item["path"]
+        if Path(name).name != name or name in ("", ".", ".."):
+            raise ValueError("Invalid script input name")
+        data = base64.b64decode(item["data_base64"], validate=True)
+        if hashlib.sha256(data).hexdigest() != item["sha256"]:
+            raise ValueError("Script input digest mismatch")
+        with (input_dir / name).open("xb") as stream:
+            stream.write(data)
     script = work / body["path"]
     if not script.is_file() or not script.resolve().is_relative_to(work.resolve()):
         raise ValueError("Script is not in the installed package")
@@ -54,6 +67,7 @@ def execute(body: dict, work: Path, *, timeout: float = 30) -> dict:
         "LANG": "C.UTF-8",
         "PYTHONDONTWRITEBYTECODE": "1",
         "SUNMOON_OUTPUT_DIR": str(outputs),
+        "SUNMOON_INPUT_DIR": str(input_dir),
     }
     with stdin_path.open("rb") as stdin:
         process = subprocess.Popen(
@@ -165,13 +179,18 @@ def execute(body: dict, work: Path, *, timeout: float = 30) -> dict:
 
 
 def main() -> None:
-    # Projected Secret volumes split the bounded request into chunks. No credentials.
-    raw = b"".join(p.read_bytes() for p in sorted(Path("/input").glob("chunk-*")))
+    size, checksum = int(sys.argv[1]), sys.argv[2]
+    if not 0 < size <= 10 * 1024 * 1024:
+        raise ValueError("Invalid frame size")
+    raw = sys.stdin.buffer.read(size)
+    if len(raw) != size or hashlib.sha256(raw).hexdigest() != checksum:
+        raise ValueError("Incomplete or mismatched script input")
     body = json.loads(raw)
-    print(
-        json.dumps(execute(body, Path("/tmp/run/package")), ensure_ascii=True),
-        flush=True,
-    )
+    del raw
+    print("SUNMOON_INPUT_ACCEPTED", flush=True)
+    with tempfile.TemporaryDirectory(dir="/tmp") as directory:
+        result = execute(body, Path(directory) / "package")
+    print(json.dumps(result, ensure_ascii=True), flush=True)
 
 
 if __name__ == "__main__":
