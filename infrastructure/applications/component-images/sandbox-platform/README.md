@@ -34,6 +34,8 @@ pod
 搜索能力仍由原来的 `web_search` 和功能配置决定。不要在 `[features]` 写 `web_search_mode="never"`（0.155.1 会解析失败），
 也不要把 `standalone_web_search=false` 当成此次协议故障的修复。
 
+纯指令试跑的 `image/instruction_responses.py` 供受信宿主单独装配。它核对该次获准的供应商地址，限制为一次 HTTP 转发，并从同一响应流收取终结用量。默认沙箱启动命令继续沿用上面的 Moonshot 适配。断网联调和正式接入条件见 [KnowBench 方法执行说明](../../../../../knowbench-app/knowbench-backend/docs/method-execution.md#纯指令试跑的一次请求与根预算)。
+
 兼容检查：`python3 -m pytest infrastructure/applications/component-images/sandbox-platform/image/tests -q`。
 运行日志只记录 `removed_empty_assistant_messages=N`，不记录消息正文、请求头或密钥。
 回退时使用之前的固定摘要沙箱镜像，不需要迁移持久数据或重写用户配置。
