@@ -8,11 +8,11 @@
 
 **当前接手点（2026-11-20，第 11 项）。** F01–F08 已逐项处理，F06 复用了已合入的修订。KnowLab 作者能编辑工具槽位，按目标输入的 meaning、Schema 和必填条件从本人已登记且支持宿主执行的工具中查找前置输出。作者预览 P1 的连线、精确版本、权限和审批后可采用、保存并重开。P3 可保存隔离组及阶段交接，缺隔离能力时校验和试跑均拒绝。提交为 KnowLab `422dcd1`、KnowBench `815a76d`、KnowBase `70f9566`、KnowMart `190f8ce`。下面的讨论记录反映各自当时的进度。
 
-**本地验收。** 真实 KnowLab、KnowBench 后端及 PostgreSQL 跑通作者补查、采用、重开、中途取消、另起一轮完成并冻结，核对两个产物版本及第二步的前序绑定。输入使用仓内真实镜像修订，身份与 MCP 对端使用本地替身。另用 KnowBench 和 KnowBase 验证两步读同一份资料的独立同意与父授权期限。两张 PG 索引在冻结事务内维护，已验回填不改方法摘要。[联调入口](scripts/local-integration/p1_author.py) · [逐项处理与 Cursor 下次发版需求](docs/sync-cowork/requests/luna/2026-11-20-第11项开工前基础修复/request.md)
+**本地验收。** 真实 KnowLab、KnowBench 后端及 PostgreSQL 跑通作者补查、采用、重开、中途取消、另起一轮完成并冻结，核对两个产物版本及第二步的前序绑定。输入使用仓内真实镜像修订，身份与 MCP 对端使用本地替身。另用 KnowBench 和 KnowBase 验证两步读同一份资料的独立同意与父授权期限。两张 PG 索引在冻结事务内维护，已验回填不改方法摘要。[联调入口](scripts/local-integration/p1_author.py) · [基础修复档案](docs/sync-cowork/archive/luna/2026-11-20-第11项开工前基础修复/request.md) · [Cursor 下次发版需求](docs/sync-cowork/requests/luna/2026-11-20-基础修复与P1作者短链下次发版需求/request.md)
 
 **下一步。** 将已验证的槽位反查覆盖到获准引用的共享工具，补齐无解改选、无进展退出和预算测试。共享目录已有明确选择入口。第 11 项仍须分别验证不同来源及更复杂的草图。
 
-**全局审查。** 已按所有者要求向 agy（Opus）提交[全程逐行代码审查请求](docs/sync-cowork/requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)，附 12 个仓、898 个历史路径的逐文件清单。意见由 Luna 逐条吸收和复验，进入下一版。
+**全局审查。** agy 已交回 898 项覆盖记录，实际模型为 Gemini 4 Neon。F01–F08 已完成本地处理，其余意见由 Luna 对照当前代码逐项收回，进度见[请求处理记录](docs/sync-cowork/requests/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)。当前仍开放的三单及下一责任人见[Luna 请求入口](docs/sync-cowork/requests/luna/README.md)。
 
 **日常协作交接已吸收进产品设计。** 主稿 §2.9.4 将 sync-cowork 的固定请求、分角色回执与父级采纳结案映射到 KnowBench 现有记录，参考模式 §2.3 增加跨版本回执示例；待办第 12 项补实现与恢复验证。本次只修改设计。
 
