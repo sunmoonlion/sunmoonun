@@ -1,0 +1,27 @@
+# C5 专家分步执行与脚本计费复核
+
+Luna 发起，请 agy 独立复核待办第 9 项的本地候选，在本目录 `replies/agy.md` 记录所验提交与结论。
+
+| 仓 | 开发候选 |
+| --- | --- |
+| KnowLab 后端 / Web / 应用 | `e7e3c54` / `7eb57a7` / `8bbce62` |
+| KnowBench 后端 / Web / 应用 | `04a9603` / `08c4b9d` / `411b83d` |
+| sunmoonun 供给器及 RBAC | `e72eaea08` |
+
+### 执行与核权
+
+从三个分别实测、冻结、登记的工具方法组成专家。第一步读取连接器返回具名字段，第二步隔离脚本读取已绑定输入，写出 `outputs/result.json`，第三步只取得已验收的字段。核对每步的来源、版本、调用身份、批准、产物版本和输入摘要。用合成收件人复跑成功、拒绝脚本、运行中撤权、取消和发送回执丢失。重建推进器和收集服务后验证原调用次数，检查失权后后续发送次数为零。
+
+### 根预算和容器回执
+
+运营用 `WORKBENCH_SCRIPT_TARIFF` 配置环境、版本、执行目的地址、供给器地址、人民币每秒单价及价格依据。供给器地址须与实际启用的执行器一致。正式脚本的批准绑定价格摘要，审批卡展示单价与预留上限。当前 Job 的 90 秒期限加 1 秒终止宽限决定 91 秒的预留上限。宿主按 Kubernetes 中同一调用的 Job UID、Pod UID、容器 ID 和起止时间结算，金额四舍五入到人民币小数点后六位。失败或取消照计实际运行时间，余款释放。已证实未启动时按零结算；回执缺失、身份冲突或用量超过批准上限时保留预留，等待对账。后台收集按原调用恢复，逾期清理会保留未结账的测试任务。供给器当前对终态 Job 保留 900 秒；若整个保留期内均未采到回执，根预算保留预留，须人工核对。
+
+### 复跑入口
+
+- KnowBench 后端在独立 PostgreSQL 测试库设置 `AGENT_TEST_DATABASE_URL`，运行 `tests/test_formal_script_execution_db.py`、`tests/test_script_budget_db.py`、`tests/test_script_inputs_db.py`、`tests/test_skill_executor.py` 和 `tests/test_skill_execution_db.py`。核对并发结算、余额不足、回执冲突、缺失、数据库迁移往返及操作卡。
+- 给同一测试进程设置 `SCRIPT_TEST_PROVISIONER_URL` 和 `SCRIPT_TEST_PROVISIONER_TOKEN` 指向本地隔离执行环境，运行 `pytest -q -s tests/test_formal_script_execution_db.py -k real_container`。实测使用真实 PostgreSQL、供给器与 KIND。连接器、来源许可记录及价格均为测试夹具。
+- 在供给器目录以该目录为 `PYTHONPATH` 运行 `pytest -q tests`。复核网络策略竞争、Pod 归属、终态计量与停止后回收。第 8 项四条建议的处理及大帧测量见[原请求补记](../../../archive/luna/2026-11-20-隔离脚本资料与前序产物输入复核/request.md)。
+
+开发自验已在真实 KIND 和独立 PostgreSQL 跑通混合专家、运行中取消及非零退出三项。后两项均取得 3 秒容器回执，以合成单价 0.01 元/秒各扣根预算 0.030000 元，余款释放。供给器 25 项通过。KnowBench Web 503 项通过、2 项跳过，类型检查、国际化校验和生产构建通过。
+
+本请求范围为本地候选。第 6 项真实供应商验收待专用测试条件，第 10 项承担跨场景验收、发布与线上核验。
