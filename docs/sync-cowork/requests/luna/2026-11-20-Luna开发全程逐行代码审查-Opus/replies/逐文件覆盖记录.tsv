@@ -1,0 +1,899 @@
+仓	相对路径	期末状态	涉及阶段	审查状态	备注
+sunmoonun	AGENTS.md	M	1,2	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	CHECKPOINT.md	M	1,2,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	ci/release.groovy	M	1	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	docs/design/SDD/architecture/methods.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/SDD/modules/0003-sandbox.md	M	3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/SDD/modules/0005-agent.md	M	3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/SDD/modules/0017-three-kinds-of-conversation.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/SDD/modules/0046-knowlab-self-service.md	M	1	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/SDD/modules/0051-source-order.md	M	1	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/decisions.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/knowbot-todolist.md	M	1	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/pending-after-migration.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/design/平台代码地图.md	M	2	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/process/turn/glossary.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/project-guide/repos/knowbench-app.md	M	1	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/project-guide/repos/knowlab-app.md	M	1	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-13-方法能力作者入口限制/replies/qwen.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-13-方法能力作者入口限制/request.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-13-能力缺陷修复复审/replies/qwen.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-13-能力缺陷修复复审/request.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-14-C2共同调用记录增量复审/replies/fable.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-14-C2共同调用记录增量复审/replies/qwen.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-14-C2共同调用记录增量复审/request.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-14-C2登记与方法权限增量复审/replies/fable.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-14-C2登记与方法权限增量复审/replies/qwen.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-14-C2登记与方法权限增量复审/request.md	A	1,3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-19-C2私有方法共同核权复审/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-19-C2私有方法共同核权复审/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-19-MCP稳定配置与每轮授权复核/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-19-MCP稳定配置与每轮授权复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-19-Skill目录与正文分存复核/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-19-Skill目录与正文分存复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-C3用户连接与凭据生命周期复核/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-C3用户连接与凭据生命周期复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-C4连接器资源范围审批复核/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-C4连接器资源范围审批复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-正式方法市场获取与依赖交付复核/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-正式方法市场获取与依赖交付复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-隔离脚本资料与前序产物输入复核/replies/agy.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/luna/2026-11-20-隔离脚本资料与前序产物输入复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/qwen/2026-11-14-方法两类与主稿修订/replies/README.md	A	1	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/archive/qwen/2026-11-14-方法两类与主稿修订/request.md	A	1,3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/requests/agy/2026-11-14-专家方案设计完善意见/replies/README.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/agy/2026-11-14-专家方案设计完善意见/replies/luna.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/agy/2026-11-14-专家方案设计完善意见/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/fable/2026-11-14-专家方案设计完善方案/replies/README.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/fable/2026-11-14-专家方案设计完善方案/replies/luna.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/fable/2026-11-14-专家方案设计完善方案/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-13-方法能力作者入口限制/replies/qwen.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-13-方法能力作者入口限制/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-13-能力缺陷修复复审/replies/qwen.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-13-能力缺陷修复复审/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-14-C2共同调用记录增量复审/replies/fable.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-14-C2共同调用记录增量复审/replies/qwen.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-14-C2共同调用记录增量复审/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-14-C2登记与方法权限增量复审/replies/fable.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-14-C2登记与方法权限增量复审/replies/qwen.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-14-C2登记与方法权限增量复审/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-19-C2私有方法共同核权复审/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-19-C2私有方法共同核权复审/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-19-MCP稳定配置与每轮授权复核/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-19-MCP稳定配置与每轮授权复核/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-19-Skill目录与正文分存复核/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-19-Skill目录与正文分存复核/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-C1-C6跨场景验收发版需求/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-C3用户连接与凭据生命周期复核/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-C3用户连接与凭据生命周期复核/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-C4连接器资源范围审批复核/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-C4连接器资源范围审批复核/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-C5专家分步执行与脚本计费复核/request.md	A	3	证据或文档核对	协作请求与既有分项回执，已核对与本次逐行审查结论的一致性及遗漏项
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-正式方法市场获取与依赖交付复核/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-正式方法市场获取与依赖交付复核/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-隔离脚本资料与前序产物输入复核/replies/agy.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/luna/2026-11-20-隔离脚本资料与前序产物输入复核/request.md	历史	3	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/qwen/2026-11-14-方法两类与主稿修订/replies/README.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/sync-cowork/requests/qwen/2026-11-14-方法两类与主稿修订/request.md	历史	1	历史核对	历史协作请求/回执已归档迁移至 archive/，已核对 git log 与归档状态
+sunmoonun	docs/总纲/luna-待办.md	A	3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/mcp和skill接入实施方案.md	A	1,2,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/opus-qwen.md	D	1,3	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/qwen待办.md	D	1,3	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家团方案设计/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团使用方案/argon/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团使用方案/argon/专家团使用方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团使用方案/luna/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团使用方案/luna/协作任务与成果交接.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团使用方案/opus/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团孵化方案/argon/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团孵化方案/argon/专家团孵化方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团孵化方案/luna/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团孵化方案/luna/方法组合与专家团边界.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团孵化方案/opus/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团市场方案/argon/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团市场方案/argon/专家团市场方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团市场方案/luna/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团市场方案/luna/团队声明与成员版本.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家团方案设计/专家团市场方案/opus/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/luna/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/luna/mcp和skill接入实施方案.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/luna/专家及专家团使用方案.md	A	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/luna/财务专家执行与验收方案.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/luna/验证/Codex逐步骤工具范围验证.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/luna/验证/codex_step_scope_probe.py	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家使用方案/opus/请专家与执行.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/argon/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/argon/专家孵化方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/专家及专家团孵化模板.md	历史	1,3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/专家团内化方案.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/专家方法孵化与递归编排方案-Opus意见吸收评审.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/专家方法孵化与递归编排方案-吸收与整合评审.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/专家方法孵化与递归编排方案.md	A	3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/协作编排参考模式.md	A	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/原20个财务方法的原子化提炼.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/原20个财务方法的工具方法提炼.md	历史	1,3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/新财务专家孵化方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/方法、步骤、组合与模板.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/luna/财务方法工具积木与模板提炼.md	A	3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家孵化方案/opus/专家孵化方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家市场方案/argon/专家市场方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家市场方案/luna/README.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家市场方案/luna/方法市场方案.md	A	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/专家市场方案/luna/财务专家能力声明与版本方案.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/参考资料/advisor现在使用建议和以后改名.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/参考资料/agent-team-argon.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/agent-team-luna.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/agent-team-opus.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/agently和我们项目的借鉴.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/orchestation-hydrogen设计方案.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/参考资料/orchestration设计方案.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/参考资料/orchestrtion设计方案-opus.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/参考资料/workbuddy-argon.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/workbuddy-luna.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/workbuddy-opus.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	docs/总纲/专家方案设计/参考资料/动态专家实施方案.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/参考资料/动态专家开发.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/参考资料/架构再讨论-gemini.md	历史	3	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/专家方案设计/参考资料/自助讨论记录.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/参考资料/财务智能体双轨交付计划.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/专家方案设计/参考资料/财务验证题单.md	D	1	历史核对	期末已删除旧方案/验证文档，已核对父提交删除原因与主稿合并去向
+sunmoonun	docs/总纲/方法分类方案.md	历史	1	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/方法实施方案.md	历史	1	历史核对	中间版本存在、期末已删除/合并或恢复原状，已核对父提交与演进日志
+sunmoonun	docs/总纲/连接器方案.md	M	1,3	证据或文档核对	总纲/设计/交接文档，已核对与实际代码的对应关系及两大统一落差
+sunmoonun	gitops/components/sandbox-platform/provisioner/verify.py	M	1	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	gitops/components/sandbox-platform/provisioner/workload.yaml.j2	M	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images.yaml	M	1,3	已逐行审	【F01·P0】L22 sandbox-provisioner 钉在 8fee0080a、L37 sandbox 钉在 5b11c8563，均遗漏第 8/9 项协议与计量提交（36d980961/e72eaea08/7769c48a8）
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/README.md	M	3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/image/Dockerfile	M	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/image/skill_execute.py	A	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/Dockerfile	M	1	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/export_script_contract.py	A	1	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/provisioner.py	M	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/requirements.txt	M	3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/script_contract.py	A	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/script_jobs.py	A	1,3	已逐行审	【F10·P2】L224-250 stop_metered() 未处理 Pod 并发终态 409/422 且重复 PATCH（C5 已识别并在后续 9edd61e02 处理）
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/script_probe.py	A	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	infrastructure/applications/component-images/sandbox-platform/provisioner/tests/test_script_execution.py	A	1,3	已逐行审	部署清单/RBAC/供给器/沙箱镜像/发布流水线已逐行审阅，未见额外缺陷
+sunmoonun	scripts/local-integration/c2_method_read.py	A	3	已逐行审	本地联调脚本已逐行审阅（隔离测试库守卫、容器/浏览器联调边界无缺陷）
+sunmoonun	scripts/local-integration/formal_market_delivery.py	A	3	已逐行审	本地联调脚本已逐行审阅（隔离测试库守卫、容器/浏览器联调边界无缺陷）
+sunmoonun	scripts/local-integration/script_card.py	A	3	已逐行审	本地联调脚本已逐行审阅（隔离测试库守卫、容器/浏览器联调边界无缺陷）
+sunmoonun	scripts/local-integration/script_inputs.py	A	3	已逐行审	本地联调脚本已逐行审阅（隔离测试库守卫、容器/浏览器联调边界无缺陷）
+sunmoonun	scripts/local-integration/skill_catalog_measure.py	A	3	已逐行审	本地联调脚本已逐行审阅（隔离测试库守卫、容器/浏览器联调边界无缺陷）
+sunmoonun	scripts/results/c2-authority-contract-20261114.json	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-execution-evidence-integrated.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-execution-final-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-execution-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-execution-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-execution-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-format-baseline-failures.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-format-changed.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-frozen-files.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-full.xml	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-host-regression.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-legacy-regression.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-push.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-runner.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-source-verification.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-final-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-full-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-full-initial.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-lint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-preview-recheck.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowbench-web-types.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-backend-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-backend-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-backend-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-push.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-full-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-full-initial.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-lint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-preview-recheck.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-receipt-tests.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-execution-20261115/knowlab-web-types.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-evidence-unit.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-host-regression-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-pyright-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-pyright-final3.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-ruff-final3.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-targeted-extra.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-targeted-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-targeted-final2.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-web-build-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kb-web-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kl-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kl-pyright-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kl-ruff-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kl-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kl-web-build-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-kl-web-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-knowbench-web-frontend-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-knowlab-web-frontend-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-probe-isolation-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-probe-isolation-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-probe-isolation-negative-verified.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-probe-isolation-negative.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-probe-isolation-startup.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-probe-isolation-verified.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-provider-consumer-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-provider-consumer-final2.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-provider-contract.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-runtime-db-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-runtime-db-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-runtime-db-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/c2-model-runtime-unit4.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-negative-verified/events.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-negative-verified/model_requests.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-negative-verified/stderr.log	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-negative-verified/summary.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-verified/events.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-verified/model_requests.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-verified/stderr.log	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/codex-verified/summary.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-changed-python-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-model-probe-cleanup-tests.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-model-probe-web-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-model-probe-web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-model-probe-web-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-model-probe-web-tsc.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kb-source-freeze.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-changed-python-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-model-probe-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-model-probe-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-model-probe-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-model-probe-provider-lock.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-model-probe-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/kl-model-probe-tsc.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/knowbench-web-changed-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/knowlab-web-changed-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/push-knowbench.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-probe-20261115/push-knowlab.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-formal-session-tools-unit2.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-formal-session-tools-unit3.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-boundaries-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-boundaries-fourth.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-boundaries-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-boundaries-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-catalog-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-catalog-locks.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-catalog-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-chain-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-cleanup.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-format-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-legacy-locks.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-lock-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-lock-unit.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-lock-unit2.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-lock-unit3.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-push-knowbench.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-pyright-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-pyright-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-review-selection-race.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-root-pyright-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-ruff-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-ruff-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-source-freeze-after.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-source-freeze-before.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-web-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/c2-model-use-web-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/kb-model-selection-web-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/kb-model-selection-web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/kb-model-selection-web-prettier.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/kb-model-selection-web-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-model-use-20261115/kb-model-selection-web-tsc.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-chain-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-chain-fourth.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-chain-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-chain-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-export-backend-check.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-export-web-check.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-backend-full-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-backend-full-missing-env.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-format-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-pyright-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-ruff-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kb-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kl-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kl-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kl-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kl-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kl-web-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-kl-web-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-push-knowbench.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-push-knowlab.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-root-pyright-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-runtime-pyright-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-runtime-pyright-fourth.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-runtime-pyright-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-runtime-pyright-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-source-freeze-after.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-source-freeze-before.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-source-freeze-interrupted.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-test-container-cleanup.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/c2-formal-plan-wait-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-dag-web-diffcheck.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-dag-web-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-dag-web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-dag-web-prettier.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-dag-web-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-dag-web-tsc.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-plan-20261115/kl-expert-visibility-service.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/backend-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/backend-source-freeze.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/backend-targeted-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/backend-vectors.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/catalog-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/catalog-history-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/concurrency-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/http-auth-fixture-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/http-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/push-knowbench.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-build-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-build-sandbox-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-changed-source-freeze.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-full-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-targeted-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-formal-use-20261115/web-typecheck.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-knowbase-method-read-20261119.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-answer-wait-rerun.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-cancel-usage.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-directed-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-first-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-formal-db.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-formal-http.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-frozen-files.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-license-focused.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-license-format.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-license-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-license-review-interrupted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-license-review.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-license-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowbench-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-backend-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-backend-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-backend-vectors.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-license-ui-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-license-ui-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-license-ui-tests.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-license-ui-types.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-web-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-web-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/knowlab-web-vectors.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-local-20261115/pending-usage-db.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-method-read-parity-20261119.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-recursive-verification-20261119.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-backend-full-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-backend-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-cleanup.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-contract.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-domain-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-domain-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-format-after-planning.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-format-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-planning-regression.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-pure.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-push-knowbench.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-pyright-after-planning.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-pyright-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-pyright-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-routes-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-ruff-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-ruff.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-runner-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-runtime-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-runtime-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-source-freeze-after.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-source-freeze-before.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-source-freeze-interrupted.json	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-test-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-web-build.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-web-full-final.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-delegation-web-full.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-planning-pyright.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-planning-unit.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runner-pyright-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runner-pyright-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-pyright-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-pyright-fourth.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-pyright-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-pyright-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-unit-first.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-unit-second.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/c2-resource-runtime-unit-third.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/kb-delegation-web-eslint.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/kb-delegation-web-i18n.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/kb-delegation-web-prettier.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/kb-delegation-web-targeted.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-resource-delegation-20261115/kb-delegation-web-tsc.txt	A	2	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/c2-task-output-authority-20261119.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capabilities-fixes-release-20261114.json	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capabilities-release-20261113-candidate.json	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capabilities-remediation-20261114-pytest.txt	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capabilities-remediation-20261114.json	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capabilities-usage-audit-20261113.json	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capability-review-closure-20261114-knowbench-consumer.txt	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capability-review-closure-20261114-knowlab-full.txt	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capability-review-closure-20261114-knowlab-pyright.txt	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capability-review-closure-20261114-knowlab-ruff.txt	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capability-review-closure-20261114-knowlab-vectors.txt	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/capability-review-closure-20261114.json	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/codex-0170-mcp-20261119.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/release-94.20261114-110824.md	A	1	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/runner-turn-receipt-fix-20261119.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+sunmoonun	scripts/results/skill-catalog-0046-20261120.json	A	3	证据或文档核对	历史分项验收与实测产物（日志/JSON 证据），已按目录核对归属与覆盖边界
+knowbench-app	CHECKPOINT.md	M	1,2,3	证据或文档核对	应用父仓交接/契约说明文档已核对
+knowbench-app	contracts/README.md	M	1,3	证据或文档核对	应用父仓交接/契约说明文档已核对
+knowbench-app	contracts/dynamic-methods/v1/catalog.schema.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	contracts/dynamic-methods/v1/contract-manifest.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	contracts/dynamic-methods/v2/catalog.schema.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	contracts/dynamic-methods/v3/catalog.schema.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	contracts/knowlab-author-method-lock.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	contracts/knowlab-author-method-v2-lock.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	contracts/knowlab-incubation-lock.json	M	1,2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbench-app	knowbench-backend	M	1,2,3	指针对账	父仓子模块指针与审查范围固定子仓提交完全一致
+knowbench-app	knowbench-web-frontend	M	1,2,3	指针对账	父仓子模块指针与审查范围固定子仓提交完全一致
+knowbench-app/knowbench-backend	CHECKPOINT.md	M	1,2,3	证据或文档核对	子仓交接/说明文档已核对
+knowbench-app/knowbench-backend	app/alembic/versions/20261113_0040_capabilities.py	A	1	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261114_0041_calls.py	A	1	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261114_0042_authorizations.py	A	1	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261114_0043_formal_methods.py	A	2	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261115_0044_direct_method_grants.py	A	2	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261115_0045_formal_execution_evidence.py	A	2	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261119_0046_skill_files.py	A	3	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261120_0047_connection_oauth.py	A	3	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261120_0048_call_read_scope.py	A	3	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/alembic/versions/20261120_0049_script_metering.py	A	3	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbench-app/knowbench-backend	app/app/application/ports/workbench.py	M	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/sensitive_paths.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/advisor.py	M	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/artifact_read_authority.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/call_policy.py	A	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/calls.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/capabilities.py	A	1,2,3	已逐行审	【F11·P2】【F14·P3】L417-438 disable 保留 default_selected；L2277-2282 未知回执提示漏判 formal_script；其余资产/审批/撤权/读范围全路径核对通过
+knowbench-app/knowbench-backend	app/app/application/workbench/catalog.py	M	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/connection_oauth.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/execution_plan.py	M	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_dispatch_authority.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_evidence.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_execution.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_host_calls.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_method_calls.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_method_catalog.py	A	2,3	已逐行审	【F17·P3】L109 connection_preview 按 url 匹配 required，同 URL 多能力/版本时可能误标必选
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_methods.py	A	2,3	已逐行审	【F19·P3】L275-327 delivery() 锁定 capability_asset 按 (method_id, version) 而非全局 asset_id 排序；其余四次独立核权与包摘要校验通过
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_calls.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_evidence.py	A	2,3	已逐行审	【F12·P2】L283-291 证据核验沿用相同黑名单策略，建议与 formal_model.py 同步收紧为白名单
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_execution.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration_admission.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration_evidence.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration_execution.py	A	2,3	已逐行审	【F13·P2】L184-189 取消时首次 drive() 直接返回未调 settle_ancestors()，依赖后续 drive()/record_case() 补收祖先调用状态
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_recursive_evidence.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_recursive_runtime.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_script_execution.py	A	3	已逐行审	【F06·P1】【F10·P2】L100-175 运行中撤权提前写 failed 丢事件、stop_requested 遇 absent/delayed 卡死 dispatching；L137-146 锁序 Task->Call->Session 倒置；L175 cancel 失败锁槽 900s（C5 已识别并在后续 4aa68b7 处理）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_session_tools.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/formal_test_runs.py	A	2,3	已逐行审	【F18·P3】L676-720 advance_formal 在首个 capability_call_id 生成后 queued_behind 等待耗时被覆盖归零
+knowbench-app/knowbench-backend	app/app/application/workbench/knowbase_method_read.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/ledger.py	M	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/method_access.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/method_authorizations.py	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/method_calls.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/method_capabilities.py	A	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/method_permission_recovery.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/method_tools.py	M	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/provisioning.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/runner.py	M	1,2,3	已逐行审	【F03·P1】L1964-1966/L2240-2262/L2911-2916 run_forever() 停机漏调 wait_drivers()、未收尾 driving/_reader/_steer 即 release_leases()；wait_drivers() 超时不取消
+knowbench-app/knowbench-backend	app/app/application/workbench/runtime_tools.py	M	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/script_budget.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/script_inputs.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/session_service.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/task_output_reader.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/test_execution.py	M	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	M	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/tokens.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/tool_invocation.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/tool_registry.py	A	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/application/workbench/turn.py	M	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/bootstrap/workbench.py	M	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/cli/workbench_register.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/call_approval.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/capabilities.py	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/capability_contract.py	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/connection_oauth.py	A	3	已逐行审	【F16·P3】L79-85 OAuth returnTo 正则仅限 chat/projects 路径；PKCE/state/nonce 与跨账号防护核对通过
+knowbench-app/knowbench-backend	app/app/domain/workbench/errors.py	M	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_adapter.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_execution.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_host.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_admission_generated.py	A	2,3	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_calls.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_compiler_generated.py	A	1	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_execution_generated.py	A	2,3	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_generated.py	A	1	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_plan_generated.py	A	2,3	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_model.py	A	2,3	已逐行审	【F12·P2】L114-123 模型探针非 mcpToolCall 项采用 5 项黑名单而非显式允许白名单，升级 Codex 后存在新原生项漏拦风险
+knowbench-app/knowbench-backend	app/app/domain/workbench/formal_recursive.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/method_authorization.py	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/method_capabilities.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/method_catalog.py	M	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/method_registration.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/packs.py	M	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/platform_tools.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/projects.py	M	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/resource_delegation.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/review_view.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/script_contract_generated.lock.json	A	1,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/script_contract_generated.py	A	1,3	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowbench-app/knowbench-backend	app/app/domain/workbench/script_pricing.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/skill_dependencies.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/skill_execution.py	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/skill_installation.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/skill_package.py	A	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/source_licenses.py	A	2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/tool_operations.py	A	1,2,3	已逐行审	【F15·P3】L161-166 可选 inline_attachments_field 省略时为 None 会被 isinstance(..., list) 误拒
+knowbench-app/knowbench-backend	app/app/domain/workbench/tool_registry.py	A	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/domain/workbench/tool_schema.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/external/knowbase_data_v2.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/security/relation_auth.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/app_server_client.py	M	3	已逐行审	【F03·P1】L91-93/L108-115/L132-137/L155-163 close() 不取消也不等待 _reader，_safe_server_request 未追踪，系测试拆库死锁与真实停机孤儿写库根因（已实测复现）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/authorization_repository.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/call_repository.py	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/capability_mcp.py	A	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/capability_repository.py	A	1,2,3	已逐行审	【F10·P2】【F11·P2】L191-216 capability_update SQL 忽略 :default_selected 参数且 disable 不清空 default_selected；L409-417 pending_metered_scripts 不追踪已结算待删 Job
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/connection_keys.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/connection_oauth.py	A	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/formal_method_repository.py	A	2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	M	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/skill_executor.py	A	1,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/infrastructure/workbench/skill_sources.py	A	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/interfaces/endpoints/capability_routes.py	A	1,2,3	已逐行审	【F04·P1】【F07·P1】L610-632 decide_call 放行试跑白名单遗漏 formal_script 致 409；L520-564 approve_knowbase_read 缺少 expires_at 上界校验
+knowbench-app/knowbench-backend	app/app/interfaces/endpoints/knowbot_runtime_routes.py	M	1,2,3	已逐行审	【F02·P0/P1】L180-186 cancel_formal_execution 裸声明 owner_subject: str 为必填 Query 参数，与 KnowLab JSON Body 契约断裂（已实测复现 422）
+knowbench-app/knowbench-backend	app/app/interfaces/endpoints/workbench_routes.py	M	1,3	已逐行审	【F20·P3】L1418-1445 respond_interaction 在归属校验前先校验 capability 决策字段（UUIDv4 下仅微弱 422/404 区分）
+knowbench-app/knowbench-backend	app/app/interfaces/http/routes.py	M	1	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/app/interfaces/mcp/workbench_mcp.py	M	1,2	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/contracts/capabilities-v1.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/capabilities-v1.samples.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-execution-decision-v1.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-execution-request-v1.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-execution-result-v1.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-lock.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-registration-request-v1.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-registration-result-v1.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-v1.json	A	1	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-validation-request-v1.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/formal-method-validation-result-v1.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/contracts/method-capabilities-v1.json	A	1	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-backend	app/core/config.py	M	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	app/pyproject.toml	M	1	已逐行审	依赖锁与构建/静态检查配置变更已核对，无异常依赖或放宽规则
+knowbench-app/knowbench-backend	app/scripts/export_capability_contract.py	A	1,2,3	已逐行审	契约导出/密钥轮换/断网协议探针脚本已逐行审阅，未发现缺陷
+knowbench-app/knowbench-backend	app/scripts/export_method_capabilities.py	A	1	已逐行审	契约导出/密钥轮换/断网协议探针脚本已逐行审阅，未发现缺陷
+knowbench-app/knowbench-backend	app/scripts/probes/codex_capabilities_probe.py	A	1,3	已逐行审	契约导出/密钥轮换/断网协议探针脚本已逐行审阅，未发现缺陷
+knowbench-app/knowbench-backend	app/scripts/probes/formal_model_isolation_probe.py	A	2,3	已逐行审	契约导出/密钥轮换/断网协议探针脚本已逐行审阅，未发现缺陷
+knowbench-app/knowbench-backend	app/scripts/rotate_connection_keys.py	A	3	已逐行审	契约导出/密钥轮换/断网协议探针脚本已逐行审阅，未发现缺陷
+knowbench-app/knowbench-backend	app/tests/capability_transport_support.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/conftest.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/formal_method_use_support.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/formal_model_support.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/formal_plan_support.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/formal_recursive_support.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/formal_session_model_support.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/method_access_support.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/preview_replay.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/probe_native_search_scope.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_agent_limiter.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_call_outcomes.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_calls_db.py	A	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_calls_mcp_db.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_capabilities_db.py	A	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_capability_lock_order_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_capability_mcp.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_capability_routes_db.py	A	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_capability_runner.py	A	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_compute_batch.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_compute_tool_contract.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_connection_oauth_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_connector_approval_scopes_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_connector_cross_scene_db.py	A	3	已逐行审	阶段 3 最终候选新增 C6 跨场景测试，已逐行审阅并在隔离 PG16 上实测通过（1 passed）
+knowbench-app/knowbench-backend	app/tests/test_data_planning_runner_db.py	M	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_delivery_progress_worker.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_expert_runtime_tools.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_artifact_authority_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_catalog_concurrency_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_evidence_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_execution_db.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_execution_routes.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_host_calls_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_admission_db.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_call_projection.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_calls_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_catalog_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_provider.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_routes.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_method_use_routes_db.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_model_admission_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_model_boundaries_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_model_catalog_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_model_evidence.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_model_execution_db.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_model_runtime.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_admission.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_evidence_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_runtime_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_recursive_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_recursive_evidence_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_recursive_runtime_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_runner.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_script_execution_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_session_model_boundaries_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_session_model_concurrency_db.py	A	2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_session_model_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_session_tools.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_formal_session_tools_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_kernel_invariants.py	M	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_knowbase_method_read_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_knowbot_runtime_routes.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_access.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_access_db.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_authority_migration_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_authorization.py	A	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_authorization_db.py	A	1,2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_capabilities_db.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_permission_runner_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_registration.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_runner_mcp_db.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_method_tools_db.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_pending_method_usage_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_resource_delegation.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_resource_delegation_planning.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_resource_delegation_routes_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_resource_delegation_runner_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_resource_delegation_runtime_db.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_resource_delegation_settings.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_scheduler_activity_broker.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_script_budget_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_script_inputs_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_dependencies.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_dependencies_db.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_execution.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_execution_db.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_executor.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_installation.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_installation_db.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_package.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_skill_package_db.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_source_licenses.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_source_query_planning.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_task_output_reader_db.py	A	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_test_cleanup.py	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_tool_invocation_db.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_tool_operations.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_tool_operations_db.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_tool_registry.py	A	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_workbench_ledger_db.py	M	3	已逐行审	【F03·P1】L51-84 db fixture teardown engine.dispose() 不中断在途连接，与残留 _reader/on_notification 撞 DROP SCHEMA CASCADE
+knowbench-app/knowbench-backend	app/tests/test_workbench_mcp_routes.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_workbench_modes_db.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_workbench_outputs_db.py	M	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_workbench_projects.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_workbench_request_data_schema.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/test_workbench_runner_db.py	M	2,3	已逐行审	【F03·P1】L2054-2098 test_after_a_decline_even_allowed_changes_ask_and_say_so 拆库死锁根因定位（已实测复跑并通过）
+knowbench-app/knowbench-backend	app/tests/test_worker_readiness_broker.py	M	1	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/tests/tool_invocation_support.py	A	1,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-backend	app/uv.lock	M	1	已逐行审	依赖锁与构建/静态检查配置变更已核对，无异常依赖或放宽规则
+knowbench-app/knowbench-backend	docs/README.md	M	1	证据或文档核对	子仓交接/说明文档已核对
+knowbench-app/knowbench-backend	docs/managed-capabilities.md	A	1,2,3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	docs/method-execution.md	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-backend	scripts/probes/codex_mcp_provenance.py	M	3	已逐行审	KnowBench 后端源码已逐行审阅（鉴权、核权、状态机、事务与异常边界核对通过）
+knowbench-app/knowbench-web-frontend	CHECKPOINT.md	M	1,2	证据或文档核对	子仓交接/说明文档已核对
+knowbench-app/knowbench-web-frontend	app/components/common/request-failure.tsx	M	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/components/workbench/capability-action-card.tsx	A	2,3	已逐行审	【F14·P3】L87-89/196-203/234-241 正式脚本标题及 stop_requested 过渡态交互细节（C5 已识别并在后续 11a3fd7 处理）
+knowbench-app/knowbench-web-frontend	app/components/workbench/capability-panel.tsx	A	1,2	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/components/workbench/formal-method-panel.tsx	A	2,3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/components/workbench/formal-method-selection.tsx	A	2,3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/components/workbench/method-connection-preview.tsx	A	3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/components/workbench/resource-delegation-selection.tsx	A	2	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/components/workbench/skill-connections.tsx	A	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/contracts/provider-locks/capabilities-v1.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-web-frontend	app/contracts/provider-locks/capabilities-v1.lock.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-web-frontend	app/contracts/provider-locks/capabilities-v1.samples.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-web-frontend	app/contracts/workbench-v2.ts	M	3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-web-frontend	app/features/chat/ui/chat-screen.tsx	M	1,2	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/features/expert/ui/expert-run-screen.tsx	M	1,3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/features/settings/ui/capabilities-section.tsx	A	1,3	已逐行审	【F16·P3】L48-54 returnTo 校验未覆及专家运行页；L320-335 已断开非 OAuth 连接未禁用续期按钮
+knowbench-app/knowbench-web-frontend	app/features/settings/ui/settings-screen.tsx	M	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/features/settings/ui/skill-source-installer.tsx	A	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/features/shell/ui/sidebar.tsx	M	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/features/work/ui/entries.tsx	M	3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/features/work/ui/work-screen.tsx	M	1,2	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/lib/workbench/capabilities.ts	A	1,2,3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/lib/workbench/formal-method-reference.ts	A	2	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/lib/workbench/formal-methods.ts	A	2,3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/lib/workbench/routes.ts	M	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/lib/workbench/timeline.ts	M	3	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowbench-app/knowbench-web-frontend	app/messages/en.json	M	1,2,3	已逐行审	国际化词条文件已核对，en.json 与 zh-CN.json 键集合 100% 对称（差集为 0）
+knowbench-app/knowbench-web-frontend	app/messages/zh-CN.json	M	1,2,3	已逐行审	国际化词条文件已核对，en.json 与 zh-CN.json 键集合 100% 对称（差集为 0）
+knowbench-app/knowbench-web-frontend	app/tests/component/capabilities.test.tsx	A	1,2,3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-web-frontend	app/tests/component/formal-method-panel.test.tsx	A	2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-web-frontend	app/tests/e2e/rendering.e2e.ts	M	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-web-frontend	app/tests/fixtures/capabilities-v1.samples.json	A	1,2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowbench-app/knowbench-web-frontend	app/tests/unit/capability-contract.test.ts	A	1,2	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-web-frontend	app/tests/unit/work-timeline.test.ts	M	3	已逐行审	KnowBench 回归测试与夹具已审阅（注：部分跨服务/并发停机盲区已在报告中列明）
+knowbench-app/knowbench-web-frontend	app/vitest.setup.ts	M	1	已逐行审	KnowBench 前端能力/连接/审批卡/设置/聊天工作页源码已逐行审阅，未发现额外缺陷
+knowlab-app	CHECKPOINT.md	M	2,3	证据或文档核对	应用父仓交接/契约说明文档已核对
+knowlab-app	contracts/author-method/v1/definition.schema.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/author-method/v2/definition.schema.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/README.md	A	1	证据或文档核对	应用父仓交接/契约说明文档已核对
+knowlab-app	contracts/formal-method/v1/contract-manifest.json	A	1,2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/definition.schema.json	A	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/execution-decision.schema.json	A	2	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/execution-request.schema.json	A	2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/execution-result.schema.json	A	2	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/registration-request.schema.json	A	2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/registration-result.schema.json	A	2	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/validation-request.schema.json	A	2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/formal-method/v1/validation-result.schema.json	A	2	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/knowbase-user-data-lock.json	M	3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/knowbench-dynamic-methods-lock.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/knowbench-dynamic-methods-v2-lock.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/knowbench-dynamic-methods-v3-lock.json	M	1	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/knowbot-incubation/v1/contract-manifest.json	M	1,2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	contracts/knowbot-incubation/v1/incubation-request.schema.json	M	1,2,3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowlab-app	knowlab-backend	M	1,2,3	指针对账	父仓子模块指针与审查范围固定子仓提交完全一致
+knowlab-app	knowlab-web-frontend	M	1,2,3	指针对账	父仓子模块指针与审查范围固定子仓提交完全一致
+knowlab-app/knowlab-backend	CHECKPOINT.md	M	2	证据或文档核对	子仓交接/说明文档已核对
+knowlab-app/knowlab-backend	app/alembic/versions/20261115_0027_formal_test_suites.py	A	2	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowlab-app/knowlab-backend	app/app/application/ports/knowbots.py	M	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/application/services/formal_methods.py	A	2,3	已逐行审	【F21·P3】L280-325 listing() 对每条记录顺序发起 N+1 HTTP 注册核验
+knowlab-app/knowlab-backend	app/app/application/services/knowbot_incubation.py	M	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/application/services/knowbot_methods.py	M	2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/application/services/knowbot_workdraft.py	M	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/bootstrap/knowbots.py	M	2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/compile.py	M	1	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/drafts.py	M	1	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method.py	A	1	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_admission.py	A	2,3	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_compiler.py	A	1	已逐行审	【F21·P3】L128 同上循环 $ref 防护建议；递归编译与三类历史枚举映射核对通过
+knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_execution.py	A	2,3	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_plan.py	A	2,3	已逐行审	【F21·P3】L234 未防护恶意循环 JSON Schema $ref 的 RecursionError；计划展开与依赖去重核心逻辑通过
+knowlab-app/knowlab-backend	app/app/domain/knowbots/managed-capabilities-v1.lock.json	A	1	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-backend	app/app/domain/knowbots/managed_authoring.py	A	1	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/managed_capabilities_generated.py	A	1	指针对账	由提供方脚本自动生成的模型模块，已逐字节/逻辑核对与提供方源模块一致
+knowlab-app/knowlab-backend	app/app/domain/knowbots/schema.py	M	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/domain/knowbots/workdraft.py	M	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/infrastructure/external/knowbot_clients.py	M	1,2	已逐行审	【F02·P0/P1】L228-234 cancel_formal_method_execution() 以 JSON Body 发送 owner_subject，与 KnowBench Query 参数签名冲突必报 HTTP 422
+knowlab-app/knowlab-backend	app/app/infrastructure/models/knowbots.py	M	2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	M	2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	M	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/contracts/formal-method-web.samples.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-backend	app/pyproject.toml	M	1	已逐行审	依赖锁与构建/静态检查配置变更已核对，无异常依赖或放宽规则
+knowlab-app/knowlab-backend	app/scripts/export_formal_method.py	A	1,2	已逐行审	KnowLab 后端正式方法/工作稿/路由变更已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-backend	app/tests/test_formal_expert_visibility.py	A	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method.py	A	1	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method_execution.py	A	2,3	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method_plan.py	A	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method_recursive_plan.py	A	3	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method_routes.py	A	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method_service.py	A	2,3	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_method_web_export.py	A	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_methods_db.py	A	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_formal_model_execution.py	A	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_kernel_invariants.py	M	2	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/tests/test_managed_capabilities.py	A	1	已逐行审	KnowLab 后端测试已审阅（注：cancel 路由 mock 客户端致未发现 F02 的 422 跨服务断层）
+knowlab-app/knowlab-backend	app/uv.lock	M	1	已逐行审	依赖锁与构建/静态检查配置变更已核对，无异常依赖或放宽规则
+knowlab-app/knowlab-web-frontend	CHECKPOINT.md	M	2	证据或文档核对	子仓交接/说明文档已核对
+knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/names/[requestId]/formal-method/page.tsx	A	2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-editor.tsx	A	2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-execution.tsx	A	2	已逐行审	【F08·P2】L78-82 硬编码 implementation.kind === 'mcp'，阻断作者页面发起直调 skill_script 正式测试
+knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-orchestration-summary.tsx	A	2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-managed-capabilities.tsx	A	1	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-step.tsx	M	1	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-view.tsx	M	1,2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-execution.ts	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/draft.schema.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/execution-command.schema.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/execution-input.schema.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/execution-request.schema.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/execution-result.schema.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/lock.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/registration-request.schema.json	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/samples.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/suite.schema.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-method-provider/validation-result.schema.json	A	2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/formal-methods.ts	A	2,3	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/contracts/workdraft.ts	M	1,2	指针对账	导出契约 Schema/样例/消费锁文件，已核对提供方导出器与消费者锁 SHA-256 一致
+knowlab-app/knowlab-web-frontend	app/lib/knowbots/client.ts	M	1	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-method-execution.ts	A	2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-methods.ts	A	2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-orchestration.ts	A	2	已逐行审	KnowLab 前端正式方法编辑/执行/契约代码已逐行审阅，未发现额外缺陷
+knowlab-app/knowlab-web-frontend	app/messages/en.json	M	1,2,3	已逐行审	国际化词条文件已核对，en.json 与 zh-CN.json 键集合 100% 对称（差集为 0）
+knowlab-app/knowlab-web-frontend	app/messages/zh-CN.json	M	1,2,3	已逐行审	国际化词条文件已核对，en.json 与 zh-CN.json 键集合 100% 对称（差集为 0）
+knowlab-app/knowlab-web-frontend	app/tests/component/formal-method-editor.test.tsx	A	2	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowlab-app/knowlab-web-frontend	app/tests/component/formal-method-execution.test.tsx	A	2	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowlab-app/knowlab-web-frontend	app/tests/component/workdraft-managed-capabilities.test.tsx	A	1	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowlab-app/knowlab-web-frontend	app/tests/fixtures/author-capabilities.json	A	1	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowlab-app/knowlab-web-frontend	app/tests/fixtures/formal-orchestration.ts	A	2	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowlab-app/knowlab-web-frontend	app/tests/unit/author-capabilities-contract.test.ts	A	1	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowlab-app/knowlab-web-frontend	app/tests/unit/formal-model-probe.test.ts	A	2	已逐行审	KnowLab 前端测试与夹具已审阅（注：沿用 mcp-only 断言未发现 F08）
+knowbase-app	CHECKPOINT.md	M	3	证据或文档核对	应用父仓交接/契约说明文档已核对
+knowbase-app	contracts/README.md	M	3	证据或文档核对	应用父仓交接/契约说明文档已核对
+knowbase-app	contracts/user-data/v2/contract-manifest.json	M	3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbase-app	contracts/user-data/v2/user-data.schema.json	M	3	指针对账	跨仓契约 Schema/Lock/Manifest 文件，已与提供方导出脚本及消费者锁定 SHA-256 逐项对账一致
+knowbase-app	knowbase-backend	M	3	指针对账	父仓子模块指针与审查范围固定子仓提交完全一致
+knowbase-app/knowbase-backend	CHECKPOINT.md	M	3	证据或文档核对	子仓交接/说明文档已核对
+knowbase-app/knowbase-backend	app/alembic/versions/20261119_0022_method_read_consent.py	A	3	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowbase-app/knowbase-backend	app/app/application/ports/user_runs.py	M	3	已逐行审	KnowBase 后端授权与数据读取变更已逐行审阅，未发现额外缺陷
+knowbase-app/knowbase-backend	app/app/application/services/user_run_service.py	M	3	已逐行审	【F07·P1】L218-240 一阶编排多步同资料共享 parent_ref 时，后续步较晚 expires_at 触发 grants[0].expires_at < request.expires_at 报 409 method_parent_changed
+knowbase-app/knowbase-backend	app/app/domain/method_reads.py	A	3	已逐行审	KnowBase 后端授权与数据读取变更已逐行审阅，未发现额外缺陷
+knowbase-app/knowbase-backend	app/app/domain/user_runs.py	M	3	已逐行审	KnowBase 后端授权与数据读取变更已逐行审阅，未发现额外缺陷
+knowbase-app/knowbase-backend	app/app/infrastructure/models/user_data.py	M	3	已逐行审	KnowBase 后端授权与数据读取变更已逐行审阅，未发现额外缺陷
+knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	M	3	已逐行审	KnowBase 后端授权与数据读取变更已逐行审阅，未发现额外缺陷
+knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_run_routes.py	M	3	已逐行审	KnowBase 后端授权与数据读取变更已逐行审阅，未发现额外缺陷
+knowbase-app/knowbase-backend	app/app/interfaces/mcp/data_mcp.py	M	3	已逐行审	【F09·P2】L429 正式方法读取原件直接 .decode('utf-8')，非 UTF-8 文本抛未捕获 UnicodeDecodeError（对比 L506 已用 replace）
+knowbase-app/knowbase-backend	app/tests/test_data_mcp.py	M	3	已逐行审	配套仓回归测试已审阅并在隔离环境实测通过
+knowbase-app/knowbase-backend	app/tests/test_kernel_invariants.py	M	3	已逐行审	配套仓回归测试已审阅并在隔离环境实测通过
+knowbase-app/knowbase-backend	app/tests/test_user_library_contract.py	M	3	已逐行审	配套仓回归测试已审阅并在隔离环境实测通过
+knowmart-app	knowmart-backend	M	3	指针对账	父仓子模块指针与审查范围固定子仓提交完全一致
+knowmart-app/knowmart-backend	app/alembic/versions/20261120_0015_formal_method_acquisition.py	A	3	已逐行审	Alembic 数据库迁移已逐行审阅（约束、唯一索引、外键、可逆降级及旧数据兼容核对通过）
+knowmart-app/knowmart-backend	app/app/application/ports/market.py	M	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/app/application/services/market.py	M	3	已逐行审	【F05·P1】L579-615/L626-649/L662-694 submit_formal/review_formal/acquire_formal 持 formal_method_listing FOR UPDATE 行锁跨越外部 HTTP 交付调用
+knowmart-app/knowmart-backend	app/app/bootstrap/knowbots.py	M	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/app/domain/market.py	M	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/app/infrastructure/external/formal_method_delivery.py	A	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/app/infrastructure/models/market.py	M	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	M	3	已逐行审	【F05·P1】L125-153 submit_formal_listing/formal_listing 加 with_for_update() 行锁被服务层跨 HTTP 持有
+knowmart-app/knowmart-backend	app/app/interfaces/endpoints/knowbot_routes.py	M	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/app/interfaces/endpoints/market_routes.py	M	3	已逐行审	KnowMart 后端上架/审核/获取变更已逐行审阅，未发现额外缺陷
+knowmart-app/knowmart-backend	app/tests/test_kernel_invariants.py	M	3	已逐行审	配套仓回归测试已审阅并在隔离环境实测通过
+knowmart-app/knowmart-backend	app/tests/test_market_db.py	M	3	已逐行审	配套仓回归测试已审阅并在隔离环境实测通过
+knowmart-app/knowmart-backend	app/tests/test_market_routes.py	M	3	已逐行审	配套仓回归测试已审阅并在隔离环境实测通过
+sunmoon-link	CHECKPOINT.md	M	3	证据或文档核对	子仓交接/说明文档已核对
+sunmoon-link	agent/README.md	M	3	证据或文档核对	子仓交接/说明文档已核对
+sunmoon-link	agent/distribution/PACKAGE-README.txt	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/distribution/README.md	M	3	证据或文档核对	子仓交接/说明文档已核对
+sunmoon-link	agent/distribution/linux-x64.json	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/distribution/windows-x64.json	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/package.json	M	3	已逐行审	依赖锁与构建/静态检查配置变更已核对，无异常依赖或放宽规则
+sunmoon-link	agent/pnpm-lock.yaml	M	3	已逐行审	依赖锁与构建/静态检查配置变更已核对，无异常依赖或放宽规则
+sunmoon-link	agent/src/cli.ts	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/src/windowsBootstrap.ts	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/src/windowsPolicy.ts	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/src/windowsRuntime.ts	M	3	已逐行审	SunMoon Link 0.5.9 / Codex 0.170.0 执行端源码与打包配置已逐行审阅，未发现阻断缺陷
+sunmoon-link	agent/test/local-api-windows-probe.mjs	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/local-project-windows-probe.mjs	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/pair.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/relayClient.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/service-windows-probe.mjs	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsFilesNotFound.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsFilesResident.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsFilter.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsFollowup.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsHttp.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsLifecycle.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsNative.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
+sunmoon-link	agent/test/windowsPolicy.test.ts	M	3	已逐行审	Link 0.5.9 / Codex 0.170.0 适配单测变更已审阅，覆盖协议握手与策略边界
