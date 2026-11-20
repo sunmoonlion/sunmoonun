@@ -6,9 +6,9 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v10
-  # 受管能力资产、会话选择和审批回执；0040 接 0039，保留历史记录。
-  expected_schema_revision: '20261113_0040'
+  migration_job_revision: v11
+  # 共同调用、资料授权与脚本输入；0049 接 0040，保留历史记录。
+  expected_schema_revision: '20261120_0049'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
@@ -108,6 +108,8 @@ knowbench_backend_deployment:
     # 数据第四版补采开关（SDD 0043 第 4.1 节，fail-closed）：开着且下面 knowfeed 的 supply-demand 关系配全了才提需求单，
     # 否则缺的数据一律「暂不能补采」
     WORKBENCH_DATA_SUPPLY_ENABLED: 'true'
+    # C1 用户脚本入口保持关闭。供给器与镜像先发布，待独立回执和目标集群受控验收后再从部署真源打开。
+    WORKBENCH_SKILL_SCRIPTS_ENABLED: 'false'
     # Login-only release: keep pending plan-execution/output-writing rollout disabled.
     WORKBENCH_FIXED_AS_PLAN_OWNERS: '[]'
     WORKBENCH_OUTPUT_WRITE_ENABLED: 'false'
