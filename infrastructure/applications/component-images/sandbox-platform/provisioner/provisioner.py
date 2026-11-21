@@ -466,6 +466,10 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
     async def prepare_instruction(units: InstructionUnits = Depends(instruction_units)):
         return await units.reserve()
 
+    @app.get(instruction + "/reservation", dependencies=[Depends(require_token)])
+    async def instruction_reservation(units: InstructionUnits = Depends(instruction_units)):
+        return await units.reservation()
+
     @app.get(instruction + "/{uid}", dependencies=[Depends(require_token)])
     async def instruction_status(
         uid: UUID, units: InstructionUnits = Depends(instruction_units)

@@ -11,7 +11,8 @@
 | 宿主动作 | 供给器接口 | 持久状态与重试 |
 | --- | --- | --- |
 | 预留并取得实例身份 | `POST /prepare` | 返回 apiserver 分配的网关 Pod UID。并发预留返回同一实例，原 UID 保存在回执卷声明上。 |
-| 开启 Attempt 后绑定 | `PUT /{uid}/binding` | 宿主提交 `attempt`、`model` 和短期 `ticket`。网关核对自身 UID 后启动。相同绑定可续票。 |
+| 查询上次预留 | `GET /reservation` | 响应丢失后仅查本所有者和任务的原网关 UID，支持从回执卷声明识别原实例。查询不创建 Pod 或卷。 |
+| 绑定已预留预算的 Attempt | `PUT /{uid}/binding` | 宿主提交 `attempt`、`model` 和短期 `ticket`。网关核对自身 UID 后启动。相同绑定可续票。 |
 | 查询网关、取得执行连接 | `GET /{uid}`、`PUT /{uid}/worker` | 网关就绪后才允许创建执行 Pod。宿主等到执行 Pod 就绪再用返回的 IP、47800 端口和本次专用令牌连接 Codex。重复获取沿用同一执行 Pod 与令牌。 |
 | 允许本轮首个模型请求 | 再次 `PUT /{uid}/binding` | 宿主从真实 `turn/start` 回参取得 `turn` 后补入。第一次模型 POST 等待票据卷投影更新，最多 90 秒。续票保留已绑定轮次。 |
 | 取消执行、核销用量 | `POST /{uid}/stop` | 宿主先在 KnowBench 取消并阻止新请求，再停执行 Pod。网关继续收取和补交原始回执。已放行请求的用量未知时保留预留和证据。 |

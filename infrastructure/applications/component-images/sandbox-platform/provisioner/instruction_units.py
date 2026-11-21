@@ -207,14 +207,34 @@ class InstructionUnits:
             },
         }
 
+    async def reservation(self):
+        """Observe an in-flight reservation after a lost reply, including a retained proof volume."""
+        proof = await self.kube.get("persistentvolumeclaims", self.name + "-proof")
+        if proof is None:
+            raise HTTPException(404, "instruction reservation absent")
+        meta = proof["metadata"]
+        if any(meta.get("labels", {}).get(k) != v for k, v in self.labels.items()):
+            conflict("instruction receipt storage changed")
+        uid = meta.get("annotations", {}).get("sunmoonai.com/gateway-uid")
+        pod = await self.kube.get("pods", self.name)
+        if pod is not None:
+            actual = UUID(pod["metadata"]["uid"])
+            if uid and str(actual) != uid:
+                conflict("instruction gateway replaced")
+            await self.gateway(actual, stopping=True)
+            return {"uid": str(actual)}
+        if uid:
+            return {"uid": uid}
+        conflict("instruction reservation has not acquired a Pod")
+
     async def reserve(self):
         if not self.origin:
-            raise HTTPException(503, "instruction control HTTPS origin not configured")
+            raise HTTPException(503, {"code": "instruction_prepare_disabled"})
         try:
             origin = urlsplit(self.origin)
             port = origin.port
         except ValueError as exc:
-            raise HTTPException(503, "invalid instruction control origin") from exc
+            raise HTTPException(503, {"code": "instruction_control_origin_invalid"}) from exc
         if (
             origin.scheme != "https"
             or not origin.hostname
@@ -228,7 +248,7 @@ class InstructionUnits:
         ):
             raise HTTPException(
                 503,
-                "instruction control requires an internal service HTTPS origin on port 443",
+                {"code": "instruction_control_origin_invalid"},
             )
         await self.policy(
             "instruction-deny-all",
@@ -613,10 +633,16 @@ class InstructionUnits:
         ):
             conflict("settled Attempt required to retire the gateway")
         proof = await self.kube.get("persistentvolumeclaims", self.name + "-proof")
-        if not proof or proof["metadata"].get("annotations", {}).get(
-            "sunmoonai.com/gateway-uid"
-        ) != str(uid):
+        if not proof or any(
+            proof["metadata"].get("labels", {}).get(k) != v
+            for k, v in self.labels.items()
+        ):
             conflict("instruction receipt storage changed")
+        # A lost prepare reply may leave the original Pod created before its UID
+        # is recorded on this Task's PVC. Fence it before recording retirement.
+        await self.remember(
+            "persistentvolumeclaims", proof, "sunmoonai.com/gateway-uid", str(uid)
+        )
         await self.remember(
             "persistentvolumeclaims",
             proof,

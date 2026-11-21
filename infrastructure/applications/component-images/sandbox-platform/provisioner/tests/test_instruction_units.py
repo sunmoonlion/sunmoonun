@@ -53,6 +53,7 @@ async def test_instruction_unit_lifecycle(monkeypatch):
             ) as client:
                 assert (await client.post(root + "/prepare")).status_code == 401
                 client.headers.update(headers)
+                assert (await client.get(root + "/reservation")).status_code == 404
                 monkeypatch.delenv("INSTRUCTION_CONTROL_ORIGIN", raising=False)
                 assert (await client.post(root + "/prepare")).status_code == 503
                 monkeypatch.setenv(
@@ -68,6 +69,7 @@ async def test_instruction_unit_lifecycle(monkeypatch):
                 )
                 uid = first.json()["uid"]
                 assert second.json()["uid"] == uid
+                assert (await client.get(root + "/reservation")).json() == {"uid": uid}
                 prefix = root + "/" + uid
                 binding = {
                     "attempt": str(attempt),
