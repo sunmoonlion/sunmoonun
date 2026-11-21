@@ -190,6 +190,7 @@ async def test_service_publication_and_selection(db, monkeypatch):
                 "query_metric",
                 "read_facts",
                 "list_inputs",
+                "read_input",
             }
             path = "/api/internal/v1/knowbot-runtime/users/author/formal-method-sources"
             async with httpx.AsyncClient(
@@ -208,6 +209,10 @@ async def test_service_publication_and_selection(db, monkeypatch):
                     licenses.append(record)
                     res = await http.get(path)
                     assert res.status_code == 200, res.text
+                    if name == "read_input":
+                        assert res.json()["items"] == []
+                        licenses.clear()
+                        continue
                     [source] = res.json()["items"]
                     assert (
                         pin.items() <= source.items()

@@ -19,7 +19,7 @@ BENCH = ROOT / "knowbench-app/knowbench-backend/app"
 async def provider():
     import httpx
     from fastapi import FastAPI
-    from test_data_mcp import World, token
+    from test_data_mcp import World
     from test_durable_delivery_db import db
     from app.application.services.data_query_revisions import function_revision
     from app.domain.user_library import PUBLIC_OWNER
@@ -85,7 +85,17 @@ async def provider():
         )
         chat = await world.runs.register_session("author", "knowbench")
         print(
-            json.dumps([function_revision(name), expected, chat.id, query]), flush=True
+            json.dumps(
+                [
+                    function_revision(name),
+                    expected,
+                    chat.id,
+                    query,
+                    function_revision("read_input"),
+                    material.id,
+                ]
+            ),
+            flush=True,
         )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app), base_url="https://localhost"
@@ -102,27 +112,35 @@ async def provider():
                         r["reader"]
                         for r in await world.runs.reads(PUBLIC_OWNER, material.id)
                     ]
+                elif "prepare_text" in msg:
+                    from datetime import date
+
+                    job = await world.runs.issue_processing(
+                        "knowfeed", PUBLIC_OWNER, material.id, 1
+                    )
+                    await world.runs.write_rendition(
+                        "knowfeed",
+                        job.id,
+                        "text",
+                        "test-reader",
+                        ("中文🙂" * 21000).encode(),
+                        title="脚本分页",
+                        published_on=date(2026, 1, 1),
+                    )
+                    reply = True
                 elif "revoke_chat" in msg:
                     [active] = await world.runs.session_grants(
                         "author", "knowbench", chat.id
                     )
                     await world.runs.revoke_by_user("author", active.id)
                     reply = True
-                elif "read_in_chat" in msg:
-                    reply = await world.call(
-                        "read_input",
-                        auth=token(sub="author"),
-                        session=chat.id,
-                        material_id=material.id,
-                        what="pages",
-                    )
                 else:
                     res = await http.post(
                         msg["path"],
                         json=msg["body"],
                         headers={"Authorization": msg["auth"]},
                     )
-                    reply = [res.status_code, res.text]
+                    reply = [res.status_code, res.text, dict(res.headers)]
                 print(json.dumps(reply), flush=True)
     finally:
         await schema.aclose()
@@ -162,6 +180,7 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         cwd=BASE,
         stdin=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
+        limit=2 * 1024 * 1024,  # One JSON line may carry a full Unicode material page.
     )
 
     async def exchange(msg):
@@ -172,7 +191,14 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         return json.loads(line)
 
     try:
-        revision, expected, chat, query = await exchange(
+        (
+            revision,
+            expected,
+            chat,
+            query,
+            material_revision,
+            material_id,
+        ) = await exchange(
             {
                 "public": issuer.public_pem(),
                 "name": name,
@@ -182,14 +208,14 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         )
 
         async def forward(req):
-            status, body = await exchange(
+            status, body, headers = await exchange(
                 {
                     "path": req.url.path,
                     "body": json.loads(req.content),
                     "auth": req.headers["Authorization"],
                 }
             )
-            return httpx.Response(status, content=body)
+            return httpx.Response(status, content=body, headers=headers)
 
         async def grant(ref):
             await exchange({"grant": ref})
@@ -214,6 +240,12 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         from app.interfaces.mcp import workbench_mcp
         from sqlalchemy import text
 
+        from app.infrastructure.workbench.service_functions import register_revision
+
+        async with db() as session:
+            await register_revision(
+                session, FunctionRevision.model_validate(material_revision)
+            )
         _, _, sid = await seed(db)
         if scene == "chat":
             async with db() as session:
@@ -294,7 +326,18 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                 [unknown] = [c for c in ledger if c["status"] == "unknown"]
                 assert "function_receipt" not in unknown["detail"]
                 assert "function:" + unknown["id"] in await exchange({"readers": True})
+                quote = {
+                    "material_id": material_id,
+                    "page": 88,
+                    "text": "报告期内渠道库存保持合理水平",
+                }
+                assert await reader.quotes(
+                    repo, task_row, [quote, quote | {"page": 1}]
+                ) == [{"found": True}, {"found": False, "reason": "not_found"}]
                 await exchange({"revoke_task_grant": grant_id})
+                assert await reader.quotes(repo, task_row, [quote]) == [
+                    {"found": False, "reason": "page_not_readable"}
+                ]
                 with pytest.raises(ComputeRefused, match="no such fact"):
                     await reader.facts(repo, task_row, query["refs"])
         monkeypatch.setattr(workbench_mcp, "knowbase_v2", lambda: client)
@@ -315,7 +358,27 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             assert unread[field] == []
             if name == "read_facts":
                 assert unread["not_found"] == query["refs"]
-            assert "pages" in await exchange({"read_in_chat": True})
+            read = await native.post(
+                URL,
+                headers=bearer(issuer=issuer),
+                json=tool(
+                    "read_input",
+                    conversation=sid,
+                    what="pages",
+                    material_id=material_id,
+                    version_no=1,
+                    page_from=88,
+                    page_to=88,
+                ),
+            )
+            selected = read.json()["result"]
+            assert selected["isError"] is False, selected
+            assert selected["structuredContent"]["pages"] == [
+                {"page": 88, "text": "报告期内渠道库存保持合理水平，营业收入同比增长。"}
+            ]
+            assert "function:" + selected["_meta"]["call_id"] in await exchange(
+                {"readers": True}
+            )
             found = await ask(conversation=sid)
             assert found["structuredContent"][field] == expected
             call_id = found["_meta"]["call_id"]
@@ -349,7 +412,86 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             assert (
                 missing["isError"] and "not registered" in missing["content"][0]["text"]
             )
+        if name == "read_facts":
+            await exchange({"prepare_text": True})
+            await verify_script_pages(
+                db, issuer, client, exchange, chat, material_id, revoke=scene == "chat"
+            )
     finally:
         process.stdin.close()
         await process.stdin.wait_closed()
         assert await asyncio.wait_for(process.wait(), timeout=45) == 0
+
+
+async def verify_script_pages(
+    db, issuer, client, exchange, chat, material_id, *, revoke
+):
+    import base64
+    from datetime import UTC, datetime, timedelta
+    from app.infrastructure.workbench.repository import WorkbenchRepository
+    from test_capabilities_db import approval, service
+    from test_skill_execution_db import setup
+    from test_workbench_ledger_db import OWNER
+    from tool_invocation_support import request_call
+    from sqlalchemy import text
+
+    sid, executor, _, key, token = await setup(db)
+
+    async def prepare(owner, call_id, body):
+        if revoke:
+            await exchange({"revoke_chat": True})
+
+    executor.prepare = prepare
+    async with db() as session:
+        repo = WorkbenchRepository(session)
+        async with repo.transaction():
+            await repo.set_knowbase_session(
+                sid, chat, datetime.now(UTC) + timedelta(minutes=5)
+            )
+        svc = service(repo)
+        svc.script_executor = executor
+        svc.script_material_source = (client, issuer)
+        args = {
+            "path": "scripts/calculate.py",
+            "inputs": [
+                {
+                    "kind": "material",
+                    "name": "input.txt",
+                    "material_id": material_id,
+                    "version_no": 1,
+                    "reading": "text/1",
+                }
+            ],
+        }
+        staged = await request_call(svc, sid, token, key, args)
+        script = await repo.capability_call(OWNER, staged["call_id"])
+        result = await svc.decide(OWNER, script["id"], approval(script))
+        rows = (
+            (
+                await session.execute(
+                    text(
+                        "SELECT id, status, detail FROM workbench_calls WHERE parent_call_id=:parent"
+                    ),
+                    {"parent": script["id"]},
+                )
+            )
+            .mappings()
+            .all()
+        )
+        readers = await exchange({"readers": True})
+        confirmed = [r for r in rows if r["status"] == "succeeded"]
+        assert all(
+            "function:" + str(r["id"]) in readers
+            and r["detail"]["operation"]["registered_source"]["name"] == "read_input"
+            for r in confirmed
+        )
+        if revoke:
+            assert len(confirmed) == 2 and len(rows) == 3
+            assert result["status"] == "failed" and not executor.started
+        else:
+            assert len(confirmed) == len(rows) == 4
+            assert result["status"] == "dispatching"
+            [uploaded] = executor.started[0][2]["inputs"]
+            assert (
+                base64.b64decode(uploaded["data_base64"]) == ("中文🙂" * 21000).encode()
+            )

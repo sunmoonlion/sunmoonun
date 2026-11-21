@@ -8,6 +8,7 @@ provisioner with the matching sandbox image. The probe owns only its random acto
 import asyncio
 import base64
 import io
+import json
 import os
 import sys
 import tempfile
@@ -39,6 +40,7 @@ async def launch(app, mode, env):
 
 
 async def source():
+    from app.application.services.data_query_revisions import function_revision
     import uvicorn
     from test_data_mcp import KEY, PUBLIC_OWNER, World
     from test_durable_delivery_db import db
@@ -84,6 +86,9 @@ async def source():
                     dict(
                         os.environ,
                         SCRIPT_SOURCE_SOCKET=socket,
+                        SCRIPT_SOURCE_REVISION=json.dumps(
+                            function_revision("read_input")
+                        ),
                         SCRIPT_SOURCE_MATERIAL=str(material.id),
                         SCRIPT_SOURCE_SESSION=str(session.id),
                         SCRIPT_SYNTHETIC_KEY=KEY.as_pem(private=True).decode(),
@@ -109,16 +114,20 @@ async def consume():
     from test_workbench_ledger_db import OWNER, db, seed
     from tool_invocation_support import request_call
 
+    from app.domain.workbench.service_functions import FunctionRevision
+    from app.infrastructure.workbench.service_functions import register_revision
+
     class Source:
-        async def data_mcp(self, token, message):
+        async def invoke_data_query(self, name, token, body):
+            assert name == "read_input"
             transport = httpx.AsyncHTTPTransport(uds=os.environ["SCRIPT_SOURCE_SOCKET"])
             async with httpx.AsyncClient(
-                transport=transport, base_url="http://knowbase"
+                transport=transport, base_url="http://localhost"
             ) as client:
                 reply = await client.post(
-                    "/mcp/data",
+                    f"/internal/v1/functions/{name}/1",
                     headers={"Authorization": "Bearer " + token},
-                    json=message,
+                    json=body,
                 )
                 reply.raise_for_status()
                 return reply.json()
@@ -131,6 +140,13 @@ async def consume():
     )
     call_id = None
     try:
+        async with factory() as session:
+            await register_revision(
+                session,
+                FunctionRevision.model_validate_json(
+                    os.environ["SCRIPT_SOURCE_REVISION"]
+                ),
+            )
         _, _, sid = await seed(factory)
         async with factory() as session:
             repo = WorkbenchRepository(session)
