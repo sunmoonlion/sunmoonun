@@ -66,7 +66,9 @@
 
 **已修正鉴权错误的呈现。** 候选沙箱源码 `d1ccee1ee` 将供应商 HTTP 401 以明确的凭据错误交回 Codex。宿主拒绝请求仍沿用原核权错误。回归验过一次派发、无用量回执、上游错误正文不进入返回信息。
 
-**下一步。** 由账号持有人在 KnowBench 的模型设置更新 `knowbot-tester` 的 Kimi API 密钥，另获一次实测授权后核对成功响应的 token 明细和对应账单。K3 的公开上下文窗口为 1,048,576 token，默认缓存写入 TTL 为 5 分钟，价格配置与实际账单仍须分别核对。随后接 KnowLab 作者试跑、私有冻结和专家叶子。[Kimi 计费说明](https://platform.kimi.com/docs/pricing/chat) · [Responses 用量字段](https://platform.kimi.com/docs/api/responses)
+**更新凭据后复测（2026-11-21）。** 确认 `knowbot-tester` 已保存新密钥，现有沙箱进程仍持旧值。通过 KnowBench 供给流程刷新该账号的沙箱并核对凭据一致后，向同一 Responses 端点发送一次合成请求，输出上限 64 token。HTTP 200，`kimi-k3` 返回 `completed`，响应号 `resp_0e7a91b4b39756cea612136e6`。输入 176 token（缓存命中与写入均为 0），输出 24 token（含推理 18），合计 200。该账号原有沙箱保留就绪。
+
+**下一步。** 按响应号核对供应商账单和运营价目，再验 KnowBench 根任务扣费。本次实测已取得供应商用量回执。非零缓存档位、正式作者试跑、私有冻结和专家叶子仍待验。[Kimi 计费说明](https://platform.kimi.com/docs/pricing/chat) · [Responses 用量字段](https://platform.kimi.com/docs/api/responses)
 
 **全局审查收回（2026-11-20）。** F01–F21 已逐项登记采纳、既有修复或保留理由，详见[原单与回执](docs/sync-cowork/archive/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)。本轮合并候选为 KnowBench `0f031cd`、KnowLab `c61b98e`、KnowBase `c9ed334` 和 KnowMart `190f8ce`。按所有者决定，P1 与本轮修复交 Cursor 一起发布；实际窗口、镜像与集群回执见[合并发版单](docs/sync-cowork/archive/luna/2026-11-20-基础修复与P1作者短链下次发版需求/request.md)。
 
