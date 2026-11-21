@@ -107,7 +107,7 @@ async def bench(registered_script=False):
             code = """import json, os
 from pathlib import Path
 args = json.loads((Path(os.environ["SUNMOON_INPUT_DIR"])/"arguments.json").read_text())
-result = {"receipt": args["to"] + "|" + args["other"]}
+result = {"receipt": args["to"] + "|" + args["other"], "assessment": "Author requests a second look"}
 (Path(os.environ["SUNMOON_OUTPUT_DIR"])/"result.json").write_text(json.dumps(result))
 """
             async with sessions() as session:
@@ -350,6 +350,8 @@ async def author(peer, template):
             if registered_script:
                 join_request = await new_request("P2 concatenate two branch results")
                 p2_request = await new_request("P2 expert")
+                reviewer_request = await new_request("Compare an assessment with a checked output")
+                staged_request = await new_request("Strict review draft")
                 join = copy.deepcopy(draft)
                 join["source"] = template["join_source"]
                 join["definition"]["access_requirements"][0]["data_transfer"]["argument_fields"] = ["to", "other"]
@@ -357,9 +359,16 @@ async def author(peer, template):
                 for field in ("kind", "source", "entry", "version", "digest"):
                     procedure["implementation"][field] = join["source"][field]
                 procedure["inputs"]["other"] = copy.deepcopy(procedure["inputs"]["to"])
+                procedure["outputs"]["assessment"] = copy.deepcopy(procedure["outputs"]["receipt"])
+                procedure["outputs"]["assessment"]["meaning"] = {"unit": "author-assessment"}
                 join["definition"]["capability_declaration"]["title"] = "Combine both verified references"
                 await KnowbotWorkdraftService(repo).save(
                     "author", join_request, revision=0, edits=[("formal_method", join)]
+                )
+                reviewer = copy.deepcopy(join)
+                reviewer["definition"]["procedure"]["inputs"]["other"]["meaning"] = {"unit": "author-assessment"}
+                await KnowbotWorkdraftService(repo).save(
+                    "author", reviewer_request, revision=0, edits=[("formal_method", reviewer)]
                 )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app),
@@ -522,7 +531,7 @@ async def author(peer, template):
                         }
                         expected = hashlib.sha256(b'{"to":"sandbox-provisioner"}').hexdigest()
                         assert results[0]["inputs_digest"] == expected
-                    if steps == 3 and "join_source" in template:
+                    if registered_script and mid == p2_id:
                         case = result["cases"][0]
                         report = case["verified_steps"]
                         assert "partial" not in case and not report["missing_promises"]
@@ -531,10 +540,20 @@ async def author(peer, template):
                                     "step": step["step"], "scope_digest": report["scope_digest"]}
                         receipt = await call("POST", endpoint + "/step-deliveries", json=selected)
                         assert receipt["outputs"] == results[-1]["outputs"]
-                        prepared = await call("POST", endpoint + "/branch-review", json={**selected, "artifact": step["artifact"],
-                            "previous": None, "criteria": {"outputs": ["receipt"], "reviewer": "different_model_family",
-                            "assertions": [{"kind": "equals", "pointer": "/receipt", "value": expected_output or expected_receipt}]}})
-                        assert prepared["review"]["status"] == "awaiting_isolation" and prepared["artifact"] == step["artifact"]
+                        command = {**selected, "artifact": step["artifact"], "previous": None, "criteria": {
+                            "outputs": ["receipt"], "reviewer": "different_model_family",
+                            "comparison": {"assessment_output": "assessment", "max_reworks": 2},
+                            "assertions": [{"kind": "equals", "pointer": "/receipt", "value": expected_output or expected_receipt}]}}
+                        counters = await rpc({"review_counters": True})
+                        prepared = await call("POST", endpoint + "/branch-review", json=command)
+                        review = prepared["review"]
+                        assert review["status"] == "awaiting_isolation" and prepared["artifact"] == step["artifact"]
+                        assert set(review["handoff"]) == {"receipt"}
+                        assert review["deferred"] == {"assessment_output": "assessment",
+                            "assessment_digest": "sha256:" + hashlib.sha256(json.dumps(receipt["outputs"]["assessment"]).encode()).hexdigest(),
+                            "opens_after": "independent_findings_sealed", "unresolved_to": "task_owner"}
+                        assert await call("POST", endpoint + "/step-deliveries", json=selected) == prepared
+                        assert await rpc({"review_counters": True}) == counters
                     by_step = {row["slot"]: row for row in results}
                     for node in chain:
                         expected_inputs = {
@@ -625,6 +644,41 @@ async def author(peer, template):
                 left, right, merge = p2["definition"]["procedure"]["steps"]
                 assert not left["depends_on"] and not right["depends_on"]
                 assert merge["depends_on"] == [left["id"], right["id"]]
+                # Use actual frozen contracts on both sides of the saved review edge.
+                reviewer_id = str(uuid4())
+                frozen_reviewer = await trial(reviewer_id, reviewer_request, 1,
+                    input_values={"to": "left", "other": "right"}, expected_output="left|right")
+                document = (await call("GET", f"knowbot-requests/{p2_request}/workdraft"))["body"]["formal_method"]
+                graph = document["definition"]["procedure"]
+                target = copy.deepcopy(merge)
+                target.update(id="review", depends_on=[merge["id"]], candidates=[{
+                    "method_id": reviewer_id, "version": 1, "digest": frozen_reviewer["digest"]}])
+                for param, output in (("to", "receipt"), ("other", "assessment")):
+                    target["inputs"][param] = {"slot": reviewer["definition"]["procedure"]["inputs"][param],
+                        "binding": {"source": "step", "step": merge["id"], "output": output}}
+                graph["steps"].append(target)
+                graph["max_steps"] = graph["max_expansions"] = 10
+                for export in graph["exports"].values():
+                    export["step"] = "review"
+                roles = {"review": {"review_requirements": {merge["id"]: "isolated_reviewer"},
+                    "comparison": {"assessment_output": "assessment", "max_reworks": 1}}}
+                review_path = f"knowbot-requests/{staged_request}/workdraft"
+                await call("POST", review_path + "/cells", json={"revision": 0, "cells": [
+                    {"path": "formal_method", "value": document}, {"path": "collaboration", "value": roles}]})
+                reopened = await call("GET", review_path)
+                assert reopened["body"]["collaboration"]["review"]["comparison"] == roles["review"]["comparison"]
+                assert {"step": "review", "primitive": "sealed_findings"} in reopened["runtime_gaps"]
+                spec = copy.deepcopy(template["execution"])
+                spec["suite"].pop("digest")
+                spec["suite"]["suite_id"] = str(uuid4())
+                spec["suite"]["cases"][0]["input"]["values"] = two_inputs
+                command = {"request_id": staged_request, "run_id": str(uuid4()), "revision": 1, "execution": spec}
+                counters = await rpc({"review_counters": True})
+                response = await client.post(f"/api/web/v1/method-units/{uuid4()}/executions", json=command)
+                assert response.status_code == 409 and response.json()["code"] == "runtime_capability_gap", response.text
+                assert review_requests["formal-method-executions"] == reopened["body"]["collaboration"]
+                assert await rpc({"review_counters": True}) == counters
+                print("P3 verified: strict draft reopened, author assessment withheld, execution blocked before dispatch")
                 print(
                     "P2 verified: scoped lookup, adoption, reopen, expired second approval, "
                     "partial scope receipt after cleanup, completed and partial V0 review drafts, both branch artifacts and private freeze", p2["digest"],
