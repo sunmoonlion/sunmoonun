@@ -357,6 +357,8 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                 with pytest.raises(ComputeRefused, match="no such fact"):
                     await reader.facts(repo, task_row, query["refs"])
         monkeypatch.setattr(workbench_mcp, "knowbase_v2", lambda: client)
+        if name == "read_facts" and scene == "chat":
+            await verify_compute(db, served, monkeypatch, issuer, exchange, expected[0])
         async with httpx.AsyncClient(
             transport=ObservedPlatformTransport(
                 served, db, {"current": sid, "chat": sid}
@@ -478,6 +480,123 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         process.stdin.close()
         await process.stdin.wait_closed()
         assert await asyncio.wait_for(process.wait(), timeout=45) == 0
+
+
+async def verify_compute(db, served, monkeypatch, issuer, exchange, fact):
+    """One real KnowBase grant, a registered workbench calculation and its replay."""
+    from decimal import Decimal
+
+    import httpx
+    from app.domain.workbench.native_functions import compute_revision
+    from app.domain.workbench.packs import BUILTIN_PACKS
+    from app.infrastructure.workbench.repository import WorkbenchRepository
+    from sample_packs import SAMPLE_PACKS
+    from sample_replies import PROFILE, SCOPE
+    from test_workbench_advisor_db import close
+    from test_workbench_ledger_db import OWNER
+    from test_workbench_mcp_routes import URL, bearer, tool
+    from test_workbench_review_db import unbalanced
+    from tool_invocation_support import (
+        ObservedPlatformTransport,
+        running_platform_world,
+    )
+
+    pack = next(p for p in SAMPLE_PACKS if p.profile_id == "FIN_REVIEW")
+    monkeypatch.setitem(
+        BUILTIN_PACKS, pack.profile_id, pack.model_copy(update={"internal": False})
+    )
+    fake, runner, ids = await running_platform_world(db, [SCOPE, PROFILE, unbalanced()])
+    try:
+        tid = ids["task"]
+        grant = await exchange({"grant": tid})
+        async with db() as session:
+            repo = WorkbenchRepository(session)
+            async with repo.transaction():
+                await repo.insert_task_resolution(
+                    {
+                        "task_id": tid,
+                        "resolution_id": tid,
+                        "revision": 1,
+                        "consumer": "expert:fixture@1",
+                        "params": {},
+                        "grant_ref": tid,
+                        "status": "ready",
+                    }
+                )
+        item = {
+            "key": "base",
+            "name": "reported",
+            "expression": "x",
+            "inputs": {"x": fact["ref"]},
+        }
+        twice = {
+            "key": "double",
+            "name": "double",
+            "expression": "x*2",
+            "inputs": {"x": "batch:base"},
+        }
+        batch = tool("compute", task=tid, batch=[item, twice])
+        headers = bearer(issuer=issuer)
+        async with httpx.AsyncClient(
+            transport=ObservedPlatformTransport(served, db, ids),
+            base_url="http://testserver",
+        ) as http:
+            result = (await http.post(URL, headers=headers, json=batch)).json()[
+                "result"
+            ]
+            assert not result["isError"], result
+            base, double = result["structuredContent"]["results"]
+            assert Decimal(double["value"]) == 2 * Decimal(fact["value"])
+            assert double["inputs"][0]["ref"] == base["id"]
+            cid = result["_meta"]["call_id"]
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                calls = await repo.list_task_calls(OWNER, tid)
+                [parent] = [c for c in calls if c["id"] == cid]
+                [child] = [c for c in calls if c["parent_call_id"] == cid]
+                op = parent["detail"]["operation"]
+                assert (
+                    op["registered_source"]["digest"] == compute_revision().digest
+                    and op["effect"] == "write"
+                )
+                assert (
+                    child["detail"]["operation"]["registered_source"]["name"]
+                    == "read_facts"
+                )
+                assert "function:" + child["id"] in await exchange({"readers": True})
+                invocation = parent["detail"]["invocation"]
+            await exchange({"revoke_task_grant": grant})
+            retry = tool("compute", task=tid, batch=[item, twice])
+            retry["params"]["_meta"] = {
+                "threadId": invocation["thread_id"],
+                "callId": invocation["call_id"],
+                "x-codex-turn-metadata": {
+                    "thread_id": invocation["thread_id"],
+                    "turn_id": invocation["turn_id"],
+                },
+            }
+            async with httpx.AsyncClient(
+                transport=httpx.ASGITransport(app=served), base_url="http://testserver"
+            ) as plain:
+                replay = (await plain.post(URL, headers=headers, json=retry)).json()[
+                    "result"
+                ]
+                assert replay == result
+            refused = (await http.post(URL, headers=headers, json=batch)).json()[
+                "result"
+            ]
+            assert refused["isError"]
+        async with db() as session:
+            events = await WorkbenchRepository(session).list_task_events(
+                tid, types=("knowbot/compute",)
+            )
+            assert [(f"c{e['cursor']}", e["payload"]["call_id"]) for e in events] == [
+                (base["id"], cid),
+                (double["id"], cid),
+            ]
+    finally:
+        await close(runner)
+        await fake.close()
 
 
 async def verify_script_pages(

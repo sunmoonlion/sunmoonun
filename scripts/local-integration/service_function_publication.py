@@ -65,8 +65,9 @@ async def test_service_publication_and_selection(db, monkeypatch):
     import uvicorn
     from app.application.workbench.formal_methods import FormalMethods
     from app.bootstrap.api import create_app
-    from app.bootstrap.publish_functions import publish_project_functions
+    from app.bootstrap.publish_functions import publish_workbench_functions
     from app.domain.workbench.native_functions import (
+        compute_revision,
         project_list_revision,
         project_read_revision,
     )
@@ -172,11 +173,12 @@ async def test_service_publication_and_selection(db, monkeypatch):
                 oidc_client=BenchIssuer(),
             )
             expected = {
+                "compute": compute_revision().digest,
                 "list_project_conversations": project_list_revision().digest,
                 "read_project_conversation": project_read_revision().digest,
             }
-            assert await publish_project_functions(publisher) == expected
-            assert await publish_project_functions(publisher) == expected
+            assert await publish_workbench_functions(publisher) == expected
+            assert await publish_workbench_functions(publisher) == expected
             proc = await asyncio.create_subprocess_exec(
                 str(BASE / ".venv/bin/python"),
                 __file__,
