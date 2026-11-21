@@ -3,8 +3,9 @@
 From the worktree root, export DELIVERY_TEST_DATABASE_URL and AGENT_TEST_DATABASE_URL
 and run knowlab-app/knowlab-backend/app/.venv/bin/python sunmoonun/scripts/local-integration/p1_author.py.
 The web component talks to a loopback KnowLab. The KnowLab runtime client sends its
-HTTP requests to the real KnowBench routes in a separate interpreter. Only identity,
-the installed MCP peer and the test computer use local fixtures.
+HTTP requests to the real KnowBench routes in a separate interpreter. Header probes use
+the KnowBase HTTP API with a synthetic CSV and disposable database schema. Identity,
+object storage, the installed MCP peer and the test computer use local fixtures.
 Pass --registered-script to run the author chain using an owner-registered script
 and the local isolated worker image. Container timing uses a metering fixture.
 """
@@ -241,6 +242,7 @@ async def author(peer, template):
                     ).id
                 )
 
+            internal_request = await new_request("P1 internal producer replacement")
             strict_request = await new_request("P1 input with no predecessor")
             reselect_request = await new_request("P1 replacement expert")
             invalid_request = await new_request("P1 invalid fixed parameter")
@@ -378,7 +380,7 @@ async def author(peer, template):
 
             leaf_id, expert_id = str(uuid4()), str(uuid4())
             leaf = await trial(leaf_id, leaf_request, 1)
-            strict_id, reselect_id = str(uuid4()), str(uuid4())
+            strict_id, reselect_id, internal_id = str(uuid4()), str(uuid4()), str(uuid4())
             await trial(strict_id, strict_request, 1)
             wanted = draft["definition"]["procedure"]["inputs"]["to"]
             for mismatch in (
@@ -406,28 +408,42 @@ async def author(peer, template):
                         if serving.done():
                             await serving
                         await asyncio.sleep(0.02)
-                    child = await asyncio.create_subprocess_exec(
-                        "pnpm",
-                        "exec",
-                        "vitest",
-                        "run",
-                        "tests/component/p1-live.test.tsx",
-                        cwd=WEB,
-                        env={
-                            **os.environ,
-                            "LUNA_P1_URL": url,
-                            "LUNA_P1_REQUEST": expert_request,
-                            "LUNA_P1_METHOD": expert_id,
-                            "LUNA_P1_STRICT": strict_id,
-                            "LUNA_P1_RESELECT_REQUEST": reselect_request,
-                            "LUNA_P1_RESELECT_METHOD": reselect_id,
-                            "LUNA_P1_LEAF": leaf_id,
-                        },
-                    )
-                    assert await child.wait() == 0, "author component failed"
+                    from p1_sample_peer import author_sample
+
+                    async with author_sample(app, sessions):
+                        child = await asyncio.create_subprocess_exec(
+                            "pnpm",
+                            "exec",
+                            "vitest",
+                            "run",
+                            "tests/component/p1-live.test.tsx",
+                            cwd=WEB,
+                            env={
+                                **os.environ,
+                                "LUNA_P1_URL": url,
+                                "LUNA_P1_SAMPLE": "1",
+                                "LUNA_P1_INTERNAL_REQUEST": internal_request,
+                                "LUNA_P1_INTERNAL_METHOD": internal_id,
+                                "LUNA_P1_REQUEST": expert_request,
+                                "LUNA_P1_METHOD": expert_id,
+                                "LUNA_P1_STRICT": strict_id,
+                                "LUNA_P1_RESELECT_REQUEST": reselect_request,
+                                "LUNA_P1_RESELECT_METHOD": reselect_id,
+                                "LUNA_P1_LEAF": leaf_id,
+                            },
+                        )
+                        assert await child.wait() == 0, "author component failed"
                 finally:
                     server.should_exit = True
                     await serving
+            internal = await trial(
+                internal_id, internal_request, 2, revision=2, input_alias="buildSource"
+            )
+            internal_graph = internal["definition"]["procedure"]
+            assert [
+                node["candidates"][0]["method_id"] for node in internal_graph["steps"]
+            ] == [leaf_id, leaf_id]
+            assert internal_graph["exports"]["receipt"]["step"] == "step_1"
             replaced = await trial(
                 reselect_id,
                 reselect_request,
@@ -585,7 +601,8 @@ async def author(peer, template):
                 for endpoint in ("formal-method-validations", "formal-method-executions")
             }
             print(
-                "P1 verified: indexed predecessor and downstream replacement, both graphs reopened and frozen, fixed first input with no caller values, mid-run cancellation and three-step artifacts",
+                "P1 verified: sample header, bounded lookup, internal and downstream "
+                "replacement, reopened plans, cancellation, artifacts and freeze",
                 expert["digest"],
             )
     finally:
