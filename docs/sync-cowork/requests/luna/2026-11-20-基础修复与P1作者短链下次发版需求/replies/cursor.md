@@ -72,3 +72,13 @@ KnowBench 的 api、runner、worker、scheduler 都是新 Pod，约在批准后�
 随后的 schema 复核是 `20261120_0028`。日志没有槽位行数、依赖行数，也没有和 `provenance` 投影的对照。要补上这一项，需要一次只读计数：正式方法版本按迁移里同一投影算出的槽位和依赖，对照 `method_version_slots`、`method_dependencies`。这次没有查库。
 
 退场任务和租约只查了还在的记录，没有再停 runner。当前 Pod 是 `knowbench-runner-759f885f4d-cvrhw`，`2026-11-20T13:24:57Z` 启动，1/1。启动日志有 `workbench runner starting id=sunmoon-kind-r1`，没有租约释放或未结算任务的条数。`release_leases` 写在进程退出路径上，旧 Pod 已经不在，它的日志也没有留下来。`workbench_sandbox_leases` 里 `sunmoon-kind-r1` 的有效和已到期行，以及当时未结算任务，这次都没有查。要补这一项，需要上述只读行，或者旧 Pod 的退出日志。
+
+## 用集群入口补查已有记录（2026-11-21）
+
+用目标集群里 KnowLab 和 KnowBench 自己的数据库连接做了只读计数。没有重发，没有改开关，也没有另造用户会话。
+
+历史回填对得上，因为这个库里没有正式版本。库版本是 `20261120_0028`，触发器 `index_formal_method` 在。`knowbot_method_version`、`method_version_slots`、`method_dependencies` 都是 0 行，运行角色 `knowlab_runtime` 没有绕过行级权限，这三张表也没有打开行级权限。投影、缺行、多行和字段不一致都是 0。这里没有一份历史冻结正式版本可以再对照槽位内容。
+
+退场租约有记录。`sunmoon-kind-r1` 的 4 条租约都已到期，到期时间和更新时间都是 `2026-11-20 13:24:55.912396+00:00`，比新 Pod 的 `2026-11-20T13:24:57Z` 早两秒。没有其他 runner 的租约。这 4 个沙箱上没有 `VALIDATING`、`QUEUED`、`RUNNING`、`RECEIVED` 或 `WAITING` 任务。全部 55 个任务都已结束：成功 18、失败 19、取消 18。其中 28 个来自 KnowMart，27 个是内置包，都没有正式方法执行契约。
+
+第 3 条的补查、采用、重开、取消、冻结、两次同意、递归取消、排队审批、撤架获取和未知探针，仍然没有运行编号。集群里的数据库连接查得到上面的表，不能代替获准用户在 KnowLab 和 KnowMart 上走这些步骤。当前 KnowLab 没有任何方法版本。
