@@ -7,7 +7,7 @@ HTTP requests to the real KnowBench routes in a separate interpreter. Header pro
 the KnowBase HTTP API with a synthetic CSV and disposable database schema. Identity,
 object storage, the installed MCP peer and the test computer use local fixtures.
 Pass --registered-script to run the author chain using an owner-registered script
-and the local isolated worker image. Container timing uses a metering fixture.
+and the local isolated worker image, including a two-branch P2 join. Container timing uses a metering fixture.
 """
 
 import asyncio
@@ -100,7 +100,29 @@ async def bench(registered_script=False):
                 routes.require_testrun_service: caller,
             }
         )
-        print(json.dumps(template.model_dump(mode="json", by_alias=True)), flush=True)
+        fixture = template.model_dump(mode="json", by_alias=True)
+        if registered_script:
+            from app.domain.workbench.registry_sources import SourceDraft
+
+            code = """import json, os
+from pathlib import Path
+args = json.loads((Path(os.environ["SUNMOON_INPUT_DIR"])/"arguments.json").read_text())
+result = {"receipt": args["to"] + "|" + args["other"]}
+(Path(os.environ["SUNMOON_OUTPUT_DIR"])/"result.json").write_text(json.dumps(result))
+"""
+            async with sessions() as session:
+                repo = WorkbenchRepository(session)
+                source_id = uuid4()
+                async with repo.transaction():
+                    await repo.register_direct_revision(
+                        OWNER, source_id, 1, SourceDraft(kind="script", name="join.py", content=code)
+                    )
+                available = await factory(repo).formal_sources.sources(template.owner_subject)
+                fixture["join_source"] = next(
+                    x for x in available["items"]
+                    if x["kind"] == "registered_script" and x["source"] == str(source_id)
+                )
+        print(json.dumps(fixture), flush=True)
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app),
             base_url="https://knowbench-tls.ns.svc.cluster.local",
@@ -112,6 +134,15 @@ async def bench(registered_script=False):
                         async with sessions() as session:
                             await factory(WorkbenchRepository(session)).reconcile_scripts()
                     await conductor.advance(req["advance"])
+                    result = None
+                elif "expire_approval" in req:
+                    from sqlalchemy import text
+
+                    async with sessions.begin() as session:
+                        result = await session.execute(text(
+                            "UPDATE workbench_interactions SET expires_at=now()-interval '1 second' WHERE id=:id"
+                        ), {"id": req["expire_approval"]})
+                        assert result.rowcount == 1
                     result = None
                 elif "evidence" in req:
                     async with sessions() as session:
@@ -284,6 +315,20 @@ async def author(peer, template):
             await KnowbotWorkdraftService(repo).save(
                 "author", strict_request, revision=0, edits=[("formal_method", strict)]
             )
+            if registered_script:
+                join_request = await new_request("P2 concatenate two branch results")
+                p2_request = await new_request("P2 expert")
+                join = copy.deepcopy(draft)
+                join["source"] = template["join_source"]
+                join["definition"]["access_requirements"][0]["data_transfer"]["argument_fields"] = ["to", "other"]
+                procedure = join["definition"]["procedure"]
+                for field in ("kind", "source", "entry", "version", "digest"):
+                    procedure["implementation"][field] = join["source"][field]
+                procedure["inputs"]["other"] = copy.deepcopy(procedure["inputs"]["to"])
+                join["definition"]["capability_declaration"]["title"] = "Combine both verified references"
+                await KnowbotWorkdraftService(repo).save(
+                    "author", join_request, revision=0, edits=[("formal_method", join)]
+                )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app),
             base_url="http://testserver",
@@ -296,7 +341,11 @@ async def author(peer, template):
                 assert response.is_success, (path, response.status_code, response.text)
                 return response.json()
 
-            async def trial(mid, request_id, steps, cancel=False, *, input_alias="to", expert_graph=False, revision=1, promise_cases=(), version=1):
+            async def trial(
+                mid, request_id, steps, cancel=False, *,
+                input_alias="to", expert_graph=False, revision=1, promise_cases=(),
+                version=1, input_values=None, expected_output=None, expire_second=False,
+            ):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
                 spec["suite"]["suite_id"] = str(uuid4())
@@ -304,6 +353,9 @@ async def author(peer, template):
                     {input_alias: "sandbox-provisioner"} if input_alias is not None else {}
                 )
                 spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = expected_receipt
+                if input_values is not None:
+                    spec["suite"]["cases"][0]["input"]["values"] = input_values
+                    spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = expected_output
                 if promise_cases:
                     case = spec["suite"]["cases"][0]
                     spec["suite"]["cases"] = [
@@ -321,6 +373,15 @@ async def author(peer, template):
                     result = await call(
                         "GET", endpoint, params={"request_id": request_id}
                     )
+                    if expire_second and result["status"] == "failed":
+                        assert decisions == 2 and not result["admission"]["receipt"]
+                        evidence = await rpc({"evidence": run})
+                        observed = {r["slot"]: r for r in evidence["steps"]}
+                        assert set(observed) == {"branch", "branch_1"}
+                        assert observed["branch"]["output_artifacts"]
+                        assert not observed["branch_1"]["output_artifacts"]
+                        assert result["cases"][0]["outcome"] == "rejected"
+                        return
                     if result["status"] == "passed":
                         break
                     assert result["status"] in ("running", "pending", "waiting"), result
@@ -333,6 +394,10 @@ async def author(peer, template):
                             )
                             assert stopped["status"] == "cancelled", stopped
                             return
+                        if expire_second and decisions == 1:
+                            await rpc({"expire_approval": action["interaction_id"]})
+                            decisions += 1
+                            continue
                         fields = {
                             k: action[k]
                             for k in (
@@ -352,6 +417,7 @@ async def author(peer, template):
                             },
                         )
                         decisions += 1
+                assert not expire_second, "An expired required branch must stop the join"
                 assert decisions == steps * len(spec["suite"]["cases"]) and result["status"] == "passed", result
                 frozen = await call(
                     "PUT",
@@ -373,15 +439,31 @@ async def author(peer, template):
                         }
                         expected = hashlib.sha256(b'{"to":"sandbox-provisioner"}').hexdigest()
                         assert results[0]["inputs_digest"] == expected
-                    for producer, first, second in zip(chain, results, results[1:]):
-                        assert second["input_bindings"] == [{"step_id": producer["id"], **first["artifact"]}]
-                    assert results[-1]["outputs"]["receipt"] == expected_receipt
+                    by_step = {row["slot"]: row for row in results}
+                    for node in chain:
+                        expected_inputs = {
+                            entry["binding"]["step"] for entry in node["inputs"].values()
+                            if entry["binding"]["source"] == "step"
+                        }
+                        actual = by_step[node["id"]]["input_bindings"]
+                        assert len(actual) == len(expected_inputs)
+                        for producer in expected_inputs:
+                            assert {"step_id": producer, **by_step[producer]["artifact"]} in actual
+                    assert results[-1]["outputs"]["receipt"] == (expected_output or expected_receipt)
                 return frozen
 
             leaf_id, expert_id = str(uuid4()), str(uuid4())
             leaf = await trial(leaf_id, leaf_request, 1)
             strict_id, reselect_id, internal_id = str(uuid4()), str(uuid4()), str(uuid4())
             await trial(strict_id, strict_request, 1)
+            extra_env = {}
+            if registered_script:
+                join_id, p2_id = str(uuid4()), str(uuid4())
+                await trial(
+                    join_id, join_request, 1, input_values={"to": "left", "other": "right"},
+                    expected_output="left|right",
+                )
+                extra_env = {"LUNA_P2_REQUEST": p2_request, "LUNA_P2_METHOD": p2_id, "LUNA_P2_JOIN": join_id}
             wanted = draft["definition"]["procedure"]["inputs"]["to"]
             for mismatch in (
                 {"meaning": {"unit": "other"}},
@@ -420,6 +502,7 @@ async def author(peer, template):
                             cwd=WEB,
                             env={
                                 **os.environ,
+                                **extra_env,
                                 "LUNA_P1_URL": url,
                                 "LUNA_P1_SAMPLE": "1",
                                 "LUNA_P1_INTERNAL_REQUEST": internal_request,
@@ -436,6 +519,20 @@ async def author(peer, template):
                 finally:
                     server.should_exit = True
                     await serving
+            if registered_script:
+                two_inputs = {"branch_to": "left", "branch_1_to": "right"}
+                await trial(
+                    p2_id, p2_request, 3, input_values=two_inputs,
+                    expected_output="left|right", expire_second=True,
+                )
+                p2 = await trial(p2_id, p2_request, 3, input_values=two_inputs, expected_output="left|right")
+                left, right, merge = p2["definition"]["procedure"]["steps"]
+                assert not left["depends_on"] and not right["depends_on"]
+                assert merge["depends_on"] == [left["id"], right["id"]]
+                print(
+                    "P2 verified: scoped lookup, adoption, reopen, expired second approval, "
+                    "both branch artifacts and private freeze", p2["digest"],
+                )
             internal = await trial(
                 internal_id, internal_request, 2, revision=2, input_alias="buildSource"
             )
