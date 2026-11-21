@@ -5,6 +5,8 @@ and run knowlab-app/knowlab-backend/app/.venv/bin/python sunmoonun/scripts/local
 The web component talks to a loopback KnowLab. The KnowLab runtime client sends its
 HTTP requests to the real KnowBench routes in a separate interpreter. Only identity,
 the installed MCP peer and the test computer use local fixtures.
+Pass --registered-script to run the author chain using an owner-registered script
+and the local isolated worker image. Container timing uses a metering fixture.
 """
 
 import asyncio
@@ -33,7 +35,7 @@ def provisioner_revision():
     return re.search(r"^    revision: ([0-9a-f]{40})$", section, re.MULTILINE).group(1)
 
 
-async def bench():
+async def bench(registered_script=False):
     import httpx
     from fastapi import Header
     from test_capabilities_db import OWNER
@@ -58,9 +60,23 @@ async def bench():
                 result["structuredContent"] = {"receipt": revision}
                 return result
 
-        template, _, _, factory, conductor = await setup(
-            sessions, remote=ManifestPeer()
-        )
+        if registered_script:
+            from script_worker_support import run_script_image
+            from test_formal_script_execution_db import Executor, script_setup
+
+            class LocalScript(Executor):
+                async def start(self, owner, run, body):
+                    result = await run_script_image(body)
+                    await super().start(owner, run, body)
+                    self.receipts[run]["result"] = result
+
+            template, factory, conductor, _ = await script_setup(
+                sessions, LocalScript(), registered=True
+            )
+        else:
+            template, _, _, factory, conductor = await setup(
+                sessions, remote=ManifestPeer()
+            )
 
         async def methods():
             async with sessions() as session:
@@ -91,6 +107,9 @@ async def bench():
             for line in sys.stdin:
                 req = json.loads(line)
                 if "advance" in req:
+                    if registered_script:
+                        async with sessions() as session:
+                            await factory(WorkbenchRepository(session)).reconcile_scripts()
                     await conductor.advance(req["advance"])
                     result = None
                 elif "evidence" in req:
@@ -206,6 +225,8 @@ async def author(peer, template):
     try:
 
         configure_lab(sessions, runtime, ["author"])
+        registered_script = template["draft"]["source"]["kind"] == "registered_script"
+        expected_receipt = "sandbox-provisioner" if registered_script else provisioner_revision()
         async with sessions() as session:
             repo = SqlKnowlabRepository(session)
             creation = KnowbotCreationService(repo, FakeRuntime())
@@ -231,10 +252,19 @@ async def author(peer, template):
                 title="Verify provisioner revision",
                 purpose="Resolve and verify a pinned image build source",
             )
-            draft["definition"]["access_requirements"][0]["resources"][0]["values"] = [
-                "sandbox-provisioner",
-                provisioner_revision(),
-            ]
+            if registered_script:
+                async with httpx.AsyncClient(
+                    transport=httpx.ASGITransport(app=app), base_url="http://testserver",
+                    headers=HEADERS, cookies={WEB_SID: "author"},
+                ) as client:
+                    response = await client.get(f"/api/web/v1/knowbot-requests/{leaf_request}/formal-method-sources")
+                    response.raise_for_status()
+                    assert draft["source"] in response.json()["items"]
+            else:
+                draft["definition"]["access_requirements"][0]["resources"][0]["values"] = [
+                    "sandbox-provisioner",
+                    provisioner_revision(),
+                ]
             for side in ("inputs", "outputs"):
                 for slot in draft["definition"]["procedure"][side].values():
                     slot["meaning"] = {"unit": "image-build-reference"}
@@ -271,9 +301,7 @@ async def author(peer, template):
                 spec["suite"]["cases"][0]["input"]["values"] = (
                     {input_alias: "sandbox-provisioner"} if input_alias is not None else {}
                 )
-                spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = (
-                    provisioner_revision()
-                )
+                spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = expected_receipt
                 run = str(uuid4())
                 command = {"request_id": request_id, "revision": revision, "run_id": run}
                 prefix = f"method-units/{mid}/executions"
@@ -339,7 +367,7 @@ async def author(peer, template):
                         assert results[0]["inputs_digest"] == expected
                     for producer, first, second in zip(chain, results, results[1:]):
                         assert second["input_bindings"] == [{"step_id": producer["id"], **first["artifact"]}]
-                    assert results[-1]["outputs"]["receipt"] == provisioner_revision()
+                    assert results[-1]["outputs"]["receipt"] == expected_receipt
                 return frozen
 
             leaf_id, expert_id = str(uuid4()), str(uuid4())
@@ -540,6 +568,7 @@ async def main():
         str(BENCH / ".venv/bin/python"),
         __file__,
         "--bench",
+        *sys.argv[1:],
         cwd=BENCH,
         stdin=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
@@ -554,7 +583,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    provider = sys.argv[1:] == ["--bench"]
+    provider = "--bench" in sys.argv[1:]
     root = BENCH if provider else LAB
     sys.path[:0] = [str(root), str(root / "tests")]
-    asyncio.run(bench() if provider else main())
+    asyncio.run(bench("--registered-script" in sys.argv[1:]) if provider else main())
