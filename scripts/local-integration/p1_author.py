@@ -235,6 +235,72 @@ def configure_lab(sessions, runtime, subjects):
     )
 
 
+async def verify_choice(
+    client, call, rpc, request_id, method_id, template, leaf, expert
+):
+    from app.domain.knowbots.formal_method import FormalMethodDefinition, Orchestration
+
+    endpoint = f"knowbot-requests/{request_id}/workdraft"
+    reopened = await call("GET", endpoint)
+    assert reopened["runtime_gaps"] == [
+        {"step": "step_1", "primitive": "candidate_selection"}
+    ]
+    parsed = FormalMethodDefinition.model_validate(
+        reopened["body"]["formal_method"]["definition"]
+    )
+    graph = parsed.procedure
+    assert isinstance(graph, Orchestration)
+    choice = graph.steps[0].candidate_choice
+    assert choice and choice.input == "to"
+    for value, expected in (("direct", leaf), ("review", expert)):
+        selected = choice.match(value)
+        assert (
+            selected
+            and str(selected.method_id) == expected["method_id"]
+            and selected.digest == expected["digest"]
+        )
+    assert choice.match("unknown") is None and choice.match(None) is None
+    counts = await rpc({"review_counters": True})
+    preview = "/api/web/v1/" + endpoint + "/candidate-preview"
+    args = {"method_id": method_id, "revision": 1, "definition": parsed.document()}
+    assert (await client.post(preview, json={**args, "revision": 0})).status_code == 409
+    changed = copy.deepcopy(args)
+    node = changed["definition"]["procedure"]["steps"][0]
+    node["candidates"][0]["digest"] = node["candidate_choice"]["cases"][0]["candidate"][
+        "digest"
+    ] = "sha256:" + "0" * 64
+    denied = await client.post(preview, json=changed)
+    assert denied.status_code == 409 and denied.json()["code"] == "method_integrity", (
+        denied.text
+    )
+    assert (await call("GET", endpoint))["revision"] == 1
+    prefix = f"/api/web/v1/method-units/{method_id}"
+    command = {"request_id": request_id, "run_id": str(uuid4()), "revision": 1}
+    spec = copy.deepcopy(template["execution"])
+    spec["suite"].pop("digest")
+    spec["suite"]["suite_id"] = str(uuid4())
+    spec["suite"]["cases"][0]["input"]["values"] = {"to": "review"}
+    for route, payload in (
+        ("validations", command),
+        ("executions", {**command, "execution": spec}),
+    ):
+        denied = await client.post(prefix + "/" + route, json=payload)
+        assert (
+            denied.status_code == 409
+            and denied.json()["code"] == "runtime_capability_gap"
+        ), denied.text
+    denied = await client.put(
+        prefix + "/formal-versions/1", json={**command, "visibility": "private"}
+    )
+    assert (
+        denied.status_code == 409 and denied.json()["code"] == "runtime_capability_gap"
+    ), denied.text
+    assert await rpc({"review_counters": True}) == counts
+    print(
+        "P5 verified: pinned tool/expert, exact match, no default, validation/trial/freeze stopped before dispatch"
+    )
+
+
 async def verify_comparison(
     client, call, rpc, comparison_request, comparison_id, template, leaf
 ):
@@ -427,6 +493,8 @@ async def author(peer, template):
                 reviewer_request = await new_request("Compare an assessment with a checked output")
                 staged_request = await new_request("Strict review draft")
                 collector_request = await new_request("Collect keyed results")
+                choice_request = await new_request("P5 conditional assignment")
+                nested_request = await new_request("Reusable pinned expert candidate")
                 comparison_request = await new_request("P4 bounded object comparison")
                 collector = copy.deepcopy(draft)
                 collector["source"] = template["collector_source"]
@@ -671,6 +739,61 @@ async def author(peer, template):
                 collector_id, comparison_id = str(uuid4()), str(uuid4())
                 await trial(collector_id, collector_request, 1, input_values={"to": [{"object_id":"A","value":"x"}]}, expected_output="A=x")
                 extra_env.update(LUNA_P4_REQUEST=comparison_request, LUNA_P4_METHOD=comparison_id, LUNA_P4_COLLECTOR=collector_id)
+                nested_id, choice_id = str(uuid4()), str(uuid4())
+                nested = copy.deepcopy(draft)
+                nested["source"] = None
+                tool = nested["definition"]["procedure"]
+                ref = {"method_id": leaf_id, "version": 1, "digest": leaf["digest"]}
+                nested["definition"]["procedure"] = {
+                    "kind": "orchestration",
+                    "instructions": "Check the pinned image",
+                    "steps": [
+                        {
+                            "id": "check",
+                            "candidates": [ref],
+                            "select_when": "always",
+                            "required_when": "always",
+                            "always_required": True,
+                            "depends_on": [],
+                            "inputs": {
+                                "to": {
+                                    "slot": tool["inputs"]["to"],
+                                    "binding": {"source": "caller", "name": "to"},
+                                }
+                            },
+                            "outputs": tool["outputs"],
+                            "on_failure": "fail",
+                        }
+                    ],
+                    "exports": {
+                        "receipt": {
+                            "step": "check",
+                            "output": "receipt",
+                            "always_present": True,
+                        }
+                    },
+                    "max_depth": 2,
+                    "max_steps": 1,
+                    "max_expansions": 2,
+                    "max_replans": 0,
+                }
+                await call(
+                    "POST",
+                    f"knowbot-requests/{nested_request}/workdraft/cells",
+                    json={
+                        "revision": 0,
+                        "cells": [{"path": "formal_method", "value": nested}],
+                    },
+                )
+                nested_frozen = await trial(
+                    nested_id, nested_request, 1, expert_graph=True
+                )
+                extra_env.update(
+                    LUNA_P5_REQUEST=choice_request,
+                    LUNA_P5_METHOD=choice_id,
+                    LUNA_P5_EXPERT=nested_id,
+                )
+
             wanted = draft["definition"]["procedure"]["inputs"]["to"]
             for mismatch in (
                 {"meaning": {"unit": "other"}},
@@ -727,6 +850,7 @@ async def author(peer, template):
                     server.should_exit = True
                     await serving
             if registered_script:
+                await verify_choice(client, call, rpc, choice_request, choice_id, template, leaf, nested_frozen)
                 await verify_comparison(client, call, rpc, comparison_request, comparison_id, template, leaf)
                 two_inputs = {"branch_to": "left", "branch_1_to": "right"}
                 await trial(
