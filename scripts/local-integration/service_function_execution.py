@@ -51,6 +51,9 @@ async def provider():
         name = setup["name"]
         query = setup["query"]
         field = setup["field"]
+        if name == "read_facts":
+            sample = await world.facts(sub="author", run="native-comparison")
+            query = {"refs": [row["ref"] for row in sample["facts"]]}
         expected = (
             await world.facts(
                 name=name,
@@ -77,7 +80,9 @@ async def provider():
             build_function_router(settings, world.functions), prefix="/api"
         )
         chat = await world.runs.register_session("author", "knowbench")
-        print(json.dumps([function_revision(name), expected, chat.id]), flush=True)
+        print(
+            json.dumps([function_revision(name), expected, chat.id, query]), flush=True
+        )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app), base_url="https://localhost"
         ) as http:
@@ -85,6 +90,9 @@ async def provider():
                 msg = json.loads(line)
                 if "grant" in msg:
                     reply = (await grant(msg["grant"])).id
+                elif "revoke_task_grant" in msg:
+                    await world.runs.revoke_by_user("author", msg["revoke_task_grant"])
+                    reply = True
                 elif "readers" in msg:
                     reply = [
                         r["reader"]
@@ -130,6 +138,7 @@ else:
     "name,field,query",
     [
         ("query_facts", "facts", {}),
+        ("read_facts", "facts", {}),
         ("query_metric", "values", {"metric": "gross_margin"}),
     ],
 )
@@ -158,7 +167,7 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         return json.loads(line)
 
     try:
-        revision, expected, chat = await exchange(
+        revision, expected, chat, query = await exchange(
             {
                 "public": issuer.public_pem(),
                 "name": name,
@@ -223,6 +232,66 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             {"KNOWBASE_INTERNAL_URL": "https://localhost"},
             transport=httpx.MockTransport(forward),
         )
+        if name == "read_facts":
+            from decimal import Decimal
+            from test_method_plans_db import task as create_task
+            from app.application.workbench.run_reader import RunReader
+            from app.domain.workbench.errors import ComputeRefused, UserDataUnavailable
+
+            tid, _ = await create_task(db)
+            grant_id = await exchange({"grant": tid})
+            reader = RunReader(client, issuer)
+            async with db() as session:
+                repo = WorkbenchRepository(session)
+                async with repo.transaction():
+                    await repo.insert_task_resolution(
+                        {
+                            "task_id": tid,
+                            "resolution_id": tid,
+                            "revision": 1,
+                            "consumer": "expert:fixture@1",
+                            "params": {},
+                            "grant_ref": tid,
+                            "status": "ready",
+                        }
+                    )
+                task_row = await repo.get_task(tid)
+                with pytest.raises(ComputeRefused, match="registered read contract"):
+                    await reader.facts(repo, task_row, [])
+                values = await reader.facts(repo, task_row, query["refs"])
+                assert values == {r["ref"]: Decimal(r["value"]) for r in expected}
+                reads = await repo.list_task_calls(OWNER, tid)
+                [read] = [
+                    r
+                    for r in reads
+                    if r["detail"].get("identity_basis") == "host_task_data_read"
+                ]
+                assert (
+                    read["detail"]["function_receipt"]["digest"] == revision["digest"]
+                )
+                assert "function:" + read["id"] in await exchange({"readers": True})
+
+                async def lost_receipt(req):
+                    valid = await forward(req)
+                    assert valid.status_code == 200
+                    return httpx.Response(200, json=valid.json() | {"digest": ""})
+
+                uncertain = RunReader(
+                    KnowbaseDataV2(
+                        {"KNOWBASE_INTERNAL_URL": "https://localhost"},
+                        transport=httpx.MockTransport(lost_receipt),
+                    ),
+                    issuer,
+                )
+                with pytest.raises(UserDataUnavailable, match="confirm the result"):
+                    await uncertain.facts(repo, task_row, query["refs"])
+                ledger = await repo.list_task_calls(OWNER, tid)
+                [unknown] = [c for c in ledger if c["status"] == "unknown"]
+                assert "function_receipt" not in unknown["detail"]
+                assert "function:" + unknown["id"] in await exchange({"readers": True})
+                await exchange({"revoke_task_grant": grant_id})
+                with pytest.raises(ComputeRefused, match="no such fact"):
+                    await reader.facts(repo, task_row, query["refs"])
         monkeypatch.setattr(workbench_mcp, "knowbase_v2", lambda: client)
         async with httpx.AsyncClient(
             transport=ObservedPlatformTransport(
@@ -237,7 +306,10 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                 )
                 return res.json()["result"]
 
-            assert (await ask(conversation=sid))["structuredContent"][field] == []
+            unread = (await ask(conversation=sid))["structuredContent"]
+            assert unread[field] == []
+            if name == "read_facts":
+                assert unread["not_found"] == query["refs"]
             assert "pages" in await exchange({"read_in_chat": True})
             found = await ask(conversation=sid)
             assert found["structuredContent"][field] == expected

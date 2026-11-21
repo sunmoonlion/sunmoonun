@@ -185,7 +185,7 @@ async def test_service_publication_and_selection(db, monkeypatch):
                     await proc.wait()
             assert proc.returncode == 0
             published = json.loads(out)
-            assert set(published) == {"query_facts", "query_metric"}
+            assert set(published) == {"query_facts", "query_metric", "read_facts"}
             path = "/api/internal/v1/knowbot-runtime/users/author/formal-method-sources"
             async with httpx.AsyncClient(
                 base_url=origin, trust_env=False, headers=HEADERS

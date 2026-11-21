@@ -2,6 +2,10 @@
 
 **发版交接（2026-11-21）。** Cursor 的五份回执已收齐。按回执，#98 的四项制品已上目标集群，Jenkins 第 10 段超时，现场行为验收仍待补。独立登记指令的私有孵化已通过本地验收，按计划等下一批合并发布，目标验收随该批开展。四项已上线功能的待验内容及下一批合单范围已分别记入待办，五份请求与原始回执已整包归档，见[统一待办](docs/总纲/luna-待办.md#release-98)。下一批开发增量合为一张需求交 Cursor。
 
+**第 5 步，按引用读取事实已完成本地验收（2026-11-21）。** KnowBase `61428ec`（后端 `f91cd16`）与 KnowBench `9dd89ce`（后端 `4f182b6`）。`read_facts` v1 经方法技能管理中心选定版本，KnowBase 已从数据 MCP 撤下该操作。原生聊天、工作按会话已读范围或获准的市场范围查询；固定专家按试跑和冻结时确定的来源逐次批准。宿主计算及数值验收都只凭当前任务的运行授权读取，分别登记调用。计算取数可回查父调用，验数可回查任务和执行尝试；两端可按同一调用 ID 对账。
+
+两个实际后端、本地 PostgreSQL 和合成身份已验标准化及原样引用、跨账号、撤权、缺少登记、同一输入先计算后复核各有回执，以及提供方已读取但返回摘要失配时的未知结果。KnowBase 24 项关联回归、KnowBench 及跨服务 107 项通过；定稿后另跑重叠的 27 项、36 项，以及 2 项摘要失配联调。双方 Pyright 通过。KnowBase 尚余七项旧数据 MCP 操作，下项为 `list_inputs`。此项随下一批由 Cursor 合并发布。[待办](docs/总纲/luna-待办.md#service-registration-plan) · [联调](scripts/local-integration/service_function_execution.py)
+
 **跨服务统一登记第 5 步进行中（2026-11-21）。** KnowBase `bc7e0e6`（后端 `d524f96`），KnowBench `ea229bd`（后端 `7c80dfc`）。`query_metric` v1 已接入方法技能管理中心，发布时与 `query_facts` v1 分别登记。已逐字段比对原有事实查询的 v1 契约及摘要。聊天和工作通过中心解析指标函数，专家宿主按作者获准的精确版本派发；KnowBase 核验签名、参数、调用身份与当前资料范围。原 KnowBase 数据 MCP 已撤下指标查询，工作台中继也已移除该操作。
 
 本地 PostgreSQL 及两个实际后端用合成身份验过聊天、工作和固定专家。营业收入与营业成本均来自第 88 页，毛利率为 80%。核对读数的页码、调用 ID、市场资格、会话授权撤销及移除登记后的拒绝。指标工具和两步固定专家均经试跑、逐次批准及私有冻结。KnowBase 关联回归 24 项、KnowBench 关联与跨服务回归 128 项通过，双方后端 Pyright 通过。KnowBase 仍有八项数据 MCP 操作待迁；下一项 `read_facts` 同时承载模型查询、宿主计算和数值验收。Cursor 在下一批合单处理两端镜像、发布命令和指标操作许可，目标集群尚待验收。[待办](docs/总纲/luna-待办.md#service-registration-plan) · [实施方案](docs/总纲/方法技能管理中心.md) · [联调样例](scripts/local-integration/service_function_execution.py)
