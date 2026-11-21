@@ -55,27 +55,28 @@ if __name__ == "__main__":
     asyncio.run(provider(sys.argv[1]))
 else:
     sys.path[:0] = [str(BENCH), str(BENCH / "tests")]
-    from test_workbench_ledger_db import db as db
+    from test_workbench_ledger_db import db as db  # noqa: PLC0414 (pytest fixture)
 
 
 async def test_service_publication_and_selection(db, monkeypatch):
+    from uuid import uuid4
+
     import httpx
     import uvicorn
-    from uuid import uuid4
-    from sqlalchemy import text
-    from test_formal_method_routes import FakeOidc, HEADERS
-    from test_service_function_publication_db import Claims
-    from test_source_licenses import license_record
     from app.application.workbench.formal_methods import FormalMethods
+    from app.bootstrap.api import create_app
     from app.bootstrap.publish_functions import publish_project_list
     from app.domain.workbench.native_functions import project_list_revision
     from app.infrastructure.external.downstream_service import DownstreamServiceClient
-    from app.bootstrap.api import create_app
     from app.infrastructure.security import relation_auth
     from app.infrastructure.storage.postgres import get_db_session
     from app.infrastructure.workbench.repository import WorkbenchRepository
     from app.interfaces.endpoints import knowbot_runtime_routes as routes
     from core.config import Settings
+    from sqlalchemy import text
+    from test_formal_method_routes import HEADERS, FakeOidc
+    from test_service_function_publication_db import Claims
+    from test_source_licenses import license_record
 
     assert os.environ["AGENT_TEST_DATABASE_URL"].endswith("_tests")
     for variable in ("no_proxy", "NO_PROXY"):
@@ -191,6 +192,11 @@ async def test_service_publication_and_selection(db, monkeypatch):
                 "read_facts",
                 "list_inputs",
                 "read_input",
+                "describe_items",
+                "lookup",
+                "search_evidence",
+                "list_library",
+                "read_method_input",
             }
             path = "/api/internal/v1/knowbot-runtime/users/author/formal-method-sources"
             async with httpx.AsyncClient(
@@ -209,7 +215,12 @@ async def test_service_publication_and_selection(db, monkeypatch):
                     licenses.append(record)
                     res = await http.get(path)
                     assert res.status_code == 200, res.text
-                    if name == "read_input":
+                    if name in {
+                        "read_input",
+                        "describe_items",
+                        "lookup",
+                        "list_library",
+                    }:
                         assert res.json()["items"] == []
                         licenses.clear()
                         continue

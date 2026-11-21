@@ -21,14 +21,14 @@ BENCH = ROOT / "knowbench-app/knowbench-backend/app"
 async def run_provider():
     import httpx
     from app.application.services.data_functions import DataFunctions
+    from app.application.services.data_query_revisions import function_revision
     from app.domain.user_data import Owner
+    from app.interfaces.endpoints import user_run_routes as routes
+    from app.interfaces.http.internal.function_calls import build_function_router
+    from core.config import Settings
     from fastapi import FastAPI, Header, HTTPException
     from test_durable_delivery_db import db
     from test_user_runs_db import World
-
-    from app.interfaces.endpoints import user_run_routes as routes
-    from app.interfaces.mcp import data_mcp
-    from core.config import Settings
 
     schema = db.__wrapped__()
     factory = await anext(schema)
@@ -43,11 +43,9 @@ async def run_provider():
         settings = Settings(
             knowbase_mcp_jwt_public_key=public_key, knowbase_mcp_jwt_issuer="knowbench"
         )
-        mcp = data_mcp.DataMcp(
-            DataFunctions(lambda: world.runs, lambda: None, lambda: world.lib)
-        )
+        functions = DataFunctions(lambda: world.runs, lambda: None, lambda: world.lib)
         app = FastAPI()
-        app.include_router(data_mcp.build_router(settings, mcp), prefix="/api")
+        app.include_router(build_function_router(settings, functions), prefix="/api")
         app.include_router(routes.router, prefix="/api")
 
         def owner(authorization: str = Header()):
@@ -57,7 +55,15 @@ async def run_provider():
 
         app.dependency_overrides[routes.require_user_owner] = owner
         app.dependency_overrides[routes.get_user_run_service] = lambda: world.runs
-        print(json.dumps({"material": material.id}), flush=True)
+        print(
+            json.dumps(
+                {
+                    "material": material.id,
+                    "revision": function_revision("read_method_input"),
+                }
+            ),
+            flush=True,
+        )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app), base_url="https://localhost"
         ) as client:
@@ -81,20 +87,19 @@ if __name__ == "__main__":
     asyncio.run(run_provider())
 else:
     sys.path[:0] = [str(BENCH), str(BENCH / "tests")]
-    from test_workbench_ledger_db import db as db
+    from test_workbench_ledger_db import db as db  # noqa: PLC0414 (pytest fixture)
 
 
 async def test_method_read_across_services(db):
     import httpx
+    from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
+    from app.infrastructure.external.knowbase_data_v2 import KnowbaseDataV2
     from test_knowbase_method_read_db import (
         read_candidate,
         run_host_denial,
         run_host_tree,
         run_model_read,
     )
-
-    from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
-    from app.infrastructure.external.knowbase_data_v2 import KnowbaseDataV2
 
     assert (
         os.environ["DELIVERY_TEST_DATABASE_URL"].rsplit("/", 1)[-1].endswith("_tests")
@@ -129,17 +134,15 @@ async def test_method_read_across_services(db):
                 "body": json.loads(request.content) if request.content else None,
             }
             status, body = await exchange(message)
-            rpc = message["body"] or {}
             if (
-                rpc.get("method") == "tools/call"
-                and not json.loads(body)["result"]["isError"]
+                message["path"].endswith("/functions/read_method_input/1")
+                and status == 200
             ):
-                receipt = json.loads(body)["result"]["structuredContent"]["source"]
-                # Keep the dispatch token intact. Changing only the input must fail.
+                receipt = json.loads(body)["output"]["source"]
                 changed = json.loads(request.content)
-                changed["params"]["arguments"]["material_id"] = str(uuid4())
-                denied_status, denied = await exchange({**message, "body": changed})
-                assert denied_status == 200 and json.loads(denied)["result"]["isError"]
+                changed["arguments"]["material_id"] = str(uuid4())
+                denied_status, _ = await exchange({**message, "body": changed})
+                assert denied_status == 403
                 grant, leaf = receipt["grant_id"], receipt["method_call_id"]
                 revoked, _ = await exchange(
                     {
@@ -150,8 +153,8 @@ async def test_method_read_across_services(db):
                     }
                 )
                 assert revoked == 204
-                denied_status, denied = await exchange(message)
-                assert denied_status == 200 and json.loads(denied)["result"]["isError"]
+                denied_status, _ = await exchange(message)
+                assert denied_status == 403
             return httpx.Response(status, content=body)
 
         client = KnowbaseDataV2(
@@ -159,6 +162,7 @@ async def test_method_read_across_services(db):
             transport=httpx.MockTransport(forward),
         )
         client.material_id = material["material"]
+        client.revision = material["revision"]
         ctx, remote, sandbox = await read_candidate(db, (issuer, client))
         await run_host_tree(db, copy(ctx), client)
         for mode in ("missing", "revoked"):

@@ -2,7 +2,7 @@
 
 为Casdoor关系token和Knowledge内部摄入/检索提供cluster-local HTTPS transport，主机名由config的service_access_hosts引用app_namespace。运行调用者通过专用网络标签与CA验证，不能复用浏览器/管理员令牌。
 
-knowbase 内部入口还精确路由 `/api/mcp/data` 到 knowbase-api；工作台中继数据读工具时走同一 HTTPS 主机，使用独立的短期 `knowbase-data` JWT。该路径由 knowbase 校验签名、调用身份与每次读取的授权范围，不经过 Casdoor 服务关系换票。不应靠开放整个 `/api` 或绕过网络策略直连 HTTP 恢复工具发现。
+KnowBase 的登记函数走内部 HTTPS 前缀 `/api/internal/v1/functions`，执行时逐次验证 KnowBench 签发的短期票据和资源授权。提供服务向 KnowBench 的 `/api/internal/v1/method-skill-center/functions` 提交版本契约。
 
 修改入口模板后必须由原生 components-render → 审查 → components-stage → 发布晋级生成并发布声明；只构建应用镜像不会更新路由。离线回归：`python3 -m unittest discover -s infrastructure/services/tests -v`（仓根执行）。发布检查须从真实工作台后端发起带短期 JWT 的 `tools/list`，确认数据目录完整；HTTP 200 本身不代表 JSON-RPC 成功，无凭据收到 401 也只证明已到达鉴权入口。
 

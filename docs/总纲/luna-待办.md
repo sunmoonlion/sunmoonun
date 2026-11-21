@@ -49,7 +49,9 @@ Cursor 报告四项制品已进入目标 kind 集群。Jenkins #98 在第 10 段
   - `query_metric` v1 已随 `query_facts` 接入服务登记，已从旧业务 MCP 撤下。合单时由 Cursor 协调 KnowBase、KnowBench 切换，运行 KnowBase 的登记命令，分别核对两项版本摘要，配置指标函数独立的来源许可、读操作、目标和费用依据。
   - `read_facts` v1 已从旧 MCP 移除，聊天、工作、固定专家、宿主计算及数值验收均经登记函数取数。随同一张 Cursor 需求发布登记，并按测试任务核对计算、验数与 KnowBase 读取回执；生产开放前核定正式方法的来源许可、读操作及费用。
   - `list_inputs` v1 已改为服务登记。聊天、工作列本会话已有授权的资料，测试与固定专家列本任务获准的输入。合单时登记清单函数，配置独立的 `inputs.list` 权限和正式方法使用依据。
-  - `read_input` v1 已接入模型读资料、宿主验引文及脚本分页。合单时发布 KnowBase 与 KnowBench 后端，登记 `inputs.read` 原生和步骤用途。目标环境抽查一次按页引文及一次脚本重读撤权，核对中心调用 ID 和 KnowBase 读取记录。下一项迁移 `search_evidence`，沿同一批资料核对检索范围、原文和页码。
+  - `read_input` v1 已接入模型读资料、宿主验引文及脚本分页。合单时发布 KnowBase 与 KnowBench 后端，登记 `inputs.read` 原生和步骤用途。目标环境抽查一次按页引文及一次脚本重读撤权，核对中心调用 ID 和 KnowBase 读取记录。
+  - KnowBase 剩余五项 `search_evidence`、`describe_items`、`lookup`、`list_library`、`read_method_input` 已作为一批迁移，至此十项全部从中心登记调用。原资料 MCP 和工作台的旧发现、转发已移除。随同一批 Cursor 发版切换 KnowBase、KnowBench、KnowLab 及内部入口，在目标环境核对十项登记、聊天和工作的会话范围，以及正式读取的独立批准、撤权和回执。
+  - 第 5 步下一项为 KnowBench 的 `read_project_conversation`，随后处理其余五项工作台操作。提供端发现、来源授权与历史执行路径继续按盘点表核对。
 - [ ] **6. 总验收并合单发版。** 从每条已开放的发现入口追到中心记录，再从真实调用反查调用者、方法／实现版本、批准、资源、产物与适用费用。覆盖重试、并发、重启、取消、未知结果和迟到回执；核对旧数据迁移、回退后的在途任务和跨服务契约。将实测、待目标环境验证项、组件候选及升级顺序汇入下一批唯一一张 Cursor 发版单。#98 已收回执，剩余目标验收见[该批记录](#release-98)。
 
 ## 已按原顺序开展的工作

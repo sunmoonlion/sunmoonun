@@ -18,14 +18,14 @@ BENCH = ROOT / "knowbench-app/knowbench-backend/app"
 
 async def provider():
     import httpx
-    from fastapi import FastAPI
-    from test_data_mcp import World
-    from test_durable_delivery_db import db
     from app.application.services.data_query_revisions import function_revision
     from app.domain.user_library import PUBLIC_OWNER
     from app.domain.user_runs import GrantRequestItem, InputPin
     from app.interfaces.http.internal.function_calls import build_function_router
     from core.config import Settings
+    from fastapi import FastAPI
+    from test_durable_delivery_db import db
+    from test_registered_data_functions import World
 
     schema = db.__wrapped__()
     sessions = await anext(schema)
@@ -63,7 +63,9 @@ async def provider():
                 run="native-comparison",
             )
         )[field]
-        if field == "inputs":
+        if field == "passages":
+            assert expected[0]["source"]["page"] == 88
+        elif field == "inputs":
             assert len(expected) == 1 and expected[0]["material_id"] == material.id
             assert expected[0]["version_no"] == 1
         else:
@@ -104,6 +106,17 @@ async def provider():
                 msg = json.loads(line)
                 if "grant" in msg:
                     reply = (await grant(msg["grant"])).id
+                elif "catalog_sample" in msg:
+                    sample, _ = await world.lib.upload("author", "shown.txt", b"shared")
+                    await world.lib.show("author", sample.id, "app:knowbench")
+                    await world.lib.upload("author", "hidden.txt", b"hidden")
+                    reply = [
+                        sample.id,
+                        [
+                            function_revision(op)
+                            for op in ("lookup", "describe_items", "list_library")
+                        ],
+                    ]
                 elif "revoke_task_grant" in msg:
                     await world.runs.revoke_by_user("author", msg["revoke_task_grant"])
                     reply = True
@@ -151,8 +164,10 @@ if __name__ == "__main__":
     asyncio.run(provider())
 else:
     sys.path[:0] = [str(BENCH), str(BENCH / "tests")]
-    from test_workbench_ledger_db import db as db
-    from test_workbench_mcp_routes import served as served
+    from test_workbench_ledger_db import db as db  # noqa: PLC0414 (pytest fixture)
+    from test_workbench_mcp_routes import (
+        served as served,  # noqa: PLC0414 (pytest fixture)
+    )
 
 
 @pytest.mark.parametrize("scene", ["chat", "work"])
@@ -162,6 +177,7 @@ else:
         ("query_facts", "facts", {}),
         ("read_facts", "facts", {}),
         ("list_inputs", "inputs", {}),
+        ("search_evidence", "passages", {"query": "渠道库存"}),
         ("query_metric", "values", {"metric": "gross_margin"}),
     ],
 )
@@ -169,9 +185,9 @@ async def test_registered_function_and_expert_with_actual_knowbase(
     db, served, monkeypatch, scene, name, field, query
 ):
     import httpx
-    from test_formal_function_db import exercise_function
     from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
     from app.domain.workbench.service_functions import FunctionRevision
+    from test_formal_function_db import exercise_function
 
     issuer = TokenIssuer(generate_private_key_pem(), issuer="knowbench")
     process = await asyncio.create_subprocess_exec(
@@ -230,17 +246,16 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             query=query,
             output_name=field,
         )
-        from test_workbench_mcp_routes import URL, bearer, tool
-        from test_workbench_ledger_db import OWNER, seed
         from app.application.workbench.session_service import SessionService
-        from app.infrastructure.workbench.repository import WorkbenchRepository
-        from tool_invocation_support import ObservedPlatformTransport
         from app.infrastructure.external.knowbase_data_v2 import KnowbaseDataV2
+        from app.infrastructure.workbench.repository import WorkbenchRepository
+        from app.infrastructure.workbench.service_functions import register_revision
         from app.interfaces.endpoints.workbench_routes import token_issuer
         from app.interfaces.mcp import workbench_mcp
         from sqlalchemy import text
-
-        from app.infrastructure.workbench.service_functions import register_revision
+        from test_workbench_ledger_db import OWNER, seed
+        from test_workbench_mcp_routes import URL, bearer, tool
+        from tool_invocation_support import ObservedPlatformTransport
 
         async with db() as session:
             await register_revision(
@@ -271,9 +286,10 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         )
         if name == "read_facts":
             from decimal import Decimal
-            from test_method_plans_db import task as create_task
+
             from app.application.workbench.run_reader import RunReader
             from app.domain.workbench.errors import ComputeRefused, UserDataUnavailable
+            from test_method_plans_db import task as create_task
 
             tid, _ = await create_task(db)
             grant_id = await exchange({"grant": tid})
@@ -354,6 +370,47 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                 )
                 return res.json()["result"]
 
+            if name == "search_evidence":
+                shown, revisions = await exchange({"catalog_sample": True})
+                for row in revisions:
+                    async with db() as session:
+                        await register_revision(
+                            session, FunctionRevision.model_validate(row)
+                        )
+
+                async def direct(operation, **args):
+                    response = await native.post(
+                        URL, headers=bearer(issuer=issuer), json=tool(operation, **args)
+                    )
+                    return response.json()["result"]
+
+                vocabulary = await direct("describe_items")
+                assert not vocabulary["isError"], vocabulary
+                assert vocabulary["structuredContent"]["metrics"]
+                located = await direct(
+                    "lookup",
+                    subject="600519.SH",
+                    doc_type="annual_report",
+                    period_start="2025-01-01",
+                    period_end="2025-12-31",
+                )
+                assert located["structuredContent"] == {
+                    "status": "shown",
+                    "zone": "public",
+                }
+                library = await direct("list_library", conversation=sid)
+                assert [
+                    m["material_id"] for m in library["structuredContent"]["materials"]
+                ] == [shown]
+                assert (await direct("list_library", session=chat))["isError"]
+                assert (
+                    await direct(
+                        "lookup",
+                        subject="600519.SH",
+                        doc_type="annual_report",
+                        run="native-comparison",
+                    )
+                )["isError"]
             unread = (await ask(conversation=sid))["structuredContent"]
             assert unread[field] == []
             if name == "read_facts":
@@ -395,7 +452,7 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                 )
             assert (await ask(conversation=sid, run="native-comparison"))["isError"]
             market = await ask(scope="market")
-            if name == "list_inputs":
+            if name in ("list_inputs", "search_evidence"):
                 assert market["isError"]
             else:
                 assert market["structuredContent"][field] == expected
@@ -428,12 +485,13 @@ async def verify_script_pages(
 ):
     import base64
     from datetime import UTC, datetime, timedelta
+
     from app.infrastructure.workbench.repository import WorkbenchRepository
+    from sqlalchemy import text
     from test_capabilities_db import approval, service
     from test_skill_execution_db import setup
     from test_workbench_ledger_db import OWNER
     from tool_invocation_support import request_call
-    from sqlalchemy import text
 
     sid, executor, _, key, token = await setup(db)
 

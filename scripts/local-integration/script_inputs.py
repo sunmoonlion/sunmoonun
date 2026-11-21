@@ -42,7 +42,7 @@ async def launch(app, mode, env):
 async def source():
     from app.application.services.data_query_revisions import function_revision
     import uvicorn
-    from test_data_mcp import KEY, PUBLIC_OWNER, World
+    from test_registered_data_functions import KEY, PUBLIC_OWNER, World
     from test_durable_delivery_db import db
 
     database = db.__wrapped__()
