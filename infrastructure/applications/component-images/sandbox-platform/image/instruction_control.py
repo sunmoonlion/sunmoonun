@@ -146,7 +146,12 @@ class InstructionControl:
             self.retain_receipt(
                 {"turn_id": turn_id, "response_id": response_id, "usage": usage}
             )
-            self.reconcile()
+            try:
+                self.reconcile()
+            except (OSError, http.client.HTTPException):
+                # The durable receipt can be submitted by the idle gateway. Let
+                # Codex finish recording this turn while the root budget is held.
+                pass
 
         endpoint = provider["base_url"].rstrip("/") + "/responses"
         forward(
