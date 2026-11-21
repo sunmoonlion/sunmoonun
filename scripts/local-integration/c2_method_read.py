@@ -20,6 +20,7 @@ BENCH = ROOT / "knowbench-app/knowbench-backend/app"
 
 async def run_provider():
     import httpx
+    from app.application.services.data_functions import DataFunctions
     from app.domain.user_data import Owner
     from fastapi import FastAPI, Header, HTTPException
     from test_durable_delivery_db import db
@@ -42,7 +43,9 @@ async def run_provider():
         settings = Settings(
             knowbase_mcp_jwt_public_key=public_key, knowbase_mcp_jwt_issuer="knowbench"
         )
-        mcp = data_mcp.DataMcp(lambda: world.runs, lambda: None, lambda: world.lib)
+        mcp = data_mcp.DataMcp(
+            DataFunctions(lambda: world.runs, lambda: None, lambda: world.lib)
+        )
         app = FastAPI()
         app.include_router(data_mcp.build_router(settings, mcp), prefix="/api")
         app.include_router(routes.router, prefix="/api")
