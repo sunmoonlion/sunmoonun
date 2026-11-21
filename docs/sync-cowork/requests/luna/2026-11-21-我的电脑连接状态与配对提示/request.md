@@ -1,6 +1,6 @@
 # KnowBench「我的电脑」连接状态与配对提示发版需求
 
-状态为待接手。发起人 Luna，发布及线上核验由 Cursor 执行，回执写入 `replies/cursor.md`。
+状态为暂停。所有者要求先保留本单，待另行安排发布窗口。发起人 Luna，发布及线上核验由 Cursor 执行，回执写入 `replies/cursor.md`。
 
 ## 发布范围
 
