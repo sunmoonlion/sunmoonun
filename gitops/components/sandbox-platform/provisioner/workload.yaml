@@ -14,7 +14,7 @@ rules:
     verbs: [get, list, create, update, delete]
   - apiGroups: ['']
     resources: [pods]
-    verbs: [get, list, patch]
+    verbs: [get, list, create, patch, delete]
   - apiGroups: ['']
     resources: [pods/log]
     verbs: [get]
@@ -55,7 +55,7 @@ spec:
   template:
     metadata:
       labels: {app.kubernetes.io/name: sandbox-provisioner}
-      annotations: {sunmoonai.com/input-sha256: 'b004a36a64a8234e9ae604823b8273e128f83f7f664918c15bfbd9b76effb2c4'}
+      annotations: {sunmoonai.com/input-sha256: 'b6d465b712a88a22cc69db405db3ce38df9d8a8899f120bad8b094463b271c71'}
     spec:
       serviceAccountName: sandbox-provisioner
       enableServiceLinks: false
@@ -63,16 +63,18 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 10003, runAsGroup: 10003, fsGroup: 10003, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provisioner
-          image: harbor.sunmoonai.com:30443/platform/sandbox-provisioner@sha256:3eeb6761c7ffc69dc5943b6cf3346e6f5e559e2f87402926bc5e9e12b348d9fb
+          image: harbor.sunmoonai.com:30443/platform/sandbox-provisioner@sha256:b5c08edbc7cb0c41835f44076f9e9e6617e56d08dabeef9fcbfe7128f7b92185
           imagePullPolicy: IfNotPresent
           env:
             - {name: SANDBOX_NAMESPACE, value: 'sandbox-platform-dev'}
-            - {name: SANDBOX_IMAGE, value: 'harbor.sunmoonai.com:30443/platform/sandbox@sha256:aaf941ee938d30b6a938f7e46ed2d1521142dc654e75fe8ff61fb483bb05f46b'}
+            - {name: SANDBOX_IMAGE, value: 'harbor.sunmoonai.com:30443/platform/sandbox@sha256:e16bed12e0f9462ef0310af0add7224d2666373d509304c382b4268ee4bf8d16'}
             - {name: RELAY_URL, value: 'ws://relay.relay-platform-dev.svc.cluster.local:47100'}
             # 新体系按环境参数化：沙箱的网络策略里，应用（两个 MCP、runner）和会合点各在哪个命名空间
             - {name: APP_NAMESPACE, value: 'app-platform-dev'}
             - {name: SANDBOX_IMAGE_PULL_SECRET, value: registry-puller}
             - {name: RELAY_NAMESPACE, value: 'relay-platform-dev'}
+            - {name: INGRESS_NAMESPACE, value: "ingress-platform-dev"}
+            - {name: INSTRUCTION_CONTROL_ORIGIN, value: ""}
             - {name: SANDBOX_PVC_SIZE, value: '2Gi'}
             - {name: PROVISIONER_TOKEN, valueFrom: {secretKeyRef: {name: sandbox-provisioner, key: token}}}
           ports: [{name: http, containerPort: 8080}]

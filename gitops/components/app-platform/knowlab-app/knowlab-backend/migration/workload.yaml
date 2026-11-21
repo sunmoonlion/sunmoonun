@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: 'knowlab-schema-check-v4', namespace: app-platform-dev}
+metadata: {name: 'knowlab-schema-check-v5', namespace: app-platform-dev}
 data:
   verify.py: |
     """Check the deployed schema and real runtime grants without printing credentials."""
@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowlab-migrate-45282caca6d9-v4', namespace: app-platform-dev}
+metadata: {name: 'knowlab-migrate-66ec19243f85-v5', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,22 +72,22 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:45282caca6d9832400ed73187ce569a4da66ce598d977ea5cdf8c1fa01879c0b
+          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:66ec19243f85ddcbee7b0d75e3ab6a72b7a39a16ec8fd3136f99d82f4e8efbe2
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowlab-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: '185e1ca91d2d114f7d466b89b55d028900e2ca47'}
+            - {name: DEPLOYMENT_ID, value: '457932623d2410b61432a050376da973c814fbad'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowlab-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowlab.dev.sunmoonai.com:30443'}
-            - {name: EXPECTED_SCHEMA_REVISION, value: '20261120_0028'}
+            - {name: EXPECTED_SCHEMA_REVISION, value: '20261120_0029'}
           command: [/bin/sh, -ec]
           args: ['python -m app.bootstrap.migration upgrade && python /verify/verify.py']
           volumeMounts:
             - {name: verify, mountPath: /verify, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: verify, configMap: {name: 'knowlab-schema-check-v4'}}
+        - {name: verify, configMap: {name: 'knowlab-schema-check-v5'}}
         - {name: tmp, emptyDir: {sizeLimit: 32Mi}}
