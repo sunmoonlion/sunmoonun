@@ -51,6 +51,7 @@ class InstructionControl:
                 "Instruction control requires server certificate verification"
             )
         self.tls_context = tls_context
+        self.acknowledged = False
 
     def _post(self, operation, payload):
         # Short-lived tickets can be renewed for the same bound gateway.
@@ -116,9 +117,12 @@ class InstructionControl:
             return False
         if self._post("receipt", payload) != {"recorded": True}:
             raise OSError("Instruction receipt was not acknowledged")
+        self.acknowledged = True
         return True
 
-    def relay(self, body, *, turn_id, start, write, connect=http.client.HTTPSConnection):
+    def relay(
+        self, body, *, turn_id, start, write, connect=http.client.HTTPSConnection
+    ):
         # Capture the whole credential file once per POST, including the key that
         # will actually be sent. Never source the credential id from the caller.
         provider = json.loads(self.credential_file.read_bytes())
