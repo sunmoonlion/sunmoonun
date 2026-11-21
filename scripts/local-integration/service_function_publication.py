@@ -66,11 +66,7 @@ async def test_service_publication_and_selection(db, monkeypatch):
     from app.application.workbench.formal_methods import FormalMethods
     from app.bootstrap.api import create_app
     from app.bootstrap.publish_functions import publish_workbench_functions
-    from app.domain.workbench.native_functions import (
-        compute_revision,
-        project_list_revision,
-        project_read_revision,
-    )
+    from app.domain.workbench.native_functions import LOCAL_REVISIONS
     from app.infrastructure.external.downstream_service import DownstreamServiceClient
     from app.infrastructure.security import relation_auth
     from app.infrastructure.storage.postgres import get_db_session
@@ -172,11 +168,16 @@ async def test_service_publication_and_selection(db, monkeypatch):
                 ),
                 oidc_client=BenchIssuer(),
             )
-            expected = {
-                "compute": compute_revision().digest,
-                "list_project_conversations": project_list_revision().digest,
-                "read_project_conversation": project_read_revision().digest,
+            operations = {
+                "list_project_conversations",
+                "read_project_conversation",
+                "compute",
+                "discover_source_tools",
+                "find_subject",
+                "request_data",
+                "find_expert",
             }
+            expected = {name: LOCAL_REVISIONS[name]().digest for name in operations}
             assert await publish_workbench_functions(publisher) == expected
             assert await publish_workbench_functions(publisher) == expected
             proc = await asyncio.create_subprocess_exec(
