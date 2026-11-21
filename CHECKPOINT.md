@@ -58,7 +58,11 @@
 
 **验收与接手点。** 在真实 PostgreSQL、Codex 0.170.0 容器与 KnowBench HTTPS 控制接口上，模拟模型已完成、结果入账前 runner 中断。runner 的正常轮询找回原轮次并提交已验输出，合成供应商共收到一次请求。供给器返回测试容器位置。另验预算不足、未配置执行环境、并发领取、预留应答丢失、轮次应答丢失、取消与晚到回执。KnowBench 指令与正式执行相关回归 87 项通过，另组 runner、迁移与新用例 51 项通过（两组有重合）。独立 kube-apiserver 上的供给器和沙箱镜像测试 52 项通过。[复跑入口](../knowbench-app/knowbench-backend/docs/method-execution.md#runner-领取与恢复纯指令试跑)
 
-**下一步。** 在有调度、存储和网络策略的隔离集群验执行 Pod 的唯一出口、进程重启和实际清卷。当前共享宿主的 inotify 实例额度限制了独立 KIND 节点启动。待有真实供应商测试条件，再核对 token 上限与计费字段，接入 KnowLab 作者试跑、私有冻结和专家叶子。运营路由与控制源仍默认关闭，部署交 Cursor。
+**第 11 项纯指令集群验收（2026-11-21，平台源码 `9842f1c34`）。** 经所有者授权，在 sunmoon-kind 临时命名空间加载候选基础策略、runner 出站和供给器任务策略。基础 DNS 放行范围已排除 `instruction-worker`。执行 Pod 保留 900 秒上限，网关由宿主依据原回执结算状态回收。测试镜像以 #97 的 Codex 0.170.0 沙箱构建产物加本次指令入口组成，仅用于验收。
+
+**实测证据。** 同节点用例绑定 PV `pvc-b0421ceb-b611-4fd0-a4ef-d50a3b0466c7`。跨节点用例网关在 `sunmoon-kind-worker`、执行 Pod 在 `sunmoon-kind-worker2`，绑定 PV `pvc-c834eb2b-1989-4311-812a-006b27ef4a25`。runner 角色探针可连 worker，worker 可连自己的网关，对另一任务网关、供应商替身和 TCP/UDP DNS 的请求均被阻断。两次均用合成账单让 HTTPS 接收方先拒收，停止 worker 后重启网关进程，凭原卷补交成功。已确认 PVC 和动态配置的 PV 删除。真实 KnowBench 账本和 Codex 轮次的恢复证据见上一项。[复跑说明](gitops/components/sandbox-platform/provisioner/README.md#集群网络和回执卷验收)
+
+**下一步。** 待有获准供应商、测试账号、模型及价目后核对 token 上限、响应的用量字段和计费，并接入 KnowLab 作者试跑、私有冻结和专家叶子。本次只在测试命名空间验收，正式发布交 Cursor。
 
 **全局审查收回（2026-11-20）。** F01–F21 已逐项登记采纳、既有修复或保留理由，详见[原单与回执](docs/sync-cowork/archive/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)。本轮合并候选为 KnowBench `0f031cd`、KnowLab `c61b98e`、KnowBase `c9ed334` 和 KnowMart `190f8ce`。按所有者决定，P1 与本轮修复交 Cursor 一起发布；实际窗口、镜像与集群回执见[合并发版单](docs/sync-cowork/archive/luna/2026-11-20-基础修复与P1作者短链下次发版需求/request.md)。
 
