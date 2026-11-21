@@ -294,7 +294,7 @@ async def author(peer, template):
                 assert response.is_success, (path, response.status_code, response.text)
                 return response.json()
 
-            async def trial(mid, request_id, steps, cancel=False, *, input_alias="to", expert_graph=False, revision=1):
+            async def trial(mid, request_id, steps, cancel=False, *, input_alias="to", expert_graph=False, revision=1, promise_cases=(), version=1):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
                 spec["suite"]["suite_id"] = str(uuid4())
@@ -302,6 +302,12 @@ async def author(peer, template):
                     {input_alias: "sandbox-provisioner"} if input_alias is not None else {}
                 )
                 spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = expected_receipt
+                if promise_cases:
+                    case = spec["suite"]["cases"][0]
+                    spec["suite"]["cases"] = [
+                        {**case, "case_id": name, "covers_promises": [name], "input": {"values": {input_alias: value}}}
+                        for name, value in promise_cases
+                    ]
                 run = str(uuid4())
                 command = {"request_id": request_id, "revision": revision, "run_id": run}
                 prefix = f"method-units/{mid}/executions"
@@ -344,10 +350,10 @@ async def author(peer, template):
                             },
                         )
                         decisions += 1
-                assert decisions == steps and result["status"] == "passed", result
+                assert decisions == steps * len(spec["suite"]["cases"]) and result["status"] == "passed", result
                 frozen = await call(
                     "PUT",
-                    f"method-units/{mid}/formal-versions/1",
+                    f"method-units/{mid}/formal-versions/{version}",
                     json={**command, "visibility": "private"},
                 )
                 assert frozen["definition"]["procedure"]["kind"] == (
@@ -440,6 +446,29 @@ async def author(peer, template):
             assert graph["exports"]["receipt"]["output"] == "receipt"
             for field in ("capability_declaration", "how_to_validate"):
                 assert replaced["definition"][field] == strict["definition"][field]
+            if not registered_script:
+                path = f"knowbot-requests/{reselect_request}/workdraft"
+                current = await call("GET", path)
+                candidate = current["body"]["formal_method"]
+                definition = candidate["definition"]
+                declaration = definition["capability_declaration"]
+                named = next(iter(declaration["promises"]))
+                declaration["promises"][named] = "Resolve a component name to its build revision"
+                declaration["promises"]["pinned"] = "Verify a supplied revision against the manifest"
+                declaration["conditions"] = {
+                    named: {"when": "A component name is supplied", "input_slots": ["buildSource"]},
+                    "pinned": {"when": "A revision is supplied", "input_slots": ["buildSource"]},
+                }
+                definition["how_to_validate"].append({**definition["how_to_validate"][0], "promise_id": "pinned"})
+                updated = await call("POST", path + "/cells", json={
+                    "revision": current["revision"], "cells": [{"path": "formal_method", "value": candidate}],
+                })
+                checked = await trial(reselect_id, reselect_request, 1, input_alias="buildSource",
+                    expert_graph=True, revision=updated["revision"], version=2,
+                    promise_cases=[(named, "sandbox-provisioner"), ("pinned", expected_receipt)])
+                assert checked["definition"] == definition and checked["digest"] != replaced["digest"]
+                old = await call("GET", f"method-units/{reselect_id}/formal-versions/1")
+                assert old["definition"] == replaced["definition"] and old["digest"] == replaced["digest"]
             await trial(expert_id, expert_request, 3, cancel=True, input_alias=None, revision=3)
             expert = await trial(expert_id, expert_request, 3, input_alias=None, revision=3)
             async with sessions() as session:
