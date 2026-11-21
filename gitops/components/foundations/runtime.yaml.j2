@@ -54,7 +54,13 @@ metadata:
   name: allow-cluster-dns
   namespace: {{ namespace }}
 spec:
+{% if namespace == sandbox_namespace %}
+  podSelector:
+    matchExpressions:
+      - {key: app, operator: NotIn, values: [instruction-worker]}
+{% else %}
   podSelector: {}
+{% endif %}
   policyTypes: [Egress]
   egress:
     - to:

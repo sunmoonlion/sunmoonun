@@ -20,4 +20,17 @@
 
 Codex 的临时工作目录与 WebSocket 访问令牌只属于本次执行。供应商凭据、控制票据和回执卷都挂在网关内。执行 Pod 的出站策略只允许本次网关的 47801 端口。网关将终结用量持久化后向 KnowBench 交回，同一 Pod 内网关进程重启可补交。整个网关 Pod 丢失时保留回执卷和原绑定供核查。
 
-供给器生命周期联调可在独立回环 kube-apiserver 上运行 `provisioner/tests/test_instruction_units.py`。设置 `INSTRUCTION_KUBE_TEST_PORT` 和 `INSTRUCTION_KUBE_TEST_DIR`，后者包含该临时服务的 `ca.crt`、`client.crt` 和 `client.key`。测试创建独立命名空间并注入就绪状态。集群网络验收另行实测执行 Pod 能连本次网关、不能直连供应商、其他任务网关和 DNS，并验证 runner 的入站连接以及停止后补收用量。
+供给器生命周期联调可在独立回环 kube-apiserver 上运行 `provisioner/tests/test_instruction_units.py`。设置 `INSTRUCTION_KUBE_TEST_PORT` 和 `INSTRUCTION_KUBE_TEST_DIR`，后者包含该临时服务的 `ca.crt`、`client.crt` 和 `client.key`。测试创建独立命名空间并注入就绪状态。
+
+### 集群网络和回执卷验收
+
+在工位根目录设置测试集群的 kubeconfig，选择该集群可用、含本次 `instruction_*.py` 和 Codex 0.170.0 的沙箱镜像。指定的节点需能拉取或已预载测试镜像。以下命令建立两个临时命名空间，完成后回收：
+
+```sh
+knowbench-app/knowbench-backend/app/.venv/bin/python \
+  sunmoonun/scripts/local-integration/instruction_cluster.py \
+  --context "$TEST_CONTEXT" --image "$TEST_SANDBOX_IMAGE" \
+  --node "$TEST_GATEWAY_NODE" --worker-node "$TEST_WORKER_NODE"
+```
+
+该用例加载候选基础网络策略、runner 的出站规则及供给器生成的任务策略。在沙箱命名空间，基础 DNS 策略排除 `app=instruction-worker`，网关仍可解析接入地址。记录同任务与跨任务连接，以及 DNS 的 TCP、UDP 结果。回执阶段用合成数据向网关写入一份待补交账单，控制端先返回 503。停止执行 Pod、重启原网关进程后允许补交，核对原卷 UID，并等待 PVC 和动态配置的 PV 删除。执行 Pod 有 900 秒上限，网关由宿主按账本结算状态回收。

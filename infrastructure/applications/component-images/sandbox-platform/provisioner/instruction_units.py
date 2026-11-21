@@ -159,7 +159,8 @@ class InstructionUnits:
                 "automountServiceAccountToken": False,
                 "enableServiceLinks": False,
                 "restartPolicy": "OnFailure" if role == "gateway" else "Never",
-                "activeDeadlineSeconds": 900,
+                # The gateway must keep replaying its receipt until the ledger settles.
+                **({"activeDeadlineSeconds": 900} if role == "worker" else {}),
                 "securityContext": {
                     "runAsNonRoot": True,
                     "runAsUser": 10001,

@@ -393,7 +393,9 @@ metadata:
   name: allow-cluster-dns
   namespace: sandbox-platform-dev
 spec:
-  podSelector: {}
+  podSelector:
+    matchExpressions:
+      - {key: app, operator: NotIn, values: [instruction-worker]}
   policyTypes: [Egress]
   egress:
     - to:

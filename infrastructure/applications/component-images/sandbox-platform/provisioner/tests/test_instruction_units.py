@@ -103,6 +103,7 @@ async def test_instruction_unit_lifecycle(monkeypatch):
                     )
                 ).status_code == 200
                 (gateway,) = await kube.list("pods", "app=instruction-gateway")
+                assert "activeDeadlineSeconds" not in gateway["spec"]
                 name = gateway["metadata"]["name"]
                 assert (await kube.get("secrets", name + "-binding"))["data"][
                     "turn"
@@ -128,6 +129,7 @@ async def test_instruction_unit_lifecycle(monkeypatch):
                 assert first.json() == second.json()
                 (worker,) = await kube.list("pods", "app=instruction-worker")
                 spec = worker["spec"]
+                assert spec["activeDeadlineSeconds"] == 900
                 assert not spec["automountServiceAccountToken"]
                 assert [
                     v["secret"]["items"] for v in spec["volumes"] if "secret" in v
