@@ -200,6 +200,17 @@ async def buy_and_deliver(directory):
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app), base_url="http://127.0.0.1"
         ) as runtime:
+            for subject, expected in (("buyer", [ref]), ("other", [])):
+                page = await runtime.post(
+                    "/api/internal/v1/knowmart/formal-methods/planning-window",
+                    json={"owner_subject": subject, "offset": 0, "limit": 8},
+                )
+                page.raise_for_status()
+                assert page.json() == {
+                    "owner_subject": subject,
+                    "references": expected,
+                    "more": False,
+                }
             path = (
                 f"/api/internal/v1/knowmart/formal-methods/listings/{listing}/delivery"
             )

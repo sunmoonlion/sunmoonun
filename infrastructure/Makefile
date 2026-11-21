@@ -595,6 +595,6 @@ verify-contracts:
 .PHONY: verify-method-transactions
 verify-method-transactions:
 	@test -n "$$AGENT_TEST_DATABASE_URL" && test -n "$$DELIVERY_TEST_DATABASE_URL" || { echo "Set the two PostgreSQL test URLs (database name ending in _tests)"; exit 1; }
-	cd ../../knowbench-app/knowbench-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard $(abspath ../ci/test_method_transaction_guard.py) tests/test_registry_paths_db.py tests/test_formal_expert_intake_db.py tests/test_incubation_shared_tools_db.py
+	cd ../../knowbench-app/knowbench-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard $(abspath ../ci/test_method_transaction_guard.py) tests/test_registry_paths_db.py tests/test_formal_expert_intake_db.py tests/test_incubation_shared_tools_db.py tests/test_planning_window_recall_db.py tests/test_workbench_knowmart_client.py
 	cd ../../knowlab-app/knowlab-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard tests/test_formal_methods_db.py
 	cd ../../knowmart-app/knowmart-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard tests/test_market_db.py
