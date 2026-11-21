@@ -98,6 +98,17 @@ knowbase_backend_deployment:
     env_prefix: USER_DATA_
   # SDD 0042 接收的跨应用服务关系（通用机制 common/backend/service-client）：身份从调用方的 service_clients 推出来。
   # 数据第四版（数据拓扑 v4、SDD 0043/0044/0045；交Fable-gitops 10-29 第 1 条）：一种关系可以有多个调用方
+  service_clients:
+    - target: knowbench
+      relation: function-publish
+      enabled: true
+      roles: []
+      application: sunmoonai-knowbase-knowbench-function-publish
+      client_id: sunmoon-knowbase-knowbench-function-publish
+      organization: sunmoon-workload-knowbase-knowbench-function-publish
+      scope: knowbench:function-publish
+      job_revision: v1
+      token_seconds: 900
   service_receivers:
     # 凭第四版运行授权读：knowbench（委托、会话）、knowlab（测试集重解析）
     - {relation: user-data-read, caller: knowbench, enabled: true}

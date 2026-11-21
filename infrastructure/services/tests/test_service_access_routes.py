@@ -1,4 +1,4 @@
-"""Render the actual internal ingress template: data MCP must reach its JWT provider."""
+"""Render the actual internal ingress template: registered data functions must reach their JWT provider."""
 import unittest
 from pathlib import Path
 
@@ -18,7 +18,7 @@ def render(namespace):
 
 
 class ServiceAccessRoutes(unittest.TestCase):
-    def test_data_mcp_routes_to_provider_without_widening_other_internal_paths(self):
+    def test_registered_functions_route_to_provider_without_widening_other_internal_paths(self):
         for namespace in ['app-platform-dev', 'app-platform-test']:
             with self.subTest(namespace=namespace):
                 objects = render(namespace)
@@ -30,9 +30,9 @@ class ServiceAccessRoutes(unittest.TestCase):
                 self.assertEqual({p: v['pathType'] for p, v in paths.items()}, {
                     '/api/internal/v1/knowledge': 'Prefix',
                     '/api/internal/v2/user-data': 'Prefix',
-                    '/api/mcp/data': 'Exact',
+                    '/api/internal/v1/functions': 'Prefix',
                 })
-                self.assertEqual(paths['/api/mcp/data']['backend']['service'], {
+                self.assertEqual(paths['/api/internal/v1/functions']['backend']['service'], {
                     'name': 'knowbase-api', 'port': {'name': 'http'},
                 })
                 self.assertEqual(kb['spec']['tls'], [{
@@ -46,7 +46,10 @@ class ServiceAccessRoutes(unittest.TestCase):
                     'knowlab': '/api/internal/v1/knowlab', 'knowfeed': '/api/internal/v1/supply',
                 }.items():
                     other = ingresses[f'{name}-service-access']['spec']['rules'][0]['http']['paths']
-                    self.assertEqual([(p['path'], p['pathType']) for p in other], [(expected, 'Prefix')])
+                    paths = [(expected, 'Prefix')]
+                    if name == 'knowbench':
+                        paths.append(('/api/internal/v1/method-skill-center/functions', 'Prefix'))
+                    self.assertEqual([(p['path'], p['pathType']) for p in other], paths)
                 self.assertEqual(len(objects), 12)  # Six HTTPS services and six ingresses.
 
 
