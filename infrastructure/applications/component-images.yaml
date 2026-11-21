@@ -34,7 +34,7 @@ images:
     # apt 走 https 会在证书上失败（2026-10-06 第 26 轮退出 100），包本身有签名
     # 2fe6652c：编排端配置加 [windows] sandbox = unelevated（Windows 代理第 1 段联调）
     # 开发沙箱使用 Codex 0.170.0，与 Link 0.5.9 配套。
-    revision: 50bbc99bf189e57aa5292b213901fba663c88f21
+    revision: d1ccee1eebb8aa3a78f0a8021c93f8cb9c831b8c
     context: infrastructure/applications/component-images/sandbox-platform
     dockerfile: image/Dockerfile
     base: node-runtime

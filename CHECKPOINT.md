@@ -62,7 +62,11 @@
 
 **实测证据。** 同节点用例绑定 PV `pvc-b0421ceb-b611-4fd0-a4ef-d50a3b0466c7`。跨节点用例网关在 `sunmoon-kind-worker`、执行 Pod 在 `sunmoon-kind-worker2`，绑定 PV `pvc-c834eb2b-1989-4311-812a-006b27ef4a25`。runner 角色探针可连 worker，worker 可连自己的网关，对另一任务网关、供应商替身和 TCP/UDP DNS 的请求均被阻断。两次均用合成账单让 HTTPS 接收方先拒收，停止 worker 后重启网关进程，凭原卷补交成功。已确认 PVC 和动态配置的 PV 删除。真实 KnowBench 账本和 Codex 轮次的恢复证据见上一项。[复跑说明](gitops/components/sandbox-platform/provisioner/README.md#集群网络和回执卷验收)
 
-**下一步。** 待有获准供应商、测试账号、模型及价目后核对 token 上限、响应的用量字段和计费，并接入 KnowLab 作者试跑、私有冻结和专家叶子。本次只在测试命名空间验收，正式发布交 Cursor。
+**第 11 项 Kimi 单次实测（2026-11-21）。** 所有者指定 `knowbot-tester`，使用已登记的 `kimi-k3` 凭据。KnowBench 将该凭据标为 active。经平台供给器拉起该账号自己的沙箱，在沙箱中用候选传输代码向配置的 `https://api.moonshot.cn/v1/responses` 发送一次合成请求，输出上限 64 token。供应商返回 HTTP 401（`incorrect_api_key_error`），没有返回用量。未重发。测试结束后回收本次沙箱、Secret 和新建卷。正式纯指令运营路由仍关闭。本次验证覆盖供应商传输和鉴权，未运行作者试跑或根任务扣费。
+
+**已修正鉴权错误的呈现。** 候选沙箱源码 `d1ccee1ee` 将供应商 HTTP 401 以明确的凭据错误交回 Codex。宿主拒绝请求仍沿用原核权错误。回归验过一次派发、无用量回执、上游错误正文不进入返回信息。
+
+**下一步。** 由账号持有人在 KnowBench 的模型设置更新 `knowbot-tester` 的 Kimi API 密钥，另获一次实测授权后核对成功响应的 token 明细和对应账单。K3 的公开上下文窗口为 1,048,576 token，默认缓存写入 TTL 为 5 分钟，价格配置与实际账单仍须分别核对。随后接 KnowLab 作者试跑、私有冻结和专家叶子。[Kimi 计费说明](https://platform.kimi.com/docs/pricing/chat) · [Responses 用量字段](https://platform.kimi.com/docs/api/responses)
 
 **全局审查收回（2026-11-20）。** F01–F21 已逐项登记采纳、既有修复或保留理由，详见[原单与回执](docs/sync-cowork/archive/luna/2026-11-20-Luna开发全程逐行代码审查-Opus/request.md)。本轮合并候选为 KnowBench `0f031cd`、KnowLab `c61b98e`、KnowBase `c9ed334` 和 KnowMart `190f8ce`。按所有者决定，P1 与本轮修复交 Cursor 一起发布；实际窗口、镜像与集群回执见[合并发版单](docs/sync-cowork/archive/luna/2026-11-20-基础修复与P1作者短链下次发版需求/request.md)。
 
