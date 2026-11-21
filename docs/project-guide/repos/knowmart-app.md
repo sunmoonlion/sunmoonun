@@ -1,5 +1,7 @@
 # knowmart-app：供需市场
 
+KnowMart 提供主动浏览、获取与许可核验。工作台的「请专家」从 KnowBench 注册中心查本题可用版本，并按市场资格过滤。用户在市场选定版本后可带回同一委托核验与确认。目标及迁移顺序见[使用方案](../../总纲/专家方案设计/专家使用方案/luna/专家及专家团使用方案.md)。
+
 > 最后更新：2026-11-01（M3 收清单硬查所绑数据与待处理版本、M5 交付带类目） ｜ 按 qwen 分支代码重写 ｜ 骨架继承 [`tpl-app.md`](tpl-app.md)，本文只写它多出来的 ｜ 总览见 [`../overall-architecture.md`](../overall-architecture.md)
 
 **层与线**：第 6 层应用层；专家线 knowlab → knowmart → knowbench 的中间一环（专家在这里存放、上架、被请）；同时是用户之间买卖资料的地方，资料本身的真源在 knowbase。
