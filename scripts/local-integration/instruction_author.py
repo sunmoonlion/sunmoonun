@@ -329,90 +329,115 @@ async def author(peer):
                 "max_steps": 2,
                 "max_replans": 0,
             }
-            async with sessions() as session:
-                repo = SqlKnowlabRepository(session)
-                expert = await KnowbotCreationService(repo, FakeRuntime()).submit(
-                    "author",
-                    KnowbotRequestIn.model_validate(
-                        request_body(title="Two instruction steps")
-                    ),
+            candidate = leaf_ref
+            digests = [frozen["digest"]]
+            for depth, leaf_count in ((2, 2), (3, 4)):
+                for step in steps:
+                    step["candidates"] = [candidate]
+                definition["procedure"].update(
+                    max_depth=depth,
+                    max_steps=2 if depth == 2 else 6,
+                    max_expansions=3 if depth == 2 else 7,
                 )
-                await KnowbotWorkdraftService(repo).save(
-                    "author",
-                    str(expert.id),
-                    revision=0,
-                    edits=[
-                        (
-                            "formal_method",
-                            {
-                                "definition": definition,
-                                "source": None,
-                                "allowed_callers": ["host"],
-                            },
-                        )
-                    ],
-                )
-            prefix = "/api/web/v1/method-units/" + str(uuid4())
-            command = {
-                "request_id": str(expert.id),
-                "run_id": str(uuid4()),
-                "revision": 1,
-            }
-            spec["suite"]["suite_id"] = str(uuid4())
-            spec["suite"]["cases"][0]["input"]["values"]["status"] = "awaiting review"
-            await call("POST", "/executions", json={**command, "execution": spec})
-            endpoint = "/executions/" + command["run_id"]
-            approvals = []
-            for _ in range(12):
-                await rpc({"advance": command["run_id"]})
-                result = await call(
-                    "GET", endpoint, params={"request_id": str(expert.id)}
-                )
-                if result["status"] == "passed":
-                    break
-                assert result["status"] in ("pending", "running", "waiting"), result
-                for action in result["actions"]:
-                    subject = action["subject"]
-                    approvals.append(subject["arguments"]["status"])
-                    if len(approvals) == 2:
-                        bound = subject["artifact_read"]["fields"]["status"]
-                        assert (
-                            bound["name"] == "formal-step:first"
-                            and bound["version"] == 1
-                            and bound["output"] == "summary"
-                        )
-                    await call(
-                        "POST",
-                        endpoint + "/actions/" + action["call_id"],
-                        json={
-                            **{
-                                k: action[k]
-                                for k in (
-                                    "case_id",
-                                    "repetition",
-                                    "token",
-                                    "subject_digest",
-                                )
-                            },
-                            "request_id": str(expert.id),
-                            "decision": "accept",
-                        },
+                async with sessions() as session:
+                    repo = SqlKnowlabRepository(session)
+                    expert = await KnowbotCreationService(repo, FakeRuntime()).submit(
+                        "author",
+                        KnowbotRequestIn.model_validate(
+                            request_body(title=f"Instruction expert at depth {depth}")
+                        ),
                     )
-            assert result["status"] == "passed" and approvals == [
-                "awaiting review",
-                "ready",
-            ], result
-            frozen_expert = await call(
-                "PUT", "/formal-versions/1", json={**command, "visibility": "private"}
-            )
-            assert (
-                frozen_expert["provenance"]["validation"]
-                == result["admission"]["receipt"]
-            )
+                    await KnowbotWorkdraftService(repo).save(
+                        "author",
+                        str(expert.id),
+                        revision=0,
+                        edits=[
+                            (
+                                "formal_method",
+                                {
+                                    "definition": definition,
+                                    "source": None,
+                                    "allowed_callers": ["host"],
+                                },
+                            )
+                        ],
+                    )
+                prefix = "/api/web/v1/method-units/" + str(uuid4())
+                command = {
+                    "request_id": str(expert.id),
+                    "run_id": str(uuid4()),
+                    "revision": 1,
+                }
+                spec["suite"]["suite_id"] = str(uuid4())
+                spec["suite"]["cases"][0]["input"]["values"]["status"] = (
+                    "awaiting review"
+                )
+                await call("POST", "/executions", json={**command, "execution": spec})
+                endpoint = "/executions/" + command["run_id"]
+                approvals = []
+                for _ in range(12):
+                    await rpc({"advance": command["run_id"]})
+                    result = await call(
+                        "GET", endpoint, params={"request_id": str(expert.id)}
+                    )
+                    if result["status"] == "passed":
+                        break
+                    assert result["status"] in ("pending", "running", "waiting"), result
+                    for action in result["actions"]:
+                        subject = action["subject"]
+                        approvals.append(subject["arguments"]["status"])
+                        if depth == 2 and len(approvals) == 2:
+                            bound = subject["artifact_read"]["fields"]["status"]
+                            assert (
+                                bound["name"] == "formal-step:first"
+                                and bound["version"] == 1
+                                and bound["output"] == "summary"
+                            )
+                        if depth == 3:
+                            binding = subject["artifact_read"]
+                            assert len(binding["path"]) == 3
+                            if len(approvals) == 3:
+                                assert binding["fields"]["status"]["producer_path"] == [
+                                    "first"
+                                ]
+                        await call(
+                            "POST",
+                            endpoint + "/actions/" + action["call_id"],
+                            json={
+                                **{
+                                    k: action[k]
+                                    for k in (
+                                        "case_id",
+                                        "repetition",
+                                        "token",
+                                        "subject_digest",
+                                    )
+                                },
+                                "request_id": str(expert.id),
+                                "decision": "accept",
+                            },
+                        )
+                assert result["status"] == "passed" and approvals == [
+                    "awaiting review"
+                ] + ["ready"] * (leaf_count - 1), result
+                frozen_expert = await call(
+                    "PUT",
+                    "/formal-versions/1",
+                    json={**command, "visibility": "private"},
+                )
+                assert (
+                    frozen_expert["provenance"]["validation"]
+                    == result["admission"]["receipt"]
+                )
+                candidate = {
+                    "method_id": prefix.rsplit("/", 1)[1],
+                    "version": 1,
+                    "digest": frozen_expert["digest"],
+                }
+                digests.append(candidate["digest"])
             print(
-                "Private instruction and two-step expert registered:",
-                frozen["digest"],
-                frozen_expert["digest"],
+                "Registered private instruction, two-leaf expert and four-leaf nested expert:",
+                *digests,
             )
     finally:
         await schema.aclose()
