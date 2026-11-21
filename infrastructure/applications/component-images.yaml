@@ -19,7 +19,7 @@ images:
   sandbox-provisioner:
     object: sandbox-platform/provisioner
     # 隔离 Skill Job、完整包输入、执行回执及停止确认。
-    revision: 50bbc99bf189e57aa5292b213901fba663c88f21
+    revision: fdd8f865120797411e53aa09792bfa6595f755c0
     context: infrastructure/applications/component-images/sandbox-platform/provisioner
     dockerfile: Dockerfile
     base: python
