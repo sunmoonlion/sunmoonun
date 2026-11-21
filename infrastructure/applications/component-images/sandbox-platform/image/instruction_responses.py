@@ -8,6 +8,10 @@ from urllib.parse import urlsplit
 MAX_EVENT = 2 * 1024 * 1024
 
 
+class ProviderAuthenticationRejected(Exception):
+    """The pinned upstream returned HTTP 401 before starting a model stream."""
+
+
 def forward(
     body,
     *,
@@ -48,6 +52,8 @@ def forward(
             "POST", target.path, body=json.dumps(outgoing).encode(), headers=headers
         )
         with upstream.getresponse() as response:
+            if response.status == 401:
+                raise ProviderAuthenticationRejected
             if (
                 response.status != 200
                 or response.headers.get_content_type() != "text/event-stream"

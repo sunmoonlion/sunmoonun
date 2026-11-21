@@ -9,6 +9,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
 from instruction_control import InstructionControl
+from instruction_responses import ProviderAuthenticationRejected
 
 BINDING = Path("/run/instruction")
 MAX_BODY = 2 * 1024 * 1024
@@ -59,6 +60,8 @@ class Gateway(BaseHTTPRequestHandler):
             self.server.control.relay(
                 body, turn_id=turn, start=start, write=self.wfile.write
             )
+        except ProviderAuthenticationRejected:
+            self.send_error(401, "Model provider rejected its credential")
         except (ValueError, KeyError, TypeError, RecursionError, PermissionError):
             if not started:
                 self.send_error(403)

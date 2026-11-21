@@ -15,8 +15,17 @@ spec.loader.exec_module(relay)
 ENDPOINT = "https://model.example.test/v1/responses"
 
 
-def exercise(events, *, status=200, disconnected=False, authorized=ENDPOINT):
-    sent, receipts = [], []
+def exercise(
+    events,
+    *,
+    status=200,
+    disconnected=False,
+    authorized=ENDPOINT,
+    sent=None,
+    receipts=None,
+):
+    sent = [] if sent is None else sent
+    receipts = [] if receipts is None else receipts
     wire = b"".join(b"data: " + json.dumps(e).encode() + b"\r\n\r\n" for e in events)
     wire = (
         f"HTTP/1.1 {status} response\r\nContent-Type: text/event-stream\r\n\r\n".encode()
@@ -85,3 +94,10 @@ def test_unrelated_completion_and_redirect_do_not_supply_usage():
 def test_route_mismatch_precedes_any_connection():
     with pytest.raises(ValueError, match="authorized route"):
         exercise([], authorized="https://other.example.test/v1/responses")
+
+
+def test_provider_401_is_reported_without_retry_or_usage():
+    sent, receipts = [], []
+    with pytest.raises(relay.ProviderAuthenticationRejected):
+        exercise([], status=401, sent=sent, receipts=receipts)
+    assert len(sent) == 1 and receipts == []

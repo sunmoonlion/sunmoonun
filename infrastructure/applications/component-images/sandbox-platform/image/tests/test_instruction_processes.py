@@ -37,6 +37,10 @@ def test_gateway_only_accepts_json_and_uses_host_observed_turn(tmp_path, monkeyp
     class Control:
         def relay(self, body, *, turn_id, start, write):
             seen.append((body, turn_id))
+            if body.get("model") == "rejected":
+                raise gateway.ProviderAuthenticationRejected(
+                    "private upstream error body"
+                )
             start()
             write(b"data: model-event\n\n")
 
@@ -63,7 +67,13 @@ def test_gateway_only_accepts_json_and_uses_host_observed_turn(tmp_path, monkeyp
             )
             assert post("/v1/responses", "[]")[0] == 403
             assert post("/other", "{}")[0] == 404
-            assert seen == [({"model": "test"}, "observed")]
+            status, detail = post("/v1/responses", json.dumps({"model": "rejected"}))
+            assert status == 401 and b"Model provider rejected" in detail
+            assert b"private upstream error body" not in detail
+            assert seen == [
+                ({"model": "test"}, "observed"),
+                ({"model": "rejected"}, "observed"),
+            ]
         finally:
             server.shutdown()
             thread.join()
