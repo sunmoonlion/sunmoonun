@@ -135,6 +135,25 @@ result = {"receipt": args["to"] + "|" + args["other"]}
                             await factory(WorkbenchRepository(session)).reconcile_scripts()
                     await conductor.advance(req["advance"])
                     result = None
+                elif "receive_concurrently" in req:
+                    path = f"https://127.0.0.1/api/internal/v1/knowbot-runtime/formal-method-executions/{req['receive_concurrently']}/partial-deliveries"
+                    async def receive(subject):
+                        return await client.post(
+                            path, params={"owner_subject": subject}, json=req["body"],
+                            headers={"Authorization": "Bearer token-local"},
+                        )
+                    other = await receive("other-author")
+                    assert other.status_code == 404, (other.status_code, other.text)
+                    first, retry = await asyncio.gather(receive("author"), receive("author"))
+                    assert first.status_code == retry.status_code == 200
+                    assert first.json() == retry.json()
+                    result = first.json()
+                elif "purge" in req:
+                    async with sessions() as session:
+                        repo = WorkbenchRepository(session)
+                        async with repo.transaction():
+                            await repo.purge_test_run(req["purge"])
+                    result = None
                 elif "expire_approval" in req:
                     from sqlalchemy import text
 
@@ -381,6 +400,32 @@ async def author(peer, template):
                         assert observed["branch"]["output_artifacts"]
                         assert not observed["branch_1"]["output_artifacts"]
                         assert result["cases"][0]["outcome"] == "rejected"
+                        case = result["cases"][0]
+                        report = case["partial"]
+                        assert {s["step"]: s["state"] for s in report["steps"]} == {
+                            "branch": "accepted", "branch_1": "failed", "step_1": "not_run",
+                        }, report
+                        assert report["missing_promises"]["sent"]["missing_outputs"] == ["receipt"] and not report["received"]
+                        body = {"request_id": request_id, "case_id": case["case_id"],
+                                "repetition": case["repetition"], "step": "branch",
+                                "scope_digest": report["scope_digest"]}
+                        route = endpoint + "/partial-deliveries"
+                        for change, expected in [
+                            ({"scope_digest": "sha256:" + "0" * 64}, 409),
+                            ({"step": "branch_1"}, 400), ({"step": "step_1"}, 400),
+                            ({"repetition": 2}, 409),
+                        ]:
+                            denied = await client.post("/api/web/v1/" + route, json={**body, **change})
+                            assert denied.status_code == expected, denied.text
+                        concurrent = await rpc({"receive_concurrently": run, "body": body})
+                        first = await call("POST", route, json=body)
+                        assert first == {"contract_version": 1, **concurrent}
+                        assert first["outputs"] == {"receipt": "left"}
+                        await rpc({"purge": run})
+                        assert await call("POST", route, json=body) == first
+                        stored = await call("GET", endpoint, params={"request_id": request_id})
+                        assert stored["cases"][0]["partial"]["received"] == ["branch"]
+                        assert stored["status"] == "failed" and not stored["admission"]["receipt"]
                         return
                     if result["status"] == "passed":
                         break
@@ -531,7 +576,7 @@ async def author(peer, template):
                 assert merge["depends_on"] == [left["id"], right["id"]]
                 print(
                     "P2 verified: scoped lookup, adoption, reopen, expired second approval, "
-                    "both branch artifacts and private freeze", p2["digest"],
+                    "partial scope receipt after cleanup, both branch artifacts and private freeze", p2["digest"],
                 )
             internal = await trial(
                 internal_id, internal_request, 2, revision=2, input_alias="buildSource"
