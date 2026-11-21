@@ -94,6 +94,8 @@
 
 ## 4. 部署分工与注册中心的位置
 
+注册中心作为 KnowBench API 的独立任务优先实施。原生动作、受管调用与固定专家的接入边界及恢复原计划的条件见[专家主稿 §1.9](专家方案设计/专家孵化方案/luna/专家方法孵化与递归编排方案.md#registry)。
+
 ```text
 knowbench 后端代码与镜像
     ├─ API Deployment → API Pod → API 进程
