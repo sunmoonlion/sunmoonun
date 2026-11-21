@@ -97,7 +97,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 10001, runAsGroup: 10001, fsGroup: 10001, seccompProfile: {type: RuntimeDefault}}
       initContainers:
         - name: fetch
-          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:e16bed12e0f9462ef0310af0add7224d2666373d509304c382b4268ee4bf8d16
+          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:61508ffc4b8fcb31beb7cf7a75b0a4104da0e21f387659266b1a73e0d6ef54b7
           imagePullPolicy: IfNotPresent
           command: [/bin/bash, /scripts/fetch.sh]
           env: [{name: HOME, value: /tmp}]
@@ -110,7 +110,7 @@ spec:
             - {name: tmp, mountPath: /tmp}
       containers:
         - name: agent
-          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:e16bed12e0f9462ef0310af0add7224d2666373d509304c382b4268ee4bf8d16
+          image: harbor.sunmoonai.com:30443/platform/sandbox@sha256:61508ffc4b8fcb31beb7cf7a75b0a4104da0e21f387659266b1a73e0d6ef54b7
           imagePullPolicy: IfNotPresent
           command: [/usr/bin/tini, --, /bin/bash, /scripts/run.sh]
           env:

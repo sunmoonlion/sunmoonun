@@ -13,3 +13,4 @@ resources:
 - knowmart-catalog-service.sops.yaml
 - knowmart-demand-service.sops.yaml
 - knowlab-incubation-request-service.sops.yaml
+- knowbench-function-publish-service.sops.yaml

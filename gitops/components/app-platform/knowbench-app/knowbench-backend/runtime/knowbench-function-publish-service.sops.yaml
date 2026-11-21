@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: knowbench-knowbench-function-publish-service
+    namespace: app-platform-dev
+stringData:
+    KNOWBENCH_FUNCTION_PUBLISH_SERVICE_CLIENT_SECRET: ENC[AES256_GCM,data:2Xpw2Ap0qo+1lVTugk4d9tOkjKGTyYlGvWt5o2KtHbilrH1q+CmX8g==,iv:2zckL0wzUN76gftQHTDcMH3RQjCDxdjsDCDkUhSt2J4=,tag:9kWhctavKyZBh4oXOYUY+Q==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSMWFqSTRveEFJdWdLMG5Q
+            bEZWZS9Ud1JudmxqWm1WWHdEZ1ZUdm5sdDFvCkUxeC9vLzVjTlJNc3RKYjZwczht
+            Z2RFdlltK0JtN3R1WWJ4VXNIYkk4WWcKLS0tIG90bC9kN1V4c3hsTDlxWUdUV3Rk
+            TDBpOE9VMlI0eitEOU1QWWRpdzRnUGsKOhsLeiBMNgII+0f05TtWLkD7ITb9Zqv/
+            I7mpZMl7hSBCHU/MX1yV9Dv96SfufpvXjp/AaOWhqa/GAGKJeJZ42A==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1usl2cz5ltxz7au5tdpjqz7t77nzh3a29dgyewwfexqcctjfp2edq5yy6ge
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-11-21T13:50:29Z"
+    mac: ENC[AES256_GCM,data:C8vHDlM2DPGBceDOK6EkpiRKS6WvQ7iN29HUaxGFYuoqBq4wATzgV973BFilFhONK+TEXkUwo3q6UyTk7eiEou11v1ZEUe3h59arsPv4MymWMEdAdgwH7P6prTl9h+ixEhctZUb2ZZycFkMa1Ko8horE7vmm94ODJXtyTq7i1Aw=,iv:DiBwKQ1CnO2bgDOrTDyCkhUqeBcjCqiZF32p/mbA/os=,tag:3Cs3H+abRj0v7+26IGhy3g==,type:str]
+    version: 3.13.3

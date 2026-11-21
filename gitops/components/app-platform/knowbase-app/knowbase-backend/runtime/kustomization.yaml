@@ -6,3 +6,4 @@ resources:
 - storage.sops.yaml
 - provider.sops.yaml
 - domain.sops.yaml
+- knowbench-function-publish-service.sops.yaml
