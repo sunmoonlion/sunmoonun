@@ -136,7 +136,7 @@ result = {"receipt": args["to"] + "|" + args["other"]}
                     await conductor.advance(req["advance"])
                     result = None
                 elif "receive_concurrently" in req:
-                    path = f"https://127.0.0.1/api/internal/v1/knowbot-runtime/formal-method-executions/{req['receive_concurrently']}/partial-deliveries"
+                    path = f"https://127.0.0.1/api/internal/v1/knowbot-runtime/formal-method-executions/{req['receive_concurrently']}/step-deliveries"
                     async def receive(subject):
                         return await client.post(
                             path, params={"owner_subject": subject}, json=req["body"],
@@ -148,6 +148,19 @@ result = {"receipt": args["to"] + "|" + args["other"]}
                     assert first.status_code == retry.status_code == 200
                     assert first.json() == retry.json()
                     result = first.json()
+                elif "review_counters" in req:
+                    from sqlalchemy import text
+                    async with sessions() as session:
+                        result = list((await session.execute(text(
+                            "SELECT (SELECT count(*) FROM workbench_tasks), "
+                            "(SELECT count(*) FROM workbench_attempts), "
+                            "(SELECT count(*) FROM workbench_calls)"
+                        ))).one())
+                elif "review_as_other" in req:
+                    path = f"https://127.0.0.1/api/internal/v1/knowbot-runtime/formal-method-executions/{req['review_as_other']}/branch-review"
+                    response = await client.post(path, params={"owner_subject": "other-author"}, json=req["body"],
+                                                 headers={"Authorization": "Bearer token-local"})
+                    result = response.status_code
                 elif "purge" in req:
                     async with sessions() as session:
                         repo = WorkbenchRepository(session)
@@ -409,7 +422,7 @@ async def author(peer, template):
                         body = {"request_id": request_id, "case_id": case["case_id"],
                                 "repetition": case["repetition"], "step": "branch",
                                 "scope_digest": report["scope_digest"]}
-                        route = endpoint + "/partial-deliveries"
+                        route = endpoint + "/step-deliveries"
                         for change, expected in [
                             ({"scope_digest": "sha256:" + "0" * 64}, 409),
                             ({"step": "branch_1"}, 400), ({"step": "step_1"}, 400),
@@ -417,12 +430,37 @@ async def author(peer, template):
                         ]:
                             denied = await client.post("/api/web/v1/" + route, json={**body, **change})
                             assert denied.status_code == expected, denied.text
+                        review_route = endpoint + "/branch-review"
+                        artifact = next(s["artifact"] for s in report["steps"] if s["step"] == "branch")
+                        def review_command(expected, previous=None):
+                            return {**body, "artifact": artifact, "previous": previous,
+                                    "criteria": {"outputs": ["receipt"], "reviewer": "isolated_reviewer",
+                                                 "assertions": [{"kind": "equals", "pointer": "/receipt", "value": expected}]}}
+                        async def refused_review(command, status):
+                            response = await client.post("/api/web/v1/" + review_route, json=command)
+                            assert response.status_code == status, response.text
+                        await refused_review(review_command("left"), 409)
                         concurrent = await rpc({"receive_concurrently": run, "body": body})
                         first = await call("POST", route, json=body)
                         assert first == {"contract_version": 1, **concurrent}
                         assert first["outputs"] == {"receipt": "left"}
                         await rpc({"purge": run})
                         assert await call("POST", route, json=body) == first
+                        await refused_review({**review_command("left"), "artifact": {**artifact, "version": artifact["version"] + 1}}, 409)
+                        counters = await rpc({"review_counters": True})
+                        assert await rpc({"review_as_other": run, "body": review_command("left")}) == 404
+                        failed = await call("POST", review_route, json=review_command("right"))
+                        assert failed["review"]["status"] == "v0_failed" and not failed["review"]["handoff"]
+                        assert not failed["review"]["checks"][0]["passed"]
+                        await refused_review(review_command("left"), 409)
+                        command = review_command("left", failed["review"]["digest"])
+                        prepared = await call("POST", review_route, json=command)
+                        review = prepared["review"]
+                        assert review["status"] == "awaiting_isolation" and review["checks"][0]["passed"]
+                        assert list(review["handoff"]) == ["receipt"] and review["digest"] != failed["review"]["digest"]
+                        assert await call("POST", review_route, json=command) == prepared
+                        assert await call("POST", route, json=body) == prepared
+                        assert await rpc({"review_counters": True}) == counters
                         stored = await call("GET", endpoint, params={"request_id": request_id})
                         assert stored["cases"][0]["partial"]["received"] == ["branch"]
                         assert stored["status"] == "failed" and not stored["admission"]["receipt"]
@@ -484,6 +522,19 @@ async def author(peer, template):
                         }
                         expected = hashlib.sha256(b'{"to":"sandbox-provisioner"}').hexdigest()
                         assert results[0]["inputs_digest"] == expected
+                    if steps == 3 and "join_source" in template:
+                        case = result["cases"][0]
+                        report = case["verified_steps"]
+                        assert "partial" not in case and not report["missing_promises"]
+                        step = next(s for s in report["steps"] if s["step"] == chain[-1]["id"])
+                        selected = {"request_id": request_id, "case_id": case["case_id"], "repetition": case["repetition"],
+                                    "step": step["step"], "scope_digest": report["scope_digest"]}
+                        receipt = await call("POST", endpoint + "/step-deliveries", json=selected)
+                        assert receipt["outputs"] == results[-1]["outputs"]
+                        prepared = await call("POST", endpoint + "/branch-review", json={**selected, "artifact": step["artifact"],
+                            "previous": None, "criteria": {"outputs": ["receipt"], "reviewer": "different_model_family",
+                            "assertions": [{"kind": "equals", "pointer": "/receipt", "value": expected_output or expected_receipt}]}})
+                        assert prepared["review"]["status"] == "awaiting_isolation" and prepared["artifact"] == step["artifact"]
                     by_step = {row["slot"]: row for row in results}
                     for node in chain:
                         expected_inputs = {
@@ -576,7 +627,7 @@ async def author(peer, template):
                 assert merge["depends_on"] == [left["id"], right["id"]]
                 print(
                     "P2 verified: scoped lookup, adoption, reopen, expired second approval, "
-                    "partial scope receipt after cleanup, both branch artifacts and private freeze", p2["digest"],
+                    "partial scope receipt after cleanup, completed and partial V0 review drafts, both branch artifacts and private freeze", p2["digest"],
                 )
             internal = await trial(
                 internal_id, internal_request, 2, revision=2, input_alias="buildSource"
