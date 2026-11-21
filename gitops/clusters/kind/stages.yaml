@@ -188,6 +188,7 @@ spec:
     - {name: ragflow-runtime}
     - {name: knowfeed-service-identity}
     - {name: knowbench-service-identity}
+    - {name: knowbase-knowbench-function-publish-identity}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -225,6 +226,25 @@ spec:
   dependsOn:
     - {name: knowfeed-storage}
     - {name: ragflow-runtime}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbase-knowbench-function-publish-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbase-app/knowbase-backend/knowbench-function-publish-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -383,6 +403,7 @@ spec:
     - {name: knowbench-knowmart-catalog-identity}
     - {name: knowbench-knowmart-demand-identity}
     - {name: knowbench-knowlab-incubation-request-identity}
+    - {name: knowbench-knowbench-function-publish-identity}
   prune: false
   deletionPolicy: Orphan
   wait: true
@@ -572,6 +593,25 @@ spec:
   dependsOn:
     - {name: knowbench-runtime}
     - {name: knowbench-agent-releases}
+  prune: false
+  deletionPolicy: Orphan
+  wait: true
+  decryption:
+    provider: sops
+    secretRef: {name: sops-age}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: {name: knowbench-knowbench-function-publish-identity, namespace: flux-system}
+spec:
+  interval: 5m
+  retryInterval: 30s
+  timeout: 8m
+  path: ./components/app-platform/knowbench-app/knowbench-backend/knowbench-function-publish-identity
+  sourceRef: {kind: OCIRepository, name: platform}
+  dependsOn:
+    - {name: casdoor}
+    - {name: traefik}
   prune: false
   deletionPolicy: Orphan
   wait: true
