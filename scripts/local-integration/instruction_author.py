@@ -16,11 +16,7 @@ from p1_author import BENCH, LAB, configure_lab
 
 async def bench():
     import httpx
-    from fastapi import Header
-    from test_instruction_runner_db import stack
-    from test_instruction_requests_db import PRICES, ROUTE
-    from test_workbench_ledger_db import db
-    from app.application.workbench.formal_methods import FormalMethods
+    from app.application.workbench.capabilities import Capabilities
     from app.application.workbench.formal_test_runs import FormalExecutions
     from app.application.workbench.instruction_requests import InstructionRequests
     from app.application.workbench.test_runs import KnowbotTestConductor
@@ -29,6 +25,11 @@ async def bench():
     from app.infrastructure.workbench.repository import WorkbenchRepository
     from app.interfaces.endpoints import knowbot_runtime_routes as routes
     from core.config import Settings
+    from fastapi import Header
+    from test_capabilities_db import Remote
+    from test_instruction_requests_db import PRICES, ROUTE
+    from test_instruction_runner_db import stack
+    from test_workbench_ledger_db import db
 
     schema = db.__wrapped__()
     sessions = await anext(schema)
@@ -47,11 +48,6 @@ async def bench():
             await worker
         draft, license, environment = prepared.result()
 
-        def factory(repo):
-            return SimpleNamespace(
-                formal_sources=FormalMethods(repo, source_licenses=(license,))
-            )
-
         route = partial(
             InstructionRequests.for_account,
             routes=(ROUTE,),
@@ -59,6 +55,11 @@ async def bench():
             prices=PRICES,
             default_url=ROUTE.base_url,
         )
+
+        def factory(repo):
+            return Capabilities(
+                repo, Remote(), source_licenses=(license,), instruction_service=route
+            )
 
         async def executions():
             async with sessions() as session:
@@ -110,6 +111,37 @@ async def bench():
                         await conductor.advance(run)
                     assert len(runner.turns) == 1
                     reply = True
+                elif "advance" in message:
+                    run = message["advance"]
+                    await conductor.advance(run)
+                    async with sessions() as session:
+                        repo = WorkbenchRepository(session)
+                        (case,) = await repo.list_test_cases(run)
+                        task = await repo.get_task(str(case["task_id"]))
+                    if task["state"] == "RUNNING":
+                        fixture = await worker
+                        fixture.units.task = str(task["id"])
+                        fixture.units.uid, fixture.units.worker = (
+                            str(uuid4()),
+                            str(uuid4()),
+                        )
+                        async with fixture.host() as svc, svc.repo.transaction():
+                            _, job = await svc.authority(
+                                str(task["owner_actor_id"]), task, "knowlab"
+                            )
+                        fixture.wire["input"][0]["content"][0]["text"] = json.dumps(
+                            job["input"]
+                        )
+                        fixture.runner.capabilities = factory
+                        await fixture.runner.handle(
+                            {
+                                "kind": "task.drive",
+                                "session_id": str(task["session_id"]),
+                                "payload": {"task_id": str(task["id"])},
+                            }
+                        )
+                        await fixture.runner.driving[str(task["id"])]
+                    reply = True
                 else:
                     response = await client.request(**message)
                     reply = [response.status_code, response.text]
@@ -129,7 +161,7 @@ async def author(peer):
     from app.infrastructure.repositories.knowbots import SqlKnowlabRepository
     from app.main import app
     from tests.knowbot_fakes import FakeRuntime, request_body
-    from tests.test_knowbot_clients import FakeOidc, KNOWBENCH
+    from tests.test_knowbot_clients import KNOWBENCH, FakeOidc
     from tests.test_knowbot_repository_db import db
     from tests.test_knowbot_workdraft_routes import WEB, WEB_SID
 
@@ -143,12 +175,12 @@ async def author(peer):
 
     async def forward(request):
         code, body = await rpc(
-            dict(
-                method=request.method,
-                url=str(request.url),
-                headers=dict(request.headers),
-                content=request.content.decode(),
-            )
+            {
+                "method": request.method,
+                "url": str(request.url),
+                "headers": dict(request.headers),
+                "content": request.content.decode(),
+            }
         )
         return httpx.Response(code, content=body)
 
@@ -186,18 +218,18 @@ async def author(peer):
                 assert response.is_success, (response.status_code, response.text)
                 return response.json()
 
-            command = dict(request_id=str(req.id), run_id=str(uuid4()), revision=1)
-            spec = dict(
-                suite=dict(
-                    suite_id=str(uuid4()),
-                    version=1,
-                    cases=[
-                        dict(
-                            case_id="summary",
-                            input={"values": {"status": "ready"}},
-                            repetitions=1,
-                            minimum_passes=1,
-                            expected={
+            command = {"request_id": str(req.id), "run_id": str(uuid4()), "revision": 1}
+            spec = {
+                "suite": {
+                    "suite_id": str(uuid4()),
+                    "version": 1,
+                    "cases": [
+                        {
+                            "case_id": "summary",
+                            "input": {"values": {"status": "ready"}},
+                            "repetitions": 1,
+                            "minimum_passes": 1,
+                            "expected": {
                                 "outcome": "succeeded",
                                 "assertions": [
                                     {
@@ -207,16 +239,18 @@ async def author(peer):
                                     }
                                 ],
                             },
-                        )
+                        }
                     ],
-                ),
-                runner=dict(
-                    kind="user", environment_id=env, workspace_root="/home/u/research"
-                ),
-                budget={"limit": "1", "currency": "CNY"},
-                timeout_seconds=120,
-                max_wait_seconds=120,
-            )
+                },
+                "runner": {
+                    "kind": "user",
+                    "environment_id": env,
+                    "workspace_root": "/home/u/research",
+                },
+                "budget": {"limit": "1", "currency": "CNY"},
+                "timeout_seconds": 120,
+                "max_wait_seconds": 120,
+            }
             assert (
                 await call("POST", "/executions", json={**command, "execution": spec})
             )["status"] == "pending"
@@ -245,9 +279,140 @@ async def author(peer):
                 "PUT", "/formal-versions/1", json={**command, "visibility": "private"}
             )
             assert frozen["digest"] == again["digest"]
+            leaf_ref = {
+                "method_id": prefix.rsplit("/", 1)[1],
+                "version": 1,
+                "digest": frozen["digest"],
+            }
+            definition = draft["definition"]
+            procedure = definition["procedure"]
+            steps = []
+            for name, binding, deps in (
+                ("first", {"source": "caller", "name": "status"}, []),
+                (
+                    "second",
+                    {"source": "step", "step": "first", "output": "summary"},
+                    ["first"],
+                ),
+            ):
+                steps.append(
+                    {
+                        "id": name,
+                        "candidates": [leaf_ref],
+                        "select_when": "Only candidate",
+                        "required_when": "Always",
+                        "always_required": True,
+                        "depends_on": deps,
+                        "inputs": {
+                            "status": {
+                                "slot": procedure["inputs"]["status"],
+                                "binding": binding,
+                            }
+                        },
+                        "outputs": procedure["outputs"],
+                        "on_failure": "fail",
+                    }
+                )
+            definition["procedure"] = {
+                "kind": "orchestration",
+                "instructions": "Review then summarize",
+                "steps": steps,
+                "exports": {
+                    "summary": {
+                        "step": "second",
+                        "output": "summary",
+                        "always_present": True,
+                    }
+                },
+                "max_depth": 2,
+                "max_expansions": 3,
+                "max_steps": 2,
+                "max_replans": 0,
+            }
+            async with sessions() as session:
+                repo = SqlKnowlabRepository(session)
+                expert = await KnowbotCreationService(repo, FakeRuntime()).submit(
+                    "author",
+                    KnowbotRequestIn.model_validate(
+                        request_body(title="Two instruction steps")
+                    ),
+                )
+                await KnowbotWorkdraftService(repo).save(
+                    "author",
+                    str(expert.id),
+                    revision=0,
+                    edits=[
+                        (
+                            "formal_method",
+                            {
+                                "definition": definition,
+                                "source": None,
+                                "allowed_callers": ["host"],
+                            },
+                        )
+                    ],
+                )
+            prefix = "/api/web/v1/method-units/" + str(uuid4())
+            command = {
+                "request_id": str(expert.id),
+                "run_id": str(uuid4()),
+                "revision": 1,
+            }
+            spec["suite"]["suite_id"] = str(uuid4())
+            spec["suite"]["cases"][0]["input"]["values"]["status"] = "awaiting review"
+            await call("POST", "/executions", json={**command, "execution": spec})
+            endpoint = "/executions/" + command["run_id"]
+            approvals = []
+            for _ in range(12):
+                await rpc({"advance": command["run_id"]})
+                result = await call(
+                    "GET", endpoint, params={"request_id": str(expert.id)}
+                )
+                if result["status"] == "passed":
+                    break
+                assert result["status"] in ("pending", "running", "waiting"), result
+                for action in result["actions"]:
+                    subject = action["subject"]
+                    approvals.append(subject["arguments"]["status"])
+                    if len(approvals) == 2:
+                        bound = subject["artifact_read"]["fields"]["status"]
+                        assert (
+                            bound["name"] == "formal-step:first"
+                            and bound["version"] == 1
+                            and bound["output"] == "summary"
+                        )
+                    await call(
+                        "POST",
+                        endpoint + "/actions/" + action["call_id"],
+                        json={
+                            **{
+                                k: action[k]
+                                for k in (
+                                    "case_id",
+                                    "repetition",
+                                    "token",
+                                    "subject_digest",
+                                )
+                            },
+                            "request_id": str(expert.id),
+                            "decision": "accept",
+                        },
+                    )
+            assert result["status"] == "passed" and approvals == [
+                "awaiting review",
+                "ready",
+            ], result
+            frozen_expert = await call(
+                "PUT", "/formal-versions/1", json={**command, "visibility": "private"}
+            )
+            assert (
+                frozen_expert["provenance"]["validation"]
+                == result["admission"]["receipt"]
+            )
             print(
-                "Author instruction trial passed and registered private v1:",
+                "Private instruction and two-step expert registered:",
                 frozen["digest"],
+                frozen_expert["digest"],
             )
     finally:
         await schema.aclose()
