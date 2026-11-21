@@ -2,6 +2,7 @@
 
 Exercise the author API, runtime client, KnowBench API/conductor, worker and version
 registration. Account, computer, worker transport and provider use synthetic fixtures.
+Use --registered-instruction to select an independently registered source.
 """
 
 import asyncio
@@ -14,7 +15,7 @@ from uuid import uuid4
 from p1_author import BENCH, LAB, configure_lab
 
 
-async def bench():
+async def bench(registered):
     import httpx
     from app.application.workbench.capabilities import Capabilities
     from app.application.workbench.formal_test_runs import FormalExecutions
@@ -39,7 +40,9 @@ async def bench():
         prepared.set_result((req.draft, license, env))
         return await task_id
 
-    worker = asyncio.create_task(stack(sessions, author_trial=prepare))
+    worker = asyncio.create_task(
+        stack(sessions, author_trial=prepare, registered=registered)
+    )
     try:
         done, _ = await asyncio.wait(
             (prepared, worker), return_when=asyncio.FIRST_COMPLETED
@@ -58,7 +61,10 @@ async def bench():
 
         def factory(repo):
             return Capabilities(
-                repo, Remote(), source_licenses=(license,), instruction_service=route
+                repo,
+                Remote(),
+                source_licenses=(license,) if license else (),
+                instruction_service=route,
             )
 
         async def executions():
@@ -202,15 +208,25 @@ async def author(peer):
             req = await KnowbotCreationService(repo, FakeRuntime()).submit(
                 "author", KnowbotRequestIn.model_validate(request_body())
             )
-            await KnowbotWorkdraftService(repo).save(
-                "author", str(req.id), revision=0, edits=[("formal_method", draft)]
-            )
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app),
             base_url="http://testserver",
             headers=WEB,
             cookies={WEB_SID: "author"},
         ) as client:
+            sources = await client.get(
+                f"/api/web/v1/knowbot-requests/{req.id}/formal-method-sources"
+            )
+            assert sources.is_success, sources.text
+            draft["source"] = next(
+                source
+                for source in sources.json()["items"]
+                if source == draft["source"]
+            )
+            async with sessions() as session:
+                await KnowbotWorkdraftService(SqlKnowlabRepository(session)).save(
+                    "author", str(req.id), revision=0, edits=[("formal_method", draft)]
+                )
             prefix = "/api/web/v1/method-units/" + str(uuid4())
 
             async def call(method, path, **kwargs):
@@ -448,6 +464,7 @@ async def main():
         str(BENCH / ".venv/bin/python"),
         __file__,
         "--bench",
+        *sys.argv[1:],
         cwd=BENCH,
         stdin=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
@@ -465,7 +482,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    provider = sys.argv[1:] == ["--bench"]
+    provider = "--bench" in sys.argv[1:]
     root = BENCH if provider else LAB
     sys.path[:0] = [str(root), str(root / "tests")]
-    asyncio.run(bench() if provider else main())
+    asyncio.run(bench("--registered-instruction" in sys.argv) if provider else main())
