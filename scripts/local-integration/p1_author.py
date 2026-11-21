@@ -7,7 +7,7 @@ HTTP requests to the real KnowBench routes in a separate interpreter. Header pro
 the KnowBase HTTP API with a synthetic CSV and disposable database schema. Identity,
 object storage, the installed MCP peer and the test computer use local fixtures.
 Pass --registered-script to run the author chain using an owner-registered script
-and the local isolated worker image, including a two-branch P2 join. Container timing uses a metering fixture.
+and the local isolated worker image, including a two-branch P2 join and author-side P3 and P4 drafts. Container timing uses a metering fixture.
 """
 
 import asyncio
@@ -112,16 +112,23 @@ result = {"receipt": args["to"] + "|" + args["other"], "assessment": "Author req
 """
             async with sessions() as session:
                 repo = WorkbenchRepository(session)
-                source_id = uuid4()
-                async with repo.transaction():
-                    await repo.register_direct_revision(
-                        OWNER, source_id, 1, SourceDraft(kind="script", name="join.py", content=code)
+                collect_code = """import json, os
+from pathlib import Path
+rows = json.loads((Path(os.environ["SUNMOON_INPUT_DIR"])/"arguments.json").read_text())["to"]
+result = {"receipt": "|".join(row["object_id"] + "=" + row["value"] for row in rows)}
+(Path(os.environ["SUNMOON_OUTPUT_DIR"])/"result.json").write_text(json.dumps(result))
+"""
+                for key, filename, content in (("join_source", "join.py", code), ("collector_source", "collect.py", collect_code)):
+                    source_id = uuid4()
+                    async with repo.transaction():
+                        await repo.register_direct_revision(
+                            OWNER, source_id, 1, SourceDraft(kind="script", name=filename, content=content)
+                        )
+                    available = await factory(repo).formal_sources.sources(template.owner_subject)
+                    fixture[key] = next(
+                        x for x in available["items"]
+                        if x["kind"] == "registered_script" and x["source"] == str(source_id)
                     )
-                available = await factory(repo).formal_sources.sources(template.owner_subject)
-                fixture["join_source"] = next(
-                    x for x in available["items"]
-                    if x["kind"] == "registered_script" and x["source"] == str(source_id)
-                )
         print(json.dumps(fixture), flush=True)
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app),
@@ -225,6 +232,73 @@ def configure_lab(sessions, runtime, subjects):
     routes.runtime_clients = lambda: runtime
     app.dependency_overrides.update(
         {routes.get_db_session: sql, routes.formal_service: methods}
+    )
+
+
+async def verify_comparison(
+    client, call, rpc, comparison_request, comparison_id, template, leaf
+):
+    path = f"knowbot-requests/{comparison_request}/workdraft"
+    reopened = await call("GET", path)
+    comparison = reopened["body"]["formal_method"]
+    graph = comparison["definition"]["procedure"]
+    assert graph["object_batch"] == {"max_objects": 3, "on_missing": "request_partial"}
+    assert reopened["runtime_gaps"] == [
+        {"step": "per_object", "primitive": "bounded_fanout"}
+    ]
+    from app.domain.knowbots.formal_method import FormalMethodDefinition, ValueSlot
+
+    parsed = FormalMethodDefinition.model_validate(comparison["definition"])
+    public = parsed.interfaces()["inputs"]
+    assert set(public) == {"objects"}
+    slot = ValueSlot.model_validate(public["objects"]["slot"])
+    assert slot.accepts(["A", "B", "C"])
+    assert not any(
+        slot.accepts(bad) for bad in ([], ["A", "A"], [""], ["A", "B", "C", "D"], "A")
+    )
+    invalid = copy.deepcopy(comparison)
+    invalid["definition"]["procedure"]["steps"][1]["inputs"]["to"]["binding"][
+        "output"
+    ] = "absent"
+    refused = await client.post(
+        "/api/web/v1/" + path + "/cells",
+        json={"revision": 1, "cells": [{"path": "formal_method", "value": invalid}]},
+    )
+    assert refused.status_code == 400 and (await call("GET", path))["revision"] == 1
+    counts = await rpc({"review_counters": True})
+    spec = copy.deepcopy(template["execution"])
+    spec["suite"].pop("digest")
+    spec["suite"]["suite_id"] = str(uuid4())
+    spec["suite"]["cases"][0]["input"]["values"] = {"objects": ["A", "B"]}
+    for route, extra in (("validations", {}), ("executions", {"execution": spec})):
+        response = await client.post(
+            f"/api/web/v1/method-units/{comparison_id}/{route}",
+            json={
+                "request_id": comparison_request,
+                "run_id": str(uuid4()),
+                "revision": 1,
+                **extra,
+            },
+        )
+        assert (
+            response.status_code == 409
+            and response.json()["code"] == "runtime_capability_gap"
+        ), response.text
+    freeze = await client.put(
+        f"/api/web/v1/method-units/{comparison_id}/formal-versions/1",
+        json={
+            "request_id": comparison_request,
+            "run_id": leaf["provenance"]["validation"]["run_id"],
+            "revision": 1,
+            "visibility": "private",
+        },
+    )
+    assert (
+        freeze.status_code == 409 and freeze.json()["code"] == "runtime_capability_gap"
+    ), freeze.text
+    assert await rpc({"review_counters": True}) == counts
+    print(
+        "P4 verified: authored bounded list, exact frozen methods, saved policy, invalid bindings refused, dispatch blocked"
     )
 
 
@@ -352,6 +426,21 @@ async def author(peer, template):
                 p2_request = await new_request("P2 expert")
                 reviewer_request = await new_request("Compare an assessment with a checked output")
                 staged_request = await new_request("Strict review draft")
+                collector_request = await new_request("Collect keyed results")
+                comparison_request = await new_request("P4 bounded object comparison")
+                collector = copy.deepcopy(draft)
+                collector["source"] = template["collector_source"]
+                tool = collector["definition"]["procedure"]
+                for field in ("kind", "source", "entry", "version", "digest"):
+                    tool["implementation"][field] = collector["source"][field]
+                tool["inputs"]["to"]["schema"] = {"type": "array", "items": {
+                    "type": "object", "additionalProperties": False, "required": ["object_id", "value"],
+                    "properties": {"object_id": copy.deepcopy(draft["definition"]["procedure"]["inputs"]["to"]["schema"]),
+                                   "value": copy.deepcopy(tool["outputs"]["receipt"]["schema"])}
+                }}
+                await KnowbotWorkdraftService(repo).save(
+                    "author", collector_request, revision=0, edits=[("formal_method", collector)]
+                )
                 join = copy.deepcopy(draft)
                 join["source"] = template["join_source"]
                 join["definition"]["access_requirements"][0]["data_transfer"]["argument_fields"] = ["to", "other"]
@@ -579,6 +668,9 @@ async def author(peer, template):
                     expected_output="left|right",
                 )
                 extra_env = {"LUNA_P2_REQUEST": p2_request, "LUNA_P2_METHOD": p2_id, "LUNA_P2_JOIN": join_id}
+                collector_id, comparison_id = str(uuid4()), str(uuid4())
+                await trial(collector_id, collector_request, 1, input_values={"to": [{"object_id":"A","value":"x"}]}, expected_output="A=x")
+                extra_env.update(LUNA_P4_REQUEST=comparison_request, LUNA_P4_METHOD=comparison_id, LUNA_P4_COLLECTOR=collector_id)
             wanted = draft["definition"]["procedure"]["inputs"]["to"]
             for mismatch in (
                 {"meaning": {"unit": "other"}},
@@ -635,6 +727,7 @@ async def author(peer, template):
                     server.should_exit = True
                     await serving
             if registered_script:
+                await verify_comparison(client, call, rpc, comparison_request, comparison_id, template, leaf)
                 two_inputs = {"branch_to": "left", "branch_1_to": "right"}
                 await trial(
                     p2_id, p2_request, 3, input_values=two_inputs,
