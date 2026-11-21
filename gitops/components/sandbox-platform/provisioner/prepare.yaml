@@ -16,6 +16,10 @@
       - sandbox_runtime_image.harbor_project | default('platform') is match('^[a-z][a-z0-9-]+$')
       - sandbox_runtime_image.repository == 'sandbox'
       - sandbox_runtime_image.digest is match('^sha256:[a-f0-9]{64}$')
+- name: Read the platform public CA for instruction control
+  ansible.builtin.slurp: {src: '{{ registry_config_dir }}/tls/ca.crt'}
+  register: instruction_ca
+  when: sandbox_instruction_control_origin | length > 0
 - name: Prepare a recoverable provisioner shared token
   ansible.builtin.include_tasks: '{{ playbook_dir }}/tasks/component-input.yaml'
   vars:

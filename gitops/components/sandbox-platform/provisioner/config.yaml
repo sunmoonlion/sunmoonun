@@ -7,3 +7,6 @@ sandbox_pvc_size: 2Gi
 sandbox_provisioner_resources:
   requests: {cpu: 50m, memory: 64Mi}
   limits: {cpu: 500m, memory: 256Mi}
+
+# 运营启用纯指令工具时填写带受信证书的 KnowBench 内部 HTTPS 源。本版留空，不挂控制面证书。
+sandbox_instruction_control_origin: ""

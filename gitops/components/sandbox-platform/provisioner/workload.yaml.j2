@@ -14,7 +14,7 @@ rules:
     verbs: [get, list, create, update, delete]
   - apiGroups: ['']
     resources: [pods]
-    verbs: [get, list, patch]
+    verbs: [get, list, create, patch, delete]
   - apiGroups: ['']
     resources: [pods/log]
     verbs: [get]
@@ -73,6 +73,8 @@ spec:
             - {name: APP_NAMESPACE, value: '{{ app_namespace }}'}
             - {name: SANDBOX_IMAGE_PULL_SECRET, value: registry-puller}
             - {name: RELAY_NAMESPACE, value: '{{ relay_namespace }}'}
+            - {name: INGRESS_NAMESPACE, value: {{ ingress_namespace | to_json }}}
+            - {name: INSTRUCTION_CONTROL_ORIGIN, value: {{ sandbox_instruction_control_origin | to_json }}}
             - {name: SANDBOX_PVC_SIZE, value: '{{ sandbox_pvc_size }}'}
             - {name: PROVISIONER_TOKEN, valueFrom: {secretKeyRef: {name: sandbox-provisioner, key: token}}}
           ports: [{name: http, containerPort: {{ sandbox_provisioner_port }}}]
@@ -104,3 +106,12 @@ spec:
         - namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: '{{ relay_namespace }}'}}
           podSelector: {matchLabels: {app.kubernetes.io/name: relay}}
       ports: [{protocol: TCP, port: {{ relay_port }}}]
+{% if sandbox_instruction_control_origin %}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: instruction-control-ca, namespace: {{ sandbox_namespace }}}
+data:
+  ca.crt: |
+{{ instruction_ca.content | b64decode | regex_replace('\n+$','') | indent(4,true) }}
+{% endif %}

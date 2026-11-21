@@ -6,9 +6,9 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v11
-  # 共同调用、资料授权与脚本输入；0049 接 0040，保留历史记录。
-  expected_schema_revision: '20261120_0050'
+  migration_job_revision: v12
+  # 方法登记来源与来源任务：0051 接线上 0050，再经 0052 到 0053。
+  expected_schema_revision: '20261121_0053'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
@@ -122,10 +122,11 @@ knowbench_backend_deployment:
     WORKBENCH_TOKEN_SIGNING_KEY: {source: workbench-signing, key: private_key_pem}
   domain_secrets_roles: [api, runner]
   domain_egress:
-    - {name: provisioner, roles: [api], namespace_var: sandbox_namespace, pod_labels: {app.kubernetes.io/name: sandbox-provisioner}, ports: [8080]}
+    - {name: provisioner, roles: [api, runner], namespace_var: sandbox_namespace, pod_labels: {app.kubernetes.io/name: sandbox-provisioner}, ports: [8080]}
     # runner 也要到会合点的管理口：它隔 10 秒问一次谁在线，登记「我的机器」、置在线离线（账 49）
     - {name: relay-admin, roles: [api, runner], namespace_var: relay_namespace, pod_labels: {app.kubernetes.io/name: relay}, ports: [47100]}
     - {name: sandboxes, roles: [runner], namespace_var: sandbox_namespace, pod_labels: {sunmoonai.com/sandbox: 'true'}, ports: [47800]}
+    - {name: instruction-workers, roles: [runner], namespace_var: sandbox_namespace, pod_labels: {app: instruction-worker}, ports: [47800]}
   domain_ingress:
     - {name: sandboxes, namespace_var: sandbox_namespace, pod_labels: {sunmoonai.com/sandbox: 'true'}}
 
