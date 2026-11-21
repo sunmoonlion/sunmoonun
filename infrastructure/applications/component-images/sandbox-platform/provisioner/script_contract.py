@@ -115,7 +115,7 @@ class ScriptExecution(ScriptCommand):
         if (
             len(paths) != len(self.files)
             or self.path not in paths
-            or "SKILL.md" not in paths
+            or ("SKILL.md" not in paths and paths != {self.path})
         ):
             raise ValueError("Duplicate paths or incomplete Skill package")
         if (

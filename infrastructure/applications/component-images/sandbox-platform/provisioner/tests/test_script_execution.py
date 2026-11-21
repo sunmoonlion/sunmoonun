@@ -234,6 +234,16 @@ def test_reject_invalid_execution(change):
         ScriptExecution.model_validate({**body().model_dump(), **change})
 
 
+def test_direct_revision_is_exactly_one_script_without_skill_manifest():
+    item = file("job.py", "print(1)")
+    direct = ScriptExecution.model_validate({"path": "job.py", "files": [item]})
+    assert direct.files[0].path == "job.py"
+    with pytest.raises(ValueError):
+        ScriptExecution.model_validate({
+            "path": "job.py", "files": [item, file("extra.py", "print(2)")]
+        })
+
+
 @pytest.mark.anyio
 async def test_result_only_reads_pod_owned_by_the_exact_job():
     api = JobsApi()
