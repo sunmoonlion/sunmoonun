@@ -19,6 +19,7 @@ def exercise(
     events,
     *,
     status=200,
+    tail_blank=True,
     disconnected=False,
     authorized=ENDPOINT,
     sent=None,
@@ -27,6 +28,8 @@ def exercise(
     sent = [] if sent is None else sent
     receipts = [] if receipts is None else receipts
     wire = b"".join(b"data: " + json.dumps(e).encode() + b"\r\n\r\n" for e in events)
+    if not tail_blank:
+        wire = wire.rstrip(b"\r\n")
     wire = (
         f"HTTP/1.1 {status} response\r\nContent-Type: text/event-stream\r\n\r\n".encode()
         + wire
@@ -73,10 +76,11 @@ def event(kind, **fields):
 
 
 @pytest.mark.parametrize("kind", ["completed", "incomplete", "failed"])
-def test_final_usage_still_collected_after_reader_disconnects(kind):
+@pytest.mark.parametrize("tail_blank", [False, True])
+def test_final_usage_still_collected_after_reader_disconnects(kind, tail_blank):
     usage = {"input_tokens": 2, "output_tokens": 1, "total_tokens": 3}
     assert exercise(
-        [event("created"), event(kind, usage=usage)], disconnected=True
+        [event("created"), event(kind, usage=usage)], disconnected=True, tail_blank=tail_blank
     ) == [("r", usage)]
 
 

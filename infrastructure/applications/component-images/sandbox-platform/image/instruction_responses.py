@@ -68,7 +68,8 @@ def forward(
             lines = []
             size = 0
             response_id = None
-            while line := response.readline(MAX_EVENT + 1):
+            while True:
+                line = response.readline(MAX_EVENT + 1)
                 size += len(line)
                 if size > MAX_EVENT:
                     raise ValueError("Provider event exceeds the stream limit")
@@ -95,6 +96,8 @@ def forward(
                             if record.get("usage") is not None:
                                 receipt(response_id, record["usage"])
                     size, lines = 0, []
+                if not line:
+                    break
                 if connected:
                     try:
                         write(line)

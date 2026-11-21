@@ -65,8 +65,32 @@ async def test_instruction_unit_lifecycle(monkeypatch, scoped):
                     "INSTRUCTION_CONTROL_ORIGIN",
                     "https://test-control.test.svc.cluster.local",
                 )
+                # Interrupt the first reservation immediately after the PVC commit.
+                original_create = target.InstructionUnits.create
+
+                async def interrupt(unit, kind, body, **kwargs):
+                    if kind == "pods":
+                        raise target.HTTPException(503, "interrupted")
+                    return await original_create(unit, kind, body, **kwargs)
+
+                with monkeypatch.context() as interrupted:
+                    interrupted.setattr(target.InstructionUnits, "create", interrupt)
+                    assert (await client.post(root + "/prepare")).status_code == 503
+                partial = (await client.get(root + "/reservation")).json()
+                assert partial["state"] == "pvc_only"
+                assert (
+                    await client.post(
+                        root + "/prepare", params={"proof_uid": str(uuid4())}
+                    )
+                ).status_code == 409
                 first, second = await asyncio.gather(
-                    *(client.post(root + "/prepare") for _ in range(2))
+                    *(
+                        client.post(
+                            root + "/prepare",
+                            params={"proof_uid": partial["proof_uid"]},
+                        )
+                        for _ in range(2)
+                    )
                 )
                 assert first.status_code == second.status_code == 200, (
                     first.text,
@@ -252,3 +276,28 @@ async def test_instruction_unit_lifecycle(monkeypatch, scoped):
                     ).status_code == 409
         finally:
             await kube.client.delete("/api/v1/namespaces/" + ns)
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize("phase", ["Succeeded", "Failed"])
+async def test_terminal_worker_expiry_including_patch_race(phase):
+    from types import SimpleNamespace
+    from unittest.mock import AsyncMock
+    from k8s_lifecycle import expire_pod
+
+    pod = {"metadata": {"uid": str(uuid4()), "name": "worker"}}
+    terminal = {**pod, "status": {"phase": phase}}
+    response = httpx.Response(422, request=httpx.Request("PATCH", "https://test/pod"))
+    patch = AsyncMock(return_value=response)
+    kube = SimpleNamespace(
+        client=SimpleNamespace(patch=patch),
+        get=AsyncMock(return_value=terminal),
+        path=lambda kind, name: "/pods/" + name,
+    )
+    await expire_pod(kube, terminal, absent_ok=True)
+    patch.assert_not_awaited()
+    await expire_pod(kube, pod, absent_ok=True)
+    patch.assert_awaited_once()
+    kube.get.return_value = {**terminal, "metadata": {"uid": str(uuid4())}}
+    with pytest.raises(httpx.HTTPStatusError):
+        await expire_pod(kube, pod, absent_ok=True)

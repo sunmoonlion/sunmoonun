@@ -458,8 +458,8 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
 
     def instruction_routes(instruction, instruction_units):
         @app.post(instruction + "/prepare", dependencies=[Depends(require_token)])
-        async def prepare_instruction(units: InstructionUnits = Depends(instruction_units)):
-            return await units.reserve()
+        async def prepare_instruction(units: InstructionUnits = Depends(instruction_units), proof_uid: UUID | None = None):
+            return await units.reserve(proof_uid)
 
         @app.get(instruction + "/reservation", dependencies=[Depends(require_token)])
         async def instruction_reservation(units: InstructionUnits = Depends(instruction_units)):

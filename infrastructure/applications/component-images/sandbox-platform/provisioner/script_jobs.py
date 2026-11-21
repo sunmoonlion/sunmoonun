@@ -7,6 +7,7 @@ import base64
 from uuid import UUID
 
 from fastapi import HTTPException
+from k8s_lifecycle import expire_pod
 from script_contract import (
     ScriptContainerMeter,
     ScriptExecution,
@@ -232,35 +233,7 @@ class ScriptJobs:
         if not pod:
             raise HTTPException(409, "The controller has not exposed its Pod")
 
-        def stopping_or_done(current):
-            return current.get("spec", {}).get(
-                "activeDeadlineSeconds"
-            ) == 1 or current.get("status", {}).get("phase") in ("Succeeded", "Failed")
-
-        if not stopping_or_done(pod):
-            # Kubernetes permits shortening an active Pod deadline. The UID
-            # guard excludes a replacement, and its terminal status remains readable.
-            response = await self.kube.client.patch(
-                self.kube.path("pods", pod["metadata"]["name"]),
-                headers={"Content-Type": "application/json-patch+json"},
-                json=[
-                    {
-                        "op": "test",
-                        "path": "/metadata/uid",
-                        "value": pod["metadata"]["uid"],
-                    },
-                    {"op": "add", "path": "/spec/activeDeadlineSeconds", "value": 1},
-                ],
-            )
-            if response.status_code in (409, 422):
-                current = await self.owned_pod(job)
-                if (
-                    current
-                    and current["metadata"]["uid"] == pod["metadata"]["uid"]
-                    and stopping_or_done(current)
-                ):
-                    return
-            response.raise_for_status()
+        await expire_pod(self.kube, pod, absent_ok=False)
 
     async def container_meter(self, owner, run):
         job = await self.kube.get("jobs", job_name(owner))

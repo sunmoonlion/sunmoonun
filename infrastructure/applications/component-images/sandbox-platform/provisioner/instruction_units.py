@@ -7,7 +7,11 @@ from urllib.parse import urlsplit
 from uuid import UUID, uuid4
 
 from fastapi import HTTPException
+from httpx import HTTPStatusError
 from pydantic import BaseModel, ConfigDict, Field, SecretStr
+
+
+from k8s_lifecycle import expire_pod
 
 
 class Binding(BaseModel):
@@ -235,9 +239,9 @@ class InstructionUnits:
             return {"uid": str(actual)}
         if uid:
             return {"uid": uid}
-        conflict("instruction reservation has not acquired a Pod")
+        return {"state": "pvc_only", "proof_uid": meta["uid"]}
 
-    async def reserve(self):
+    async def reserve(self, proof_uid=None):
         if not self.origin:
             raise HTTPException(503, {"code": "instruction_prepare_disabled"})
         try:
@@ -277,18 +281,30 @@ class InstructionUnits:
             [],
         )
         pvc = self.name + "-proof"
-        proof = await self.create(
-            "persistentvolumeclaims",
-            {
-                "apiVersion": "v1",
-                "kind": "PersistentVolumeClaim",
-                "metadata": self.metadata(pvc, self.labels),
-                "spec": {
-                    "accessModes": ["ReadWriteOnce"],
-                    "resources": {"requests": {"storage": "16Mi"}},
+        if proof_uid is not None:
+            proof = await self.kube.get("persistentvolumeclaims", pvc)
+            meta = (proof or {}).get("metadata", {})
+            if (
+                meta.get("uid") != str(proof_uid)
+                or meta.get("deletionTimestamp")
+                or any(
+                    meta.get("labels", {}).get(k) != v for k, v in self.labels.items()
+                )
+            ):
+                conflict("instruction proof reservation changed")
+        else:
+            proof = await self.create(
+                "persistentvolumeclaims",
+                {
+                    "apiVersion": "v1",
+                    "kind": "PersistentVolumeClaim",
+                    "metadata": self.metadata(pvc, self.labels),
+                    "spec": {
+                        "accessModes": ["ReadWriteOnce"],
+                        "resources": {"requests": {"storage": "16Mi"}},
+                    },
                 },
-            },
-        )
+            )
         recorded_uid = (
             proof["metadata"].get("annotations", {}).get("sunmoonai.com/gateway-uid")
         )
@@ -299,10 +315,19 @@ class InstructionUnits:
             "app": "instruction-gateway",
             "sunmoonai.com/unit": uuid4().hex,
         }
+        metadata = self.metadata(self.name, labels)
+        metadata["ownerReferences"] = [
+            {
+                "apiVersion": "v1",
+                "kind": "PersistentVolumeClaim",
+                "name": pvc,
+                "uid": proof["metadata"]["uid"],
+            }
+        ]
         gateway = await self.create(
             "pods",
             self.pod(
-                self.metadata(self.name, labels),
+                metadata,
                 "gateway",
                 [
                     {
@@ -574,24 +599,6 @@ class InstructionUnits:
             == "true"
         )
 
-    async def patch(self, pod, operations):
-        name = pod["metadata"]["name"]
-        response = await self.kube.client.patch(
-            self.kube.path("pods", name),
-            headers={"Content-Type": "application/json-patch+json"},
-            json=[
-                {
-                    "op": "test",
-                    "path": "/metadata/uid",
-                    "value": pod["metadata"]["uid"],
-                },
-                *operations,
-            ],
-        )
-        if response.status_code in (404, 409, 422):
-            conflict("instruction Pod changed during stop")
-        response.raise_for_status()
-
     async def expire_worker(self, gateway):
         pod = await self.kube.get("pods", self.name + "-worker")
         if pod:
@@ -600,17 +607,12 @@ class InstructionUnits:
                 for ref in pod["metadata"].get("ownerReferences", [])
             ):
                 conflict("instruction worker replaced")
-            if pod.get("spec", {}).get("activeDeadlineSeconds") != 1:
-                await self.patch(
-                    pod,
-                    [
-                        {
-                            "op": "replace",
-                            "path": "/spec/activeDeadlineSeconds",
-                            "value": 1,
-                        }
-                    ],
-                )
+            try:
+                await expire_pod(self.kube, pod, absent_ok=True)
+            except HTTPStatusError as exc:
+                if exc.response.status_code in (404, 409, 422):
+                    conflict("instruction worker changed during stop")
+                raise
 
     async def stop_worker(self, uid):
         gateway = await self.gateway(uid)

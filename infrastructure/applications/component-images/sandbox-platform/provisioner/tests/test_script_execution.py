@@ -239,9 +239,9 @@ def test_direct_revision_is_exactly_one_script_without_skill_manifest():
     direct = ScriptExecution.model_validate({"path": "job.py", "files": [item]})
     assert direct.files[0].path == "job.py"
     with pytest.raises(ValueError):
-        ScriptExecution.model_validate({
-            "path": "job.py", "files": [item, file("extra.py", "print(2)")]
-        })
+        ScriptExecution.model_validate(
+            {"path": "job.py", "files": [item, file("extra.py", "print(2)")]}
+        )
 
 
 @pytest.mark.anyio
@@ -491,10 +491,11 @@ async def test_metered_stop_rereads_same_pod_after_patch_conflict(code, replaced
         "metadata": {"uid": str(uuid4()) if replaced else uid},
         "status": {"phase": "Succeeded"},
     }
+    job = kube.get.return_value
+    kube.get.side_effect = [job, terminal, job]
     jobs.owned_pod = AsyncMock(
         side_effect=[
             running,
-            terminal,
             {**running, "spec": {"activeDeadlineSeconds": 1}},
         ]
     )
