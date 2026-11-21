@@ -34,7 +34,7 @@ async def serve_runtime(directory):
     database = db.__wrapped__()
     sessions = await anext(database)
     try:
-        _, license, review, version = await reviewed_skill_fixture(sessions)
+        _, license, review, version = await reviewed_skill_fixture(sessions, "skill_script")
 
         async def service():
             async with sessions() as session:
@@ -216,10 +216,11 @@ async def buy_and_deliver(directory):
             }
             assert files == {
                 "SKILL.md": b"Read the notice",
+                "summary.py": b"print(1)\n",
                 "NOTICE": "原声明\n".encode(),
                 "assets/demo.bin": bytes([255, 0]),
             }
-            print("Verified one acquisition and three byte-identical Skill files.")
+            print("Verified one acquisition and four byte-identical Skill files.")
     finally:
         await database.aclose()
 

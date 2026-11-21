@@ -100,7 +100,8 @@ async def test_put_is_idempotent_and_keeps_the_capability_token(stack):
         env = {e["name"]: e for e in dep["spec"]["template"]["spec"]["containers"][0]["env"]}
         assert env["OPENAI_API_KEY"]["valueFrom"]["secretKeyRef"]["key"] == "model-key"
         assert env["MODEL_PROVIDER"]["value"] == "kimi"
-        assert "KNOWBASE_MCP_URL" not in env  # no knowledge token given and no shared token configured
+        assert "KNOWBASE_MCP_URL" not in env and "KNOWBASE_MCP_TOKEN" not in env
+        assert "knowbase-token" not in secret["data"]
         # second PUT with a rotated model key: same capability token, secret replaced, PVC untouched
         pvc_rv = api.objects[("persistentvolumeclaims", "sandbox-u-demo-codex-home")]["metadata"]["resourceVersion"]
         second = await c.put("/sandboxes/u-demo", json=spec(model_key="sk-rotated-key-0987654321"), headers=headers)

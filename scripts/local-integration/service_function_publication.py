@@ -66,6 +66,7 @@ async def test_service_publication_and_selection(db, monkeypatch):
     from app.application.workbench.formal_methods import FormalMethods
     from app.bootstrap.api import create_app
     from app.bootstrap.publish_functions import publish_workbench_functions
+    from app.application.workbench.gateway_helpers import helper_revisions
     from app.domain.workbench.native_functions import LOCAL_REVISIONS
     from app.infrastructure.external.downstream_service import DownstreamServiceClient
     from app.infrastructure.security import relation_auth
@@ -178,6 +179,9 @@ async def test_service_publication_and_selection(db, monkeypatch):
                 "find_expert",
             }
             expected = {name: LOCAL_REVISIONS[name]().digest for name in operations}
+            helpers = helper_revisions()
+            assert set(helpers) == {"action_result", "skill_files", "skill_read"}
+            expected.update({name: revision.digest for name, revision in helpers.items()})
             assert await publish_workbench_functions(publisher) == expected
             assert await publish_workbench_functions(publisher) == expected
             proc = await asyncio.create_subprocess_exec(

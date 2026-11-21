@@ -3,7 +3,7 @@
 # 3) 前台起 app-server，监听 ws://0.0.0.0:$APP_SERVER_PORT，能力令牌鉴权（工作台是唯一客户端）。
 # 必需环境：RELAY_URL RELAY_USER RELAY_TOKEN APP_SERVER_TOKEN_FILE；模型 key 二选一：OPENAI_API_KEY（含国产厂商 key）或挂好的 $CODEX_HOME/auth.json。
 # 可选：MODEL、MODEL_PROVIDER、PROVIDER_BASE_URL、PROVIDER_WIRE_API（默认 responses）、ENVIRONMENT_ID（默认 user-pc）；
-#       KNOWBASE_MCP_URL + KNOWBASE_MCP_TOKEN（知识服务 MCP，0006）。
+#       WORKBENCH_MCP_URL + WORKBENCH_MCP_TOKEN（已登记的工作台函数）。
 set -euo pipefail
 : "${RELAY_URL:?}" "${RELAY_USER:?}" "${RELAY_TOKEN:?}" "${APP_SERVER_TOKEN_FILE:?}"
 CODEX_HOME="${CODEX_HOME:-/data/codex}"; mkdir -p "$CODEX_HOME"
@@ -34,13 +34,6 @@ if [ ! -f "$CODEX_HOME/config.toml" ] || [ "${REWRITE_CONFIG:-1}" = 1 ]; then
     # 本地代理在本机有 elevated 环境时自己升级，远端降不了级。对 Linux 执行器这一项没有作用。
     echo "[windows]"
     echo "sandbox = \"unelevated\""
-    # 知识服务 MCP（0006）：HTTP 型写进编排端 config；令牌走环境变量名，不落盘（F-KNOW-03）
-    if [ -n "${KNOWBASE_MCP_URL:-}" ]; then
-      echo "[mcp_servers.sunmoon_knowbase]"
-      echo "url = \"${KNOWBASE_MCP_URL}\""
-      echo "bearer_token_env_var = \"SUNMOON_KNOWBASE_TOKEN\""
-      echo "startup_timeout_sec = 20"
-    fi
     # 工作台的记录工具服务（0001-workbench：专家读本项目别的对话与底稿），同一种接法
     if [ -n "${WORKBENCH_MCP_URL:-}" ]; then
       echo "[mcp_servers.sunmoon_workbench]"
@@ -49,9 +42,15 @@ if [ ! -f "$CODEX_HOME/config.toml" ] || [ "${REWRITE_CONFIG:-1}" = 1 ]; then
       echo "startup_timeout_sec = 20"
     fi
   } > "$CODEX_HOME/config.toml"
+elif grep -Fxq '[mcp_servers.sunmoon_knowbase]' "$CODEX_HOME/config.toml"; then
+  # Retained config on a PVC: strip only the retired entrypoint-generated table.
+  retained_config=$(mktemp "$CODEX_HOME/config.toml.XXXXXX")
+  awk '/^\[/ { old = ($0 == "[mcp_servers.sunmoon_knowbase]") } !old' \
+    "$CODEX_HOME/config.toml" > "$retained_config"
+  mv -- "$retained_config" "$CODEX_HOME/config.toml"
 fi
 # MCP 令牌留在 app-server 进程环境里（它按 bearer_token_env_var 读）；沙箱里的模型进程看不到环境
-if [ -n "${KNOWBASE_MCP_TOKEN:-}" ]; then export SUNMOON_KNOWBASE_TOKEN="$KNOWBASE_MCP_TOKEN"; unset KNOWBASE_MCP_TOKEN; fi
+unset KNOWBASE_MCP_TOKEN SUNMOON_KNOWBASE_TOKEN KNOWBASE_MCP_URL
 if [ -n "${WORKBENCH_MCP_TOKEN:-}" ]; then export SUNMOON_WORKBENCH_TOKEN="$WORKBENCH_MCP_TOKEN"; unset WORKBENCH_MCP_TOKEN; fi
 # 远端环境：默认指向沙箱侧桥；不含本地执行（include_local=false，C-A12 不退回本地执行）
 cat > "$CODEX_HOME/environments.toml" <<EOF
