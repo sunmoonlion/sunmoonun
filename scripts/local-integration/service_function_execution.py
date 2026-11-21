@@ -46,9 +46,8 @@ async def provider():
 
         await grant("native-comparison")
         expected = (
-            await world.call(
-                "query_facts",
-                auth=token(sub="author"),
+            await world.facts(
+                sub="author",
                 scope="run",
                 run="native-comparison",
             )
@@ -62,7 +61,8 @@ async def provider():
         app.include_router(
             build_function_router(settings, world.functions), prefix="/api"
         )
-        print(json.dumps([query_facts_revision(), expected]), flush=True)
+        chat = await world.runs.register_session("author", "knowbench")
+        print(json.dumps([query_facts_revision(), expected, chat.id]), flush=True)
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app), base_url="https://localhost"
         ) as http:
@@ -70,6 +70,25 @@ async def provider():
                 msg = json.loads(line)
                 if "grant" in msg:
                     reply = (await grant(msg["grant"])).id
+                elif "readers" in msg:
+                    reply = [
+                        r["reader"]
+                        for r in await world.runs.reads(PUBLIC_OWNER, material.id)
+                    ]
+                elif "revoke_chat" in msg:
+                    [active] = await world.runs.session_grants(
+                        "author", "knowbench", chat.id
+                    )
+                    await world.runs.revoke_by_user("author", active.id)
+                    reply = True
+                elif "read_in_chat" in msg:
+                    reply = await world.call(
+                        "read_input",
+                        auth=token(sub="author"),
+                        session=chat.id,
+                        material_id=material.id,
+                        what="pages",
+                    )
                 else:
                     res = await http.post(
                         msg["path"],
@@ -88,9 +107,12 @@ if __name__ == "__main__":
 else:
     sys.path[:0] = [str(BENCH), str(BENCH / "tests")]
     from test_workbench_ledger_db import db as db
+    from test_workbench_mcp_routes import served as served
 
 
-async def test_registered_function_and_expert_with_actual_knowbase(db):
+async def test_registered_function_and_expert_with_actual_knowbase(
+    db, served, monkeypatch
+):
     import httpx
     from test_formal_function_db import exercise_function
     from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
@@ -113,7 +135,7 @@ async def test_registered_function_and_expert_with_actual_knowbase(db):
         return json.loads(line)
 
     try:
-        revision, expected = await exchange({"public": issuer.public_pem()})
+        revision, expected, chat = await exchange({"public": issuer.public_pem()})
 
         async def forward(req):
             status, body = await exchange(
@@ -136,6 +158,70 @@ async def test_registered_function_and_expert_with_actual_knowbase(db):
             forward=forward,
             grant=grant,
         )
+        from test_workbench_mcp_routes import URL, bearer, tool
+        from test_workbench_ledger_db import seed
+        from tool_invocation_support import ObservedPlatformTransport
+        from app.infrastructure.external.knowbase_data_v2 import KnowbaseDataV2
+        from app.interfaces.endpoints.workbench_routes import token_issuer
+        from app.interfaces.mcp import workbench_mcp
+        from sqlalchemy import text
+
+        _, _, sid = await seed(db)
+        async with db() as session, session.begin():
+            await session.execute(
+                text(
+                    "UPDATE workbench_sessions SET knowbase_session_id=:chat, knowbase_session_expires_at=now()+interval '1 hour' WHERE id=:sid"
+                ),
+                {"chat": chat, "sid": sid},
+            )
+        served.dependency_overrides[token_issuer] = lambda: issuer
+        client = KnowbaseDataV2(
+            {"KNOWBASE_INTERNAL_URL": "https://localhost"},
+            transport=httpx.MockTransport(forward),
+        )
+        monkeypatch.setattr(workbench_mcp, "knowbase_v2", lambda: client)
+        async with httpx.AsyncClient(
+            transport=ObservedPlatformTransport(
+                served, db, {"current": sid, "chat": sid}
+            ),
+            base_url="http://testserver",
+        ) as native:
+
+            async def ask(**args):
+                res = await native.post(
+                    URL, headers=bearer(issuer=issuer), json=tool("query_facts", **args)
+                )
+                return res.json()["result"]
+
+            assert (await ask(conversation=sid))["structuredContent"] == {"facts": []}
+            assert "pages" in await exchange({"read_in_chat": True})
+            found = await ask(conversation=sid)
+            assert found["structuredContent"]["facts"] == expected
+            call_id = found["_meta"]["call_id"]
+            assert "function:" + call_id in await exchange({"readers": True})
+            async with db() as session:
+                detail = await session.scalar(
+                    text("SELECT detail FROM workbench_calls WHERE id=:cid"),
+                    {"cid": call_id},
+                )
+                assert (
+                    detail["operation"]["registered_source"]["digest"]
+                    == revision["digest"]
+                )
+            assert (await ask(conversation=sid, run="native-comparison"))["isError"]
+            assert (await ask(scope="market"))["structuredContent"]["facts"] == expected
+            assert await exchange({"revoke_chat": True})
+            assert (await ask(conversation=sid))["structuredContent"] == {"facts": []}
+            async with db() as session, session.begin():
+                await session.execute(
+                    text(
+                        "DELETE FROM workbench_registry_service_functions WHERE provider='knowbase' AND name='query_facts' AND version=1"
+                    )
+                )
+            missing = await ask(scope="market")
+            assert (
+                missing["isError"] and "not registered" in missing["content"][0]["text"]
+            )
     finally:
         process.stdin.close()
         await process.stdin.wait_closed()

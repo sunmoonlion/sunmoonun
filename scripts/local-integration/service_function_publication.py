@@ -60,6 +60,9 @@ async def test_service_publication_and_selection(db, monkeypatch):
     from test_service_function_publication_db import Claims
     from test_source_licenses import license_record
     from app.application.workbench.formal_methods import FormalMethods
+    from app.bootstrap.publish_functions import publish_project_list
+    from app.domain.workbench.native_functions import project_list_revision
+    from app.infrastructure.external.downstream_service import DownstreamServiceClient
     from app.bootstrap.api import create_app
     from app.infrastructure.security import relation_auth
     from app.infrastructure.storage.postgres import get_db_session
@@ -68,13 +71,18 @@ async def test_service_publication_and_selection(db, monkeypatch):
     from core.config import Settings
 
     assert os.environ["AGENT_TEST_DATABASE_URL"].endswith("_tests")
+    for variable in ("no_proxy", "NO_PROXY"):
+        monkeypatch.setenv(variable, "127.0.0.1")
     app = create_app(Settings())
     verifier = relation_auth.RelationServiceVerifier(
         "function-publish",
         settings=Settings(),
         oidc_client=Claims(),
         environ={
-            "SERVICE_AUTH_FUNCTION_PUBLISH_CALLERS": "knowbase",
+            "SERVICE_AUTH_FUNCTION_PUBLISH_CALLERS": "knowbase,knowbench",
+            "SERVICE_AUTH_FUNCTION_PUBLISH_KNOWBENCH_SUBJECT_ALLOWLIST": "knowbench",
+            "SERVICE_AUTH_FUNCTION_PUBLISH_KNOWBENCH_AUDIENCE": "publish",
+            "SERVICE_AUTH_FUNCTION_PUBLISH_KNOWBENCH_REQUIRED_SCOPE": "knowbench:function-publish",
             "SERVICE_AUTH_FUNCTION_PUBLISH_KNOWBASE_SUBJECT_ALLOWLIST": "knowbase",
             "SERVICE_AUTH_FUNCTION_PUBLISH_KNOWBASE_AUDIENCE": "publish",
             "SERVICE_AUTH_FUNCTION_PUBLISH_KNOWBASE_REQUIRED_SCOPE": "knowbench:function-publish",
@@ -129,13 +137,38 @@ async def test_service_publication_and_selection(db, monkeypatch):
                         await serving
                         raise RuntimeError("Test server stopped during startup")
                     await asyncio.sleep(0.05)
+
+            class BenchIssuer:
+                async def exchange_client_credentials(
+                    self, *, scope, client_id, client_secret
+                ):
+                    assert (scope, client_id, client_secret) == (
+                        "knowbench:function-publish",
+                        "knowbench",
+                        "fixture",
+                    )
+                    return {"access_token": "knowbench", "expires_in": 60}
+
+            publisher = DownstreamServiceClient(
+                Settings(
+                    _env_file=None,
+                    downstream_scope="knowbench:function-publish",
+                    downstream_client_id="knowbench",
+                    downstream_client_secret="fixture",
+                    downstream_base_url=origin,
+                    downstream_allowed_path_prefixes="/api/internal/v1/method-skill-center/functions",
+                ),
+                oidc_client=BenchIssuer(),
+            )
+            expected = project_list_revision()
+            assert await publish_project_list(publisher) == expected.digest
+            assert await publish_project_list(publisher) == expected.digest
             proc = await asyncio.create_subprocess_exec(
                 str(BASE / ".venv/bin/python"),
                 __file__,
                 origin,
                 stdout=asyncio.subprocess.PIPE,
                 cwd=BASE,
-                env={**os.environ, "no_proxy": "127.0.0.1", "NO_PROXY": "127.0.0.1"},
             )
             try:
                 out, _ = await asyncio.wait_for(proc.communicate(), 30)
