@@ -586,3 +586,7 @@ edge-plan edge-deploy edge-start edge-stop edge-status edge-firewall:
 	$(ANSIBLE) $(EDGE_ARGS) --extra-vars edge_action=$(patsubst edge-%,%,$@) $(EDGE_EXTRA) </dev/null
 edge-smoke:
 	edge/smoke/run.sh
+
+.PHONY: verify-contracts
+verify-contracts:
+	@.venv/bin/python ../ci/verify-contracts.py

@@ -70,6 +70,7 @@ echo "total=\$n"
             stage('1 核对') {
                 def dirty = sh(script: 'git status --porcelain --untracked-files=no -- gitops infrastructure/applications/sources.yaml infrastructure/environments', returnStdout: true).trim()
                 if (dirty) { error "工作区不干净:\n${dirty}" }
+                logged('1-image-pins', 'infrastructure/.venv/bin/python ci/verify-contracts.py --images-only')
                 // 应用仓先同步到分支头（PIN=heads 要读 origin/<branch>），第 2 阶段末尾再按钉对齐
                 for (app in apps) {
                     dir("${reposDir}/${app}-app") {
@@ -87,6 +88,9 @@ echo "total=\$n"
                 sh "git diff -- infrastructure/applications/sources.yaml > '${out}/2-sources.diff'; git diff --stat -- infrastructure/applications/sources.yaml"
                 // 构建链要求子仓 HEAD 恰等于钉的号：按钉对齐检出
                 if (apps) { logged('2-align', "python3 ci/align-sources.py --repos '${reposDir}' --apps '${apps.join(' ')}'") }
+                if (releaseSandbox || apps.any { it in ['knowbench','knowlab','knowmart'] }) {
+                    logged('2-contracts', "infrastructure/.venv/bin/python ci/verify-contracts.py --pinned --repos '${reposDir}'")
+                }
                 // 前置核对：钉到的后端的 alembic 头要等于 expected_schema_revision；不对就停在这里，不进构建。
                 // 这时镜像还没构建，镜像锁里的源码提交必然不等于新钉（#16 在此停），所以只核库版本；镜像锁第 5 阶段再核
                 for (app in apps) { logged("2-plan-${app}", "make -C infrastructure application-deployment-plan APP=${app} PLAN_EXTRA=plan_before_build=true") }

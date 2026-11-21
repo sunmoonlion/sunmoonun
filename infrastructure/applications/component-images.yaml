@@ -1,6 +1,4 @@
-# 自研的非应用镜像（0010 第 4 步）：会合点、沙箱、沙箱供给器。源码 2026-10-16 已从 sunmoonai/ 挪到同目录 component-images/
-# （relay/、sandbox-platform/）；下面的 context 仍写旧路径，因为它跟钉的 revision 配套（构建从那个提交导出 context），
-# 下次重建哪个镜像就把它的 context 与 revision 一起改到新位置。
+# 组件镜像从各自 revision 导出 context。构建前核对提交中的上下文与当前发行源码。
 # 钉本仓的一个提交；构建从该提交导出 context，工作区须干净且 HEAD 是它的后代。产物发到 Harbor 的 platform/<名字>，
 # 锁写进 gitops/components/<对象>/image.lock.yaml（component-lock）。构建入口：make platform-build OBJECT=<对象>。
 ---
@@ -19,7 +17,7 @@ images:
   sandbox-provisioner:
     object: sandbox-platform/provisioner
     # 隔离 Skill Job、完整包输入、执行回执及停止确认。
-    revision: 9842f1c341ee351ed4d787dfe5a3dfed24632ff5
+    revision: 99f497bf79946d9618533228640423e10143c460
     context: infrastructure/applications/component-images/sandbox-platform/provisioner
     dockerfile: Dockerfile
     base: python
@@ -29,12 +27,8 @@ images:
   sandbox:
     # 只构建、不单独部署的对象：供给器按用户拉起沙箱 Pod 时用它
     object: sandbox-platform/sandbox
-    # 沙箱 Dockerfile 在 e3ce871f 加了 DEBIAN_MIRROR：只有它钉新提交，会合点/供给器仍钉顶层的。
-    # 源的地址在 download-modes.json（不在 context 里，不用改钉的提交）；国内源用 http：slim 基础镜像没有 ca-certificates，
-    # apt 走 https 会在证书上失败（2026-10-06 第 26 轮退出 100），包本身有签名
-    # 2fe6652c：编排端配置加 [windows] sandbox = unelevated（Windows 代理第 1 段联调）
-    # 开发沙箱使用 Codex 0.170.0，与 Link 0.5.9 配套。
-    revision: 368b5aef80c9d5126e31cf69cef572ba3a44e500
+    # Codex 0.170.0 与 Link 0.5.9 配套；本次含纯指令流末计量。
+    revision: 99f497bf79946d9618533228640423e10143c460
     context: infrastructure/applications/component-images/sandbox-platform
     dockerfile: image/Dockerfile
     base: node-runtime
