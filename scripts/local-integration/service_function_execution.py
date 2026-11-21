@@ -21,7 +21,7 @@ async def provider():
     from fastapi import FastAPI
     from test_data_mcp import World, token
     from test_durable_delivery_db import db
-    from app.application.services.fact_query_revisions import function_revision
+    from app.application.services.data_query_revisions import function_revision
     from app.domain.user_library import PUBLIC_OWNER
     from app.domain.user_runs import GrantRequestItem, InputPin
     from app.interfaces.http.internal.function_calls import build_function_router
@@ -63,10 +63,14 @@ async def provider():
                 run="native-comparison",
             )
         )[field]
-        rows = expected if field == "facts" else expected[0]["inputs"]
-        assert {r["code"] for r in rows} == {"IS.REVENUE", "IS.COST"} and {
-            r["source"]["page"] for r in rows
-        } == {88}
+        if field == "inputs":
+            assert len(expected) == 1 and expected[0]["material_id"] == material.id
+            assert expected[0]["version_no"] == 1
+        else:
+            rows = expected if field == "facts" else expected[0]["inputs"]
+            assert {r["code"] for r in rows} == {"IS.REVENUE", "IS.COST"} and {
+                r["source"]["page"] for r in rows
+            } == {88}
         if field == "values":
             from decimal import Decimal
 
@@ -139,6 +143,7 @@ else:
     [
         ("query_facts", "facts", {}),
         ("read_facts", "facts", {}),
+        ("list_inputs", "inputs", {}),
         ("query_metric", "values", {"metric": "gross_margin"}),
     ],
 )
@@ -314,7 +319,8 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             found = await ask(conversation=sid)
             assert found["structuredContent"][field] == expected
             call_id = found["_meta"]["call_id"]
-            assert "function:" + call_id in await exchange({"readers": True})
+            readers = await exchange({"readers": True})
+            assert ("function:" + call_id in readers) == (name != "list_inputs")
             async with db() as session:
                 detail = await session.scalar(
                     text("SELECT detail FROM workbench_calls WHERE id=:cid"),
@@ -325,7 +331,11 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                     == revision["digest"]
                 )
             assert (await ask(conversation=sid, run="native-comparison"))["isError"]
-            assert (await ask(scope="market"))["structuredContent"][field] == expected
+            market = await ask(scope="market")
+            if name == "list_inputs":
+                assert market["isError"]
+            else:
+                assert market["structuredContent"][field] == expected
             assert await exchange({"revoke_chat": True})
             assert (await ask(conversation=sid))["structuredContent"][field] == []
             async with db() as session, session.begin():
