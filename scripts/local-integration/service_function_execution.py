@@ -9,6 +9,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[3]
 BASE = ROOT / "knowbase-app/knowbase-backend/app"
 BENCH = ROOT / "knowbench-app/knowbench-backend/app"
@@ -110,8 +112,9 @@ else:
     from test_workbench_mcp_routes import served as served
 
 
+@pytest.mark.parametrize("scene", ["chat", "work"])
 async def test_registered_function_and_expert_with_actual_knowbase(
-    db, served, monkeypatch
+    db, served, monkeypatch, scene
 ):
     import httpx
     from test_formal_function_db import exercise_function
@@ -159,7 +162,9 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             grant=grant,
         )
         from test_workbench_mcp_routes import URL, bearer, tool
-        from test_workbench_ledger_db import seed
+        from test_workbench_ledger_db import OWNER, seed
+        from app.application.workbench.session_service import SessionService
+        from app.infrastructure.workbench.repository import WorkbenchRepository
         from tool_invocation_support import ObservedPlatformTransport
         from app.infrastructure.external.knowbase_data_v2 import KnowbaseDataV2
         from app.interfaces.endpoints.workbench_routes import token_issuer
@@ -167,7 +172,17 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         from sqlalchemy import text
 
         _, _, sid = await seed(db)
+        if scene == "chat":
+            async with db() as session:
+                sid = (
+                    await SessionService(WorkbenchRepository(session)).start(
+                        owner_actor_id=OWNER, kind="chat"
+                    )
+                )["session_id"]
         async with db() as session, session.begin():
+            assert (await WorkbenchRepository(session).get_session(sid))[
+                "kind"
+            ] == scene
             await session.execute(
                 text(
                     "UPDATE workbench_sessions SET knowbase_session_id=:chat, knowbase_session_expires_at=now()+interval '1 hour' WHERE id=:sid"
