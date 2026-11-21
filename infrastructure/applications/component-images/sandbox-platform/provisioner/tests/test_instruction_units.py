@@ -16,7 +16,8 @@ from test_provisioner import target
 
 
 @pytest.mark.anyio
-async def test_instruction_unit_lifecycle(monkeypatch):
+@pytest.mark.parametrize("scoped", [False, True], ids=["legacy-task", "per-attempt"])
+async def test_instruction_unit_lifecycle(monkeypatch, scoped):
     directory = os.environ.get("INSTRUCTION_KUBE_TEST_DIR")
     if not directory:
         pytest.skip("requires a disposable loopback kube-apiserver")
@@ -36,6 +37,10 @@ async def test_instruction_unit_lifecycle(monkeypatch):
     headers = {"Authorization": "Bearer test-lifecycle"}
     owner, task, attempt = uuid4(), uuid4(), uuid4()
     root = f"/v1/instruction-executions/{owner}/{task}"
+    sibling_attempt = uuid4()
+    sibling_root = root + "/attempts/" + str(sibling_attempt)
+    if scoped:
+        root += "/attempts/" + str(attempt)
     namespace = {
         "metadata": {
             "name": ns,
@@ -108,17 +113,22 @@ async def test_instruction_unit_lifecycle(monkeypatch):
                 assert (await kube.get("secrets", name + "-binding"))["data"][
                     "turn"
                 ] == "Zmlyc3Q="
+
                 # This independent API has no scheduler or kubelet.
-                gateway["status"] = {
-                    "phase": "Running",
-                    "podIP": "10.0.0.1",
-                    "conditions": [{"type": "Ready", "status": "True"}],
-                }
-                (
-                    await kube.client.put(
-                        kube.path("pods", name) + "/status", json=gateway
-                    )
-                ).raise_for_status()
+                async def mark_ready(pod, ip):
+                    pod["status"] = {
+                        "phase": "Running",
+                        "podIP": ip,
+                        "conditions": [{"type": "Ready", "status": "True"}],
+                    }
+                    (
+                        await kube.client.put(
+                            kube.path("pods", pod["metadata"]["name"]) + "/status",
+                            json=pod,
+                        )
+                    ).raise_for_status()
+
+                await mark_ready(gateway, "10.0.0.1")
                 first, second = await asyncio.gather(
                     *(client.put(prefix + "/worker") for _ in range(2))
                 )
@@ -152,6 +162,40 @@ async def test_instruction_unit_lifecycle(monkeypatch):
                         ],
                     }
                 ]
+                if scoped:
+                    sibling = await client.post(sibling_root + "/prepare")
+                    assert sibling.status_code == 200, sibling.text
+                    sibling_uid = sibling.json()["uid"]
+                    assert sibling_uid != uid
+                    sibling_prefix = sibling_root + "/" + sibling_uid
+                    assert (
+                        await client.put(sibling_prefix + "/binding", json=binding)
+                    ).status_code == 409
+                    assert (
+                        await client.post(sibling_root + "/" + uid + "/stop")
+                    ).status_code == 409
+                    sibling_binding = {**binding, "attempt": str(sibling_attempt)}
+                    assert (
+                        await client.put(
+                            sibling_prefix + "/binding", json=sibling_binding
+                        )
+                    ).status_code == 200
+                    (sibling_gateway,) = await kube.list(
+                        "pods",
+                        "app=instruction-gateway,sunmoonai.com/attempt="
+                        + sibling_attempt.hex,
+                    )
+                    await mark_ready(sibling_gateway, "10.0.0.2")
+                    sibling_worker = await client.put(sibling_prefix + "/worker")
+                    assert sibling_worker.status_code == 200
+                    assert sibling_worker.json()["uid"] != first.json()["uid"]
+                    claims = await kube.list(
+                        "persistentvolumeclaims", "sunmoonai.com/task=" + task.hex
+                    )
+                    assert {
+                        obj["metadata"]["labels"]["sunmoonai.com/attempt"]
+                        for obj in claims
+                    } == {attempt.hex, sibling_attempt.hex}
                 assert (await client.delete(prefix + "/proof")).status_code == 409
                 assert (await client.delete(prefix)).status_code == 409
                 assert (await client.post(prefix + "/stop")).status_code == 200
@@ -190,5 +234,21 @@ async def test_instruction_unit_lifecycle(monkeypatch):
                         prefix + "/proof", params={"settled_attempt": str(attempt)}
                     )
                 ).json() == {"removed": True}
+                if scoped:
+                    assert (await client.get(sibling_root + "/reservation")).json() == {
+                        "uid": sibling_uid
+                    }
+                    assert (await client.get(sibling_prefix)).status_code == 200
+                    remaining = await client.put(sibling_prefix + "/worker")
+                    assert (
+                        remaining.status_code == 200
+                        and remaining.json()["uid"] == sibling_worker.json()["uid"]
+                    )
+                    assert (
+                        await client.delete(
+                            sibling_prefix + "/proof",
+                            params={"settled_attempt": str(attempt)},
+                        )
+                    ).status_code == 409
         finally:
             await kube.client.delete("/api/v1/namespaces/" + ns)

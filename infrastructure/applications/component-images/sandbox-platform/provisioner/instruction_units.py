@@ -1,4 +1,4 @@
-"""Dedicated Pods for one instruction Task. Kubernetes UIDs fence lifecycle operations."""
+"""Dedicated Pods for one instruction execution. Kubernetes UIDs fence lifecycle operations."""
 
 import hashlib
 import secrets
@@ -45,6 +45,7 @@ class InstructionUnits:
         *,
         owner,
         task,
+        attempt=None,
         namespace,
         app_namespace,
         ingress_namespace,
@@ -57,8 +58,16 @@ class InstructionUnits:
         self.image, self.pull_secret, self.origin = image, pull_secret, origin
         self.ingress_namespace = ingress_namespace
         self.owner = owner
-        self.name = "instr-" + hashlib.sha256(owner.bytes + task.bytes).hexdigest()[:32]
+        self.attempt = attempt
+        identity = owner.bytes + task.bytes + (attempt.bytes if attempt else b"")
+        self.name = "instr-" + hashlib.sha256(identity).hexdigest()[:32]
         self.labels = {"sunmoonai.com/owner": owner.hex, "sunmoonai.com/task": task.hex}
+        if attempt:
+            self.labels["sunmoonai.com/attempt"] = attempt.hex
+
+    def check_attempt(self, attempt):
+        if self.attempt and self.attempt != attempt:
+            conflict("instruction execution belongs to another attempt")
 
     async def create(self, kind, body, *, reserve_gateway=False):
         """Create-only. Repeated calls can observe an existing immutable binding."""
@@ -235,7 +244,9 @@ class InstructionUnits:
             origin = urlsplit(self.origin)
             port = origin.port
         except ValueError as exc:
-            raise HTTPException(503, {"code": "instruction_control_origin_invalid"}) from exc
+            raise HTTPException(
+                503, {"code": "instruction_control_origin_invalid"}
+            ) from exc
         if (
             origin.scheme != "https"
             or not origin.hostname
@@ -436,6 +447,7 @@ class InstructionUnits:
         )
 
     async def bind(self, uid, body):
+        self.check_attempt(body.attempt)
         gateway = await self.gateway(uid)
         if self.stopped(gateway) and not await self.kube.get(
             "secrets", self.name + "-binding"
@@ -622,6 +634,7 @@ class InstructionUnits:
         return {"worker_stopping": True, "gateway_uid": str(uid)}
 
     async def stop(self, uid, settled_attempt):
+        self.check_attempt(settled_attempt)
         gateway = await self.gateway(uid, stopping=True)
         # Only the trusted ledger host may retire an activated gateway once it
         # has reconciled this Attempt. Cancellation alone keeps the gateway alive.
@@ -654,6 +667,7 @@ class InstructionUnits:
         return {"stopping": True, "retained_proof_claim": self.name + "-proof"}
 
     async def reclaim(self, uid, settled_attempt):
+        self.check_attempt(settled_attempt)
         name = self.name + "-proof"
         proof = await self.kube.get("persistentvolumeclaims", name)
         if not proof:

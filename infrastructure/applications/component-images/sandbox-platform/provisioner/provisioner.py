@@ -445,13 +445,12 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
     def scripts(prov: Provisioner = Depends(get_provisioner)) -> ScriptJobs:
         return ScriptJobs(prov.kube, namespace=NAMESPACE, image=SANDBOX_IMAGE, pull_secret=IMAGE_PULL_SECRET)
 
-    def instruction_units(
-        owner: UUID, task: UUID, prov: Provisioner = Depends(get_provisioner)
-    ):
+    def units_for(prov, owner, task, attempt=None):
         return InstructionUnits(
             prov.kube,
             owner=owner,
             task=task,
+            attempt=attempt,
             namespace=NAMESPACE,
             app_namespace=APP_NAMESPACE,
             ingress_namespace=os.environ.get("INGRESS_NAMESPACE", "ingress-system"),
@@ -460,55 +459,64 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
             origin=os.environ.get("INSTRUCTION_CONTROL_ORIGIN", ""),
         )
 
+    def task_units(owner: UUID, task: UUID, prov: Provisioner = Depends(get_provisioner)):
+        return units_for(prov, owner, task)
+
+    def attempt_units(owner: UUID, task: UUID, attempt: UUID, prov: Provisioner = Depends(get_provisioner)):
+        return units_for(prov, owner, task, attempt)
+
+    def instruction_routes(instruction, instruction_units):
+        @app.post(instruction + "/prepare", dependencies=[Depends(require_token)])
+        async def prepare_instruction(units: InstructionUnits = Depends(instruction_units)):
+            return await units.reserve()
+
+        @app.get(instruction + "/reservation", dependencies=[Depends(require_token)])
+        async def instruction_reservation(units: InstructionUnits = Depends(instruction_units)):
+            return await units.reservation()
+
+        @app.get(instruction + "/{uid}", dependencies=[Depends(require_token)])
+        async def instruction_status(
+            uid: UUID, units: InstructionUnits = Depends(instruction_units)
+        ):
+            return units.status(await units.gateway(uid))
+
+        @app.delete(instruction + "/{uid}/proof", dependencies=[Depends(require_token)])
+        async def reclaim_instruction_proof(
+            uid: UUID,
+            units: InstructionUnits = Depends(instruction_units),
+            settled_attempt: UUID | None = None,
+        ):
+            return await units.reclaim(uid, settled_attempt)
+
+        @app.put(instruction + "/{uid}/binding", dependencies=[Depends(require_token)])
+        async def bind_instruction(
+            uid: UUID, body: Binding, units: InstructionUnits = Depends(instruction_units)
+        ):
+            return await units.bind(uid, body)
+
+        @app.put(instruction + "/{uid}/worker", dependencies=[Depends(require_token)])
+        async def instruction_worker(
+            uid: UUID, units: InstructionUnits = Depends(instruction_units)
+        ):
+            return await units.worker(uid)
+
+        @app.post(instruction + "/{uid}/stop", dependencies=[Depends(require_token)])
+        async def stop_instruction_worker(
+            uid: UUID, units: InstructionUnits = Depends(instruction_units)
+        ):
+            return await units.stop_worker(uid)
+
+        @app.delete(instruction + "/{uid}", dependencies=[Depends(require_token)])
+        async def retire_instruction_gateway(
+            uid: UUID,
+            units: InstructionUnits = Depends(instruction_units),
+            settled_attempt: UUID | None = None,
+        ):
+            return await units.stop(uid, settled_attempt)
+
     instruction = "/v1/instruction-executions/{owner}/{task}"
-
-    @app.post(instruction + "/prepare", dependencies=[Depends(require_token)])
-    async def prepare_instruction(units: InstructionUnits = Depends(instruction_units)):
-        return await units.reserve()
-
-    @app.get(instruction + "/reservation", dependencies=[Depends(require_token)])
-    async def instruction_reservation(units: InstructionUnits = Depends(instruction_units)):
-        return await units.reservation()
-
-    @app.get(instruction + "/{uid}", dependencies=[Depends(require_token)])
-    async def instruction_status(
-        uid: UUID, units: InstructionUnits = Depends(instruction_units)
-    ):
-        return units.status(await units.gateway(uid))
-
-    @app.delete(instruction + "/{uid}/proof", dependencies=[Depends(require_token)])
-    async def reclaim_instruction_proof(
-        uid: UUID,
-        units: InstructionUnits = Depends(instruction_units),
-        settled_attempt: UUID | None = None,
-    ):
-        return await units.reclaim(uid, settled_attempt)
-
-    @app.put(instruction + "/{uid}/binding", dependencies=[Depends(require_token)])
-    async def bind_instruction(
-        uid: UUID, body: Binding, units: InstructionUnits = Depends(instruction_units)
-    ):
-        return await units.bind(uid, body)
-
-    @app.put(instruction + "/{uid}/worker", dependencies=[Depends(require_token)])
-    async def instruction_worker(
-        uid: UUID, units: InstructionUnits = Depends(instruction_units)
-    ):
-        return await units.worker(uid)
-
-    @app.post(instruction + "/{uid}/stop", dependencies=[Depends(require_token)])
-    async def stop_instruction_worker(
-        uid: UUID, units: InstructionUnits = Depends(instruction_units)
-    ):
-        return await units.stop_worker(uid)
-
-    @app.delete(instruction + "/{uid}", dependencies=[Depends(require_token)])
-    async def retire_instruction_gateway(
-        uid: UUID,
-        units: InstructionUnits = Depends(instruction_units),
-        settled_attempt: UUID | None = None,
-    ):
-        return await units.stop(uid, settled_attempt)
+    instruction_routes(instruction, task_units)
+    instruction_routes(instruction + "/attempts/{attempt}", attempt_units)
 
     @app.put("/v1/script-executions/{owner}/{run}", dependencies=[Depends(require_token)], response_model=ScriptStatus)
     async def start_script(owner: UUID, run: UUID, spec: ScriptExecution, jobs: ScriptJobs = Depends(scripts)):

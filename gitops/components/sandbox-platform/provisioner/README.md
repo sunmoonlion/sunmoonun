@@ -6,7 +6,7 @@
 
 ## 单轮纯指令执行单元
 
-供给器按所有者和根 Task 预留一对独立 Pod。入口前缀为 `/v1/instruction-executions/{owner}/{task}`，使用已有的供给器服务鉴权。运营配置 `sandbox_instruction_control_origin` 为空时预留返回 503。启用时填写 KnowBench 的集群内 HTTPS 源。网关访问控制接口时使用平台公开 CA，访问供应商时使用系统信任库。
+新建 Attempt 通过 `/v1/instruction-executions/{owner}/{task}/attempts/{attempt}` 预留一对 Pod 和专属回执卷。同一根 Task 下的不同 Attempt 各自持有独立 UID、绑定和清理记录。旧 Attempt 继续通过原前缀 `/v1/instruction-executions/{owner}/{task}` 恢复和清理。两种入口均使用已有的供给器服务鉴权。运营配置 `sandbox_instruction_control_origin` 为空时预留返回 503。启用时填写 KnowBench 的集群内 HTTPS 源。网关访问控制接口时使用平台公开 CA，访问供应商时使用系统信任库。
 
 | 宿主动作 | 供给器接口 | 持久状态与重试 |
 | --- | --- | --- |
@@ -16,11 +16,11 @@
 | 查询网关、取得执行连接 | `GET /{uid}`、`PUT /{uid}/worker` | 网关就绪后才允许创建执行 Pod。宿主等到执行 Pod 就绪再用返回的 IP、47800 端口和本次专用令牌连接 Codex。重复获取沿用同一执行 Pod 与令牌。 |
 | 允许本轮首个模型请求 | 再次 `PUT /{uid}/binding` | 宿主从真实 `turn/start` 回参取得 `turn` 后补入。第一次模型 POST 等待票据卷投影更新，最多 90 秒。续票保留已绑定轮次。 |
 | 取消执行、核销用量 | `POST /{uid}/stop` | 宿主先在 KnowBench 取消并阻止新请求，再停执行 Pod。网关继续收取和补交原始回执。已放行请求的用量未知时保留预留和证据。 |
-| 回收已结算实例 | `DELETE /{uid}`，待实例消失后 `DELETE /{uid}/proof` | 宿主依据 KnowBench 账本终态提交查询参数 `settled_attempt`。无绑定的空预留可省略。供给器核对 UID、绑定、停机与回收标记后才受理清卷。卷的实际释放时间由存储控制器决定。 |
+| 回收已结算实例 | `DELETE /{uid}`，待实例消失后 `DELETE /{uid}/proof` | 宿主依据 KnowBench 账本终态提交查询参数 `settled_attempt`。新入口要求该编号与路径中的 Attempt 相同；旧入口的空预留可省略。供给器核对 UID、绑定、停机与回收标记后才受理清卷。卷的实际释放时间由存储控制器决定。 |
 
 Codex 的临时工作目录与 WebSocket 访问令牌只属于本次执行。供应商凭据、控制票据和回执卷都挂在网关内。执行 Pod 的出站策略只允许本次网关的 47801 端口。网关将终结用量持久化后向 KnowBench 交回，同一 Pod 内网关进程重启可补交。整个网关 Pod 丢失时保留回执卷和原绑定供核查。
 
-供给器生命周期联调可在独立回环 kube-apiserver 上运行 `provisioner/tests/test_instruction_units.py`。设置 `INSTRUCTION_KUBE_TEST_PORT` 和 `INSTRUCTION_KUBE_TEST_DIR`，后者包含该临时服务的 `ca.crt`、`client.crt` 和 `client.key`。测试创建独立命名空间并注入就绪状态。
+供给器生命周期联调可在独立回环 kube-apiserver 上运行 `provisioner/tests/test_instruction_units.py`。设置 `INSTRUCTION_KUBE_TEST_PORT` 和 `INSTRUCTION_KUBE_TEST_DIR`，后者包含该临时服务的 `ca.crt`、`client.crt` 和 `client.key`。测试创建独立命名空间并注入就绪状态，覆盖同一根任务下的两个执行实例、不同回执卷、错误绑定被拒、单独停止和回收。升级时先提供新版供给器接口，再更新 runner。
 
 ### 集群网络和回执卷验收
 
