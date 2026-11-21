@@ -21,7 +21,7 @@ async def provider():
     from fastapi import FastAPI
     from test_data_mcp import World, token
     from test_durable_delivery_db import db
-    from app.application.services.query_facts_revision import query_facts_revision
+    from app.application.services.fact_query_revisions import function_revision
     from app.domain.user_library import PUBLIC_OWNER
     from app.domain.user_runs import GrantRequestItem, InputPin
     from app.interfaces.http.internal.function_calls import build_function_router
@@ -47,16 +47,29 @@ async def provider():
             )
 
         await grant("native-comparison")
+        setup = json.loads(sys.stdin.readline())
+        name = setup["name"]
+        query = setup["query"]
+        field = setup["field"]
         expected = (
             await world.facts(
+                name=name,
+                **query,
                 sub="author",
                 scope="run",
                 run="native-comparison",
             )
-        )["facts"]
-        assert len(expected) == 2 and {r["source"]["page"] for r in expected} == {88}
+        )[field]
+        rows = expected if field == "facts" else expected[0]["inputs"]
+        assert {r["code"] for r in rows} == {"IS.REVENUE", "IS.COST"} and {
+            r["source"]["page"] for r in rows
+        } == {88}
+        if field == "values":
+            from decimal import Decimal
+
+            assert Decimal(expected[0]["value"]) == Decimal("0.8")
         settings = Settings(
-            knowbase_mcp_jwt_public_key=json.loads(sys.stdin.readline())["public"],
+            knowbase_mcp_jwt_public_key=setup["public"],
             knowbase_mcp_jwt_issuer="knowbench",
         )
         app = FastAPI()
@@ -64,7 +77,7 @@ async def provider():
             build_function_router(settings, world.functions), prefix="/api"
         )
         chat = await world.runs.register_session("author", "knowbench")
-        print(json.dumps([query_facts_revision(), expected, chat.id]), flush=True)
+        print(json.dumps([function_revision(name), expected, chat.id]), flush=True)
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=app), base_url="https://localhost"
         ) as http:
@@ -113,8 +126,15 @@ else:
 
 
 @pytest.mark.parametrize("scene", ["chat", "work"])
+@pytest.mark.parametrize(
+    "name,field,query",
+    [
+        ("query_facts", "facts", {}),
+        ("query_metric", "values", {"metric": "gross_margin"}),
+    ],
+)
 async def test_registered_function_and_expert_with_actual_knowbase(
-    db, served, monkeypatch, scene
+    db, served, monkeypatch, scene, name, field, query
 ):
     import httpx
     from test_formal_function_db import exercise_function
@@ -138,7 +158,14 @@ async def test_registered_function_and_expert_with_actual_knowbase(
         return json.loads(line)
 
     try:
-        revision, expected, chat = await exchange({"public": issuer.public_pem()})
+        revision, expected, chat = await exchange(
+            {
+                "public": issuer.public_pem(),
+                "name": name,
+                "field": field,
+                "query": query,
+            }
+        )
 
         async def forward(req):
             status, body = await exchange(
@@ -160,6 +187,8 @@ async def test_registered_function_and_expert_with_actual_knowbase(
             expected,
             forward=forward,
             grant=grant,
+            query=query,
+            output_name=field,
         )
         from test_workbench_mcp_routes import URL, bearer, tool
         from test_workbench_ledger_db import OWNER, seed
@@ -204,14 +233,14 @@ async def test_registered_function_and_expert_with_actual_knowbase(
 
             async def ask(**args):
                 res = await native.post(
-                    URL, headers=bearer(issuer=issuer), json=tool("query_facts", **args)
+                    URL, headers=bearer(issuer=issuer), json=tool(name, **query, **args)
                 )
                 return res.json()["result"]
 
-            assert (await ask(conversation=sid))["structuredContent"] == {"facts": []}
+            assert (await ask(conversation=sid))["structuredContent"][field] == []
             assert "pages" in await exchange({"read_in_chat": True})
             found = await ask(conversation=sid)
-            assert found["structuredContent"]["facts"] == expected
+            assert found["structuredContent"][field] == expected
             call_id = found["_meta"]["call_id"]
             assert "function:" + call_id in await exchange({"readers": True})
             async with db() as session:
@@ -224,14 +253,15 @@ async def test_registered_function_and_expert_with_actual_knowbase(
                     == revision["digest"]
                 )
             assert (await ask(conversation=sid, run="native-comparison"))["isError"]
-            assert (await ask(scope="market"))["structuredContent"]["facts"] == expected
+            assert (await ask(scope="market"))["structuredContent"][field] == expected
             assert await exchange({"revoke_chat": True})
-            assert (await ask(conversation=sid))["structuredContent"] == {"facts": []}
+            assert (await ask(conversation=sid))["structuredContent"][field] == []
             async with db() as session, session.begin():
                 await session.execute(
                     text(
-                        "DELETE FROM workbench_registry_service_functions WHERE provider='knowbase' AND name='query_facts' AND version=1"
-                    )
+                        "DELETE FROM workbench_registry_service_functions WHERE provider='knowbase' AND name=:name AND version=1"
+                    ),
+                    {"name": name},
                 )
             missing = await ask(scope="market")
             assert (

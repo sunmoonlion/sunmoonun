@@ -5,6 +5,7 @@ Only OIDC token issuance and verification use synthetic credentials.
 """
 
 import asyncio
+import json
 import os
 import socket
 import sys
@@ -16,7 +17,7 @@ BASE = ROOT / "knowbase-app/knowbase-backend/app"
 
 
 async def provider(origin):
-    from app.bootstrap.publish_functions import publish_query_facts
+    from app.bootstrap.publish_functions import publish_query
     from app.infrastructure.external.downstream_service import DownstreamServiceClient
     from core.config import Settings
 
@@ -40,7 +41,13 @@ async def provider(origin):
         ),
         oidc_client=Issuer(),
     )
-    print(await publish_query_facts(client))
+    from app.application.services.fact_query_revisions import REGISTERED_QUERIES
+
+    print(
+        json.dumps(
+            {name: await publish_query(client, name) for name in REGISTERED_QUERIES}
+        )
+    )
 
 
 if __name__ == "__main__":
@@ -177,30 +184,32 @@ async def test_service_publication_and_selection(db, monkeypatch):
                     proc.kill()
                     await proc.wait()
             assert proc.returncode == 0
-            digest = out.decode().strip()
+            published = json.loads(out)
+            assert set(published) == {"query_facts", "query_metric"}
             path = "/api/internal/v1/knowbot-runtime/users/author/formal-method-sources"
             async with httpx.AsyncClient(
                 base_url=origin, trust_env=False, headers=HEADERS
             ) as http:
                 assert (await http.get(path)).json() == {"items": []}
-                pin = {
-                    "source": "knowbase",
-                    "entry": "query_facts",
-                    "version": "1",
-                    "kind": "service_function",
-                    "digest": digest,
-                }
-                record = license_record(pin)
-                licenses.append(record)
-                res = await http.get(path)
-                assert res.status_code == 200, res.text
-                [source] = res.json()["items"]
-                assert (
-                    pin.items() <= source.items()
-                    and source["license_basis"] == record.basis
-                )
-                licenses.clear()
-                assert (await http.get(path)).json() == {"items": []}
+                for name, digest in published.items():
+                    pin = {
+                        "source": "knowbase",
+                        "entry": name,
+                        "version": "1",
+                        "kind": "service_function",
+                        "digest": digest,
+                    }
+                    record = license_record(pin)
+                    licenses.append(record)
+                    res = await http.get(path)
+                    assert res.status_code == 200, res.text
+                    [source] = res.json()["items"]
+                    assert (
+                        pin.items() <= source.items()
+                        and source["license_basis"] == record.basis
+                    )
+                    licenses.clear()
+                    assert (await http.get(path)).json() == {"items": []}
         finally:
             server.should_exit = True
             await serving

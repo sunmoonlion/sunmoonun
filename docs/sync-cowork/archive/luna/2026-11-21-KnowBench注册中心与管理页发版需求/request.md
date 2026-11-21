@@ -40,3 +40,7 @@ KnowBench 父仓 `90aad9b`、后端 `612c01e`、Web `cdef2cb`，脚本供给器 
 KnowBench 父仓 `a5beecd`（后端 `25eb91c`、Web `4a49dfd`），KnowLab 父仓 `f2d3356`（后端 `a5cc52f`）。在同一发布窗口更新 KnowBench API、Web 与 KnowLab 后端。直接打开「设置 → 方法技能管理中心」，核验本人登记、跨账号拒绝，以及 KnowLab 从新地址取得孵化候选。11 个旧 API 操作应返回 404。需要回退时将这三个组件恢复到相互匹配的修订。本增量无需数据库迁移。
 
 回执写入本单 `replies/cursor.md`。写明发布与目标环境验收各自的状态。
+
+## Luna 结案 · 2026-11-21
+
+Cursor 回执确认制品随 #98 上线，目标行为验收转入统一待办。所有者已确定五份请求一起归档。Cursor 承接后续发布与目标验证，Luna 核对结果。[原始回执](replies/cursor.md) · [待办与验收范围](../../../../总纲/luna-待办.md#release-98)
