@@ -6,10 +6,11 @@ def main(params, reposDir, approver, rootRepo = 'sunmoonun', site = 'kind') {
     // 保留现有任务入口；APPS 也接受显式的 sandbox 发布目标，无需另一条流水线。
     def targets = (params.APPS ?: '').trim() ? params.APPS.trim().split(/\s+/) as List : ['tpl', 'knowfeed', 'knowbase', 'knowbench', 'knowlab', 'knowmart']
     def allowedApps = ['tpl', 'knowfeed', 'knowbase', 'knowbench', 'knowlab', 'knowmart']
-    for (target in targets) { if (!(target in allowedApps) && target != 'sandbox') { error "未知发布目标: ${target}" } }
+    for (target in targets) { if (!(target in allowedApps) && !(target in ['sandbox', 'traefik'])) { error "未知发布目标: ${target}" } }
     targets = targets.unique()
     def apps = targets.findAll { it in allowedApps }
     def releaseSandbox = targets.contains('sandbox')
+    def releaseIngress = targets.contains('traefik')
     def branch = params.BRANCH.trim()
     def note = (params.NOTE ?: '').trim()
     def approvalMinutes = (params.APPROVAL_TIMEOUT_MINUTES ?: '1440').trim()
@@ -109,6 +110,8 @@ cat '${out}/3-image-locks.txt'
                 for (app in apps) { logged("4-stage-${app}", "make -C infrastructure platform-stage OBJECT=app-platform/${app}-app") }
                 // 沙箱镜像由供给器持有；发布新镜像要同时更新供给器中的固定摘要。
                 if (releaseSandbox) { logged('4-stage-sandbox', 'make -C infrastructure platform-stage OBJECT=sandbox-platform/provisioner') }
+                if (releaseIngress) { logged('4-stage-traefik', 'make -C infrastructure platform-stage OBJECT=ingress-platform/traefik') }
+                if (releaseSandbox || releaseIngress) { logged('4-instruction-route', 'infrastructure/.venv/bin/python ci/verify_instruction_route.py') }
                 sh """#!/bin/bash
 set -euo pipefail
 if grep -rln 'BEGIN [A-Z ]*PRIVATE KEY\\|BEGIN PUBLIC KEY' gitops/ ; then echo '暂存结果里有密钥字样'; exit 1; fi
@@ -223,6 +226,9 @@ for app in ${apps.join(' ')}; do
   \$K -n flux-system get kustomizations -o name | grep -E "/\${app}-" | xargs -r \$K -n flux-system wait --for=condition=Ready --timeout=30m
 done 2>&1 | tee '${out}/10-wait.txt'
 """
+                if (releaseIngress) {
+                    logged('10-wait-traefik', "KUBECONFIG=\$(awk -F': *' '/^cluster_kubeconfig:/{print \$2}' infrastructure/environments/${site}/site.yaml) infrastructure/.tools/bin/kubectl -n flux-system wait kustomization/traefik --for=condition=Ready --timeout=10m")
+                }
                 if (releaseSandbox) {
                     logged('10-wait-sandbox', "KUBECONFIG=\$(awk -F': *' '/^cluster_kubeconfig:/{print \$2}' infrastructure/environments/${site}/site.yaml) infrastructure/.tools/bin/kubectl -n flux-system wait kustomization/sandbox-provisioner --for=condition=Ready --timeout=10m")
                 }
@@ -230,6 +236,7 @@ done 2>&1 | tee '${out}/10-wait.txt'
             stage('11 检查') {
                 // 只跑 application-check；platform-check 对应用对象就是公网入口检查，边缘只放行三个域名，不是每个应用都有公网入口
                 for (app in apps) { logged("11-check-${app}", "make -C infrastructure application-check APP=${app}") }
+                if (releaseIngress) { logged('11-check-traefik', 'make -C infrastructure platform-check OBJECT=ingress-platform/traefik') }
                 if (releaseSandbox) { logged('11-check-sandbox', 'make -C infrastructure platform-check OBJECT=sandbox-platform/provisioner') }
             }
             stage('12 推送与回执') {
