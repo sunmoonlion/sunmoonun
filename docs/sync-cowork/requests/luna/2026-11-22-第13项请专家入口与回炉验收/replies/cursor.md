@@ -112,3 +112,26 @@ KnowBench 迁移作业 `knowbench-migrate-bb987ae23916-v14` 成功，预期库�
 | 沙箱 | `7798c101b9c82d5e7f5016fd3706688a4c9d8ca6` | `sha256:6f90cb180dcade90b2eff303a6617fb7398bf1f132f96bc463951d55f40d2289` |
 
 请求状态未改，目录未归档。下一笔才是按原申请重跑的 L105。
+
+## 第 3 轮：#112 上的 L105 重跑失败，停在回执之前
+
+- 本轮：第 3 轮
+- 结论：按原申请重跑了一次 L105，失败，实耗 0 元。#112 之前没有另一笔已付费运行。原失败尝试 `9ca84f63-a0d6-4094-b422-d16347d7da86` 仍在，状态 FAILED。这一笔是新运行，没有再开第二笔，没有冻结。
+
+账号是 sig-am。页面是原正式方法 `https://knowlab.dev.sunmoonai.com:30443/zh-CN/names/5c4fa327-e511-40a5-9ead-e8597cdc7ef2/formal-method`。提交前核对过：调用方宿主发起，预期执行成功，输入 `{"marker":"L105"}`，断言 `[{"kind":"equals","pointer":"/receipt","value":"L105"}]`，重复次数和至少通过次数都是 1，执行电脑 `zymun`，工作目录 `C:\Users\zymun\Desktop`，本轮预算 30 元。开始按钮在这些值齐了之后才可点，只点了一次。
+
+| 项 | 值 |
+| --- | --- |
+| 开始 | 2026-11-22 21:18:26 +08 |
+| KnowLab | `POST /api/web/v1/method-units/64a17211-7f44-489f-a759-0a53a078fbd5/executions` 200，关联 `7ddef0e9-4503-4431-8b69-1b2aedfe9c8f` |
+| KnowBench 受理 | `POST /api/internal/v1/knowbot-runtime/formal-method-executions` 202，关联 `01b275a8-94c0-4db1-9d6d-780662628ec6` |
+| 验证运行 | `97dc57fa-542b-47ec-948e-0021d3ea71aa`，调用方 knowlab，状态 failed |
+| 任务 | `e9eaaa03-895d-4f15-a686-c59b0f3b9127`，formal-test，FAILED |
+| 尝试 | `52b3f1bf-bc68-4014-93e3-3751f54d653d`，execute，FAILED |
+| 结束 | 尝试 21:18:59 +08；验证记录 21:19:04 +08 仍是这一笔 failed |
+
+报价是 kimi / kimi-k3，上限 21.790720 元。任务预算限额 30 元，预留 21.790720 元，已用 0 元。失败落库后复查，预留仍是 21.790720，已用仍是 0。没有 `instruction_usage`。`formal_result` 是 `instruction_trial_failed`，输出空对象，摘要 `44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`，拒绝码空。验证详情是 `case_1:instruction_evidence_missing`，缺项为 approval、authorization、isolation、outcome、source，回执为空。turn `01a20368-a752-72b0-bdd5-1003d18e63a6`。网关 uid `3ad5bcb4-c4e3-4a0a-b8c8-d6e8cc24fad3`，沙箱 `c678ec57-a068-4365-9aac-999ab276cb7e`。
+
+第一处失败在 claim 之后、receipt 之前。21:18:58 KnowBench 记下 `POST /api/internal/v1/instruction-control/claim` 200，关联 `1a5dba74-821f-49f3-b3ef-fc74f033c000`。同一窗口没有 receipt 请求。工人容器 21:18:38 拉起，日志只到 Codex 在 `47800` 监听，21:18:59 以退出码 0 结束，重启 0 次。随后 Pod 原因是 DeadlineExceeded，这是收尾期限，不是第一处失败。网关 Pod 使用新沙箱镜像 `sha256:6f90cb180dcade90b2eff303a6617fb7398bf1f132f96bc463951d55f40d2289`，复查时仍 Running，重启 0 次，容器日志为空。长期用户沙箱 `sandbox-u-0c520909ee72` 仍是旧镜像 `sha256:8fc0460292c0ad31a697f390dbbb4a45d9bc86a29f41d2b0a34965b163066475`，这次指令单元没有用它。
+
+库里 13:00 UTC 之后只有这一条正式验证，运行编号没有换成另一笔。空目录受理、刷新、未匹配结案、计划复用、回炉和三道盲测本轮没有开跑。第 14 项业务现场仍留着。请求状态未改，目录未归档。
