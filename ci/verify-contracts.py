@@ -17,13 +17,19 @@ def git(repo, *args):
     return subprocess.check_output(["git", "-C", str(repo), *args])
 
 
-def check_images():
-    manifest = yaml.safe_load((APPLICATIONS / "component-images.yaml").read_text())
+def check_images(commit=None):
+    manifest_path = APPLICATIONS / "component-images.yaml"
+    manifest = yaml.safe_load(
+        git(PLATFORM, "show", commit + ":" + str(manifest_path.relative_to(PLATFORM)))
+        if commit
+        else manifest_path.read_bytes()
+    )
+    head = commit or "HEAD"
     for name, image in manifest["images"].items():
         revision = image.get("revision", manifest["revision"])
         context = image["context"]
-        git(PLATFORM, "merge-base", "--is-ancestor", revision, "HEAD")
-        paths = git(PLATFORM, "diff", "--name-only", revision, "HEAD", "--", context)
+        git(PLATFORM, "merge-base", "--is-ancestor", revision, head)
+        paths = git(PLATFORM, "diff", "--name-only", revision, head, "--", context)
         if paths:
             raise SystemExit(
                 f"{name} {revision[:12]} misses committed build inputs:\n{paths.decode()}"
@@ -80,6 +86,38 @@ def contracts(repos, pinned):
     for name, expected in web["files_sha256"].items():
         verify("knowlab", "web", web_dir + name, expected)
 
+    public_dir = "contracts/formal-method/v1/"
+    provider = repos / "knowlab-app"
+
+    def published(name):
+        if pinned:
+            return git(
+                provider,
+                "show",
+                pins["knowlab"]["parent_revision"] + ":" + public_dir + name,
+            )
+        return (provider / public_dir / name).read_bytes()
+
+    expected_schemas = {
+        name + ".schema.json": checksum
+        for name, checksum in {
+            "definition": lock["schema_sha256"],
+            **lock["validation_schema_sha256"],
+        }.items()
+    }
+    manifest = json.loads(published("contract-manifest.json"))
+    if manifest != {
+        "contract": "formal-method",
+        "major_version": 1,
+        "schemas": expected_schemas,
+    }:
+        raise SystemExit(
+            "Published KnowLab manifest differs from consumer contract locks"
+        )
+    for name, checksum in expected_schemas.items():
+        if hashlib.sha256(published(name)).hexdigest() != checksum:
+            raise SystemExit("Published KnowLab schema drift: " + name)
+
     folder = "component-images/sandbox-platform/provisioner"
     script = (APPLICATIONS / folder / "script_contract.py").read_bytes()
     generated = read(
@@ -117,7 +155,11 @@ if __name__ == "__main__":
     parser.add_argument("--repos", type=Path, default=PLATFORM.parent)
     parser.add_argument("--pinned", action="store_true")
     parser.add_argument("--images-only", action="store_true")
+    parser.add_argument(
+        "--image-commit",
+        help="validate the image manifest and inputs at this exact commit",
+    )
     args = parser.parse_args()
-    check_images()
+    check_images(args.image_commit)
     if not args.images_only:
         contracts(args.repos, args.pinned)

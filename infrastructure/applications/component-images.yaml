@@ -17,7 +17,7 @@ images:
   sandbox-provisioner:
     object: sandbox-platform/provisioner
     # 隔离 Skill Job、完整包输入、执行回执及停止确认。
-    revision: 99f497bf79946d9618533228640423e10143c460
+    revision: 7798c101b9c82d5e7f5016fd3706688a4c9d8ca6
     context: infrastructure/applications/component-images/sandbox-platform/provisioner
     dockerfile: Dockerfile
     base: python
@@ -28,7 +28,7 @@ images:
     # 只构建、不单独部署的对象：供给器按用户拉起沙箱 Pod 时用它
     object: sandbox-platform/sandbox
     # Codex 0.170.0 与 Link 0.5.9 配套；本次含纯指令流末计量。
-    revision: 99f497bf79946d9618533228640423e10143c460
+    revision: 7798c101b9c82d5e7f5016fd3706688a4c9d8ca6
     context: infrastructure/applications/component-images/sandbox-platform
     dockerfile: image/Dockerfile
     base: node-runtime
