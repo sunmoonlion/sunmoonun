@@ -74,7 +74,7 @@ spec:
             - {name: SANDBOX_IMAGE_PULL_SECRET, value: registry-puller}
             - {name: RELAY_NAMESPACE, value: 'relay-platform-dev'}
             - {name: INGRESS_NAMESPACE, value: "ingress-platform-dev"}
-            - {name: INSTRUCTION_CONTROL_ORIGIN, value: 'https://knowbench-tls.app-platform-dev.svc.cluster.local'}
+            - {name: INSTRUCTION_CONTROL_ORIGIN, value: "https://knowbench-tls.app-platform-dev.svc.cluster.local"}
             - {name: SANDBOX_PVC_SIZE, value: '2Gi'}
             - {name: PROVISIONER_TOKEN, valueFrom: {secretKeyRef: {name: sandbox-provisioner, key: token}}}
           ports: [{name: http, containerPort: 8080}]
