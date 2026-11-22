@@ -1,0 +1,65 @@
+{
+  "contract": "knowlab/formal-method/v1",
+  "procedure": {
+    "kind": "direct",
+    "inputs": {
+      "marker": {
+        "schema": {
+          "type": "string"
+        },
+        "meaning": {},
+        "required": true,
+        "on_missing": "fail",
+        "description": "合成标记"
+      }
+    },
+    "outputs": {
+      "receipt": {
+        "schema": {
+          "type": "string"
+        },
+        "meaning": {},
+        "required": true,
+        "on_missing": "fail",
+        "description": "合成标记"
+      }
+    },
+    "instructions": "原样返回输入标记",
+    "implementation": {
+      "kind": "registered_instruction",
+      "entry": "Luna #105 私有标记",
+      "digest": "sha256:9b242b8923ac2a65631613a02d18de2c3dd72190f7328eef09b8c71cc7615de4",
+      "source": "b0a48ce7-546e-42e4-981a-3676fbbf29c5",
+      "version": "1",
+      "requirement_ids": []
+    },
+    "max_model_turns": 1,
+    "stop_conditions": [
+      "缺少标记时停止"
+    ]
+  },
+  "how_to_validate": [
+    {
+      "check": "比较输入输出",
+      "outputs": [
+        "receipt"
+      ],
+      "evidence": "合成回执",
+      "on_failure": "fail",
+      "promise_id": "receipt"
+    }
+  ],
+  "access_requirements": [],
+  "capability_declaration": {
+    "title": "Luna105 标记回执",
+    "purpose": "核对合成标记",
+    "excludes": [],
+    "promises": {
+      "receipt": "原样返回标记"
+    },
+    "applies_when": [
+      "提供合成标记"
+    ]
+  },
+  "what_requires_approval": []
+}
