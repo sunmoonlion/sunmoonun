@@ -4,11 +4,13 @@ Set AGENT_TEST_DATABASE_URL and DELIVERY_TEST_DATABASE_URL to separate *_tests
 databases. Each side uses the repository's real migrations in a fresh schema.
 External identity and the Skill execution receipt are synthetic. With --expert,
 the runtime executes a reviewed fixed graph and the buyer uses two acquired
-versions. Model and MCP responses are synthetic.
+versions. Model and MCP responses are synthetic. Add --roundtrip to start at an empty
+KnowBench request, incubate the missing tool and two expert revisions in KnowLab,
+then purchase and execute the revised version while retaining the first run.
 """
 
 import asyncio
-from contextlib import asynccontextmanager
+from contextlib import AsyncExitStack, asynccontextmanager
 import json
 import os
 import socket
@@ -63,15 +65,24 @@ async def serve_runtime(directory, *, expert=False):
 
     database = db.__wrapped__()
     sessions = await anext(database)
+    peers = AsyncExitStack()
     try:
         if expert:
             from test_public_expert_db import reviewed_plan
 
-            ctx, version, _ = await reviewed_plan(sessions)
-            async with sessions() as session:
-                await ctx.factory(WorkbenchRepository(session)).formal_sources.register(
-                    version, caller="knowlab"
-                )
+            if "--roundtrip" in sys.argv:
+                from formal_plan_support import setup_plan
+                from expert_roundtrip import first_version, lab_runtime
+
+                ctx = await setup_plan(sessions, accept=False, public_leaf=True)
+                ctx.lab = await peers.enter_async_context(lab_runtime())
+                version, ctx.first_gap = await first_version(sessions, ctx, ctx.lab)
+            else:
+                ctx, version, _ = await reviewed_plan(sessions)
+                async with sessions() as session:
+                    await ctx.factory(
+                        WorkbenchRepository(session)
+                    ).formal_sources.register(version, caller="knowlab")
             references = [
                 v.reference.model_dump(mode="json") for v in (version, ctx.leaf)
             ]
@@ -129,6 +140,7 @@ async def serve_runtime(directory, *, expert=False):
             while not (directory / "done").exists():
                 await asyncio.sleep(0.1)
     finally:
+        await peers.aclose()
         await database.aclose()
 
 
@@ -298,6 +310,7 @@ async def run(*, expert=False):
             role,
             str(directory),
             *(["--expert"] if expert else []),
+            *(["--roundtrip"] if "--roundtrip" in sys.argv else []),
             cwd=cwd,
             env={
                 **os.environ,
@@ -360,10 +373,12 @@ async def run(*, expert=False):
             except TimeoutError:
                 server.terminate()
                 await server.wait()
+        if server.returncode:
+            raise RuntimeError(f"KnowBench exited with status {server.returncode}")
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] in ([], ["--expert"]):
+    if sys.argv[1:] in ([], ["--expert"], ["--expert", "--roundtrip"]):
         asyncio.run(run(expert="--expert" in sys.argv))
     else:
         sys.path[:0] = [str(Path.cwd()), str(Path.cwd() / "tests")]
