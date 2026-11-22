@@ -130,6 +130,12 @@
         argv: [git, -C, '{{ source_checkout }}', merge-base, --is-ancestor, '{{ component_revision }}', HEAD]
       changed_when: false
       when: build_kind == 'component'
+    - name: Require the pinned component build context to match this release
+      become: false
+      ansible.builtin.command:
+        argv: [git, -C, '{{ source_checkout }}', diff, --exit-code, --quiet, '{{ component_revision }}', HEAD, --, '{{ component.context }}']
+      changed_when: false
+      when: build_kind == 'component'
     - name: Read the exact committed Docker recipe
       become: false
       ansible.builtin.command:

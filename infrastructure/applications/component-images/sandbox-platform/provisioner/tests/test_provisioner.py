@@ -100,7 +100,8 @@ async def test_put_is_idempotent_and_keeps_the_capability_token(stack):
         env = {e["name"]: e for e in dep["spec"]["template"]["spec"]["containers"][0]["env"]}
         assert env["OPENAI_API_KEY"]["valueFrom"]["secretKeyRef"]["key"] == "model-key"
         assert env["MODEL_PROVIDER"]["value"] == "kimi"
-        assert "KNOWBASE_MCP_URL" not in env  # no knowledge token given and no shared token configured
+        assert "KNOWBASE_MCP_URL" not in env and "KNOWBASE_MCP_TOKEN" not in env
+        assert "knowbase-token" not in secret["data"]
         # second PUT with a rotated model key: same capability token, secret replaced, PVC untouched
         pvc_rv = api.objects[("persistentvolumeclaims", "sandbox-u-demo-codex-home")]["metadata"]["resourceVersion"]
         second = await c.put("/sandboxes/u-demo", json=spec(model_key="sk-rotated-key-0987654321"), headers=headers)
@@ -201,3 +202,25 @@ def test_policy_namespaces_come_from_the_environment():
     assert ns(by_port[8000]) == target.APP_NAMESPACE and ns(by_port[47100]) == target.RELAY_NAMESPACE
     # 没有显式给会合点命名空间时，从 RELAY_URL 的集群内地址推出来
     assert target.RELAY_NAMESPACE == "edge"
+
+
+def test_gateway_credential_rotates_as_one_projection_and_legacy_spec_omits_it():
+    from uuid import uuid4
+
+    def rendered(**options):
+        return target.render("u-demo", target.SandboxSpec(**spec(**options)), "t" * 32)
+
+    assert "instruction-provider.json" not in rendered()["secret"]["data"]
+    first, second = str(uuid4()), str(uuid4())
+    versions = []
+    for cid, key, url in ((first,"old-synthetic-key","https://one.test/v1"),
+                          (second,"new-synthetic-key","https://two.test/v1")):
+        manifest = rendered(model_credential_id=cid, model_key=key, provider_base_url=url)
+        data = manifest["secret"]["data"]
+        assert json.loads(base64.b64decode(data["instruction-provider.json"])) == {
+            "credential_id":cid,"key":key,"provider":"kimi","model":"kimi-k3","base_url":url,
+        }
+        pod = manifest["deployment"]["spec"]["template"]
+        assert "instruction-provider.json" not in json.dumps(pod["spec"])
+        versions.append(pod["metadata"]["annotations"]["sunmoonai.com/secret-sha256"])
+    assert versions[0] != versions[1]

@@ -27,6 +27,9 @@ RUN if [ -n "$DEBIAN_MIRROR" ]; then sed -i "s|https\?://deb.debian.org|${DEBIAN
 COPY --chown=codex:codex bridge/sandbox_bridge.py /opt/sandbox/sandbox_bridge.py
 COPY --chown=codex:codex image/entrypoint.sh /opt/sandbox/entrypoint.sh
 COPY --chown=codex:codex image/moonshot_responses.py /opt/sandbox/moonshot_responses.py
+COPY image/instruction_gateway.py image/instruction_worker.py /opt/sandbox/
+COPY image/instruction_control.py /opt/sandbox/instruction_control.py
+COPY image/instruction_responses.py /opt/sandbox/instruction_responses.py
 COPY image/skill_execute.py /opt/sandbox/skill_execute.py
 RUN chmod +x /opt/sandbox/entrypoint.sh
 USER codex

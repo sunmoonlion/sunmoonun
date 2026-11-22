@@ -30,27 +30,27 @@ applications:
     admin_parent_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
     admin_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
   knowbench:
-    parent_revision: a5a251432107b7ca3e48813d26699dee57f9e5d1
-    backend_parent_revision: e2dc7252c7031c183dc1d2882f013001b267ab15
-    backend_revision: e2dc7252c7031c183dc1d2882f013001b267ab15
-    web_parent_revision: b15ac0a232ed4ff7ccb43eee8ae60e7e2e8f0f11
-    web_revision: b15ac0a232ed4ff7ccb43eee8ae60e7e2e8f0f11
+    parent_revision: 332bfeac21ebde2c603cb579f11aebdfd56a2e65
+    backend_parent_revision: 3626d568018c8f7b1656686fcd645cac6ef599dc
+    backend_revision: 3626d568018c8f7b1656686fcd645cac6ef599dc
+    web_parent_revision: 7cf24afcbc1fbbdad2d56e3b1af90869d8b3555c
+    web_revision: 7cf24afcbc1fbbdad2d56e3b1af90869d8b3555c
     admin_parent_revision: 33559e926c3ebb7570716d5bb318b5a014e0d645
     admin_revision: 33559e926c3ebb7570716d5bb318b5a014e0d645
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowlab:
-    parent_revision: 306948df928494526295c1f0f50185b78ff81540
-    backend_parent_revision: e469e4e2ab6d18832db36ea99abfdc6578a07431
-    backend_revision: e469e4e2ab6d18832db36ea99abfdc6578a07431
-    web_parent_revision: b63d3a882682f86b81fd252765a9df7784263a41
-    web_revision: b63d3a882682f86b81fd252765a9df7784263a41
+    parent_revision: da2259f3acca69b101327a5e89b7f720428b0d9a
+    backend_parent_revision: efa6aa6f7ef7c3ed4aedd9c873b4affd83b0c23a
+    backend_revision: efa6aa6f7ef7c3ed4aedd9c873b4affd83b0c23a
+    web_parent_revision: d373a3f556343b52940d3423640c16e87012ebdf
+    web_revision: d373a3f556343b52940d3423640c16e87012ebdf
     admin_parent_revision: 89fe3ac1f6178018186584db7542f11102896381
     admin_revision: 89fe3ac1f6178018186584db7542f11102896381
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowmart:
-    parent_revision: 7639f5e8065013278405a9570fa82499090aab64
-    backend_parent_revision: bacc888efd460b35ba5628d67a362a744370530d
-    backend_revision: bacc888efd460b35ba5628d67a362a744370530d
+    parent_revision: 1802cd5a610495531aa80d41604e0d4489ba2f5f
+    backend_parent_revision: 7e07c84cda06c0ba4fd0030f16359d61b903a5fd
+    backend_revision: 7e07c84cda06c0ba4fd0030f16359d61b903a5fd
     web_parent_revision: 14515db89f249d76ea67f83b746fed030ccdf7f0
     web_revision: 14515db89f249d76ea67f83b746fed030ccdf7f0
     admin_parent_revision: 5f109118ffbaca623a732ed33eaea61a2905241a
