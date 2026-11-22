@@ -4,8 +4,6 @@ Cursor 在本卡完成发布、技术验收和回执。先跑一笔有确定答�
 
 首轮 L105 失败的运行与账目见[原始回执](replies/cursor.md)。下一次点击前，先完成[控制面路由复验](request.md#callbacks)，两项探针都应返回 401。空目录受理、刷新和未匹配结案可先在独立项目验，分别记录委托、回执和零调用。
 
-新版部署后，方法撤回可独立验收，无需等待 Kimi 试跑。按[三个撤回入口和 Q01–Q04 来源清单](request.md#withdrawal)逐项核对，把现场结果追加到本卡回执。
-
 ## 第一个通过条件：让 Kimi 原样返回 L105
 
 1. 核对部署候选及访问入口。在 sunmoon-kind 的 KnowLab 和 KnowBench 分别通过正常 Casdoor 会话确认登录名为 `sig-am`。现场共享入口使用 `knowlab.dev.sunmoonai.com:30443` 和 `knowbench.dev.sunmoonai.com:30443`。若发版使用隔离入口，用该入口的可信 TLS 和账号登录；记录实际入口。曾在本地遇到默认 DNS 指向另一套环境，查不到私有申请时先核对站点、集群和身份。登录若需本人操作，请用户在窗口完成。
