@@ -18,6 +18,8 @@
 不另建任务、不改变原有人批。空 `APPS` 仍只表示原来的六个应用，不自动加入沙箱。
 这会更新供给器之后拉起沙箱时使用的镜像，**不会重启已存在的用户沙箱**；已有沙箱须经工作台重新供给后单独核对镜像与真实工具往返。
 
+内部 HTTPS 入口有变更时，可在同一任务选 `APPS="traefik"`、`PIN=keep`，也可和应用、沙箱合并。第 4 阶段暂存 `ingress-platform/traefik`，第 10、11 阶段等待并检查该对象。选沙箱或 Traefik 时，如暂存的供给器已配置指令控制面地址，流水线在人批前核对同一候选里的内部 TLS 主机、回调前缀及 KnowBench 服务。
+
 ## 安装、启停和前提
 
 需要 registry 已部署（本地 CA 在 `registry_config_dir/tls/`，控制器证书由它签）、入口模块、Docker、systemd、非交互 sudo、可见的数据盘；物料与工具按 [artifacts](../artifacts/README.md)、[tools](../tools/README.md)。代理准备会在自己的 k8s 克隆里通过原生 `install-flux` 安装按锁校验的 Flux CLI，供 release 的候选发布与晋级使用。首次使用：

@@ -13,7 +13,7 @@ ANSIBLE := .venv/bin/ansible-playbook
 # sudo 会清空环境：剧本用 lookup("env") 读的变量必须逐个显式带过去（$$ 让 shell 在执行时取已导出的值；
 # 这里是 := 立即展开，写 $(OBJECT) 会取到空值）。漏带 OBJECT 时剧本按 all 跑（2026-10-16 qwen-003 D2 撞上）。
 # 新增 lookup("env", …) 时同步加到 ANSIBLE_ENV。
-ANSIBLE_ENV := OBJECT="$$OBJECT" SITE="$$SITE" PLATFORM_CONFIG_FILES="$$PLATFORM_CONFIG_FILES" AGENT_ZIP="$$AGENT_ZIP" AGENT_LINUX_TGZ="$$AGENT_LINUX_TGZ" HTTPS_PROXY="$$HTTPS_PROXY"
+ANSIBLE_ENV := OBJECT="$$OBJECT" SITE="$$SITE" PLATFORM_CONFIG_FILES="$$PLATFORM_CONFIG_FILES" AGENT_ZIP="$$AGENT_ZIP" HTTPS_PROXY="$$HTTPS_PROXY"
 NS_SELF := $(shell readlink /proc/self/ns/mnt 2>/dev/null)
 NS_PID1 := $(shell sudo -n readlink /proc/1/ns/mnt 2>/dev/null)
 ifneq ($(NS_SELF),$(NS_PID1))
@@ -564,7 +564,7 @@ component-lock:
 	@.venv/bin/python applications/sync-image-lock.py "$(CURDIR)/.build/applications/$(IMAGE)-deployment-image.yaml" "$(CURDIR)/../gitops/components/$$(.venv/bin/python -c 'import yaml;print(yaml.safe_load(open("applications/component-images.yaml"))["images"]["$(IMAGE)"]["object"])')/image.lock.yaml" "$(IMAGE)"
 
 # Local ZIP is an explicit input. Upload never replaces an existing object.
-export AGENT_ZIP AGENT_LINUX_TGZ
+export AGENT_ZIP
 .PHONY: agent-release-upload agent-release-verify
 agent-release-upload agent-release-verify:
 	$(ANSIBLE) -i host/inventory.yaml ../gitops/components/app-platform/knowbench-app/knowbench-backend/agent-releases/upload.yaml $(CONFIG_ARGS) --extra-vars 'agent_release_action=$(patsubst agent-release-%,%,$@)'
@@ -590,3 +590,19 @@ edge-smoke:
 .PHONY: verify-contracts
 verify-contracts:
 	@.venv/bin/python ../ci/verify-contracts.py
+
+# Run all three application test environments with the same HTTP transaction guard.
+.PHONY: verify-method-transactions verify-db-transactions
+verify-db-transactions: BENCH_TRANSACTION_TESTS = tests/*_db.py
+verify-db-transactions: LAB_TRANSACTION_TESTS = tests/*_db.py
+verify-db-transactions: MART_TRANSACTION_TESTS = tests/*_db.py
+verify-db-transactions: verify-method-transactions
+
+BENCH_TRANSACTION_TESTS ?= tests/test_registry_paths_db.py tests/test_formal_expert_intake_db.py tests/test_formal_expert_preparation_db.py tests/test_ordinary_expert_execution_db.py tests/test_incubation_shared_tools_db.py tests/test_planning_window_recall_db.py tests/test_workbench_knowmart_client.py tests/test_temporary_plan_db.py tests/test_ordinary_metered_tools_db.py tests/test_ordinary_strict_review_db.py
+LAB_TRANSACTION_TESTS ?= tests/test_formal_methods_db.py tests/test_runtime_method_demand_db.py
+MART_TRANSACTION_TESTS ?= tests/test_market_db.py
+verify-method-transactions:
+	@test -n "$$AGENT_TEST_DATABASE_URL" && test -n "$$DELIVERY_TEST_DATABASE_URL" || { echo "Set the two PostgreSQL test URLs (database name ending in _tests)"; exit 1; }
+	cd ../../knowbench-app/knowbench-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard $(abspath ../ci/test_method_transaction_guard.py) $(BENCH_TRANSACTION_TESTS)
+	cd ../../knowlab-app/knowlab-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard $(LAB_TRANSACTION_TESTS)
+	cd ../../knowmart-app/knowmart-backend/app && PYTHONPATH="$(abspath ../ci):." .venv/bin/python -m pytest -q -p method_transaction_guard $(MART_TRANSACTION_TESTS)

@@ -5,6 +5,7 @@ INSTRUCTION_KUBE_TEST_PORT to the loopback API port. Readiness is injected.
 """
 
 import asyncio
+import hashlib
 import os
 import ssl
 from pathlib import Path
@@ -83,6 +84,48 @@ async def test_instruction_unit_lifecycle(monkeypatch, scoped):
                         root + "/prepare", params={"proof_uid": str(uuid4())}
                     )
                 ).status_code == 409
+                # Cleanup must work even when no new gateway may be prepared.
+                with monkeypatch.context() as disabled:
+                    disabled.delenv("INSTRUCTION_CONTROL_ORIGIN", raising=False)
+                    assert (
+                        await client.delete(
+                            root + "/reservation", params={"proof_uid": str(uuid4())}
+                        )
+                    ).status_code == 409
+                    orphan = {"proof_uid": partial["proof_uid"]}
+                    assert (
+                        await client.delete(root + "/reservation", params=orphan)
+                    ).json() == {"removed": True}
+                    # This isolated apiserver runs without the garbage collector.
+                    pvc_name = (
+                        "instr-"
+                        + hashlib.sha256(
+                            owner.bytes
+                            + task.bytes
+                            + (attempt.bytes if scoped else b"")
+                        ).hexdigest()[:32]
+                        + "-proof"
+                    )
+                    pending = await kube.get("persistentvolumeclaims", pvc_name)
+                    assert (
+                        pending["metadata"]["uid"] == partial["proof_uid"]
+                        and pending["metadata"]["deletionTimestamp"]
+                    )
+                    (
+                        await kube.client.patch(
+                            kube.path("persistentvolumeclaims", pvc_name),
+                            headers={"Content-Type": "application/merge-patch+json"},
+                            json={"metadata": {"finalizers": []}},
+                        )
+                    ).raise_for_status()
+                    assert (
+                        await client.delete(root + "/reservation", params=orphan)
+                    ).json() == {"removed": False}
+                    assert (await client.get(root + "/reservation")).status_code == 404
+                with monkeypatch.context() as interrupted:
+                    interrupted.setattr(target.InstructionUnits, "create", interrupt)
+                    assert (await client.post(root + "/prepare")).status_code == 503
+                partial = (await client.get(root + "/reservation")).json()
                 first, second = await asyncio.gather(
                     *(
                         client.post(
