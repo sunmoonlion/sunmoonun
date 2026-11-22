@@ -98,7 +98,7 @@ else:
     from test_workbench_ledger_db import db as db  # noqa: PLC0414 (pytest fixture)
 
 
-@pytest.mark.parametrize("scenario", ["incubation", "ordinary", "changed_receipt"])
+@pytest.mark.parametrize("scenario", ["incubation", "ordinary", "nested", "changed_receipt"])
 async def test_method_read_across_services(db, monkeypatch, scenario):
     import httpx
     from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
@@ -196,7 +196,7 @@ async def test_method_read_across_services(db, monkeypatch, scenario):
                 db,
                 monkeypatch,
                 ctx.factory,
-                *versions[:2],
+                versions if scenario == "nested" else versions[:2],
                 client,
                 changed_receipt=scenario == "changed_receipt",
             )
