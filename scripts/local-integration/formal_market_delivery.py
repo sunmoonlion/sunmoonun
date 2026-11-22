@@ -143,7 +143,10 @@ async def buy_and_deliver(directory, *, expert=False):
 
     from app.infrastructure.external.formal_method_delivery import FormalMethodDelivery
     from app.infrastructure.external.service_client import ServiceClient
-    from app.infrastructure.security.relation_auth import require_summon_service
+    from app.infrastructure.security.relation_auth import (
+        require_deliver_service,
+        require_summon_service,
+    )
     from app.interfaces.endpoints import knowbot_routes, market_routes
     from app.interfaces.http.middleware import auth
     from app.main import app
@@ -199,6 +202,7 @@ async def buy_and_deliver(directory, *, expert=False):
         app.dependency_overrides[market_routes._service] = service
         app.dependency_overrides[knowbot_routes.market_for_request] = service
         app.dependency_overrides[require_summon_service] = lambda: _caller("knowbench")
+        app.dependency_overrides[require_deliver_service] = lambda: _caller("knowlab")
         web = {"Origin": ORIGIN, "X-CSRF-Token": CSRF}
 
         async def purchase(ref):
@@ -231,13 +235,13 @@ async def buy_and_deliver(directory, *, expert=False):
             return listing, receipt
 
         ref = references[0]
-        listing, receipt = await purchase(ref)
         if expert:
             from public_expert_delivery import qualify_buyer
 
             async with https_server(directory, app) as port:
                 await qualify_buyer(directory, port, references, purchase)
             return
+        listing, receipt = await purchase(ref)
         assert receipt["skill_dependencies"][0]["terms"]["notices"] == ["原声明\n"]
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app), base_url="http://127.0.0.1"
