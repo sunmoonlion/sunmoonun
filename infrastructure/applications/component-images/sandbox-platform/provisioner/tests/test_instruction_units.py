@@ -301,3 +301,78 @@ async def test_terminal_worker_expiry_including_patch_race(phase):
     kube.get.return_value = {**terminal, "metadata": {"uid": str(uuid4())}}
     with pytest.raises(httpx.HTTPStatusError):
         await expire_pod(kube, pod, absent_ok=True)
+
+
+@pytest.mark.anyio
+async def test_attempt_credential_only_reaches_original_gateway(monkeypatch):
+    import json
+    from base64 import b64decode
+    from unittest.mock import AsyncMock
+
+    from instruction_units import Binding, InstructionUnits
+
+    owner, task, attempt = uuid4(), uuid4(), uuid4()
+    objects = {}
+
+    async def create(kind, body, **_kwargs):
+        key = (kind, body["metadata"]["name"])
+        if key not in objects:
+            body["metadata"]["uid"] = str(uuid4())
+            body["status"] = {
+                "podIP": "127.0.0.1",
+                "conditions": [{"type": "Ready", "status": "True"}],
+            }
+            objects[key] = body
+        return objects[key]
+
+    kube = AsyncMock()
+    kube.get.side_effect = lambda kind, name: objects.get((kind, name))
+    unit = InstructionUnits(
+        kube,
+        owner=owner,
+        task=task,
+        attempt=attempt,
+        namespace="test",
+        app_namespace="app",
+        ingress_namespace="ingress",
+        image="test-image",
+        pull_secret=None,
+        origin="https://control.test.svc.cluster.local",
+    )
+    monkeypatch.setattr(unit, "create", create)
+    monkeypatch.setattr(unit, "policy", AsyncMock())
+    monkeypatch.setattr(unit, "remember", AsyncMock())
+    uid = (await unit.reserve())["uid"]
+    route = {
+        "credential_id": str(uuid4()),
+        "model": "review",
+        "provider": "fixture",
+        "base_url": "https://review.example.test/v1",
+        "key": "fixture-only",
+    }
+    binding = Binding(
+        attempt=attempt, ticket="test-ticket", model="review", review_provider=route
+    )
+    await unit.bind(uid, binding)
+    await unit.bind(uid, binding)
+    with pytest.raises(target.HTTPException) as conflict:
+        await unit.bind(
+            uid,
+            Binding(
+                attempt=attempt,
+                ticket="test-ticket",
+                model="review",
+                review_provider={**route, "credential_id": str(uuid4())},
+            ),
+        )
+    assert conflict.value.status_code == 409
+    await unit.worker(uid)
+    secret = objects["secrets", unit.name + "-binding"]
+    assert secret["metadata"]["ownerReferences"][0]["uid"] == uid
+    assert json.loads(b64decode(secret["data"]["review-provider.json"])) == route
+    gateway_spec = objects["pods", unit.name]["spec"]
+    volume = next(v for v in gateway_spec["volumes"] if v["name"] == "review-provider")
+    assert volume["secret"]["secretName"] == unit.name + "-binding"
+    worker_spec = objects["pods", unit.name + "-worker"]["spec"]
+    assert {v["name"] for v in worker_spec["volumes"]} == {"access", "work"}
+    assert "fixture-only" not in json.dumps(worker_spec)

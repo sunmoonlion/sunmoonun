@@ -61,7 +61,7 @@ def exercise(
         credential_id="installed",
         api_key="fixture",
         claim=lambda body, key: (authorized, {**body, "max_output_tokens": 10}),
-        receipt=lambda key, usage: receipts.append((key, usage)),
+        receipt=lambda key, usage, model: receipts.append((key, usage, model)),
         start=lambda: None,
         write=write,
         connect=connect,
@@ -80,8 +80,10 @@ def event(kind, **fields):
 def test_final_usage_still_collected_after_reader_disconnects(kind, tail_blank):
     usage = {"input_tokens": 2, "output_tokens": 1, "total_tokens": 3}
     assert exercise(
-        [event("created"), event(kind, usage=usage)], disconnected=True, tail_blank=tail_blank
-    ) == [("r", usage)]
+        [event("created"), event(kind, usage=usage)],
+        disconnected=True,
+        tail_blank=tail_blank,
+    ) == [("r", usage, None)]
 
 
 def test_missing_meter_has_no_receipt():
@@ -105,3 +107,12 @@ def test_provider_401_is_reported_without_retry_or_usage():
     with pytest.raises(relay.ProviderAuthenticationRejected):
         exercise([], status=401, sent=sent, receipts=receipts)
     assert len(sent) == 1 and receipts == []
+
+
+@pytest.mark.parametrize(
+    "final,expected", [("review-B", "review-B"), ("silently-changed", None)]
+)
+def test_receipt_contains_only_consistent_upstream_model(final, expected):
+    assert exercise(
+        [event("created", model="review-B"), event("completed", usage={}, model=final)]
+    ) == [("r", {}, expected)]
