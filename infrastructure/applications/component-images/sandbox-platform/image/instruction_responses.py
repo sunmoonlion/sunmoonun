@@ -68,6 +68,7 @@ def forward(
             lines = []
             size = 0
             response_id = None
+            created_model = None
             while True:
                 line = response.readline(MAX_EVENT + 1)
                 size += len(line)
@@ -84,6 +85,7 @@ def forward(
                         record = event.get("response") or {}
                         if kind == "response.created":
                             response_id = record.get("id")
+                            created_model = record.get("model")
                         elif kind in (
                             "response.completed",
                             "response.incomplete",
@@ -94,7 +96,16 @@ def forward(
                                     "Provider completion lacks its original response identity"
                                 )
                             if record.get("usage") is not None:
-                                receipt(response_id, record["usage"])
+                                model = record.get("model", created_model)
+                                if (
+                                    not isinstance(model, str)
+                                    or not 0 < len(model) <= 128
+                                    or not model.isprintable()
+                                    or created_model is not None
+                                    and created_model != model
+                                ):
+                                    model = None
+                                receipt(response_id, record["usage"], model)
                     size, lines = 0, []
                 if not line:
                     break

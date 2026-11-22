@@ -125,7 +125,10 @@ class InstructionControl:
     ):
         # Capture the whole credential file once per POST, including the key that
         # will actually be sent. Never source the credential id from the caller.
-        provider = json.loads(self.credential_file.read_bytes())
+        selected = Path("/run/review-provider/review-provider.json")
+        provider = json.loads(
+            (selected if selected.is_file() else self.credential_file).read_bytes()
+        )
         if body.get("model") != provider["model"]:
             raise PermissionError("Model differs from the loaded sandbox credential")
 
@@ -142,9 +145,14 @@ class InstructionControl:
             )
             return decision["url"], decision["outgoing"]
 
-        def receipt(response_id, usage):
+        def receipt(response_id, usage, model=None):
             self.retain_receipt(
-                {"turn_id": turn_id, "response_id": response_id, "usage": usage}
+                {
+                    "turn_id": turn_id,
+                    "response_id": response_id,
+                    "usage": usage,
+                    **({"model": model} if model else {}),
+                }
             )
             try:
                 self.reconcile()

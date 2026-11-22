@@ -1,6 +1,7 @@
 """Dedicated Pods for one instruction execution. Kubernetes UIDs fence lifecycle operations."""
 
 import hashlib
+import json
 import secrets
 from base64 import b64decode, b64encode
 from urllib.parse import urlsplit
@@ -8,15 +9,23 @@ from uuid import UUID, uuid4
 
 from fastapi import HTTPException
 from httpx import HTTPStatusError
+from k8s_lifecycle import expire_pod
 from pydantic import BaseModel, ConfigDict, Field, SecretStr
 
 
-from k8s_lifecycle import expire_pod
+class ReviewProvider(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    credential_id: UUID
+    provider: str = Field(min_length=1, max_length=128)
+    model: str = Field(min_length=1, max_length=128)
+    base_url: str = Field(min_length=1, max_length=512)
+    key: SecretStr = Field(min_length=1, max_length=512)
 
 
 class Binding(BaseModel):
     model_config = ConfigDict(extra="forbid")
     attempt: UUID
+    review_provider: ReviewProvider | None = None
     ticket: SecretStr = Field(min_length=1, max_length=4096)
     model: str = Field(min_length=1, max_length=128)
     turn: str | None = Field(default=None, min_length=1, max_length=128)
@@ -347,6 +356,12 @@ class InstructionUnits:
                         ["uid", "attempt", "ticket", "turn"],
                     ),
                     projection(
+                        "review-provider",
+                        self.name + "-binding",
+                        ["review-provider.json"],
+                        optional=True,
+                    ),
+                    projection(
                         "provider",
                         "sandbox-u-" + self.owner.hex[:12],
                         ["instruction-provider.json"],
@@ -364,6 +379,7 @@ class InstructionUnits:
                 [
                     mount("binding", "/run/instruction"),
                     mount("provider", "/run/provider"),
+                    mount("review-provider", "/run/review-provider"),
                     mount("proof", "/proof", readonly=False),
                     mount("control-ca", "/run/control-ca"),
                 ],
@@ -487,13 +503,30 @@ class InstructionUnits:
             "ticket": body.ticket.get_secret_value(),
             "turn": body.turn or "",
         }
+        if body.review_provider:
+            route = body.review_provider
+            if (
+                route.model != body.model
+                or not self.attempt
+                or urlsplit(route.base_url).scheme != "https"
+            ):
+                conflict("review route differs from this per-attempt binding")
+            values["review-provider.json"] = json.dumps(
+                {
+                    **route.model_dump(mode="json", exclude={"key"}),
+                    "key": route.key.get_secret_value(),
+                },
+                sort_keys=True,
+            )
         data = {k: b64encode(v.encode()).decode() for k, v in values.items()}
         obj = await self.create(
             "secrets",
             {"apiVersion": "v1", "kind": "Secret", "metadata": meta, "data": data},
         )
         existing = obj["data"]
-        if any(existing[k] != data[k] for k in ("uid", "attempt", "model")):
+        if existing.get("review-provider.json") != data.get(
+            "review-provider.json"
+        ) or any(existing[k] != data[k] for k in ("uid", "attempt", "model")):
             conflict("instruction Attempt or model changed")
         if existing["turn"]:
             if body.turn and existing["turn"] != data["turn"]:
