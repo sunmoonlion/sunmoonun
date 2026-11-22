@@ -490,6 +490,7 @@ async def author(peer, template):
             if registered_script:
                 join_request = await new_request("P2 concatenate two branch results")
                 p2_request = await new_request("P2 expert")
+                p3_request = await new_request("Review two independent analysis artifacts")
                 reviewer_request = await new_request("Compare an assessment with a checked output")
                 staged_request = await new_request("Strict review draft")
                 collector_request = await new_request("Collect keyed results")
@@ -736,6 +737,8 @@ async def author(peer, template):
                     expected_output="left|right",
                 )
                 extra_env = {"LUNA_P2_REQUEST": p2_request, "LUNA_P2_METHOD": p2_id, "LUNA_P2_JOIN": join_id}
+                p3_id = str(uuid4())
+                extra_env.update(LUNA_P3_REQUEST=p3_request, LUNA_P3_METHOD=p3_id)
                 collector_id, comparison_id = str(uuid4()), str(uuid4())
                 await trial(collector_id, collector_request, 1, input_values={"to": [{"object_id":"A","value":"x"}]}, expected_output="A=x")
                 extra_env.update(LUNA_P4_REQUEST=comparison_request, LUNA_P4_METHOD=comparison_id, LUNA_P4_COLLECTOR=collector_id)
@@ -895,6 +898,27 @@ async def author(peer, template):
                 assert response.status_code == 409 and response.json()["code"] == "runtime_capability_gap", response.text
                 assert review_requests["formal-method-executions"] == reopened["body"]["collaboration"]
                 assert await rpc({"review_counters": True}) == counters
+                p3_path = f"knowbot-requests/{p3_request}/workdraft"
+                p3_doc = await call("GET", p3_path)
+                p3_body = p3_doc["body"]
+                analyses = ["branch", "branch_1"]
+                roles = p3_body["collaboration"]
+                assert set(roles) == {*analyses, "step_1"}
+                assert all(role["isolation_group"] == key for key, role in roles.items())
+                assert all(not roles[key]["handoff_from"] for key in analyses)
+                assert roles["step_1"]["handoff_from"] == analyses
+                assert roles["step_1"]["review_requirements"] == dict.fromkeys(analyses, "isolated_reviewer")
+                replay = {"revision": 0, "adopt_plan": True, "cells": [
+                    {"path": key, "value": p3_body[key]} for key in ("formal_method", "collaboration")]}
+                replay["cells"][1]["value"]["step_1"]["review_requirements"][analyses[0]] = "different_model_family"
+                stale = await client.post(f"/api/web/v1/{p3_path}/cells", json=replay)
+                assert stale.status_code == 409, stale.text
+                command.update(request_id=p3_request, run_id=str(uuid4()))
+                command["execution"]["suite"]["suite_id"] = str(uuid4())
+                response = await client.post(f"/api/web/v1/method-units/{p3_id}/executions", json=command)
+                assert response.status_code == 409 and response.json()["code"] == "runtime_capability_gap", response.text
+                assert await rpc({"review_counters": True}) == counters
+                print("P3 verified: three isolation groups, two review inputs, stale adoption rejected, no dispatch")
                 print("P3 verified: strict draft reopened, author assessment withheld, execution blocked before dispatch")
                 print(
                     "P2 verified: scoped lookup, adoption, reopen, expired second approval, "
