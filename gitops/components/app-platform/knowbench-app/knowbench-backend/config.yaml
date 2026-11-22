@@ -7,8 +7,8 @@ knowbench_backend_deployment:
   database_extensions: []
   database_bootstrap_revision: v1
   migration_job_revision: v14
-  # 0056 普通专家任务，0057 复核偏好，0058 复核裁定，0059 长期职责。
-  expected_schema_revision: '20261122_0059'
+  # 0056 普通专家任务，0057 复核偏好，0058 复核裁定，0059 长期职责，0060 来源撤回。
+  expected_schema_revision: '20261122_0060'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
