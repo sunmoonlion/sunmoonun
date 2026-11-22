@@ -1,4 +1,4 @@
-# Cursor 合并发布与验收单（第 13、14 项及增量审查修复）
+# Cursor 合并发布与验收单（第 13、14 项、增量审查与方法撤回）
 
 **状态为待合并发布。** Cursor 从 sunmoon-kind 已晋级的 #108 准备一个发布候选，统一交回到[本卡回执](replies/cursor.md)，在已有首轮记录后追加。Luna 核对技术结果，zymun 独立复核盲测产物。第 14 项代码随本批发布，业务现场验收按原约定后置。
 
@@ -11,10 +11,11 @@
 | 平台内部入口 | 内部路由声明 `a01916894`，Jenkins 的 Traefik 发布目标与候选校验 `116dfd3ab` |
 | 沙箱和供给器 | 两个镜像的构建输入钉至 `7798c101b`，清单与契约校验 `59648dd9c`。先提供新版预留回收接口，再更新使用该接口的 runner |
 | KnowBase | 父仓 `00b59ec`，后端 `a30b375`。提供成稿可用性查询，沿用 `knowbase:user-data-output` 身份及 `GET /api/internal/v2/user-data/outputs/available` |
-| KnowLab | 父仓 `c2ed6b9`，后端 `d728475`，Web `b125fc5`。包含 P3 作者回炉、公开 Schema 与作者界面修复 |
-| KnowBench | 父仓 `af29b72`，后端 `b16d9cd`，Web `0ba5de9`，已包含第 14 项。先落实 KnowBase 接口与数据库迁移 `20261122_0059`，再更新 API、runner 和 Web |
+| KnowLab | 父仓 `448ac24`，后端 `d728475`，Web `cf89a72`。包含 P3 作者回炉、公开 Schema、作者界面与工作稿撤回 |
+| KnowBench | 父仓 `d455503`，后端 `ced42af`，Web `5991d27`，含第 14 项与脚本、指令来源撤回。先落实 KnowBase 接口，将 KnowBench 从 #108 经 0059 迁到 `20261122_0060`（迁移任务 v14），再更新 API、runner 和 Web |
+| KnowMart | 父仓 `fd3a001`，后端 `e753e1f`，Web `12217d2`。新增作者正式方法清单，沿用迁移 `20261122_0018` |
 
-将表中修订纳入同一发布分支。从已核对的 #108 指针与镜像锁出发，把三个应用的发布分支对齐表中父仓与子仓修订，以 `APPS="knowbase knowlab knowbench sandbox traefik"`、`PIN=heads` 暂存同一候选。核对 `sources.yaml` 的父仓和子仓钉版，执行 `python3 ci/verify-contracts.py --images-only` 和 `python3 ci/verify-contracts.py --pinned`，按现有 Jenkins 人批流程晋级。远程工位约 3.7 GiB，重任务串行；并行构建和测试用本地大内存工位。
+将表中修订纳入同一发布分支。从已核对的 #108 指针与镜像锁出发，把四个应用的发布分支对齐表中父仓与子仓修订，以 `APPS="knowbase knowlab knowbench knowmart sandbox traefik"`、`PIN=heads` 暂存同一候选。核对 `sources.yaml` 的父仓和子仓钉版，执行 `python3 ci/verify-contracts.py --images-only` 和 `python3 ci/verify-contracts.py --pinned`，按现有 Jenkins 人批流程晋级。远程工位约 3.7 GiB，重任务串行；并行构建和测试用本地大内存工位。
 
 ## 试验范围与配置
 
@@ -106,3 +107,22 @@ python3 sunmoonun/scripts/local-integration/formal_market_delivery.py --expert -
 ## 交回与结案
 
 Cursor 在同一份[现场回执](replies/cursor.md)追加构建号、晋级摘要、各组件修订、两条探针状态、L105 与盲测的运行号、产物版本和实耗。标明现场通过、仅本地验证和待补项目。第 14 项现场排期与 zymun 业务意见继续在此跟踪。现场若需回退入口，先关闭试验名单和全量开关，保留存量委托、工作稿和实际费用。
+
+
+<a id="withdrawal"></a>
+
+## 作者撤回与 M02 现场收尾
+
+Luna 已用 sig-am 核对 Q01–Q04 的原申请、工作稿修订和来源，并通过 KnowLab 作者接口撤回四份工作稿。逐一重新读取，四份均为修订 2，正式方法和协作工作稿字段均为空。测试集及申请记录可追溯。这次案例产生的冻结版本与市场条目均为 0。共享环境的四个私有脚本来源仍在，原 Q01 的撤回请求在旧 API 上返回 HTTP 405。
+
+| 编号 | 私有脚本 | 来源 ID | 最新版本 | SHA-256 | 原 KnowLab 申请 |
+| --- | --- | --- | --- | --- | --- |
+| Q01 | `fin_check_balance_sheet.py` | `6b2cd1a2-91ba-526e-af8f-1eca267c7385` | 1 | `7e13685e283fc94f9c42a47b37adb776658008bf9ed303f51e6eed9f28c0649b` | `800dc96e-9d8f-4835-9d43-37a0424cce47` |
+| Q02 | `fin_check_profit_attr.py` | `102e9243-2607-54ad-bc9c-fd764240bc91` | 1 | `49ddbc13bfb8e00cbd3759b98f2d682c431eb4791ad0f974b406c0bcec0f5156` | `ccf5e621-a4b6-488d-a556-27c998358b41` |
+| Q03 | `fin_check_cash_roll.py` | `df4d48a8-997a-5bb1-9441-75629433fa43` | 1 | `0157ff7730cc06ebec525407ae5848a0cd961c704d4049b1afe7c05feb528039` | `b1d848a7-1087-44a5-a3b7-3a1f567f21a1` |
+| Q04 | `fin_check_opening_cont.py` | `7499b503-3dff-5a73-a288-aea7f875524d` | 1 | `36292108f643d54e930fcb66d85cf28806077005528b53a77229ca982765623d` | `34d7f3fa-8d12-476e-b467-9f50ac959fc7` |
+
+1. Cursor 确认共享环境 API、所有 runner 和 Web 均已切至候选，数据库为 0060。以 sig-am 打开工作台的「方法技能管理中心」，按表核对来源、最新版本和摘要，在对应详情点「撤回来源」。若任一项版本或摘要已变，保留该项并在回执标明差异。此次共享清理只涉及表内四个来源，L105 继续用于原指令验收。
+2. 逐项刷新，确认四个来源已从作者的可用列表消失，原申请仍为修订 2 且无当前方法。将来源 ID、版本、结果及复查时间追加到[本卡回执](replies/cursor.md)。此项验收无需试跑、报价或模型调用。
+3. 另用隔离样例验产品入口。KnowLab 分别从工具、专家工作稿点「撤回方法工作稿」，核对取消、确认、刷新和过期修订。KnowBench 对含多个修订的脚本或指令撤回最新版本，核对旧版本授权、未派发任务及重复撤回，已执行的历史回执可读。KnowMart 在「我的小店 → 我的正式方法」核对自用及公开条目，分别撤回待审和已上架版本，重新打开核对状态及已有获取记录。
+4. 初次撤回后若需应急回滚，保留 0060 及识别撤回状态的 API 和 runner。旧代码无法识别已撤回的来源。迁移在存在已撤回记录时会拒绝降级。
