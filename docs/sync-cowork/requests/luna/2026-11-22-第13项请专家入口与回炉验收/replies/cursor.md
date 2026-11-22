@@ -3,7 +3,7 @@
 - 对应请求：../request.md
 - 本轮：第 1 轮
 - 实际检查版本：sunmoon-kind。应用镜像来自发布 #106，部署 `284913fbcf15159c21318e90ef3f37f6d4ddbea7`，指针 `fb08ce5f953780f94c61c83ef714c1673dd4d8e8`，tag `release-20261122-4`。指令控制面地址来自随后的 #108，部署 `ca2d9423e05d3784b3c03d64c75ebc8552eb7c0d`，指针 `304e733bdc0be56954e5113ec1072c4439aafc94`，tag `release-20261122-5`。
-- 结论：部分完成。KnowBench、KnowLab 和新的 sig-am 试验配置已在目标集群。控制面地址在 #108 之后才写进运行中的供给器。L105 现场跑了一次，失败，花费 0 元。第 13 项验收、#105 余项和三道盲测没有可交付的产物。下一步由 Luna 决定。
+- 结论：部分完成。KnowBench、KnowLab 和新的 sig-am 试验配置已在目标集群。控制面地址在 #108 之后才写进运行中的供给器。L105 现场跑了一次，失败，花费 0 元。失败原因是网关 47801 没有把这一轮收成合格回执：线程和 turn 已建立，约 19 秒后以 `instruction_trial_failed` 结束，没有供应商用量。预算、表单和控制面地址不是原因。第 13 项验收、#105 余项和三道盲测没有可交付的产物。下一步由 Luna 决定。
 
 ## 发现
 
@@ -11,7 +11,7 @@
 - F02：#107 用来补这处地址，make 退出码 0，但 Jenkins 结论是 NOT_BUILT。第 5 阶段看到暂存后没有清单差异，按「同一组钉已在线上」收工，没有进人批，也没有新的 Flux 制品。分支上的修正提交 `643dee688` 当时没有进集群。
 - F03：#108 只重渲染供给器，发布成功。admin 于 2026-11-22T17:51:43+08:00 批准，https://jenkins.dev.sunmoonai.com:30443/job/release/108/ 。部署 OCI `sha256:6783cc31adc0a8fba5a8fad2d4032ef8cd60e7afce55660f3da52df0887787bd`，Flux platform 对该摘要 Ready。回执 `scripts/results/release-108.20261122-175445.md`。运行中的供给器环境为 `https://knowbench-tls.app-platform-dev.svc.cluster.local`。ConfigMap `instruction-control-ca` 的证书主体是 `CN=SunMoon Registry Local CA`。沙箱镜像没有重建，网关实际使用 `sha256:8fc0460292c0ad31a697f390dbbb4a45d9bc86a29f41d2b0a34965b163066475`。
 - F04：脚本开关和交付写回保持关闭。没有已核定的脚本报价。打开交付写回会推进其他账号已有的一条待写产出，没有另建隔离部署。只有 Kimi 一个模型家族，没有装 `WORKBENCH_REVIEW_MODEL_GRANTS`，也没有获准的合成 A2A 提供方。
-- F05：L105 只点了一次「开始实际验证」。线程和 turn 已建立，约 19 秒后以 `instruction_trial_failed` 结束，输出为空，用量回执没有形成。没有第二笔，没有冻结，没有动 knowbot-tester 的令牌。
+- F05：L105 失败的原因是网关没有交回合格结果，不是预算、表单或控制面地址。只点了一次「开始实际验证」。18:07:16 线程 `01a202b9-6d12-71d0-bc29-3e0f698bd551` 和 turn `01a202b9-6d52-7791-8c35-d7fdd32d59ba` 已建立。worker 不直连 Kimi，只把请求发给网关 `47801`，且 `request_max_retries=0`。同一时段该端口的就绪探针先超时，再变成连接被拒绝。约 19 秒后 runner 判定没有合格最终文本，收成 `instruction_trial_failed`，输出为空，没有用量回执，花费 0 元。报价上限 21.790720 元，预算 30 元，prepare 已返回 200。worker 事件里的 DeadlineExceeded 是停机时把 `activeDeadlineSeconds` 改成 1，不是 900 秒到期。绑定密钥 not found 与拆 Pod 同一秒，是收尾。没有第二笔，没有冻结，没有动 knowbot-tester 的令牌。原始异常没有单独落库，worker Pod 已删除。
 
 ## 发布
 
