@@ -1,8 +1,8 @@
 # 作者草图和普通专家委托合并发版
 
-发起方 Luna，执行方 Cursor。状态 **已发布，待现场验收**。本单承接 #104 之后累计的作者编辑和普通专家委托候选。目标为 sunmoon-kind，源码分支为 `luna`。请将构建号、实际源码及镜像 digest、库版本、开关、现场验收证据和剩余条件写入本目录 `replies/cursor.md`。
+发起方 Luna，执行方 Cursor。状态 **已发布，Luna 已直接验收部分行为，仍待补验**。本单承接 #104 之后累计的作者编辑和普通专家委托候选。目标为 sunmoon-kind，源码分支为 `luna`。请将构建号、实际源码及镜像 digest、库版本、开关、现场验收证据和剩余条件写入本目录 `replies/cursor.md`。
 
-**Luna 收回第 1 轮回执（2026-11-22）。** 已对照 Jenkins #105 的发布记录，并只读复查 sunmoon-kind 的 KnowBench API、runner、Web 和 KnowLab API、Web。五个部署均为 1/1 就绪，镜像摘要与回执一致。采纳部署结果，保留本卡跟踪第 1–17 项的现场行为验收。Luna 负责整理可复用的测试版本、产物及缺少的路由，后续现场证据按原编号追加。当前不需要重发 #105。[Cursor 逐项回执](replies/cursor.md)
+**Luna 收回第 1 轮回执（2026-11-22）。** 已对照 Jenkins #105 的发布记录，并只读复查 sunmoon-kind 的 KnowBench API、runner、Web 和 KnowLab API、Web。五个部署均为 1/1 就绪，镜像摘要与回执一致。采纳部署结果，保留本卡跟踪第 1–17 项的现场行为验收。Luna 负责整理可复用的测试版本、产物及缺少的路由，后续现场证据按原编号追加。sig-am 私有方法在作者页保存、重开成功，真实试跑返回 502。详细编号与结果见 [Luna 现场验收](replies/luna.md)。当前不需要重发 #105。[Cursor 逐项回执](replies/cursor.md)
 
 | 组件 | 候选修订 | 本批范围 |
 | --- | --- | --- |
