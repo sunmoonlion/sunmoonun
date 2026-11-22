@@ -18,8 +18,8 @@ images:
     version: Python 3.13.15
   sandbox-provisioner:
     object: sandbox-platform/provisioner
-    # 99f497bf7：终态回收、裸卷续建和流末计量；不再注入知识 MCP。
-    revision: 99f497bf79946d9618533228640423e10143c460
+    # edd9b00f5：按指令尝试绑定已批准的复核连接，并封存供应商实际模型。
+    revision: edd9b00f569a5bae30e4261de67555cd234e81fd
     context: infrastructure/applications/component-images/sandbox-platform/provisioner
     dockerfile: Dockerfile
     base: python
@@ -33,8 +33,8 @@ images:
     # 源的地址在 download-modes.json（不在 context 里，不用改钉的提交）；国内源用 http：slim 基础镜像没有 ca-certificates，
     # apt 走 https 会在证书上失败（2026-10-06 第 26 轮退出 100），包本身有签名
     # 2fe6652c：编排端配置加 [windows] sandbox = unelevated（Windows 代理第 1 段联调）
-    # 99f497bf7：Codex 0.170.0；流末补记用量，入口不再生成知识 MCP。
-    revision: 99f497bf79946d9618533228640423e10143c460
+    # edd9b00f5：Codex 0.170.0；绑定已批准的复核连接，封存供应商实际模型。
+    revision: edd9b00f569a5bae30e4261de67555cd234e81fd
     context: infrastructure/applications/component-images/sandbox-platform
     dockerfile: image/Dockerfile
     base: node-runtime

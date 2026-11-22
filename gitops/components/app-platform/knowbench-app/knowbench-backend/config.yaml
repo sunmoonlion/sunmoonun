@@ -6,9 +6,9 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v12
-  # 方法登记来源与来源任务：0054 接线上 0053，0055 增加部分交付标记。
-  expected_schema_revision: '20261121_0055'
+  migration_job_revision: v13
+  # 0056 普通专家任务，0057 复核偏好，0058 复核裁定。
+  expected_schema_revision: '20261122_0058'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*
