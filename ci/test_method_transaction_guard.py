@@ -6,12 +6,17 @@ import os
 import httpx
 import pytest
 from sqlalchemy import text
+from sqlalchemy.engine import make_url
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
 
 def test_http_guard_at_transaction_boundaries():
     async def verify():
-        engine = create_async_engine(os.environ["DELIVERY_TEST_DATABASE_URL"])
+        engine = create_async_engine(
+            make_url(os.environ["DELIVERY_TEST_DATABASE_URL"]).set(
+                drivername="postgresql+asyncpg"
+            )
+        )
         sent = []
 
         def handle(request):
