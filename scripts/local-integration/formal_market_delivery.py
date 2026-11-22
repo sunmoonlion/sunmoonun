@@ -2,10 +2,13 @@
 
 Set AGENT_TEST_DATABASE_URL and DELIVERY_TEST_DATABASE_URL to separate *_tests
 databases. Each side uses the repository's real migrations in a fresh schema.
-External identity and the Skill execution receipt are synthetic.
+External identity and the Skill execution receipt are synthetic. With --expert,
+the runtime executes a reviewed fixed graph and the buyer uses two acquired
+versions. Model and MCP responses are synthetic.
 """
 
 import asyncio
+from contextlib import asynccontextmanager
 import json
 import os
 import socket
@@ -19,8 +22,35 @@ SCRIPT = Path(__file__).resolve()
 WORKSPACE = SCRIPT.parents[3]
 
 
-async def serve_runtime(directory):
+@asynccontextmanager
+async def https_server(directory, app):
     import uvicorn
+
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        server = uvicorn.Server(
+            uvicorn.Config(
+                app,
+                log_level="error",
+                lifespan="off",
+                ssl_keyfile=str(directory / "key"),
+                ssl_certfile=str(directory / "cert"),
+            )
+        )
+        task = asyncio.create_task(server.serve(sockets=[sock]))
+        try:
+            while not server.started:
+                if task.done():
+                    await task
+                    raise RuntimeError("Runtime stopped during startup")
+                await asyncio.sleep(0.1)
+            yield sock.getsockname()[1]
+        finally:
+            server.should_exit = True
+            await task
+
+
+async def serve_runtime(directory, *, expert=False):
     from test_formal_method_admission_db import reviewed_skill_fixture
     from test_workbench_ledger_db import db
 
@@ -34,15 +64,34 @@ async def serve_runtime(directory):
     database = db.__wrapped__()
     sessions = await anext(database)
     try:
-        _, license, review, version = await reviewed_skill_fixture(sessions, "skill_script")
+        if expert:
+            from test_public_expert_db import reviewed_plan
 
-        async def service():
+            ctx, version, _ = await reviewed_plan(sessions)
             async with sessions() as session:
-                yield FormalMethods(
-                    WorkbenchRepository(session),
-                    source_licenses=(license,),
-                    business_reviews=(review,),
+                await ctx.factory(WorkbenchRepository(session)).formal_sources.register(
+                    version, caller="knowlab"
                 )
+            references = [
+                v.reference.model_dump(mode="json") for v in (version, ctx.leaf)
+            ]
+
+            async def service():
+                async with sessions() as session:
+                    yield ctx.factory(WorkbenchRepository(session)).formal_sources
+        else:
+            _, license, review, version = await reviewed_skill_fixture(
+                sessions, "skill_script"
+            )
+            references = [version.reference.model_dump(mode="json")]
+
+            async def service():
+                async with sessions() as session:
+                    yield FormalMethods(
+                        WorkbenchRepository(session),
+                        source_licenses=(license,),
+                        business_reviews=(review,),
+                    )
 
         class TestIssuer:
             async def verify_access_token(self, encoded, *, audience):
@@ -68,44 +117,22 @@ async def serve_runtime(directory):
         )
         app = create_app(Settings())
         app.dependency_overrides[knowbot_runtime_routes.formal_methods] = service
-        with socket.socket() as sock:
-            sock.bind(("127.0.0.1", 0))
-            server = uvicorn.Server(
-                uvicorn.Config(
-                    app,
-                    log_level="error",
-                    lifespan="off",
-                    ssl_keyfile=str(directory / "key"),
-                    ssl_certfile=str(directory / "cert"),
-                )
-            )
-            task = asyncio.create_task(server.serve(sockets=[sock]))
-            try:
-                while not server.started:
-                    if task.done():
-                        await task
-                        raise RuntimeError("Runtime stopped during startup")
-                    await asyncio.sleep(0.1)
-                status = directory / "starting"
-                status.write_text(
-                    json.dumps(
-                        [
-                            version.reference.model_dump(mode="json"),
-                            sock.getsockname()[1],
-                        ]
-                    )
-                )
-                status.replace(directory / "ready")
-                while not (directory / "done").exists():
-                    await asyncio.sleep(0.1)
-            finally:
-                server.should_exit = True
-                await task
+        async with https_server(directory, app) as port:
+            ready = directory / "starting"
+            ready.write_text(json.dumps([references, port]))
+            ready.replace(directory / "ready")
+            if expert:
+                from public_expert_delivery import execute_buyer
+
+                await execute_buyer(directory, sessions, ctx, version)
+                (directory / "delivered").touch()
+            while not (directory / "done").exists():
+                await asyncio.sleep(0.1)
     finally:
         await database.aclose()
 
 
-async def buy_and_deliver(directory):
+async def buy_and_deliver(directory, *, expert=False):
     from base64 import b64decode
     import httpx
     from tests.test_auth_routes_security import FakeAuthService, session
@@ -121,7 +148,7 @@ async def buy_and_deliver(directory):
     from app.interfaces.http.middleware import auth
     from app.main import app
 
-    ref, port = json.loads((directory / "ready").read_text())
+    references, port = json.loads((directory / "ready").read_text())
     os.environ["KNOWBENCH_INTERNAL_URL"] = (
         f"https://127.0.0.1:{port}/api/internal/v1/knowbot-runtime"
     )
@@ -156,7 +183,7 @@ async def buy_and_deliver(directory):
         accounts = FakeAuthService(
             {
                 "seller": login("author", "web", "profile:read"),
-                "buyer": login("buyer", "web", "profile:read"),
+                "buyer": login("other" if expert else "buyer", "web", "profile:read"),
                 "ops": login("ops", "admin", "knowmart:admin"),
             }
         )
@@ -173,30 +200,45 @@ async def buy_and_deliver(directory):
         app.dependency_overrides[knowbot_routes.market_for_request] = service
         app.dependency_overrides[require_summon_service] = lambda: _caller("knowbench")
         web = {"Origin": ORIGIN, "X-CSRF-Token": CSRF}
-        async with client("seller") as seller:
-            created = await seller.post(
-                BASE + "/formal-methods/listings",
-                headers=web,
-                json={"reference": ref, "category": "tools.office"},
-            )
-            created.raise_for_status()
-            listing = created.json()["listing_id"]
-        path = f"{BASE}/formal-methods/listings/{listing}/acquisitions"
-        async with client("buyer") as buyer:
-            assert (await buyer.post(path, headers=web)).status_code == 404
-            async with client("ops", "sunmoonai_knowmart_admin_sid") as ops:
-                reviewed = await ops.post(
-                    f"/api/admin/v1/knowmart/market/formal-methods/listings/{listing}/review",
-                    headers={"Origin": "http://localhost:5173", "X-CSRF-Token": CSRF},
-                    json={"approve": True},
+
+        async def purchase(ref):
+            async with client("seller") as seller:
+                created = await seller.post(
+                    BASE + "/formal-methods/listings",
+                    headers=web,
+                    json={"reference": ref, "category": "tools.office"},
                 )
-                reviewed.raise_for_status()
-            acquired = await buyer.post(path, headers=web)
-            acquired.raise_for_status()
-            receipt = acquired.json()
-            assert receipt["reference"] == ref and "package" not in receipt
-            assert receipt["skill_dependencies"][0]["terms"]["notices"] == ["原声明\n"]
-            assert (await buyer.post(path, headers=web)).json() == receipt
+                created.raise_for_status()
+                listing = created.json()["listing_id"]
+            path = f"{BASE}/formal-methods/listings/{listing}/acquisitions"
+            async with client("buyer") as buyer:
+                assert (await buyer.post(path, headers=web)).status_code == 404
+                async with client("ops", "sunmoonai_knowmart_admin_sid") as ops:
+                    reviewed = await ops.post(
+                        f"/api/admin/v1/knowmart/market/formal-methods/listings/{listing}/review",
+                        headers={
+                            "Origin": "http://localhost:5173",
+                            "X-CSRF-Token": CSRF,
+                        },
+                        json={"approve": True},
+                    )
+                    reviewed.raise_for_status()
+                acquired = await buyer.post(path, headers=web)
+                acquired.raise_for_status()
+                receipt = acquired.json()
+                assert receipt["reference"] == ref and "package" not in receipt
+                assert (await buyer.post(path, headers=web)).json() == receipt
+            return listing, receipt
+
+        ref = references[0]
+        listing, receipt = await purchase(ref)
+        if expert:
+            from public_expert_delivery import qualify_buyer
+
+            async with https_server(directory, app) as port:
+                await qualify_buyer(directory, port, references, purchase)
+            return
+        assert receipt["skill_dependencies"][0]["terms"]["notices"] == ["原声明\n"]
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app), base_url="http://127.0.0.1"
         ) as runtime:
@@ -236,7 +278,7 @@ async def buy_and_deliver(directory):
         await database.aclose()
 
 
-async def run():
+async def run(*, expert=False):
     for key in ("AGENT_TEST_DATABASE_URL", "DELIVERY_TEST_DATABASE_URL"):
         url = urlsplit(os.environ.get(key, ""))
         if url.hostname not in ("localhost", "127.0.0.1") or not url.path.endswith(
@@ -251,6 +293,7 @@ async def run():
             str(SCRIPT),
             role,
             str(directory),
+            *(["--expert"] if expert else []),
             cwd=cwd,
             env={
                 **os.environ,
@@ -293,8 +336,15 @@ async def run():
                     await asyncio.sleep(0.1)
             market = await command("knowmart", "market", directory)
             try:
-                if await asyncio.wait_for(market.wait(), 90):
-                    raise RuntimeError("Market delivery check failed")
+                async with asyncio.timeout(90):
+                    while market.returncode is None:
+                        if server.returncode is not None:
+                            raise RuntimeError(
+                                "KnowBench stopped before buyer verification completed"
+                            )
+                        await asyncio.sleep(0.1)
+                    if market.returncode:
+                        raise RuntimeError("Market delivery check failed")
             finally:
                 if market.returncode is None:
                     market.terminate()
@@ -309,12 +359,12 @@ async def run():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        asyncio.run(run())
+    if sys.argv[1:] in ([], ["--expert"]):
+        asyncio.run(run(expert="--expert" in sys.argv))
     else:
         sys.path[:0] = [str(Path.cwd()), str(Path.cwd() / "tests")]
         asyncio.run(
             {"runtime": serve_runtime, "market": buy_and_deliver}[sys.argv[1]](
-                Path(sys.argv[2])
+                Path(sys.argv[2]), expert="--expert" in sys.argv
             )
         )
