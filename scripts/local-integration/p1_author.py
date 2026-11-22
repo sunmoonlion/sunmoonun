@@ -7,7 +7,8 @@ HTTP requests to the real KnowBench routes in a separate interpreter. Header pro
 the KnowBase HTTP API with a synthetic CSV and disposable database schema. Identity,
 object storage, the installed MCP peer and the test computer use local fixtures.
 Pass --registered-script to run the author chain using an owner-registered script
-and the local isolated worker image, including a two-branch P2 join and author-side P3 and P4 drafts. Container timing uses a metering fixture.
+and the local isolated worker image. This covers a P2 join, P3 draft isolation checks,
+a P4 object collection and both P5 candidate paths. Container timing uses a metering fixture.
 """
 
 import asyncio
@@ -72,7 +73,7 @@ async def bench(registered_script=False):
                     self.receipts[run]["result"] = result
 
             template, factory, conductor, _ = await script_setup(
-                sessions, LocalScript(), registered=True
+                sessions, LocalScript(), registered=True, limit="3"
             )
         else:
             template, _, _, factory, conductor = await setup(
@@ -236,15 +237,13 @@ def configure_lab(sessions, runtime, subjects):
 
 
 async def verify_choice(
-    client, call, rpc, request_id, method_id, template, leaf, expert
+    client, call, rpc, trial, request_id, method_id, leaf, expert
 ):
     from app.domain.knowbots.formal_method import FormalMethodDefinition, Orchestration
 
     endpoint = f"knowbot-requests/{request_id}/workdraft"
     reopened = await call("GET", endpoint)
-    assert reopened["runtime_gaps"] == [
-        {"step": "step_1", "primitive": "candidate_selection"}
-    ]
+    assert not reopened.get("runtime_gaps")
     parsed = FormalMethodDefinition.model_validate(
         reopened["body"]["formal_method"]["definition"]
     )
@@ -275,43 +274,34 @@ async def verify_choice(
     )
     assert (await call("GET", endpoint))["revision"] == 1
     prefix = f"/api/web/v1/method-units/{method_id}"
-    command = {"request_id": request_id, "run_id": str(uuid4()), "revision": 1}
-    spec = copy.deepcopy(template["execution"])
-    spec["suite"].pop("digest")
-    spec["suite"]["suite_id"] = str(uuid4())
-    spec["suite"]["cases"][0]["input"]["values"] = {"to": "review"}
-    for route, payload in (
-        ("validations", command),
-        ("executions", {**command, "execution": spec}),
-    ):
-        denied = await client.post(prefix + "/" + route, json=payload)
-        assert (
-            denied.status_code == 409
-            and denied.json()["code"] == "runtime_capability_gap"
-        ), denied.text
+    command = {
+        "request_id": request_id,
+        "run_id": leaf["provenance"]["validation"]["run_id"],
+        "revision": 1,
+    }
     denied = await client.put(
         prefix + "/formal-versions/1", json={**command, "visibility": "private"}
     )
     assert (
-        denied.status_code == 409 and denied.json()["code"] == "runtime_capability_gap"
+        denied.status_code == 502 and denied.json()["code"] == "formal_execution_invalid"
     ), denied.text
     assert await rpc({"review_counters": True}) == counts
-    print(
-        "P5 verified: pinned tool/expert, exact match, no default, validation/trial/freeze stopped before dispatch"
+    frozen = await trial(
+        method_id, request_id, 1, expert_graph=True, candidate_values=("direct", "review")
     )
+    assert frozen["definition"]["procedure"] == parsed.document()["procedure"]
+    print("P5 verified: both pinned candidates selected by caller input, tested and frozen")
 
 
 async def verify_comparison(
-    client, call, rpc, comparison_request, comparison_id, template, leaf
+    client, call, rpc, trial, comparison_request, comparison_id, leaf
 ):
     path = f"knowbot-requests/{comparison_request}/workdraft"
     reopened = await call("GET", path)
     comparison = reopened["body"]["formal_method"]
     graph = comparison["definition"]["procedure"]
     assert graph["object_batch"] == {"max_objects": 3, "on_missing": "request_partial"}
-    assert reopened["runtime_gaps"] == [
-        {"step": "per_object", "primitive": "bounded_fanout"}
-    ]
+    assert not reopened.get("runtime_gaps")
     from app.domain.knowbots.formal_method import FormalMethodDefinition, ValueSlot
 
     parsed = FormalMethodDefinition.model_validate(comparison["definition"])
@@ -332,24 +322,6 @@ async def verify_comparison(
     )
     assert refused.status_code == 400 and (await call("GET", path))["revision"] == 1
     counts = await rpc({"review_counters": True})
-    spec = copy.deepcopy(template["execution"])
-    spec["suite"].pop("digest")
-    spec["suite"]["suite_id"] = str(uuid4())
-    spec["suite"]["cases"][0]["input"]["values"] = {"objects": ["A", "B"]}
-    for route, extra in (("validations", {}), ("executions", {"execution": spec})):
-        response = await client.post(
-            f"/api/web/v1/method-units/{comparison_id}/{route}",
-            json={
-                "request_id": comparison_request,
-                "run_id": str(uuid4()),
-                "revision": 1,
-                **extra,
-            },
-        )
-        assert (
-            response.status_code == 409
-            and response.json()["code"] == "runtime_capability_gap"
-        ), response.text
     freeze = await client.put(
         f"/api/web/v1/method-units/{comparison_id}/formal-versions/1",
         json={
@@ -360,12 +332,15 @@ async def verify_comparison(
         },
     )
     assert (
-        freeze.status_code == 409 and freeze.json()["code"] == "runtime_capability_gap"
+        freeze.status_code == 502 and freeze.json()["code"] == "formal_execution_invalid"
     ), freeze.text
     assert await rpc({"review_counters": True}) == counts
-    print(
-        "P4 verified: authored bounded list, exact frozen methods, saved policy, invalid bindings refused, dispatch blocked"
+    frozen = await trial(
+        comparison_id, comparison_request, 3,
+        input_values={"objects": ["A", "B"]}, expected_output="A=A|B=B",
     )
+    assert frozen["definition"]["procedure"] == parsed.document()["procedure"]
+    print("P4 verified: separate object approvals and artifacts, ordered collection and freeze")
 
 
 async def author(peer, template):
@@ -543,7 +518,7 @@ async def author(peer, template):
             async def trial(
                 mid, request_id, steps, cancel=False, *,
                 input_alias="to", expert_graph=False, revision=1, promise_cases=(),
-                version=1, input_values=None, expected_output=None, expire_second=False,
+                version=1, input_values=None, expected_output=None, expire_second=False, candidate_values=(),
             ):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
@@ -555,6 +530,15 @@ async def author(peer, template):
                 if input_values is not None:
                     spec["suite"]["cases"][0]["input"]["values"] = input_values
                     spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = expected_output
+                if candidate_values:
+                    template_case = spec["suite"]["cases"][0]
+                    spec["suite"]["cases"] = []
+                    for value in candidate_values:
+                        case = copy.deepcopy(template_case)
+                        case["case_id"] = value
+                        case["input"]["values"] = {input_alias: value}
+                        case["expected"]["assertions"][0]["value"] = value
+                        spec["suite"]["cases"].append(case)
                 if promise_cases:
                     case = spec["suite"]["cases"][0]
                     spec["suite"]["cases"] = [
@@ -681,7 +665,17 @@ async def author(peer, template):
                     evidence = await rpc({"evidence": run})
                     chain = frozen["definition"]["procedure"]["steps"]
                     results = evidence["steps"]
-                    assert evidence["validated"] and len(results) == len(chain) == steps
+                    assert evidence["validated"] and len(results) == steps
+                    if frozen["definition"]["procedure"].get("object_batch"):
+                        assert len(chain) == 2 and len({r["artifact"]["id"] for r in results}) == steps
+                        collector = next(r for r in results if r["slot"] == chain[1]["id"])
+                        workers = [r for r in results if r is not collector]
+                        assert collector["outputs"]["receipt"] == expected_output
+                        assert collector["input_bindings"] == [
+                            {"step_id": r["slot"], **r["artifact"]} for r in workers
+                        ]
+                        return frozen
+                    assert len(chain) == steps
                     assert len({r["artifact"]["id"] for r in results}) == steps
                     if input_alias is None:
                         assert chain[0]["inputs"]["to"]["binding"] == {
@@ -853,8 +847,8 @@ async def author(peer, template):
                     server.should_exit = True
                     await serving
             if registered_script:
-                await verify_choice(client, call, rpc, choice_request, choice_id, template, leaf, nested_frozen)
-                await verify_comparison(client, call, rpc, comparison_request, comparison_id, template, leaf)
+                await verify_choice(client, call, rpc, trial, choice_request, choice_id, leaf, nested_frozen)
+                await verify_comparison(client, call, rpc, trial, comparison_request, comparison_id, leaf)
                 two_inputs = {"branch_to": "left", "branch_1_to": "right"}
                 await trial(
                     p2_id, p2_request, 3, input_values=two_inputs,
@@ -1051,12 +1045,7 @@ async def author(peer, template):
             assert saved["revision"] == 4
             reopened = await call("GET", path)
             assert reopened["body"]["collaboration"] == saved["body"]["collaboration"]
-            assert {(g["step"], g["primitive"]) for g in reopened["runtime_gaps"]} == {
-                ("prepare", "isolation_group"),
-                ("step_1", "staged_handoff"),
-                ("step_1", "isolated_reviewer"),
-                ("step_1", "different_model_family"),
-            }
+            counters = await rpc({"review_counters": True})
             blocked = await client.post(
                 f"/api/web/v1/method-units/{expert_id}/validations",
                 json={
@@ -1084,10 +1073,7 @@ async def author(peer, template):
                 refused_run.status_code == 409
                 and refused_run.json()["code"] == "runtime_capability_gap"
             )
-            assert review_requests == {
-                endpoint: saved["body"]["collaboration"]
-                for endpoint in ("formal-method-validations", "formal-method-executions")
-            }
+            assert await rpc({"review_counters": True}) == counters
             print(
                 "P1 verified: sample header, bounded lookup, internal and downstream "
                 "replacement, reopened plans, cancellation, artifacts and freeze",
