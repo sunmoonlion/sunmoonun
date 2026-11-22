@@ -219,13 +219,17 @@ class KubeClient:
         r.raise_for_status()
         return r.json()
 
-    async def delete(self, kind: str, name: str, *, uid: str | None = None) -> bool:
+    async def delete(self, kind: str, name: str, *, uid: str | None = None, resource_version: str | None = None) -> bool:
         options: dict[str, Any] = {"propagationPolicy": "Foreground"}
         if uid is not None:
             options["preconditions"] = {"uid": uid}
+            if resource_version:
+                options["preconditions"]["resourceVersion"] = resource_version
         r = await self.client.request("DELETE", self.path(kind, name), json=options)
         if r.status_code == 404:
             return False
+        if r.status_code == 409 and resource_version:
+            raise HTTPException(409, "instruction reservation changed")
         r.raise_for_status()
         return True
 
@@ -464,6 +468,10 @@ def create_app(provisioner: Provisioner | None = None) -> FastAPI:
         @app.get(instruction + "/reservation", dependencies=[Depends(require_token)])
         async def instruction_reservation(units: InstructionUnits = Depends(instruction_units)):
             return await units.reservation()
+
+        @app.delete(instruction + "/reservation", dependencies=[Depends(require_token)])
+        async def reclaim_unbound_instruction(proof_uid: UUID, units: InstructionUnits = Depends(instruction_units)):
+            return await units.reclaim_reservation(proof_uid)
 
         @app.get(instruction + "/{uid}", dependencies=[Depends(require_token)])
         async def instruction_status(

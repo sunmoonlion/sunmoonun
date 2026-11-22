@@ -250,6 +250,29 @@ class InstructionUnits:
             return {"uid": uid}
         return {"state": "pvc_only", "proof_uid": meta["uid"]}
 
+    async def reclaim_reservation(self, proof_uid):
+        name = self.name + "-proof"
+        proof = await self.kube.get("persistentvolumeclaims", name)
+        if not proof:
+            return {"removed": False}
+        meta = proof["metadata"]
+        if (
+            meta["uid"] != str(proof_uid)
+            or any(meta.get("labels", {}).get(k) != v for k, v in self.labels.items())
+            or meta.get("annotations", {}).get("sunmoonai.com/gateway-uid")
+            or await self.kube.get("pods", self.name)
+        ):
+            conflict("instruction reservation changed")
+        # A concurrent prepare pins the Pod to this claim UID. Foreground deletion
+        # collects that dependent; the resourceVersion also fences its UID receipt.
+        removed = await self.kube.delete(
+            "persistentvolumeclaims",
+            name,
+            uid=str(proof_uid),
+            resource_version=meta["resourceVersion"],
+        )
+        return {"removed": removed}
+
     async def reserve(self, proof_uid=None):
         if not self.origin:
             raise HTTPException(503, {"code": "instruction_prepare_disabled"})
