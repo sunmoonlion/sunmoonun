@@ -82,3 +82,33 @@ KnowLab 在 2026-11-22T10:07:03Z 接受了执行请求，状态 200。KnowBench 
 ## 交回
 
 回执只在本文件。#106 与 #108 的指针和 tag 已由 Jenkins 推送。请求状态未改，目录未归档。L105 没有通过，第 13 项和三道盲测留待 Luna 决定是先修网关回执再复跑，还是按当前发布结果另行安排。
+
+## 第 2 轮：#112 已发布，回调探测为 401
+
+- 本轮：第 2 轮
+- 结论：发布完成，路由与认证边界通过。无凭据的 claim 与 receipt 都是 401。这一结果只说明入口能把请求送到处理程序并拒绝无身份调用。L105 还没有按这一版重跑，原失败尝试 `9ca84f63-a0d6-4094-b422-d16347d7da86` 保留。
+
+admin 于 2026-11-22T20:24:29+08:00 批准 [#112](https://jenkins.dev.sunmoonai.com:30443/job/release/112/)，结果 SUCCESS。分支 `callback-release-20261122`。部署 `8f6a4e3e999e37a5e1385960e3541d2efabf9457`，指针 `6a30f1682c7e54cc6f2536dcfdc2c183851837a7`，tag `release-20261122-6`。Flux 的 platform、traefik、sandbox-provisioner 都对 `sha256:ba29bc4a5565f1f01340f27ca74fb11a898719f088548c6359ef420760ebfdcf` Ready。#109 因库版本仍钉 `20261122_0058` 在构建前停下，#110 因发布机缺少图表来源记录停下，#111 因缺少锁定的 Helm 停下；这三次都没有进人批，集群未动。
+
+现场 `knowbench-service-access` 现有三条前缀，主机都是 `knowbench-tls.app-platform-dev.svc.cluster.local`，类型都是 Prefix，后端都是 `knowbench-api` 的 http 端口：
+
+- `/api/internal/v1/knowbot-runtime`
+- `/api/internal/v1/method-skill-center/functions`
+- `/api/internal/v1/instruction-control`
+
+本机 18443 已被占用，探测改用 18444 转发到 Traefik。经 `instruction-control-ca` 校验后，无凭据 POST `{}` 的结果是 claim 401、receipt 401。
+
+KnowBench 迁移作业 `knowbench-migrate-bb987ae23916-v14` 成功，预期库版本 `20261122_0059`。供给器地址仍是 `https://knowbench-tls.app-platform-dev.svc.cluster.local`。全量入口、脚本和成果写回仍关闭，规划与固定计划仍只有 sig-am。本轮镜像：
+
+| 对象 | 源码 | 镜像 |
+| --- | --- | --- |
+| KnowBase 后端 | `a30b375fc4850dacf163820290bf1454497ff8d2` | `sha256:a178753154b3dec903a6e7358ccbaad4230214feab4d399b810b4735d77bd4bc` |
+| KnowBase Web | `884d235418f63676a88002978bf99bd99112cdb1` | `sha256:8a6ecfe684ab5e71d31ef769ef01113dd38b9dfb6d9ac5de0aff718df0c71ec0` |
+| KnowBench 后端 | `b16d9cd88ad9f7d33affdadf7f05cd8a735ba7e2` | `sha256:bb987ae23916be1b0b47b98b330f0c2793b5fa02a1b961d929f4743e3a8348d9` |
+| KnowBench Web | `0ba5de9512b3859148541e68f6a08430f471ab23` | `sha256:6222bca81db6db72e427555a37501b736fd9a024c83bf08f013cc69b0ca40f63` |
+| KnowLab 后端 | `d7284751c499ec7b23fe1c71e0ce4c84b0f05371` | `sha256:d7b5ad72fb46c637d48000b977f832a1d4aa1e95a931581e46eaa1e4d455892d` |
+| KnowLab Web | `b125fc55e37d424c284eccef166c8ba45a47d1b6` | `sha256:822d6ffc04ff104adbe973e30178404534e41a4290c2d3d23a4d5acf01801ff4` |
+| 供给器 | `7798c101b9c82d5e7f5016fd3706688a4c9d8ca6` | `sha256:8ac9b946c447ce38165c395297ce832ecfe8fd87d7e9355e7a031d573fdf09e3` |
+| 沙箱 | `7798c101b9c82d5e7f5016fd3706688a4c9d8ca6` | `sha256:6f90cb180dcade90b2eff303a6617fb7398bf1f132f96bc463951d55f40d2289` |
+
+请求状态未改，目录未归档。下一笔才是按原申请重跑的 L105。
