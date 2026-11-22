@@ -108,10 +108,16 @@ knowbench_backend_deployment:
     # 数据第四版补采开关（SDD 0043 第 4.1 节，fail-closed）：开着且下面 knowfeed 的 supply-demand 关系配全了才提需求单，
     # 否则缺的数据一律「暂不能补采」
     WORKBENCH_DATA_SUPPLY_ENABLED: 'true'
-    # C1 用户脚本入口保持关闭。供给器与镜像先发布，待独立回执和目标集群受控验收后再从部署真源打开。
+    # 全量请专家入口保持关闭。只给 sig-am 的登录主体开试验名单。
+    EXPERT_UNIFIED_ENTRY_ENABLED: 'false'
+    EXPERT_PLANNING_OWNERS: '["721f2c10-db3f-4ca4-b6bf-093bb4420ea7"]'
+    # Kimi 指令与同家族复核。上下文上界取已核对的 1048576，单轮输出上限 8192。价目沿用代码内 kimi-k3 CNY 表。
+    WORKBENCH_INSTRUCTION_ROUTES: '[{"provider":"kimi","model":"kimi-k3","base_url":"https://api.moonshot.cn/v1","price_key":"kimi-k3","context_tokens":1048576,"output_tokens":8192}]'
+    WORKBENCH_REVIEW_ROUTES: '[{"provider":"kimi","model":"kimi-k3","family":"kimi","price_key":"kimi-k3"}]'
+    # 脚本报价没有已核定的价格依据，开关保持关闭，避免无报价放行。
     WORKBENCH_SKILL_SCRIPTS_ENABLED: 'false'
-    # Login-only release: keep pending plan-execution/output-writing rollout disabled.
-    WORKBENCH_FIXED_AS_PLAN_OWNERS: '[]'
+    # 固定计划只放行 sig-am。交付写回保持关闭：现有一条待写产出属于其他账号，打开会推进那条存量写入。
+    WORKBENCH_FIXED_AS_PLAN_OWNERS: '["721f2c10-db3f-4ca4-b6bf-093bb4420ea7"]'
     WORKBENCH_OUTPUT_WRITE_ENABLED: 'false'
   domain_secrets:
     # Fernet 密钥（后端用 cryptography.Fernet 加密用户的模型 key）：2026-10-06 第 7 步登记 key 报 internal_error，原因是默认的 40 位随机串不是 Fernet 格式
