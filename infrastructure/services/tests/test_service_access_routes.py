@@ -18,6 +18,30 @@ def render(namespace):
 
 
 class ServiceAccessRoutes(unittest.TestCase):
+    def test_instruction_gateway_callbacks_reach_only_the_internal_runtime(self):
+        for namespace in ['app-platform-dev', 'app-platform-test']:
+            with self.subTest(namespace=namespace):
+                ingress = next(o for o in render(namespace)
+                               if o['kind'] == 'Ingress'
+                               and o['metadata']['name'] == 'knowbench-service-access')
+                rule = ingress['spec']['rules'][0]
+                self.assertEqual(rule['host'], f'knowbench-tls.{namespace}.svc.cluster.local')
+                paths = rule['http']['paths']
+
+                def matching(target):
+                    return [p for p in paths if target == p['path']
+                            or target.startswith(p['path'].rstrip('/') + '/')]
+
+                for operation in ('claim', 'receipt'):
+                    routes = matching('/api/internal/v1/instruction-control/' + operation)
+                    self.assertEqual(len(routes), 1)
+                    self.assertEqual(routes[0]['backend']['service'], {
+                        'name': 'knowbench-api', 'port': {'name': 'http'},
+                    })
+                for target in ('/api/web/v1/workbench', '/api/internal/v1/other',
+                               '/api/internal/v1/instruction-control-other'):
+                    self.assertEqual(matching(target), [])
+
     def test_registered_functions_route_to_provider_without_widening_other_internal_paths(self):
         for namespace in ['app-platform-dev', 'app-platform-test']:
             with self.subTest(namespace=namespace):
@@ -49,6 +73,7 @@ class ServiceAccessRoutes(unittest.TestCase):
                     paths = [(expected, 'Prefix')]
                     if name == 'knowbench':
                         paths.append(('/api/internal/v1/method-skill-center/functions', 'Prefix'))
+                        paths.append(('/api/internal/v1/instruction-control', 'Prefix'))
                     self.assertEqual([(p['path'], p['pathType']) for p in other], paths)
                 self.assertEqual(len(objects), 12)  # Six HTTPS services and six ingresses.
 
