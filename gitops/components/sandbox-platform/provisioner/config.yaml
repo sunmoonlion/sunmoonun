@@ -9,4 +9,4 @@ sandbox_provisioner_resources:
   limits: {cpu: 500m, memory: 256Mi}
 
 # 纯指令控制面走 KnowBench 内部 TLS，路径由网关接到 /api/internal/v1/instruction-control。
-sandbox_instruction_control_origin: 'https://knowbench-tls.{{ app_namespace }}.svc.cluster.local'
+sandbox_instruction_control_origin: 'https://knowbench-tls.app-platform-dev.svc.cluster.local'
