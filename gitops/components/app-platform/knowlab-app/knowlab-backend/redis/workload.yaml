@@ -102,7 +102,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowlab-redis-2ad8e529aa58-v3', namespace: data-platform-dev}
+metadata: {name: 'knowlab-redis-b2e80c4e2015-v3', namespace: data-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -116,7 +116,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:2ad8e529aa58847702e5e561a88a28e598917752073af41a236fff26b39c3e77
+          image: harbor.sunmoonai.com:30443/platform/knowlab-backend@sha256:b2e80c4e201569464f5c6b0c0db9b56b9952f292f96380715c2181f65495c693
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
