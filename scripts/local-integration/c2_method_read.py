@@ -6,6 +6,7 @@ and pass this file's path. Each backend uses its own interpreter and migrated te
 """
 
 import asyncio
+import hashlib
 import json
 import os
 import sys
@@ -23,6 +24,7 @@ async def run_provider():
     from app.application.services.data_functions import DataFunctions
     from app.application.services.data_query_revisions import function_revision
     from app.domain.user_data import Owner
+    from app.interfaces.endpoints import user_library_routes as library_routes
     from app.interfaces.endpoints import user_run_routes as routes
     from app.interfaces.http.internal.function_calls import build_function_router
     from core.config import Settings
@@ -47,6 +49,10 @@ async def run_provider():
         app = FastAPI()
         app.include_router(build_function_router(settings, functions), prefix="/api")
         app.include_router(routes.router, prefix="/api")
+        app.include_router(library_routes.router, prefix="/api")
+        app.dependency_overrides[library_routes.get_user_library_service] = lambda: (
+            world.lib
+        )
 
         def owner(authorization: str = Header()):
             if authorization != "Bearer owner-token":
@@ -85,12 +91,15 @@ if __name__ == "__main__":
         raise SystemExit(__doc__)
     sys.path[:0] = [str(BASE), str(BASE / "tests")]
     asyncio.run(run_provider())
+    raise SystemExit(0)
 else:
     sys.path[:0] = [str(BENCH), str(BENCH / "tests")]
+    import pytest
     from test_workbench_ledger_db import db as db  # noqa: PLC0414 (pytest fixture)
 
 
-async def test_method_read_across_services(db):
+@pytest.mark.parametrize("scenario", ["incubation", "ordinary", "changed_receipt"])
+async def test_method_read_across_services(db, monkeypatch, scenario):
     import httpx
     from app.application.workbench.tokens import TokenIssuer, generate_private_key_pem
     from app.infrastructure.external.knowbase_data_v2 import KnowbaseDataV2
@@ -126,6 +135,9 @@ async def test_method_read_across_services(db):
     try:
         material = await exchange({"public": issuer.public_pem()})
 
+        ordinary_reads = []
+        verifying_ordinary = False
+
         async def forward(request):
             message = {
                 "method": request.method,
@@ -133,6 +145,10 @@ async def test_method_read_across_services(db):
                 "auth": request.headers["Authorization"],
                 "body": json.loads(request.content) if request.content else None,
             }
+            if verifying_ordinary and message["path"].endswith(
+                "/functions/read_method_input/1"
+            ):
+                ordinary_reads.append(message["body"]["call_id"])
             status, body = await exchange(message)
             if (
                 message["path"].endswith("/functions/read_method_input/1")
@@ -155,6 +171,13 @@ async def test_method_read_across_services(db):
                 assert revoked == 204
                 denied_status, _ = await exchange(message)
                 assert denied_status == 403
+                if verifying_ordinary and scenario == "changed_receipt":
+                    altered = json.loads(body)
+                    altered["output"]["text"] = "other content"
+                    altered["output"]["source"]["sha256"] = hashlib.sha256(
+                        b"other content"
+                    ).hexdigest()
+                    body = json.dumps(altered)
             return httpx.Response(status, content=body)
 
         client = KnowbaseDataV2(
@@ -164,11 +187,25 @@ async def test_method_read_across_services(db):
         client.material_id = material["material"]
         client.revision = material["revision"]
         ctx, remote, sandbox = await read_candidate(db, (issuer, client))
-        await run_host_tree(db, copy(ctx), client)
-        for mode in ("missing", "revoked"):
-            await run_host_denial(db, ctx, client, mode)
-        for mode in ("allowed", "missing", "revoked"):
-            await run_model_read(db, ctx, sandbox, client, mode)
+        versions = await run_host_tree(db, copy(ctx), client)
+        if scenario != "incubation":
+            from ordinary_material_scenario import ordinary_read
+
+            verifying_ordinary = True
+            await ordinary_read(
+                db,
+                monkeypatch,
+                ctx.factory,
+                *versions[:2],
+                client,
+                changed_receipt=scenario == "changed_receipt",
+            )
+            assert len(ordinary_reads) == 1
+        else:
+            for mode in ("missing", "revoked"):
+                await run_host_denial(db, ctx, client, mode)
+            for mode in ("allowed", "missing", "revoked"):
+                await run_model_read(db, ctx, sandbox, client, mode)
         assert remote.calls == []
     finally:
         provider.stdin.close()
