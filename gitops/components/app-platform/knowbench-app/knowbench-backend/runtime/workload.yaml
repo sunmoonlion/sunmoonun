@@ -4,7 +4,7 @@ metadata: {name: knowbench-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowbench
-  DEPLOYMENT_ID: "knowbench-backend-c26733cb0b83452a"
+  DEPLOYMENT_ID: "knowbench-backend-3ed02f9d3d64e347"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowbench-api,knowbench-api.app-platform-dev.svc.cluster.local,knowbench.dev.sunmoonai.com,knowbench-admin.dev.sunmoonai.com,knowbench-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -150,7 +150,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 982b80ac100c067261c31428cdb83df50f876bd9b4e36154e3eab1e2d6c3b6fe
+        sunmoonai.com/config-sha256: 5a2e8468156e25efde38879eb0e40737b8ec9857624c224446f7331218cbe245
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -160,7 +160,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:c26733cb0b83452a3092c9689cf15f0b1c91c59efd2c7600a3169c20ab205a8d
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:3ed02f9d3d64e347894a343cf2dca18c80c41aeb63f96bc98b60ee005e87c025
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -222,7 +222,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 982b80ac100c067261c31428cdb83df50f876bd9b4e36154e3eab1e2d6c3b6fe
+        sunmoonai.com/config-sha256: 5a2e8468156e25efde38879eb0e40737b8ec9857624c224446f7331218cbe245
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -232,7 +232,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:c26733cb0b83452a3092c9689cf15f0b1c91c59efd2c7600a3169c20ab205a8d
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:3ed02f9d3d64e347894a343cf2dca18c80c41aeb63f96bc98b60ee005e87c025
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -283,7 +283,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 982b80ac100c067261c31428cdb83df50f876bd9b4e36154e3eab1e2d6c3b6fe
+        sunmoonai.com/config-sha256: 5a2e8468156e25efde38879eb0e40737b8ec9857624c224446f7331218cbe245
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -293,7 +293,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:c26733cb0b83452a3092c9689cf15f0b1c91c59efd2c7600a3169c20ab205a8d
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:3ed02f9d3d64e347894a343cf2dca18c80c41aeb63f96bc98b60ee005e87c025
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]
@@ -340,7 +340,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 982b80ac100c067261c31428cdb83df50f876bd9b4e36154e3eab1e2d6c3b6fe
+        sunmoonai.com/config-sha256: 5a2e8468156e25efde38879eb0e40737b8ec9857624c224446f7331218cbe245
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -350,7 +350,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: runner
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:c26733cb0b83452a3092c9689cf15f0b1c91c59efd2c7600a3169c20ab205a8d
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:3ed02f9d3d64e347894a343cf2dca18c80c41aeb63f96bc98b60ee005e87c025
           imagePullPolicy: IfNotPresent
           # 0001-workbench：runner 是每个用户沙箱里 app-server 的唯一客户端；不开端口，靠进程存活
           command: [python]

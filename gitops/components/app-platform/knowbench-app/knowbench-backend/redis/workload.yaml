@@ -135,7 +135,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowbench-redis-c26733cb0b83-v3', namespace: data-platform-dev}
+metadata: {name: 'knowbench-redis-3ed02f9d3d64-v3', namespace: data-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -149,7 +149,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:c26733cb0b83452a3092c9689cf15f0b1c91c59efd2c7600a3169c20ab205a8d
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:3ed02f9d3d64e347894a343cf2dca18c80c41aeb63f96bc98b60ee005e87c025
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
