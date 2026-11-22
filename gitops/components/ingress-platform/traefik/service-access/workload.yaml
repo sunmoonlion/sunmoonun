@@ -114,6 +114,10 @@ spec:
             pathType: Prefix
             backend:
               service: {name: knowbench-api, port: {name: http}}
+          - path: /api/internal/v1/instruction-control
+            pathType: Prefix
+            backend:
+              service: {name: knowbench-api, port: {name: http}}
 ---
 apiVersion: v1
 kind: Service
