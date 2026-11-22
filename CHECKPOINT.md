@@ -16,7 +16,7 @@
 
 本地已在隔离 PostgreSQL 将空目录、缺工具、新孵化、作者与买方回炉、市场资格、v2 执行和同一买方 v1 的后续职责串为一条联调。另用真实 Codex 容器验证两个角色双向不可读取工作文件、线程历史，中断恢复后保持边界。工作台后端专项 36 项通过，资料与准备单等另一组 23 项通过（两组有重叠），KnowBase 37 项通过。工作台 Web 523 项通过、2 项跳过，类型、分层及构建通过，迁移 0059 升降升通过。测试账号、模型响应及外部工具响应为合成；本轮第 14 项真实 Kimi 调用 0 次。现场验收按用户要求后置。[第 14 项后续候选](docs/sync-cowork/requests/luna/2026-11-22-第13项请专家入口与回炉验收/request.md#long-term)
 
-**第 13 项两轮回执已核，业务验收仍在办。** #108 后的 L105 首次真实试跑失败，平台记账 0 元。#112 发布成功，Cursor 验到两项回调探针均为 401，未交回本版 L105 运行。由 Cursor 继续在原申请验输出、用量和结算，并开展零候选、刷新、结束未匹配等独立用例。三道盲测后交 zymun 复核。[当前任务](docs/sync-cowork/requests/luna/2026-11-22-第13项请专家入口与回炉验收/request.md) · [Cursor 回执](docs/sync-cowork/requests/luna/2026-11-22-第13项请专家入口与回炉验收/replies/cursor.md)
+**第 13 项已核至第 3 轮，业务验收未通过。** #112 上原申请已重跑，claim 返回 200，此次没有收到 receipt 或供应商用量，输出为空。Cursor 复查时已用 0 元、仍预留 21.790720 元，原运行和预留处置待追查。空目录受理、刷新、未匹配结案等独立用例本轮未跑，仍交 Cursor 实测。三道盲测及 zymun 复核待办。[当前任务](docs/sync-cowork/requests/luna/2026-11-22-第13项请专家入口与回炉验收/request.md) · [Cursor 回执](docs/sync-cowork/requests/luna/2026-11-22-第13项请专家入口与回炉验收/replies/cursor.md)
 
 **第 13 项首次部署记录。** Jenkins [#106](https://jenkins.dev.sunmoonai.com:30443/job/release/106/) 已将 KnowBench、KnowLab 晋级至 sunmoon-kind，2026-11-22 17:31 部署回执 `168c5af2e` 核对目标摘要和 Ready 状态。全量入口仍关闭。Cursor 已在原卡交回第一轮现场结果。
 
