@@ -6,7 +6,7 @@
 
 **第 13 项开始（2026-11-22）。** KnowBench `29d9697` 已接通正式匹配得出 `no_match` 后由本人结束委托。结束回执钉住原匹配摘要，保留历史问题和已查范围，已验并发重放、跨用户、旧摘要、候选结果和结案后再改题。API 相关 PostgreSQL 回归 17 项通过，Web 521 项通过、2 项跳过，生产构建通过。第 12 项正在由 Cursor 发布，本次候选单独提交 [Cursor 新发版单](docs/sync-cowork/requests/luna/2026-11-22-正式专家未匹配委托结束回执/request.md)。继续接首次空目录的受理与恢复、拟临时计划和 KnowLab 回炉，通过入口切换验收后再撤三按钮。
 
-**第 12 项本地开发收尾（2026-11-22）。** 统一待办第 12 项下 22 条均已本地验收。KnowBench `9af9371`、KnowLab `a7dae5b`、沙箱及供给器 `edd9b00f5`。目标集群发布和现场复验已交 [Cursor 原发版单](docs/sync-cowork/requests/luna/2026-11-22-作者草图和普通专家委托合并发版/request.md)。本轮由 Luna 单独开发。本地重任务可并发，回到约 3.7 GiB 的远程工位时串行运行。
+**第 12 项本地开发收尾（2026-11-22）。** 统一待办第 12 项下 22 条均已本地验收。KnowBench `9af9371`、KnowLab `a7dae5b`、沙箱及供给器 `edd9b00f5`。目标集群 #105 已发布，Luna 已核对两端 API、Web 及 KnowBench runner 的镜像与就绪状态。原单第 1–17 项保留为待现场验收，测试物料由 Luna 跟进。[Cursor 原发版单](docs/sync-cowork/requests/luna/2026-11-22-作者草图和普通专家委托合并发版/request.md)。本轮由 Luna 单独开发。本地重任务可并发，回到约 3.7 GiB 的远程工位时串行运行。
 
 **最终复验。** KnowLab 正式方法后端在 PostgreSQL 上 162 项通过。KnowBench 相关后端 68 项通过、3 项跳过；另用真实 Codex 容器完成两项隔离与恢复用例。两个 Web 的常规回归共 889 项通过、6 项跳过，生产构建通过。[作者联调](scripts/local-integration/p1_author.py)两种执行方式均通过，注册脚本模式从作者网页采用 P4、P5，实际逐次批准、核对产物并冻结。[市场联调](scripts/local-integration/formal_market_delivery.py)重新验证了原会话自用专家和另一买方账号获取后两次批准、收到最终产物。
 
