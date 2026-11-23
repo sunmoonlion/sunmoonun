@@ -36,7 +36,7 @@ RECEIVED → VALIDATING → QUEUED → RUNNING → SUCCEEDED ●
 
 | 状态 | 语义 | 进入门禁 |
 | --- | --- | --- |
-| `RECEIVED` | 已可靠建单，方向盘已交给顾问 | 身份、原始输入、幂等记录、首事件、`wheel=advisor` 同一提交 |
+| `RECEIVED` | 已可靠建单，方向盘已交给任务运行时 | 身份、原始输入、幂等记录、首事件、`wheel=runtime` 同一提交 |
 | `VALIDATING` | 正在检查契约、权限、专家包与环境 | Profile 版本与授权上下文存在 |
 | `QUEUED` | 已可执行，等顾问发 turn | 完成契约、预算、专家包版本已持久化；环境在线 |
 | `RUNNING` | 一个 Attempt 正在推进 | Attempt 绑定 thread，输入版本固定 |

@@ -76,7 +76,7 @@ async def execute_buyer(directory, db, ctx, expert):
     from test_capabilities_db import approval, body, service
     from test_ordinary_expert_execution_db import selected_match
     from test_source_licenses import license_record
-    from test_workbench_advisor_db import drive
+    from test_workbench_task_runtime_db import drive
     from test_workbench_knowmart_client import ENV, FakeOidc
     from test_workbench_ledger_db import OTHER, seed
 

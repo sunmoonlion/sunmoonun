@@ -492,7 +492,7 @@ async def verify_compute(db, served, monkeypatch, issuer, exchange, fact):
     from app.infrastructure.workbench.repository import WorkbenchRepository
     from sample_packs import SAMPLE_PACKS
     from sample_replies import PROFILE, SCOPE
-    from test_workbench_advisor_db import close
+    from test_workbench_task_runtime_db import close
     from test_workbench_ledger_db import OWNER
     from test_workbench_mcp_routes import URL, bearer, tool
     from test_workbench_review_db import unbalanced

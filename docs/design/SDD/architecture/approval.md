@@ -109,7 +109,7 @@ Codex 没有「被拒后不得绕路」的内置规则（查过 `core/prompt.md`
 | 时机 | 自驾 | 顾问驾驶 |
 | --- | --- | --- |
 | 落地之前 | 用户把 thread 的 `approvalPolicy` 设成 `untrusted`，每个补丁先问；审查面显示 diff，多一个钮「拒绝，并告诉它怎么改」= `decline` + `turn/steer` 送用户的话 | 同一个钮；用户的话同时写进这一步的审批记录 |
-| 落地之后、本轮未完 | 「插话」= `turn/steer` | 「停下」可附一段话；这段话成为该步返工的输入（`advisor.compose` 加「用户的修改要求」一节），顾问带着它重做这一步 |
+| 落地之后、本轮未完 | 「插话」= `turn/steer` | 「停下」可附一段话；这段话成为该步返工的输入（`TaskRuntime.compose` 加「用户的修改要求」一节），顾问带着它重做这一步 |
 | 本轮结束之后 | 下一句话，同一 thread；不是新 Task | Task 级审查时改交回物再批（「原建议与改动」）；文件要改写进返工说明，或取消 Task 拿回方向盘自己改 |
 
 现状缺两样：步骤交人的面只有「再试一次 / 停止」，答案不带话，返工输入里没有用户要什么；`turn/steer` 没接。都在待办 77。顾问驾驶期间 `steer` 不开放给用户直接用（`AT-06` 同一时刻一个写入者），只经上面两个钮，且每次都留记录。云端沙箱里的文件网页上没有编辑器，用户改不了，先不做。
@@ -154,7 +154,7 @@ Codex 没有「被拒后不得绕路」的内置规则（查过 `core/prompt.md`
 1. 开工具：`THREAD_CONFIG` 加 `features.default_mode_request_user_input = true`。它是开发中开关，每次升 Codex 版本都要重验还在不在；不在了退回文字提问。
 2. 接请求：`runner.on_server_request` 处理 `item/tool/requestUserInput`，开 Task 级 `question` Interaction：标题、问题、选项加「其他」自由输入。自驾时是网页上的提问卡，这一轮等着；顾问驾驶时 Task 进 `WAITING(INPUT)`，用户在审查面答。答了就按 `answers` 映射回给 Codex。
 3. `isSecret`：自驾时输入框遮挡、答案只透传不落库不进日志；顾问驾驶时**一律不接**，立即回空并记一行——顾问不能向用户收口令。
-4. 配额：专家包 / 步骤策略 `questions: allow | deny`，默认 allow，每步最多 3 问；超出或 deny 时立即回空答案，模型按 `advisor.compose` 里的规则「问不到就写明假设继续」。
+4. 配额：专家包 / 步骤策略 `questions: allow | deny`，默认 allow，每步最多 3 问；超出或 deny 时立即回空答案，模型按 `TaskRuntime.compose` 里的规则「问不到就写明假设继续」。
 5. 等不到人：1 小时后 `turn/interrupt`，Task 进 `WAITING(USER)`，与工具级超时同一处理；用户点继续后模型可以再问。
 6. 记录：每问每答都是 Interaction，步骤视图里按时间显示，答案进这一步的记录与交回物。
 7. elicitation：我们自己的知识 MCP 维持自动答；连接器（待办 66）接入后，第三方 MCP 的 elicitation 走同一张提问卡，不再自动答。
@@ -171,7 +171,7 @@ Codex 面向客户端的三种口子：审批（工具发起，答是否）、�
 | --- | --- | --- | --- |
 | Task 级审批 | 工作台 | 步骤边界、预算用尽、外部副作用、改目标 | 不经 Codex：两轮之间停，决定作为下一轮输入；必须在轮中停时 `turn/interrupt`，批后同一 thread 新开一轮 |
 | 澄清·模型发起 | 模型 | 轮中 | `item/tool/requestUserInput` → 提问卡 → `answers` 映射回去（上一节，待办 79） |
-| 澄清·工作台发起 | 专家包 / 工作台 | 步骤开始前、验收失败、缺数据 | 不经 Codex：`StepContract.ask_before` 声明本步开始前要问用户的问题（选项 + 自由作答），答案进 `advisor.compose` 的输入；验收失败（`on_reject: human`）与缺数据（`_no_data`）今天已有 |
+| 澄清·工作台发起 | 专家包 / 工作台 | 步骤开始前、验收失败、缺数据 | 不经 Codex：`StepContract.ask_before` 声明本步开始前要问用户的问题（选项 + 自由作答），答案进 `TaskRuntime.compose` 的输入；验收失败（`on_reject: human`）与缺数据（`_no_data`）今天已有 |
 | steer | 用户 | 轮中 | `turn/steer`；两轮之间并入下一轮输入；顾问驾驶时用户不直接发，经工作台「插话」钮转发并记事件（`AT-06`） |
 
 配套规则：

@@ -6,8 +6,8 @@ knowbench_backend_deployment:
   database_migrator_user: knowbench_migrator
   database_extensions: []
   database_bootstrap_revision: v1
-  migration_job_revision: v14
-  expected_schema_revision: '20261122_0060'
+  migration_job_revision: v15
+  expected_schema_revision: '20261123_0061'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*

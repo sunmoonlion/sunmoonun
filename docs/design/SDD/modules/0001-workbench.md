@@ -22,8 +22,8 @@
 | `F-INTAKE-02` | 提交必须带 `session_id`、`profile_id`、`budget_limit`；判不出专家包时返回候选让用户选，不默认 |
 | `F-ADMIT-01` | 身份从会话确定；分配 `task_id` 与首事件在同一提交；后续拒绝形成 `REJECTED` |
 | `F-ADMIT-02` | 受理时检查：环境在线、沙箱可用、专家包版本可用、预算大于最低步骤成本；**问题与任何专家包不匹配即 `REJECTED`**，理由可读（"不在专家范围，继续自己用 Codex 即可"），不转任何通用顾问——通用能力由用户自己的 Codex 提供 |
-| `F-WHEEL-01` | 建单与 `wheel=advisor` 同一提交；终态与 `wheel=user` 同一提交（`I12`） |
-| `F-WHEEL-02` | `wheel=advisor` 期间拒绝用户的 turn；`wheel=user` 期间拒绝顾问的 turn；两侧都落事件 |
+| `F-WHEEL-01` | 建单与 `wheel=runtime` 同一提交；终态与 `wheel=user` 同一提交（`I12`） |
+| `F-WHEEL-02` | `wheel=runtime` 期间拒绝用户的 turn；`wheel=user` 期间拒绝任务运行时的 turn；两侧都落事件 |
 | `F-WHEEL-03` | 接手前若有未完成的用户 turn，先 `turn/interrupt` 并等待 `turn/completed` |
 | `F-ORCH-01` | 每步一个或多个 turn，输入只含步骤契约的字段与固定版本 Artifact 引用 |
 | `F-ORCH-02` | 步骤交回物落为新版本 Artifact；不就地覆盖 |

@@ -9,7 +9,7 @@
 
 | 文件 | 处数 | 分开做的事 |
 | --- | --- | --- |
-| `application/workbench/advisor.py` | 7 | 受理时取包还是取目录；要不要先规划；取输入（固定按名字取最新版本，动态 `open_method_step` 按已接受的谱系）；开尝试（固定 `meta={"reworks":n}`，动态 `_meta`）；验收后复核计划没变；第 0 步没有数据工具时（固定照做，动态失败）；收尾（固定取最后一步的产出、列全部 artifact，动态按 `final_outputs`、列已接受的结果） |
+| `application/workbench/task_runtime.py` | 7 | 受理时取包还是取目录；要不要先规划；取输入（固定按名字取最新版本，动态 `open_method_step` 按已接受的谱系）；开尝试（固定 `meta={"reworks":n}`，动态 `_meta`）；验收后复核计划没变；第 0 步没有数据工具时（固定照做，动态失败）；收尾（固定取最后一步的产出、列全部 artifact，动态按 `final_outputs`、列已接受的结果） |
 | `application/workbench/expert_desk.py` | 5 | 页面的步骤、计划历史、最终产出、方法阶段 |
 | `application/workbench/test_runs.py` | 2 | 测试取值（v1 按名字，v2 按方法实例） |
 | `application/workbench/runner.py` | 2 | 工具策略来源；当前尝试是不是 `method_step` |
@@ -67,7 +67,7 @@
 - **开关是一张账号名单**：后端配置 `WORKBENCH_FIXED_AS_PLAN_OWNERS`（精确的登录 subject，写法同 `KNOWBOT_DYNAMIC_MARKET_OWNERS`），默认空、一切照旧；名单里的账号新受理的固定委托才生成回执。原写一个全站的开关，11-06 写卡时发现只有一个开发站点、没有单独测试环境，所有者定「只对本人开」，改成名单。
 - **生成不了就走旧路**：老的 v2 分身里 `input_refs` 指向没有哪一步产出的名字、或 `back_to` 不在输入里，生成失败时记一条告警、这件委托照旧路，不让它失败（替代路径未验收前保持原产品可用）。
 - **几处要放宽成两种回执都认**：`validate_receipt` 现在会调 `catalog_for_task`（固定专家没有目录）；`pack_digest` 内置包委托上没有，生成和核对时都按包的规范 JSON 现算（不写回委托，`fixed_pack_digest`）；`accepted_results` 的 `_meta` 比对改按回执的契约取。
-- **旧路退役**：开关打开后，线上已没有无回执的进行中固定委托，且第五节验收通过，所有者批准后，删旧路（advisor 等里面 `receipt is None` 的分支、`is_dynamic` 改名或删）。
+- **旧路退役**：开关打开后，线上已没有无回执的进行中固定委托，且第五节验收通过，所有者批准后，删旧路（TaskRuntime 等里面 `receipt is None` 的分支、`is_dynamic` 改名或删）。
 
 ## 五、等价验收（K31 列的五项）
 

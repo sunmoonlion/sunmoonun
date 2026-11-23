@@ -155,10 +155,10 @@
 | --- | --- | --- | --- |
 | 开线（一段对话一次） | 用哪个模型；在哪台电脑、哪个目录干（执行端）；沙箱只读还是能写、能不能联网；命令要不要人批；关掉多代理、开「一轮中间能问人」 | `thread/start`：`model`、`environments[].cwd`、`sandbox`、`approvalPolicy`、`config`（`features.*`） | `domain/workbench/projects.py` 的 `thread_settings`、`THREAD_CONFIG`；`application/workbench/runner.py` |
 | 拉起沙箱（每个用户一次） | 模型 key 与接入地址；能连哪些工具服务（MCP：工作台的记录与数据工具、知识库） | 沙箱的 Codex 配置，由供给器写入 | `application/workbench/provisioning.py` |
-| 每一步开始 | **这一步的全部输入**：方法原文、上游交回物、工具说明、交回格式（施工比方里的「交底」）；这一轮的沙箱与审批设置 | `turn/start`：`input` 与这一轮的设置 | `application/workbench/advisor.py` 的 `compose`；`runner.py` 的 `run_turn` |
+| 每一步开始 | **这一步的全部输入**：方法原文、上游交回物、工具说明、交回格式（施工比方里的「交底」）；这一轮的沙箱与审批设置 | `turn/start`：`input` 与这一轮的设置 | `application/workbench/task_runtime.py` 的 `compose`；`runner.py` 的 `run_turn` |
 | 一步进行中 | 模型要跑命令、改文件、扩权限时**由我们答**（批准、拒绝、交给用户）；模型反过来问用户时转成提问卡；中途插话；用户点停下或超时就打断 | 服务端请求 `item/commandExecution`、`item/fileChange`、`item/permissions` 的批准，`item/tool/requestUserInput`，`turn/steer`，`turn/interrupt` | `runner.py` |
 | 一步进行中（工具） | 模型能调的我们自己的工具：读项目记录、读用户数据、按格子读、**计算**——每次调用由我们按委托核权限、记账 | MCP 工具服务 | `interfaces/mcp/workbench_mcp.py` |
-| 一步结束 | 收它交回的最后一句与改过的文件、用了多少 token；**验收**、重做、退回、交人；下一步给什么 | `turn/completed`、`item/completed`、`thread/tokenUsage/updated` | `advisor.py`、`acceptance.py`、`acceptance_numbers.py` |
+| 一步结束 | 收它交回的最后一句与改过的文件、用了多少 token；**验收**、重做、退回、交人；下一步给什么 | `turn/completed`、`item/completed`、`thread/tokenUsage/updated` | `task_runtime.py`、`acceptance.py`、`acceptance_numbers.py` |
 | 随时 | 电脑断线、重连，接回原来的线 | `thread/environment/*`、`thread/resume` | `runner.py` |
 
 **app-server 协议本身开放的全部影响点**（2026-10-17 Opus 用钉住的 Codex 0.155.1 `codex app-server generate-json-schema --experimental` 生成协议核对：客户端请求 102 种、服务端反过来请求 10 种、通知 82 种；标「实验」的升版要重跑探针，`C-A7`）：
@@ -181,7 +181,7 @@
 | | WorkBuddy | 我们 |
 | --- | --- | --- |
 | 一个专家是什么 | 一个 Markdown 文件：开头的配置（名称、用途描述、可用工具、模型、权限、自动加载的技能、专用 MCP、推理强度、最大轮次、记忆），正文是角色、使命、规则、流程、质量标准；加载进对话后「优先于之前的身份设定」。拆解原话：专家强弱约等于这份说明写得好不好 | 方法包：拆成几步，每步有自己的方法原文、能用的工具、要用哪些上游结果、交回格式、验收规则、没过怎么办 |
-| 多角色怎么协作 | 专家团：一个「团长」模型按自己的提示词拆任务、派子代理（各自独立上下文）、收产出；成员之间不直连、经团长中转 | 程序（runner、advisor）按方法包一步步推进，步与步之间正式交接固定版本的交回物 |
+| 多角色怎么协作 | 专家团：一个「团长」模型按自己的提示词拆任务、派子代理（各自独立上下文）、收产出；成员之间不直连、经团长中转 | 程序（Runner、TaskRuntime）按方法包一步步推进，步与步之间正式交接固定版本的交回物 |
 | 失败、超时、交付前检查 | 写在团长的提示词里（失败超过 2 次终止、10 分钟没回音要通报、交付前过检查清单），**靠团长这个模型自觉执行** | 写在程序里：返工次数上限、每步时限、验收不过就重做 / 退回 / 交人 |
 | 对不对谁来判 | 没有程序层面的分步验收，主要靠用户审阅产物；程序只拦危险动作（删文件、跑命令、联网、对外写）要用户确认 | 每步程序验收（结构与数值）；数由平台算（0030）；危险动作同样要批准 |
 | 先测后用 | 没有 | 专家交付前按用例测，在作者的账号与电脑上（0027 §3.4，decisions ⑯） |

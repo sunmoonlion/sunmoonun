@@ -101,7 +101,7 @@ C2 开发候选已接上可信 MCP 操作映射、方法独立权限声明和账
 | 对话与项目 | `application/workbench/session_service.py`、`project_service.py`；`domain/workbench/projects.py` | 三种对话：聊天、工作、专家（[0017](../../design/SDD/modules/0017-three-kinds-of-conversation.md)）；工作区是电脑上的根目录，项目是其下子目录；对话可记来源 `origin` |
 | 专家从哪来 | `application/workbench/catalog.py`；`domain/workbench/knowbots.py`；`infrastructure/external/knowmart_client.py` | 钉住 knowmart 来的分身（只增）；建委托时把专家包快照、清单摘要、冻结的绑定写进委托；只认清单 v2；分身的工具范围只能比平台更严 |
 | 内置方法包 | `domain/workbench/packs.py` | 只剩三份，都不给用户列：`SMOKE`（测机制）、`INCUBATE`（孵化一轮）、`FIND_EXPERT`（找专家） |
-| 编排与验收 | `advisor.py`、`acceptance.py`、`acceptance_numbers.py`、`deliverable_check.py` | 逐步给用户的 Codex 发一轮、按预算扣、确定性验收、返工或交人；第 0 步「定数据」不进步骤游标；交付时统一取成稿的 sha256 |
+| 编排与验收 | `task_runtime.py`、`acceptance.py`、`acceptance_numbers.py`、`deliverable_check.py` | 逐步给用户的 Codex 发一轮、按预算扣、确定性验收、返工或交人；第 0 步「定数据」不进步骤游标；交付时统一取成稿的 sha256 |
 | 请专家与数据 | `delegation.py`、`expert_data.py`、`grant_release.py`、`outputs.py`；`domain/workbench/data_plan.py`、`data_request.py`、`supply_prematch.py` | 建委托、第 0 步与运行中的提出、预切合、用户确认、写回偏好、签与按 ref 交还授权、钉住、交 knowfeed、收推送与等数据线（`DataWaiter`）自动接着跑、成稿写进 knowbase 产出区（`OutputWriter`） |
 | AI 请专家 | `find_expert.py`；`infrastructure/external/ai_summon_clients.py` | 开「找专家」那一轮、按目录核结果、挂需求、建孵化申请 |
 | 运行方 | `test_runs.py`、`test_folders.py`、`incubations.py`、`interactions.py`；`interfaces/endpoints/knowbot_runtime_routes.py` | `/api/internal/v1/knowbot-runtime`：就绪检查（`readiness`）、测试（提交、查、取消、取产出、答问题）、用户接入过的电脑列表、孵化（收、查、取消）；只认 knowlab 的服务身份，孵化在代码里写死只许 knowlab |

@@ -11,7 +11,7 @@
 | 10-18 16:09 起 | qwen-009 部署滚了 runner；新 Pod 与旧 Pod 同名 `sunmoon-kind-r1`（`WORKBENCH_RUNNER_ID` 是固定配置） | `config.yaml:78` |
 | 同上 | 新 Pod 不接管：接管只在「首次建租约或换了 runner 名字」时做，靠 `acquired_at` 不到 1 秒判断；同名续租不重置 `acquired_at` | `repository.py` `acquire_leases`，`runner.py` `_take_over` |
 | 同上 | 沙箱上没有待办命令就不拿租约，没驾驶者的委托没人看 | `acquire_leases` 的 `wanted` 只看 `workbench_commands` |
-| 10-18 22:55 | 测试超时：给委托记了取消、发了一条 `turn.interrupt`（执行成功），但 RUNNING 的取消要等推它的程序下一步来落实——没有这个程序 | `ledger.py` `request_cancel`，`advisor.py` `_step_once` |
+| 10-18 22:55 | 测试超时：给委托记了取消、发了一条 `turn.interrupt`（执行成功），但 RUNNING 的取消要等推它的程序下一步来落实——没有这个程序 | `ledger.py` `request_cancel`，`task_runtime.py` `_step_once` |
 | 10-19 00:31 | 第 2 稿 c1 委托 `00815b28` 建好，因为同一个项目一次一位专家，排在 `03e447a0` 后面；放行只在前一位到终态的那一刻做 | `ledger.py` `_start_next_queued` |
 | 10-19 01:4x | 所有者授权丙案：插一条 `task.drive`，runner 推一下，第一步看见取消，收成 CANCELLED，放行 c1 | — |
 
@@ -135,5 +135,5 @@ knowbench 后端（真库）：
 
 ## 七、代价
 
-- knowbench 后端：`ledger.py`（取消直接收尾）、`runner.py`（对账、作废旧审批、`_drive` 撞终态安静停下）、`advisor.py`（`fail_after_crash` 见取消写 CANCELLED）、`repository.py`（租约、查没人推的委托）、`test_runs.py`（排队不计时、`queued_behind`）；knowlab 后端与管理端（契约可选字段、显示）。没有迁移。
+- knowbench 后端：`ledger.py`（取消直接收尾）、`runner.py`（对账、作废旧审批、`_drive` 撞终态安静停下）、`task_runtime.py`（`fail_after_crash` 见取消写 CANCELLED）、`repository.py`（租约、查没人推的委托）、`test_runs.py`（排队不计时、`queued_behind`）；knowlab 后端与管理端（契约可选字段、显示）。没有迁移。
 - 部署时正在跑的委托会失败（原因写明），直到第五节「接回那一轮」做完。

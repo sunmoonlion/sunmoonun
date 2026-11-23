@@ -49,7 +49,7 @@
 | 项 | 改法 |
 | --- | --- |
 | `StepContract` | 加 `output_file`：相对项目目录的路径（如 `底稿/02-数据摸底.md`）。`output_artifact` / `output_schema` / `acceptance` 保留，用于机器验收 |
-| `advisor.compose` | 多一节「Deliverable file」：把这一步给人看的成稿写到 `output_file`；结构化结果仍按 `output_schema` 作为 ONE JSON object 回在正文里 |
+| `TaskRuntime.compose` | 多一节「Deliverable file」：把这一步给人看的成稿写到 `output_file`；结构化结果仍按 `output_schema` 作为 ONE JSON object 回在正文里 |
 | 验收 | 不变：`judge(final_text)`。另加一条硬检查：`output_file` 存在且非空（`fs/getMetadata`），缺了按验收不过走 `on_reject` |
 | 证据（`I6`） | 验收过后工作台 `fs/readFile` 读成稿，连同 JSON 一起存 `workbench_artifacts`，填 `workspace_path` 与摘要。这份只作回放、验收证据、跨设备恢复，**不再给用户看** |
 | 交回物（`AT-25`） | 成稿文件 `交回.md`：做了什么、验过什么、未知、改了哪些文件、怎么恢复。写进项目；`handback` 行照旧存库作证据 |

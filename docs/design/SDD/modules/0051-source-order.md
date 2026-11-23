@@ -6,7 +6,7 @@
 ## 一、现在的样子（2026-11-06 各仓头）
 
 1. **knowbase 先解析已有的**，没有的才交 knowfeed。这一段对，不动。
-2. **走不走 Wind 是模型定的。**knowbench 数据步的提示（`advisor.py` 1859 行起）写「Prefer an available supplier query (for example Wind) via source_query」；工具说明（`workbench_mcp.py` 205 行）教模型把 `source_query={channel,service,tool,arguments}` 写进需求。写了，这一项就**点名了供应商**，和 5.1 相反。先后（Wind 先）和所有者 11-06 定的一致，但写在提示词里，模型、提示一换，选源就变。
+2. **走不走 Wind 是模型定的。**knowbench 数据步的提示（`task_runtime.py` 1859 行起）写「Prefer an available supplier query (for example Wind) via source_query」；工具说明（`workbench_mcp.py` 205 行）教模型把 `source_query={channel,service,tool,arguments}` 写进需求。写了，这一项就**点名了供应商**，和 5.1 相反。先后（Wind 先）和所有者 11-06 定的一致，但写在提示词里，模型、提示一换，选源就变。
 3. **Wind 和其它渠道是两条不相通的道。**knowfeed `Channel.covers`（`domain/supply/models.py` 436 行）：带 `source_query` 的项只有它点名的 Wind 渠道能供；不带的项 Wind 渠道一律不供。描述键里还拼了 `|query:`，两种项连身份都不同。
 4. **按次序换源的机制其实已经有了**：渠道有 `priority`（管理端可调先后），`candidates` 按先后排、按用户确认的供给条件筛；一个渠道取不到，`_next_channel`（`application/supply/jobs.py` 1289 行）跳过 `tried_channels` 换下一个。只是因为第 3 条，Wind 取不到不会落到巨潮，巨潮取不到也不会去问 Wind。
 5. **prematch**（`knowfeed-supply-prematch/v1`）确认前已经回每项的候选渠道、许可档、预计时间；确认快照 `supply.conditions.channels` 已能记用户接受哪些渠道。
