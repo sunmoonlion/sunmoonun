@@ -1,0 +1,12 @@
+{
+  "environment": "sunmoon-kind",
+  "revision": 1,
+  "currency": "CNY",
+  "per_container_second": "0.01",
+  "purpose": "M02 正式方法孵化开发验收",
+  "unit": "隔离执行容器实耗秒",
+  "deadline_seconds": 90,
+  "grace_seconds": 1,
+  "authorized_on": "2026-11-23",
+  "scope": "共享开发验收环境；生产另定"
+}

@@ -1,0 +1,72 @@
+{
+  "environment": "sunmoon-kind",
+  "owner": "sig-am",
+  "expert_request": "67502733-b308-4ff1-a9fc-a10f06e5e118",
+  "expert_revision": 2,
+  "tools": {
+    "Q01": {
+      "request_id": "3fab9ca2-98b2-40c8-84c9-37802e9b6220",
+      "revision": 2,
+      "title": "M02工具孵化案例 · Q01 资产负债平衡核验",
+      "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8",
+      "source_id": "7d754800-5b09-544b-86a0-31318849a7c5",
+      "source_digest": "sha256:dd669fe5f8929436db871e0d42593a380a453c32fa6925690d833043386c6ee2",
+      "suite_id": "f7218529-dca5-5b63-9016-62aed0c641dc",
+      "trial_request_id": "2de58c5c-c189-5ce2-a936-457762743f7e",
+      "trial_response": "502 capability_unavailable",
+      "trial_lookup": "502",
+      "suite_readback": "stored",
+      "definition_digest": "sha256:ac6f02a812d22cf88afeaf9aa678772e91a04a9e6dac8b88859da230f7a34839",
+      "suite_digest": "sha256:2df714823bb1d6c663ae59bfcb9ad627c353e52f8917fa40bf771b9f12b1c4b1",
+      "cases": 6
+    },
+    "Q02": {
+      "request_id": "93e0a051-adb0-4d82-b8e9-f58ba78523be",
+      "revision": 2,
+      "title": "M02工具孵化案例 · Q02 净利润归属核验",
+      "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6",
+      "source_id": "4fab1658-d7f5-5e29-a439-ff132a12a207",
+      "source_digest": "sha256:8ba22dea2cfa86a2b224931aab60ab6682b52cbf73aa89cce3c560d7e4fe1c2f",
+      "suite_id": "8205b62b-431d-50dd-9b62-122ad0282d7a",
+      "trial_request_id": "9348eebb-e977-5359-95ba-e6d33a431d92",
+      "trial_response": "502 capability_unavailable",
+      "trial_lookup": "502",
+      "suite_readback": "stored",
+      "definition_digest": "sha256:5c804d4fb638fd3dd5bf8e6ee6c038263b55400352a851d4a106c78a9e282fb2",
+      "suite_digest": "sha256:2fc38b163586fdf2e3a504eddfeb9d43224c96a59be661105a54608e52f0910d",
+      "cases": 6
+    },
+    "Q03": {
+      "request_id": "1588b09e-5cbc-41e7-9465-7e17cf709fb9",
+      "revision": 2,
+      "title": "M02工具孵化案例 · Q03 现金及现金等价物滚动核验",
+      "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba",
+      "source_id": "fedd09dc-117a-5752-9e67-f7558ffa30f1",
+      "source_digest": "sha256:8aa8fe038074386c2ac98d51c633b8f93ca60354aae8761d4f22e7fe376aedbb",
+      "suite_id": "317b319e-8fd8-56ea-ad64-05c6db5baff4",
+      "trial_request_id": "f1734471-79c9-5973-ae4c-003923cec81d",
+      "trial_response": "502 capability_unavailable",
+      "trial_lookup": "502",
+      "suite_readback": "stored",
+      "definition_digest": "sha256:a173ed43d382a1e9444ec4479b1eae6be5a1a71a947f47545677f517ab2fd4c0",
+      "suite_digest": "sha256:7b931185b3f6bca672243cf1562e3b409e507bac06f5542386ebf405a11b34eb",
+      "cases": 6
+    },
+    "Q04": {
+      "request_id": "e2dbae85-f69b-4523-b7aa-46d619c093ab",
+      "revision": 2,
+      "title": "M02工具孵化案例 · Q04 期初余额连续性核验",
+      "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608",
+      "source_id": "f086f0e6-9a4d-50dc-8879-5260f407ffb2",
+      "source_digest": "sha256:01560e510fade4fb00409b9dd05ce84ab56e2db07826c4ab440bb2f296cc58ad",
+      "suite_id": "21840e5b-abda-5b11-9c5f-18e1ea049968",
+      "trial_request_id": "63677d32-b934-5386-87eb-aeb6412bcd7d",
+      "trial_response": "502 capability_unavailable",
+      "trial_lookup": "502",
+      "suite_readback": "stored",
+      "definition_digest": "sha256:a7843947c7a5137f1255184c7d4d7a1a21ec8daf9df16266c1dc47d76ef4fbc8",
+      "suite_digest": "sha256:9663986a2e89d085b2e79e922591314222f69bdac6a7633ed33414b52dfeb783",
+      "cases": 7
+    }
+  }
+}

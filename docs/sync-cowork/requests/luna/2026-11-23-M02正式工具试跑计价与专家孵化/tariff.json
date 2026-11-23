@@ -1,0 +1,10 @@
+{
+  "environment": "sunmoon-kind",
+  "revision": 1,
+  "destination": "https://sandbox-provisioner.sandbox-platform-dev.svc.cluster.local",
+  "provisioner_url": "http://sandbox-provisioner.sandbox-platform-dev.svc.cluster.local:8080",
+  "currency": "CNY",
+  "per_container_second": "0.01",
+  "evidence_reference": "docs/总纲/专家方案设计/专家孵化方案/luna/M02验收样表/共享验收报价.json",
+  "evidence_digest": "sha256:a6dfce5cc19a1a0686a299524a2900f91165091177a137221fb1948a7ca08e82"
+}
