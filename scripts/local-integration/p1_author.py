@@ -80,6 +80,10 @@ async def bench(registered_script=False):
                 sessions, remote=ManifestPeer()
             )
 
+        async def sql():
+            async with sessions() as session:
+                yield session
+
         async def methods():
             async with sessions() as session:
                 yield factory(WorkbenchRepository(session)).formal_sources
@@ -96,6 +100,7 @@ async def bench(registered_script=False):
         app = create_app(Settings())
         app.dependency_overrides.update(
             {
+                routes.get_db_session: sql,
                 routes.formal_methods: methods,
                 routes.formal_executions: executions,
                 routes.require_testrun_service: caller,
@@ -119,7 +124,21 @@ rows = json.loads((Path(os.environ["SUNMOON_INPUT_DIR"])/"arguments.json").read_
 result = {"receipt": "|".join(row["object_id"] + "=" + row["value"] for row in rows)}
 (Path(os.environ["SUNMOON_OUTPUT_DIR"])/"result.json").write_text(json.dumps(result))
 """
-                for key, filename, content in (("join_source", "join.py", code), ("collector_source", "collect.py", collect_code)):
+                subtotal_code = """import json, os
+from decimal import Decimal
+from pathlib import Path
+rows = json.loads((Path(os.environ["SUNMOON_INPUT_DIR"]) / "arguments.json").read_text())["to"].splitlines()
+if len(rows) != 4:
+    raise ValueError("Expected four rows")
+total = sum(Decimal(row.split("=")[1]) for row in rows)
+report = chr(10).join([*rows, f"Total={total:.2f}"])
+(Path(os.environ["SUNMOON_OUTPUT_DIR"]) / "result.json").write_text(json.dumps({"receipt": report}))
+"""
+                for key, filename, content in (
+                    ("join_source", "join.py", code),
+                    ("collector_source", "collect.py", collect_code),
+                    ("subtotal_source", "subtotal.py", subtotal_code),
+                ):
                     source_id = uuid4()
                     async with repo.transaction():
                         await repo.register_direct_revision(
@@ -468,6 +487,9 @@ async def author(peer, template):
                 p3_request = await new_request("Review two independent analysis artifacts")
                 reviewer_request = await new_request("Compare an assessment with a checked output")
                 staged_request = await new_request("Strict review draft")
+                subtotal_request = await new_request("Four-row subtotal tool")
+                checked_request = await new_request("Checked four-row delivery")
+                heldout_request = await new_request("Reuse the frozen four-row expert")
                 collector_request = await new_request("Collect keyed results")
                 choice_request = await new_request("P5 conditional assignment")
                 nested_request = await new_request("Reusable pinned expert candidate")
@@ -518,7 +540,7 @@ async def author(peer, template):
             async def trial(
                 mid, request_id, steps, cancel=False, *,
                 input_alias="to", expert_graph=False, revision=1, promise_cases=(),
-                version=1, input_values=None, expected_output=None, expire_second=False, candidate_values=(),
+                version=1, input_values=None, expected_output=None, expire_second=False, candidate_values=(), covers=(),
             ):
                 spec = copy.deepcopy(template["execution"])
                 spec["suite"].pop("digest")
@@ -530,6 +552,8 @@ async def author(peer, template):
                 if input_values is not None:
                     spec["suite"]["cases"][0]["input"]["values"] = input_values
                     spec["suite"]["cases"][0]["expected"]["assertions"][0]["value"] = expected_output
+                if covers:
+                    spec["suite"]["cases"][0]["covers_promises"] = list(covers)
                 if candidate_values:
                     template_case = spec["suite"]["cases"][0]
                     spec["suite"]["cases"] = []
@@ -785,6 +809,76 @@ async def author(peer, template):
                 nested_frozen = await trial(
                     nested_id, nested_request, 1, expert_graph=True
                 )
+                # Freeze a real calculator, then reuse that exact version on independent rows.
+                subtotal = copy.deepcopy(draft)
+                subtotal["source"] = template["subtotal_source"]
+                procedure = subtotal["definition"]["procedure"]
+                for name in ("kind", "source", "entry", "version", "digest"):
+                    procedure["implementation"][name] = subtotal["source"][name]
+                for key in ("inputs", "outputs"):
+                    for slot in procedure[key].values():
+                        slot["meaning"] = {}
+                        slot["description"] = "Four signed rows" if key == "inputs" else "Rows and checked total"
+                binding = {
+                    "template": "checked_delivery/v1", "goal": "Reconcile four signed amounts",
+                    "deliverable": "The four original rows and their total",
+                    "check": "Add signed values to the cent", "evidence": "The four original rows",
+                }
+                def apply_template(method):
+                    declaration = method["definition"]["capability_declaration"]
+                    declaration.update(title="Four-row subtotal", purpose=binding["goal"],
+                                       applies_when=["Four signed currency rows are provided"],
+                                       promises={"template_delivery": binding["deliverable"]})
+                    method["definition"]["how_to_validate"] = [{
+                        "promise_id": "template_delivery", "outputs": ["receipt"], "check": binding["check"],
+                        "evidence": binding["evidence"], "on_failure": "fail",
+                    }]
+
+                async def adopt_checked(request, method):
+                    route = f"knowbot-requests/{request}/workdraft"
+                    await call("POST", route + "/cells", json={
+                        "revision": 0, "cells": [{"path": "method_template", "value": binding}],
+                    })
+                    apply_template(method)
+                    await call("POST", route + "/cells", json={
+                        "revision": 1, "cells": [{"path": "formal_method", "value": method}],
+                    })
+                    reopened = await call("GET", route)
+                    assert reopened["body"]["method_template"] == binding
+                    assert reopened["body"]["formal_method"]["definition"]["capability_declaration"]["purpose"] == binding["goal"]
+
+                procedure["instructions"] = "Sum the four signed rows and retain the input lines"
+                procedure["stop_conditions"] = ["Stop if the input differs from four signed rows"]
+                await adopt_checked(subtotal_request, subtotal)
+                subtotal_id = str(uuid4())
+                first_rows = "甲=18.20\n乙=31.80\n丙=0.00\n丁=-5.00"
+                first = await trial(subtotal_id, subtotal_request, 1, revision=2, covers=["template_delivery"],
+                                    input_values={"to": first_rows}, expected_output=first_rows + "\nTotal=45.00")
+                checked = copy.deepcopy(nested)
+                checked_graph = checked["definition"]["procedure"]
+                checked_graph["instructions"] = "Send the four signed rows to the pinned subtotal tool"
+                node = checked_graph["steps"][0]
+                node["candidates"] = [{"method_id": subtotal_id, "version": 1, "digest": first["digest"]}]
+                node["inputs"]["to"]["slot"] = procedure["inputs"]["to"]
+                node["outputs"] = procedure["outputs"]
+                await adopt_checked(checked_request, checked)
+                checked_id = str(uuid4())
+                expert_version = await trial(checked_id, checked_request, 1, expert_graph=True,
+                                             revision=2, covers=["template_delivery"], input_values={"to": first_rows},
+                                             expected_output=first_rows + "\nTotal=45.00")
+                assert expert_version["definition"]["procedure"]["steps"][0]["candidates"] == node["candidates"]
+                heldout = copy.deepcopy(checked)
+                pinned_expert = {"method_id": checked_id, "version": 1, "digest": expert_version["digest"]}
+                graph = heldout["definition"]["procedure"]
+                graph["steps"][0]["candidates"] = [pinned_expert]
+                graph.update(max_depth=4, max_expansions=4, max_steps=4)
+                await adopt_checked(heldout_request, heldout)
+                second_rows = "甲=7.50\n乙=12.50\n丙=-3.25\n丁=0.25"
+                verified = await trial(str(uuid4()), heldout_request, 1, expert_graph=True, revision=2,
+                                       covers=["template_delivery"], input_values={"to": second_rows},
+                                       expected_output=second_rows + "\nTotal=17.00")
+                assert verified["definition"]["procedure"]["steps"][0]["candidates"] == [pinned_expert]
+                print("checked_delivery/v1 verified: frozen expert on A (45.00), exact expert version on B (17.00)")
                 extra_env.update(
                     LUNA_P5_REQUEST=choice_request,
                     LUNA_P5_METHOD=choice_id,
