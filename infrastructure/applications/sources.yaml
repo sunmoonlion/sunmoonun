@@ -30,9 +30,9 @@ applications:
     admin_parent_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
     admin_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
   knowbench:
-    parent_revision: 10bd6a06fa30b448420e3d5acf6f5896e84e83fc
-    backend_parent_revision: e544b380689a4e4fc0e378c51aa1193acb8fa4ef
-    backend_revision: e544b380689a4e4fc0e378c51aa1193acb8fa4ef
+    parent_revision: 7f78810db0fe5540d664ef1beaab0b4a7920eb7d
+    backend_parent_revision: 47cce6547ded7337a0570697f3433df871a0a29d
+    backend_revision: 47cce6547ded7337a0570697f3433df871a0a29d
     web_parent_revision: 56a5f7ded75465583dac0262d4b7febae9ee59c7
     web_revision: 56a5f7ded75465583dac0262d4b7febae9ee59c7
     admin_parent_revision: 33559e926c3ebb7570716d5bb318b5a014e0d645
