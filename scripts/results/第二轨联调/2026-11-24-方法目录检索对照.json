@@ -1,0 +1,203 @@
+{
+  "scope": "本地检索实验，20 个候选声明。15 个财务设计样本和 5 个已冻结 M02 工具。每题固定一个预期版本。",
+  "comparison": "中文相邻双字与英文词的去重命中数。向量为 Qwen/Qwen3-Embedding-0.6B，平台本地 CPU 服务，1024 维，查询带任务检索指令，声明不带指令。两路按 reciprocal rank fusion（k=60）等权融合，关键词零命中无票。",
+  "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "queries": [
+    {
+      "question": "核对这份年报的报表勾稽关系",
+      "expected": "报表四式与口径核对",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "今年利润率和增长率分别变动了多少",
+      "expected": "历史增长与盈利",
+      "lex": 1,
+      "vector": 8,
+      "hybrid": 2
+    },
+    {
+      "question": "经营现金流为什么跟净利润差这么多",
+      "expected": "现金与利润差异",
+      "lex": 1,
+      "vector": 7,
+      "hybrid": 2
+    },
+    {
+      "question": "算一下现金周转天数，短债能覆盖吗",
+      "expected": "流动性与营运周期",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "大客户集中度上升了吗",
+      "expected": "业务结构与集中度",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "研发投入有多少被资本化了",
+      "expected": "资本投入与研发",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "用历史季度数据回测预测误差",
+      "expected": "原季节性预测与回测",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "收入下降时三张报表联动会怎样",
+      "expected": "三表情景预测",
+      "lex": 1,
+      "vector": 4,
+      "hybrid": 2
+    },
+    {
+      "question": "用现金流折现算一组终值敏感性",
+      "expected": "DCF 情景估值",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "这家公司的估值和同行倍数相差多少",
+      "expected": "相对估值观察与情景",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "查一下关联交易和股东持股变动",
+      "expected": "股东及关联事项",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "商誉减值对今年利润有多大影响",
+      "expected": "商誉压力情景",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "整理审计意见里提到的或有负债",
+      "expected": "审计与或有事项",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "资本回报是否支持它有竞争优势",
+      "expected": "资本回报与竞争证据",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "把各项分析和证据汇总成报告",
+      "expected": "本题报告成稿",
+      "lex": 1,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "新年第一天账上这笔钱跟去年最后一天结转的金额是否一样？给我差数和出处。",
+      "expected": "期初余额连续性核验",
+      "lex": 2,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "把钱从年头滚到年尾，中间增减能不能和最后的数对起来？",
+      "expected": "现金及现金等价物滚动核验",
+      "lex": 3,
+      "vector": 1,
+      "hybrid": 1
+    },
+    {
+      "question": "扣掉归其他股东的部分，剩下的赚头是不是属于母公司？",
+      "expected": "净利润归属核验",
+      "lex": 5,
+      "vector": 1,
+      "hybrid": 2
+    },
+    {
+      "question": "家底的总额，是否等于欠别人的加上属于股东的？",
+      "expected": "资产负债平衡核验",
+      "lex": 6,
+      "vector": 3,
+      "hybrid": 4
+    },
+    {
+      "question": "几个人各查完了一份，把他们的发现合在一起，列成一张表。",
+      "expected": "核验结果汇总",
+      "lex": 1,
+      "vector": 2,
+      "hybrid": 2
+    }
+  ],
+  "top_k": {
+    "lex": {
+      "1": 16,
+      "3": 18,
+      "10": 20
+    },
+    "vector": {
+      "1": 15,
+      "3": 17,
+      "10": 20
+    },
+    "hybrid": {
+      "1": 14,
+      "3": 19,
+      "10": 20
+    }
+  },
+  "selection_scope": "后 5 题分别开 sig-am 工作台会话。只给打乱顺序的关键词前十、能力摘要及 M02 输入输出说明，以回答的候选 ID 对照事前固定答案。未执行工具。",
+  "selection_runs": [
+    {
+      "question": "新年第一天账上这笔钱跟去年最后一天结转的金额是否一样？给我差数和出处。",
+      "ok": true,
+      "session": "7d112e06-ef03-413a-becf-560597073203",
+      "state": "completed",
+      "cost": "0.233580"
+    },
+    {
+      "question": "把钱从年头滚到年尾，中间增减能不能和最后的数对起来？",
+      "ok": true,
+      "session": "b42e0ba2-0a4c-4602-a9e0-b0b7603b5509",
+      "state": "completed",
+      "cost": "0.223840"
+    },
+    {
+      "question": "扣掉归其他股东的部分，剩下的赚头是不是属于母公司？",
+      "ok": true,
+      "session": "dcc6268e-846a-4da7-bf67-493918e4208c",
+      "state": "completed",
+      "cost": "0.056092"
+    },
+    {
+      "question": "家底的总额，是否等于欠别人的加上属于股东的？",
+      "ok": true,
+      "session": "31825b6f-98be-430d-afa9-1d1ff50277ec",
+      "state": "completed",
+      "cost": "0.055812"
+    },
+    {
+      "question": "几个人各查完了一份，把他们的发现合在一起，列成一张表。",
+      "ok": true,
+      "session": "1096e4e5-94d0-4e24-9688-b26f1846f87e",
+      "state": "completed",
+      "cost": "0.056552"
+    }
+  ],
+  "cost_yuan": "0.625876"
+}
