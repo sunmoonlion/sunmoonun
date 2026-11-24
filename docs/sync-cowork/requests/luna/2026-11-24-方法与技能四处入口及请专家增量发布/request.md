@@ -4,8 +4,8 @@
 
 | 应用 | Luna 父仓 | 后端 | Web |
 | --- | --- | --- | --- |
-| KnowBench | `95e0321` | `477717f` | `9e95e1f` |
-| KnowLab | `c95a9f8` | `eda19b4` | `d3e2497` |
+| KnowBench | `921742e` | `de775e8` | `56a5f7d` |
+| KnowLab | `f38bdea` | `f3c4560` | `db5870a` |
 | KnowMart | `56584ac` | `2b15d7d` | `db4cbd0` |
 
 ## 本地验证
@@ -16,13 +16,19 @@ KnowMart PostgreSQL、市场和目录相关回归 78 项通过；KnowBench 与 K
 
 本次新增验证覆盖一万件有权工具、目录末位的正确项、同名无权项，以及 31 个同类版本两页合并无遗漏。关键词与本机向量服务在 20 题前十均命中 20 次，默认沿用关键词；Kimi 在五道口语题的候选中选对 5 次。向量服务保持现有访问配置。本地三端 Chromium 分别通过 KnowMart 9 项、KnowLab 10 项、KnowBench 11 项（另 1 项跳过）。[逐题结果](../../../../../scripts/results/第二轨联调/2026-11-24-方法目录检索对照.json)
 
+本轮两端前端测试共 898 项通过，6 项跳过。Chromium 在 KnowLab 通过 10 项，在 KnowBench 通过 11 项、跳过 1 项。KnowLab 后端相关测试 40 项、KnowBench 规划测试 42 项、隔离 PostgreSQL 相关回归 47 项通过。覆盖无编号的新草图、带编号旧稿重拟、旧能力摘要、分派和独立复核。未计入真实模型或现场付费执行。
+
 ## Cursor 发布
 
 1. 从现场最新晋级线合入以上版本，构建三端后端及 Web，覆盖读取任务与驱动规划的 API、worker 和 runner。先执行 KnowMart 迁移至 `20261124_0020`（含 0019），KnowBench 迁移至 `20261124_0062`。0062 为存量冻结定义生成搜索词并建 GIN 索引，安排在维护窗口，核对数据量与锁等待。同步两个应用的 expected_schema_revision。先就绪支持类目查询的 KnowMart 后端，再切 KnowBench 后端与 runner，然后切 KnowLab 后端及三个 Web。三个后端都就绪后验新增分类路径。在现场 KnowMart 后端 `domain_env.WEB_AUTH_ALLOWED_RETURN_PATHS` 现值上追加本分支 [config.yaml](../../../../../gitops/components/app-platform/knowmart-app/knowmart-backend/config.yaml) 中新增的中英文 `/knowledge`、`/publish/expert`、`/publish/knowledge` 路径，按现场基线生成 runtime 并让配置生效。
 2. 旧 KnowLab 实例排空后，在具有已配置 libpq 服务的发布工位，从 KnowMart 后端源码运行 `bash app/scripts/backfill_formal_method_kinds.sh <KnowBench只读服务名> <KnowMart迁移服务名>`。只读连接须能查询 `workbench_formal_methods`；市场连接须能建临时表、锁定条目并更新 `formal_method_listing.method_kind`。服务名从发布环境取得。若有新条目在导出期间写入，可重新运行。核对所有历史条目有匹配的类型，并确认 `scope`、`status` 和安装许可保持原值。再切新前端。回退时先退前端及新查询调用方，再退提供接口的服务。保留已写入的分类表和登记搜索索引，按回退镜像核对 readiness 所期望的库版本。
 3. 在 `replies/cursor.md` 记录本卡各应用的实际源码版本和镜像、就绪情况、晋级指针和标签。按原规程保留 #118 的运行关系、模型路由、报价和试验名单。
 
+两端后端和运行规划的 worker／runner 须同批晋级。切换期间先暂停领取新规划任务，待两端新 API 和消费回执的实例就绪再恢复领取。新草图省略旧编号字段，旧版后端读取新草图会报缺字段。旧草图和已采用计划沿用原版本、摘要及审批。
+
 ## Luna 现场验收
+
+- 用 sig-am 在 KnowLab 新建草图、在 KnowBench 拟同题即时计划。两端直接显示方法、输入来源、交付与分派条件。重开一份带旧编号的历史草图，重拟后核对实际步骤。分别用串行复核和双产出仲裁核对隔离要求，去掉可用隔离能力后应停在采用前。核验 KnowLab 能读取带完整摘要的 v2 运行能力回执。
 
 - 在 KnowMart「搜寻专家」看置顶七栏，切换工具与专家。用 sig-am 进入「我的小店 → 我的正式方法」，在经确认的样例或测试版本上选择工具「财务核验 → 报表勾稽」或「结果处理 → 汇总与报告」，自用专家选「财务分析 → 报表核验」。保存后刷新，核对同一版本在市场及两种可选目录的细类。其它未归类版本显示「未分类」。不要改变公开范围、许可、报价或测试外版本。
 - 在 KnowLab 首页和孵化工作稿、KnowBench 方法主页的「即时编排候选」和即时计划内，依次选方法类型、一级类目、细类，核对结果数、翻页及点名重拟的确切版本。共享工具另核本机安装。未获准账号应看不到自用方法。用文字无重合、分错类及未归类样本复核规划仍可跨类补查。验收报告分别记录检索候选和模型所选版本。
