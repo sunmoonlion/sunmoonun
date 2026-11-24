@@ -5,10 +5,10 @@ knowmart_backend_deployment:
   database_runtime_user: knowmart_runtime
   database_migrator_user: knowmart_migrator
   database_bootstrap_revision: v2
-  migration_job_revision: v4
+  migration_job_revision: v5
   # 账 175：本地用户只按 subject 认、合并旧份（20261025_0009）
-  # 数据第四版：删 manifest v1、成交表字段改名（20261029_0011，decisions ⑰）；合代码时再核一次 qwen 分支的迁移头
-  expected_schema_revision: '20261122_0018'
+  # 0018 正式买家查询，0019 正式方法类型，0020 方法分类。
+  expected_schema_revision: '20261124_0020'
   deploy_budget_bytes: 2147483648
   redis_user: knowmart_runtime
   redis_key_pattern: 'knowmart:*'
@@ -29,8 +29,8 @@ knowmart_backend_deployment:
   # 跨应用跳转（SDD 0027）：工作台带用户来「我的分身」选一位，按登记的回跳地址回去（knowbench 的工作台）
   cross_app_enabled: true
   domain_env:
-    # 登录完能回到「我的分身」（从工作台带来的 from、ref 不丢）；其余同模板默认
-    WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots'
+    # 登录完能回到「我的分身」；并回到专家目录、知识目录和对应的发布栏目。
+    WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/knowbots,/en/knowbots,/zh-CN/knowledge,/en/knowledge,/zh-CN/publish/expert,/en/publish/expert,/zh-CN/publish/knowledge,/en/publish/knowledge'
     # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
     KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
     # SDD 0018 第十一节供需市场：开了别人才看得到、请得到公开的专家与知识；资质仍逐次现核（所有者 2026-10-23「都做出来」、2026-10-25 定开发站点开）
