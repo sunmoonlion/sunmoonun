@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: knowbench-web-frontend
-digest: sha256:d00a974e3e5ff677b385f65a9eb241c93d1c3045dd97a4e9377101b6a4ec82ad
-source_revision: b54f2baf7062624c75b8c9af2ec14c7d36519d52
-deployment_id: knowbench-web-frontend-d00a974e3e5ff677
+digest: sha256:c3d02b31256ed6b225e79c8c4826d8cacd831475b939fdb51a536cd3d6a46939
+source_revision: b1516d0147fd3f203ddc8b230ab7d4863d8412f9
+deployment_id: knowbench-web-frontend-c3d02b31256ed6b2

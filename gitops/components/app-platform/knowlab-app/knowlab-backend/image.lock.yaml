@@ -1,6 +1,6 @@
 # Built and published through the native chain; written by application-lock-* after a successful publish.
 ---
 repository: knowlab-backend
-digest: sha256:a0a41bca6c688b7201a95f649a0061b052287c8f656af8b1babb739bbe5728df
-source_revision: 4bb3f279c768e0f6b9182dfc6caf06929b24050d
-deployment_id: knowlab-backend-a0a41bca6c688b72
+digest: sha256:62f90a42da65794868abbed54e6dbe8ed2d8b54439c488c2694ad9556aaec06a
+source_revision: 99d5e4c888879a22a37ec192421702064e52673d
+deployment_id: knowlab-backend-62f90a42da657948
