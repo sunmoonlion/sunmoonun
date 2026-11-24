@@ -1,0 +1,333 @@
+{
+  "status": "ready",
+  "reason": "没有单一授权方法能交付整个目标：m5 仅汇总五份已验回执，不执行检查且明确不得自行取数或重算，而用户声明不提供现成回执；m1–m4 各只产出一类核验回执。最终交付锚定 m5，其五个必需输入（期初/期末资产平表、全年利润归属、现金滚动、存货期初连续性）分别对应五份独立检查：期初与期末平表共用 m1 但目标时点不同，利润归属用 m2，现金滚动用 m3，存货连续性用 m4。五份检查相互独立、共享同一批已标注披露原行，故采用并行归集；各检查的目标参数口径不同（type7/type8/type9），应使用各自独立的调用方目标对象。",
+  "patterns": [
+    "P2"
+  ],
+  "steps": [
+    {
+      "id": "n1_1",
+      "task": "使用共享的已标注披露原行和期初平表核验目标，完成期初资产负债平衡核验（A-L-E），产出完整核验回执 check。",
+      "method": "m1",
+      "inputs": {
+        "rows": {
+          "source": "caller",
+          "name": "rows"
+        },
+        "target": {
+          "source": "caller",
+          "name": "opening_balance_target"
+        }
+      },
+      "route_input": null,
+      "cases": {},
+      "reviews": []
+    },
+    {
+      "id": "n1_2",
+      "task": "使用共享的已标注披露原行和期末平表核验目标，完成期末资产负债平衡核验（A-L-E），产出完整核验回执 check。",
+      "method": "m1",
+      "inputs": {
+        "rows": {
+          "source": "caller",
+          "name": "n1_2_rows"
+        },
+        "target": {
+          "source": "caller",
+          "name": "closing_balance_target"
+        }
+      },
+      "route_input": null,
+      "cases": {},
+      "reviews": []
+    },
+    {
+      "id": "n1_3",
+      "task": "使用共享的已标注披露原行和全年利润归属核验目标，完成净利润归属核验（NP-P-M），产出完整核验回执 check。",
+      "method": "m2",
+      "inputs": {
+        "rows": {
+          "source": "caller",
+          "name": "n1_3_rows"
+        },
+        "target": {
+          "source": "caller",
+          "name": "profit_target"
+        }
+      },
+      "route_input": null,
+      "cases": {},
+      "reviews": []
+    },
+    {
+      "id": "n1_4",
+      "task": "使用共享的已标注披露原行和现金滚动核验目标，完成现金及现金等价物滚动核验（END-BEGIN-CHANGE），产出完整核验回执 check。",
+      "method": "m3",
+      "inputs": {
+        "rows": {
+          "source": "caller",
+          "name": "n1_4_rows"
+        },
+        "target": {
+          "source": "caller",
+          "name": "cash_target"
+        }
+      },
+      "route_input": null,
+      "cases": {},
+      "reviews": []
+    },
+    {
+      "id": "n1_5",
+      "task": "使用共享的已标注披露原行和存货期初连续性核验目标，完成期初余额连续性核验（OPEN-PREV_CLOSE），产出完整核验回执 check。",
+      "method": "m4",
+      "inputs": {
+        "rows": {
+          "source": "caller",
+          "name": "n1_5_rows"
+        },
+        "target": {
+          "source": "caller",
+          "name": "inventory_target"
+        }
+      },
+      "route_input": null,
+      "cases": {},
+      "reviews": []
+    },
+    {
+      "id": "n1",
+      "task": "汇总期初、期末资产平表及全年利润归属、现金滚动、存货期初连续性五份已验回执，逐项保留证据与有符号差额，列出应核、实核、阈值内、不平、未核验及待补清单，交付汇总报告。",
+      "method": "m5",
+      "inputs": {
+        "opening_balance": {
+          "source": "step",
+          "step": "n1_1",
+          "output": "check"
+        },
+        "closing_balance": {
+          "source": "step",
+          "step": "n1_2",
+          "output": "check"
+        },
+        "profit": {
+          "source": "step",
+          "step": "n1_3",
+          "output": "check"
+        },
+        "cash": {
+          "source": "step",
+          "step": "n1_4",
+          "output": "check"
+        },
+        "inventory": {
+          "source": "step",
+          "step": "n1_5",
+          "output": "check"
+        }
+      },
+      "route_input": null,
+      "cases": {},
+      "reviews": []
+    }
+  ],
+  "routing_required": false,
+  "tree": {
+    "catalog_digest": "101cfaab3fe2f85911b4507d2af7e54c4cc51208d28ac6287efc66eb0963a4bd",
+    "nodes": [
+      {
+        "id": "n1",
+        "parent": null,
+        "goal": "我只有已标注主体、期间、范围、版本和页行的财报披露原行，以及各项核验目标。请交一份报告，分别核对期初与期末资产平表、全年利润归属、现金滚动和期初存货连续性，列清应核数、已核数、不平和缺件。五份检查和最终归集均由专家完成，我不会提供现成回执。",
+        "status": "split",
+        "reason": "没有单一授权方法能交付整个目标：m5 仅汇总五份已验回执，不执行检查且明确不得自行取数或重算，而用户声明不提供现成回执；m1–m4 各只产出一类核验回执。最终交付锚定 m5，其五个必需输入（期初/期末资产平表、全年利润归属、现金滚动、存货期初连续性）分别对应五份独立检查：期初与期末平表共用 m1 但目标时点不同，利润归属用 m2，现金滚动用 m3，存货连续性用 m4。五份检查相互独立、共享同一批已标注披露原行，故采用并行归集；各检查的目标参数口径不同（type7/type8/type9），应使用各自独立的调用方目标对象。",
+        "operator": "parallel_join",
+        "step": {
+          "id": "n1",
+          "task": "汇总期初、期末资产平表及全年利润归属、现金滚动、存货期初连续性五份已验回执，逐项保留证据与有符号差额，列出应核、实核、阈值内、不平、未核验及待补清单，交付汇总报告。",
+          "method": "m5",
+          "inputs": {
+            "opening_balance": {
+              "source": "step",
+              "step": "n1_1",
+              "output": "check"
+            },
+            "closing_balance": {
+              "source": "step",
+              "step": "n1_2",
+              "output": "check"
+            },
+            "profit": {
+              "source": "step",
+              "step": "n1_3",
+              "output": "check"
+            },
+            "cash": {
+              "source": "step",
+              "step": "n1_4",
+              "output": "check"
+            },
+            "inventory": {
+              "source": "step",
+              "step": "n1_5",
+              "output": "check"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        "batch": null,
+        "backtracks": 0
+      },
+      {
+        "id": "n1_1",
+        "parent": "n1",
+        "goal": "使用共享的已标注披露原行和期初平表核验目标，完成期初资产负债平衡核验（A-L-E），产出完整核验回执 check。",
+        "status": "hit",
+        "reason": "该子目标即期初资产负债平衡核验（A-L-E），由 m1 单独完整交付：其适用条件为委托人提供同主体同范围的已标注财报原行，与本场景一致；输入 rows（type6）与 target（type7，含时点）正好对应用户持有的披露原行和期初核验目标；输出 check 的 schema type4 与父级所需 opening_balance 完全一致，且承诺逐项给出证据、算式、有符号差额、状态与待补资料，无需拆分。rows 复用共享调用方数据，期初目标为本次核验独立的调用方参数。",
+        "operator": "leaf",
+        "step": {
+          "id": "n1_1",
+          "task": "使用共享的已标注披露原行和期初平表核验目标，完成期初资产负债平衡核验（A-L-E），产出完整核验回执 check。",
+          "method": "m1",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "opening_balance_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        "batch": null,
+        "backtracks": 0
+      },
+      {
+        "id": "n1_2",
+        "parent": "n1",
+        "goal": "使用共享的已标注披露原行和期末平表核验目标，完成期末资产负债平衡核验（A-L-E），产出完整核验回执 check。",
+        "status": "hit",
+        "reason": "该子目标即期末资产负债平衡核验（A-L-E），由 m1 单独完整交付：适用条件为委托人提供同主体同范围的已标注财报原行，与本场景一致；输入 rows（type6）复用共享调用方数据，target（type7，含时点）为期末核验独立的调用方参数，与期初目标区分；输出 check 的 schema type4 与父级所需 closing_balance 完全一致，承诺逐项给出证据、算式、有符号差额、状态与待补资料，无需拆分。",
+        "operator": "leaf",
+        "step": {
+          "id": "n1_2",
+          "task": "使用共享的已标注披露原行和期末平表核验目标，完成期末资产负债平衡核验（A-L-E），产出完整核验回执 check。",
+          "method": "m1",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "n1_2_rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "closing_balance_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        "batch": null,
+        "backtracks": 0
+      },
+      {
+        "id": "n1_3",
+        "parent": "n1",
+        "goal": "使用共享的已标注披露原行和全年利润归属核验目标，完成净利润归属核验（NP-P-M），产出完整核验回执 check。",
+        "status": "hit",
+        "reason": "该子目标即全年净利润归属核验（NP-P-M），由 m2 单独完整交付：适用条件为委托人提供同主体同范围的已标注财报原行，与本场景一致；输入 rows（type6）复用共享调用方数据，target（type8）为利润归属核验独立的调用方参数；输出 check 的 schema type2 与父级所需 profit 完全一致，承诺逐项给出证据、算式、有符号差额、状态与待补资料，无需拆分。",
+        "operator": "leaf",
+        "step": {
+          "id": "n1_3",
+          "task": "使用共享的已标注披露原行和全年利润归属核验目标，完成净利润归属核验（NP-P-M），产出完整核验回执 check。",
+          "method": "m2",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "n1_3_rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "profit_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        "batch": null,
+        "backtracks": 0
+      },
+      {
+        "id": "n1_4",
+        "parent": "n1",
+        "goal": "使用共享的已标注披露原行和现金滚动核验目标，完成现金及现金等价物滚动核验（END-BEGIN-CHANGE），产出完整核验回执 check。",
+        "status": "hit",
+        "reason": "该子目标即全年现金及现金等价物滚动核验（END-BEGIN-CHANGE），由 m3 单独完整交付：适用条件为委托人提供同主体同范围的已标注财报原行，与本场景一致；输入 rows（type6）复用共享调用方数据，target（type8）为现金滚动核验独立的调用方参数；输出 check 的 schema type1 与父级所需 cash 完全一致，承诺逐项给出证据、算式、有符号差额、状态与待补资料，无需拆分。",
+        "operator": "leaf",
+        "step": {
+          "id": "n1_4",
+          "task": "使用共享的已标注披露原行和现金滚动核验目标，完成现金及现金等价物滚动核验（END-BEGIN-CHANGE），产出完整核验回执 check。",
+          "method": "m3",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "n1_4_rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "cash_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        "batch": null,
+        "backtracks": 0
+      },
+      {
+        "id": "n1_5",
+        "parent": "n1",
+        "goal": "使用共享的已标注披露原行和存货期初连续性核验目标，完成期初余额连续性核验（OPEN-PREV_CLOSE），产出完整核验回执 check。",
+        "status": "hit",
+        "reason": "该子目标即存货期初连续性核验（OPEN-PREV_CLOSE），由 m4 单独完整交付：适用条件为委托人提供同主体同范围的已标注财报原行，与本场景一致；输入 rows（type6）复用共享调用方数据，target（type9，含存量科目与上期版本）为存货连续性核验独立的调用方参数；输出 check 的 schema type3 与父级所需 inventory 完全一致，承诺逐项给出证据、算式、有符号差额、状态与待补资料，无需拆分。",
+        "operator": "leaf",
+        "step": {
+          "id": "n1_5",
+          "task": "使用共享的已标注披露原行和存货期初连续性核验目标，完成期初余额连续性核验（OPEN-PREV_CLOSE），产出完整核验回执 check。",
+          "method": "m4",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "n1_5_rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "inventory_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        "batch": null,
+        "backtracks": 0
+      }
+    ],
+    "pins": {
+      "m5": "0af1eca4aac8d1e0c040c2cca47b839a1ecb60491e0b67019664411fed41ff79",
+      "m1": "989bb3f1280c5ca7d085fee1e5c2b2dffd6e522d71d93de6870b4520c4ef3537",
+      "m2": "aa4896aa24e1edcbdc4daea012e361b392151c9c917c79e099a11b92358cd734",
+      "m3": "b93a7c9ca5482816a39be5dbafeb8cc20208e5b364c56418d904ee976e39077a",
+      "m4": "a80a7c09617822b378401eb8f2ad1bf0f23d907bd40585ad1aebcf1ac8941c67"
+    }
+  },
+  "object_batch": null
+}
