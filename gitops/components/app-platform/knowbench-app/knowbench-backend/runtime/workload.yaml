@@ -373,6 +373,7 @@ spec:
             - {secretRef: {name: knowbench-rabbitmq-runtime}}
             - {secretRef: {name: knowbench-redis-runtime}}
             - {secretRef: {name: knowbench-domain-runtime}}
+            - {secretRef: {name: knowbench-knowmart-summon-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-read-service}}
             - {secretRef: {name: knowbench-knowbase-user-data-output-service}}
             - {secretRef: {name: knowbench-knowfeed-supply-demand-service}}
