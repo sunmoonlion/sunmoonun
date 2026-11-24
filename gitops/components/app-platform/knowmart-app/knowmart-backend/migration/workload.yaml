@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: 'knowmart-schema-check-v4', namespace: app-platform-dev}
+metadata: {name: 'knowmart-schema-check-v5', namespace: app-platform-dev}
 data:
   verify.py: |
     """Check the deployed schema and real runtime grants without printing credentials."""
@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowmart-migrate-0e772ebf4b24-v4', namespace: app-platform-dev}
+metadata: {name: 'knowmart-migrate-f4a8ab8ec520-v5', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,22 +72,22 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowmart-backend@sha256:0e772ebf4b24057d2854787151d89a866438406aeae48b9c7f5441183bb062c8
+          image: harbor.sunmoonai.com:30443/platform/knowmart-backend@sha256:f4a8ab8ec5207ce6400bc6d8fb6694934290ce5ceb6149924375432b70c23489
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowmart-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: 'e753e1f21eea67a43f69ad408ed0e98246398590'}
+            - {name: DEPLOYMENT_ID, value: '410fc4633e107d7c8b6570dadb78b6632d0da9f6'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowmart-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowmart.dev.sunmoonai.com:30443'}
-            - {name: EXPECTED_SCHEMA_REVISION, value: '20261122_0018'}
+            - {name: EXPECTED_SCHEMA_REVISION, value: '20261124_0020'}
           command: [/bin/sh, -ec]
           args: ['python -m app.bootstrap.migration upgrade && python /verify/verify.py']
           volumeMounts:
             - {name: verify, mountPath: /verify, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: verify, configMap: {name: 'knowmart-schema-check-v4'}}
+        - {name: verify, configMap: {name: 'knowmart-schema-check-v5'}}
         - {name: tmp, emptyDir: {sizeLimit: 32Mi}}

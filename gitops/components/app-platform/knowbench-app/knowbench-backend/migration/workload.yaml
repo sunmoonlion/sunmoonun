@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
-metadata: {name: 'knowbench-schema-check-v15', namespace: app-platform-dev}
+metadata: {name: 'knowbench-schema-check-v16', namespace: app-platform-dev}
 data:
   verify.py: |
     """Check the deployed schema and real runtime grants without printing credentials."""
@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowbench-migrate-a988f8bb6951-v15', namespace: app-platform-dev}
+metadata: {name: 'knowbench-migrate-b5f96ca98c22-v16', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,22 +72,22 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:a988f8bb69516acc980c9e4ee1a920634cc5d06cc31542cdc51eb6d387789074
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:b5f96ca98c22be848b3caaa25b290758590772bdc654864717f86b22f4e02aab
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}
           envFrom: [{secretRef: {name: knowbench-migration-auth}}]
           env:
             - {name: ENV, value: production}
-            - {name: DEPLOYMENT_ID, value: 'a51757145093ead36d268c476e65d294900c108a'}
+            - {name: DEPLOYMENT_ID, value: 'e544b380689a4e4fc0e378c51aa1193acb8fa4ef'}
             - {name: ADMIN_FRONTEND_BASE_URL, value: 'https://knowbench-admin.dev.sunmoonai.com:30443'}
             - {name: WEB_FRONTEND_BASE_URL, value: 'https://knowbench.dev.sunmoonai.com:30443'}
-            - {name: EXPECTED_SCHEMA_REVISION, value: '20261123_0061'}
+            - {name: EXPECTED_SCHEMA_REVISION, value: '20261124_0062'}
           command: [/bin/sh, -ec]
           args: ['python -m app.bootstrap.migration upgrade && python /verify/verify.py']
           volumeMounts:
             - {name: verify, mountPath: /verify, readOnly: true}
             - {name: tmp, mountPath: /tmp}
       volumes:
-        - {name: verify, configMap: {name: 'knowbench-schema-check-v15'}}
+        - {name: verify, configMap: {name: 'knowbench-schema-check-v16'}}
         - {name: tmp, emptyDir: {sizeLimit: 32Mi}}
