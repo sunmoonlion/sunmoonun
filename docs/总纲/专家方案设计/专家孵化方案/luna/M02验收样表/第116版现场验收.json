@@ -1,0 +1,351 @@
+{
+  "环境": "sunmoon-kind",
+  "发布": "#116",
+  "作者": "sig-am",
+  "专家申请": "67502733-b308-4ff1-a9fc-a10f06e5e118",
+  "工具": {
+    "Q01": {
+      "request_id": "3fab9ca2-98b2-40c8-84c9-37802e9b6220",
+      "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8",
+      "version": 1,
+      "definition_digest": "sha256:ac6f02a812d22cf88afeaf9aa678772e91a04a9e6dac8b88859da230f7a34839",
+      "run_id": "2de58c5c-c189-5ce2-a936-457762743f7e",
+      "suite_digest": "sha256:2df714823bb1d6c663ae59bfcb9ad627c353e52f8917fa40bf771b9f12b1c4b1",
+      "evidence_digest": "sha256:eb2cf158cf7a39b36610c255772fd9985fcf62589e9c6761991dba20a238547c",
+      "status": "passed",
+      "spent_cny": "0.010000",
+      "listing": {
+        "contract_version": 1,
+        "listing_id": "37e97e45-dff3-452c-822f-1efecee275dd",
+        "scope": "self",
+        "reference": {
+          "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8",
+          "version": 1,
+          "digest": "sha256:ac6f02a812d22cf88afeaf9aa678772e91a04a9e6dac8b88859da230f7a34839"
+        },
+        "status": "listed"
+      },
+      "jobs": [
+        {
+          "tool": "Q01",
+          "case": "difference:1",
+          "call_id": "d64f9cb9-fdf9-41ae-b1e1-f02f631f73f4",
+          "job_uid": "4448b2d2-b795-498a-ab0d-8ef5c2d1976b",
+          "pod_uid": "626202f0-c0a1-432a-929b-2fdf463a2736",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q01",
+          "case": "duplicate:1",
+          "call_id": "27001064-38b4-4a4f-87a1-7adab7caa3eb",
+          "job_uid": "41184b04-8bfc-43ee-9859-2d1e88cc4c1c",
+          "pod_uid": "9c346d41-49ef-4520-9b0f-34212db22674",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q01",
+          "case": "mismatch:1",
+          "call_id": "91597d0b-b810-4bc4-ae86-92fbd580281e",
+          "job_uid": "24299c90-e5dc-4cfc-bbec-2bd7ea54613b",
+          "pod_uid": "2262d2d0-3943-4c76-9462-71557520edd2",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q01",
+          "case": "missing:1",
+          "call_id": "5cb1841c-9ef9-42fd-b827-c42acf52a6b1",
+          "job_uid": "150e80a2-ccc6-497b-a83c-fab673fbcfad",
+          "pod_uid": "c3733248-586a-4aec-be72-01be2a2a70dc",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q01",
+          "case": "precision:1",
+          "call_id": "41a0e41c-693a-430e-ad96-5e9a16d2bde2",
+          "job_uid": "a639a1d4-edc9-43f6-9312-9ad1478c0461",
+          "pod_uid": "a030be4f-028a-427c-a0df-97a4723e7061",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q01",
+          "case": "within:1",
+          "call_id": "4c6abba5-3102-4240-b7a5-86e681ae0004",
+          "job_uid": "6ec14749-d500-4df4-bfdd-0a2ac55f7868",
+          "pod_uid": "fe3a9050-e6b3-42eb-b7f3-9db8962d5c58",
+          "seconds": "0",
+          "amount": "0.000000"
+        }
+      ]
+    },
+    "Q02": {
+      "request_id": "93e0a051-adb0-4d82-b8e9-f58ba78523be",
+      "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6",
+      "version": 1,
+      "definition_digest": "sha256:5c804d4fb638fd3dd5bf8e6ee6c038263b55400352a851d4a106c78a9e282fb2",
+      "run_id": "9348eebb-e977-5359-95ba-e6d33a431d92",
+      "suite_digest": "sha256:2fc38b163586fdf2e3a504eddfeb9d43224c96a59be661105a54608e52f0910d",
+      "evidence_digest": "sha256:78618cee7e78624b9409c9fe77f4dc9554cf52726c6cf2c1d081409677f77063",
+      "status": "passed",
+      "spent_cny": "0.020000",
+      "listing": {
+        "contract_version": 1,
+        "listing_id": "458294e7-96da-4bc7-b3f4-9975c88be267",
+        "scope": "self",
+        "reference": {
+          "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6",
+          "version": 1,
+          "digest": "sha256:5c804d4fb638fd3dd5bf8e6ee6c038263b55400352a851d4a106c78a9e282fb2"
+        },
+        "status": "listed"
+      },
+      "jobs": [
+        {
+          "tool": "Q02",
+          "case": "difference:1",
+          "call_id": "1cc13906-110c-4c1f-95e1-e0a28edef5d5",
+          "job_uid": "e2c9f705-b921-4bb1-800f-2ddb883131f0",
+          "pod_uid": "cdd1c5fa-dd00-4a4f-bd40-c5a061f6c7f0",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q02",
+          "case": "duplicate:1",
+          "call_id": "ccb88bcd-6eb3-4cf1-a98b-6f256f68cf19",
+          "job_uid": "98c2f3ca-dfd1-4a26-97f4-b6fca4f65b13",
+          "pod_uid": "fd2564f9-0257-47b9-abf5-44a878a994b1",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q02",
+          "case": "mismatch:1",
+          "call_id": "1acd22e8-54b1-4897-9b03-a32e1d8f0053",
+          "job_uid": "54ebed9a-5ab7-4573-a6d7-01fef219a425",
+          "pod_uid": "6a44f4db-a9ca-4963-ae2b-2cdf07e2cbe1",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q02",
+          "case": "missing:1",
+          "call_id": "708acd8b-9c60-4c79-a1fe-9e7f3d5f6553",
+          "job_uid": "f4dd03ed-fc7a-400d-98de-5771bd4fcd54",
+          "pod_uid": "b6169e8b-e3c8-4cc4-9b24-0eef45b4bbe0",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q02",
+          "case": "precision:1",
+          "call_id": "3f2ba6da-6b59-4265-aa50-ad6e8d52bd93",
+          "job_uid": "dd46bcfb-22ce-41b6-aa17-d6d6b9cabda4",
+          "pod_uid": "ac109a80-fba2-422f-b3c9-a949230c6401",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q02",
+          "case": "within:1",
+          "call_id": "490b4c33-6386-4ed5-90a1-cb5cbded9085",
+          "job_uid": "86b3fc2d-9baa-4ae6-bf1f-1093d21cac87",
+          "pod_uid": "2fc8ff95-ee03-4d4e-a0f2-2b8df3f48446",
+          "seconds": "0",
+          "amount": "0.000000"
+        }
+      ]
+    },
+    "Q03": {
+      "request_id": "1588b09e-5cbc-41e7-9465-7e17cf709fb9",
+      "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba",
+      "version": 1,
+      "definition_digest": "sha256:a173ed43d382a1e9444ec4479b1eae6be5a1a71a947f47545677f517ab2fd4c0",
+      "run_id": "f1734471-79c9-5973-ae4c-003923cec81d",
+      "suite_digest": "sha256:7b931185b3f6bca672243cf1562e3b409e507bac06f5542386ebf405a11b34eb",
+      "evidence_digest": "sha256:1784b312d5cfeef5e383c31b9abfb62487d997dee8526391399c828819adbe34",
+      "status": "passed",
+      "spent_cny": "0.030000",
+      "listing": {
+        "contract_version": 1,
+        "listing_id": "8625a09f-6829-4cf9-a029-cf6d44406fef",
+        "scope": "self",
+        "reference": {
+          "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba",
+          "version": 1,
+          "digest": "sha256:a173ed43d382a1e9444ec4479b1eae6be5a1a71a947f47545677f517ab2fd4c0"
+        },
+        "status": "listed"
+      },
+      "jobs": [
+        {
+          "tool": "Q03",
+          "case": "difference:1",
+          "call_id": "75b769ae-8e20-4fa4-96a5-08d75197c5f1",
+          "job_uid": "b8c5c668-8d20-4548-8217-66e003fad4cd",
+          "pod_uid": "574bcb43-467e-498a-99b9-a981c0116d15",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q03",
+          "case": "duplicate:1",
+          "call_id": "32b26602-0e46-4afc-a48f-01637e327c10",
+          "job_uid": "cedc849e-fd61-409e-b210-f3e7658157cb",
+          "pod_uid": "b9619f03-ff9a-4e78-9cfc-61af52d58898",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q03",
+          "case": "mismatch:1",
+          "call_id": "f98912ca-558a-4f07-8477-7b0616263d04",
+          "job_uid": "1b0ad600-495c-4922-9ddd-6d89f85db088",
+          "pod_uid": "11c01b1d-1b50-476e-888f-6763ded4a778",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q03",
+          "case": "missing:1",
+          "call_id": "4a970716-e04c-4a7a-9229-d031a5015baa",
+          "job_uid": "82507481-d1fc-4649-abc2-83a89e57b8ab",
+          "pod_uid": "0a68473a-cf46-4e57-982e-77fae88a40e6",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q03",
+          "case": "precision:1",
+          "call_id": "070f3551-7768-4868-a4f0-00ccb24a5ac6",
+          "job_uid": "9adf1fc7-6d53-43c9-a1ae-ce58e31a2d33",
+          "pod_uid": "370db2b8-6f09-4ce4-9f72-f7eefe28eaa6",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q03",
+          "case": "within:1",
+          "call_id": "e128a8f4-984e-49c0-8aaf-000d66a7ee6a",
+          "job_uid": "8ee46e88-534d-4bf8-8b45-a43b16acf3e3",
+          "pod_uid": "fd35750c-b474-41c6-b1d6-44731ece6582",
+          "seconds": "1",
+          "amount": "0.010000"
+        }
+      ]
+    },
+    "Q04": {
+      "request_id": "e2dbae85-f69b-4523-b7aa-46d619c093ab",
+      "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608",
+      "version": 1,
+      "definition_digest": "sha256:a7843947c7a5137f1255184c7d4d7a1a21ec8daf9df16266c1dc47d76ef4fbc8",
+      "run_id": "63677d32-b934-5386-87eb-aeb6412bcd7d",
+      "suite_digest": "sha256:9663986a2e89d085b2e79e922591314222f69bdac6a7633ed33414b52dfeb783",
+      "evidence_digest": "sha256:07d63a497a56a198c3c52e0e018f305eebe5285126b7f49ea015e4165d8a5ab4",
+      "status": "passed",
+      "spent_cny": "0.030000",
+      "listing": {
+        "contract_version": 1,
+        "listing_id": "aff57d59-30a5-4713-aeb1-78a7305b2ac0",
+        "scope": "self",
+        "reference": {
+          "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608",
+          "version": 1,
+          "digest": "sha256:a7843947c7a5137f1255184c7d4d7a1a21ec8daf9df16266c1dc47d76ef4fbc8"
+        },
+        "status": "listed"
+      },
+      "jobs": [
+        {
+          "tool": "Q04",
+          "case": "difference:1",
+          "call_id": "57c6898b-34df-49b0-b4a3-fece036401e6",
+          "job_uid": "be74ab0c-e1d8-42b0-b19b-83123505bdaf",
+          "pod_uid": "bd2abab4-79d1-4c80-ae67-bf061b5f117d",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q04",
+          "case": "duplicate:1",
+          "call_id": "23385044-4a69-4d27-8b25-fecfcac00784",
+          "job_uid": "aa8e8734-5140-44c2-82a3-2a11cace30a3",
+          "pod_uid": "624607ad-2ec2-4556-8b07-151fd8faead3",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q04",
+          "case": "flow:1",
+          "call_id": "fbf7aa08-1f96-4fbe-94a4-464c4d68b1e2",
+          "job_uid": "5368561c-97c5-44f9-a1cb-8d48bede4b70",
+          "pod_uid": "6c09d42b-d3de-4dcb-b0c5-ebdccf4f7335",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q04",
+          "case": "mismatch:1",
+          "call_id": "50eeefea-863c-4df0-92b7-9fe3feec62d9",
+          "job_uid": "f8eec4c3-301a-4ad5-a43c-b11297731645",
+          "pod_uid": "e83ec627-7b7f-4053-bf65-49d7beb941ec",
+          "seconds": "0",
+          "amount": "0.000000"
+        },
+        {
+          "tool": "Q04",
+          "case": "missing:1",
+          "call_id": "9eab33ab-4777-48bb-8870-16e6696b01af",
+          "job_uid": "fa1269b6-51e6-493b-bea2-9c753f4d4b76",
+          "pod_uid": "32ed716d-2214-4565-9644-139c11784f2f",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q04",
+          "case": "precision:1",
+          "call_id": "5c77b646-df95-4b69-9eb4-2d02224a33cb",
+          "job_uid": "c2375d73-3f17-4482-acb0-24bddd0f7886",
+          "pod_uid": "bf10a986-ae3b-4d62-bdf2-d444c1968cc0",
+          "seconds": "1",
+          "amount": "0.010000"
+        },
+        {
+          "tool": "Q04",
+          "case": "within:1",
+          "call_id": "35a84bde-4c8f-4b52-ab16-2edc60664deb",
+          "job_uid": "939c7df6-1d75-44f1-862b-d4709cf2aa64",
+          "pod_uid": "8da38d77-8766-446f-9572-557e27587a5c",
+          "seconds": "1",
+          "amount": "0.010000"
+        }
+      ]
+    }
+  },
+  "专家选型轮": {
+    "incubation_id": "7e6f660a-33be-4f65-ba3f-b591eefbb056",
+    "workdraft_revision": 3,
+    "started_at": "2026-11-24T02:25:59.501516+00:00",
+    "finished_at": "2026-11-24T02:27:02.562919+00:00",
+    "status": "succeeded",
+    "spent": "0.476480",
+    "currency": "CNY",
+    "catalog_partial": false,
+    "method_titles": {
+      "m5": "Luna105 标记回执",
+      "i1": "Luna #105 私有标记 · b0a48ce7-546e-42e4-981a-3676fbbf29c5 (v1)"
+    },
+    "selection": {
+      "steps": [],
+      "reason": "所供方法目录中只有 m5（Luna105 标记回执：原样返回合成标记），与合并报表核验无关，既不能提供已标准化且可定位到披露原行的报表事实，也不能计算带符号差额。本次工作要求五项核验：期初资产平表、期末资产平表、全年利润归属、现金滚动、存货期初连续性，并需按阈值（有符号差额绝对值≤1元）出具逐项证据、差额、未核验项、补件清单及应核/实核项数。scope.elsewhere 提到的 Q01–Q04 四个冻结工具仅以不透明 ID 出现，所供目录中没有对应别名与接口说明；本步骤不得读取文件或执行命令去核对实际目录，且按规则不透明 ID 本身不构成适用证据，故无法绑定，定为 gap。可行路径：请作者提供 Q01–Q04 的实际目录条目（别名、输入输出接口、版本），或指明目录中哪个别名对应取数、哪个对应核验。若某一完整方法单独覆盖取数加全部五项核验，可零模式直接成步；若取数与核验分离，则按 P1 串联取数→核验；若五项核验由不同方法分别产出，再按 P2 汇合成交付清单。",
+      "status": "gap",
+      "patterns": [],
+      "object_batch": null,
+      "routing_required": false
+    }
+  }
+}
