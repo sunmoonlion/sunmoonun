@@ -30,20 +30,20 @@ applications:
     admin_parent_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
     admin_revision: f2f6df3163a01c71be13efdd20b87187b63693ec
   knowbench:
-    parent_revision: d455503701e422801b2427f23d3ecc74fbc265bb
-    backend_parent_revision: ced42af9db496922e90fc50837c6ef9af1a27586
-    backend_revision: ced42af9db496922e90fc50837c6ef9af1a27586
-    web_parent_revision: 5991d27261b22ba9837c29d2479816aaa9f6cfd6
-    web_revision: 5991d27261b22ba9837c29d2479816aaa9f6cfd6
+    parent_revision: e46959d92fb8793436fe2d7963de0f36ab5f0780
+    backend_parent_revision: 0eb40f0312e199d0c86c7b1d9d724ad655e913a7
+    backend_revision: 0eb40f0312e199d0c86c7b1d9d724ad655e913a7
+    web_parent_revision: b54f2baf7062624c75b8c9af2ec14c7d36519d52
+    web_revision: b54f2baf7062624c75b8c9af2ec14c7d36519d52
     admin_parent_revision: 33559e926c3ebb7570716d5bb318b5a014e0d645
     admin_revision: 33559e926c3ebb7570716d5bb318b5a014e0d645
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowlab:
-    parent_revision: 3697473bf659fd0d35146ad89526aeed9c2c2dd6
-    backend_parent_revision: d7284751c499ec7b23fe1c71e0ce4c84b0f05371
-    backend_revision: d7284751c499ec7b23fe1c71e0ce4c84b0f05371
-    web_parent_revision: 583e6dfcb33a62e60f398f2cd1425aeb94d9f617
-    web_revision: 583e6dfcb33a62e60f398f2cd1425aeb94d9f617
+    parent_revision: 08bebfcee46e3be61981fe50005f818294373678
+    backend_parent_revision: 468cee92956c7654cffea3b9fdc1ab6197d6fe1d
+    backend_revision: 468cee92956c7654cffea3b9fdc1ab6197d6fe1d
+    web_parent_revision: 9f65b6bbeccc8ed6c9c21ccf5df71942a0173019
+    web_revision: 9f65b6bbeccc8ed6c9c21ccf5df71942a0173019
     admin_parent_revision: 89fe3ac1f6178018186584db7542f11102896381
     admin_revision: 89fe3ac1f6178018186584db7542f11102896381
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）

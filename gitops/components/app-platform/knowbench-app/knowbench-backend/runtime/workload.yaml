@@ -4,7 +4,7 @@ metadata: {name: knowbench-runtime, namespace: app-platform-dev}
 data:
   ENV: production
   APP_SLUG: knowbench
-  DEPLOYMENT_ID: "knowbench-backend-074534fcc72fb003"
+  DEPLOYMENT_ID: "knowbench-backend-ee09225cd1ee720a"
   ALLOWED_HOSTS: "localhost,127.0.0.1,knowbench-api,knowbench-api.app-platform-dev.svc.cluster.local,knowbench.dev.sunmoonai.com,knowbench-admin.dev.sunmoonai.com,knowbench-tls.app-platform-dev.svc.cluster.local"
   REDIS_HOST: redis.data-platform-dev.svc.cluster.local
   REDIS_PORT: '6379'
@@ -119,7 +119,8 @@ data:
   EXPERT_PLANNING_OWNERS: "[\"721f2c10-db3f-4ca4-b6bf-093bb4420ea7\"]"
   WORKBENCH_INSTRUCTION_ROUTES: "[{\"provider\":\"kimi\",\"model\":\"kimi-k3\",\"base_url\":\"https://api.moonshot.cn/v1\",\"price_key\":\"kimi-k3\",\"context_tokens\":1048576,\"output_tokens\":8192}]"
   WORKBENCH_REVIEW_ROUTES: "[{\"provider\":\"kimi\",\"model\":\"kimi-k3\",\"family\":\"kimi\",\"price_key\":\"kimi-k3\"}]"
-  WORKBENCH_SKILL_SCRIPTS_ENABLED: "false"
+  WORKBENCH_SKILL_SCRIPTS_ENABLED: "true"
+  WORKBENCH_SCRIPT_TARIFF: "{\"environment\":\"sunmoon-kind\",\"revision\":1,\"destination\":\"https://sandbox-provisioner.sandbox-platform-dev.svc.cluster.local\",\"provisioner_url\":\"http://sandbox-provisioner.sandbox-platform-dev.svc.cluster.local:8080\",\"currency\":\"CNY\",\"per_container_second\":\"0.01\",\"evidence_reference\":\"docs/\u603b\u7eb2/\u4e13\u5bb6\u65b9\u6848\u8bbe\u8ba1/\u4e13\u5bb6\u5b75\u5316\u65b9\u6848/luna/M02\u9a8c\u6536\u6837\u8868/\u5171\u4eab\u9a8c\u6536\u62a5\u4ef7.json\",\"evidence_digest\":\"sha256:a6dfce5cc19a1a0686a299524a2900f91165091177a137221fb1948a7ca08e82\"}"
   WORKBENCH_FIXED_AS_PLAN_OWNERS: "[\"721f2c10-db3f-4ca4-b6bf-093bb4420ea7\"]"
   WORKBENCH_OUTPUT_WRITE_ENABLED: "false"
 ---
@@ -154,7 +155,7 @@ spec:
         sunmoonai.com/object-storage-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 04b7fff1a3b1794f24d26d0d16361049438dde50cf4fdbe09752242a7d947806
+        sunmoonai.com/config-sha256: 4566ba3b6519fcefb22c801d67686f3238a90c6e799511c3392c5a2f400a724b
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -164,7 +165,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: api
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:074534fcc72fb0030cc9b33f26d82c814f5cab4223d11ee629b1b68306de7854
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:ee09225cd1ee720a698fb4685bcd7f49fce4630cfaff18bad819e34584746232
           imagePullPolicy: IfNotPresent
           command: [uvicorn]
           args: [app.bootstrap.api:app, --no-access-log, --host, 0.0.0.0, --port, '8000', --proxy-headers, --forwarded-allow-ips, '10.247.0.0/16']
@@ -226,7 +227,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 04b7fff1a3b1794f24d26d0d16361049438dde50cf4fdbe09752242a7d947806
+        sunmoonai.com/config-sha256: 4566ba3b6519fcefb22c801d67686f3238a90c6e799511c3392c5a2f400a724b
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -236,7 +237,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: worker
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:074534fcc72fb0030cc9b33f26d82c814f5cab4223d11ee629b1b68306de7854
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:ee09225cd1ee720a698fb4685bcd7f49fce4630cfaff18bad819e34584746232
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.worker:celery_app', worker, --loglevel=INFO, '--concurrency=2', '--hostname=celery@$(POD_NAME)']
@@ -287,7 +288,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 04b7fff1a3b1794f24d26d0d16361049438dde50cf4fdbe09752242a7d947806
+        sunmoonai.com/config-sha256: 4566ba3b6519fcefb22c801d67686f3238a90c6e799511c3392c5a2f400a724b
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -297,7 +298,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: scheduler
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:074534fcc72fb0030cc9b33f26d82c814f5cab4223d11ee629b1b68306de7854
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:ee09225cd1ee720a698fb4685bcd7f49fce4630cfaff18bad819e34584746232
           imagePullPolicy: IfNotPresent
           command: [celery]
           args: [-A, 'app.bootstrap.scheduler:celery_app', beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule, --pidfile=, --max-interval=5]
@@ -344,7 +345,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 04b7fff1a3b1794f24d26d0d16361049438dde50cf4fdbe09752242a7d947806
+        sunmoonai.com/config-sha256: 4566ba3b6519fcefb22c801d67686f3238a90c6e799511c3392c5a2f400a724b
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -354,7 +355,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: runner
-          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:074534fcc72fb0030cc9b33f26d82c814f5cab4223d11ee629b1b68306de7854
+          image: harbor.sunmoonai.com:30443/platform/knowbench-backend@sha256:ee09225cd1ee720a698fb4685bcd7f49fce4630cfaff18bad819e34584746232
           imagePullPolicy: IfNotPresent
           # 0001-workbench：runner 是每个用户沙箱里 app-server 的唯一客户端；不开端口，靠进程存活
           command: [python]
