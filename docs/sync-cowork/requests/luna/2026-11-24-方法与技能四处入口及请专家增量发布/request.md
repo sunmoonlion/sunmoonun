@@ -1,8 +1,15 @@
 # 三端增量发布与递归规划联合验收
 
-**待 Cursor 发布增量，发版后由 Luna 亲自验收。** #118 已上线递归规划，当时 KnowBench Web 为 `b1516d0`。本次从现场晋级线合入下表版本。增量包括单一「请专家」、四处「方法与技能」入口、KnowMart 导航与分层目录、正式指令回执及旧固定包退役。[#118 原始发布回执](replies/cursor-118.md)
+**#119 已发布，Luna 现场验收未通过。当前只需补发 KnowBench 后端。** 两个递归入口在固定计划派发时都收到了整份草图的指令。F3 原套件 10/10、四处目录样本 12/12、旧专家引用清零及历史记录保全已核实。[Luna 现场回执](replies/luna.md)
 
-Cursor 负责构建、部署、迁移、维护窗口内的数据处理、就绪检查，并将本次发布记录写入 `replies/cursor.md`。发布回执交回后，Luna 使用实际发布版本亲自做本卡全部现场业务验收，含 #118 遗留项目，在 `replies/luna.md` 逐项记录结果、证据与未通过项，完成后结案。
+## Cursor 本次补发
+
+1. 从 #119 或更新的现场晋级线合入 KnowBench 父仓 `7f78810`、后端 `47cce65`。重建并晋级使用该后端镜像的服务，包含实际派发规划的 runner、worker 和 API。沿用当前 Web、其他应用、数据库版本、运行关系、路由与报价。下文的三端发布、迁移、分类回填和旧引用清理已在 #119 执行。
+2. 按现行规程检查就绪，记录实际源码、镜像、晋级指针、标签和时间至 `replies/cursor-补发.md`。发布完成后由 Luna 用原题、原套件和 sig-am 的 Kimi 亲自复验，回写同一份业务回执。
+
+## #119 已发布基线
+
+#118 上线递归规划，#119 发布单一「请专家」、四处「方法与技能」、市场分层目录、正式指令回执与旧包退役。下表为 #119 的实际版本。[#119 运维回执](replies/cursor.md) · [#118 原始回执](replies/cursor-118.md)
 
 | 应用 | Luna 父仓 | 后端 | Web |
 | --- | --- | --- | --- |
@@ -20,7 +27,7 @@ KnowMart PostgreSQL、市场和目录相关回归 78 项通过；KnowBench 与 K
 
 本轮两端前端测试共 898 项通过，6 项跳过。Chromium 在 KnowLab 通过 10 项，在 KnowBench 通过 11 项、跳过 1 项。KnowLab 后端相关测试 40 项、KnowBench 规划测试 42 项、隔离 PostgreSQL 相关回归 47 项通过。覆盖无编号的新草图、带编号旧稿重拟、旧能力摘要、分派和独立复核。未计入真实模型或现场付费执行。
 
-## Cursor 发布
+## #119 原发布步骤（已执行）
 
 1. 从现场最新晋级线合入以上版本，构建三端后端及 Web，覆盖读取任务与驱动规划的 API、worker 和 runner。先执行 KnowMart 迁移至 `20261124_0020`（含 0019），KnowBench 迁移至 `20261124_0062`。0062 为存量冻结定义生成搜索词并建 GIN 索引，安排在维护窗口，核对数据量与锁等待。同步两个应用的 expected_schema_revision，核对 KnowLab 提供方与 KnowBench 消费方的孵化请求、结果、正式方法契约及其摘要。先就绪支持类目查询的 KnowMart 后端，再切 KnowBench 后端与 runner，然后切 KnowLab 后端及三个 Web。在现场 KnowMart 后端 `domain_env.WEB_AUTH_ALLOWED_RETURN_PATHS` 现值上追加本分支 [config.yaml](../../../../../gitops/components/app-platform/knowmart-app/knowmart-backend/config.yaml) 中新增的中英文 `/knowledge`、`/publish/expert`、`/publish/knowledge` 路径，按现场基线生成 runtime 并让配置生效。
 2. 旧 KnowLab 实例排空后，在具有已配置 libpq 服务的发布工位，从 KnowMart 后端源码运行 `bash app/scripts/backfill_formal_method_kinds.sh <KnowBench只读服务名> <KnowMart迁移服务名>`。只读连接须能查询 `workbench_formal_methods`；市场连接须能建临时表、锁定条目并更新 `formal_method_listing.method_kind`。服务名从发布环境取得。若有新条目在导出期间写入，可重新运行。核对所有历史条目有匹配的类型，并确认 `scope`、`status` 和安装许可保持原值。再切新前端。回退时先退前端及新查询调用方，再退提供接口的服务。保留已写入的分类表和登记搜索索引，按回退镜像核对 readiness 所期望的库版本。
