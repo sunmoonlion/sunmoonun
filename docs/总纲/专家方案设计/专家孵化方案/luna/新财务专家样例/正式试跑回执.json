@@ -1,0 +1,452 @@
+{
+  "root_request": "89a22950-0521-4913-971a-8feea6b2885f",
+  "environment": "sunmoon-kind",
+  "date": "2026-11-24",
+  "tools": [
+    {
+      "title": "单季流量还原与原行追溯",
+      "request_id": "6c48f264-6ffe-400c-8f5b-460e17b5aab8",
+      "method_id": "56bc97b8-658e-5e5f-b758-e3fee867404f",
+      "run_id": "dab9e6cd-ee29-53d7-b72e-28f7515bfc15",
+      "status": "passed",
+      "recorded_spent_CNY": "0.100000",
+      "cases": [
+        {
+          "case_id": "q1",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "q2",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "q3",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "q4",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "missing_prior",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "restated",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "wrong_scope",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "earlier_receipt",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "reported_balance",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "missing_receipt",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        }
+      ],
+      "version": 1,
+      "definition_digest": "sha256:639966f0f3a77a64b477b31b54b0ce2c545469be013a8189041d75ac98897553",
+      "source_digest": "sha256:5e410c20e13677077e377a51b993cbf89ff3c942044be75c760ba18d70d4d2b3",
+      "in_root_catalog": true
+    },
+    {
+      "title": "历史财报指标与走势计算",
+      "request_id": "3d534451-4fe8-40a0-ba1e-2790dabc2dcb",
+      "method_id": "f2773e17-05ad-5840-ba23-70b20826f6f0",
+      "run_id": "03dfab73-8cd5-570b-abe5-93d9eb69ebee",
+      "status": "passed",
+      "recorded_spent_CNY": "0.090000",
+      "cases": [
+        {
+          "case_id": "loss_base",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "margin",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "net",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "roe",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "cash",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "ordinary_yoy",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "cagr",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "zero",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "version",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        }
+      ],
+      "version": 1,
+      "definition_digest": "sha256:43dccb9fb862b456f0d9d46218798e588afad1f08f83a11e9d3bae1cf168b199",
+      "source_digest": "sha256:214e816a69df39ba17e7ccbee36a6056b74bbfe68c5597d01c6107c5cc5e01c6",
+      "in_root_catalog": true
+    },
+    {
+      "title": "管理层讨论原文与结论对照",
+      "request_id": "f03b35b4-ab95-424b-8bb4-5b5ddeedf9de",
+      "method_id": "15f88077-b134-5871-9aca-b1a38e0efe6f",
+      "run_id": "07d6cebf-a95b-5241-a538-fe363ddd96b1",
+      "status": "cancelled",
+      "recorded_spent_CNY": "0.000000",
+      "cases": [
+        {
+          "case_id": "supported",
+          "repetition": 1,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "supported",
+          "repetition": 2,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "geography",
+          "repetition": 1,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "geography",
+          "repetition": 2,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "partial",
+          "repetition": 1,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "partial",
+          "repetition": 2,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "absent",
+          "repetition": 1,
+          "status": "cancelled",
+          "detail": "Cancelled by the author; dispatched external effects are not rolled back"
+        },
+        {
+          "case_id": "absent",
+          "repetition": 2,
+          "status": "cancelled",
+          "detail": "Cancelled by the author; dispatched external effects are not rolled back"
+        },
+        {
+          "case_id": "empty",
+          "repetition": 1,
+          "status": "cancelled",
+          "detail": "Cancelled by the author; dispatched external effects are not rolled back"
+        },
+        {
+          "case_id": "empty",
+          "repetition": 2,
+          "status": "cancelled",
+          "detail": "Cancelled by the author; dispatched external effects are not rolled back"
+        }
+      ]
+    },
+    {
+      "title": "固定季节性两季预测与历史回测",
+      "request_id": "703254b2-f141-4aa4-91a3-5faa5264c453",
+      "method_id": "f61ddaa6-77e0-56b1-b46b-a39f5b9f4605",
+      "run_id": "c315fc01-d10e-5d94-a3f7-8710a984a105",
+      "status": "passed",
+      "recorded_spent_CNY": "0.020000",
+      "cases": [
+        {
+          "case_id": "constant",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "loss_base",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "short",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "leak",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        }
+      ],
+      "version": 1,
+      "definition_digest": "sha256:4a5d3d25be5efb5f8854a2fafb197086854221062d8ad4f9e15c4b5ffc5461da",
+      "source_digest": "sha256:094c7c7e7be6efa7f7f606e6b62b272d1bf9b9f6e2884e46b15542e997312424",
+      "in_root_catalog": true
+    },
+    {
+      "title": "财务分析报告成稿与证据索引",
+      "request_id": "cff71258-e9a5-4b0a-94cf-681ccadea949",
+      "method_id": "1a46fe4f-03e7-52b0-a23a-d1b387a934ea",
+      "run_id": "eb691f41-aaed-5072-90cb-1a7d9ce7a33e",
+      "status": "passed",
+      "recorded_spent_CNY": "0.040000",
+      "cases": [
+        {
+          "case_id": "margin",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "loss_and_missing",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "quote",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "quarter",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "missing",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        }
+      ],
+      "version": 1,
+      "definition_digest": "sha256:6c5d4a56034bcbda3142fb68e00580f101071acc183f80da1aee93093de515f5",
+      "source_digest": "sha256:936dfddfe5504ff988a2bcd4723f076815ce185643f6d53ba5b300c80e37ac2d",
+      "in_root_catalog": true
+    }
+  ],
+  "instruction_followups": [
+    {
+      "method_id": "15f88077-b134-5871-9aca-b1a38e0efe6f",
+      "run_id": "c141cd2f-e9d5-59bb-be58-c4ff18c15d7b",
+      "status": "failed",
+      "recorded_spent_CNY": "0.051740",
+      "cases": [
+        {
+          "case_id": "supported",
+          "repetition": 1,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        }
+      ]
+    },
+    {
+      "method_id": "15f88077-b134-5871-9aca-b1a38e0efe6f",
+      "run_id": "38ae6dfd-e4fe-57db-b442-08a57ae5090e",
+      "status": "passed",
+      "recorded_spent_CNY": "0.023192",
+      "cases": [
+        {
+          "case_id": "supported",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "method_id": "15f88077-b134-5871-9aca-b1a38e0efe6f",
+      "run_id": "266f6aac-ca77-5ed2-ac62-d9baf666ef1d",
+      "status": "failed",
+      "recorded_spent_CNY": "0.272212",
+      "cases": [
+        {
+          "case_id": "supported",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "supported",
+          "repetition": 2,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "geography",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "geography",
+          "repetition": 2,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "partial",
+          "repetition": 1,
+          "status": "failed",
+          "detail": "instruction_trial_failed"
+        },
+        {
+          "case_id": "partial",
+          "repetition": 2,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "absent",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "absent",
+          "repetition": 2,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "empty",
+          "repetition": 1,
+          "status": "passed",
+          "detail": ""
+        },
+        {
+          "case_id": "empty",
+          "repetition": 2,
+          "status": "passed",
+          "detail": ""
+        }
+      ]
+    }
+  ],
+  "report_v2": {
+    "method_id": "1a46fe4f-03e7-52b0-a23a-d1b387a934ea",
+    "run_id": "0cde2ad5-d6f7-5759-85b2-9bbac6554993",
+    "status": "passed",
+    "recorded_spent_CNY": "0.050000",
+    "cases": [
+      {
+        "case_id": "margin",
+        "repetition": 1,
+        "status": "passed",
+        "detail": ""
+      },
+      {
+        "case_id": "loss_and_missing",
+        "repetition": 1,
+        "status": "passed",
+        "detail": ""
+      },
+      {
+        "case_id": "quote",
+        "repetition": 1,
+        "status": "passed",
+        "detail": ""
+      },
+      {
+        "case_id": "quarter",
+        "repetition": 1,
+        "status": "passed",
+        "detail": ""
+      },
+      {
+        "case_id": "missing",
+        "repetition": 1,
+        "status": "passed",
+        "detail": ""
+      }
+    ],
+    "version": 2,
+    "definition_digest": "sha256:3f9b1181b1b362d7721006a5894e3a0629944438daca493d09f7b8f05d89a951",
+    "source_digest": "sha256:936dfddfe5504ff988a2bcd4723f076815ce185643f6d53ba5b300c80e37ac2d",
+    "in_root_catalog": true
+  },
+  "initial_instruction_reservations": {
+    "run_id": "07d6cebf-a95b-5241-a538-fe363ddd96b1",
+    "pending_count": 6,
+    "pending_reserved_CNY": "130.744320"
+  },
+  "root_revision": 4,
+  "root_planning": {
+    "capabilities_http_status": 502,
+    "code": "contract_invalid",
+    "rounds": 0
+  }
+}
