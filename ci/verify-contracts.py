@@ -63,13 +63,49 @@ def contracts(repos, pinned):
     lock = json.loads(read("knowbench", "backend", "contracts/formal-method-lock.json"))
     web_dir = "contracts/formal-method-provider/"
     web = json.loads(read("knowlab", "web", web_dir + "lock.json"))
-    if len(lock["source_sha256"]) != 5 or lock["source_sha256"] != web["source_sha256"]:
+    public_sources = {
+        "formal_method.py",
+        "formal_method_compiler.py",
+        "formal_method_plan.py",
+        "formal_method_admission.py",
+        "formal_method_execution.py",
+    }
+    generated_files = {
+        name: name.removesuffix(".py") + "_generated.py" for name in public_sources
+    }
+    # Selection is a backend-to-backend contract, introduced after the five
+    # public editor contracts. Old pinned releases have no generated selector.
+    backend = repos / "knowbench-app/knowbench-backend"
+    selector = "app/app/domain/workbench/incubation_selection.py"
+    has_selector = (
+        bool(
+            git(
+                backend,
+                "ls-tree",
+                "--name-only",
+                pins["knowbench"]["backend_revision"],
+                "--",
+                selector,
+            )
+        )
+        if pinned
+        else (backend / selector).is_file()
+    )
+    if has_selector:
+        generated_files["selection.py"] = "incubation_selection.py"
+    sources = lock["source_sha256"]
+    if set(sources) != set(generated_files) or set(lock["generated_sha256"]) != set(
+        generated_files.values()
+    ):
+        raise SystemExit(
+            "KnowBench formal method contract inventory differs from its runtime"
+        )
+    if web["source_sha256"] != {name: sources[name] for name in public_sources}:
         raise SystemExit(
             "KnowBench and the author editor consume different formal method contracts"
         )
-    for name, expected in lock["source_sha256"].items():
-        verify("knowlab", "backend", "app/domain/knowbots/" + name, expected)
-        generated = name.removesuffix(".py") + "_generated.py"
+    for name, generated in generated_files.items():
+        verify("knowlab", "backend", "app/domain/knowbots/" + name, sources[name])
         verify(
             "knowbench",
             "backend",
