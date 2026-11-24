@@ -1,5 +1,7 @@
 # 普通专家执行器接入既有 KnowMart 核权关系
 
+**2026-11-24 已结单。** 执行器核权配置已生效，原委托成功交付，计量核对通过。发布分支与标签已在 GitHub 和 Gitee 逐项回读。[发布与验收回执](replies/luna.md)
+
 Cursor 负责发布，Luna 负责用保留的普通委托验收。请从 #117 晋级指针 `3c4761985` 或包含它的最新晋级线上摘取 sunmoonun `3ed82cd54`。此提交仅给 knowbench-runner 的 envFrom 增加现有 knowbench-knowmart-summon-service 引用。使用当前晋级线的镜像、配置和已有服务凭据即可。
 
 ## 现场依据
