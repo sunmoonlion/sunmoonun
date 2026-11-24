@@ -1,23 +1,28 @@
 # 方法与技能四处入口、请专家与 KnowMart 导航增量发布
 
-**待 Cursor 发布，Luna 负责业务验收。** #118 的 KnowBench Web 为 `b1516d0`。本卡合入该镜像之后的单一「请专家」和四处「方法与技能」入口。本卡还包含 KnowMart 的三个搜寻栏目和两个需求发布栏目。构建基线和现场配置取自已晋级版本。[#118 发布回执](../2026-11-24-孵化与即时编排递归规划/replies/cursor.md)
+**待 Cursor 发布，Luna 负责业务验收。** #118 的 KnowBench Web 为 `b1516d0`。本卡合入该镜像之后的单一「请专家」和四处「方法与技能」入口。KnowMart 包含三个搜寻栏目、两个需求发布栏目，以及按工具方法和专家方法分层的目录。构建基线和现场配置取自已晋级版本。[#118 发布回执](../2026-11-24-孵化与即时编排递归规划/replies/cursor.md)
 
 | 应用 | Luna 父仓 | 后端 | Web |
 | --- | --- | --- | --- |
-| KnowBench | `a0f77ce` | `4201ba0` | `9a487cd` |
-| KnowLab | `9ab0447` | `25bf5e0` | `5fb7589` |
-| KnowMart | `5685a88` | 沿用现场镜像，更新网页登录回跳配置 | `6f51471` |
+| KnowBench | `cb2f43e` | `ecac273` | `9a487cd` |
+| KnowLab | `0ef7fa6` | `dad8ef2` | `5fb7589` |
+| KnowMart | `8816754` | `b992017` | `7f54861` |
 
 ## 本地验证
 
-两端生产构建、类型检查、中英文键检查及 lint 通过。前端回归 KnowBench 527 项、KnowLab 371 项通过，各有 2 项、4 项跳过。三个 Chromium 场景验证了 KnowLab 左侧入口、KnowBench 旧书签跳转和新页登记修订，使用本地配对会话与样例登记。KnowBench 独立 PostgreSQL 相关回归 115 项全部通过。KnowLab 路由及选型测试覆盖未登录、跨作者工作稿、首屏之外的确切版本和摘要不符。共享环境的四入口业务验收留待晋级。KnowMart Web 类型检查、lint、中英文键检查、生产构建通过，前端测试 144 项通过、2 项跳过，Chromium 8 项通过。两种类型均验证栏目取数及发布请求，浏览器覆盖旧书签、切换、刷新和栏目高亮。
+两端生产构建、类型检查、中英文键检查及 lint 通过。前端回归 KnowBench 527 项、KnowLab 371 项通过，各有 2 项、4 项跳过。三个 Chromium 场景验证了 KnowLab 左侧入口、KnowBench 旧书签跳转和新页登记修订，使用本地配对会话与样例登记。KnowBench 独立 PostgreSQL 相关回归 115 项全部通过。KnowLab 路由及选型测试覆盖未登录、跨作者工作稿、首屏之外的确切版本和摘要不符。共享环境的四入口业务验收留待晋级。KnowMart Web 类型检查、lint、中英文键检查、生产构建通过，前端测试 144 项通过、2 项跳过，Chromium 9 项通过。两种类型均验证栏目取数及发布请求，浏览器覆盖旧书签、切换、刷新和栏目高亮。
+
+KnowMart PostgreSQL、市场和目录相关回归 78 项通过；KnowBench 与 KnowLab 的交付和上架相关回归分别通过 32 项、4 项。共享环境只读比对 8/8 个历史条目能按作者、方法 ID、版本和摘要匹配冻结登记。本地隔离 PostgreSQL 回填同一批元数据得到 6 个工具版本、2 个专家版本，第二次执行修改 0 行，摘要不符时整笔回滚。手机和桌面验证导航位置、业务细类和工具页刷新。
 
 ## Cursor 发布
 
-1. 从现场最新晋级线合入以上版本，构建并发布两端后端与 Web，覆盖读取任务与驱动规划的 API、worker 和 runner。两端可先发布后端，再放行新页面。此增量没有数据库迁移。KnowMart 构建并更新 Web。在现场 KnowMart 后端 `domain_env.WEB_AUTH_ALLOWED_RETURN_PATHS` 现值上追加本分支 [config.yaml](../../../../../gitops/components/app-platform/knowmart-app/knowmart-backend/config.yaml) 中新增的中英文 `/knowledge`、`/publish/expert`、`/publish/knowledge` 路径，按现场基线生成 runtime 并让配置生效。
-2. 在 `replies/cursor.md` 记录本卡各应用的实际源码版本和镜像、就绪情况、晋级指针和标签。按原规程保留 #118 的运行关系、模型路由、报价和试验名单。
+1. 从现场最新晋级线合入以上版本，构建三端后端及 Web，覆盖读取任务与驱动规划的 API、worker 和 runner。先发布 KnowBench 后端（按需返回冻结类型），执行 KnowMart 迁移 `20261124_0019` 并更新 KnowMart 后端，再更新 KnowLab 后端（自用上架带类型）。在现场 KnowMart 后端 `domain_env.WEB_AUTH_ALLOWED_RETURN_PATHS` 现值上追加本分支 [config.yaml](../../../../../gitops/components/app-platform/knowmart-app/knowmart-backend/config.yaml) 中新增的中英文 `/knowledge`、`/publish/expert`、`/publish/knowledge` 路径，按现场基线生成 runtime 并让配置生效。
+2. 旧 KnowLab 实例排空后，在具有已配置 libpq 服务的发布工位，从 KnowMart 后端源码运行 `bash app/scripts/backfill_formal_method_kinds.sh <KnowBench只读服务名> <KnowMart迁移服务名>`。只读连接须能查询 `workbench_formal_methods`；市场连接须能建临时表、锁定条目并更新 `formal_method_listing.method_kind`。服务名从发布环境取得。若有新条目在导出期间写入，可重新运行。核对所有历史条目有匹配的类型，并确认 `scope`、`status` 和安装许可保持原值。再切新前端。若回退，先退新 Web 和 KnowLab 发送方，保留可空分类列以兼容旧镜像。
+3. 在 `replies/cursor.md` 记录本卡各应用的实际源码版本和镜像、就绪情况、晋级指针和标签。按原规程保留 #118 的运行关系、模型路由、报价和试验名单。
 
 ## Luna 现场验收
+
+- KnowMart「搜寻专家」及专家详情最上面应为市场七栏。列表下一行有「工具方法」「专家方法」，金融、工具、商业服务等业务类目仅在专家方法下面。用 sig-am 搜索“核验”，核对五个 M02 工具；切专家时同一 M02 方法展示最新可见 v2，未登记业务类目归「未分类」。另用无资格账号验证自用条目不可见。工具页不出现演示专家、业务分类或旧式「请这位」动作。
 
 - KnowMart 从中文版首页确认「搜寻小店」「搜寻专家」「搜寻知识」「发布专家」「发布知识」均为一级栏目。分别进入两类发布页核对列表与表单，旧 `/zh-CN/demands` 应进入专家栏目，已有需求详情链接可用；未登录时从两个发布地址登录后返回原栏目。
 
