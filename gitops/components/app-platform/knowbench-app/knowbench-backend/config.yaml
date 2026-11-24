@@ -164,6 +164,7 @@ knowbench_backend_deployment:
     - target: knowmart
       relation: summon
       enabled: true
+      roles: [api, worker, runner]
       application: sunmoonai-knowbench-knowmart-summon
       client_id: sunmoon-knowbench-knowmart-summon
       organization: sunmoon-workload-knowbench-knowmart-summon
