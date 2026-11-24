@@ -1,0 +1,3613 @@
+{
+  "model": "sig-am / Kimi",
+  "execution": "真实工作台聊天会话，本地共享 HTN 宿主拟稿、正式编译与冻结脚本运行。",
+  "consumer_deadline_seconds": 150,
+  "criteria": [
+    {
+      "case": "新题合并范围",
+      "question": "母公司与合并集团的披露行都在，我稍后指定核哪套。请核现金滚动。",
+      "status": "clarify",
+      "methods": [],
+      "steps": 0
+    },
+    {
+      "case": "对照选定",
+      "question": "之前我说等我定主体，现在我选定合并口径。现金年初、年末及净增加原行和核验目标都将由我提供。请核差额。",
+      "status": "ready",
+      "methods": [
+        "m3"
+      ],
+      "steps": 1
+    },
+    {
+      "case": "新题找资料",
+      "question": "我没有原行也不会提供，请替我去交易所下载报表并摘取原行，随后核验资产平衡。",
+      "status": "gap",
+      "methods": [],
+      "steps": 0
+    },
+    {
+      "case": "对照待选",
+      "question": "三套期初存货数据都能发，我过几天再挑一套作为本次依据，随后才核对上期末。",
+      "status": "clarify",
+      "methods": [],
+      "steps": 0
+    },
+    {
+      "theme": "现场目录",
+      "case": "连月滚动",
+      "question": "只给第一个月的库存，按以后依次发生的动态清单逐月滚动结转，交出每个月历史余额并计算未来库存。",
+      "status": "gap",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "case": "新题待定期",
+      "question": "现金的年初年末余额和净增加额原行都有，我稍后指定要核哪一年，再开始。",
+      "status": "clarify",
+      "methods": [],
+      "steps": 0
+    },
+    {
+      "theme": "现场目录",
+      "case": "公交",
+      "question": "公交运营主体的同口径净利润、归母净利润、少数股东损益及各行位置齐全。判断全年利润归属是否对得上。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m2"
+      ]
+    },
+    {
+      "theme": "现场目录",
+      "case": "剧院",
+      "question": "剧院提供了完整的期初及期末平表、利润归属、现金滚动、存货期初连续性五份已验回执。合成一份能回查缺件和不平项目的报告。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m5"
+      ]
+    },
+    {
+      "theme": "现场目录",
+      "case": "重测博物馆3",
+      "question": "博物馆经营公司，提供同主体同范围同报告日且标好页行的资产总计、负债与权益，以及核对目标。差了多少元？请列依据。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m1"
+      ]
+    },
+    {
+      "case": "新题期初",
+      "question": "同口径归档的上年期末存货和本年期初存货原行、核验目标我交给你。两期接得上吗？",
+      "status": "ready",
+      "methods": [
+        "m4"
+      ],
+      "steps": 1
+    },
+    {
+      "case": "新题账平",
+      "question": "合作社，提供已按页行标注的同日资产、负债及所有者权益，还有核验目标。请核三项差额，给出处。",
+      "status": "ready",
+      "methods": [
+        "m1"
+      ],
+      "steps": 1
+    },
+    {
+      "theme": "现场目录",
+      "case": "码头",
+      "question": "收到码头企业现金净增加额为负；期末、期初现金余额及净增加额原行和核验目标全有。能核验滚动是否一致吗？",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m3"
+      ]
+    },
+    {
+      "case": "新题汇集",
+      "question": "五份已经核验的回执我会交给你，期初期末平表、利润归属、现金滚动、存货衔接都在内。请合成正式报告。",
+      "status": "ready",
+      "methods": [
+        "m5"
+      ],
+      "steps": 1
+    },
+    {
+      "theme": "现场目录",
+      "case": "盘点更正",
+      "question": "存货期初原行同时有原版和更正版；本次由我确定依据，等我确认以后再对上期末。",
+      "status": "clarify",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "缺汇总器",
+      "question": "有主体范围、版本页码、核验目标和原表数据。做期初与期末两次资产平衡、全年利润归属、现金勾稽、存货衔接。必须把这五份核验回执再归集成一份正式报告。",
+      "status": "gap",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "博物馆",
+      "question": "博物馆经营公司，提供同主体同范围同报告日且标好页行的资产总计、负债与权益，以及核对目标。差了多少元？请列依据。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m1"
+      ]
+    },
+    {
+      "case": "新题缺录音",
+      "question": "只有五种财务核验或归集方法，请交一段有声粤语讲解音频。",
+      "status": "gap",
+      "methods": [],
+      "steps": 0
+    },
+    {
+      "theme": "现场目录",
+      "case": "外文配乐",
+      "question": "请按指定曲谱给英文公告制作可播放的交响乐配音，交成品音轨。",
+      "status": "gap",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "重测博物馆2",
+      "question": "博物馆经营公司，提供同主体同范围同报告日且标好页行的资产总计、负债与权益，以及核对目标。差了多少元？请列依据。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m1"
+      ]
+    },
+    {
+      "theme": "现场目录",
+      "case": "工会",
+      "question": "同一报告日的资产、负债、权益原行及定位资料已经给好。核对三数的恒等关系并给我差额和原行。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m1"
+      ]
+    },
+    {
+      "theme": "现场目录",
+      "case": "实时航线",
+      "question": "我要现在所有港口的船舶实时 AIS 数据和准确航线，要求接入实况后返回坐标。",
+      "status": "gap",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "双账簿",
+      "question": "合并与单体两套资产负债表原行都齐，承担方只能核一套，由我选用哪一套，我暂未确定。",
+      "status": "clarify",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "信用社",
+      "question": "只有一份净利润检查要交。我给了两个信用社各自全套资料，主体由我指定，此刻还没指定。",
+      "status": "clarify",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "书店",
+      "question": "书店的本年期初与上年期末存货原行，主体、单位、范围、两份报告版本和核对目标已列出。对接处有没有差额？",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m4"
+      ]
+    },
+    {
+      "case": "新题负损益",
+      "question": "报社已列出全年有页行的净利润、归母和负数少数股东损益，以及核验目标。三者勾得上吗？",
+      "status": "ready",
+      "methods": [
+        "m2"
+      ],
+      "steps": 1
+    },
+    {
+      "theme": "现场目录",
+      "case": "茶厂",
+      "question": "茶厂给出现金期末余额、期初余额、净增加额和所有出处，请用有符号差额检查现金变动。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m3"
+      ]
+    },
+    {
+      "theme": "现场目录",
+      "case": "闰年",
+      "question": "给了闰年、平年两组现金滚动原行，我们只查其中一年，先问我采用哪一个报告年度再动手。",
+      "status": "clarify",
+      "steps": 0,
+      "methods": []
+    },
+    {
+      "theme": "现场目录",
+      "case": "纺织",
+      "question": "纺织厂财报披露负的少数股东损益，归母和净利润都有对应行及口径。请核全年净利润的归属关系。",
+      "status": "ready",
+      "steps": 1,
+      "methods": [
+        "m2"
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "batch": "目录初筛和回包修复",
+      "summary": {
+        "原换题组": {
+          "passed": 14,
+          "total": 16,
+          "business_cases": 40,
+          "calls": 25,
+          "cny": "5.034480",
+          "mismatches": [
+            "盘点更正",
+            "茶厂"
+          ]
+        },
+        "新增题": {
+          "passed": 6,
+          "total": 8,
+          "business_cases": 22,
+          "calls": 15,
+          "cny": "2.871864",
+          "mismatches": [
+            "新题找资料",
+            "新题合并范围"
+          ]
+        },
+        "另两次同题": {
+          "passed": 2,
+          "total": 2,
+          "business_cases": 12,
+          "calls": 4,
+          "cny": "0.600672",
+          "mismatches": []
+        }
+      },
+      "results": [
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "m2（净利润归属核验，算式 NP-P-M）的适用条件与目标完全吻合：目标声明委托人已备齐同主体同口径的净利润、归母净利润、少数股东损益原行及各行位置，即 applies_when 所要求的同主体同范围人民币财报原行；其承诺输出（核验项目、引用原行、算式、有符号差额、核验状态、待补资料）正好交付“判断全年利润归属是否对得上”；排除项（审计意见、预测、投资建议）未被请求。单一方法即可覆盖整个目标，无需拆分。所需 rows（标准化披露事实）与 target（主体、口径、版本、报告期）均为委托人承诺提供的材料，绑定到 caller。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "公交",
+          "session_id": "46c68d7a-fd7e-4718-96b6-21b9922fb883",
+          "seconds": 60.48,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5039
+            },
+            {
+              "stage": "bind",
+              "chars": 15990
+            }
+          ],
+          "cost": "0.677116"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标是资产负债平衡核验（A-L-E）：m1 的 applies_when 正好要求委托人提供同主体同范围的人民币财报原行，输入 rows（标好页行的披露事实，type1）与 target（主体、范围、版本、报告期，type2），输出 check（type3：算式 A-L-E、有符号差额元、状态、证据与待补），与所求「差了多少元、列依据」完全对应，单一方法即可交付。请求中「提供……以及核对目标」属委托人承诺提供的材料，caller_inputs 暂空，故将 rows 与 target 绑定为调用方输入。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "博物馆",
+          "session_id": "4b98a884-5b32-4df2-9718-cda161440bc9",
+          "seconds": 30.32,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5053
+            },
+            {
+              "stage": "bind",
+              "chars": 16053
+            }
+          ],
+          "cost": "0.435876"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "目标可匹配 m1（资产负债平衡核验，A-L-E）；请求方明确不提供原行，去交易所下载报表并摘取原行可作为计划内工作，不构成能力缺口。但请求缺少核验目标的关键决定：1) 公司主体（名称或代码）；2) 报告期（如 2025 年年报）；3) 披露版本（首版或最新修订版）；4) 口径（合并或母公司）。缺少主体与报告期连要下载哪份报表都无法定位，无法开始摘取原行与核验资产平衡。请先确认主体、报告期、版本与口径。",
+          "correct": false,
+          "business_cases": 0,
+          "case": "新题找资料",
+          "session_id": "8a1a1293-a34f-44bf-8647-6c489967d455",
+          "seconds": 96.28,
+          "calls": 2,
+          "repairs": [
+            "['json_object: no JSON object found; return one complete JSON object']"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5017
+            },
+            {
+              "stage": "directory",
+              "chars": 5227
+            }
+          ],
+          "cost": "0.984108"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m5"
+          ],
+          "reason": "用户请求把五份已核验回执（期初资产平表、期末资产平表、全年利润归属、现金滚动、存货期初连续性）合成为正式报告。目录中的 m5（核验结果汇总）完整覆盖该目标：其 applies_when 为「收到按指定项目提供的五份报表核验回执」，五个必填输入端口与五份回执一一对应，输出 report 承诺逐项证据、覆盖计数（应核、实核、阈值内、不平、未核验）及按项目列出的待补清单，正合「合成正式报告」。用户明确说「我会交给你」，即调用方承诺提供材料但尚未传值，故五个输入均绑定到 caller。m5 的排除条款（仅整理传入回执，不自行取数、补数或重算财务公式）与「已经核验」的前提一致，无需拆分为其他核验方法。",
+          "correct": true,
+          "business_cases": 3,
+          "case": "新题汇集",
+          "session_id": "15155f8b-5d76-49f5-b9cc-24ba3daf1e46",
+          "seconds": 47.75,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5039
+            },
+            {
+              "stage": "bind",
+              "chars": 18970
+            }
+          ],
+          "cost": "0.380336"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "m4（期初余额连续性核验）的算式 OPEN-PREV_CLOSE 与目标「上年期末存货 vs 本年期初存货是否接得上」完全对应；其输出 type3 承诺项目键、引用原行证据、有符号差额、状态与待补清单，覆盖全部交付物。适用条件为委托人提供同主体同范围的人民币财报原行——委托人已明确承诺提供两期原行与核验目标，故必需输入 rows、target 均绑定委托人，无需澄清，单一方法即可交付整个目标，无需拆分。m4 非隔离指令方法，无需独立复核。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "新题期初",
+          "session_id": "a773fa91-0410-411c-8b80-ca71d1fe62c9",
+          "seconds": 36.81,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5019
+            },
+            {
+              "stage": "bind",
+              "chars": 16098
+            }
+          ],
+          "cost": "0.356728"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标与 m1「资产负债平衡核验」完全对应：委托人提供同主体、同范围、同报告日、同版本且标好页行的资产总计、负债合计与所有者权益合计原行（rows，type1）及核对目标（target，type2，含主体/范围/起止日/本期版本/项目键/时点），专家按算式 A-L-E 计算有符号差额并逐项列示可回查证据，输出 check（type3：项目键、工具 Q01、算式 A-L-E、证据、差额元、状态、待补），正是「差了多少元、请列依据」的交付。m1 适用条件「委托人提供同主体同范围的人民币财报原行」成立，输入端口 rows 与 target 均为必填且由调用方承诺提供，无需拆分或补充其他方法。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆2",
+          "session_id": "45d28482-6d24-4e7f-9234-aac4c268f50f",
+          "seconds": 32.2,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5053
+            },
+            {
+              "stage": "bind",
+              "chars": 16053
+            }
+          ],
+          "cost": "0.314276"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标为对同主体、同范围、同报告日且标注页行的资产总计、负债合计与权益合计做资产负债平衡核验（A-L-E）并给出差额与依据。授权方法 m1「资产负债平衡核验」承诺的正是此结果：输入 rows（type1，同批次具出处、含页行主体范围起止日期币种单位精度原始金额的标准化披露事实，缺失不补零）与 target（type2，指定主体、范围、起止日、本期版本、项目键与时点），输出 check（type3，含项目键、工具 Q01、算式 A-L-E、证据、有符号差额元、状态与待补）。委托人文本明确「提供……资产总计、负债与权益，以及核对目标」，即两份输入由调用方提供，无需专家另行取数，单个 m1 叶子即可整体交付，无排除项冲突。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆3",
+          "session_id": "e4d4e75e-85c8-45c3-b8b7-ae26710bca57",
+          "seconds": 27.49,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5053
+            },
+            {
+              "stage": "bind",
+              "chars": 16053
+            }
+          ],
+          "cost": "0.286396"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m5"
+          ],
+          "reason": "目标是将剧院已提供的五份已验回执（期初平表、期末平表、利润归属、现金滚动、存货期初连续性）合成一份可回查缺件与不平项目的汇总报告。m5 核验结果汇总的适用条件正是「收到按指定项目提供的五份报表核验回执」，五个必需输入 opening_balance、closing_balance、profit、cash、inventory 与五份回执一一对应，承诺输出逐项证据、应核/实核/阈值内/不平/未核验计数及按项目列出的待补清单（type5），完整覆盖目标。其排除条款（仅整理回执、不取数补数、不重算）与场景一致，五份回执由调用方（剧院）提供，故全部绑定为 caller 输入，无需拆分。",
+          "correct": true,
+          "business_cases": 3,
+          "case": "剧院",
+          "session_id": "0cbc6b70-07cd-43f4-974a-d1be8284d3ea",
+          "seconds": 44.16,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5059
+            },
+            {
+              "stage": "bind",
+              "chars": 18990
+            }
+          ],
+          "cost": "0.363416"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "用户目标是对合作社同日资产、负债、所有者权益三项原行核验 A-L-E 差额并给出出处。m1（资产负债平衡核验）的承诺正好覆盖：输入为同批次具页行出处的标准化披露事实 rows 与指定核验项目、主体、口径、版本、报告期的 target，输出含项目键、算式 A-L-E、证据、有符号差额、状态与待补，适用条件为委托人提供同主体同范围人民币财报原行，与请求一致；排除项（审计意见、预测、投资建议）未被要求。rows 与 target 均由委托人承诺提供，绑定为 caller 输入，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题账平",
+          "session_id": "df07f077-e9be-48ef-8fb0-10d8edb34c0a",
+          "seconds": 28.38,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5033
+            },
+            {
+              "stage": "bind",
+              "chars": 16033
+            }
+          ],
+          "cost": "0.277796"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标是核验现金及现金等价物滚动一致性（期末余额−期初余额−净增加额），与 m3「现金及现金等价物滚动核验」的算式 END-BEGIN-CHANGE 完全一致。m3 的适用条件为委托人提供同主体同范围的人民币财报原行，委托人已明确期末、期初现金余额及净增加额的原行和核验目标齐全；净增加额为负不影响有符号差额计算，不构成排除项（排除项仅为审计意见、预测和投资建议）。m3 承诺返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料，单一方法即可交付全部目标，无需拆分。两个必需输入 rows（type1）与 target（type2）均由委托人提供，绑定为 caller 输入。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "码头",
+          "session_id": "cc4acb78-89d3-463d-be3e-a10d6299132c",
+          "seconds": 45.54,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5043
+            },
+            {
+              "stage": "bind",
+              "chars": 16019
+            }
+          ],
+          "cost": "0.330236"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标即存货期初余额与上期末的连续性核验，m4（期初余额连续性核验，OPEN-PREV_CLOSE）的承诺输出（核验项目、引用原行、算式、有符号差额、状态与待补资料）与所需交付完全一致，排除项（审计意见、预测、投资建议）不冲突。用户声明存货期初原行有原版与更正版、版本依据由委托人本人确定并确认后再核——这正对应 target 输入中的「本期版本／上期版本」字段，属委托人承诺提供但尚未给出的材料，故 rows 与 target 两个必需输入均绑定到委托人，无需澄清或拆分。",
+          "correct": false,
+          "business_cases": 0,
+          "case": "盘点更正",
+          "session_id": "b68a2b18-b234-4125-a038-ee20eb9246af",
+          "seconds": 94.37,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5017
+            },
+            {
+              "stage": "bind",
+              "chars": 16096
+            }
+          ],
+          "cost": "0.568208"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标为复合交付：五项核验回执（期初资产平衡、期末资产平衡→m1；全年利润归属→m2；现金勾稽→m3；存货衔接→m4 期初连续性）均可由已列别名覆盖，但最终消费者——把五份核验回执归集成一份正式报告——在已列别名 m1-m4 中无对应方法。核验方法不能替代归集报告能力，属明确缺失能力。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "缺汇总器",
+          "session_id": "f6ae9a10-4bb0-4e1f-9776-a28fa8687656",
+          "seconds": 50.91,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 4761
+            }
+          ],
+          "cost": "0.215372"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "m3（现金及现金等价物滚动核验）适用且足以完成目标，但其必填输入 target 需要报告期（开始日、结束日）与本期版本。您表示稍后才指定要核哪一年，年份属于必须由人决定的期间事项，在未指定前无法确定 target。请明确：要核验哪一年（开始日/结束日）、使用哪一版报告（本期版本），以及主体与范围口径；现金年初余额、年末余额、净增加额原行届时请一并提供。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题待定期",
+          "session_id": "2f1d67c4-7d84-4818-aa55-d79547cae2b3",
+          "seconds": 25.37,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5011
+            },
+            {
+              "stage": "bind",
+              "chars": 15987
+            }
+          ],
+          "cost": "0.261348"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "请求的交付物是「按指定曲谱为英文公告制作可播放的交响乐配音并交付成品音轨」，属于音频/音乐制作能力。当前目录中的全部可用方法（m1 资产负债平衡核验、m2 净利润归属核验、m3 现金及现金等价物滚动核验、m4 期初余额连续性核验、m5 核验结果汇总）均为财务披露事实的核验与汇总，其输入是具出处的标准化披露事实、输出是核验回执与汇总报告，没有任何方法接受曲谱或英文公告音频文本作为输入，也没有任何方法能产出音轨。目录明显缺失音频合成/配音制作能力，属于能力缺口而非待定的人类决策。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "外文配乐",
+          "session_id": "7a266467-144d-4685-a1be-73397e0f7d8d",
+          "seconds": 16.01,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5001
+            }
+          ],
+          "cost": "0.108192"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标是仅凭首月库存与后续逐月发生的变动清单做滚动结转，产出每个月的历史余额并计算未来库存。目录中 m1–m5 均为对“同批次具出处的标准化披露事实”的核验与汇总：m4（期初余额连续性核验，OPEN-PREV_CLOSE）只核对已披露期初与上期期末是否一致，既不据变动清单计算各月余额，也无法推算尚未披露的未来库存；m5 仅汇总五份核验回执。目录缺少“由期初+动态变动清单逐月滚动计算并预测库存”的能力，属于明确的能力缺口，而非待定的人为决策。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "连月滚动",
+          "session_id": "56542bd4-8396-427d-aa83-b1ee72c42f90",
+          "seconds": 35.37,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5035
+            }
+          ],
+          "cost": "0.176712"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "请求的交付物是一段有声粤语讲解音频。授权的五种方法（m1 资产负债平衡核验、m2 净利润归属核验、m3 现金及现金等价物滚动核验、m4 期初余额连续性核验、m5 核验结果汇总）全部是对具出处披露事实的财务核验与结果汇总，输出为差额回执或汇总报告，均不具备生成讲解、撰写讲稿或合成粤语语音/音频的能力。目录中没有任何方法的输出可匹配“有声讲解音频”，属明确的能力缺口，需另寻能产出粤语音频讲解的专家。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题缺录音",
+          "session_id": "4bc9c1db-fb43-4e78-9eec-8471762ff455",
+          "seconds": 11.8,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 4997
+            }
+          ],
+          "cost": "0.090212"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标是核对同一报告日资产、负债、权益三数的恒等关系并给出差额和原行，与 m1「资产负债平衡核验」（A-L-E）完全对应：其 applies_when 为委托人提供同主体同范围的财报原行，输出 check（type3）含算式 A-L-E、引用的证据原行、有符号差额元、状态与待补，正是用户要求的交付。用户声明原行及定位资料已给好，rows 作为委托人提供的标准化披露事实绑定到 caller；target 指定本次核验的主体、范围、起止日、版本与项目键，同为委托人指定，绑定到 caller。单一方法即可交付整个目标，无需拆分。m1 非隔离指令方法，不配置独立复核。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "工会",
+          "session_id": "c3168b68-3de9-4c03-93cd-06b4ba6d5647",
+          "seconds": 45.78,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5031
+            },
+            {
+              "stage": "bind",
+              "chars": 16031
+            }
+          ],
+          "cost": "0.347068"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "用户需求为获取所有港口船舶的实时AIS数据与准确航线，并在接入实况后返回坐标，属于船舶实时定位与轨迹数据接入范畴。当前目录所列方法（m1资产负债平衡核验、m2净利润归属核验、m3现金及现金等价物滚动核验、m4期初余额连续性核验、m5核验结果汇总）均为财务报表核验类能力，与船舶AIS数据接入、实时坐标返回无任何匹配。这是一个明确的能力缺失。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "实时航线",
+          "session_id": "2dd1e26c-188f-4f9d-a1b0-4ccb8727f2f7",
+          "seconds": 39.34,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5019
+            }
+          ],
+          "cost": "0.290624"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "交付物与 m1（资产负债平衡核验）匹配，合并与单体两套原行材料均齐、可绑定为请求方提供；但 m1 的 target 须指定口径，承担方只能核一套，而选用合并口径还是单体口径是您的未决决策（口径属范围决策，必须先定）。请明确本次资产平表核验采用合并口径还是单体口径。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "双账簿",
+          "session_id": "31397fd3-0ce9-4bd3-ad59-e855d7420ac7",
+          "seconds": 41.71,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5023
+            }
+          ],
+          "cost": "0.230672"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "交付物只有一份净利润检查，对应目录中的 m2（净利润归属核验）。m2 的 target 输入要求指定核验项目、主体、口径、版本与报告期；你说明两个信用社的全套资料都已提供、主体由你指定但此刻尚未指定。以哪家信用社作为本次净利润核验的主体属于 scope 决定，缺失必须先澄清。请指定：(1) 两个信用社中的哪一家作为核验主体；(2) 报告期；(3) 口径（合并/母公司）与版本（如存在多版本披露）。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "信用社",
+          "session_id": "986cf8a3-ccb1-4ae7-ad64-c7fd8d11eed8",
+          "seconds": 18.79,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5025
+            }
+          ],
+          "cost": "0.146752"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标是核对同一书店主体、同范围下本年期初存货与上年期末存货原行的对接差额，且主体、单位、范围、两期报告版本与核对目标均已由委托方列出。授权目录中 m4「期初余额连续性核验」的算式正是 OPEN-PREV_CLOSE，适用条件（委托人提供同主体同范围的人民币财报原行）满足，承诺输出包含核验项目、引用原行、算式、有符号差额、状态与待补资料，完整覆盖本目标，无需拆分。m4 非隔离指令方法，无需独立复核。所需 rows（两期存货原行）与 target（主体、范围、版本、报告期）均由委托方提供，绑定为调用方输入。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "书店",
+          "session_id": "5638b81b-d7ff-47a4-9784-be71bfb840dc",
+          "seconds": 35.61,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5043
+            },
+            {
+              "stage": "bind",
+              "chars": 16122
+            }
+          ],
+          "cost": "0.285816"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标是现金及现金等价物滚动核验，m3 的承诺输出（核验项目、引用原行、算式 END-BEGIN-CHANGE、有符号差额、状态与待补资料）与所需交付完全一致。输入 rows 委托人已备（母公司与合并集团披露行都在），target（主体、范围、起止日、本期版本、项目键）委托人明确稍后指定，属可待定的委托人输入，直接绑定即可，无需拆分或澄清。",
+          "correct": false,
+          "business_cases": 0,
+          "case": "新题合并范围",
+          "session_id": "dcf260d3-c3ea-45de-b1a8-24ec80e531bf",
+          "seconds": 73.12,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5005
+            },
+            {
+              "stage": "bind",
+              "chars": 15981
+            }
+          ],
+          "cost": "0.284888"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是核验全年净利润、归母净利润与少数股东损益三者勾稽（NP-P-M），与 m2「净利润归属核验」的算式和交付完全一致；适用条件为委托人提供同主体同范围的人民币财报原行，报社已承诺提供带页码出处的原行（rows）及核验目标（target），两项必需输入均由调用方供给，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题负损益",
+          "session_id": "26d7c8fd-6db4-4c4e-928e-889689be9e11",
+          "seconds": 20.7,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5025
+            },
+            {
+              "stage": "bind",
+              "chars": 15976
+            }
+          ],
+          "cost": "0.236448"
+        },
+        {
+          "correct": false,
+          "error": "deadline",
+          "case": "茶厂",
+          "session_id": "ef3f187f-1188-481c-9ac3-e0377c612ba1",
+          "seconds": 150.43,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5023
+            },
+            {
+              "stage": "bind",
+              "chars": 15999
+            }
+          ],
+          "cost": "0.062012"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "调用方提供了两组现金及现金等价物滚动原行（闰年一组、平年一组），但只要求核验其中一年，属于报告年度（period）未定的决策缺失。请先明确本次采用哪一个报告年度：闰年组还是平年组（并请给出具体年度，如 2024 年或 2023 年），再开始现金滚动核验。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "闰年",
+          "session_id": "34465049-7aa0-4f1b-a73b-3adace7b8407",
+          "seconds": 17.09,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5025
+            }
+          ],
+          "cost": "0.110532"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是核验纺织厂全年净利润的归属关系，即用净利润（NP）、归母净利润（P）、少数股东损益（M）三行做归属勾稽，与 m2『净利润归属核验』的算式 NP-P-M 及承诺输出（返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料）完全一致，单一方法即可交付整个目标。适用条件『委托人提供同主体同范围的人民币财报原行』成立：委托人已说明该财报披露了负的少数股东损益，且归母与净利润均有对应行及口径，这些具出处的标准化披露事实作为 rows 由委托人提供，缺失不补零。排除项（财报审计意见、预测和投资建议）未被请求触及。核验的主体、合并口径（含少数股东损益可推断为合并范围）、全年起止日与本期版本属于 target 端口的正常入参，由委托人随财报材料一并指定，规划不依赖额外人工抉择，无需拆分或循环。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "纺织",
+          "session_id": "c431995c-ccd9-4173-9905-8d8712515635",
+          "seconds": 95.98,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5031
+            },
+            {
+              "stage": "bind",
+              "chars": 15982
+            }
+          ],
+          "cost": "0.685876"
+        }
+      ],
+      "without_rework_and_correct": 22,
+      "with_rework_and_correct": 0
+    },
+    {
+      "batch": "补充代取资料与人工决定规则",
+      "summary": {
+        "原换题组": {
+          "passed": 16,
+          "total": 16,
+          "business_cases": 46,
+          "calls": 26,
+          "cny": "4.569732",
+          "mismatches": []
+        },
+        "新增题": {
+          "passed": 7,
+          "total": 8,
+          "business_cases": 22,
+          "calls": 14,
+          "cny": "2.018000",
+          "mismatches": [
+            "新题合并范围"
+          ]
+        },
+        "另两次同题": {
+          "passed": 2,
+          "total": 2,
+          "business_cases": 12,
+          "calls": 4,
+          "cny": "0.830532",
+          "mismatches": []
+        }
+      },
+      "results": [
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "用户明确不提供原行，并把“去交易所下载报表并摘取原行”委托出去。目录中只有 m1–m5 五个核验/汇总方法，其输入 rows 均要求“同一批次具出处的标准化披露事实”，即由请求方供给；目录内没有任何被授权的生产者能承担下载报表与摘取原行的职责。核验资产平衡（m1）本身在目录中有对应能力，但其必需输入缺乏授权来源，属于明确缺失的能力（sourcing/extraction），而非可由澄清细节补足的人类决策。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题找资料",
+          "session_id": "6587a5ee-1f5c-4140-895e-34c2e6f460b0",
+          "seconds": 18.0,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5314
+            }
+          ],
+          "cost": "0.117052"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m5"
+          ],
+          "reason": "目标为将五份已核验回执（期初平表、期末平表、利润归属、现金滚动、存货衔接）合成为正式汇总报告。目录中 m5「核验结果汇总」完全覆盖该目标：其适用条件为收到按指定项目提供的五份报表核验回执，承诺交付逐项证据、覆盖计数（应核/实核/阈值内/不平/未核验）及按项目列出的待补清单，且明确排除自行取数、补数或重算，符合「仅整理传入回执」的边界。用户声明五份回执将由其提供，故 m5 的五个必需输入（opening_balance、closing_balance、profit、cash、inventory）均绑定为调用方输入，无需调用 m1–m4 重新核验，也无需拆分。",
+          "correct": true,
+          "business_cases": 3,
+          "case": "新题汇集",
+          "session_id": "6cea94eb-830c-4e20-b6fe-e3f6927f8a2c",
+          "seconds": 58.58,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5336
+            },
+            {
+              "stage": "bind",
+              "chars": 19216
+            }
+          ],
+          "cost": "0.303276"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是核验公交运营主体同口径净利润、归母净利润与少数股东损益的归属平衡（NP-P-M），与 m2 的算式、适用范围及输出回执完全一致；所需标准化披露事实行与核验目标由委托人提供，单一叶子方法即可交付。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "公交",
+          "session_id": "0db0abf1-f274-473f-a2fa-a52771c07742",
+          "seconds": 22.36,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5336
+            },
+            {
+              "stage": "bind",
+              "chars": 16236
+            }
+          ],
+          "cost": "0.325208"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标是核验上年期末存货与本年期初存货两期是否衔接，正是 m4「期初余额连续性核验」（OPEN-PREV_CLOSE）的核验范围；其适用条件为委托人提供同主体同范围的人民币财报原行，与请求一致；输出承诺含核验项目、引用原行、算式、有符号差额、状态与待补资料，完全覆盖所求。两个必需输入 rows（同口径归档的两期存货原行）与 target（核验目标）均由委托人承诺提供，绑定为 caller 输入。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "新题期初",
+          "session_id": "7e4c79a0-c290-46f4-9f58-35db77d029b3",
+          "seconds": 28.82,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5316
+            },
+            {
+              "stage": "bind",
+              "chars": 16344
+            }
+          ],
+          "cost": "0.231588"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "用户请求是对同主体、同范围、同报告日的资产总计、负债与权益做 A-L-E 资产负债平衡核验并要求列出页行依据，与目录中 m1『资产负债平衡核验』完全对应：其 applies_when 为委托人提供同主体同范围的人民币财报原行逐项核验，输入 rows（type1，标好页行的披露事实）与 target（type2，核验目标），输出 check（type3：项目键、工具 Q01、算式 A-L-E、证据、有符号差额、状态与待补）。委托人已承诺提供所需事实与目标，故作为 caller 输入绑定；无需拆分或澄清。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆2",
+          "session_id": "d83009ba-5a5b-4652-9bfc-4df196d0bed3",
+          "seconds": 27.1,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5350
+            },
+            {
+              "stage": "bind",
+              "chars": 16299
+            }
+          ],
+          "cost": "0.273716"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "用户要对博物馆经营公司做资产负债平衡核验：在同一主体、同一范围、同一报告日下，取标好页行的资产总计、负债合计、权益合计三条披露事实，求 A−L−E 的差额（元）并列依据。授权目录中 m1「资产负债平衡核验」完全覆盖该目标：applies_when 为「委托人提供同主体同范围的人民币财报原行，以供逐项核验」，与用户承诺提供标好页行的三项原行及核对目标一致；输入 rows(type1) 即含证据编号、报告版本、页、表名、行名、主体、范围、起止日期、币种、原单位、披露精度、原始金额的标准化披露事实数组，target(type2) 含主体、范围、开始日、结束日、本期版本、项目键、时点；输出 check(type3) 含算式 A-L-E、证据数组、有符号差额元与核验状态，正好回答「差了多少元、请列依据」。一个方法即可交付整个目标，无需拆分；用户未指定阈值，差额与状态由方法按约输出，不构成缺口。rows 与 target 均为委托人承诺提供的材料，绑定至 caller。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆3",
+          "session_id": "6d4197cf-9499-4439-883e-7f496a4b94c7",
+          "seconds": 93.54,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5350
+            },
+            {
+              "stage": "bind",
+              "chars": 16299
+            }
+          ],
+          "cost": "0.556816"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m5"
+          ],
+          "reason": "m5「核验结果汇总」的适用条件（收到按指定项目提供的五份报表核验回执）与本目标完全一致：剧院已提供期初平表、期末平表、利润归属、现金滚动、存货期初连续性五份已验回执。其承诺输出（五项原始回执、覆盖计数、按项目待补清单）正是所求的可回查缺件和不平项目的报告。五份回执均为调用方承诺提供的材料，故全部绑定为 caller 输入；上游 m1–m4 的核验工作已由剧院完成并以回执形式交付，按 m5 的排除条款不得重算或补数，因此无需拆分。所有五个必填输入（opening_balance、closing_balance、profit、cash、inventory）齐备，端口模式 type4/type2/type1/type3 与回执一一对应。",
+          "correct": true,
+          "business_cases": 3,
+          "case": "剧院",
+          "session_id": "fc9d60b9-d4bf-4907-af18-b21630a35052",
+          "seconds": 53.35,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5356
+            },
+            {
+              "stage": "bind",
+              "chars": 19236
+            }
+          ],
+          "cost": "0.375356"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标为同一时点资产-负债-所有者权益三项差额核验（A-L-E），m1「资产负债平衡核验」的算式、输入（同批次具出处原行 rows 与核验目标 target）及输出（含证据、有符号差额与状态的 check，schema type3）与请求完全对应；适用条件为委托人提供同主体同范围人民币财报原行，用户已声明提供按页行标注的事实与核验目标，两项必需输入均绑定委托人，无需拆分或澄清。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题账平",
+          "session_id": "07bf959a-edde-4731-94ac-df3b1268b4d0",
+          "seconds": 22.81,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5330
+            },
+            {
+              "stage": "bind",
+              "chars": 16279
+            }
+          ],
+          "cost": "0.224948"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "m3（现金及现金等价物滚动核验）的算式 END-BEGIN-CHANGE 与目标完全一致；其 applies_when 要求委托人提供同主体同范围的人民币财报原行，委托人已表明期末、期初现金余额及净增加额原行和核验目标全有，净增加额为负不影响核验。输入 rows（type1）与 target（type2）均由委托人提供，输出 check（type3）即所求核验回执，单一方法即可交付整个目标。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "码头",
+          "session_id": "f9f3bff8-2817-47f5-9c57-1cc0680597d9",
+          "seconds": 24.18,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5340
+            },
+            {
+              "stage": "bind",
+              "chars": 16265
+            }
+          ],
+          "cost": "0.223688"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "存货期初原行同时存在原版与更正版，期初连续性核验（m4：OPEN-PREV_CLOSE）要求 target 明确版本。按你的要求本次依据由你确定：请确认采用原版还是更正版作为存货期初的核验依据，确认后再与上期末（PREV_CLOSE）核对。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "盘点更正",
+          "session_id": "f9ae3bc8-4ace-4566-9cd7-572c94717dfd",
+          "seconds": 18.88,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5314
+            }
+          ],
+          "cost": "0.141012"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "复合目标的最终消费者是“把五份核验回执归集成一份正式报告”。授权目录已完整（partial=false），其中只有四个核验方法：m1 资产负债平衡核验（可承担期初、期末两次资产平衡）、m2 净利润归属核验（全年利润归属）、m3 现金及现金等价物滚动核验（现金勾稽）、m4 期初余额连续性核验（最接近存货衔接，但其口径为 OPEN-PREV_CLOSE，是否等同存疑）。五份回执基本可由 m1–m4 产出，但目录中没有任何把多份核验回执归集、出具正式报告的生产者方法；请求方已把报告产出委托出去，按规则不能假设模型自行生成，完整目录下该最终消费能力缺失即为缺口。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "缺汇总器",
+          "session_id": "f929626a-e335-4897-b97f-a8b6dcb5ea17",
+          "seconds": 92.68,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5058
+            }
+          ],
+          "cost": "0.387092"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "目录中 m3「现金及现金等价物滚动核验」(END-BEGIN-CHANGE) 完全匹配本目标，其输入 rows（同批次具出处的标准化披露事实）由委托人承诺提供。但 target 输入必填（主体、范围、开始日、结束日、本期版本、项目键），您表示稍后才指定核哪一年。请指定本次核验的报告期（开始日、结束日）以及主体、口径范围与本期版本，再开始执行。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题待定期",
+          "session_id": "1e6881cf-be27-41eb-8847-152443d13ca4",
+          "seconds": 21.11,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5308
+            },
+            {
+              "stage": "bind",
+              "chars": 16233
+            }
+          ],
+          "cost": "0.240488"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标交付物是可播放的交响乐成品音轨（按指定曲谱为英文公告配音），属于音频制作能力。授权目录中的 m1–m5 全部是财报披露事实核验与汇总方法（资产负债平衡、净利润归属、现金滚动、期初连续性、核验汇总），输入均为具出处的标准化披露事实，输出均为核验回执/汇总报告，没有任何方法接收曲谱或英文公告文本，也没有产生音轨的输出。目录完整但明确缺少音频合成/制作能力，无法通过澄清细节补足。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "外文配乐",
+          "session_id": "1fcdd0f6-1ccb-49fa-a6b5-df52ad55c0ed",
+          "seconds": 11.5,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5298
+            }
+          ],
+          "cost": "0.082812"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "已逐一核查全部授权方法 m1–m5。与存货唯一相关的是 m4『期初余额连续性核验』（算式 OPEN-PREV_CLOSE，工具 Q04）：其适用前提为『委托人提供同主体同范围的人民币财报原行』，输入 rows 须为逐月具出处（证据编号、报告版本、页、表名、行名等）的标准化披露事实，承诺输出仅为核验项目、引用原行、有符号差额、状态与待补资料，且排除项明确含『预测』。本目标仅给定首月库存，其余月份须凭以后依次发生的动态清单逐月滚动结转算出，并要求『计算未来库存』：后续各月余额并非披露事实，不满足 m4 对 rows 的披露出处要求；由期初+发生额滚动生成各月余额属于余额的生产/计算，m4 只做衔接核验、不承担该计算；推算未来库存更落入其『预测』排除项。m1（资产负债平衡 A-L-E）、m2（净利润归属 NP-P-M）、m3（现金及现金等价物滚动 END-BEGIN-CHANGE，科目为现金而非存货）、m5（五份核验回执的汇总器）均无『按动态发生清单逐月滚动结转并推算未来库存』的能力。结论：目录缺少该计算型方法，目标整体无合格方案；仅当委托人另行提供各月已披露的存货原行时，历史各月期初与上月期末的衔接核验可由 m4 覆盖，但这只是目标的一部分，且不能替代未来库存的计算。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "连月滚动",
+          "session_id": "2a56b900-b0ea-4d68-9683-a01926487b05",
+          "seconds": 147.06,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5332
+            },
+            {
+              "stage": "bind",
+              "chars": 16360
+            }
+          ],
+          "cost": "0.761996"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标为资产负债平衡核验（A-L-E），m1 的 check 输出（type3：项目键、工具 Q01、算式 A-L-E、证据、差额元、状态、待补）正好覆盖「差了多少元、列依据」。m1 适用条件为委托人提供同主体同范围的人民币财报原行，请求方明确承诺提供同主体同范围同报告日且标好页行的资产总计、负债与权益（rows，type1）及核对目标（target，type2），两项必需输入均绑定给调用方，无需拆分或补数据。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "博物馆",
+          "session_id": "d085b50d-4801-4564-8001-7510e10a6c58",
+          "seconds": 21.26,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5350
+            },
+            {
+              "stage": "bind",
+              "chars": 16299
+            }
+          ],
+          "cost": "0.228128"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "请求的交付物是一段有声粤语讲解音频，但完整目录（partial=false）中只有五种财务核验或归集方法：m1 资产负债平衡核验、m2 净利润归属核验、m3 现金及现金等价物滚动核验、m4 期初余额连续性核验、m5 核验结果汇总。五种方法的输出均为逐项差额核验回执或汇总报告（check/report），均为文本型核验结果，没有任何方法能够生成音频，更没有粤语配音能力。请求方也未提供可配音的文稿素材，且制作音频属于委托生产行为，目录中没有获授权的音频生产者。在完整目录下这是明确缺失的能力，澄清细节（如讲解内容、时长）也无法补上音频生成能力，故判定为缺口。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题缺录音",
+          "session_id": "635c9721-0a64-48d6-973d-2e28bbf13906",
+          "seconds": 42.27,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5294
+            }
+          ],
+          "cost": "0.166872"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标为同一报告日资产、负债、权益的恒等核验（A-L-E），并要求输出差额与原行，与 m1「资产负债平衡核验」的承诺完全对应：applies_when 为委托人提供同主体同范围的人民币财报原行，输出 check 含算式 A-L-E、有符号差额元、证据原行、状态与待补，正好覆盖「差额和原行」。用户声明原行及定位资料已经给好，故 rows 与 target 均绑定委托人提供，目录完整无需拆分或澄清。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "工会",
+          "session_id": "0c2a22bc-2018-4e1e-b8ee-9e87aaf60278",
+          "seconds": 38.9,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5328
+            },
+            {
+              "stage": "bind",
+              "chars": 16277
+            }
+          ],
+          "cost": "0.308148"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标要求接入全球所有港口船舶的实时 AIS 数据流并返回实时坐标与准确航线，这属于实时外部数据采集与流式接入能力。当前授权目录仅有 m1–m5 五种财务报表核验方法（资产负债平衡、净利润归属、现金滚动、期初连续性、结果汇总），均以已标注的披露事实为输入，不具备任何获取实时 AIS 数据、接入实况流或生成船舶坐标/航线的能力。请求方也未自行提供 AIS 数据源作为输入，且目录中没有可委托的授权生产者。缺少的是数据接入能力本身，澄清细节无法弥补，判定为能力缺口。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "实时航线",
+          "session_id": "b03db423-6c33-4a9c-9fff-52f0243c00a5",
+          "seconds": 21.09,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5316
+            }
+          ],
+          "cost": "0.179192"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "目标对应 m1（资产负债平衡核验），其 target 输入要求指定核验口径；您已确认合并与单体两套原行齐备、由您选定且承担方只能核一套，但该口径选择（合并资产负债表还是母公司/单体资产负债表）是您保留的人为决定，目前尚未确定。请明确本次核验采用合并口径还是单体口径；确定后即可按该口径指定 m1 的 target（主体、口径、版本与报告期）。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "双账簿",
+          "session_id": "657d9324-bd0b-4b19-9b35-50c4e5045af5",
+          "seconds": 29.53,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5320
+            }
+          ],
+          "cost": "0.156512"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "目标与目录中的 m2「净利润归属核验」（NP-P-M）完全对应：只交一份净利润检查，委托人提供同主体同范围的人民币财报原行，方法承诺输出逐项差额与可回查依据，能力不缺。但 m2 的 target 输入（type2）要求「主体、范围、开始日、结束日、本期版本、项目键」为必填，且委托人明确表示「主体由我指定，此刻还没指定」——两个信用社各自的资料已给，究竟以哪一家信用社为核验主体，是必须由人作出的决定，不能由规划者假设。请委托人指定：1) 以哪个信用社为主体；2) 顺带确认核验范围（如合并或母公司口径）、报告期（开始日/结束日）与本期版本，以便一次性补齐 target。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "信用社",
+          "session_id": "1441570b-7941-417a-abb1-4b7f7c015532",
+          "seconds": 32.64,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5322
+            },
+            {
+              "stage": "bind",
+              "chars": 16222
+            }
+          ],
+          "cost": "0.298956"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标即存货期初连续性核验：本年期初对上年期末（OPEN-PREV_CLOSE），与授权方法 m4 的声明完全一致。m4 的适用条件为委托人提供同主体同范围的人民币财报原行逐项核验，请求中已声明主体、单位、范围、两份报告版本与核对目标均已列出，原行与目标由调用方提供；排除项（审计意见、预测、投资建议）与本目标无关。m4 的输出 check（type3）含算式 OPEN-PREV_CLOSE、证据原行、有符号差额元、状态与待补，正好回答『对接处有没有差额』。端口契约完整（rows=type1、target=type2，均必填、缺失即失败），无需拆分为更小目标，故直接作为叶子命中 m4。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "书店",
+          "session_id": "d984b641-8e72-4fe8-95ef-1d21a5634486",
+          "seconds": 40.32,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5340
+            },
+            {
+              "stage": "bind",
+              "chars": 16368
+            }
+          ],
+          "cost": "0.349216"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标『请核现金滚动』由 m3 现金及现金等价物滚动核验整体交付：输出承诺含核验项目、引用原行、算式 END-BEGIN-CHANGE、有符号差额、核验状态与待补资料；适用条件为委托人提供同主体同范围的人民币财报原行，与『母公司与合并集团的披露行都在』一致，且不涉及其排除项（审计意见、预测、投资建议）。两套披露行属调用方承诺提供的 rows；『稍后指定核哪套』属调用方承诺提供的 target（主体、范围、开始日、结束日、本期版本、项目键）。二者均绑定为调用方输入，目录内能力完备，无缺失，无需澄清。",
+          "correct": false,
+          "business_cases": 0,
+          "case": "新题合并范围",
+          "session_id": "5dd259f8-fe32-47cd-a8b0-0783b2794058",
+          "seconds": 79.12,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5302
+            },
+            {
+              "stage": "bind",
+              "chars": 16227
+            }
+          ],
+          "cost": "0.510988"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标为核验全年净利润=归母净利润+少数股东损益（含负数少数股东损益），m2 净利润归属核验的算式 NP-P-M、输入（同批次具出处的标准化披露事实 rows、指定主体口径版本报告期的 target）与输出（逐项差额与可回查依据回执）与请求完全匹配；报社承诺提供带页行的披露事实与核验目标，两项必需输入均绑定调用方，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题负损益",
+          "session_id": "f560f1c5-d3ce-4df4-b304-a4422aaa12ed",
+          "seconds": 27.71,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5322
+            },
+            {
+              "stage": "bind",
+              "chars": 16222
+            }
+          ],
+          "cost": "0.222788"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "m3「现金及现金等价物滚动核验」完全覆盖目标：适用条件为委托人提供同主体同范围的人民币财报原行，委托人已承诺给出现金期末、期初、净增加额及全部出处（rows）与核验对象参数（target）；输出 check 的算式 END-BEGIN-CHANGE 与有符号差额、证据、状态、待补正是所求交付物。目录完整，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "茶厂",
+          "session_id": "6708bb95-2b81-4902-88b6-129aca1c4156",
+          "seconds": 24.97,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5320
+            },
+            {
+              "stage": "bind",
+              "chars": 16245
+            }
+          ],
+          "cost": "0.247728"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "现金滚动核验（m3）可支撑该目标，但请求方提供了闰年、平年两组现金滚动原行，只核其中一年。报告年度的选择属于人的决定，且请求方明确要求先问再动手：请确认采用哪一个报告年度（闰年组还是平年组，具体期末日期）作为本次核验的报告期，再据此取用对应那组原行。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "闰年",
+          "session_id": "68d3211e-5348-4052-9d62-a1cb43a660c9",
+          "seconds": 14.3,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5322
+            }
+          ],
+          "cost": "0.094992"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是核验全年净利润的归属关系，即净利润=归母净利润+少数股东损益（本题少数股东损益为负）。授权方法 m2「净利润归属核验」的算式 NP-P-M 与承诺输出（核验项目、引用原行、算式、有符号差额、状态与待补资料）完整覆盖该目标；其适用条件为委托人提供同主体同范围的人民币财报原行，与请求所述「归母和净利润都有对应行及口径」一致，且不触及排除项（审计意见、预测、投资建议）。所需披露事实行（type1）与目标参数对象（type2：主体、范围、期间、版本、项目键）均属委托人数据，调用方可在执行前提供，故绑定为调用方输入。目录中已有完整契约，无需再检端口。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "纺织",
+          "session_id": "8bfa3f35-7b08-479f-8b58-2880e94ba151",
+          "seconds": 67.36,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5328
+            },
+            {
+              "stage": "bind",
+              "chars": 16228
+            }
+          ],
+          "cost": "0.409696"
+        }
+      ],
+      "without_rework_and_correct": 25,
+      "with_rework_and_correct": 0
+    },
+    {
+      "batch": "结构化检查待定选择",
+      "summary": {
+        "原换题组": {
+          "passed": 15,
+          "total": 16,
+          "business_cases": 43,
+          "calls": 27,
+          "cny": "4.324868",
+          "mismatches": [
+            "剧院"
+          ]
+        },
+        "新增题": {
+          "passed": 7,
+          "total": 8,
+          "business_cases": 19,
+          "calls": 12,
+          "cny": "1.697448",
+          "mismatches": [
+            "新题汇集"
+          ]
+        },
+        "另两次同题": {
+          "passed": 2,
+          "total": 2,
+          "business_cases": 12,
+          "calls": 4,
+          "cny": "0.890696",
+          "mismatches": []
+        },
+        "独立对照": {
+          "passed": 2,
+          "total": 2,
+          "business_cases": 6,
+          "calls": 3,
+          "cny": "0.479088",
+          "mismatches": []
+        }
+      },
+      "results": [
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：母公司与合并集团的披露行都在，我稍后指定核哪套。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题合并范围",
+          "session_id": "11fff9b0-f87c-47fd-a742-b19e6d97dcad",
+          "seconds": 33.1,
+          "calls": 2,
+          "repairs": [
+            "pending_choice must quote the request or the human clarification"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6050
+            },
+            {
+              "stage": "directory",
+              "chars": 6254
+            }
+          ],
+          "cost": "0.176228"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "用户原先的待定事项（定主体/口径）已由『现在我选定合并口径』解决；现金年初、年末及净增加原行与核验目标均明确『将由我提供』，属于调用方承诺稍后交付的普通输入，可直接绑定 caller。m3『现金及现金等价物滚动核验』的适用条件（委托人提供同主体同范围的人民币财报原行逐项核验）与此吻合，其承诺输出（核验项目、引用原行、END-BEGIN-CHANGE 算式、有符号差额、状态与待补资料）完整覆盖目标，两个必需输入 rows、target 均有来源，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "对照选定",
+          "session_id": "595df4bc-26f9-46e7-a9f4-6e6964b2fddc",
+          "seconds": 57.5,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6088
+            },
+            {
+              "stage": "bind",
+              "chars": 17282
+            }
+          ],
+          "cost": "0.345156"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "用户明确说\"我没有原行也不会提供，请替我去交易所下载报表并摘取原行\"，即把下载报表并摘取原行（生产具出处的标准化披露事实 rows）委托给执行方。授权目录中 m1（资产负债平衡核验）的交付物与目标匹配，但其输入 rows 要求\"同一批次具出处的标准化披露事实\"；m1–m5 全部是消费此类事实或已验回执的核验/汇总方法，目录内没有任何经授权的生产者能去交易所下载定期报告并摘取原行。按规则不能假定模型可自行抓取、摘取或生成该缺失输入。目录完整而必需的生产能力缺失，构成 gap；澄清主体、口径、版本、报告期等细节也无法补上该能力。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题找资料",
+          "session_id": "d9c77135-bfaf-44da-9efd-c8d1f75b1fde",
+          "seconds": 50.68,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6062
+            }
+          ],
+          "cost": "0.262872"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：三套期初存货数据都能发，我过几天再挑一套作为本次依据，随后才核对上期末。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "对照待选",
+          "session_id": "a0019e1c-e751-44e2-adcc-be1b52d8b5ea",
+          "seconds": 26.21,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6060
+            }
+          ],
+          "cost": "0.133932"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目录为完整目录（partial=false），已逐一核对 m1–m5。目标「只给第一个月的库存，按以后依次发生的动态清单逐月滚动结转，交出每个月历史余额并计算未来库存」要求的是计算型交付：由首月库存加后续动态清单推算逐月余额并预测未来库存。最相近的 m4（期初余额连续性核验，OPEN-PREV_CLOSE）仅为核验方法：其 applies_when 要求委托人提供同主体同范围的财报原行，输入 rows 为「同一批次具出处的标准化披露事实」，输出 check 仅含算式 OPEN-PREV_CLOSE、工具 Q04、证据、差额、状态与待补，不产出任何月份的余额序列；且其 excludes 明确排除「预测」，无法承担「计算未来库存」。m1、m2、m3 同为对已披露事实的核验，m5 仅汇总五份既有核验回执，均不具备由期初数加发生清单推算余额的能力。目标所需交付物（逐月历史余额表与未来库存计算）在目录中无任何授权方法覆盖，属能力缺口而非待定细节，故报 gap。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "连月滚动",
+          "session_id": "a07ad1a5-1e3e-4d79-a4b5-ace4d38fade8",
+          "seconds": 63.84,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6080
+            },
+            {
+              "stage": "bind",
+              "chars": 17377
+            }
+          ],
+          "cost": "0.447320"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：我稍后指定要核哪一年，再开始。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题待定期",
+          "session_id": "e86356c2-8eaf-4d27-9717-dbb3fd6138ad",
+          "seconds": 12.71,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6056
+            }
+          ],
+          "cost": "0.117012"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是用同口径的净利润、归母净利润、少数股东损益原行核验全年利润归属（NP-P-M），与目录中 m2「净利润归属核验」的用途、算式和承诺输出完全一致；其适用条件为委托人提供同主体同范围的人民币财报原行，请求明确这些行及位置齐全。输入 rows（type1）与 target（type2）均由委托人提供，输出 check（type3）即所求核验回执，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "公交",
+          "session_id": "a6edd41e-e317-4f6f-af44-a1cf96091457",
+          "seconds": 27.16,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6084
+            },
+            {
+              "stage": "bind",
+              "chars": 17253
+            }
+          ],
+          "cost": "0.233276"
+        },
+        {
+          "correct": false,
+          "error": "('chat transport', 20253)",
+          "case": "剧院",
+          "session_id": "ada2166b-c020-477f-969b-8699b85a531f",
+          "seconds": 11.47,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6104
+            },
+            {
+              "stage": "bind",
+              "chars": 20253
+            }
+          ],
+          "cost": "0.097392"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "委托目标是同主体同范围同报告日的资产总计减负债与权益的核验（A-L-E），并列出标好页行的依据。目录中 m1「资产负债平衡核验」的算式、承诺输出（核验项目、引用原行、算式、有符号差额、状态与待补）与目标完全一致，其输入 rows（具出处的标准化披露事实，type1）与 target（核验项目、主体、口径、版本与报告期，type2）均由委托人承诺提供，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆3",
+          "session_id": "dd7f82d1-9e3d-4355-a893-7e058d5a4b68",
+          "seconds": 23.11,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6098
+            },
+            {
+              "stage": "bind",
+              "chars": 17316
+            }
+          ],
+          "cost": "0.258740"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "m4「期初余额连续性核验」按 OPEN-PREV_CLOSE 算式核验本年期初与上年期末存货是否衔接，其适用条件为委托人提供同主体同范围财报原行，与请求一致；用户承诺提供的存货原行与核验目标分别对应其必填输入 rows（type1）与 target（type2），均属普通调用方输入而非待定选项；其输出 check（type3：项目键、证据、算式、差额元、状态、待补）正是所问「两期接得上吗」的交付物，单一方法即可完整覆盖目标。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "新题期初",
+          "session_id": "03705c6c-3d1f-4178-ab90-e72840409fd5",
+          "seconds": 27.32,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6064
+            },
+            {
+              "stage": "bind",
+              "chars": 17361
+            }
+          ],
+          "cost": "0.283960"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标为同一主体同范围同一时点的资产、负债及所有者权益三项原行的 A-L-E 平表核验，与 m1（资产负债平衡核验，算式 A-L-E）的承诺完全一致：输入同一批次具出处（按页行标注）的标准化披露事实与指定核验项目、主体、口径、版本与报告期的 target，输出含项目键、引用原行、算式、有符号差额、状态与待补资料的 check 回执。请求注明「提供已按页行标注的……还有核验目标」，两项必需输入均由委托人承诺提供，直接绑定 caller。type2 的时点为单数，三项差额（A、L、E 三行参与一次 A-L-E）一次核验即可覆盖，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题账平",
+          "session_id": "af5273fe-956d-4db7-affa-81b1f986d36f",
+          "seconds": 29.93,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6078
+            },
+            {
+              "stage": "bind",
+              "chars": 17296
+            }
+          ],
+          "cost": "0.275156"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标为现金滚动一致性核验（期末余额=期初余额+净增加额），与 m3 现金及现金等价物滚动核验的算式 END-BEGIN-CHANGE 完全对应。m3 适用条件为委托人提供同主体同范围的财报原行，请求方已表明期末、期初现金余额及净增加额原行和核验目标全有；净增加额为负不影响有符号差额核验。所需 rows 与 target 均由调用方提供，无需拆分或澄清。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "码头",
+          "session_id": "d7e8620a-be5e-4ef6-b5a3-31f51b6a5cbe",
+          "seconds": 36.78,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6088
+            },
+            {
+              "stage": "bind",
+              "chars": 17282
+            }
+          ],
+          "cost": "0.377080"
+        },
+        {
+          "correct": false,
+          "error": "('chat transport', 20233)",
+          "case": "新题汇集",
+          "session_id": "5c0a1e3e-a0f0-4ab9-a9b6-863b4be0990f",
+          "seconds": 11.38,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6084
+            },
+            {
+              "stage": "bind",
+              "chars": 20233
+            }
+          ],
+          "cost": "0.090592"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：存货期初原行同时有原版和更正版；本次由我确定依据，等我确认以后再对上期末。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "盘点更正",
+          "session_id": "e907c236-94f8-4948-8e73-c5caf4028260",
+          "seconds": 52.89,
+          "calls": 2,
+          "repairs": [
+            "pending_choice must quote the request or the human clarification"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6062
+            },
+            {
+              "stage": "directory",
+              "chars": 6266
+            }
+          ],
+          "cost": "0.276568"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标为复合需求：四项核验（期初/期末两次资产负债平衡→m1、净利润归属→m2、现金勾稽→m3、存货期初衔接→m4）均有授权方法，但最终消费者——“把五份核验回执归集成一份正式报告”——在授权目录中没有任何对应方法（m1–m4 的输出均为逐项核验回执，而非归集报告）。目录标记 partial=false，属完整目录，缺少该归集能力即构成能力缺口。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "缺汇总器",
+          "session_id": "e27e65d7-e5d2-47a5-92d2-ed2f231a1e2f",
+          "seconds": 23.05,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5806
+            }
+          ],
+          "cost": "0.135172"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标与方法 m1「资产负债平衡核验」完全对应：其适用条件正是委托人提供同主体同范围的人民币财报原行（本请求明确要求同主体、同范围、同报告日且标好页行的资产总计、负债与权益原行），输出 check 含证据（证据编号、报告版本、页、表名、行名、原始金额等）、算式 A-L-E、有符号差额元与状态，正好回答「差了多少元、请列依据」。请求不涉及其排除项（审计意见、预测、投资建议）。m1 的必填输入 rows（标好页行的披露事实）与 target（核对目标：主体、范围、版本、报告期）由委托人按请求所述形态提供，故绑定为 caller 输入；单一方法即可交付整体目标，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "博物馆",
+          "session_id": "0b8714ad-3bc4-4b8f-b728-6c37588f15f9",
+          "seconds": 115.03,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6098
+            },
+            {
+              "stage": "bind",
+              "chars": 17316
+            }
+          ],
+          "cost": "0.640976"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "请求的交付物是一段有声粤语讲解音频，但授权目录中仅有五种财务核验或归集方法（m1 资产负债平衡核验、m2 净利润归属核验、m3 现金及现金等价物滚动核验、m4 期初余额连续性核验、m5 核验结果汇总），其输出分别为核验回执（check）与汇总报告（report），没有任何音频制作或粤语配音的授权生产者；目录完整（partial=false），属明确缺失能力，且无可替代的既有输出来满足「有声粤语音频」这一交付形式。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题缺录音",
+          "session_id": "b2decd5a-c390-4acd-8e20-4d1592492c97",
+          "seconds": 45.79,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6042
+            }
+          ],
+          "cost": "0.213992"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "请求的交付物是可播放的交响乐成品音轨（音频制作能力），而已授权目录 m1–m5 全部是财务报表核验类方法（输出核验回执/汇总报告），无一具备音频配乐或音轨产出的输出能力；目录为完整目录（partial=false），属明确缺失能力。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "外文配乐",
+          "session_id": "7d10b95a-2999-4b1e-b7c0-ff163dc7b1de",
+          "seconds": 16.03,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6046
+            }
+          ],
+          "cost": "0.104892"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "用户要求以同主体、同范围、同报告日且标好页行的资产总计、负债与权益原行做 A-L-E 核对，给出差额（元）与依据。目录中 m1（资产负债平衡核验）的适用条件正是「委托人提供同主体同范围的人民币财报原行，以供逐项核验」，其承诺输出 check（type3）含证据原行（证据编号、报告版本、页、表名、行名、主体、范围、起始日期、截止日期、币种、原单位、披露精度、原始金额）、算式 A-L-E、有符号差额元、状态与待补，完整覆盖本目标全部交付物；其排除项（审计意见、预测、投资建议）未被请求。所需输入 rows（作者标注的披露事实）与 target（主体、范围、起止日、版本、项目键、时点）由委托方提供，属普通输入绑定，可在执行时交付；用户未留下任何待决选择，无需 clarify。故以 m1 为叶子方法直接命中。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆2",
+          "session_id": "1d00118b-2f39-462c-b91a-8d04200c0d13",
+          "seconds": 83.31,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6098
+            },
+            {
+              "stage": "bind",
+              "chars": 17316
+            }
+          ],
+          "cost": "0.631956"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标是把同一报告日已给好的资产、负债、权益原行核对恒等关系 A-L-E 并给出差额与原行。目录中 m1「资产负债平衡核验」的 applies_when 正是「委托人提供同主体同范围的人民币财报原行，以供逐项核验」，其承诺输出 check 含项目键、引用的原行证据、算式 A-L-E、有符号差额元、状态与待补，完整覆盖诉求；排除项（审计意见、预测、投资建议）不涉及。输入 rows（具出处的标准化披露事实）与 target（核验项目、主体、口径、版本与报告期）均属委托人已承诺提供的资料，直接绑定 caller，无需拆分或人工抉择。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "工会",
+          "session_id": "ea48357c-5253-4786-9514-25e916392cc6",
+          "seconds": 50.27,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6076
+            },
+            {
+              "stage": "bind",
+              "chars": 17294
+            }
+          ],
+          "cost": "0.325096"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标是接入所有港口船舶的实时AIS数据、准确航线并在接入实况后返回坐标，属于实时外部数据的获取与生产。当前目录（partial=false，已完整）仅含m1–m5：资产负债平衡、净利润归属、现金及现金等价物滚动、期初余额连续性四项核验和一项核验结果汇总，输入均为“同一批次具出处的标准化披露事实/已验回执”，输出为差额核验回执与汇总报告，均与实时AIS数据接入无关。目录中没有任何能获取或生产实时船舶AIS数据与航线坐标的授权能力，属明确能力缺口；且用户未提供可核验的AIS事实材料，核验方法亦无输入可用。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "实时航线",
+          "session_id": "4bd8bd08-dfed-4775-94fb-d98ee634de2f",
+          "seconds": 22.26,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6064
+            }
+          ],
+          "cost": "0.168012"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "目录能力不缺：m1「资产负债平衡核验」的 target 本就要求指定核验项目、主体、口径、版本与报告期，合并与单体两种口径都可核验，且用户称两套原行都齐。但用户明确表示\"承担方只能核一套，由我选用哪一套，我暂未确定\"——核合并口径还是单体口径属于只能由用户作出的范围（口径）决定，在此选择作出之前无法绑定核验目标。请用户确定本次核验采用合并口径还是单体口径。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "双账簿",
+          "session_id": "ed0cf80c-073c-4f32-9569-0c53e6dd50e0",
+          "seconds": 34.88,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6068
+            }
+          ],
+          "cost": "0.242032"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：主体由我指定，此刻还没指定。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "信用社",
+          "session_id": "067a1f1f-90c3-4702-95ee-fe67937d4e4c",
+          "seconds": 31.59,
+          "calls": 2,
+          "repairs": [
+            "pending_choice must quote the request or the human clarification"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6070
+            },
+            {
+              "stage": "directory",
+              "chars": 6274
+            }
+          ],
+          "cost": "0.210080"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标是书店本年期初与上年期末存货原行对接处的差额核验，属 OPEN-PREV_CLOSE 期初连续性核验。m4 的 applies_when（委托人提供同主体同范围的人民币财报原行）与请求一致，输出 check（type3：项目键、算式 OPEN-PREV_CLOSE、证据、有符号差额元、状态、待补）正是所求交付物；请求已声明主体、单位、范围、两版报告与核对目标由委托人列出，故 rows 与 target 均为调用方承诺提供的普通输入，绑定到 caller，无需拆分。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "书店",
+          "session_id": "b20a2f0d-53fe-458d-a166-50a17835f61c",
+          "seconds": 24.41,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6088
+            },
+            {
+              "stage": "bind",
+              "chars": 17385
+            }
+          ],
+          "cost": "0.272920"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是核验同一主体同范围全年的净利润（NP）、归母净利润（P）与负数少数股东损益（M）三者勾稽，即 NP-P-M。授权目录中 m2「净利润归属核验」的算式正是 NP-P-M，适用条件为「委托人提供同主体同范围的人民币财报原行」，与请求中「报社已列出全年有页行的净利润、归母和负数少数股东损益，以及核验目标」完全吻合；其承诺输出（核验项目、引用原行、算式、有符号差额、状态、待补资料，schema type3）即本目标的全部交付物。所需 rows（具出处原行）与 target（核验目标）均为请求方已列明的调用方数据，绑定为 caller 输入，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题负损益",
+          "session_id": "1fe507fd-29e7-416a-9087-b4be2fa0751f",
+          "seconds": 38.82,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6070
+            },
+            {
+              "stage": "bind",
+              "chars": 17239
+            }
+          ],
+          "cost": "0.277636"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标是用有符号差额核验现金期末、期初与净增加额（END-BEGIN-CHANGE），与目录中 m3「现金及现金等价物滚动核验」的算式、承诺输出（核验项目、引用原行、算式、有符号差额、状态与待补资料）完全一致，且输出契约 type3 的工具常量 Q03 即对应该方法。适用条件满足：委托人提供同主体同范围的人民币财报原行及出处作为 rows，并指定主体、范围、版本与报告期作为 target，两项均为委托人真实提供的数据，无需拆分或人工抉择。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "茶厂",
+          "session_id": "eeb6f9bf-a73f-4364-83bc-dedf831c69bd",
+          "seconds": 29.1,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6068
+            },
+            {
+              "stage": "bind",
+              "chars": 17262
+            }
+          ],
+          "cost": "0.247636"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：给了闰年、平年两组现金滚动原行，我们只查其中一年，先问我采用哪一个报告年度再动手。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "闰年",
+          "session_id": "961ccb07-c4f8-4877-bd9f-4fc42cf8c081",
+          "seconds": 32.51,
+          "calls": 2,
+          "repairs": [
+            "pending_choice must quote the request or the human clarification"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6070
+            },
+            {
+              "stage": "directory",
+              "chars": 6274
+            }
+          ],
+          "cost": "0.214580"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "用户目标与 m2「净利润归属核验」完全对应：请求核全年净利润的归属关系，且明确净利润、归母净利润、少数股东损益三行及口径齐备，正是该方法的算式 NP-P-M 与适用条件（委托人提供同主体同范围的人民币财报原行）。合同承诺输出核验项目、引用原行、算式、有符号差额、状态与待补资料，输出 schema type3（工具 Q02、算式 NP-P-M）与目标交付一致。rows 与 target 均为调用方提供的输入，无需拆分，也无未决方法选择。排除项（审计意见、预测、投资建议）与本请求无冲突。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "纺织",
+          "session_id": "dedc98cf-b87d-4bdf-adeb-c6859fd27822",
+          "seconds": 39.65,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 6076
+            },
+            {
+              "stage": "bind",
+              "chars": 17245
+            }
+          ],
+          "cost": "0.331836"
+        }
+      ],
+      "without_rework_and_correct": 22,
+      "with_rework_and_correct": 4
+    },
+    {
+      "batch": "相同契约紧凑传输",
+      "summary": {
+        "原换题组": {
+          "passed": 16,
+          "total": 16,
+          "business_cases": 46,
+          "calls": 27,
+          "cny": "4.525752",
+          "mismatches": []
+        },
+        "新增题": {
+          "passed": 8,
+          "total": 8,
+          "business_cases": 22,
+          "calls": 13,
+          "cny": "1.840040",
+          "mismatches": []
+        },
+        "另两次同题": {
+          "passed": 2,
+          "total": 2,
+          "business_cases": 12,
+          "calls": 4,
+          "cny": "0.692064",
+          "mismatches": []
+        },
+        "独立对照": {
+          "passed": 2,
+          "total": 2,
+          "business_cases": 6,
+          "calls": 4,
+          "cny": "0.448876",
+          "mismatches": []
+        }
+      },
+      "results": [
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：母公司与合并集团的披露行都在，我稍后指定核哪套。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题合并范围",
+          "session_id": "69530191-9cf8-4124-8f52-e2f1679f2944",
+          "seconds": 12.82,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5831
+            }
+          ],
+          "cost": "0.092312"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标为现金及现金等价物年末-年初-净增加的差额核验，与 m3（END-BEGIN-CHANGE）完全对应；委托人已选定合并口径，并承诺自行提供现金年初、年末及净增加原行（rows，type1）与核验目标（target，type2），两个必需输入均绑定调用方，输出 check（type3）即所求回执。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "对照选定",
+          "session_id": "b40b12c3-2af1-4771-97d7-b11e916915c3",
+          "seconds": 29.65,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5869
+            },
+            {
+              "stage": "bind",
+              "chars": 16353
+            }
+          ],
+          "cost": "0.225108"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目录中仅有核验方法（m1 资产负债平衡核验 等，输入均为“同一批次具出处的标准化披露事实”），用户明确说“我没有原行也不会提供”，并把取数责任委托出来（“请替我去交易所下载报表并摘取原行”）。委托取数/摘取需要目录中有经授权的生产者方法，现有目录没有任何下载报表或摘取原行的能力，核验方法本身不能自行获取缺失输入，故属能力缺口。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题找资料",
+          "session_id": "6101ce42-b8b8-4f3e-90b9-019c4106184e",
+          "seconds": 22.99,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5843
+            }
+          ],
+          "cost": "0.122452"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：三套期初存货数据都能发，我过几天再挑一套作为本次依据，随后才核对上期末。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "对照待选",
+          "session_id": "21f686e2-2f50-401d-95a9-8f7483b94091",
+          "seconds": 25.04,
+          "calls": 2,
+          "repairs": [
+            "pending_choice must quote the request or the human clarification"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5841
+            },
+            {
+              "stage": "directory",
+              "chars": 6045
+            }
+          ],
+          "cost": "0.223768"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目录已给出 m3、m4 契约：两者均为对『同一批次具出处的标准化披露事实』的核验方法，输出是固定算式（END-BEGIN-CHANGE / OPEN-PREV_CLOSE）的核验回执（差额元、状态、证据、待补），而非交出的各月余额本身；其适用范围要求委托人提供同主体同范围的人民币财报原行以供逐项核验，且明确排除『预测』。本目标要求只凭第一个月库存加以后依次发生的动态清单逐月滚动结转、交出每个月历史余额并计算未来库存——这是余额计算与预测能力，目录（partial=false，含 m1、m2、m5 汇总）中无任何方法承诺该产出，『计算未来库存』更与 m3、m4 的排除项直接冲突。 clarified 细节无法补足该能力，故判 gap。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "连月滚动",
+          "session_id": "e83516e6-39ec-4548-b151-860321d87351",
+          "seconds": 82.64,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5861
+            },
+            {
+              "stage": "bind",
+              "chars": 17917
+            }
+          ],
+          "cost": "0.686588"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：我稍后指定要核哪一年，再开始。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题待定期",
+          "session_id": "57a5ba81-d754-4d5f-86e7-f9f493f37ab9",
+          "seconds": 28.96,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5837
+            }
+          ],
+          "cost": "0.144592"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标为判断公交运营主体全年利润归属是否对得上，即净利润−归母净利润−少数股东损益（NP-P-M）的勾稽核验。授权目录中 m2「净利润归属核验」与本目标完全对应：适用条件为委托人提供同主体同范围的人民币财报原行（目标已声明同口径净利润、归母净利润、少数股东损益及各行位置齐全），承诺输出核验项目、引用原行、算式 NP-P-M、有符号差额、状态（阈值内/不平/未核验）与待补资料，端口 rows（type1 标准化披露事实）与 target（type2 主体、范围、起止日、版本、项目键）恰为本目标所需，输出 check（type3）即所求交付。状态判定为方法自身承诺，无阈值输入端口，不构成缺失阈值。rows 与 target 均为委托人应供的原始数据而非中间产物，绑定 caller；无未决选择，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "公交",
+          "session_id": "bbff88a1-632f-4437-b54d-41330aa034a4",
+          "seconds": 47.76,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5865
+            },
+            {
+              "stage": "bind",
+              "chars": 16324
+            }
+          ],
+          "cost": "0.345436"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m5"
+          ],
+          "reason": "m5（核验结果汇总）的适用范围『收到按指定项目提供的五份报表核验回执』与目标完全一致：输入恰为期初平表、期末平表、利润归属、现金滚动、存货期初连续性五份已验回执，输出报告含逐项证据、覆盖计数（应核/实核/阈值内/不平/未核验）与待补清单，正好满足『能回查缺件和不平项目』的交付要求。五份回执是调用方已承诺提供的确定材料，属普通输入，绑定给 caller；排除项（不自行取数、补数、重算）不冲突，无需拆分或澄清。",
+          "correct": true,
+          "business_cases": 3,
+          "case": "剧院",
+          "session_id": "db06839a-63f2-428b-92cd-eae45af658c5",
+          "seconds": 49.88,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5885
+            },
+            {
+              "stage": "bind",
+              "chars": 19022
+            }
+          ],
+          "cost": "0.369108"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "用户的目标是对同主体、同范围、同报告日的资产总计、负债与权益做平表核验并给出差额（元）与依据，正是目录 m1（资产负债平衡核验，算式 A-L-E）的适用场景：委托人提供同主体同范围、标好页行的人民币财报原行。用户已承诺提供证据行与核对目标，分别对应 m1 的两个必需输入 rows（type1）与 target（type2），m1 承诺的输出 check（type3：项目键、算式 A-L-E、有符号差额元、状态、证据、待补）即所求交付物。无未决选择，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆3",
+          "session_id": "0651116f-7581-4698-9be6-d699113affad",
+          "seconds": 56.48,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5879
+            },
+            {
+              "stage": "bind",
+              "chars": 16381
+            }
+          ],
+          "cost": "0.410076"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标是核验同口径下上年期末存货与本年期初存货是否衔接（OPEN-PREV_CLOSE），m4「期初余额连续性核验」的算式、适用条件（同主体同范围人民币财报原行）与承诺输出（项目、原行、算式、有符号差额、状态、待补）完全覆盖本目标，且为唯一直接交付该结果的方法，无需拆分。委托人承诺提供原行与核验目标，按调用方输入绑定。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "新题期初",
+          "session_id": "59df0c5e-0ed2-4a4b-876f-e29970dbb782",
+          "seconds": 24.22,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5845
+            },
+            {
+              "stage": "bind",
+              "chars": 16420
+            }
+          ],
+          "cost": "0.211176"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "请求交付物为同日资产、负债、所有者权益的三项差额（A-L-E）及可回查出处，与 m1（资产负债平衡核验）的算式 A-L-E、适用条件「委托人提供同主体同范围的人民币财报原行」及输出 check（type3：算式 A-L-E、工具 Q01、证据、差额元、状态、待补）完全对应。委托人承诺提供的按页行标注事实行与核验目标分别满足必需输入 rows（type1）与 target（type2），规划阶段可绑定为调用方输入；排除项（审计意见、预测、投资建议）未涉及，无需澄清或拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题账平",
+          "session_id": "21089e1c-89b8-44a2-ad0b-731de2e2e9bc",
+          "seconds": 34.93,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5859
+            },
+            {
+              "stage": "bind",
+              "chars": 16361
+            }
+          ],
+          "cost": "0.279788"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标是核验现金及现金等价物「期末-期初-净增加额」滚动是否一致，与 m3 的算式 END-BEGIN-CHANGE、适用范围（同主体同范围人民币财报原行逐项核验）完全一致。委托人已承诺提供同批次具出处的原行（rows，含期末、期初余额及净增加额）与核验目标（target），两个必需输入齐备；净增加额为负不影响核验，且无缺失的人为决策。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "码头",
+          "session_id": "fee63bab-bfd3-4a4f-86bf-199cf3b27c27",
+          "seconds": 22.1,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5869
+            },
+            {
+              "stage": "bind",
+              "chars": 16353
+            }
+          ],
+          "cost": "0.219608"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m5"
+          ],
+          "reason": "用户承诺交付五份已核验回执（期初平表、期末平表、利润归属、现金滚动、存货衔接）并要求合成正式报告。m5「核验结果汇总」的适用条件正是收到按指定项目提供的五份报表核验回执，其承诺交付五项原始回执、覆盖计数（应核/实核/阈值内/不平/未核验）及按项目列出的待补清单，与目标完全吻合；排除项（不自行取数、补数或重算）不冲突。回执已经完成核验，无需 m1–m4 子步骤；五份回执属请求方明确承诺稍后交付的材料，按调用方输入绑定即可，单个方法即可完整交付。",
+          "correct": true,
+          "business_cases": 3,
+          "case": "新题汇集",
+          "session_id": "b89891c7-1660-489f-afe3-61dc8fbbcc45",
+          "seconds": 59.13,
+          "calls": 3,
+          "repairs": [
+            "1 validation error for tagged-union[Inspect,Unresolved,Unresolved,Resolve,Resolve]\nhit.reason_summary\n  Extra inputs are not permitted [type=extra_forbidden, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/extra_forbidde"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5865
+            },
+            {
+              "stage": "bind",
+              "chars": 19002
+            },
+            {
+              "stage": "bind",
+              "chars": 19416
+            }
+          ],
+          "cost": "0.609520"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "存货期初原行同时存在原版与更正版，本次以哪一版作为核验依据是您保留且尚未作出的人工决定（原话：「本次由我确定依据，等我确认以后再对上期末」）。在该版本选择经您确认之前，无法确定 m4 期初余额连续性核验所依据的期初原行数值，与上期末的核对也不能开始。请确认：存货期初原行以原版还是更正版为依据？",
+          "correct": true,
+          "business_cases": 0,
+          "case": "盘点更正",
+          "session_id": "bb3ce4b1-54e1-43e8-89f4-bc1b0ffc79b2",
+          "seconds": 47.97,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5843
+            }
+          ],
+          "cost": "0.214772"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目录（partial=false）只有 m1–m4 四个核验方法，输出均为核验回执：m1 资产负债平衡核验可覆盖期初、期末两次资产平衡，m2 净利润归属核验覆盖全年利润归属，m3 现金及现金等价物滚动核验覆盖现金勾稽，m4 期初余额连续性核验（OPEN-PREV_CLOSE）可覆盖存货衔接。但目标的最终消费者——把五份核验回执归集成一份正式报告——在目录中没有对应能力，且该归集动作由请求方委托产出，需目录内有授权生产者；目录完整（非部分目录），属明确缺失能力，不再请求进一步检索。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "缺汇总器",
+          "session_id": "7a784faf-b44d-4064-b7b5-c081d5f79454",
+          "seconds": 33.76,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5606
+            }
+          ],
+          "cost": "0.226112"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "m1「资产负债平衡核验」的适用条件（委托人提供同主体同范围的人民币财报原行）与请求一致，输出 check 正是所求差额与可回查依据；两个必需输入 rows（标好页行的同批披露事实，type1）与 target（主体、范围、版本、报告期、项目键，type2）均由调用方承诺提供，无缺失能力、无待决选择，单一方法即可完整交付目标。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "博物馆",
+          "session_id": "f89d032b-06b1-4bd7-954d-38f3cf638846",
+          "seconds": 36.44,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5879
+            },
+            {
+              "stage": "bind",
+              "chars": 16381
+            }
+          ],
+          "cost": "0.260808"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "请求的交付物是「一段有声粤语讲解音频」，需要音频/语音合成的生产能力。目录中仅有的五种方法（m1 资产负债平衡核验、m2 净利润归属核验、m3 现金及现金等价物滚动核验、m4 期初余额连续性核验、m5 核验结果汇总）输出均为核验回执或汇总报告，没有任何一种能产出音频，更不具备粤语语音能力。目录完整（用户明示只有五种方法，partial=false），澄清任何细节都无法补上该生产能力，故判定为能力缺口。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "新题缺录音",
+          "session_id": "b805506e-f879-46d7-9ac9-32da1476e831",
+          "seconds": 26.31,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5823
+            }
+          ],
+          "cost": "0.132632"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "目标是按指定曲谱为英文公告制作可播放的交响乐配音并交付成品音轨。目录 m1–m5 均为财务报表核验类方法（资产负债平衡核验、净利润归属核验、现金及现金等价物滚动核验、期初余额连续性核验、核验结果汇总），输入输出全部是披露事实与核验回执，没有任何作曲、配器、音频合成或音轨渲染交付能力。目录为完整目录（partial=false），缺失的是音频制作能力本身而非待澄清的需求细节（曲谱与公告文本即使补全也无法由现有方法消费），故判定 gap 而非 clarify。请求中无未决选择项。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "外文配乐",
+          "session_id": "9216dc63-431a-4f8e-82cf-efeeb98fdc4a",
+          "seconds": 32.0,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5827
+            }
+          ],
+          "cost": "0.235312"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标即单项资产负债平衡核验（A-L-E），与 m1 的承诺输出（核验项目、引用原行、算式、有符号差额、状态与待补）完全对应；适用条件要求委托人提供同主体同范围人民币财报原行，请求方明确承诺提供标好页行的资产总计、负债与权益及核对目标，故 rows 与 target 均绑定为调用方输入，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "重测博物馆2",
+          "session_id": "f2644526-0def-4372-934f-12a208e90f99",
+          "seconds": 46.02,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5879
+            },
+            {
+              "stage": "bind",
+              "chars": 16381
+            }
+          ],
+          "cost": "0.281988"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m1"
+          ],
+          "reason": "目标为同一报告日的资产−负债−权益恒等核验并输出差额与原行，m1（资产负债平衡核验，算式A-L-E）的用途、适用条件（委托人提供同主体同范围财报原行）与承诺输出（核验项目、引用原行、算式、有符号差额、状态与待补）完全覆盖本目标；其输入rows即用户已给好的同批次具出处原行，target为委托人指定的主体、口径、版本与报告期参数，均由调用方提供，目录完整且无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "工会",
+          "session_id": "2423c29f-861a-41a8-8576-06eaa9d5b3ce",
+          "seconds": 34.31,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5857
+            },
+            {
+              "stage": "bind",
+              "chars": 16359
+            }
+          ],
+          "cost": "0.246968"
+        },
+        {
+          "status": "gap",
+          "methods": [],
+          "reason": "该工作流目录（m1–m5）仅授权资产负债平衡、净利润归属、现金滚动、期初余额连续性核验及其汇总等财务核验方法，均为企业披露事实核对能力；用户要求的是接入全球所有港口船舶的实时 AIS 数据流并返回实时坐标与准确航线，属于外部实时海事数据接入能力。目录中没有任何生产者能够供给或接入此类实时 AIS 数据，属于明确缺失的能力，且补充澄清细节无法提供该能力。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "实时航线",
+          "session_id": "7c35e708-da74-4089-89a2-95d4c69d8349",
+          "seconds": 30.39,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5845
+            }
+          ],
+          "cost": "0.223776"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：合并与单体两套资产负债表原行都齐，承担方只能核一套，由我选用哪一套，我暂未确定。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "双账簿",
+          "session_id": "84f8b031-d0d0-4361-a09d-3f053ef7f954",
+          "seconds": 17.23,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5849
+            }
+          ],
+          "cost": "0.124572"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "请确认这项选择后继续：主体由我指定，此刻还没指定",
+          "correct": true,
+          "business_cases": 0,
+          "case": "信用社",
+          "session_id": "fbf26f10-00e8-402b-a17b-4f0a9e93fb8e",
+          "seconds": 26.91,
+          "calls": 2,
+          "repairs": [
+            "pending_choice must quote the request or the human clarification"
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5851
+            },
+            {
+              "stage": "directory",
+              "chars": 6055
+            }
+          ],
+          "cost": "0.185908"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m4"
+          ],
+          "reason": "目标为存货期初与上年期末的连续性核对，m4（期初余额连续性核验，算式 OPEN-PREV_CLOSE）的输出契约 type3 正好覆盖项目键、算式、证据、有符号差额与状态；其适用条件为同主体同范围的人民币财报原行，与请求一致。委托人已声明提供存货原行（rows）与核对目标（target），两个必需输入均绑定调用方。",
+          "correct": true,
+          "business_cases": 7,
+          "case": "书店",
+          "session_id": "26c27217-caab-410d-b631-604a0498b714",
+          "seconds": 36.23,
+          "calls": 3,
+          "repairs": [
+            "2 validation errors for tagged-union[Inspect,Unresolved,Unresolved,Resolve,Resolve]\nhit.step.inputs.rows.caller.name\n  String should match pattern '^[A-Za-z][A-Za-z0-9_-]{0,63}$' [type=string_pattern_mismatch, input_value='存货原行', input_type=str]\n    For further information visit "
+          ],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5869
+            },
+            {
+              "stage": "bind",
+              "chars": 16444
+            },
+            {
+              "stage": "bind",
+              "chars": 16857
+            }
+          ],
+          "cost": "0.381108"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "委托目标是核验全年净利润=归母净利润+少数股东损益（负数），并附核验目标；m2（净利润归属核验，算式 NP-P-M）的输入恰好是同批次具出处的标准化披露事实 rows（type1）与指定主体、范围、版本、报告期的核验目标 target（type2），输出 check（type3）含算式、证据、有符号差额与状态，完整覆盖所求。报社承诺提供的数据按普通调用方输入绑定，无需拆分。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "新题负损益",
+          "session_id": "4114cd64-774c-40e2-b93b-1dd64788c49a",
+          "seconds": 36.49,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5851
+            },
+            {
+              "stage": "bind",
+              "chars": 16310
+            }
+          ],
+          "cost": "0.247568"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m3"
+          ],
+          "reason": "目标为茶厂现金及现金等价物的期末余额、期初余额与净增加额做有符号差额核验，与 m3「现金及现金等价物滚动核验」的算式 END-BEGIN-CHANGE 完全对应；适用范围为委托人提供同主体同范围的人民币财报原行，用户已承诺给出全部数值和出处。两项必需输入 rows（具出处的标准化披露事实，schema type1）与 target（主体、范围、起止日期、本期版本、项目键，schema type2）均由委托人提供，无需拆分或额外决策。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "茶厂",
+          "session_id": "771b8738-4b9c-4aa8-9bd0-75b935b225d2",
+          "seconds": 25.14,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5849
+            },
+            {
+              "stage": "bind",
+              "chars": 16333
+            }
+          ],
+          "cost": "0.228808"
+        },
+        {
+          "status": "clarify",
+          "methods": [],
+          "reason": "存在未决的人工选择：用户明确说\"给了闰年、平年两组现金滚动原行，我们只查其中一年，先问我采用哪一个报告年度再动手\"。报告年度（闰年组还是平年组）尚未选定，属于 m3（现金及现金等价物滚动核验）target 中的报告期决策，须先由用户拍板，再进入检验与绑定。",
+          "correct": true,
+          "business_cases": 0,
+          "case": "闰年",
+          "session_id": "542b83cf-651d-4bc2-ab1a-6eca53c38c4a",
+          "seconds": 16.79,
+          "calls": 1,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5851
+            }
+          ],
+          "cost": "0.094412"
+        },
+        {
+          "status": "ready",
+          "methods": [
+            "m2"
+          ],
+          "reason": "目标是核验全年净利润的归属关系（净利润=归母净利润+少数股东损益，含负值少数股东损益），m2「净利润归属核验」的算式 NP-P-M、输入（同批次具出处的标准化披露事实 rows，以及指定主体/范围/版本/报告期的 target）与承诺输出 check（含引用原行、算式、有符号差额、状态与待补资料）完整覆盖整个目标。其适用条件为委托人提供同主体同范围的人民币财报原行，请求已声明「归母和净利润都有对应行及口径」，满足适用性；排除项（审计意见、预测、投资建议）与本目标无关。m1（资产负债平衡）、m3（现金滚动）、m4（期初连续性）核验对象不同，m5 为下游汇总方法，均不能单独交付本目标，故选 m2 为叶子方法。",
+          "correct": true,
+          "business_cases": 6,
+          "case": "纺织",
+          "session_id": "f8ba837c-589c-4df4-9eaf-a20424a6ce1a",
+          "seconds": 60.35,
+          "calls": 2,
+          "repairs": [],
+          "phases": [
+            {
+              "stage": "directory",
+              "chars": 5857
+            },
+            {
+              "stage": "bind",
+              "chars": 16316
+            }
+          ],
+          "cost": "0.482456"
+        }
+      ],
+      "without_rework_and_correct": 24,
+      "with_rework_and_correct": 4
+    }
+  ],
+  "stream_replay": {
+    "session": "f4166b94-64b8-4deb-8ac5-fbf9615646f3",
+    "case": "天文台计数",
+    "turns": [
+      {
+        "turn": "01a20bc7-3f8d-75a2-9320-55dcdd0a78a2",
+        "fragments": 2,
+        "method": "m2"
+      },
+      {
+        "turn": "01a20bc7-73d7-72e3-b1f0-3deffd6d5148",
+        "fragments": 2,
+        "method": "m2"
+      }
+    ]
+  },
+  "prior_author_selection_fresh_data": {
+    "seed": 24745,
+    "trial_count": 12,
+    "leaf_calls": 72,
+    "reports": [
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 3,
+        "阈值内": 2,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 2,
+        "阈值内": 2,
+        "未核验": 1
+      },
+      {
+        "实核": 5,
+        "不平": 1,
+        "阈值内": 4,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 0,
+        "阈值内": 4,
+        "未核验": 1
+      },
+      {
+        "实核": 5,
+        "不平": 0,
+        "阈值内": 5,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 3,
+        "阈值内": 2,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 3,
+        "阈值内": 1,
+        "未核验": 1
+      },
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 3,
+        "阈值内": 2,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 2,
+        "阈值内": 2,
+        "未核验": 1
+      }
+    ]
+  },
+  "intermediate_author": {
+    "status": "ready",
+    "methods": [
+      "m1",
+      "m1",
+      "m2",
+      "m3",
+      "m4",
+      "m5"
+    ],
+    "reason": "最终交付是一份汇总五份核验回执的报告，目录中 m5 正是最终消费者：其输出报告（应核、实核、阈值内、不平、未核验、明细、待补清单）与用户要求的应核数、已核数、不平、缺件一一对应。但 m5 明确排除自行取数、补数与重算，仅整理传入的五份回执，故无法单独完成整个目标；五份回执必须由专家方法先行产出：m1 承担期初与期末两次资产负债平衡核验（同一方法、目标参数不同），m2 承担全年利润归属，m3 承担全年现金滚动，m4 承担存货期初连续性。五个上游子目标相互独立、共同汇入 m5 的五个必需输入端口，故采用 parallel_join。用户承诺提供同批次具出处的标准化披露事实行（rows，五个子目标共享，记为 shared_inputs）以及各项核验目标；各核验的主体、口径、版本与报告期不同，目标参数按子目标分别使用独立调用方名称（target_opening、target_closing、target_profit、target_cash、target_inventory）。m5 非独立指令方法，无需评审策略。",
+    "session_id": "d95d9bdf-4aba-4d69-8e64-2dfdbfd09952",
+    "calls": 11,
+    "decisions": 11,
+    "repairs": [],
+    "seconds": 212.58,
+    "cost": "3.055792",
+    "fresh_data": {
+      "seed": 24746,
+      "trial_count": 12,
+      "leaf_calls": 72,
+      "reports": [
+        {
+          "实核": 5,
+          "不平": 4,
+          "阈值内": 1,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 1,
+          "阈值内": 4,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 2,
+          "阈值内": 2,
+          "未核验": 1
+        },
+        {
+          "实核": 5,
+          "不平": 1,
+          "阈值内": 4,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 2,
+          "阈值内": 3,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 3,
+          "阈值内": 1,
+          "未核验": 1
+        },
+        {
+          "实核": 5,
+          "不平": 3,
+          "阈值内": 2,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 1,
+          "阈值内": 4,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 2,
+          "阈值内": 2,
+          "未核验": 1
+        },
+        {
+          "实核": 5,
+          "不平": 2,
+          "阈值内": 3,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 3,
+          "阈值内": 2,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 2,
+          "阈值内": 2,
+          "未核验": 1
+        }
+      ]
+    }
+  },
+  "choice_author": {
+    "status": "ready",
+    "methods": [
+      "m1",
+      "m1",
+      "m2",
+      "m3",
+      "m4",
+      "m5"
+    ],
+    "reason": "最终交付物与 m5 的报告输出完全对应：逐项证据、应核/实核/阈值内/不平/未核验计数与待补清单。m5 的五个必需输入恰对应五份专家核验回执：m1 资产负债平衡核验以不同 target 分别覆盖期初与期末（type4 两次），m2 覆盖利润归属，m3 覆盖现金滚动，m4 覆盖存货期初连续性；五者相互独立且均为必需，故 parallel_join。用户声明「五份检查和最终归集均由专家完成，我不会提供现成回执」，即回执由 m1–m4 产出、不得要求调用方提供中间结果；用户承诺持有的已标注披露原行（rows）与各项核验目标（target）绑定为调用方输入，其中期初与期末平表需各自独立的 target 参数。",
+    "session_id": "3342b281-31c9-4626-9730-78ef914fbf0a",
+    "calls": 13,
+    "decisions": 11,
+    "repairs": [],
+    "seconds": 207.28,
+    "cost": "3.050236",
+    "fresh_data": {
+      "seed": 24747,
+      "trial_count": 12,
+      "leaf_calls": 72,
+      "reports": [
+        {
+          "实核": 5,
+          "不平": 3,
+          "阈值内": 2,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 2,
+          "阈值内": 3,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 3,
+          "阈值内": 1,
+          "未核验": 1
+        },
+        {
+          "实核": 5,
+          "不平": 1,
+          "阈值内": 4,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 4,
+          "阈值内": 1,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 0,
+          "阈值内": 4,
+          "未核验": 1
+        },
+        {
+          "实核": 5,
+          "不平": 2,
+          "阈值内": 3,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 1,
+          "阈值内": 4,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 2,
+          "阈值内": 2,
+          "未核验": 1
+        },
+        {
+          "实核": 5,
+          "不平": 1,
+          "阈值内": 4,
+          "未核验": 0
+        },
+        {
+          "实核": 5,
+          "不平": 2,
+          "阈值内": 3,
+          "未核验": 0
+        },
+        {
+          "实核": 4,
+          "不平": 1,
+          "阈值内": 3,
+          "未核验": 1
+        }
+      ]
+    }
+  },
+  "author": {
+    "status": "ready",
+    "methods": [
+      "m1",
+      "m1",
+      "m2",
+      "m3",
+      "m4",
+      "m5"
+    ],
+    "reason": "最终交付物是 m5 的汇总报告；按契约 m5 仅整理传入的五份已验回执，不得自行取数、补数或重算，因此须先由专家方法产出五份回执：期初与期末资产平表各一次 m1（A-L-E，type4），利润归属 m2（NP-P-M，type2），现金滚动 m3（END-BEGIN-CHANGE，type1），存货期初连续性 m4（OPEN-PREV_CLOSE，type3），再由 m5 归集为 type5 报告。五项检查相互独立、共享同一批具出处披露行（rows），各自使用不同核验目标参数，构成 parallel_join。",
+    "session_id": "535a35f6-9d12-4edf-a758-675b0b7997e6",
+    "calls": 11,
+    "decisions": 11,
+    "repairs": [],
+    "seconds": 212.1,
+    "cost": "2.607596",
+    "selection": {
+      "status": "ready",
+      "reason": "最终交付物是 m5 的汇总报告；按契约 m5 仅整理传入的五份已验回执，不得自行取数、补数或重算，因此须先由专家方法产出五份回执：期初与期末资产平表各一次 m1（A-L-E，type4），利润归属 m2（NP-P-M，type2），现金滚动 m3（END-BEGIN-CHANGE，type1），存货期初连续性 m4（OPEN-PREV_CLOSE，type3），再由 m5 归集为 type5 报告。五项检查相互独立、共享同一批具出处披露行（rows），各自使用不同核验目标参数，构成 parallel_join。",
+      "patterns": [
+        "P2"
+      ],
+      "steps": [
+        {
+          "id": "n1_1",
+          "task": "用 m1（资产负债平衡核验，A-L-E）对期初资产平表目标核验：以调用方提供的具出处披露行与期初平表目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+          "method": "m1",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "opening_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        {
+          "id": "n1_2",
+          "task": "用 m1（资产负债平衡核验，A-L-E）对期末资产平表目标核验：以调用方提供的具出处披露行与期末平表目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+          "method": "m1",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "closing_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        {
+          "id": "n1_3",
+          "task": "用 m2（净利润归属核验，NP-P-M）对全年利润归属目标核验：以调用方提供的具出处披露行与利润归属目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+          "method": "m2",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "profit_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        {
+          "id": "n1_4",
+          "task": "用 m3（现金及现金等价物滚动核验，END-BEGIN-CHANGE）对全年现金滚动目标核验：以调用方提供的具出处披露行与现金滚动目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+          "method": "m3",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "cash_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        {
+          "id": "n1_5",
+          "task": "用 m4（期初余额连续性核验，OPEN-PREV_CLOSE）对存货期初连续性目标核验：以调用方提供的具出处披露行与存货连续性目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+          "method": "m4",
+          "inputs": {
+            "rows": {
+              "source": "caller",
+              "name": "rows"
+            },
+            "target": {
+              "source": "caller",
+              "name": "inventory_target"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        },
+        {
+          "id": "n1",
+          "task": "汇总期初资产平表、期末资产平表、全年利润归属、全年现金滚动、存货期初连续性五份已验回执，逐项保留证据与有符号差额，输出应核、实核、阈值内、不平、未核验计数及按项目列出的待补清单。",
+          "method": "m5",
+          "inputs": {
+            "opening_balance": {
+              "source": "step",
+              "step": "n1_1",
+              "output": "check"
+            },
+            "closing_balance": {
+              "source": "step",
+              "step": "n1_2",
+              "output": "check"
+            },
+            "profit": {
+              "source": "step",
+              "step": "n1_3",
+              "output": "check"
+            },
+            "cash": {
+              "source": "step",
+              "step": "n1_4",
+              "output": "check"
+            },
+            "inventory": {
+              "source": "step",
+              "step": "n1_5",
+              "output": "check"
+            }
+          },
+          "route_input": null,
+          "cases": {},
+          "reviews": []
+        }
+      ],
+      "routing_required": false,
+      "tree": {
+        "catalog_digest": "6f652397f1e058ce4bf57138a55b7f5dbeb314812bdc9e8a58abf4d36f3fb8dc",
+        "nodes": [
+          {
+            "id": "n1",
+            "parent": null,
+            "goal": "我只有已标注主体、期间、范围、版本和页行的财报披露原行，以及各项核验目标。请交一份报告，分别核对期初与期末资产平表、全年利润归属、现金滚动和期初存货连续性，列清应核数、已核数、不平和缺件。五份检查和最终归集均由专家完成，我不会提供现成回执。",
+            "status": "split",
+            "reason": "最终交付物是 m5 的汇总报告；按契约 m5 仅整理传入的五份已验回执，不得自行取数、补数或重算，因此须先由专家方法产出五份回执：期初与期末资产平表各一次 m1（A-L-E，type4），利润归属 m2（NP-P-M，type2），现金滚动 m3（END-BEGIN-CHANGE，type1），存货期初连续性 m4（OPEN-PREV_CLOSE，type3），再由 m5 归集为 type5 报告。五项检查相互独立、共享同一批具出处披露行（rows），各自使用不同核验目标参数，构成 parallel_join。",
+            "operator": "parallel_join",
+            "step": {
+              "id": "n1",
+              "task": "汇总期初资产平表、期末资产平表、全年利润归属、全年现金滚动、存货期初连续性五份已验回执，逐项保留证据与有符号差额，输出应核、实核、阈值内、不平、未核验计数及按项目列出的待补清单。",
+              "method": "m5",
+              "inputs": {
+                "opening_balance": {
+                  "source": "step",
+                  "step": "n1_1",
+                  "output": "check"
+                },
+                "closing_balance": {
+                  "source": "step",
+                  "step": "n1_2",
+                  "output": "check"
+                },
+                "profit": {
+                  "source": "step",
+                  "step": "n1_3",
+                  "output": "check"
+                },
+                "cash": {
+                  "source": "step",
+                  "step": "n1_4",
+                  "output": "check"
+                },
+                "inventory": {
+                  "source": "step",
+                  "step": "n1_5",
+                  "output": "check"
+                }
+              },
+              "route_input": null,
+              "cases": {},
+              "reviews": []
+            },
+            "batch": null,
+            "backtracks": 0
+          },
+          {
+            "id": "n1_1",
+            "parent": "n1",
+            "goal": "用 m1（资产负债平衡核验，A-L-E）对期初资产平表目标核验：输入同一批次具出处的标准化披露行 rows 与期初平表核验目标，输出逐项差额与可回查依据的回执 check；缺失事实不补零。",
+            "status": "hit",
+            "reason": "m1 契约与本目标逐项吻合：输入 rows（type1，同批具出处标准化披露行，缺失不补零）与 target（type2，指定核验项目、主体、口径、版本与报告期，其中时点即期初），输出 check（type3：工具 Q01、算式 A-L-E、证据、差额元、状态、待补），恰好填满父级 opening_balance 槽位。用户已承诺提供披露原行与各项核验目标，故两输入均绑定调用方；rows 沿用共享名，target 用本检查专属名 opening_target。",
+            "operator": "leaf",
+            "step": {
+              "id": "n1_1",
+              "task": "用 m1（资产负债平衡核验，A-L-E）对期初资产平表目标核验：以调用方提供的具出处披露行与期初平表目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+              "method": "m1",
+              "inputs": {
+                "rows": {
+                  "source": "caller",
+                  "name": "rows"
+                },
+                "target": {
+                  "source": "caller",
+                  "name": "opening_target"
+                }
+              },
+              "route_input": null,
+              "cases": {},
+              "reviews": []
+            },
+            "batch": null,
+            "backtracks": 0
+          },
+          {
+            "id": "n1_2",
+            "parent": "n1",
+            "goal": "用 m1（资产负债平衡核验，A-L-E）对期末资产平表目标核验：输入同一批次具出处的标准化披露行 rows 与期末平表核验目标，输出逐项差额与可回查依据的回执 check；缺失事实不补零。",
+            "status": "hit",
+            "reason": "本目标是期末资产平表核验，与 m1 契约完全对应：输入 rows（type1，同批具出处披露行，缺失不补零）与 target（type2，时点为期末），输出 check（type3：Q01、A-L-E），恰好填入父级 closing_balance 槽位。rows 复用调用方已有的共享名 rows，并在 shared_inputs 登记本地端口；期末目标与期初目标是不同参数对象，须用独立调用方名 closing_target。",
+            "operator": "leaf",
+            "step": {
+              "id": "n1_2",
+              "task": "用 m1（资产负债平衡核验，A-L-E）对期末资产平表目标核验：以调用方提供的具出处披露行与期末平表目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+              "method": "m1",
+              "inputs": {
+                "rows": {
+                  "source": "caller",
+                  "name": "rows"
+                },
+                "target": {
+                  "source": "caller",
+                  "name": "closing_target"
+                }
+              },
+              "route_input": null,
+              "cases": {},
+              "reviews": []
+            },
+            "batch": null,
+            "backtracks": 0
+          },
+          {
+            "id": "n1_3",
+            "parent": "n1",
+            "goal": "用 m2（净利润归属核验，NP-P-M）对全年利润归属目标核验：输入同一批次具出处的标准化披露行 rows 与利润归属核验目标，输出逐项差额与可回查依据的回执 check；缺失事实不补零。",
+            "status": "hit",
+            "reason": "m2 契约与本目标逐项吻合：输入 rows（type1，同批具出处披露行，缺失不补零）与 target（type2，指定主体、范围、起止日、版本与项目键），输出 check（type3：工具 Q02、算式 NP-P-M、证据、差额元、状态、待补），恰好填满父级 profit 槽位。rows 复用调用方共享名并在 shared_inputs 登记；利润归属目标为独立参数对象，用调用方名 profit_target。",
+            "operator": "leaf",
+            "step": {
+              "id": "n1_3",
+              "task": "用 m2（净利润归属核验，NP-P-M）对全年利润归属目标核验：以调用方提供的具出处披露行与利润归属目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+              "method": "m2",
+              "inputs": {
+                "rows": {
+                  "source": "caller",
+                  "name": "rows"
+                },
+                "target": {
+                  "source": "caller",
+                  "name": "profit_target"
+                }
+              },
+              "route_input": null,
+              "cases": {},
+              "reviews": []
+            },
+            "batch": null,
+            "backtracks": 0
+          },
+          {
+            "id": "n1_4",
+            "parent": "n1",
+            "goal": "用 m3（现金及现金等价物滚动核验，END-BEGIN-CHANGE）对全年现金滚动目标核验：输入同一批次具出处的标准化披露行 rows 与现金滚动核验目标，输出逐项差额与可回查依据的回执 check；缺失事实不补零。",
+            "status": "hit",
+            "reason": "m3 契约与本目标逐项吻合：输入 rows（type1，同批具出处披露行，缺失不补零）与 target（type2，指定主体、范围、起止日、版本与项目键），输出 check（type3：工具 Q03、算式 END-BEGIN-CHANGE、证据、差额元、状态、待补），恰好填满父级 cash 槽位。rows 复用调用方共享名并在 shared_inputs 登记；现金滚动目标为独立参数对象，用调用方名 cash_target。",
+            "operator": "leaf",
+            "step": {
+              "id": "n1_4",
+              "task": "用 m3（现金及现金等价物滚动核验，END-BEGIN-CHANGE）对全年现金滚动目标核验：以调用方提供的具出处披露行与现金滚动目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+              "method": "m3",
+              "inputs": {
+                "rows": {
+                  "source": "caller",
+                  "name": "rows"
+                },
+                "target": {
+                  "source": "caller",
+                  "name": "cash_target"
+                }
+              },
+              "route_input": null,
+              "cases": {},
+              "reviews": []
+            },
+            "batch": null,
+            "backtracks": 0
+          },
+          {
+            "id": "n1_5",
+            "parent": "n1",
+            "goal": "用 m4（期初余额连续性核验，OPEN-PREV_CLOSE）对存货期初连续性目标核验：输入同一批次具出处的标准化披露行 rows 与存货连续性核验目标，输出逐项差额与可回查依据的回执 check；缺失事实不补零。",
+            "status": "hit",
+            "reason": "m4 契约与本目标逐项吻合：输入 rows（type1，同批具出处披露行，缺失不补零）与 target（type2，含主体、范围、起止日、本期与上期版本、项目键、存量科目），输出 check（type3：工具 Q04、算式 OPEN-PREV_CLOSE、证据、差额元、状态、待补），恰好填满父级 inventory 槽位。rows 复用调用方共享名并在 shared_inputs 登记；存货连续性目标为独立参数对象，用调用方名 inventory_target。",
+            "operator": "leaf",
+            "step": {
+              "id": "n1_5",
+              "task": "用 m4（期初余额连续性核验，OPEN-PREV_CLOSE）对存货期初连续性目标核验：以调用方提供的具出处披露行与存货连续性目标为输入，返回核验项目、引用原行、算式、有符号差额、核验状态与待补资料的回执 check；缺失事实不补零。",
+              "method": "m4",
+              "inputs": {
+                "rows": {
+                  "source": "caller",
+                  "name": "rows"
+                },
+                "target": {
+                  "source": "caller",
+                  "name": "inventory_target"
+                }
+              },
+              "route_input": null,
+              "cases": {},
+              "reviews": []
+            },
+            "batch": null,
+            "backtracks": 0
+          }
+        ],
+        "pins": {
+          "m5": "670db7121e4a959be95765a8eda63126ed30b90bc325b1f6177744fc605c5a3e",
+          "m1": "9e5e8f4d2201643d55ee74ad898e94af91542a94c5512c721b3682535570a8fb",
+          "m2": "91d7a8ac59cb1150e0042a2c95ae78243137e1822d4637c02540b3792928f3d5",
+          "m3": "81c897be50cb9adfd84afcbd4a862d84e4dd7328f1c0f30d7ac7ae2786deabe1",
+          "m4": "39e7a622a51ee2a9362e1a9033051dd67ee03ea74cfcebc9b713dd8cee466807"
+        }
+      },
+      "object_batch": null
+    }
+  },
+  "new_author_selection_fresh_data": {
+    "seed": 24748,
+    "trial_count": 12,
+    "leaf_calls": 72,
+    "reports": [
+      {
+        "实核": 5,
+        "不平": 3,
+        "阈值内": 2,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 0,
+        "阈值内": 4,
+        "未核验": 1
+      },
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 1,
+        "阈值内": 4,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 2,
+        "阈值内": 2,
+        "未核验": 1
+      },
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 0,
+        "阈值内": 5,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 0,
+        "阈值内": 4,
+        "未核验": 1
+      },
+      {
+        "实核": 5,
+        "不平": 0,
+        "阈值内": 5,
+        "未核验": 0
+      },
+      {
+        "实核": 5,
+        "不平": 2,
+        "阈值内": 3,
+        "未核验": 0
+      },
+      {
+        "实核": 4,
+        "不平": 1,
+        "阈值内": 3,
+        "未核验": 1
+      }
+    ]
+  }
+}
