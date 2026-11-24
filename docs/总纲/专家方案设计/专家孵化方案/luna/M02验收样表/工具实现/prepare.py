@@ -71,6 +71,7 @@ def verify(folder):
         facts = list(csv.DictReader(f))
     with (M / "独立期望.csv").open() as f:
         expected = list(csv.DictReader(f))
+    checks = {}
     for row in expected:
         kind = row["工具"]
         item = {**target(kind), "项目键": row["清单项"]}
@@ -79,6 +80,7 @@ def verify(folder):
         check = local_call(folder / f"{kind}.py", {"target": item, "rows": facts})[
             "check"
         ]
+        checks[row["清单项"]] = check
         ids = [fact["证据编号"] for fact in check["证据"]]
         if (
             check["状态"] != row["状态"]
@@ -86,7 +88,22 @@ def verify(folder):
             or ids != row["操作数证据（算式顺序）"].replace(" 缺项", "").split()
         ):
             raise ValueError((row["清单项"], check))
-    print(f"单工具 {count} 例、混合样表 {len(expected)} 项本地核对通过")
+    collector_inputs = {
+        "opening_balance": checks["资产平表-期初"],
+        "closing_balance": checks["资产平表-期末"],
+        "profit": checks["利润归属-全年"],
+        "cash": checks["现金滚动-全年"],
+        "inventory": checks["存货连续性-期初"],
+    }
+    report = local_call(Path(__file__).with_name("collect_checks.py").resolve(), collector_inputs)["report"]
+    counts = {key: report[key] for key in ("应核", "实核", "阈值内", "不平", "未核验")}
+    if counts != {"应核": 5, "实核": 4, "阈值内": 3, "不平": 1, "未核验": 1}:
+        raise ValueError(("汇总", counts))
+    if report["明细"] != list(collector_inputs.values()) or report["待补清单"] != [
+        {"项目键": "利润归属-全年", "待补": checks["利润归属-全年"]["待补"]}
+    ]:
+        raise ValueError("汇总丢失明细或待补项目")
+    print(f"单工具 {count} 例、混合样表 {len(expected)} 项及最终汇总本地核对通过")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,473 @@
+{
+  "release": "117",
+  "owner": "sig-am",
+  "catalog": {
+    "Q01": {
+      "alias": "m4",
+      "digest": "sha256:ac6f02a812d22cf88afeaf9aa678772e91a04a9e6dac8b88859da230f7a34839",
+      "version": 1,
+      "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8",
+      "inputs": [
+        "rows",
+        "target"
+      ],
+      "outputs": [
+        "check"
+      ]
+    },
+    "Q02": {
+      "alias": "m3",
+      "digest": "sha256:5c804d4fb638fd3dd5bf8e6ee6c038263b55400352a851d4a106c78a9e282fb2",
+      "version": 1,
+      "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6",
+      "inputs": [
+        "rows",
+        "target"
+      ],
+      "outputs": [
+        "check"
+      ]
+    },
+    "Q03": {
+      "alias": "m2",
+      "digest": "sha256:a173ed43d382a1e9444ec4479b1eae6be5a1a71a947f47545677f517ab2fd4c0",
+      "version": 1,
+      "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba",
+      "inputs": [
+        "rows",
+        "target"
+      ],
+      "outputs": [
+        "check"
+      ]
+    },
+    "Q04": {
+      "alias": "m1",
+      "digest": "sha256:a7843947c7a5137f1255184c7d4d7a1a21ec8daf9df16266c1dc47d76ef4fbc8",
+      "version": 1,
+      "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608",
+      "inputs": [
+        "rows",
+        "target"
+      ],
+      "outputs": [
+        "check"
+      ]
+    }
+  },
+  "rounds": [
+    {
+      "id": "61d5705e-713a-4ff4-b2fc-ca2744c4ce35",
+      "revision": 3,
+      "started_at": "2026-11-24T02:50:46.861667+00:00",
+      "finished_at": "2026-11-24T02:52:56.827174+00:00",
+      "spent_cny": "0.991620",
+      "selection_status": "ready",
+      "steps": [
+        {
+          "id": "bs_open",
+          "method": "资产负债平衡核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "target_bs_open",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "bs_close",
+          "method": "资产负债平衡核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "target_bs_close",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "np_attr",
+          "method": "净利润归属核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "target_np_attr",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "cash_roll",
+          "method": "现金及现金等价物滚动核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "target_cash_roll",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "inv_open",
+          "method": "期初余额连续性核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "target_inv_open",
+              "source": "caller"
+            }
+          }
+        }
+      ],
+      "outcome": "编译器复算 selection_disconnected，作者退回"
+    },
+    {
+      "id": "1e2b04b3-2624-443f-95d2-1a5088d18093",
+      "revision": 3,
+      "started_at": "2026-11-24T02:54:22.828340+00:00",
+      "finished_at": "2026-11-24T02:55:17.142244+00:00",
+      "spent_cny": "0.419996",
+      "selection_status": "gap",
+      "steps": [],
+      "outcome": "缺汇总工具，未采用"
+    },
+    {
+      "id": "3aca187a-9261-4f4f-a326-635b1be3be81",
+      "revision": 4,
+      "started_at": "2026-11-24T03:07:32.271220+00:00",
+      "finished_at": "2026-11-24T03:08:43.803963+00:00",
+      "spent_cny": "0.777780",
+      "selection_status": "ready",
+      "steps": [
+        {
+          "id": "check_opening_balance",
+          "method": "资产负债平衡核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "opening_target",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "check_closing_balance",
+          "method": "资产负债平衡核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "closing_target",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "check_profit_attribution",
+          "method": "净利润归属核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "profit_target",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "check_cash_roll",
+          "method": "现金及现金等价物滚动核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "cash_target",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "check_inventory_continuity",
+          "method": "期初余额连续性核验",
+          "inputs": {
+            "rows": {
+              "name": "rows",
+              "source": "caller"
+            },
+            "target": {
+              "name": "inventory_target",
+              "source": "caller"
+            }
+          }
+        },
+        {
+          "id": "summarize_checks",
+          "method": "核验结果汇总",
+          "inputs": {
+            "cash": {
+              "step": "check_cash_roll",
+              "output": "check",
+              "source": "step"
+            },
+            "profit": {
+              "step": "check_profit_attribution",
+              "output": "check",
+              "source": "step"
+            },
+            "inventory": {
+              "step": "check_inventory_continuity",
+              "output": "check",
+              "source": "step"
+            },
+            "closing_balance": {
+              "step": "check_closing_balance",
+              "output": "check",
+              "source": "step"
+            },
+            "opening_balance": {
+              "step": "check_opening_balance",
+              "output": "check",
+              "source": "step"
+            }
+          }
+        }
+      ],
+      "outcome": "五项核验汇入 S01 后定稿，修订6"
+    }
+  ],
+  "collector": {
+    "request_id": "b3d7dd60-c6d1-4db5-950e-ae54b1e34b0c",
+    "draft_revision": 2,
+    "run_id": "3ba33c27-3afe-52d0-949b-6b6df72710b7",
+    "suite": {
+      "suite_id": "0e6fedbb-f742-515f-b42d-00ceec1d3314",
+      "version": 1,
+      "digest": "sha256:8132ee33733bf74a5c7ac2ffdc83daaca0feb2714dac7dfb78f724ab30fbff77"
+    },
+    "evidence_digest": "sha256:38839bf8f8ea6911c1da2d4213944c45d7cdbf7252ba56bc031456b787ae060b",
+    "tests": [
+      {
+        "id": "mixed",
+        "status": "passed",
+        "assertions": 11
+      },
+      {
+        "id": "complete",
+        "status": "passed",
+        "assertions": 11
+      },
+      {
+        "id": "all_missing",
+        "status": "passed",
+        "assertions": 11
+      }
+    ],
+    "spent_cny": "0.020000",
+    "listing": {
+      "contract_version": 1,
+      "listing_id": "105ceb33-367f-4bc6-8d7c-c905fa92e94a",
+      "scope": "self",
+      "reference": {
+        "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040",
+        "version": 1,
+        "digest": "sha256:f013fe56a86d02d0b807f44c431b592578b720a0592bd3568747efa500e9ea8f"
+      },
+      "status": "listed"
+    },
+    "jobs": [
+      {
+        "tool": "S01",
+        "case": "mixed:1",
+        "call_id": "99aa9ed3-5b42-4cbe-b822-2b0a5fc3d38b",
+        "job_uid": "cbe2b71a-1fc0-46f3-b0cd-c261d7f8d07c",
+        "pod_uid": "c439d8e5-7ac7-4d6c-abe3-e29b76489bf9",
+        "seconds": "1",
+        "amount": "0.010000"
+      },
+      {
+        "tool": "S01",
+        "case": "all_missing:1",
+        "call_id": "224ebd69-5e55-4dd6-a4bb-6c8caa3f1448",
+        "job_uid": "6113a1db-2753-4b67-9e34-6005b798b249",
+        "pod_uid": "47a824ff-263d-4642-aaf0-7612ce0c9554",
+        "seconds": "1",
+        "amount": "0.010000"
+      },
+      {
+        "tool": "S01",
+        "case": "complete:1",
+        "call_id": "a03664bb-299b-4cfe-a798-3d9bd0259382",
+        "job_uid": "50d21d10-9f15-4c7f-96d8-3c324d6273c6",
+        "pod_uid": "b0bba1f6-ec18-41da-8da7-0793eea406aa",
+        "seconds": "0",
+        "amount": "0.000000"
+      }
+    ]
+  },
+  "expert": {
+    "request_id": "67502733-b308-4ff1-a9fc-a10f06e5e118",
+    "draft_revision": 6,
+    "run_id": "ad66652f-d6ab-5a39-84bd-b8ffa6ddf178",
+    "suite": {
+      "suite_id": "3d4d3bd5-effa-5c6b-a364-961144c6dcf1",
+      "version": 1,
+      "digest": "sha256:326f30367a13e09a96648e7d6396f4a536a522d04534c3f987354ccf8cd61534"
+    },
+    "evidence_digest": "sha256:dd5f450b389d9e80ef27d2511819a84f39665003d689c988fe93b07d983c29ff",
+    "tests": [
+      {
+        "id": "mixed",
+        "status": "passed",
+        "assertions": 26
+      }
+    ],
+    "spent_cny": "0.220000",
+    "listing": {
+      "contract_version": 1,
+      "listing_id": "a5d80ad3-153d-47e0-bcb3-7fbe07911cda",
+      "scope": "self",
+      "reference": {
+        "method_id": "ba65c0d9-6409-51a4-835c-eb95f46222e9",
+        "version": 1,
+        "digest": "sha256:04c9729400b49bd75481f451bb2c0c728e859159f0635e84de36aed48fc7ae25"
+      },
+      "status": "listed"
+    },
+    "jobs": [
+      {
+        "tool": "expert",
+        "case": "mixed:1",
+        "call_id": "e0d3f1eb-a03f-4797-8cc8-142918888312",
+        "job_uid": "a759f848-231e-445b-8995-78ab417c2df9",
+        "pod_uid": "c0b65c76-56ee-473e-a97a-8aaedfcee01a",
+        "seconds": "4",
+        "amount": "0.040000"
+      },
+      {
+        "tool": "expert",
+        "case": "mixed:1",
+        "call_id": "8b3d2065-a55b-4132-85a1-759040ce35e1",
+        "job_uid": "544760a7-34ee-4c81-b931-c425a38905d6",
+        "pod_uid": "24ddeffc-7110-439e-b14e-03d40c96bd6a",
+        "seconds": "4",
+        "amount": "0.040000"
+      },
+      {
+        "tool": "expert",
+        "case": "mixed:1",
+        "call_id": "9642c7b4-ed04-4453-a049-929018cbe0ac",
+        "job_uid": "99acba17-0f7c-4a84-831c-3fc7e3b773a8",
+        "pod_uid": "f4274f80-785b-4584-8d6d-53783a3fd810",
+        "seconds": "3",
+        "amount": "0.030000"
+      },
+      {
+        "tool": "expert",
+        "case": "mixed:1",
+        "call_id": "3146683c-c25c-49cf-8079-abdb9246a762",
+        "job_uid": "14dfe955-d5e0-4057-82ce-5a719a862c0b",
+        "pod_uid": "80323772-5a5e-4bc0-b796-bbe50459af8f",
+        "seconds": "3",
+        "amount": "0.030000"
+      },
+      {
+        "tool": "expert",
+        "case": "mixed:1",
+        "call_id": "427c4970-4044-473a-a369-4a0985ec41d3",
+        "job_uid": "c5b83475-0f4e-4246-aea0-f0b5f3c84a60",
+        "pod_uid": "58c9d98f-38a5-4dc9-9d4b-e1872953f135",
+        "seconds": "4",
+        "amount": "0.040000"
+      },
+      {
+        "tool": "expert",
+        "case": "mixed:1",
+        "call_id": "d7fc5059-0691-41a2-bd65-e21f29af67c3",
+        "job_uid": "be62f666-20c8-4569-914e-d835344b35ee",
+        "pod_uid": "c9591b65-b596-40bb-a362-fc38401a9e1c",
+        "seconds": "4",
+        "amount": "0.040000"
+      }
+    ]
+  },
+  "expert_v2": {
+    "request_id": "67502733-b308-4ff1-a9fc-a10f06e5e118",
+    "draft_revision": 7,
+    "run_id": "01e4936e-0313-54ec-af65-6a1218f01d1c",
+    "suite": {
+      "suite_id": "3d4d3bd5-effa-5c6b-a364-961144c6dcf1",
+      "version": 1,
+      "digest": "sha256:326f30367a13e09a96648e7d6396f4a536a522d04534c3f987354ccf8cd61534"
+    },
+    "tests": [
+      {
+        "id": "mixed",
+        "status": "passed",
+        "assertions": 26
+      }
+    ],
+    "spent_cny": "0.220000",
+    "evidence_digest": "sha256:4413233b2d8b90db572255913c65909e31b7aa00668dd0f855e21438078f6f5f",
+    "listing": {
+      "contract_version": 1,
+      "listing_id": "9dfff9a9-f73b-462e-969a-b343522daef3",
+      "scope": "self",
+      "reference": {
+        "method_id": "ba65c0d9-6409-51a4-835c-eb95f46222e9",
+        "version": 2,
+        "digest": "sha256:21c88d2894dc7aa0a6a010196e2fbb2d891f9aca21f8f5d15dcdfae53b85b731"
+      },
+      "status": "listed"
+    }
+  },
+  "ordinary_v1": {
+    "match_task_id": "3ba2cbb5-3425-4de8-88ae-1e299b253556",
+    "outcome": "匹配校验失败，作者终止，未派发业务步骤",
+    "spent_cny": "2.345156"
+  },
+  "ordinary_v2": {
+    "match_task_id": "c9b704b9-8b26-44d1-9f4a-921693e2dc08",
+    "match_state": "SUCCEEDED",
+    "match_used_cny": "1.136320",
+    "required_author_feedback": true,
+    "reference": {
+      "digest": "sha256:21c88d2894dc7aa0a6a010196e2fbb2d891f9aca21f8f5d15dcdfae53b85b731",
+      "version": 2,
+      "method_id": "ba65c0d9-6409-51a4-835c-eb95f46222e9"
+    },
+    "preview_steps": 6,
+    "issues": [],
+    "dispatch_gap": null,
+    "preview_estimated_maximum_cny": "5.46",
+    "execution_id": "e8f93cc5-0845-4fc1-8d74-01ce661a0dcc",
+    "observed_state": "RUNNING",
+    "observed_execution_used_cny": "0",
+    "waiting_for": "knowbench-runner 引用 KnowMart summon 服务关系后复核首步工具资格",
+    "ordinary_delivery_verified": false
+  }
+}
