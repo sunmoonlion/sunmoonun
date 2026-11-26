@@ -1912,3 +1912,12 @@ e4f90f5c1dc7d883febd841cf3f3ce5a3c3da02f	knowlab-app/knowlab-backend	app/tests/t
 12500c3ef61798d56abb350c58ae675af678e388	knowlab-app/knowlab-backend	app/tests/test_method_composition.py	1	82	方法版本引用、跨应用 Schema 校验、交付路径冲突以及失败后工作稿和冻结版本不变的测试。
 07f50583b33bbb4dffe1425b7cc76da115b2163c	knowlab-app/knowlab-backend	app/tests/test_method_delivery_preflight.py	1	93	方法版本引用、跨应用 Schema 校验、交付路径冲突以及失败后工作稿和冻结版本不变的测试。
 f340bf97b5d0f1f087e70608638c63ef7578624d	knowlab-app/knowlab-backend	app/tests/test_method_delivery_preflight_db.py	1	109	方法版本引用、跨应用 Schema 校验、交付路径冲突以及失败后工作稿和冻结版本不变的测试。
+f007804166d788c601f4d51a273fa8304d2894e7	knowlab-app/knowlab-backend	app/tests/test_drop_manifest_v1_db.py	1	178	复核冻结引用不随版本漂移、旧清单迁移、需求交接和补充方法、测试读写契约；结合服务与 48 项现有用例验证。
+409613ad56358e39eed351348582c181d4691592	knowlab-app/knowlab-backend	app/tests/test_knowbot_amendments.py	1	211	复核冻结引用不随版本漂移、旧清单迁移、需求交接和补充方法、测试读写契约；结合服务与 48 项现有用例验证。
+a6e6c398eddcd0ef0dbb9a7d602979e166ca75d1	knowlab-app/knowlab-backend	app/tests/test_method_references_db.py	1	223	复核冻结引用不随版本漂移、旧清单迁移、需求交接和补充方法、测试读写契约；结合服务与 48 项现有用例验证。
+4aa1590bbfa4b817e16f778361eff6ecdc0e1b07	knowlab-app/knowlab-backend	app/tests/test_runtime_method_demand.py	1	145	复核冻结引用不随版本漂移、旧清单迁移、需求交接和补充方法、测试读写契约；结合服务与 48 项现有用例验证。
+e6b71a3c8f04d671b5242771746b3685bdc51145	knowlab-app/knowlab-backend	app/tests/test_test_execution.py	1	92	复核冻结引用不随版本漂移、旧清单迁移、需求交接和补充方法、测试读写契约；结合服务与 48 项现有用例验证。
+2efba00d4f8b79bd9960011bc00868808b41ea62	knowlab-app/knowlab-backend	app/tests/test_test_run_v2.py	1	91	复核冻结引用不随版本漂移、旧清单迁移、需求交接和补充方法、测试读写契约；结合服务与 48 项现有用例验证。
+2d16109ff18603f0ac9b7541cc28ba0d721f127c	knowlab-app/knowlab-backend	app/tests/test_interaction_contract.py	1	185	审核草稿清单、工作稿数据格式迁移、引用来源及运行交互契约测试。
+5c4a3badcd3ae41142896a6fa8f725e0605f8271	knowlab-app/knowlab-backend	app/tests/test_knowbot_data_formats_db.py	1	106	审核草稿清单、工作稿数据格式迁移、引用来源及运行交互契约测试。
+19724d7c2848b4cc974b7fcbb29da4978d228893	knowlab-app/knowlab-backend	app/tests/test_knowbot_drafts.py	1	149	审核草稿清单、工作稿数据格式迁移、引用来源及运行交互契约测试。
