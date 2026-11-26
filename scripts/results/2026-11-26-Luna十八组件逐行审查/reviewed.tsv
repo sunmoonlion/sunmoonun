@@ -2069,3 +2069,47 @@ cb4a6c49cf5d4e7e8f730d2c533ffc2974d33aec	knowbase-app/knowbase-backend	app/tests
 f23b4a5a699d5fec2501cbd423bbdd6d3a0f632c	knowbase-app/knowbase-backend	app/app/interfaces/http/middleware/auth.py	1	153	逐行审查双端登录配置、服务声明、请求身份注入和配套配置测试
 cc8a3c57e16b63217702ef208190406444967b9b	knowbase-app/knowbase-backend	app/core/config.py	1	769	逐行审查双端登录配置、服务声明、请求身份注入和配套配置测试
 97ed5cf3bc7a07c55e87315942a700d64eaec0ba	knowbase-app/knowbase-backend	app/tests/test_config_security.py	1	162	逐行审查双端登录配置、服务声明、请求身份注入和配套配置测试
+f40b5a4d7e629720558ec3fb14f01f5055527606	knowbase-app/knowbase-backend	app/tests/test_auth_routes_security.py	1	321	逐行核对两端登录、跨应用回跳、入库轮询、持久化重试与登记资料函数的真实回归覆盖
+cf4b0dce6d09029d614607cd39b63aab45814502	knowbase-app/knowbase-backend	app/tests/test_auth_service.py	1	450	逐行核对两端登录、跨应用回跳、入库轮询、持久化重试与登记资料函数的真实回归覆盖
+e95a732d8ca632f09f96f8c362d7f18ffaf9bcde	knowbase-app/knowbase-backend	app/tests/test_cross_app.py	1	298	逐行核对两端登录、跨应用回跳、入库轮询、持久化重试与登记资料函数的真实回归覆盖
+4f12fc12593e68295a3695470bfa24d923702d80	knowbase-app/knowbase-backend	app/tests/test_ingestion_authorization.py	1	358	逐行核对两端登录、跨应用回跳、入库轮询、持久化重试与登记资料函数的真实回归覆盖
+871105afeaed5efa8e396066cadeae721735d07b	knowbase-app/knowbase-backend	app/tests/test_ingestion_polling_db.py	1	751	逐行核对两端登录、跨应用回跳、入库轮询、持久化重试与登记资料函数的真实回归覆盖
+6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	1	806	逐行核对两端登录、跨应用回跳、入库轮询、持久化重试与登记资料函数的真实回归覆盖
+4cc67bd30e8ef975c1a3179d30fbea3e52ae8573	tpl-app/tpl-backend	app/tests/test_auth_service.py	1	547	与已审 KnowBase 同文件逐行对照；模板新增用户访问令牌换取、退出清理、无交换能力分支，构建核对默认镜像名
+3d621b00db361c52efa8c06d02446339e46b8707	tpl-app/tpl-backend	mybuild/build-image.sh	1	115	与已审 KnowBase 同文件逐行对照；模板新增用户访问令牌换取、退出清理、无交换能力分支，构建核对默认镜像名
+0aae7091e29038894190a39bb85d963cb8d293aa	knowmart-app/knowmart-backend	app/alembic/versions/20261016_0004_knowbots.py	1	99	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+b0c576e9897ffc6eb43190c574791f10119fdcbc	knowmart-app/knowmart-backend	app/alembic/versions/20261018_0005_expert_catalog.py	1	131	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+2957b1b0842c67c849dcd79c69a0c3fe8a8f1f02	knowmart-app/knowmart-backend	app/alembic/versions/20261018_0006_uncategorized.py	1	36	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+86b257638999b72933bb152050f708994fb673bf	knowmart-app/knowmart-backend	app/alembic/versions/20261023_0007_market.py	1	416	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+915f1acbc938c48e7755f60b63e5b85eadd526ae	knowmart-app/knowmart-backend	app/alembic/versions/20261024_0008_unlisted_versions.py	1	56	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+1d1533a8c29a0a85de9177f4c3bf5915900e872f	knowmart-app/knowmart-backend	app/alembic/versions/20261025_0009_auth_user_by_subject.py	1	145	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+bafd06d74402d9aac8a44b8f1dc4862f4fbf9d6d	knowmart-app/knowmart-backend	app/alembic/versions/20261028_0010_drop_manifest_v1.py	1	95	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+25fa7adfbea3d75df164a732ca704d7eab22e79a	knowmart-app/knowmart-backend	app/alembic/versions/20261029_0011_trade_granted_delist_reason.py	1	54	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+199b304e5af8befc3a722502498aa8b0cb8be6e2	knowmart-app/knowmart-backend	app/alembic/versions/20261029_0012_shop.py	1	168	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+c3eabc73f61b45852c9b5e0ab59408fdfbdaf577	knowmart-app/knowmart-backend	app/alembic/versions/20261030_0013_version_held.py	1	55	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+443c81a4659514473e845b617de3a2c76201a7cf	knowmart-app/knowmart-backend	app/alembic/versions/20261101_0014_trade_expert_unique_index.py	1	31	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+069c484f2e294210b2a5721bde53e2b80ceafb3b	knowmart-app/knowmart-backend	app/alembic/versions/20261120_0015_formal_method_acquisition.py	1	59	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+9e55d1811c9448f3654c299529f618791fec6c14	knowmart-app/knowmart-backend	app/alembic/versions/20261120_0017_formal_composition.py	1	30	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+9b34d86c46d4caa61cbb08318dbbec201312261c	knowmart-app/knowmart-backend	app/alembic/versions/20261122_0018_formal_buyer_lookup.py	1	22	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+b1e932f1f3b1eb51cce0525e26a040614163ed8a	knowmart-app/knowmart-backend	app/alembic/versions/20261124_0019_formal_method_kind.py	1	24	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+18eec54fed6267d6769685dfb62c545f6cfa434e	knowmart-app/knowmart-backend	app/alembic/versions/20261124_0020_method_classification.py	1	19	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+8007ff4552e2c1833bba8ce02d7d8be0f36105d0	knowmart-app/knowmart-backend	app/app/application/ports/knowbots.py	1	182	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+d22276b2b4425e52f6fd3a37d80f940294bda142	knowmart-app/knowmart-backend	app/app/bootstrap/knowbots.py	1	65	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+3d960b994815dbf6645915c760f5563e354eb7bf	knowmart-app/knowmart-backend	app/app/domain/knowbots/__init__.py	1	4	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+b3240a474365a2112972422f01ee5dcbe70dfc18	knowmart-app/knowmart-backend	app/app/domain/knowbots/directory.py	1	114	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+35ced5df4eb6aaa0476ab76a09847670c4b558df	knowmart-app/knowmart-backend	app/app/domain/knowbots/manifest.py	1	184	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+49e7633a136a4d8ea52b2fc4f18022611f4e87a2	knowmart-app/knowmart-backend	app/app/domain/knowbots/schema.py	1	73	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+38769f556c4b72a951906f4f9d04d10a6d669ad5	knowmart-app/knowmart-backend	app/app/infrastructure/models/__init__.py	1	13	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+09df9dfc64f637a404d41147dfce3724a23baafc	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/knowbots.py	1	481	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+1d44e2ed787437c093e92181afe0e08c866b9a6d	knowmart-app/knowmart-backend	app/app/interfaces/endpoints/__init__.py	1	1	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+d66342618a58a58dd828a3507969f6516aa04d04	knowmart-app/knowmart-backend	app/app/interfaces/endpoints/expert_routes.py	1	105	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+e3debad9f0eb4442d2e5ad48bb242bd889f3e00e	knowmart-app/knowmart-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+bf67b5469323b350e76a3f24ac85b1533b3dfdc5	knowmart-app/knowmart-backend	app/app/interfaces/http/routes.py	1	30	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+6db35b48b68d38265817df5b6d6c39d69ccdae75	knowmart-app/knowmart-backend	app/app/tasks/market.py	1	53	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+f06dc74789c73de79b99fa7f32bbf07f2acd4b2d	knowmart-app/knowmart-backend	app/scripts/backfill_formal_method_kinds.sh	1	53	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+3f48ee51a01eeac2a35e6eea605967f283ceb79d	knowmart-app/knowmart-backend	app/tests/knowbot_fakes.py	1	354	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+13599b3ed109111529ad53277b834f28311e1774	knowmart-app/knowmart-backend	app/tests/test_drop_manifest_v1_db.py	1	165	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+dbb87c121f68223d1085fd8630e23689cfebd57d	knowmart-app/knowmart-backend	app/tests/test_expert_routes.py	1	88	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+08e71f2383a123df20cfc431af08dcedbe9bb9ec	knowmart-app/knowmart-backend	app/tests/test_knowbot_contract.py	1	75	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+172f01eac5578fdb81f42c57135075eda5649d0d	knowmart-app/knowmart-backend	app/tests/test_knowbot_manifest_v2.py	1	128	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+20ab3ff3d2055c6c1f378fbd803116d993d89d09	knowmart-app/knowmart-backend	app/tests/test_knowbot_manifest_v3.py	1	120	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
