@@ -181,3 +181,8 @@ dbbc1bf01a1c94b3a2571d11b5b66156efc38d56	knowbench-app/knowbench-backend	app/app
 3950184693c2ce01892c4540c423831fe16b235b	knowbase-app/knowbase-backend	app/app/interfaces/schemas/user_runs.py	1	209	核对授权依据、用途、有效期、原件和读法分别钉版的输入输出
 2e864c99ee42caf9b6ad0d6f1c731019f6562036	knowbase-app/knowbase-backend	app/app/application/services/user_resolution_service.py	433	481	按 reading 检索该版本最新 ready 读法并回填其摘要
 20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	929	945	记录测试失败时收不到已签发的部分授权列表
+09409b63d7124bc4656185fb371bcc7ce204196f	knowbase-app/knowbase-backend	app/app/application/services/user_run_service.py	1	1918	读完签发、会话、双读法读取与出处、供数、加工排队、事实查询、转换、清除路径。实测加工漏领、同比闰日异常
+521093fc3e06c7e33d551581760cd846d24a5376	knowbase-app/knowbase-backend	app/app/domain/user_runs.py	1	298	输入组合保留不同读法，同种读法只认一个版本；不同过程独立限制时限、依据和读取范围
+81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	211	230	加工授权按创建时间倒序限条，查询未过滤已完成项
+e03a4f10ab68368709776036773564019139d6b2	knowbase-app/knowbase-backend	app/app/domain/user_readings.py	1	126	解析正文与分页文本，去 NUL、校验页号、规范化计算读法摘要
+b54e2f61b13ab24e82842ad14f06ced2f8328a12	knowbase-app/knowbase-backend	app/app/domain/user_data.py	1	137	按后缀和内容校验、清理文件名、配额与格式预览；转换产出调用 clean_name 时序见 B22
