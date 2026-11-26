@@ -1525,3 +1525,24 @@ e5342f20fdda1e48a4f58bb5d31b5cc9d08ddfa8	knowbench-app/knowbench-web-frontend	ap
 ec57f397bf25975c26399f22754bc5763fb98aa7	knowbench-app/knowbench-web-frontend	app/contracts/workbench-v2.ts	1	1033	逐字段核对工作台 v2 会话、归档、委托、审核、数据需求与匹配契约，并查阅契约样例及模块分层测试
 75e5dbdabc721d2040ecab96e8f84d2b6b0e07e6	knowbench-app/knowbench-web-frontend	app/tests/unit/feature-boundaries.test.ts	1	126	逐字段核对工作台 v2 会话、归档、委托、审核、数据需求与匹配契约，并查阅契约样例及模块分层测试
 e2d0303b813d8585d452032490a11388cc267f29	knowbench-app/knowbench-web-frontend	app/tests/unit/workbench-contract-samples.test.ts	1	72	逐字段核对工作台 v2 会话、归档、委托、审核、数据需求与匹配契约，并查阅契约样例及模块分层测试
+6b6a4b30e31802ca09fa7e9c1c3ba6c863bcbb10	knowbench-app/knowbench-web-frontend	app/tests/unit/agent-onboarding.test.ts	1	82	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+cde4ceca8fa5e3b368afeee0722db1e19b9262c1	knowbench-app/knowbench-web-frontend	app/tests/unit/chat-thread.test.ts	1	169	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+d4eaf9fa7ad8d8b7afc3a01b4519e5f012776ea0	knowbench-app/knowbench-web-frontend	app/tests/unit/content-security-policy.test.ts	1	18	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+8ff579fb5f1dc295034a377ccf63fd7ef88fa553	knowbench-app/knowbench-web-frontend	app/tests/unit/cross-app-destinations.test.ts	1	22	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+2d90d9f5801e35bd94bdb5a3064a80fbdadc06df	knowbench-app/knowbench-web-frontend	app/tests/unit/env.test.ts	1	131	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+b7c88deddb798068227583160a3b34d8f34d0b24	knowbench-app/knowbench-web-frontend	app/tests/unit/file-tree.test.ts	1	59	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+09b9d3b7ada85c3a5524a5977a686a516c13d9b1	knowbench-app/knowbench-web-frontend	app/tests/unit/knowbase-run-contract.test.ts	1	51	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+27b85ed3ed25e6a1dbcd37d538b0edfb10c4f34c	knowbench-app/knowbench-web-frontend	app/tests/unit/link-check.test.ts	1	106	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+5edbcc812dab4f2ed4037ade549f8d17411427f5	knowbench-app/knowbench-web-frontend	app/tests/unit/link-side.test.ts	1	32	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+9a3f578a9a4bf31b362933a9bad50aeea2c1a429	knowbench-app/knowbench-web-frontend	app/tests/unit/machines-client.test.ts	1	29	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+15f271ab2751e0179cf670b452a98f1b82a500ca	knowbench-app/knowbench-web-frontend	app/tests/unit/pane-widths.test.ts	1	50	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+8f25d8452d29ebbf223af7dfc4665e19657b905b	knowbench-app/knowbench-web-frontend	app/tests/unit/projects-model.test.ts	1	94	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+1177c1a16d485aa822c2f1fd3959e685c07c1df9	knowbench-app/knowbench-web-frontend	app/tests/unit/settings-client.test.ts	1	60	逐行核对工作台安装、聊天花费、部署配置、项目与机器、文件树及设置客户端的单测输入和断言
+f3d7721b0c608ac03cb6b4f910fb4d05a42a0f8e	knowbench-app/knowbench-web-frontend	app/tests/component/computer-section.test.tsx	1	220	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+af2359927cf20e7e337dd202f26cf0c5e37a7a2c	knowbench-app/knowbench-web-frontend	app/tests/component/dossier-and-machines.test.tsx	1	235	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+5a977f3c19a27af8f110e8df0f867f4f31e82aab	knowbench-app/knowbench-web-frontend	app/tests/component/expert-desk.test.tsx	1	541	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+065c806dbe63eb838600483dda03d33e7a327857	knowbench-app/knowbench-web-frontend	app/tests/component/knowbot-arrival.test.tsx	1	120	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+120cfa3029a05f86ddc122b7990c819c42d91afd	knowbench-app/knowbench-web-frontend	app/tests/component/link-check-banner.test.tsx	1	122	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+b49d4b30db78fe65e08ba1f23baba0393ecd3b03	knowbench-app/knowbench-web-frontend	app/tests/component/open-task-from-ref.test.tsx	1	64	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+1c742fd345ee1eaec8108c20553c527c601e900c	knowbench-app/knowbench-web-frontend	app/tests/component/temporary-plan-review.test.tsx	1	64	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+d9a4dee6fb5ea77561e8c237d005977cbc2a5db4	knowbench-app/knowbench-web-frontend	app/tests/e2e/rendering.e2e.ts	1	540	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
