@@ -252,3 +252,9 @@ e0db71f024aed4e3ed25ca85a59fd8c9cf2318bb	tpl-app/tpl-web-frontend	app/tests/comp
 cb060c4ec459be9d79371a4dae66f38ed0d94328	tpl-app/tpl-web-frontend	app/tests/component/signed-in-as.test.tsx	1	21	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
 189e557351ef91e75e8af6dae2b7c1c72f3a8eae	tpl-app/tpl-web-frontend	app/tests/unit/session-recovery.test.ts	1	71	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
 e47039512306d84bcf79ec669460b7442b230ed3	tpl-app/tpl-web-frontend	app/tests/unit/browser-session.test.ts	1	116	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
+0e668cdc615478c306702f6c33ae4c596199dbc4	knowbench-app/knowbench-web-frontend	app/lib/interaction/use-run-projection.ts	1	136	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
+8d02955e29b1abcb8f17423a846d75bc181f3b8a	knowbase-app/knowbase-web-frontend	app/lib/interaction/use-run-projection.ts	1	114	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
+8d02955e29b1abcb8f17423a846d75bc181f3b8a	knowfeed-app/knowfeed-web-frontend	app/lib/interaction/use-run-projection.ts	1	114	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
+8d02955e29b1abcb8f17423a846d75bc181f3b8a	knowlab-app/knowlab-web-frontend	app/lib/interaction/use-run-projection.ts	1	114	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
+8d02955e29b1abcb8f17423a846d75bc181f3b8a	knowmart-app/knowmart-web-frontend	app/lib/interaction/use-run-projection.ts	1	114	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
+51cc33d3ab5106684ec3ff0b772d41dd5899abe3	knowbench-app/knowbench-web-frontend	app/components/research/research-workspace.tsx	1	274	按运行号挂载的研究页面；已取消仍按 required_action 渲染，确认问题影响范围
