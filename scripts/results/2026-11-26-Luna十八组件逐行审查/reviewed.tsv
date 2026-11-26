@@ -2278,3 +2278,22 @@ e312d2adf35b72b38dede267a00cfb4fc0cfe258	knowfeed-app/knowfeed-backend	app/tests
 a41bbd99eb9855997a68f3f9af97a528a0912600	knowfeed-app/knowfeed-backend	app/tests/test_knowbase_chart_lock.py	1	31	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
 a70610522f700e165905703a955891310c26137b	knowfeed-app/knowfeed-backend	app/tests/test_knowbase_supply_client.py	1	222	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
 6d773a951f374a9065a5055eb5d55627f8d369a4	knowfeed-app/knowfeed-backend	app/tests/test_knowbase_vocabulary_lock.py	1	49	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
+002cddd59080d62e34638c1de95750a88fa766d3	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/wind.py	1	288	逐行核对 Wind 固定服务、发现与执行、文本及结构化回执；同一错误在两个载体的判定不同
+aaee6947f40978f40f755900d3b8fdda8ee4e12a	knowfeed-app/knowfeed-backend	app/tests/test_wind_mcp.py	1	186	逐行核对 Wind 固定服务、发现与执行、文本及结构化回执；同一错误在两个载体的判定不同
+fb1cf659d26e2f2b4f159dfe4895b26179e0ee2b	knowfeed-app/knowfeed-backend	app/app/infrastructure/supply/adapters.py	1	246	核对渠道 HTTP 和限速适配器、按页抽取边界与回归、摘要和审核字段
+ae854d36e30d242c53ddff0c38d650d900179ebd	knowfeed-app/knowfeed-backend	app/tests/test_crawl_clock_regression_db.py	1	17	核对渠道 HTTP 和限速适配器、按页抽取边界与回归、摘要和审核字段
+5dbeed01d4b87f7221c5a83f8c5b4f5ac2dcd62d	knowfeed-app/knowfeed-backend	app/tests/test_crawl_concurrency.py	1	63	核对渠道 HTTP 和限速适配器、按页抽取边界与回归、摘要和审核字段
+c837c6fe6354d9c003d461a68159534df52aad6e	knowfeed-app/knowfeed-backend	app/tests/test_review_helpers.py	1	70	核对渠道 HTTP 和限速适配器、按页抽取边界与回归、摘要和审核字段
+8d02e4bc9a3ca1c8fcc95700cc0728caa243185a	knowfeed-app/knowfeed-backend	app/tests/test_source_governance.py	1	36	核对渠道 HTTP 和限速适配器、按页抽取边界与回归、摘要和审核字段
+c0d795efc94af4d4289e0fd26e67d428fb822b7c	knowfeed-app/knowfeed-backend	app/tests/test_summary_profile.py	1	46	核对渠道 HTTP 和限速适配器、按页抽取边界与回归、摘要和审核字段
+9b9085dbcf994d7015844497433729c1820c664a	knowfeed-app/knowfeed-backend	app/app/interfaces/schemas/info.py	1	235	核对资料管理 API 模型、URL 身份测试、财务事实需求与跨应用关系测试
+1fbfc6fd2019848a41e274993a9dd63a6621b4ae	knowfeed-app/knowfeed-backend	app/tests/test_info_identity.py	1	95	核对资料管理 API 模型、URL 身份测试、财务事实需求与跨应用关系测试
+e2d053811b08f156a3389052b73ccb397b6e8941	knowfeed-app/knowfeed-backend	app/tests/test_supply_facts.py	1	113	核对资料管理 API 模型、URL 身份测试、财务事实需求与跨应用关系测试
+f25d143444fe3ef3205c6378939324699d29ab22	knowfeed-app/knowfeed-backend	app/tests/test_supply_relations.py	1	101	核对资料管理 API 模型、URL 身份测试、财务事实需求与跨应用关系测试
+5b58e72f57fbeda5b5a2670e4f536faba8f94d32	knowfeed-app/knowfeed-backend	app/app/interfaces/endpoints/info_routes.py	1	480	核对资料管理和供给 API，沿调用追至重试事务、查询条件与事实输入转换
+17633b9c8f859f4f8f384bde8864da9401d97213	knowfeed-app/knowfeed-backend	app/app/interfaces/http/admin/supply.py	1	588	核对资料管理和供给 API，沿调用追至重试事务、查询条件与事实输入转换
+af5d5c8b27f74d1baf4719ef4dd34b6553304876	knowfeed-app/knowfeed-backend	app/app/interfaces/http/internal/supply.py	1	351	核对资料管理和供给 API，沿调用追至重试事务、查询条件与事实输入转换
+b5d0bf9c94b9d2ebc2cdfa8e0d3820d7f43e57ba	knowfeed-app/knowfeed-backend	app/app/infrastructure/models/info.py	1	275	核对来源、文档、版本、原件、订阅、队列与发件箱身份及约束
+d217bc7702b9ef779c7c31750e0d32fa0427a30c	knowfeed-app/knowfeed-backend	app/app/infrastructure/models/supply.py	1	544	核对来源、文档、版本、原件、订阅、队列与发件箱身份及约束
+ab513530ce9faba9dbeb80811fbcd3f8ccc80cb6	knowfeed-app/knowfeed-backend	app/tests/test_delivery_outbox.py	1	163	核对来源、文档、版本、原件、订阅、队列与发件箱身份及约束
+e0737f8c5aa9a394f003d5245963f3b3adf66f6b	knowfeed-app/knowfeed-backend	app/tests/test_distribution_helpers.py	1	200	核对资料分发入库契约及退役作业的回归范围
