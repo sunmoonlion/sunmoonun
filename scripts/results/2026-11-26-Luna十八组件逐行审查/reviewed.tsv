@@ -1259,3 +1259,9 @@ a17c201d8a59e238ce085215e217e092db89a432	knowlab-app/knowlab-web-frontend	app/co
 ff1ead1dfa14b8a08bf2c5b8f38cea011f3df37f	knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-method-execution.ts	1	243	核对作者导航与待办数量，以及试跑响应身份、审批动作和分支验收的客户端契约。
 879e49def0add56c55aaadab3785c5247928190d	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-view.tsx	1	1070	逐项检查实例挂载、保存队列、草图跳转、平台与模型建议、预览和出版本的修订边界。
 6db48d8e13ee1a2253f91895c241c530abb1dbbb	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-step.tsx	1	744	逐格核对输入来源、返工、输出、提问、工具与模型额度编辑及不可保存字段。
+4761fce09655d5c69a5a0c9477bcf860c29ff17d	knowlab-app/knowlab-web-frontend	app/components/knowbots/p1-predecessor.tsx	1	521	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
+40af33d4cfb51e80626dc526ef8b86172e66576b	knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-orchestration.ts	1	469	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
+5fcfc9918cb3deba3d16bf630699c03a1d4b904e	knowlab-app/knowlab-web-frontend	app/lib/navigation.ts	1	56	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
+f26fef4e6d7fee2820e45a035eb9673af1faf7cf	knowlab-app/knowlab-web-frontend	app/store/ui.ts	1	32	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
+84e19f291279d2f6b6d804a3e5ade1a2c66efe28	knowlab-app/knowlab-web-frontend	app/tests/component/p1-live.test.tsx	1	374	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
+1625f2f34edd8392fc41f6d4f188188be7785c97	knowlab-app/knowlab-web-frontend	app/tests/fixtures/formal-orchestration.ts	1	61	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
