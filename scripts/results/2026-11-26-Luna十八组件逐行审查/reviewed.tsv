@@ -94,3 +94,33 @@ fd1a79593bda03cbca8d1cc578f77d35734cd2b0	knowbench-app/knowbench-admin-frontend	
 582ef72beb3d4e6fc5187225ddcc583a2a24094a	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/incubation/page.tsx	1	40	孵化队列解析指定分类与条目，检查会话后转入 IncubationView。
 9a062ccb9d670d0a218973bc284b1196899be8bc	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/acceptance/page.tsx	1	40	待审、通过、驳回三类，已有会话带 csrf 到审查视图。
 16f1630887a87b7f6c7118a778e9eb380a6b6ea4	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/delivery/page.tsx	1	49	交付和人工放行同页，链接支持条目加六种状态筛选。
+01bd5b031a922e43807992806e851ee39061dcbd	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method.py	1	718	五项作者定义、准入静态规则及派生接口。聚合同名调用方输入要求整个序列化槽位相等，包括展示说明。
+762664306ae6632ae1e595110a1ac4fc180f51a0	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_compiler.py	1	189	核验冻结摘要、候选输入输出、祖先深度与各层最坏分支的展开预算。方法类型按过程类型而定。
+4f9be450a53b97a57aca38a24991aec8d55ea16f	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_plan.py	1	699	区分冻结规范与调用实例，按实参选择精确分支和对象名单；复核阶段会另建盲核与比对步骤。校验实际叶子总数，最后按命名导出投影。
+20ba3d8c7f3ee9d6b30a1966df2b3afda4f394e1	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_admission.py	1	371	实施来源、草稿、验证回执与冻结封装；受条件约束的承诺须有执行证据，公开范围与登记脚本、自有指令及技能交付条款分别检查。
+2974b618bcd926d0f2e7ba47dbe78c5773cfd9ff	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_execution.py	1	784	断言与调用输入分离；覆盖统计取成功用例、断言所指顶层输出与条件槽；分支接收核产物摘要，复核可在独立意见封存后开放评估项。
+3e5c74eb78ef99a0006b2f612367a3f268ff4146	knowlab-app/knowlab-backend	app/scripts/export_formal_method.py	1	217	从 KnowLab 派生消费者模型和契约清单并可校验漂移。已用 --check 对照本工位 KnowBench。
+323ee24a0f2ee1a3fe3efbd69b9ff17c274a2c77	knowlab-app/knowlab-backend	app/tests/test_formal_method_recursive_plan.py	1	168	分别覆盖反复调用同版本、祖先树限额、百个叶子边界、不同深度和重排后拓扑稳定。
+2768561d382c69e9f9daa48fe461f45e45debf0c	knowlab-app/knowlab-backend	app/tests/test_formal_method.py	1	253	五要素合法性、派生接口、可选条件、输出投影、冻结版本与递归限额。样例并未让不同方法的同名槽具有不同说明。
+92444805bd64af4081df3ce69f86b672c167a368	knowlab-app/knowlab-backend	app/tests/test_formal_method_candidate_choice.py	1	116	精确分支比较含无匹配、大小写与数组的拒绝；每种候选都参与最坏限额检查，但固定后只选一个。
+43090406fe75c99cc1a93a2c8fa7703182ddca79	knowbase-app/knowbase-backend	app/app/application/services/auth_service.py	1	398	核对登录回调、服务端会话、主体权限、返回地址和登录事务的生命周期，覆盖 Web 与管理端调用面。
+96613579c1757b5431b522ce6dc92f1ece08ed16	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_generated.py	1	719	全文件与已读 KnowLab 提供方逐行对照，差异仅生成标记及导入替换、排序。能力声明及接口；权限模型从 KnowBench 的 method_capabilities 取得。
+da2eb929dc1a589d3c6038031b41cc99fbe12d69	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_admission_generated.py	1	372	全文件与已读 KnowLab 提供方逐行对照，差异仅生成标记及导入替换、排序。冻结回执引用本端生成的具体类型。
+5d0777132c39c4cb8b819867f85a54d0d9ba9a22	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_compiler_generated.py	1	190	全文件与已读 KnowLab 提供方逐行对照，差异仅生成标记及导入替换、排序。顶层模型及内部 ReviewPhaseStep 两处导入转本地。
+8496a5bdec4c5e996bac537e0e26b3393d88414a	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_plan_generated.py	1	700	全文件与已读 KnowLab 提供方逐行对照，差异仅生成标记及导入替换、排序。规划器改用本地生成的编译器及模型。
+564b6f829f37ca79ef6f5fa7edf4f9f93164461f	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_execution_generated.py	1	785	全文件与已读 KnowLab 提供方逐行对照，差异仅生成标记及导入替换、排序。执行请求复用生成准入模型；预算、运行电脑来自本端 test_runs。
+d70277d744eb34e7797cafa6410048d1cf9080f8	knowbench-app/knowbench-backend	app/app/domain/workbench/incubation_selection.py	1	686	全文件与已读 KnowLab 提供方逐行对照，差异仅生成标记及导入替换、排序。孵化草图及平图在本端引用同组类型；函数内协作角色也引用本端。
+97042b3fd4dec6b775133944215465b20804e81f	knowbench-app/knowbench-backend	app/app/domain/workbench/method_capabilities.py	1	196	允许的工具和技能来自作者声明；本端按账号安装的版本、摘要、依赖进行匹配。
+dcd23a936629c00d5f9071d76294e32a021aaf0d	knowbench-app/knowbench-backend	app/app/domain/workbench/skill_dependencies.py	1	107	按服务地址和工具名找当前账号连接，也可按旧物理键查；无连接、停用、可选、已选分别表达。
+35a49ac86c6ddb08d220e7302eb39cb2c799fc5f	knowbench-app/knowbench-backend	app/app/domain/workbench/planning_capabilities.py	1	154	由关键词正则与显式声明合并为硬要求，未分辨否定；能力摘要兼容旧提示。结构要求先检查根，再汇入各依赖支持的功能。
+dfb7cada7c9524d3c7fafa25e492e332cd9f9cee	knowlab-app/knowlab-backend	app/app/domain/knowbots/managed_capabilities_generated.py	1	170	与已读 KnowBench 能力模型逐行对照，共用声明模型，省略运行时账号安装匹配函数。
+b99e1c4657e4e00f74b74db128e22a3945ae3dc7	knowbench-app/knowbench-backend	app/app/application/services/auth_service.py	1	439	与 KnowBase 已读正本逐行对照，新增服务端用户令牌存取、交换、注销；会话和访问令牌分别写入。
+475cfb6b05d6bfdc0c315bf668407120fd2be8c8	knowfeed-app/knowfeed-backend	app/app/application/services/auth_service.py	1	441	与 KnowBench 版本逐行对照；用户令牌变量名及换行有别，调用前提与交换语义相同。
+000247c5685f75239e9df34586615482eceb001f	knowmart-app/knowmart-web-frontend	app/components/market/my-formal-methods.tsx	1	115	自用与公开按范围状态显示，可改类目；撤回后刷新本人列表和孵化许可，分类后刷新公开目录查询。
+c417193a4a06d954a340b3a3ccae610d526f7f73	knowmart-app/knowmart-web-frontend	app/components/market/market-shell.tsx	1	96	页首七个市场入口；需求类别、详情路径和小店路径分别令对应一级栏目高亮。
+2c36c8ac060c6cb18bcf0286bb64f0a37ea576ad	knowmart-app/knowmart-web-frontend	app/components/market/parts.tsx	1	220	共用价格、评价、小店、举报、翻页、表单组件。举报类型为旧专家/知识/需求/响应/消息。
+f3f68aed67356ec2acac12bbefe6583756ada56a	knowmart-app/knowmart-web-frontend	app/lib/market/categories.ts	1	17	公开经营类目的前端静态表，金融三类显式要求证照。与正式方法目录分类是不同数据。
+799e918508aceeff35c0155bda817d3e4aa63046	knowmart-app/knowmart-backend	app/app/domain/knowbots/catalog.py	1	235	经营资质类目、工具与专家能力细分目录并存；工具推荐只取唯一明确命中；清单详情区分所有者可见步骤与公开成果。
+d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/application/services/expert_catalog.py	1	368	混合目录把旧专家与正式方法按用户可见范围、排序和页码合并；旧包仅取 v3，版本细节与未上架缘由依身份投影。
+9723a12f7052105277dab03e155cc1caca3d416a	knowmart-app/knowmart-backend	app/app/infrastructure/external/formal_method_delivery.py	1	85	取回指定权属、精确版本及可选技能实体后校验，依赖条款和文件大小有上限。
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	260	365	正式上架目录先限本人自用和可公开条目，再取每种方法的最新可见版本；分类计数位于筛类之前。
