@@ -1211,3 +1211,14 @@ b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/a
 b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1804	1835	需求选定、成交请求与幂等恢复、详情留言的参与方和展示对应。
 b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1928	1972	需求选定、成交请求与幂等恢复、详情留言的参与方和展示对应。
 431a623bd3d5044623b25dd9175106f190ff6416	knowmart-app/knowmart-web-frontend	app/tests/component/market.test.tsx	1	133	市场资料、交易与需求组件的独立测试夹具和撤回场景。
+6d6a0206a9231b1eb562fa601e56798d2b103c12	knowmart-app/knowmart-web-frontend	app/components/market/my-shop.tsx	1	860	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+73f8f6a6b14cb133665461cbcbb85f91ddbc2c6e	knowmart-app/knowmart-web-frontend	app/components/market/publisher.tsx	1	370	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+2cc670820a73a3fa7586581bfb2db5f30582211b	knowmart-app/knowmart-web-frontend	app/contracts/market.ts	1	329	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+431a623bd3d5044623b25dd9175106f190ff6416	knowmart-app/knowmart-web-frontend	app/tests/component/market.test.tsx	1	687	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+6ba331d3b9694034e36d43c8264fdbdb1ce9678c	knowmart-app/knowmart-web-frontend	app/tests/e2e/rendering.e2e.ts	1	233	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+a897746fccac3e063cc8472949e3f4918724820b	knowmart-app/knowmart-web-frontend	app/tests/unit/env.test.ts	1	131	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+f3aeea6785a42157e8bba0e87bdb0f55e7eb6bce	knowmart-app/knowmart-web-frontend	mybuild/build-image.sh	1	257	店主维护知识条目、专家公开与授权、证照和交易；检查业务组件、契约、浏览器用例及环境与构建差异。
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	458	555	对照店主端，查证照与附件、知料发布、正式方法的类目与许可、成交评价。
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	586	726	对照店主端，查证照与附件、知料发布、正式方法的类目与许可、成交评价。
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1540	1578	对照店主端，查证照与附件、知料发布、正式方法的类目与许可、成交评价。
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1886	1929	对照店主端，查证照与附件、知料发布、正式方法的类目与许可、成交评价。
