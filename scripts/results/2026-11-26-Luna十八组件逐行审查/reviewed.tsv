@@ -693,3 +693,11 @@ a6ea9b233859e6b239a665be1095061aa87f9ab3	knowlab-app/knowlab-web-frontend	app/co
 8f7b444a683b52a0840e1a8b5c0b3d306a1cd936	knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-execution.tsx	300	355	试跑表单允许转入手填值
 455dda1cf6e091c691b43530acf2f8149134d18a	knowlab-app/knowlab-web-frontend	app/contracts/formal-methods.ts	1	90	形式契约、权限与绑定形状
 01bd5b031a922e43807992806e851ee39061dcbd	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method.py	1	135	ValueSlot 的本地指针解析对数组路径误报，见 B102
+01bd5b031a922e43807992806e851ee39061dcbd	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method.py	136	718	核对正式定义、导出保证、协作、批处理与公共接口
+96613579c1757b5431b522ce6dc92f1ece08ed16	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_generated.py	1	719	与已读 KnowLab 原件逐行比对，只有导入路径和生成注释不同
+49c9f22a19e2e4d8097f2f156642b328fb140f2d	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_expert_match.py	1	165	逐项核对选项引用及范围预览，导出保证缺失见 B103
+d11c75f0ab83a17e15b0f263cc127f867400e9c0	knowbench-app/knowbench-web-frontend	app/features/expert/ui/formal-expert-scope.tsx	1	73	检查用户能见的步骤条件与输出保证
+cf2b5e919f7da5860060f9011ed5b231d519c965	knowbench-app/knowbench-web-frontend	app/features/expert/api/formal-expert.ts	1	155	确认匹配与范围响应在前端的字段边界
+bb2a8f6417b7d71e4eb4bc75862e8ea6a3ebcda7	knowbench-app/knowbench-backend	app/tests/test_formal_expert_intake_db.py	1	110	专家定义、授权、选项与差异表测试夹具
+b43737c8cbcd1253767743e74e962e4b3ec48b12	knowbench-app/knowbench-backend	app/tests/test_planning_window_recall_db.py	1	85	目录增长实测题目与授权配置
+b43737c8cbcd1253767743e74e962e4b3ec48b12	knowbench-app/knowbench-backend	app/tests/test_planning_window_recall_db.py	125	180	目录前窗干扰、撤权和范围预览断言
