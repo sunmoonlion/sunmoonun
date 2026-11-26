@@ -1905,3 +1905,7 @@ a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/inf
 9846ede4b752d1349a6d9445798d103956e317ef	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_db.py	1	257	核验转孵化幂等键、数据库中工作稿与运行轮次关联及旧申请退役
 5cb1aae202e0e9963f6e1303b320e4b2b7ac815a	knowlab-app/knowlab-backend	app/tests/test_runtime_method_demand_db.py	1	206	核验转孵化幂等键、数据库中工作稿与运行轮次关联及旧申请退役
 bf752183c95a339f2d9a6063a1567116d174f828	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_views.py	1	611	核对作者与管理端投影、孵化草图回包和正式选型模型契约
+fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	1	2176	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
+46085c15e6d3b253e86e6bab13998eee4da4453f	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_routes.py	1	422	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
+e4f90f5c1dc7d883febd841cf3f3ce5a3c3da02f	knowlab-app/knowlab-backend	app/tests/test_knowbot_lab_routes.py	1	212	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
+478edd82974e5c3f7383ba787315bbaa6a2a12b7	knowlab-app/knowlab-backend	app/tests/test_manual_release_routes.py	1	95	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
