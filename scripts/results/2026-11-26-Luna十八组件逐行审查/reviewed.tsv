@@ -1861,3 +1861,14 @@ e180159767bd9cad0e163f239de84c2c9abefc79	knowlab-app/knowlab-backend	app/tests/t
 0294adff9a2681b02e6073da5246fd637140a8e7	knowlab-app/knowlab-backend	app/tests/test_acceptance_extensions.py	1	154	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
 05255a5f720ef0691cc147022d2bb9a020241351	knowlab-app/knowlab-backend	app/tests/test_acceptance_shapes.py	1	120	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
 e2e556822587b3b9afa3e784e45ae91c2fac75bb	knowlab-app/knowlab-backend	app/tests/test_financial_acceptance_verdicts.py	1	35	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
+b140f61a240bc80dde8a539894613d669bf7a621	knowlab-app/knowlab-backend	app/tests/referenced_method_fixtures.py	1	59	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+8cc773ee80ef8868984af405d7025f765690e006	knowlab-app/knowlab-backend	app/tests/test_agy_author_lifecycle_closure.py	1	242	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+fa7d3aed82a08a0829b1941bee48a32a163fb204	knowlab-app/knowlab-backend	app/tests/test_atomic_methods.py	1	268	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+d7f939a5286d00523936c19dd4e143af12d43795	knowlab-app/knowlab-backend	app/tests/test_atomic_methods_db.py	1	63	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+06897762f10cd404106aca3167207d09c2e32b02	knowlab-app/knowlab-backend	app/tests/test_author_method_routes.py	1	129	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+884d94d1b7c485527a78694f7c7d0ed5bd7bdf0f	knowlab-app/knowlab-backend	app/tests/test_author_method_web_fixture.py	1	26	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+6379cf04d0a104864cb236fb7d105ab1cdc4c769	knowlab-app/knowlab-backend	app/tests/test_author_methods.py	1	209	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+9d671e6a8290ef0d7b47fb4f446f39a9d56c9f93	knowlab-app/knowlab-backend	app/tests/test_author_methods_db.py	1	352	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+c4b71a30a705a8d6861f90e598d199b0ffd06abe	knowlab-app/knowlab-backend	app/tests/test_author_selection.py	1	513	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+a325b9a37359a1d3f3b2bdf7ed1c211327f578f0	knowlab-app/knowlab-backend	app/tests/test_capability_methods.py	1	252	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+9f473e1236310d44769dbf22a874a7a2a394a48b	knowlab-app/knowlab-backend	app/tests/test_formal_expert_visibility.py	1	135	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
