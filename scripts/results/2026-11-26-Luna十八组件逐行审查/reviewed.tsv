@@ -354,3 +354,15 @@ a2b44befc2267d3c78daeae81500e4942a0e3dfb	knowlab-app/knowlab-admin-frontend	app/
 68ac0d2b8674d7d6d0d693f4f13667cd0a0f46a2	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/manual-release.ts	1	28	特批决定附明确未复测确认
 74579ef812db3a804a38db2c2af90fd54c182f7e	knowlab-app/knowlab-admin-frontend	app/contracts/manual-release.ts	1	38	修订摘要、基线测试和决定主体
 b1b35e41c9e3932f1b3aa7cc382ddc51b74a2d86	knowlab-app/knowlab-admin-frontend	app/tests/component/manual-release.test.tsx	1	66	特批前核定修订并确认的正常路径
+470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	1	1651	逐用例请求、交互、资料、等待计时、交付与终态回执；见 B55–B57
+c734a3dd73932f8dbed940b2d6674f98cccc3eee	knowbench-app/knowbench-backend	app/app/application/workbench/formal_test_runs.py	1	1195	正式方法用例展开、按调用方校验、证据归集、队列及审批等待分别计时，任务分账与交回
+3b0b407534cf91631563459ea0a439e4bfabb1fd	knowbench-app/knowbench-backend	app/tests/test_method_test_outputs.py	1	146	核对试跑产出、用例行选择及费用相关测试覆盖
+4b5c65a9f42e73086d48642494d4141fc88d0bfc	knowbench-app/knowbench-backend	app/tests/test_test_run_row_selection.py	1	81	核对试跑产出、用例行选择及费用相关测试覆盖
+d8980f1e59a090018f6b95898dba9144094eda0b	knowbench-app/knowbench-backend	app/tests/test_test_run_costs_db.py	1	131	核对试跑产出、用例行选择及费用相关测试覆盖
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1610	1654	试跑用例与运行仓储读写
+284572bb728c425a38dedecb187d200c45e72e94	knowbench-app/knowbench-backend	app/app/application/workbench/expert_data.py	679	685	核实运行中请求资料的登记与完成
+284572bb728c425a38dedecb187d200c45e72e94	knowbench-app/knowbench-backend	app/app/application/workbench/expert_data.py	1038	1050	核实运行中请求资料的登记与完成
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	113	135	检查后台刷新分页和终态错误回传
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	1073	1238	检查后台刷新分页和终态错误回传
+9dbe58edfc23295b72ae89992b21746f4faba0b9	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_run.py	322	415	回执模型、验证与结论
+a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	894	911	核对试跑列表排序
