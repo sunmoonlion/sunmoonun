@@ -1560,3 +1560,8 @@ a8287e7376505a67bb846bc3d90c4032e1d91fc7	knowbench-app/knowbench-backend	app/tes
 0bb80dfce65844ca6da50914401b3e6478b00066	knowbench-app/knowbench-backend	app/app/application/workbench/formal_method_calls.py	1	693	核对普通会话方法请求、模型调用身份、确认事务、权限签发、原始子回执与正式输出限制
 ad8bc9daf62a30fb2592582b52b4e1c3e7ba5f80	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_calls.py	1	105	核对普通会话方法请求、模型调用身份、确认事务、权限签发、原始子回执与正式输出限制
 17cd1137998a513c8f12163fb8894671bb425b67	knowbench-app/knowbench-backend	app/tests/test_formal_method_call_projection.py	1	67	核对普通会话方法请求、模型调用身份、确认事务、权限签发、原始子回执与正式输出限制
+3deb5862bd4eaf030cb2bf1ed58ae02fb6024c91	knowbench-app/knowbench-backend	app/alembic/versions/20261120_0049_script_metering.py	1	42	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
+e7e9a9776444c99f11c161b377d917d0e1c57de8	knowbench-app/knowbench-backend	app/app/application/workbench/formal_script_execution.py	1	242	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
+48e71e3276b0ac97924be582c171361e106316ec	knowbench-app/knowbench-backend	app/app/application/workbench/script_budget.py	1	170	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
+2939d5485956bd09b65cad71fbd18c22f3623a63	knowbench-app/knowbench-backend	app/tests/test_formal_script_execution_db.py	1	972	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
+1f2ec4824ce6297d18d75d06263a495e6ad906e9	knowbench-app/knowbench-backend	app/tests/test_script_budget_db.py	1	95	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
