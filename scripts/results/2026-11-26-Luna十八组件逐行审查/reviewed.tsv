@@ -1711,3 +1711,14 @@ dc9ec30d7859564be8a04115997173281c518746	knowbench-app/knowbench-backend	app/app
 18c1d679f5e60ad56f127665c381d0380b4539da	knowbench-app/knowbench-backend	app/app/application/workbench/ordinary_expert_execution.py	1	195	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
 f799b7f1bd3b239a8adcd3b5b0265c0398f68e56	knowbench-app/knowbench-backend	app/app/application/workbench/ordinary_local_tools.py	1	140	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
 911d8a7a15b4faf3249ea1aa5db7220e6b99ada3	knowbench-app/knowbench-backend	app/tests/test_workbench_records.py	1	197	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
+b7eb371e031f27914289b7e018ae4ba6268b35f4	knowbench-app/knowbench-backend	app/app/application/workbench/find_expert.py	1	365	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+29c88d3b31b38aa2e8d356fbf96442f9725a675a	knowbench-app/knowbench-backend	app/app/application/workbench/fixed_plans.py	1	112	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+82ad5021391fb3c63746af12e4283ca75f4c0920	knowbench-app/knowbench-backend	app/app/application/workbench/incubations.py	1	578	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+d2106555dac40851feeade0e2084f5c403468505	knowbench-app/knowbench-backend	app/app/application/workbench/method_planner.py	1	447	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+790f9ea091a9ea0a5a0cda6ee1dff824c0013b96	knowbench-app/knowbench-backend	app/app/application/workbench/method_plans.py	1	238	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+8d1717b3f726e70a6dff2bb25ce2a040aa8fc6cf	knowbench-app/knowbench-backend	app/app/application/workbench/plan_receipts.py	1	92	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+fca25aec5f097ea8bbf0565fa62886aae26de2ca	knowbench-app/knowbench-backend	app/app/application/workbench/task_requirements.py	1	28	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+14acca1200f036cc12bb535e511e1d8cb45662e9	knowbench-app/knowbench-backend	app/tests/test_knowbot_incubation_lock.py	1	299	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+a264bbdfd5ab2728656eca5a55fb9e4ebf9b5a0e	knowbench-app/knowbench-backend	app/tests/test_knowbot_incubation_routes.py	1	192	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+95d6122b496e2eced537253709dd9bf51807697f	knowbench-app/knowbench-backend	app/tests/test_knowbot_incubations_db.py	1	574	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
+24d7bd1a65758639a293484e817f779f4a0e6d96	knowbench-app/knowbench-backend	app/app/domain/workbench/incubations.py	1	382	对照请求、来源、交回物与选择契约
