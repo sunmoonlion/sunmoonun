@@ -441,3 +441,7 @@ c379982308652e19a2ecac4fa48ec2e00c2e2428	knowfeed-app/knowfeed-backend	app/app/d
 a29bf79629ef5741e0e261b50033182f26657601	knowfeed-app/knowfeed-backend	app/app/domain/securities/report_statements.py	1	171	证券采集对象、报表字段与单位、勾稽和跨年度对照的数值证据
 820721fc8fa47042268c909985c7b06101858a6c	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/checks.py	1	126	证券采集对象、报表字段与单位、勾稽和跨年度对照的数值证据
 a510cb2a87f714b42f263b7328ac37e0684b7fdf	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/cross_year.py	1	183	证券采集对象、报表字段与单位、勾稽和跨年度对照的数值证据
+8caaa7b3a283e7ae50fb5bd3b59c918fe25596b7	knowfeed-app/knowfeed-backend	app/app/domain/supply/catalog.py	1	297	来源目录、自动登记标识冲突及供给契约生成
+4a6a6787b993fb2ec82781d029ac5dc1734a45fa	knowfeed-app/knowfeed-backend	app/app/domain/supply/schema.py	1	123	来源目录、自动登记标识冲突及供给契约生成
+ac5f56d4ea95c4cd154c32d482c345fa22079e93	knowfeed-app/knowfeed-backend	app/app/application/supply/catalog.py	452	521	来源目录、自动登记标识冲突及供给契约生成
+c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	361	376	来源目录、自动登记标识冲突及供给契约生成
