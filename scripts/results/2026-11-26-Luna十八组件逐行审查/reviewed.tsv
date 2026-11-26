@@ -2006,3 +2006,6 @@ af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/a
 ab8a3c0aa84e7beedca1bd4c867bcdec67b0ac86	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_library.py	1	976	资料库的描述、版本持有、来源、更正交付、许可及冻结绑定全部读完，对照选材与冻结重试的一致性。
 6423a1e19dcb4053c9a63c552095ed5af745df8a	knowbase-app/knowbase-backend	app/app/application/ports/user_data.py	1	24	核对资料内容的写、读、删及对象键和写入语义。
 98b7feec9cb6fd7b2e49f43b6b0598147f75722e	knowbase-app/knowbase-backend	app/app/infrastructure/storage/user_objects.py	1	174	核对资料内容的写、读、删及对象键和写入语义。
+8e0a799933aaacd5fb603ab8c0456da4cefad14f	knowbase-app/knowbase-backend	app/app/application/ports/user_runs.py	1	194	核对资料进入正式运行后的输入组合、授权修订、同意撤回、读法、成果与清理的接口。
+81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	1	1201	逐行核对输入组合、授权、读取版本、分页搜索、财务事实、产出写入和清理回执。
+b478d0f2d2ac017295ab5874e18484acf17e7522	knowbase-app/knowbase-backend	app/app/infrastructure/models/user_data.py	1	815	核对资料、版本、加工、事实、运行与清理全部持久化字段、唯一约束和读数留痕的识别粒度。
