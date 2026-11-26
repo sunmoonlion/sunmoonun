@@ -343,3 +343,14 @@ e0bbc0f085c793f35061a3eb1ac5b4fdd468868c	knowlab-app/knowlab-backend	app/tests/t
 470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	219	245	预问转换为可答交互
 470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	611	642	已有预填答复的开步前提问从人工队列略过
 470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	1238	1293	选项或自由文本答复、预填答案的不同解释
+933aef133bb91e2f8fcb3c5af1de0e9f71ae7106	knowlab-app/knowlab-admin-frontend	app/components/knowbots/acceptance-view.tsx	1	327	正式受理按申请及版本，轻受理按授权号
+569abf160fba26defb474ba4c7b99e2eadd5b470	knowlab-app/knowlab-admin-frontend	app/components/knowbots/incubation-view.tsx	1	378	版本选择、工作稿、交还作者、来源审核
+5ef99db9e9dd3b916c70f966866a34f0709cca44	knowlab-app/knowlab-admin-frontend	app/components/knowbots/name-view.tsx	1	181	名称时间线携带具体目标标识进入流程栏
+9a062ccb9d670d0a218973bc284b1196899be8bc	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/acceptance/page.tsx	1	40	运营入口根据会话和指定条目进入对应业务栏
+582ef72beb3d4e6fc5187225ddcc583a2a24094a	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/incubation/page.tsx	1	40	运营入口根据会话和指定条目进入对应业务栏
+a2b44befc2267d3c78daeae81500e4942a0e3dfb	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/tests/page.tsx	1	40	运营入口根据会话和指定条目进入对应业务栏
+16f1630887a87b7f6c7118a778e9eb380a6b6ea4	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/delivery/page.tsx	1	49	运营入口根据会话和指定条目进入对应业务栏
+1e79c72377842fe06cef2e3886499ccb5c6b1898	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/names/[requestId]/page.tsx	1	33	运营入口根据会话和指定条目进入对应业务栏
+68ac0d2b8674d7d6d0d693f4f13667cd0a0f46a2	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/manual-release.ts	1	28	特批决定附明确未复测确认
+74579ef812db3a804a38db2c2af90fd54c182f7e	knowlab-app/knowlab-admin-frontend	app/contracts/manual-release.ts	1	38	修订摘要、基线测试和决定主体
+b1b35e41c9e3932f1b3aa7cc382ddc51b74a2d86	knowlab-app/knowlab-admin-frontend	app/tests/component/manual-release.test.tsx	1	66	特批前核定修订并确认的正常路径
