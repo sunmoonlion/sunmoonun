@@ -1942,3 +1942,7 @@ a8d6a93e6709b923d5d576ff468c388324567f69	knowlab-app/knowlab-backend	mybuild/bui
 77a15dbcd706d026d7f58849ec1f7d30c9ddd1a7	knowlab-app/knowlab-backend	search-access-bootstrap/search-access-bootstrap.sh	1	31	逐行对照数据库、搜索生命周期、脚手架生成与构建入口；临时配置验证启停、校验返回值和重新合并。
 b9de70c2966c2fb8b51c4e3004dd6088f7497f84	knowlab-app/knowlab-backend	search-access-bootstrap/setup-k8s-search-access.sh	1	4	逐行对照数据库、搜索生命周期、脚手架生成与构建入口；临时配置验证启停、校验返回值和重新合并。
 184b29defbd9b5593eb2450cc30d1190dd9d7928	knowlab-app/knowlab-backend	search-access-bootstrap/teardown-k8s-search-access.sh	1	4	逐行对照数据库、搜索生命周期、脚手架生成与构建入口；临时配置验证启停、校验返回值和重新合并。
+622abeb07be55bb3d9bf2bcb817f6eaebb19d34e	knowlab-app/knowlab-backend	app/core/config.py	1	594	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
+ecbb25d27c116d461787a64fce7ee2ece311a38b	knowlab-app/knowlab-backend	app/scripts/pair_fixture.py	1	204	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
+1b54b008baf16a5ee7de5bf617a97a759072a837	knowlab-app/knowlab-backend	app/tests/test_config_security.py	1	172	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
+5779f992c8b7df2be6779e812cbd22fe0d5a073f	knowlab-app/knowlab-backend	app/tests/test_cross_app.py	1	290	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
