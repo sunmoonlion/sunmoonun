@@ -223,3 +223,32 @@ af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/a
 ab8a3c0aa84e7beedca1bd4c867bcdec67b0ac86	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_library.py	892	976	回执复用发生于 add_holding 内，查既有使用权晚于服务重查是否可售
 d77b403591bb1543be93467684f658dc01faa10b	knowbase-app/knowbase-backend	app/tests/test_user_library_db.py	396	483	核现有持有权幂等、改低许可后的买家读取与平台同意使用旧版本等断言
 81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	1039	1078	资料清除事务中删除读法内容并结束持有权
+72cab7b7f6a3a27ca3ed4d4d1b93a82feac3dfa0	tpl-app/tpl-web-frontend	app/contracts/interaction.ts	1	114	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+7987c693ee34f97b6f79e36c6167a0f082c4d38b	tpl-app/tpl-web-frontend	app/lib/interaction/client.ts	1	113	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+ec03d7e3169196aab8192989e593301befe11aee	tpl-app/tpl-web-frontend	app/lib/interaction/projection.ts	1	75	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+e0a8487d4c5e43933028260d2f42d7660f2ec30e	tpl-app/tpl-web-frontend	app/lib/interaction/use-run-projection.ts	1	122	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+0e0b6adfb202a9bb841d6102ccea0157dff6b4e4	tpl-app/tpl-web-frontend	app/components/platform/reference-workspace.tsx	1	150	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+77d5ac3194b257435a4cf546ee05b45ea92f8462	tpl-app/tpl-web-frontend	app/components/platform/providers.tsx	1	17	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+87b924afd14c61dd5e3ee2f3ebfe43f6cb24a286	tpl-app/tpl-web-frontend	app/app/[locale]/(dashboard)/dashboard/page.tsx	1	62	核对运行快照、序号、断流补读及确认表单；B35/B36 以模板组件实测
+9bbcf7e6c12dcb149be0ca267db189ddb5bdef14	tpl-app/tpl-web-frontend	app/tests/unit/interaction-consumer-vectors.test.ts	1	63	核对消费端契约样本开关、游标、引用和终态断言
+d9e9ee5535d03975a7700709fbaa19e0294bbdc4	tpl-app/tpl-web-frontend	app/tests/unit/interaction-client.test.ts	1	112	核对消费端契约样本开关、游标、引用和终态断言
+5ed66a7fdc26f8904e716d6e32bd33f3f38c04f1	tpl-app/tpl-web-frontend	app/tests/unit/run-projection.test.ts	1	85	核对消费端契约样本开关、游标、引用和终态断言
+47eb7aeac86b5f65561097737330186bc867845f	tpl-app/tpl-backend	app/app/application/dto/interaction.py	1	187	核对交互契约、演示端快照、游标恢复、提交确认、引用出处
+45af86aac99480fe0bd89a2fefb0ea27d649d86b	tpl-app/tpl-backend	app/app/application/ports/web_interaction.py	1	45	核对交互契约、演示端快照、游标恢复、提交确认、引用出处
+9014bb280591883cf19581faa23ecf5f21b00f16	tpl-app/tpl-backend	app/app/application/services/web_interaction.py	1	235	核对交互契约、演示端快照、游标恢复、提交确认、引用出处
+947d4ec35a1e58fee8f38457eb5e552a70ff1b8d	tpl-app/tpl-backend	app/app/interfaces/http/web/interactions.py	1	170	核对交互契约、演示端快照、游标恢复、提交确认、引用出处
+59732ed8354378c57f0b5725fc391b23e1f50460	tpl-app/tpl-web-frontend	app/vitest.config.mts	1	15	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+9e70174cffc80ee5bf9db6daa8cf9470a49ca10a	tpl-app/tpl-web-frontend	app/contracts/auth.ts	1	34	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+4ee65009929fa0b3e9aff036ce19cc97b8532eba	tpl-app/tpl-web-frontend	app/lib/auth/session-recovery.ts	1	65	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+7d8f1172e41b79a889a0e2139c95b7c9ae8cb67e	tpl-app/tpl-web-frontend	app/lib/auth/browser-session.ts	1	64	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+55fbc7184b96dafd948b70e04593f37e773abf0a	tpl-app/tpl-web-frontend	app/lib/server/auth-session.ts	1	35	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+8b68bde4142fb7bc743a62c82aa5ebd41c628976	tpl-app/tpl-web-frontend	app/components/auth/session-boundary.tsx	1	183	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+092e0360ba1549bf9a5f3abddda48f63a3935b86	tpl-app/tpl-web-frontend	app/components/auth/logout-button.tsx	1	68	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+eb91f562d87a1546a250388eb46dde99147ebf33	tpl-app/tpl-web-frontend	app/components/auth/switch-account.tsx	1	58	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+fb54f7dac45903c8b8fa58c57350399c67a627e2	tpl-app/tpl-web-frontend	app/components/auth/signed-in-as.tsx	1	15	核对恢复同一账号、清缓存、转交会话和退出；测试工具配置及页面依赖
+7a7db044bb638bdbfae14a7ffe4774536432b059	tpl-app/tpl-web-frontend	app/tests/component/session-boundary.test.tsx	1	194	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
+f213f4a30cd40ff7f5f850b89c6960e35845bb1f	tpl-app/tpl-web-frontend	app/tests/component/logout-button.test.tsx	1	108	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
+e0db71f024aed4e3ed25ca85a59fd8c9cf2318bb	tpl-app/tpl-web-frontend	app/tests/component/switch-account.test.tsx	1	46	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
+cb060c4ec459be9d79371a4dae66f38ed0d94328	tpl-app/tpl-web-frontend	app/tests/component/signed-in-as.test.tsx	1	21	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
+189e557351ef91e75e8af6dae2b7c1c72f3a8eae	tpl-app/tpl-web-frontend	app/tests/unit/session-recovery.test.ts	1	71	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
+e47039512306d84bcf79ec669460b7442b230ed3	tpl-app/tpl-web-frontend	app/tests/unit/browser-session.test.ts	1	116	核对登录失效、切换账号、同账号多次恢复、草稿保留、退出和显示名的测试断言
