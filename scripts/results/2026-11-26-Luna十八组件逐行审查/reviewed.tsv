@@ -701,3 +701,30 @@ cf2b5e919f7da5860060f9011ed5b231d519c965	knowbench-app/knowbench-web-frontend	ap
 bb2a8f6417b7d71e4eb4bc75862e8ea6a3ebcda7	knowbench-app/knowbench-backend	app/tests/test_formal_expert_intake_db.py	1	110	专家定义、授权、选项与差异表测试夹具
 b43737c8cbcd1253767743e74e962e4b3ec48b12	knowbench-app/knowbench-backend	app/tests/test_planning_window_recall_db.py	1	85	目录增长实测题目与授权配置
 b43737c8cbcd1253767743e74e962e4b3ec48b12	knowbench-app/knowbench-backend	app/tests/test_planning_window_recall_db.py	125	180	目录前窗干扰、撤权和范围预览断言
+8f27199c30e964fa8661c3feb8567fd5224ef80a	knowbench-app/knowbench-admin-frontend	app/tests/e2e/rendering.e2e.ts	1	175	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/e2e/rendering.e2e.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+96d1f3b71080e4eee091ef33ee9bf3c0958b339f	knowbench-app/knowbench-backend	app/app/worker.py	1	121	逐行与已审 tpl-app/tpl-backend/app/app/worker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+4678d14855771b59d47194dd0305d7fb91d85493	knowbench-app/knowbench-backend	app/app/interfaces/http/web/interactions.py	1	197	逐行与已审 knowbase-app/knowbase-backend/app/app/interfaces/http/web/interactions.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+4019e2dee0450eb23d7f6469d1e8341a35ea75de	knowbench-app/knowbench-web-frontend	app/contracts/interaction.ts	1	137	逐行与已审 knowbase-app/knowbase-web-frontend/app/contracts/interaction.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8923bb712c09a6593f6df913e4814c23b56d9cab	knowbench-app/knowbench-backend	app/app/application/services/web_interaction.py	1	277	逐行与已审 knowbase-app/knowbase-backend/app/app/application/services/web_interaction.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+bc7c0aa3a9a06beeaec684dfedccaebe917f094a	knowbench-app/knowbench-web-frontend	app/features/expert/ui/formal-expert-preparation.tsx	1	291	准备页逐项解析输入值、材料、账号、预算和保存状态；实测长整数被改值
+d592bfaaca4b6cf3eb82902b1fdc8c357aaa2111	knowbench-app/knowbench-web-frontend	app/features/expert/ui/formal-expert-execution-preview.tsx	1	181	报价、分支、批量、复核及确认时提交预览摘要
+bb23bd4b4305bf88f1d0868689f1cc909d3a5111	knowbench-app/knowbench-web-frontend	app/features/expert/api/formal-expert-preparation.ts	1	138	确认实际浏览器解析的准备和预览结构
+d8e61d0f6a5c19378698564a86daf025a4866783	knowbench-app/knowbench-backend	app/app/application/workbench/formal_expert_preparation.py	1	410	双事务与外部资料核对、保存幂等、版本冲突和精确执行；实测布尔与整数被当作同一版
+92f065e342cbb436997370c51a1b7380c517da55	knowbench-app/knowbench-backend	app/app/application/workbench/formal_expert_preview.py	1	399	查图、映射参数、报价、角色及预览汇总
+26fdc79d556029a4b2fc50517a0dacf381015e84	knowbench-app/knowbench-backend	app/tests/test_formal_expert_preparation_db.py	1	265	浏览器准备端点的版本冲突、账号和材料撤权以及费用用例
+8e319cb6225322b67ac8d89c3c5c8b7396de06c3	knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_admission.py	34	125	构造真实准备页的嵌套依赖与验证夹具
+bb2a8f6417b7d71e4eb4bc75862e8ea6a3ebcda7	knowbench-app/knowbench-backend	app/tests/test_formal_expert_intake_db.py	100	185	选择钉版专家和幂等请求的集成测试
+5a977f3c19a27af8f110e8df0f867f4f31e82aab	knowbench-app/knowbench-web-frontend	app/tests/component/expert-desk.test.tsx	1	100	首页与审核页的真实请求形状、组件测试环境
+78c40c803cf8503fbeba708c1495dfc15d895ee4	knowmart-app/knowmart-web-frontend	app/components/market/incubation-permissions.tsx	1	70	核对引用许可分页、修改与平台专属选项
+b0ff134d72b411b4a4e701c2386d5a690bfb54d2	knowmart-app/knowmart-web-frontend	app/components/market/knowledge-market.tsx	1	237	知识目录搜索、样张与购买回执路径
+ee1b19d2b7bfd64d808aed66f00d2ce5c06bb48a	knowmart-app/knowmart-web-frontend	app/components/market/shops.tsx	1	303	查店列表与详情的供给分类和链接，正式方法无独立展示
+000247c5685f75239e9df34586615482eceb001f	knowmart-app/knowmart-web-frontend	app/components/market/my-formal-methods.tsx	1	115	作者目录分类、上架范围、撤回与分页
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	203	418	店铺首页、公共详情及店主管理对在架供给的定义
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	790	937	目录授权、提交公开和运营审核时重新确认交付
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1391	1535	市场购买和重试状态；与已有 B31、B32 对照
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	816	894	小店列表数据源和公开专家查询未并入正式条目表
+d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/application/services/expert_catalog.py	1	249	核对混合目录、授权、分页及所有者视图
+42168f0d8b5fd92ef8f145b3997ab45266d8474c	knowmart-app/knowmart-backend	app/tests/test_shop_db.py	1	92	测试店铺、资料和发布环境的隔离夹具
+42168f0d8b5fd92ef8f145b3997ab45266d8474c	knowmart-app/knowmart-backend	app/tests/test_shop_db.py	614	671	公开工具的审核与平台引用许可测试
+f4edc073be678bf366ba386160c148b927e5909c	knowmart-app/knowmart-backend	app/tests/test_knowbot_repository_db.py	38	65	独立 PostgreSQL schema 的迁移与清理
+9161a2ab18e1cfbc2932508f2e482e8ae1beee04	knowmart-app/knowmart-backend	app/tests/test_market_db.py	146	163	独立发布主体审批夹具
