@@ -1599,3 +1599,13 @@ d301aac637d52e1a077018c78aef2d2b40fea6bf	knowbench-app/knowbench-backend	app/app
 bb2a8f6417b7d71e4eb4bc75862e8ea6a3ebcda7	knowbench-app/knowbench-backend	app/tests/test_formal_expert_intake_db.py	1	492	逐行核对正式宿主输入、快照与调用身份、实际派发到封存的终态及目录匹配测试
 af77a4455ae35e305cbf85773513d4802b4c16ae	knowbench-app/knowbench-backend	app/app/application/workbench/formal_dispatch_authority.py	1	171	审阅宿主派发时对已消费批准的复核、模型探针的调用标识、版本配置、消耗和终止条件
 db17dd01b470a56d14a89d83eed5bff569905a52	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_model.py	1	136	审阅宿主派发时对已消费批准的复核、模型探针的调用标识、版本配置、消耗和终止条件
+e89d03aad7e47e61ead5ead4bfe9423303ca8d7c	knowbench-app/knowbench-backend	app/tests/formal_method_use_support.py	1	78	审阅正式方法注册夹具、普通会话模型运行及结束条件、契约来源核验与宿主运行器分派测试
+998cf6e12cdb6160bf80a19dedb08dee85f85171	knowbench-app/knowbench-backend	app/tests/formal_session_model_support.py	1	124	审阅正式方法注册夹具、普通会话模型运行及结束条件、契约来源核验与宿主运行器分派测试
+84016a1346e66f4675f034f2c1acaaf006c17fad	knowbench-app/knowbench-backend	app/tests/test_formal_method_provider.py	1	23	审阅正式方法注册夹具、普通会话模型运行及结束条件、契约来源核验与宿主运行器分派测试
+9cfbfdd2eea1308f19de58ad1fb81e56d8cd0b0d	knowbench-app/knowbench-backend	app/tests/test_formal_runner.py	1	86	审阅正式方法注册夹具、普通会话模型运行及结束条件、契约来源核验与宿主运行器分派测试
+51570c133f9ffbb4bf913812dfbbc9fcf81c4e69	knowbench-app/knowbench-backend	app/tests/test_formal_method_use_routes_db.py	1	152	核对普通会话正式方法的 HTTP 路由测试：新建已关、旧待决调用确认、结果归属和读取
+72d057ee2e166a93ab2878cece3cb2eef7ea6202	knowbench-app/knowbench-backend	app/tests/test_formal_evidence_db.py	1	168	对照正式试跑证据的断言、审批过期、模型边界、取消等待与账本清理用例
+bfae8f8e6b7562f02b077f20404d85eed43d7115	knowbench-app/knowbench-backend	app/tests/test_formal_model_boundaries_db.py	1	128	对照正式试跑证据的断言、审批过期、模型边界、取消等待与账本清理用例
+b89ca5d20b83de5759f9672e78d08e742350c5ec	knowbench-app/knowbench-backend	app/tests/test_formal_session_model_concurrency_db.py	1	175	核对聊天与工作会话的普通模型调用、用户审批与撤选的并发时序、账本游标与结果回读
+011396e1a59e1e171a15f587f825a93f08854fec	knowbench-app/knowbench-backend	app/tests/test_formal_session_model_db.py	1	83	核对聊天与工作会话的普通模型调用、用户审批与撤选的并发时序、账本游标与结果回读
+57dd95eb1833afdf77399aa4e23169ad045ad5b5	knowbench-app/knowbench-backend	app/tests/test_formal_session_model_boundaries_db.py	1	187	核对普通会话中的方法重发、类型错误、未知结果和审批条件变更测试
