@@ -1857,3 +1857,7 @@ e180159767bd9cad0e163f239de84c2c9abefc79	knowlab-app/knowlab-backend	app/tests/t
 38dec9d8d022c2b10ddf7b6b20d80929ba5e77a3	knowlab-app/knowlab-backend	app/tests/test_idea_method_choices_db.py	1	220	对照已选方法资格及版本、运营提议如何获得作者同意、知识库栏如何固定资料格式与只读范围
 197d9af1cef22044fd4a96c037d49cb8c4e3f3fc	knowlab-app/knowlab-backend	app/tests/test_knowbot_library.py	1	272	对照已选方法资格及版本、运营提议如何获得作者同意、知识库栏如何固定资料格式与只读范围
 21c3efb9bd35a96c7ee8ea623a6fcec1e147916a	knowlab-app/knowlab-backend	app/tests/test_knowbot_proposals.py	1	255	对照已选方法资格及版本、运营提议如何获得作者同意、知识库栏如何固定资料格式与只读范围
+7846ff09e07b92886abcdb69ee223158890d4490	knowlab-app/knowlab-backend	app/tests/financial_runtime_probe.py	1	816	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
+0294adff9a2681b02e6073da5246fd637140a8e7	knowlab-app/knowlab-backend	app/tests/test_acceptance_extensions.py	1	154	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
+05255a5f720ef0691cc147022d2bb9a020241351	knowlab-app/knowlab-backend	app/tests/test_acceptance_shapes.py	1	120	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
+e2e556822587b3b9afa3e784e45ae91c2fac75bb	knowlab-app/knowlab-backend	app/tests/test_financial_acceptance_verdicts.py	1	35	核对财务合成验收跨端运行、99 个探针的取值来源和断言、covers 输入形状与规则往返
