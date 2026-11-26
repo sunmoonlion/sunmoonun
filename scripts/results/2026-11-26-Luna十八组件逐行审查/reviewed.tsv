@@ -209,3 +209,14 @@ fe9a38bcf9a4b20be108ca902edeb4fec7f7b674	knowbench-app/knowbench-backend	app/app
 e186499102ae86fe526822bacf6440e3f12520a0	knowbench-app/knowbench-backend	app/app/application/workbench/registry_catalog.py	560	685	共享工具按许可遍历、安装资格、全局候选排序与版本细查
 0cf68e233e37ca7f2be7ad47d295b47215663b0b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/formal_method_repository.py	211	395	宿主范围、已授权过滤、词召回与分类交错排序；资产与活动元数据投影
 b43737c8cbcd1253767743e74e962e4b3ec48b12	knowbench-app/knowbench-backend	app/tests/test_planning_window_recall_db.py	1	332	逐例审查目录扩张、万版本召回、手动分类末页、越权排除与分类交错的断言
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	880	2001	从方法运营复核与精确引用授权，至知识交易、需求响应、评价、留言与举报；重试失败及成交版本见 B31–B33
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	136	232	购买请求摘要、分类与停店、自动下架、构造服务及小店
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	2721	2764	回执可同时输出状态与历史 failure；交易角色、评价与评分
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	2675	2683	条目自检仅检查仍在栏目与可售
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	465	629	正式购入许可、资格与待审材料、证件保留期
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	1172	1349	成交精确查询、同键去重、换键接手、成交列表与禁止转售摘要
+bae2e951214f2f685304dd5c4ff888c013851bd7	knowmart-app/knowmart-backend	app/app/infrastructure/external/knowbase_user_data.py	1	308	核对购买请求与资料库回执，逐项检查专家绑定，市场状态按请求集合过滤
+282b7a3987dbb4fc68bb74713e602273a054c9e2	knowmart-app/knowmart-backend	app/app/interfaces/endpoints/market_routes.py	163	220	证照登记、专家市场详情及知识目录的当前身份传递
+9161a2ab18e1cfbc2932508f2e482e8ae1beee04	knowmart-app/knowmart-backend	app/tests/test_market_db.py	785	946	阅读同键重试及卖家恢复可售的回归；该套件恢复后换键，未验证原失败键
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	1216	1325	购入时冻结当前版本，以及公开持有量查询和管理端检索
+016ab7dde01b5c195a3e0b7e86bd9b5d04f4fe95	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_library_routes.py	986	1018	市场交易在线接口返回版本、许可，未带版本内容摘要
