@@ -1845,3 +1845,7 @@ c2c0beb18fcbd7451291a3e879fbca3e0fd0637f	knowlab-app/knowlab-backend	app/app/inf
 09321e8d8e67e49c8f294ad629b7d3f2ff2e6b69	knowlab-app/knowlab-backend	app/app/infrastructure/external/knowbase_data_v2.py	1	127	追踪资料解析、撤权、冻结及证据版本；对照交付服务的落库与格式校验
 eec93e321ca093e83195b1c0b677a985bc7e8089	knowlab-app/knowlab-backend	app/app/infrastructure/external/knowbase_delivery.py	1	228	追踪资料解析、撤权、冻结及证据版本；对照交付服务的落库与格式校验
 ddbf792713a5267b65899803860647eddb953e3b	knowlab-app/knowlab-backend	app/app/infrastructure/external/knowbase_library.py	1	120	追踪资料解析、撤权、冻结及证据版本；对照交付服务的落库与格式校验
+290571c49e9a7c8e923eb12aa90e22bf4271f4fb	knowlab-app/knowlab-backend	app/app/infrastructure/external/knowfeed_supply.py	1	128	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
+4dcfa5798ce274c469b6cb922d1459d99788d733	knowlab-app/knowlab-backend	app/app/infrastructure/external/service_client.py	1	175	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
+74ac7f40f5ba24f89c363ee26022cf3a4e04c181	knowlab-app/knowlab-backend	app/tests/test_knowbase_client.py	1	158	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
+9a78bead93a113f2ed81c76f6e3ac610e9f102a6	knowlab-app/knowlab-backend	app/tests/test_knowbase_library_format.py	1	113	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
