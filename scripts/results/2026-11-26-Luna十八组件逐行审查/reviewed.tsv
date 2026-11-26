@@ -593,3 +593,48 @@ c89e47366894e933f425956e020e85ced96ba683	knowlab-app/knowlab-web-frontend	app/co
 222a5fd0dc0e43b0af866a8a0bc38620883a2fc5	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/workdraft.ts	1	199	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
 e32e1624458292d96d99d1d8439aabf9aafe2328	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/proposals.ts	1	61	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
 35a7c660689ea9008f5dcf35185ca465e70cd571	knowlab-app/knowlab-backend	app/app/application/services/knowbot_proposals.py	1	281	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
+59e04af84edcbf365f0884ee70340d75042ad4b1	knowbench-app/knowbench-web-frontend	mybuild/build-image.sh	1	257	逐行与已审 tpl-app/tpl-web-frontend/mybuild/build-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+01e13dee1ef867ddb4c8a70530295b478ef29e52	knowbench-app/knowbench-admin-frontend	mybuild/build-image.sh	1	257	逐行与已审 tpl-app/tpl-web-frontend/mybuild/build-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+176c60e348997cdf1314ee3d58c811195cf0c3d1	knowbench-app/knowbench-admin-frontend	app/components/admin/app-shell.tsx	1	187	逐行与已审 knowbase-app/knowbase-admin-frontend/app/components/admin/app-shell.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+ffa2bd1baf32fe0d5e00648d2d57d148890f6efa	knowbench-app/knowbench-backend	app/tests/test_delivery_metrics_http.py	1	375	逐行与已审 tpl-app/tpl-backend/app/tests/test_delivery_metrics_http.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+71888f28686e52c3b5b014ecbb693b251ac9a6e1	knowbench-app/knowbench-backend	app/tests/test_scheduler_activity_broker.py	1	164	逐行与已审 knowbase-app/knowbase-backend/app/tests/test_scheduler_activity_broker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+5eba258d5448db1a485a3e732f85260c0ff9d57d	knowbench-app/knowbench-web-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+f1ec2988006a16553d73577a0f1862f4f6778f20	knowbench-app/knowbench-admin-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-admin-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+423176c38584420f4e53af5bdb6ad5127fc11700	knowbench-app/knowbench-backend	app/tests/test_delivery_progress_worker.py	1	191	逐行与已审 knowbase-app/knowbase-backend/app/tests/test_delivery_progress_worker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+096a2fd718fb7370584d08dad9cd456bddd0cea3	knowbench-app/knowbench-web-frontend	app/tests/unit/preview-server.test.ts	1	303	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/preview-server.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+fab6bb6805e86e630bc13306d48639d3801ac73d	knowbench-app/knowbench-backend	app/app/application/dto/interaction.py	1	204	逐行与已审 knowbase-app/knowbase-backend/app/app/application/dto/interaction.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+2290217b6d2ea7c79a69444f4bd1ac09e3983a74	knowbench-app/knowbench-web-frontend	app/preview/server.mjs	1	294	逐行与已审 knowbase-app/knowbase-web-frontend/app/preview/server.mjs 对照；相同行在原位置映射，增删段和所有变更已人工复核
+c669155709515c16410e3eac53e1c2eb2f1fa416	knowbench-app/knowbench-admin-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowbase-app/knowbase-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8f559234b191dee7b47c64a3bf6d638a8c1389c5	knowbench-app/knowbench-backend	app/app/application/audit_context.py	1	64	逐行与已审 tpl-app/tpl-backend/app/app/application/audit_context.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+a88ab62a0563246d19ca4531a377c353e4e38e66	knowbench-app/knowbench-admin-frontend	app/lib/auth/browser-session.ts	1	64	逐行与已审 knowbase-app/knowbase-admin-frontend/app/lib/auth/browser-session.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+a291e7d7165089e444d904ded64d74e55f208670	knowbench-app/knowbench-web-frontend	app/lib/auth/browser-session.ts	1	64	逐行与已审 knowbase-app/knowbase-web-frontend/app/lib/auth/browser-session.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b766075a4362b7dc8e3d2f296696a14f46bc3eda	knowbench-app/knowbench-web-frontend	app/tests/unit/run-projection.test.ts	1	83	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/run-projection.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+121506fcafc8a91623ba1d8b1bb381e728b783d2	knowbench-app/knowbench-web-frontend	app/tests/unit/interaction-consumer-vectors.test.ts	1	59	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/interaction-consumer-vectors.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+09a44aef180e9a0f25524083b3200ad25dd8ebad	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-cells.tsx	1	240	逐行与已审 knowlab-app/knowlab-admin-frontend/app/components/knowbots/workdraft-cells.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+93427cebc4757df6b6291bda5e52669d0794ffa3	knowlab-app/knowlab-admin-frontend	app/tests/e2e/rendering.e2e.ts	1	175	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/e2e/rendering.e2e.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+38991d42e74afa2b67d63e97d62048bbce7d3582	knowlab-app/knowlab-web-frontend	app/tests/unit/cross-app-links.test.ts	1	166	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/cross-app-links.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+41667f656f85f281687a00996d78f78818d2b093	knowlab-app/knowlab-web-frontend	app/preview/preview.config.mjs	1	20	逐行与已审 tpl-app/tpl-web-frontend/app/preview/preview.config.mjs 对照；相同行在原位置映射，增删段和所有变更已人工复核
+0994545e5e9b4e6d2a62e0c92fdb30fbd945230b	knowlab-app/knowlab-web-frontend	app/contracts/auth.ts	1	34	逐行与已审 knowbase-app/knowbase-web-frontend/app/contracts/auth.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+31726e29153a2dafbfd71e5d99db959f4c7801ac	knowlab-app/knowlab-admin-frontend	app/contracts/auth.ts	1	34	逐行与已审 knowbase-app/knowbase-admin-frontend/app/contracts/auth.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+9629552b55bea552a87bcb8253796664ad5317c7	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/dashboard/page.tsx	1	54	逐行与已审 knowbase-app/knowbase-admin-frontend/app/app/[locale]/(dashboard)/dashboard/page.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+ac3c4703e7cb29f2634a09ad51775f6d5f24a44e	knowlab-app/knowlab-web-frontend	app/lib/knowbots/workdraft.ts	1	219	逐行与已审 knowlab-app/knowlab-admin-frontend/app/lib/knowbots/workdraft.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b48d80c20f84d7275376a0d0a0f1973607bf11c5	knowlab-app/knowlab-backend	app/app/worker.py	1	125	逐行与已审 tpl-app/tpl-backend/app/app/worker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+64fb0cf6fb8e833aeb50ec55e0b2df7cbb138b50	knowlab-app/knowlab-web-frontend	app/components/auth/logout-button.tsx	1	66	逐行与已审 knowbench-app/knowbench-web-frontend/app/components/auth/logout-button.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+d37862a071db411648d260a1b3f17867ed47c0a7	knowfeed-app/knowfeed-web-frontend	mybuild/build-image.sh	1	257	逐行与已审 tpl-app/tpl-web-frontend/mybuild/build-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+4d20f652340c5e65ad946d8085dac561f5e2cb08	knowfeed-app/knowfeed-admin-frontend	mybuild/build-image.sh	1	257	逐行与已审 tpl-app/tpl-web-frontend/mybuild/build-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+f5b54a46c74d23225f92fa7ef7608fbe94157030	knowfeed-app/knowfeed-backend	app/tests/test_delivery_metrics_http.py	1	375	逐行与已审 tpl-app/tpl-backend/app/tests/test_delivery_metrics_http.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+eebdaffacb96426cd5ba39670f2c8b14644450e7	knowfeed-app/knowfeed-web-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+9a9670d311af6c71abcb4975ee9499ed5ec1a913	knowfeed-app/knowfeed-admin-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-admin-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+a7e56ecde1dc3f4c08353f89a2c35a7680e0ea1d	knowfeed-app/knowfeed-backend	app/app/bootstrap/api.py	1	181	逐行与已审 tpl-app/tpl-backend/app/app/bootstrap/api.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+87e8c3995612923cdd607787197717227df2841e	knowfeed-app/knowfeed-admin-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowbase-app/knowbase-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+50c62a4150684f93b38edd27b58cd7f9f8c0eb44	knowfeed-app/knowfeed-backend	app/app/application/audit_context.py	1	64	逐行与已审 tpl-app/tpl-backend/app/app/application/audit_context.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+3ec33ba25ff5de99e4f1692d43ff09f633cfe527	knowfeed-app/knowfeed-admin-frontend	app/env/server-schema.ts	1	77	逐行与已审 tpl-app/tpl-admin-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+95e47ff5ff3c27647a62f8219b79a335d930099b	knowfeed-app/knowfeed-admin-frontend	app/tests/e2e/rendering.e2e.ts	1	175	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/e2e/rendering.e2e.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+4fe2084ba64248bf2ee3400b5c7726d250f7ebbd	knowfeed-app/knowfeed-web-frontend	app/env/server-schema.ts	1	83	逐行与已审 tpl-app/tpl-web-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+c999a50b216f1bfef8782f430b51852a166f334a	knowfeed-app/knowfeed-web-frontend	app/tests/e2e/rendering.e2e.ts	1	116	逐行与已审 tpl-app/tpl-web-frontend/app/tests/e2e/rendering.e2e.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+6d944e4a02b93955663461fc050924ff6e6759dd	knowfeed-app/knowfeed-web-frontend	mybuild/rebuild-and-run.sh	1	26	逐行与已审 tpl-app/tpl-web-frontend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+14d6330bebb2c14a1db1edd967f22e98399c00e1	knowfeed-app/knowfeed-web-frontend	app/app/layout.tsx	1	27	逐行与已审 tpl-app/tpl-web-frontend/app/app/layout.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+dea6fb58b8143fb0810e751c8b652f14882af278	knowfeed-app/knowfeed-admin-frontend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 tpl-app/tpl-admin-frontend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+7d6108c98e593b38ba5710819b8c1f34f9e7dd8a	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-inputs.tsx	1	111	复核条件只能引用可选输入，检查 covers 来源及回退目标，人工可编辑修复 B97
+db965acb67a058d59074748e90326df6516dd3ef	knowlab-app/knowlab-web-frontend	app/components/knowbots/review-requirements.tsx	1	108	从图上直接依赖及已保存要求构造复核边；多输出单来源才可分阶段
+5a5160c730467e2620ad40b519da72feb2564893	knowlab-app/knowlab-web-frontend	app/components/knowbots/review-stages.tsx	1	72	逐项核对独立首轮、延后比较输出、返工次数的显示及修改
