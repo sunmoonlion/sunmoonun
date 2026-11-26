@@ -1265,3 +1265,12 @@ ff1ead1dfa14b8a08bf2c5b8f38cea011f3df37f	knowlab-app/knowlab-web-frontend	app/li
 f26fef4e6d7fee2820e45a035eb9673af1faf7cf	knowlab-app/knowlab-web-frontend	app/store/ui.ts	1	32	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
 84e19f291279d2f6b6d804a3e5ade1a2c66efe28	knowlab-app/knowlab-web-frontend	app/tests/component/p1-live.test.tsx	1	374	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
 1625f2f34edd8392fc41f6d4f188188be7785c97	knowlab-app/knowlab-web-frontend	app/tests/fixtures/formal-orchestration.ts	1	61	对照正式串接、替换输入与交付条件、现有集成测试所走分支和导航状态。
+402fc11648434338589b79ae296b75b525b63a76	knowlab-app/knowlab-web-frontend	app/tests/component/ask-in-knowbench.test.tsx	1	94	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+8951c87745268bead33721b56dedaf01cc48daa7	knowlab-app/knowlab-web-frontend	app/tests/component/atomic-methods.test.tsx	1	114	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+5db8177424efc0adfb0ecc8ae114b4ff06b70e9d	knowlab-app/knowlab-web-frontend	app/tests/component/dynamic-test-results.test.tsx	1	63	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+d025d77d99cc91205f6b1ada38feb22797ef2ae9	knowlab-app/knowlab-web-frontend	app/tests/component/incubation-mode.test.tsx	1	80	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+f06dd0c212aca3397e4c7a610a397822a074162a	knowlab-app/knowlab-web-frontend	app/tests/component/knowbot-fixtures.tsx	1	304	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+cff291c2c924f9f9a09f898fc971e867ecf9a936	knowlab-app/knowlab-web-frontend	app/tests/component/lab-columns.test.tsx	1	224	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+463d3f6b1c6acc7684a2f1dec2d0d78f0997a97d	knowlab-app/knowlab-web-frontend	app/tests/component/method-demand-reference.test.tsx	1	60	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+41758d8d25ff63eeed3bba00846237fb0d09648f	knowlab-app/knowlab-web-frontend	app/tests/component/test-execution.test.tsx	1	82	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+9d10589442f3dd32fd03c85b4d7d84a61c353624	knowlab-app/knowlab-web-frontend	app/tests/component/web-shell.test.tsx	1	96	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
