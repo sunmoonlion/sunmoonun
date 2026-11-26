@@ -369,3 +369,13 @@ a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/inf
 2428c667686ac8034ad23d5800144e584c614030	knowbench-app/knowbench-backend	app/app/domain/workbench/models.py	1	134	预算上限缺省的语义及交接摘要字段
 291b3e347d14bb0e5ad12fe5464a1176eb296704	knowbench-app/knowbench-backend	app/app/domain/workbench/test_runs.py	1	626	试跑契约、选行比较、状态与大小受限的具名产出
 070222182704ebca4d6751b48a2072e7a7fa47d8	knowbench-app/knowbench-backend	app/app/application/workbench/ledger.py	1	435	交接事务、旧请求重放、预算快照和初始额度入账
+070222182704ebca4d6751b48a2072e7a7fa47d8	knowbench-app/knowbench-backend	app/app/application/workbench/ledger.py	436	926	项目双队列出队、任务终态交还会话、资料与环境恢复、撤销和迟到回执
+070222182704ebca4d6751b48a2072e7a7fa47d8	knowbench-app/knowbench-backend	app/app/application/workbench/ledger.py	927	1740	旧轮迟到用量、最终结算、预算预留、审批和追加入账；当前问答受账务版本影响
+426733860e798ba0bfc8af9dedf55d2c457fb7aa	knowbench-app/knowbench-backend	app/tests/test_workbench_ledger_db.py	1	475	隔离库任务交接与并发、预算和停用的正常控制
+956c9800e2751728d7bba5f6bbf0618098b4399b	knowbench-app/knowbench-backend	app/tests/test_pending_method_usage_db.py	1	265	未决费用预留、迟到单据幂等结算和并发正常控制
+5300cdf40e4b46224ea2ef8e9f755fc8d7b21118	knowbench-app/knowbench-backend	app/tests/test_workbench_usage_db.py	1	513	按次价格、会话和步骤累计、停机迟到费用、连接恢复后重放
+179b0497d26389efe560eab36ab651b32037d0f7	knowbench-app/knowbench-backend	app/tests/knowbot_fixtures.py	1	64	通用固定专家清单与市场替身，退休后费用套件失效
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	520	562	试跑自有查询、执行轨迹、授权及清单读取
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	1055	1072	取消回执及其产出的持久化
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	1257	1359	试跑收尾、撤销授权和证据补写、故障退避
+9c5a6d315c239d1dfdc3e6698336459073d4a6a0	knowlab-app/knowlab-admin-frontend	app/components/knowbots/reference.tsx	1	339	运营报告中费用取自首次终态摘要；核对用例、受理、问题及旧补充显示
