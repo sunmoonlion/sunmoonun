@@ -1418,3 +1418,25 @@ f551d42a099251629eb79798e861a6ecc6c13524	knowbench-app/knowbench-backend	app/app
 dbb14adb688dad013f533e1ecb73375195677696	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_data_db.py	1	190	阅读数据库集成夹具、解析修订与补采候选构造
 ec57f397bf25975c26399f22754bc5763fb98aa7	knowbench-app/knowbench-web-frontend	app/contracts/workbench-v2.ts	640	848	阅读资料选择与补采回执网页契约及缺省值
 dbb14adb688dad013f533e1ecb73375195677696	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_data_db.py	1	1637	核对真库测试对已退役 v2 的前置依赖、缺数、取消和租约覆盖
+744ddd4443f30c735397035e9dfd52bc8768aeb5	knowbench-app/knowbench-web-frontend	app/contracts/workbench-settings.ts	1	148	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+4d132a1636edde8d35102ce9761370bfb12e8f94	knowbench-app/knowbench-web-frontend	app/features/settings/api/client.ts	1	60	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+960dae4468a7406c9577d4facd16df301fd3e7b6	knowbench-app/knowbench-web-frontend	app/features/settings/api/status.ts	1	8	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+bc1c351ee8f867cae7a9ae7ea1524a10abc6f11e	knowbench-app/knowbench-web-frontend	app/features/settings/ui/local-agent-settings.tsx	1	295	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+4810ef032e6122d120a73c4cba8e7e43cac14397	knowbench-app/knowbench-web-frontend	app/features/settings/ui/settings-screen.tsx	1	287	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+506267e1518954d3b0d4f6e9b0e90c56ef3a9c17	knowbench-app/knowbench-web-frontend	app/lib/workbench/reviewer.ts	1	162	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+c5cf0e8ac0baf19427e6d34a09590c768c9adb01	knowbench-app/knowbench-web-frontend	app/tests/component/settings-sections.test.tsx	1	487	核对用户凭据与复核偏好、路由确认、表单更新、页内缓存及设置测试
+b5261ad0aafc924cbeb73b8e553fd6a2bdc5ff40	knowbench-app/knowbench-backend	app/app/application/workbench/branch_review_dispatch.py	1	181	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+35444012685876638e890a1bba17a325fe6e9ae3	knowbench-app/knowbench-backend	app/app/application/workbench/branch_review_route.py	1	213	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+c6c5f21ca5c070403f8e30d26a4c6f9d7eaffadd	knowbench-app/knowbench-backend	app/app/application/workbench/reviewer_choices.py	1	149	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+f21851ee25f0de4c850141087344fc59318e598d	knowbench-app/knowbench-backend	app/app/domain/workbench/review_routes.py	1	131	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+3f649ea04b27b80dca205c18667c8752253c3c86	knowbench-app/knowbench-backend	app/tests/branch_review_support.py	1	201	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+4bab93bf9e2276ef28fb597ad57dc75dbc8c82a8	knowbench-app/knowbench-backend	app/tests/test_review_routes.py	1	131	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+9f5b60152e1bba7eafdfce9f33ffa2c6104acc5e	knowbench-app/knowbench-backend	app/tests/test_reviewer_choices_db.py	1	303	逐项核对模型家族、复核连接、报价、沙箱选择与派发一致性
+c0467f80fa7322eb336b34d4e3a7ed28eddb12f8	knowbench-app/knowbench-backend	app/core/config.py	345	422	指令路由与复核授权配置去重和参数边界
+ce61bc2604b51951ad1660e8c650dc22c38b4e9b	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/workbench_routes.py	1318	1398	复核偏好与线程默认值读写契约
+25404d3759b36a3cd6242cd644c5b25ea184c9ad	knowbench-app/knowbench-web-frontend	app/features/settings/ui/agent-download.tsx	1	115	核对安装命令回执、沙箱创建与删除、配对续接的过期与状态反馈
+b0569c7294cdb6443175cbe5aba5195dacef0379	knowbench-app/knowbench-web-frontend	app/features/settings/ui/agent-setup.tsx	1	354	核对安装命令回执、沙箱创建与删除、配对续接的过期与状态反馈
+c5770e792c25c499a306a416f8e15454e24ed90a	knowbench-app/knowbench-web-frontend	app/tests/component/agent-onboarding.test.tsx	1	163	核对安装命令回执、沙箱创建与删除、配对续接的过期与状态反馈
+dcb471b8fd3a8b3549c1a75cbbda4f2a2ad297c7	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/agent_onboarding_routes.py	305	380	核验展示的安装包与安装命令签发及脚本渲染的版本来源
+dcb471b8fd3a8b3549c1a75cbbda4f2a2ad297c7	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/agent_onboarding_routes.py	1	304	配对创建与审批、失败次数和设备信息校验
+dcb471b8fd3a8b3549c1a75cbbda4f2a2ad297c7	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/agent_onboarding_routes.py	381	483	安装凭证消费、对象身份及分段响应
