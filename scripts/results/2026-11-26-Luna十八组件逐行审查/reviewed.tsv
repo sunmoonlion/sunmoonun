@@ -1552,3 +1552,11 @@ d9a4dee6fb5ea77561e8c237d005977cbc2a5db4	knowbench-app/knowbench-web-frontend	ap
 23009fb6f646e2e448f7c84ba2dd06798a92541c	knowbench-app/knowbench-backend	app/app/domain/workbench/expert_match.py	1	506	核对各代匹配回执、收费候选、目录完整性和用户原话溯源，追踪现行模块的共享依赖
 7908593141d5e341c597dff05a8fd43505252ae2	knowbench-app/knowbench-backend	app/tests/test_declaration_match.py	1	150	核对各代匹配回执、收费候选、目录完整性和用户原话溯源，追踪现行模块的共享依赖
 16542de62e93bb901bc1f5abf9965f20a1fb5718	knowbench-app/knowbench-backend	app/tests/test_expert_match.py	1	248	核对各代匹配回执、收费候选、目录完整性和用户原话溯源，追踪现行模块的共享依赖
+ad2b50540c9dddb63cfc8175e0594b9d57574562	knowbench-app/knowbench-backend	app/app/application/workbench/formal_method_catalog.py	1	1105	逐行核对正式方法准入、模型和脚本计费证据、连接预览、数据库并发测试及生产方契约锁
+59d7c8206a42c2d153c423361352cd4813edf7cc	knowbench-app/knowbench-backend	app/tests/test_atomic_method_catalog.py	1	61	逐行核对正式方法准入、模型和脚本计费证据、连接预览、数据库并发测试及生产方契约锁
+b2c718f51db6edadd1ac9582d007e1c50a5861fd	knowbench-app/knowbench-backend	app/tests/test_formal_catalog_concurrency_db.py	1	133	逐行核对正式方法准入、模型和脚本计费证据、连接预览、数据库并发测试及生产方契约锁
+a8287e7376505a67bb846bc3d90c4032e1d91fc7	knowbench-app/knowbench-backend	app/tests/test_formal_method_catalog_db.py	1	291	逐行核对正式方法准入、模型和脚本计费证据、连接预览、数据库并发测试及生产方契约锁
+542428c6cdba11aec33c394a188a3f60f242a572	knowbench-app/knowbench-backend	app/tests/test_referenced_method_catalog.py	1	101	逐行核对正式方法准入、模型和脚本计费证据、连接预览、数据库并发测试及生产方契约锁
+0bb80dfce65844ca6da50914401b3e6478b00066	knowbench-app/knowbench-backend	app/app/application/workbench/formal_method_calls.py	1	693	核对普通会话方法请求、模型调用身份、确认事务、权限签发、原始子回执与正式输出限制
+ad8bc9daf62a30fb2592582b52b4e1c3e7ba5f80	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_method_calls.py	1	105	核对普通会话方法请求、模型调用身份、确认事务、权限签发、原始子回执与正式输出限制
+17cd1137998a513c8f12163fb8894671bb425b67	knowbench-app/knowbench-backend	app/tests/test_formal_method_call_projection.py	1	67	核对普通会话方法请求、模型调用身份、确认事务、权限签发、原始子回执与正式输出限制
