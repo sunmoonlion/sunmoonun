@@ -2396,3 +2396,11 @@ e4c168dc3cb3c0a0dad4f1b19ea99c527a357770	knowbench-app/knowbench-backend	app/app
 1b987eb2e67a0126945089776eb7a64883fbe2a3	knowbench-app/knowbench-backend	app/app/infrastructure/external/ai_summon_clients.py	1	91	核对跨服务提交回执和模型用量测试夹具
 a4933e5871559593003b786a947580ebbde59284	knowbench-app/knowbench-backend	app/tests/test_ai_summon_clients.py	1	69	核对跨服务提交回执和模型用量测试夹具
 649a874a57a51c2d8db36b58312c1c296fd50d48	knowbench-app/knowbench-backend	app/tests/usage_support.py	1	34	核对跨服务提交回执和模型用量测试夹具
+bca2a26f4281bd7527669fe52ad5549fe5a5a79e	knowbench-app/knowbench-backend	app/app/application/workbench/connection_oauth.py	1	534	核对连接回调、刷新竞争、远端撤销与调用结果匹配
+d9ae24d0fcb8da73df255067d014a460c168f78a	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/capability_mcp.py	1	272	核对连接回调、刷新竞争、远端撤销与调用结果匹配
+f78ce86f9f6b81bcc0bcf9669667ba910e0291d9	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/connection_oauth.py	1	221	核对连接回调、刷新竞争、远端撤销与调用结果匹配
+66a4d8eeb7f39b534e6de40735c5cca97e8280a9	knowbench-app/knowbench-backend	app/app/application/ports/workbench.py	1	1125	核对存储端口的事务、认领、完成、授权回收和到期协议
+7b0b413696a68e73dc248eba39ec5e1a85a5aa20	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/app_server_client.py	1	297	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
+eaa3a1961059524be2e1e249421132c231d83b2e	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/relay_admin.py	1	71	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
+944b75f7a0a9957f07915a4f602a04e18cfc1aa8	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/service_functions.py	1	100	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
+c56394d73f6f0325e4ce24ebb6272da368233a9b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/skill_executor.py	1	122	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
