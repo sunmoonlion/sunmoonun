@@ -526,3 +526,49 @@ f69cd5d79d547331852ce5b5dfb3dac7f602fb8f	tpl-app/tpl-web-frontend	mybuild/Docker
 0d14369cd27dd1d8d20a433f10a82dbb2c751cc6	tpl-app/tpl-web-frontend	mybuild/release-tag.sh	1	10	逐项对照开发标签、镜像构建、推送、清理与重建入口
 7940515a48b9de7cf7b03f842af21e73e8b0a3f3	tpl-app/tpl-web-frontend	mybuild/test-release-tag.sh	1	16	逐项对照开发标签、镜像构建、推送、清理与重建入口
 680528c561ac22cef160d27ab6a0d870848993b1	tpl-app/tpl-web-frontend	mybuild/build-image.sh	1	257	逐项对照开发标签、镜像构建、推送、清理与重建入口
+22733d1ddfac9bd8fc215873a59a11c6abc0ca35	tpl-app/tpl-admin-frontend	app/app/[locale]/(auth)/login/page.tsx	1	67	管理端完整内容与操作状态、样式和测试逐行核对
+e5544317bb2b00b77e968dd52c6b03e8395561fe	tpl-app/tpl-admin-frontend	app/app/[locale]/(dashboard)/dashboard/page.tsx	1	52	管理端完整内容与操作状态、样式和测试逐行核对
+85e9ae06b8a9b100c89cdec38cf3f4844f5b3da3	tpl-app/tpl-admin-frontend	app/app/[locale]/(dashboard)/forbidden/page.tsx	1	20	管理端完整内容与操作状态、样式和测试逐行核对
+046619b8d064aae7b7e1b5a368c7e9a686c56bbe	tpl-app/tpl-admin-frontend	app/app/[locale]/(dashboard)/layout.tsx	1	24	管理端完整内容与操作状态、样式和测试逐行核对
+c35eac4b8670cd19ce07706a0fa8f762c82d76e7	tpl-app/tpl-admin-frontend	app/app/[locale]/(dashboard)/reference/page.tsx	1	31	管理端完整内容与操作状态、样式和测试逐行核对
+dabd6eeebf9cf82520e0785dc708fd39530b9d8e	tpl-app/tpl-admin-frontend	app/app/[locale]/(dashboard)/rich-reference/page.tsx	1	31	管理端完整内容与操作状态、样式和测试逐行核对
+2e2c19bc0b9bd09eb6d769832170040c5c98e582	tpl-app/tpl-admin-frontend	app/app/[locale]/(dashboard)/settings/page.tsx	1	22	管理端完整内容与操作状态、样式和测试逐行核对
+b5a86691b501113a8a6efd11dd818be20ac65703	tpl-app/tpl-admin-frontend	app/app/globals.css	1	534	管理端完整内容与操作状态、样式和测试逐行核对
+f4fee06156c495fd2033358fbfb259352b5b0fe2	tpl-app/tpl-admin-frontend	app/components/auth/logout-button.tsx	1	69	管理端完整内容与操作状态、样式和测试逐行核对
+9a49fd9388e86a6b4b2df826df775242ff9408c8	tpl-app/tpl-admin-frontend	app/components/reference/rich-reference.tsx	1	89	管理端完整内容与操作状态、样式和测试逐行核对
+33b0d97e35d37738165a48080a526f3a3a01d717	tpl-app/tpl-admin-frontend	app/components/rich/avatar-tools.tsx	1	65	管理端完整内容与操作状态、样式和测试逐行核对
+8be38d9b1b716b4b70be2117dca89d52df893e3a	tpl-app/tpl-admin-frontend	app/components/rich/behavior-tools.tsx	1	50	管理端完整内容与操作状态、样式和测试逐行核对
+11281245269ff504ea0032a59c7c4ad2324a62ca	tpl-app/tpl-admin-frontend	app/components/rich/icon-registry.tsx	1	26	管理端完整内容与操作状态、样式和测试逐行核对
+3be8b497e12aff2e7f0bda8c52e530ecb3c5714b	tpl-app/tpl-admin-frontend	app/components/rich/index.ts	1	8	管理端完整内容与操作状态、样式和测试逐行核对
+e4c2a17870a52374a3136d2a8d09c5a4953566d4	tpl-app/tpl-admin-frontend	app/components/rich/markdown-editor.tsx	1	28	管理端完整内容与操作状态、样式和测试逐行核对
+d503a6b8c56e5b6d777c42cda5783cdc0fefc74a	tpl-app/tpl-admin-frontend	app/components/rich/media-player.tsx	1	28	管理端完整内容与操作状态、样式和测试逐行核对
+5607c3fe099d7045a470d56a7f8842bf0d7ba9b5	tpl-app/tpl-admin-frontend	app/components/rich/metric-chart.tsx	1	50	管理端完整内容与操作状态、样式和测试逐行核对
+e34bf2aa930e2b98d3f521efb9f801100627f1ae	tpl-app/tpl-admin-frontend	app/components/rich/progress-tools.tsx	1	26	管理端完整内容与操作状态、样式和测试逐行核对
+c5b4517a870942fb8441696bf5818e5133c91148	tpl-app/tpl-admin-frontend	app/components/rich/text-effects.tsx	1	76	管理端完整内容与操作状态、样式和测试逐行核对
+492c81528d8f3cc1276498144b52728137dc3e47	tpl-app/tpl-admin-frontend	app/lib/api/client.ts	1	92	管理端完整内容与操作状态、样式和测试逐行核对
+d75d3564ffa1a35b1114adb73c8969a71e32dced	tpl-app/tpl-admin-frontend	app/lib/browser/random-uuid.ts	1	14	管理端完整内容与操作状态、样式和测试逐行核对
+ba72f2f205430814500dd3e171c75ff411009f86	tpl-app/tpl-admin-frontend	app/lib/download.ts	1	16	管理端完整内容与操作状态、样式和测试逐行核对
+dd3951e2dc242942ac146ff72da3a7297e30375b	tpl-app/tpl-admin-frontend	app/lib/query.ts	1	26	管理端完整内容与操作状态、样式和测试逐行核对
+63714969502ca46750863d0f5e310cab28ac539c	tpl-app/tpl-admin-frontend	app/lib/rich-utils.ts	1	57	管理端完整内容与操作状态、样式和测试逐行核对
+0665b94fb1a23cf2c11afc24009c8c8f33dca7c8	tpl-app/tpl-admin-frontend	app/tests/component/logout-button.test.tsx	1	121	管理端完整内容与操作状态、样式和测试逐行核对
+c145f8bce718e2e71f523e92111ba9f76ec3551c	tpl-app/tpl-admin-frontend	app/tests/component/rich-toolkit.test.tsx	1	30	管理端完整内容与操作状态、样式和测试逐行核对
+8157ea17c3ede6ac4204ef2bcc9b15b72a8a6de9	tpl-app/tpl-admin-frontend	app/tests/e2e/rendering.e2e.ts	1	175	管理端完整内容与操作状态、样式和测试逐行核对
+f35290ea2f3ac4c8cccb2fda7c825777491acf9b	tpl-app/tpl-admin-frontend	app/tests/unit/api-client.test.ts	1	61	管理端完整内容与操作状态、样式和测试逐行核对
+9c43c62fbeb401e507fe2cdad2b3767093c1320b	tpl-app/tpl-admin-frontend	app/tests/unit/browser-session.test.ts	1	116	管理端完整内容与操作状态、样式和测试逐行核对
+e4f0096d34b02a3998a9010c37ddffe7837a943e	tpl-app/tpl-admin-frontend	app/tests/unit/navigation.test.ts	1	14	管理端完整内容与操作状态、样式和测试逐行核对
+3553b5437b0dd600dc932657275202e1f657866d	tpl-app/tpl-admin-frontend	app/tests/unit/query-and-download.test.ts	1	40	管理端完整内容与操作状态、样式和测试逐行核对
+23f0620231d3e85510decd0ebbbee6bc1591970d	tpl-app/tpl-admin-frontend	app/contracts/auth.ts	1	34	管理端完整内容与操作状态、样式和测试逐行核对
+b101a6eb8c113b3431928d18350653726e7dca14	tpl-app/tpl-admin-frontend	app/lib/auth/browser-session.ts	1	64	管理端完整内容与操作状态、样式和测试逐行核对
+cf3cd90f936eaf8b77f9b4dd881f9a304f0c6313	tpl-app/tpl-admin-frontend	app/lib/server/auth-session.ts	1	41	管理端完整内容与操作状态、样式和测试逐行核对
+31bf08cc38d4f88c17ff02143c0ff7c9ac65136e	tpl-app/tpl-admin-frontend	app/components/platform/providers.tsx	1	24	管理端完整内容与操作状态、样式和测试逐行核对
+f8a534dcdce99c462aeac8fc7ae1013fc53bee32	tpl-app/tpl-admin-frontend	app/app/layout.tsx	1	27	管理端完整内容与操作状态、样式和测试逐行核对
+3beb802e9f2424a59d75caadf0db55db2177187f	tpl-app/tpl-admin-frontend	mybuild/Dockerfile	1	121	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+4c4ca9b20c5b164565a88e4652463e8d621dd693	tpl-app/tpl-admin-frontend	mybuild/build-image.sh	1	257	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+936773c8a7b81e8654f5f3e561337c5d36309f37	tpl-app/tpl-admin-frontend	mybuild/push-image.sh	1	95	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+dad2d08daf3e6ca46c99d6057703b381f16268e0	tpl-app/tpl-admin-frontend	mybuild/rebuild-and-run.sh	1	25	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+e0a5e3bb9e44264a9c223cc9fa584cda7da55046	tpl-app/tpl-admin-frontend	app/env/client.ts	1	29	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+ab53d71756fb3eb9ca6111e442a90bb532ad1443	tpl-app/tpl-admin-frontend	app/env/server-schema.ts	1	77	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+772eaea52aebeece8d14ef5e7425c6681f61ab14	tpl-app/tpl-admin-frontend	app/env/server.ts	1	19	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+eb9626801826f2b8c710b10f89ce2c2b187021ad	tpl-app/tpl-admin-frontend	app/playwright.config.ts	1	69	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+3b695277795c8e8488e2b3b2a4a714abe493ee91	tpl-app/tpl-admin-frontend	app/components/platform/public-home.tsx	1	46	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+9e42292b6f175950928ead28e84131501e508f7c	tpl-app/tpl-admin-frontend	app/tests/unit/env.test.ts	1	127	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
