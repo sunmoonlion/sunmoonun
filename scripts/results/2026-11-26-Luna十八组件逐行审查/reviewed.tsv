@@ -2001,3 +2001,8 @@ a569fb8eafc001d7e3b5ed960d8a2c03f53d24cd	knowbase-app/knowbase-backend	app/app/a
 405627d35d948f218b7b8e1d6002011ae82df02b	knowbase-app/knowbase-backend	app/app/domain/user_resolution.py	1	693	核对期间展开、描述筛选、持有版本、表格事实与修订落库，服务入口复现时点及空条目缺陷。
 0c75d77caee6df358443e05e2eb90dccf8444316	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_resolution.py	1	549	核对期间展开、描述筛选、持有版本、表格事实与修订落库，服务入口复现时点及空条目缺陷。
 28c63ce7c6fc777089d8d6def6738e70f67fab19	knowbase-app/knowbase-backend	app/tests/test_user_resolution_db.py	1	976	报告期、展示和收集、修订竞争及多读法授权的数据库测试，对照缺失时点、版本和事项偏好。
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	1	1422	资料库的描述、版本持有、来源、更正交付、许可及冻结绑定全部读完，对照选材与冻结重试的一致性。
+8e9f521ec5f65ee09bba228b4f5f40a483878db0	knowbase-app/knowbase-backend	app/app/domain/user_library.py	1	582	资料库的描述、版本持有、来源、更正交付、许可及冻结绑定全部读完，对照选材与冻结重试的一致性。
+ab8a3c0aa84e7beedca1bd4c867bcdec67b0ac86	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_library.py	1	976	资料库的描述、版本持有、来源、更正交付、许可及冻结绑定全部读完，对照选材与冻结重试的一致性。
+6423a1e19dcb4053c9a63c552095ed5af745df8a	knowbase-app/knowbase-backend	app/app/application/ports/user_data.py	1	24	核对资料内容的写、读、删及对象键和写入语义。
+98b7feec9cb6fd7b2e49f43b6b0598147f75722e	knowbase-app/knowbase-backend	app/app/infrastructure/storage/user_objects.py	1	174	核对资料内容的写、读、删及对象键和写入语义。
