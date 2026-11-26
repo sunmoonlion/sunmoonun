@@ -1287,3 +1287,6 @@ b78d51fa253fd28cad388c2e6bc23d8897d3fd9a	knowlab-app/knowlab-web-frontend	app/te
 1bed7c96d6f7e1132b3664be9202e7adb484fe72	knowlab-app/knowlab-web-frontend	mybuild/build-image.sh	1	257	核对工作稿与 AI 草图回包、能力依赖、模型实测资格向量、组件期望及与市场同源的构建脚本。
 1fd2c6f3eeaeb52e1131f4430fe03fa9d2fdaa19	knowlab-app/knowlab-web-frontend	app/tests/e2e/rendering.e2e.ts	1	428	核对浏览器测试中真实 SSR 路径和测试替身覆盖的选型、改写、确认及重载。
 d0ad18f08ce5201ee82df853756bade23112aee6	knowlab-app/knowlab-web-frontend	app/tests/component/formal-method-execution.test.tsx	1	1001	核对恢复、调用方独立正例、条件承诺、分支回执与独立复核的43项组件测试。
+4e9abefddde6cd538b726935cb9fc322e79c7504	knowlab-app/knowlab-web-frontend	app/tests/component/author-method-picker.test.tsx	1	382	核对版本固定、输入重映射、重新预览和并发版本冲突的测试断言
+95f8eecd14edc09969dbbab0998a3744a6f533ef	knowlab-app/knowlab-web-frontend	app/tests/component/self-test.test.tsx	1	371	逐项核对自测费用时限、资料确认、停测和例外发行的组件断言
+0bf8215dd5a8affa246dfbe09a5ea03fbb8a288e	knowlab-app/knowlab-web-frontend	app/tests/component/knowbots-columns.test.tsx	1	413	逐项核对待办答复、公开交付预算、专家停用与名称页跳转的断言及替身
