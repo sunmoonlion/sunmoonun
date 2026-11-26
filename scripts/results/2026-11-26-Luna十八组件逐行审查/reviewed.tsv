@@ -983,3 +983,17 @@ ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app
 426733860e798ba0bfc8af9dedf55d2c457fb7aa	knowbench-app/knowbench-backend	app/tests/test_workbench_ledger_db.py	1	475	交接去重、单次交互、预算与终态并发回归
 40fd52befc28617a5eda65b572f449e38696cd8e	knowbench-app/knowbench-backend	app/tests/expert_duty_support.py	1	143	输出放行与撤回、重复唤醒与归属测试
 a5c1930c79204c0c9128d52f79c85da0270acfa2	knowbench-app/knowbench-backend	app/alembic/versions/20261122_0059_expert_duties.py	1	29	周期与延期共享同一行的存储约束
+7d0210b9a5c42e08f6ed24d6133b7d411bce6f82	tpl-app/tpl-backend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 knowbase-app/knowbase-backend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+ae064fe3bccf8ebea46a9b376546580a8669e9ec	knowlab-app/knowlab-backend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 knowbase-app/knowbase-backend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+bc97adc9203eda4f982001f812029b0f9b1de83c	knowmart-app/knowmart-backend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 knowbase-app/knowbase-backend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+6e85b36991905e0bc423bc96158b77ab2aa226ad	knowbench-app/knowbench-backend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 knowbase-app/knowbase-backend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+782cec546a3b67a1297e14e5294129190eeb67f2	knowlab-app/knowlab-admin-frontend	app/components/admin/app-shell.tsx	1	206	逐行与已审 knowbase-app/knowbase-admin-frontend/app/components/admin/app-shell.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+e1ba6186e2d85d5536bde74a166f77080a0a4b44	knowlab-app/knowlab-admin-frontend	app/store/ui.ts	1	105	逐行与已审 knowbase-app/knowbase-admin-frontend/app/store/ui.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+0d890a12319d81ba8602fe1523a5aefc598926ad	knowbench-app/knowbench-backend	app/app/infrastructure/messaging/celery_producer.py	1	62	逐行与已审 knowbase-app/knowbase-backend/app/app/infrastructure/messaging/celery_producer.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+7ba562e80acb390c63e0f4d7efbd9c2c0060b7c9	knowbench-app/knowbench-web-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b19117826bd194f73ce5832208ac2c8159b07053	knowlab-app/knowlab-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+0fd82c4c33c1e482f5ba15ecfdbc5dcf3753e511	knowlab-app/knowlab-admin-frontend	app/playwright.config.ts	1	69	逐行与已审 tpl-app/tpl-admin-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+89d4054c0f32fe2f4bdf679b6c054abcb7f205f9	knowlab-app/knowlab-web-frontend	app/playwright.config.ts	1	69	逐行与已审 tpl-app/tpl-web-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+171175cbce8bf32809eeeb9f0d509922923a2882	knowbench-app/knowbench-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+28a607c9811f4be9e612f68e7ee4f42a28462aa4	knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/toolkit/page.tsx	1	27	逐行与已审 knowbase-app/knowbase-web-frontend/app/app/[locale]/(dashboard)/toolkit/page.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+57cf05e62e3f972c3f1963f3ca519bd5249a1623	knowbench-app/knowbench-backend	app/app/application/workbench/external_claim.py	1	50	外部操作的申请、失败与到期后重领
