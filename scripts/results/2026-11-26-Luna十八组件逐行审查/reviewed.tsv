@@ -1609,3 +1609,7 @@ bfae8f8e6b7562f02b077f20404d85eed43d7115	knowbench-app/knowbench-backend	app/tes
 b89ca5d20b83de5759f9672e78d08e742350c5ec	knowbench-app/knowbench-backend	app/tests/test_formal_session_model_concurrency_db.py	1	175	核对聊天与工作会话的普通模型调用、用户审批与撤选的并发时序、账本游标与结果回读
 011396e1a59e1e171a15f587f825a93f08854fec	knowbench-app/knowbench-backend	app/tests/test_formal_session_model_db.py	1	83	核对聊天与工作会话的普通模型调用、用户审批与撤选的并发时序、账本游标与结果回读
 57dd95eb1833afdf77399aa4e23169ad045ad5b5	knowbench-app/knowbench-backend	app/tests/test_formal_session_model_boundaries_db.py	1	187	核对普通会话中的方法重发、类型错误、未知结果和审批条件变更测试
+cd08feca6a9fa68204185b7f8834ac2d32ca4767	knowbench-app/knowbench-backend	app/app/application/workbench/formal_methods.py	1	897	核对正式来源许可、冻结注册、交付与自用取样；对照实际路由测试检查操作身份、重复受理、注册回查与状态投影
+10aaf186fe3e2225f68876ac42ffd3f9b540843a	knowbench-app/knowbench-backend	app/tests/test_formal_execution_routes.py	1	319	核对正式来源许可、冻结注册、交付与自用取样；对照实际路由测试检查操作身份、重复受理、注册回查与状态投影
+ec2ca9abb738f61e14c13e4006521536bccc8034	knowbench-app/knowbench-backend	app/tests/test_formal_method_routes.py	1	609	核对正式来源许可、冻结注册、交付与自用取样；对照实际路由测试检查操作身份、重复受理、注册回查与状态投影
+81c7401e053ca0f1a6dfa38d22684774df853058	knowbench-app/knowbench-backend	app/tests/test_formal_method_admission_db.py	1	583	核对来源许可数据、并发受理和已注册方法的市场包交付测试，区分模拟封存和实际执行
