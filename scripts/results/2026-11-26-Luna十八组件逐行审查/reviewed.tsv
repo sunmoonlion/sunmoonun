@@ -445,3 +445,5 @@ a510cb2a87f714b42f263b7328ac37e0684b7fdf	knowfeed-app/knowfeed-backend	app/app/a
 4a6a6787b993fb2ec82781d029ac5dc1734a45fa	knowfeed-app/knowfeed-backend	app/app/domain/supply/schema.py	1	123	来源目录、自动登记标识冲突及供给契约生成
 ac5f56d4ea95c4cd154c32d482c345fa22079e93	knowfeed-app/knowfeed-backend	app/app/application/supply/catalog.py	452	521	来源目录、自动登记标识冲突及供给契约生成
 c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	361	376	来源目录、自动登记标识冲突及供给契约生成
+ac5f56d4ea95c4cd154c32d482c345fa22079e93	knowfeed-app/knowfeed-backend	app/app/application/supply/catalog.py	1	682	渠道试采的启动、构建适配器、采样与结果落库；复审与启停
+c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	317	360	渠道试采的启动、构建适配器、采样与结果落库；复审与启停
