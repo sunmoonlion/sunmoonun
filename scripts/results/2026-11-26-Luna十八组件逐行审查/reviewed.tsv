@@ -1849,3 +1849,11 @@ ddbf792713a5267b65899803860647eddb953e3b	knowlab-app/knowlab-backend	app/app/inf
 4dcfa5798ce274c469b6cb922d1459d99788d733	knowlab-app/knowlab-backend	app/app/infrastructure/external/service_client.py	1	175	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
 74ac7f40f5ba24f89c363ee26022cf3a4e04c181	knowlab-app/knowlab-backend	app/tests/test_knowbase_client.py	1	158	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
 9a78bead93a113f2ed81c76f6e3ac610e9f102a6	knowlab-app/knowlab-backend	app/tests/test_knowbase_library_format.py	1	113	逐行核对服务关系令牌缓存、补采需求 HTTP 适配及资料版本格式回归
+85efcd8d256c114a520702d06c7cbd65c2795884	knowlab-app/knowlab-backend	app/app/application/services/knowbot_workdraft.py	1	641	工作稿按修订存格子与出处，核验引用及正式草图；对照两端发布事务、技能换种子、导入复制和作者 HTTP 用例
+85dac396360b5b724a22fac6bc9f7b46b886c4ff	knowlab-app/knowlab-backend	app/tests/test_knowbot_workdraft_routes.py	1	252	工作稿按修订存格子与出处，核验引用及正式草图；对照两端发布事务、技能换种子、导入复制和作者 HTTP 用例
+c5617c75553652f67aaeb5380035b141fa498019	knowlab-app/knowlab-backend	app/tests/test_knowbot_workdraft_service.py	1	398	工作稿按修订存格子与出处，核验引用及正式草图；对照两端发布事务、技能换种子、导入复制和作者 HTTP 用例
+e0bbc0f085c793f35061a3eb1ac5b4fdd468868c	knowlab-app/knowlab-backend	app/tests/test_knowbot_workdraft_compile.py	1	784	工作稿 SQL 还原与编译验收，逐项核对固定包退役、接受规则、来源记录与逆向转换
+e180159767bd9cad0e163f239de84c2c9abefc79	knowlab-app/knowlab-backend	app/tests/test_knowbot_workdraft_db.py	1	181	工作稿 SQL 还原与编译验收，逐项核对固定包退役、接受规则、来源记录与逆向转换
+38dec9d8d022c2b10ddf7b6b20d80929ba5e77a3	knowlab-app/knowlab-backend	app/tests/test_idea_method_choices_db.py	1	220	对照已选方法资格及版本、运营提议如何获得作者同意、知识库栏如何固定资料格式与只读范围
+197d9af1cef22044fd4a96c037d49cb8c4e3f3fc	knowlab-app/knowlab-backend	app/tests/test_knowbot_library.py	1	272	对照已选方法资格及版本、运营提议如何获得作者同意、知识库栏如何固定资料格式与只读范围
+21c3efb9bd35a96c7ee8ea623a6fcec1e147916a	knowlab-app/knowlab-backend	app/tests/test_knowbot_proposals.py	1	255	对照已选方法资格及版本、运营提议如何获得作者同意、知识库栏如何固定资料格式与只读范围
