@@ -1176,3 +1176,17 @@ f479c08a66ed7a2b2cd77ecb4c6f1347aafce4ee	knowbase-app/knowbase-web-frontend	app/
 24849837523166c50b5876c62381a4d244f8f837	knowbase-app/knowbase-web-frontend	app/tests/component/library.test.tsx	166	200	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
 74b2524832898fb29bff40da6b7ecf18b10596c5	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/library_web_routes.py	463	536	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
 09409b63d7124bc4656185fb371bcc7ce204196f	knowbase-app/knowbase-backend	app/app/application/services/user_run_service.py	850	985	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
+9fd0bf9315dca9d1eec5d3a2dcb3d7b9cdade300	knowbase-app/knowbase-web-frontend	app/app/[locale]/(dashboard)/dashboard/page.tsx	1	10	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+cac0142165097fb94684c05a8574cb952d173ba0	knowbase-app/knowbase-web-frontend	app/app/[locale]/(dashboard)/library/page.tsx	1	48	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+6dc65b54b0ec1acf984264af943772ef3a73cc67	knowbase-app/knowbase-web-frontend	app/app/[locale]/(dashboard)/settings/page.tsx	1	51	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+0b3c749ee1740e37825efe0b05cdbbc4c01d831d	knowbase-app/knowbase-web-frontend	app/app/[locale]/(dashboard)/upload/page.tsx	1	48	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+d71969c38a9e531ebe46d58e6b98d3b0b83a0acb	knowbase-app/knowbase-web-frontend	app/features/library/model/library.ts	1	441	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+b9f410bc79a9fba62c55416126e2abd518db4bde	knowbase-app/knowbase-web-frontend	app/features/library/ui/description-form.tsx	1	292	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+e3383af7038c9929eaa85fff27a8d506397abc0f	knowbase-app/knowbase-web-frontend	app/features/library/ui/material-detail.tsx	1	609	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+64205aca1b7f0a5646fafc77cf0a5ee6e5e44936	knowbase-app/knowbase-web-frontend	app/features/library/ui/upload-panel.tsx	1	301	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+55067675a1f5ada8f9b77caed6586b7ae23dd872	knowbase-app/knowbase-web-frontend	app/features/shell/index.ts	1	1	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+fe943f65001dbba6bc8f07801c1474b5963ea05c	knowbase-app/knowbase-web-frontend	app/features/shell/ui/knowledge-shell.tsx	1	62	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+24849837523166c50b5876c62381a4d244f8f837	knowbase-app/knowbase-web-frontend	app/tests/component/library.test.tsx	1	297	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+c3ce4ed044a073786ae12d96864129ab3d61502f	knowbase-app/knowbase-web-frontend	app/tests/unit/cross-app-destinations.test.ts	1	9	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+ec7508bd0e0a3023f2983d7bea0ce67e72b1a257	knowbase-app/knowbase-web-frontend	app/tests/unit/env.test.ts	1	131	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
+0bf613442a71c58103d0a2d324cca5ce9d2afe75	knowbase-app/knowbase-web-frontend	app/tests/unit/library-model.test.ts	1	218	对照上传和追加版本、许可确认、机构描述与文件识别、逐字输入报告期、详情、导航和基线测试。
