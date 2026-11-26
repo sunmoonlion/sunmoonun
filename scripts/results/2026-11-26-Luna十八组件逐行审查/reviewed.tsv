@@ -2353,3 +2353,17 @@ fa19cfe010a4e1c5ee2521699dd81dd49481d4ef	knowfeed-app/knowfeed-backend	app/tests
 0bbc5dfbead5d02d503c89c257c5f0a2a42f7deb	knowfeed-app/knowfeed-backend	app/tests/test_report_extraction.py	1	942	mark
 8185e245869e826cea9a769ebccebb73e5bc67a9	knowbench-app/knowbench-backend	app/app/infrastructure/external/knowbase_data_v2.py	1	428	对照已逐行审过的 knowlab-app/knowlab-backend/app/app/infrastructure/external/knowbase_data_v2.py 复核资料准备、授权、产出及调用方关系差异
 ee9224de7e79f82a1d0834648873871ad22e1326	knowbench-app/knowbench-backend	app/app/infrastructure/security/relation_auth.py	1	255	对照已逐行审过的 knowmart-app/knowmart-backend/app/app/infrastructure/security/relation_auth.py 复核资料准备、授权、产出及调用方关系差异
+c0467f80fa7322eb336b34d4e3a7ed28eddb12f8	knowbench-app/knowbench-backend	app/core/config.py	1	979	对照已审源码逐项核对配置、验收与用户资料接口测试 tpl-app/tpl-backend/app/core/config.py
+f609eeaf1462f10aae6ced7ae78769b74774b031	knowbench-app/knowbench-backend	app/tests/test_acceptance_extensions.py	1	101	对照已审源码逐项核对配置、验收与用户资料接口测试 knowlab-app/knowlab-backend/app/tests/test_acceptance_extensions.py
+002e14dbae515e70a74ca19f3d3b6d57072aebc4	knowbench-app/knowbench-backend	app/tests/test_knowbase_client.py	1	265	对照已审源码逐项核对配置、验收与用户资料接口测试 knowlab-app/knowlab-backend/app/tests/test_knowbase_client.py
+06f034cc1c0edf98709ef8d8bfc16a02db7a835d	knowbench-app/knowbench-backend	app/app/application/workbench/__init__.py	1	1	运行入口、配额、回执与计划执行状态逐行核对
+4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	1	2263	运行入口、配额、回执与计划执行状态逐行核对
+e164816c1ca2fae35ca28aa8ca24e571f74663d8	knowbench-app/knowbench-backend	app/app/bootstrap/runner.py	1	132	运行入口、配额、回执与计划执行状态逐行核对
+684b1c088768441c7f0db8578fd01d457bfc06b9	knowbench-app/knowbench-backend	app/app/domain/workbench/__init__.py	1	1	运行入口、配额、回执与计划执行状态逐行核对
+3a6356a64c4f07a6fcd37df2ad0b09157c885911	knowbench-app/knowbench-backend	app/app/domain/workbench/states.py	1	153	运行入口、配额、回执与计划执行状态逐行核对
+29ffadf7a507abc87e0936a44ecce839ad344506	knowbench-app/knowbench-backend	app/app/domain/workbench/tokens.py	1	9	运行入口、配额、回执与计划执行状态逐行核对
+0cdb89f77496716e63dc46ca503f475744059f82	knowbench-app/knowbench-backend	app/app/domain/workbench/tool_schema.py	1	37	运行入口、配额、回执与计划执行状态逐行核对
+eae0d9c207af1e166074079431fb4f7cf402451e	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/__init__.py	1	1	运行入口、配额、回执与计划执行状态逐行核对
+9ebd1e4c45552eab8433a28f6f99126e743cc65c	knowbench-app/knowbench-backend	app/app/application/workbench/method_tools.py	1	233	比对数据规划工具、资料同意和正式方法依赖的范围
+4e603b7ffb2ff8e5901d955d07f643b8b2403eb5	knowbench-app/knowbench-backend	app/app/domain/workbench/method_registration.py	1	170	比对数据规划工具、资料同意和正式方法依赖的范围
+9b4443d1528c5019f01047a2da8a4b75833ab985	knowbench-app/knowbench-backend	app/app/domain/workbench/task_requirements.py	1	179	比对数据规划工具、资料同意和正式方法依赖的范围
