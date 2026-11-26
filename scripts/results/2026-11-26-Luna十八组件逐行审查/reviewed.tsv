@@ -168,3 +168,7 @@ c6fb33cbce99f598d7e7d5f85e054e3d61e7194c	knowlab-app/knowlab-backend	app/app/dom
 1d1e74161ac36ae9370b9248fb5e340817551d74	knowlab-app/knowlab-backend	app/app/application/services/knowbot_grants.py	1	50	运营权按有效期核算；自助受理与交付审核另有各自依据。
 746f8c06f0a0bbb25574a2b44e585f4a609d6cca	knowlab-app/knowlab-backend	app/app/domain/knowbots/lifecycle.py	1	220	受理、用户审核、测试、交回、上架及停用状态与双端分类。运行方取消映射到平台测试错误。
 21e5ebf40c0fd0e68acbf6d05b88476a843aa444	knowlab-app/knowlab-backend	app/tests/test_knowbot_platform.py	1	232	覆盖过期续期、交还、无在途孵化轮的收回、待开测试撤销。未覆盖正在排队时收回。
+a0e1744f15e72848838fa03a9e4a9e655ed96614	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_execution.py	1	76	测试执行只读视图以 run/case 为粒度返回规划及步骤活动；输出为可选投影，分别限制活动、步骤与用例数量。
+bfefe59b9a6cf678c8f9bc44a3e7cf539330a7cd	knowlab-app/knowlab-backend	app/app/domain/knowbots/supply_status.py	1	63	KnowFeed 状态事件契约含所属应用、主体、需求单、任务与条目；消费者应按单号复查当前状态。
+634c04712e9ea96eca7f0f718ede423f269a8dca	knowlab-app/knowlab-backend	app/app/interfaces/http/internal/supply_status.py	1	51	集群内 KnowFeed 通知仅传单号与所属用户给业务层重新查询；未配置服务时直接 204。
+fe1e199c35662f2ff9636fc4607db29f9b64951d	knowlab-app/knowlab-backend	app/app/application/services/knowbot_test_data.py	333	379	每个通知扫描所有在测任务并逐个取问题，再按单号、归属过滤。需测大规模在途时的查询成本；收尾逐笔尝试撤销用例授权。
