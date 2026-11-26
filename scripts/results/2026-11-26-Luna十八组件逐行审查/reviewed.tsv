@@ -282,3 +282,9 @@ aa0ac4fa8efe06c4432f4c09ecc58cf78c5148d2	tpl-app/tpl-backend	app/app/application
 147d5a07c0ef97f40a36d6c6b3a35edb3eab41cd	tpl-app/tpl-backend	app/tests/test_delivery_schedule.py	1	294	调度与重试分离，后继任务及业务回执原子提交或回滚
 7e97df39ffd06a30448856018e20b7231c878e4a	knowbase-app/knowbase-backend	app/app/infrastructure/messaging/delivery_handlers.py	1	30	核对实际业务处理器与模板投递链的关系
 5585c1faa77f07838a20c929888f4a50adc2fbbe	knowfeed-app/knowfeed-backend	app/app/infrastructure/messaging/delivery_handlers.py	1	78	核对实际业务处理器与模板投递链的关系
+40d9f62bee17a6d5b21af678cfcf01187c9649f5	tpl-app/tpl-backend	app/tests/test_delivery_progress.py	1	174	已提交回执、错误消费方、非单调留存量、非有限时间戳
+9932b4ca9fd23e44c59980154144eff15c987534	tpl-app/tpl-backend	app/tests/test_delivery_progress_http.py	1	42	HTTP 采样、坏时间戳与后续恢复
+4999f141bc97ce43609114782160252ec36c6aa9	tpl-app/tpl-backend	app/tests/test_delivery_progress_worker.py	1	189	受控 prefork 工作者暂停、重复投递与事务回滚
+318ed03a7475f7ae6653eda8bd01e772e01c1c68	tpl-app/tpl-backend	app/tests/worker_progress_fixture.py	1	47	隔离库与合成处理器装配
+cacb0ffc9fce7d9f61ae042275d85efabd94cff8	tpl-app/tpl-backend	app/tests/test_delivery_clock_regression_db.py	1	159	数据库时钟回拨、租约 epoch 和重放时钟
+fc10fa6d3ab567b13dfa3b72dace9e51a7c7a4d1	tpl-app/tpl-backend	app/tests/test_delivery_metrics_http.py	1	375	采集身份、并发、数据库锁及取消后恢复
