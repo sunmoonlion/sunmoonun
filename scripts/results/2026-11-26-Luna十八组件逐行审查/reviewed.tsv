@@ -936,3 +936,29 @@ ed505b3fcc2f377b30804de5f8b456e485b57b6b	knowmart-app/knowmart-web-frontend	app/
 624cd9f11da32e4b36bee0b7ca9f2c1ec9d2c8cf	knowmart-app/knowmart-web-frontend	app/lib/knowbots/catalog.ts	1	90	筛选解析与URL投影、目录与详情解析
 408959d4051238048cb22c4eb6d7e96394ecf2a9	knowmart-app/knowmart-web-frontend	app/contracts/experts.ts	1	166	正式卡片与动态分身两种形状、详情和可用性
 9489a8b9cc930635ad5c0ec1355e440853dd91c7	knowmart-app/knowmart-web-frontend	app/tests/component/expert-catalog.test.tsx	1	356	目录入口、返回、占位与版本记录的交互断言
+b131f8a5c77c2590ca82b2867d82b421fab9965f	knowbase-app/knowbase-backend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 knowfeed-app/knowfeed-backend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+73e2656e4a145315b776c03300c161cdcf680731	knowbase-app/knowbase-web-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+d0b2630ea4dab23ed47a3e8f0d14a393e819aa08	knowbase-app/knowbase-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+963c64ad19a9e7452142a578b3b4ee1c8c2f6aa5	knowbase-app/knowbase-admin-frontend	app/playwright.config.ts	1	69	逐行与已审 tpl-app/tpl-admin-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+104489e7fe34bba7da521ecb6223fc4e6ddd42e0	knowbase-app/knowbase-web-frontend	app/playwright.config.ts	1	69	逐行与已审 tpl-app/tpl-web-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+d43bde10eaebeef5dea33cfb17be4676092a3d04	knowbase-app/knowbase-web-frontend	app/preview/preview.config.mjs	1	16	逐行与已审 knowfeed-app/knowfeed-web-frontend/app/preview/preview.config.mjs 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8da0b8ded841ecedf556efcf95d4e5ffc9cf55c6	knowbase-app/knowbase-backend	app/app/infrastructure/messaging/celery_producer.py	1	59	逐行与已审 knowfeed-app/knowfeed-backend/app/app/infrastructure/messaging/celery_producer.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+f40810d8034ee810ba6109b78acefe175a4ef99e	knowbase-app/knowbase-admin-frontend	app/lib/navigation.ts	1	107	逐行与已审 tpl-app/tpl-admin-frontend/app/lib/navigation.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+bcdc24fb26126b35d0a7068d170228f6a391682e	knowbase-app/knowbase-web-frontend	app/tests/unit/browser-session.test.ts	1	116	逐行与已审 tpl-app/tpl-web-frontend/app/tests/unit/browser-session.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+eb10640e848a39e2c967387fc5516427a0bfc15b	knowbase-app/knowbase-admin-frontend	app/tests/unit/browser-session.test.ts	1	116	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/unit/browser-session.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+28fd4bbdf15cc4d0b8db62a321f7c1e3d7ba932b	knowbench-app/knowbench-web-frontend	app/features/methods/ui/method-skill-center-section.tsx	1	413	正式方法登记、实际安装与活动独立读取；变更确认及修订键
+4470a61d8a6eb44fcc49c7cb3467e35578014750	knowbench-app/knowbench-web-frontend	app/features/methods/ui/method-skill-center-sources.tsx	1	239	实现版本回读、编辑与撤回
+d2ac63cd6c195ee9279b3fdcfa8c008dc9946c4f	knowbench-app/knowbench-web-frontend	app/components/workbench/planning-methods.tsx	1	262	按题型与类目筛选、版本声明与点名委托交接
+307d98e4f74e06a5e56fe4d20ee4e2ef47e3052b	knowbench-app/knowbench-web-frontend	app/components/workbench/formal-expert-start.tsx	1	141	按项目与确切版本发起，题目从首页输入，客户端防重并续查
+e57a649a1b7924535ba50fdc45d3f82b381765a6	knowbench-app/knowbench-web-frontend	app/features/expert/ui/formal-expert-directory.tsx	1	59	专家目录的分页、选择确切版本
+d58d94be724f90bccf876212bbb125771b6411f9	knowbench-app/knowbench-web-frontend	app/features/home/ui/home-screen.tsx	1	295	首页模式、项目、电脑选择、输入草稿与点名引用
+1bf530a8361c3a899dd608c94464b277c6cfe2a5	knowbench-app/knowbench-web-frontend	app/lib/workbench/method-skill-center.ts	1	179	安装与正式方法查询身份、目录筛选、声明回执逐字段核验
+7cc3d189304343e1b42e1bfe74081065d6c74ac8	knowbench-app/knowbench-web-frontend	app/lib/directory-facets.ts	1	30	分类目录与可用项客户端契约
+54aff60ed102aec79034b598ff6c4a2b2e8591d8	knowbench-app/knowbench-web-frontend	app/components/common/directory-facets.tsx	1	70	种类和各级分类联动、数量展示
+10da4054a484a0251ef07b0ed29b52972f7a3b2b	knowbench-app/knowbench-web-frontend	app/tests/component/registry.test.tsx	1	274	安装冲突、登记来源、题目选型组件既有断言覆盖
+7022f8dea75d98c75bd0da5bf155156bebf5c4fb	knowbench-app/knowbench-backend	app/app/application/workbench/tool_registry.py	1	111	当前安装详情与确切版本读取、冻结描述复核
+9f357a6ca5dfee461064a4571b6e511ee805ce84	knowbench-app/knowbench-backend	app/app/domain/workbench/registry_views.py	1	104	登记信息、运行路径及最近活动输出
+0cf68e233e37ca7f2be7ad47d295b47215663b0b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/formal_method_repository.py	1	576	实现来源修订、注册与检索投影、试跑凭据、事务重试
+a647138297961590745eeddeedb944315ec80370	knowbench-app/knowbench-backend	app/app/application/workbench/directory_browse.py	1	116	不同使用场景计数、分类分页与已授权精确版本
+f3bfcfb17c4ac5dfc40ed55ce0da45e2acec7cf8	knowbench-app/knowbench-backend	app/app/domain/workbench/formal_adapter.py	1	121	本机、服务函数、脚本、指令来源适配及身份匹配
+3bc43d740a59da78aa409c2efd6846f813546fd7	knowbench-app/knowbench-backend	app/tests/test_formal_function_db.py	1	266	服务函数经逐次批准、签发、证据封存与组合调用后登记
