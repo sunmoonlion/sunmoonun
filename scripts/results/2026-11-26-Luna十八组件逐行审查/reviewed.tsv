@@ -1292,3 +1292,5 @@ d0ad18f08ce5201ee82df853756bade23112aee6	knowlab-app/knowlab-web-frontend	app/te
 0bf8215dd5a8affa246dfbe09a5ea03fbb8a288e	knowlab-app/knowlab-web-frontend	app/tests/component/knowbots-columns.test.tsx	1	413	逐项核对待办答复、公开交付预算、专家停用与名称页跳转的断言及替身
 0bc3d24e5935e7681b978e48bd02a7fb344d5c29	knowlab-app/knowlab-web-frontend	app/tests/component/workdraft-ai.test.tsx	1	559	核对单条及整步建议采纳、修改后接受、拒绝、版本冲突与服务替身状态一致性
 cd2b78c3a9fc2b4a52be72526027b54a4922fe52	knowlab-app/knowlab-web-frontend	app/tests/component/knowbot-requests.test.tsx	1	467	核对能力声明输入形式、方法选版及改稿后的测试编号与期望保真
+ed6705a4cbb081a4559289cd5227ff837b3992ab	knowlab-app/knowlab-web-frontend	app/tests/component/workdraft.test.tsx	1	763	核对自动保存与并发冲突、清单导入、动态稿发布、普通稿转设计、平台提议与固定模板确认
+e0b8b87a105215c85091fae2ab797c2d84881102	knowlab-app/knowlab-web-frontend	app/tests/component/formal-method-editor.test.tsx	1	1569	核对冻结回执、调用方资格、工具精确依赖、固定输入数值保真、替换和补线、安装变化与复核治理的组件测试
