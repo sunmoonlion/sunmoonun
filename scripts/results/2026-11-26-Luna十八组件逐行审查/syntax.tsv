@@ -1,0 +1,7 @@
+parser	distinct_blobs	component_files	findings
+TypeScript AST	792	1612	0
+JSON	370	430	0
+SVG XML	5	60	0
+bash -n	84	256	0
+Python AST	1374	1942	0
+TOML	6	6	0

@@ -1,0 +1,96 @@
+git_blob	component	path	first	last	observation
+7f812bae3e7580634a56a670f42f5058265528f4	knowlab-app/knowlab-web-frontend	app/components/knowbots/request-form.tsx	1	660	入口默认六问并要求一个样例与测试同意。修改时旧 ID 得以保留，但期望值一律 String 化后回交，需查类型往返。用已有方法生成模板会改写为 skill 并清空所选清单。
+4ce539d8d9425c5bce3b45276e314dd0b6e1be22	knowlab-app/knowlab-web-frontend	app/lib/knowbots/idea-template.ts	1	38	编辑用文本拼入旧方法的字段结构和规则，来源另列。合成结果受整体长度上限约束。
+50df467786e25e51dc2c49f8e7471f3b59406f74	knowlab-app/knowlab-web-frontend	app/lib/knowbots/delivery-template.ts	1	89	每次依模板改写目标和单项承诺，对应断言绑全部导出。直接指令产生一入一出的字符串方法。
+58ce5e8dc260ed29c3335abcc22085394babfb0c	knowlab-app/knowlab-backend	app/app/domain/knowbots/drafts.py	1	285	作者申请要求至少一个用例并同意测试。自助与平台预算互斥，固定 v2 清单拒绝，v3 动态方法保留。旧出处和已答问题按引用和问题摘要识别。
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	160	366	普通申请创建需要用例与同意，运行端转入允许零用例和未同意。同一问题存在两套起草前提。保留原作者核权、版本摘要和付费授权。
+e3216124abe38e7ea0ae43123c2bc9cc083505b2	tpl-app/tpl-backend	app/app/bootstrap/api.py	1	181	API 自身存活与 Redis 加数据库 schema 就绪分开。初始化与释放按顺序执行，部分初始化失败时的回收须核部署生命周期。
+5493c9e1df5212113914b754e3da81f9f89ce43c	tpl-app/tpl-backend	app/app/bootstrap/auth.py	1	22	按浏览器端类型注入身份提供者，登录态和用户目录拥有者清楚。
+d3082b7f34a3c2fda3af58b785815d9fdc31c063	tpl-app/tpl-backend	app/app/bootstrap/migration.py	1	42	一次性进程选择 upgrade/current。迁移定位使用模块自身目录。
+63cdddee64b1345e03a75f7302f9b782a661024d	tpl-app/tpl-backend	app/app/bootstrap/worker.py	1	7	工作进程要求消息代理配置，复用同一应用实例。
+33c9c7909194d774587e2d61774c62a22f8464b6	tpl-app/tpl-backend	app/app/bootstrap/scheduler.py	1	10	调度器复用工作进程应用，另指定带观测的调度实现。
+6c255e1991e3fc953a9084192d1c5f6ebe375677	tpl-app/tpl-web-frontend	app/app/healthz/route.ts	1	20	只报告浏览器服务存活、部署号和端类型，响应禁止缓存。
+3638d7b544c11a828c12f37f29705ee847f4ce76	tpl-app/tpl-admin-frontend	app/app/healthz/route.ts	1	20	只报告浏览器服务存活、部署号和端类型，响应禁止缓存。
+3a9169a374153144cb9ef49b255d17385654e3d3	knowbase-app/knowbase-backend	app/app/domain/cross_app.py	1	154	回跳只采用登记的配置，来源引用受限。目标与来源配置分别解析，有界 URL 与编码规则。
+e26445f26221efe435dbf5bfca90841112ef077e	knowbase-app/knowbase-web-frontend	app/lib/cross-app/links.ts	1	125	目的地注册允许特定路段与参数，跳转附来源上下文，新标签页无 opener。配置缺项返回 null。
+9c57c681225fd09adf5b33008366eacc4e8e8360	knowbase-app/knowbase-web-frontend	app/tests/component/cross-app-link.test.tsx	1	147	覆盖无身份跳转、配置缺失、坏契约与忽略传入回跳。测试模拟目的地，无法证明各产品登记的真实路由可用。
+2870ab5fa59cb602c62edaa7fe18a890cc12bcc6	knowbase-app/knowbase-web-frontend	app/components/common/cross-app-link.tsx	1	45	从服务获取目录，配置缺失时展示调用方提供的 fallback。
+c3c0c97fa075aef21cd47cab931c1c1558c26618	knowbase-app/knowbase-web-frontend	app/components/common/return-to-origin.tsx	1	21	返回地址来自服务已核对的 origin，同标签返回。
+3fdd18bf121bb38abc04db690ddc7a678d9c6a91	knowbase-app/knowbase-web-frontend	app/contracts/cross-app.ts	1	50	Zod 校验有界网址、应用名与引用。前端识别网址与后端登记校验由不同实现承担。
+108eedc03c67f3bc42f693430e912545f2be66d2	knowbase-app/knowbase-web-frontend	app/lib/cross-app/destinations.ts	1	8	当前未登记跳转目的地。
+dcfe4c7266e4af1b606b4c7a80c30ea0aa178629	knowfeed-app/knowfeed-web-frontend	app/lib/cross-app/destinations.ts	1	7	当前未登记跳转目的地。
+c2b7a2cf60e3be963ba6595e7d8cfe297974e21f	knowlab-app/knowlab-web-frontend	app/lib/cross-app/destinations.ts	1	39	专家委托、复核、个人资料、方法及设置分别登记路径和允许参数。
+5fceeea8fb4b5aa166621a03e3014578b836e66d	knowbench-app/knowbench-web-frontend	app/lib/cross-app/destinations.ts	1	22	有 KnowLab 孵化与申请、市场入口和 KnowBase 上传。
+0ea182f0d6bf68c6ef09009dc1360d27a63dc000	knowmart-app/knowmart-web-frontend	app/lib/cross-app/destinations.ts	1	24	店铺进入资料、作者专家及工作台时使用不同的路径。
+2062dec4973cab10ffb27dcec340e9ebef07a7cb	tpl-app/tpl-web-frontend	app/lib/cross-app/destinations.ts	1	10	当前未登记跳转目的地。
+b339daf0fd226b7fd49fd776d5ee78479d45989b	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/outbox.py	1	180	同幂等键比较业务内容及含延时的 headers，写入冲突拒绝。批量领取、租约恢复、完成与 inbox 逐消费方去重分别实现。
+ecfb28450e81d32060ca8f41886c037c5727f873	knowbase-app/knowbase-backend	app/app/infrastructure/messaging/durable_delivery.py	1	208	按主题逐条领取，完成须核租约。消费者未确认可恢复，死信可重放。reconcile 一次事务取完所有到期行，需测积压时的批量与持锁时间。
+f9c70b66d8294761ae5110158751fc84d16ff29e	knowbase-app/knowbase-backend	app/app/infrastructure/messaging/delivery_schedule.py	1	13	发行和消费共用不可变的启动时刻；重试可用时间不会改业务最早时间。
+aa0ac4fa8efe06c4432f4c09ecc58cf78c5148d2	knowbase-app/knowbase-backend	app/app/application/dto/outbox.py	1	86	消息正文字节和 headers 有界。调度时间转 UTC 并写保留头，拒绝直接传保留键。
+70500d29a821bfc958a3def7337e8cf50426f5f1	tpl-app/tpl-backend	app/app/application/audit_context.py	1	64	以任务上下文关联日志，同一执行上下文的属性需在退出时恢复。
+f6e7bb907a6cbd1c8ab3a52f19280644c579c280	tpl-app/tpl-backend	app/app/infrastructure/storage/schema_readiness.py	1	37	readiness 检查数据库中实际 schema 修订，须同发布迁移一起验证。
+968a6bd4f588550a80c819d57cf599a64bfe043d	tpl-app/tpl-backend	app/app/infrastructure/storage/postgres.py	1	81	按进程复用异步引擎与会话工厂，依赖注入负责结束会话。
+416b82019075ef14a446f5bc4d5a78d986c7ef05	tpl-app/tpl-backend	app/app/infrastructure/storage/redis.py	1	53	首次 ping 异常后客户端仍被赋值，再次 init 直接返回。隔离 mock 两次 init 实际只 ping 一次。
+e78e732924195f79c21bb41607541f81261f0692	tpl-app/tpl-backend	app/app/infrastructure/messaging/durable_tasks.py	1	226	执行者带租约进入事务，提交前核对实际拥有者。外部调用须由业务幂等键单独保证。
+801e91de1784eac097454053ccadd961048e67cd	tpl-app/tpl-backend	app/app/infrastructure/messaging/scheduler_activity.py	1	148	观测快照用临时文件替换，验证进程身份、引导标识、属主与时间。
+957e1ee0ef8681d1810d873ff1a6d9d4dfab64e4	tpl-app/tpl-backend	app/app/infrastructure/messaging/delivery_observation.py	1	183	只读可重复读事务中按主题聚合，数据库超时和标签有界。统计能说明积压，不能证明交付。
+e29e8d02671dd3c3dda866036dcea822471e9e89	tpl-app/tpl-backend	app/app/infrastructure/messaging/celery_producer.py	1	50	将事务外的 Celery 发布同消息正文和预定任务标识连接。
+8bd948c4f709a2855c04246a42f877e4ac97eab9	knowbase-app/knowbase-backend	db-provisioner/adapters/external.sh	1	33	provision 预演仍创建目录并写出 env，本地隔离目录已复现。文件创建权限取决于 umask。
+e514ae110462747cada003f804290fe27af9be2c	knowbase-app/knowbase-backend	db-provisioner/adapters/k8s.sh	1	62	预演跳过实际 apply，但撤销时 delete 失败被忽略后仍打印已删除。Secret 字段用命令行字面值传递。
+2225e804a44894631f9841a80bb3667f504fb320	knowbase-app/knowbase-backend	db-provisioner/bin/dbctl	1	148	先读 CLI 再 source 配置，预演统一调用 write_output，配置与参数使用同一变量。
+2117909147c5a4edb4a965784e2425d1c7c55537	knowbase-app/knowbase-backend	db-provisioner/drivers/mongodb.sh	1	204	授权由应用库限定，驱动通过生成脚本写入用户名和密码，拼接应用 URI 未单独编码。管理连接的 TLS 参数没有带入应用 URI。
+c5ec763d68a4e57717b7f2156910542a2043dafc	knowbase-app/knowbase-backend	db-provisioner/drivers/redis.sh	1	285	两端增量设置 ACL，重置频道但未显式重置旧的键模式。删除用户的返回错误被吞，预演驱动提前返回后仍进入 adapter。
+75fb82123b454d8a7f574e1cebaea01cd1f2ad35	knowbase-app/knowbase-backend	db-provisioner/drivers/postgresql.sh	1	234	创建与回收各自区分本地和临时客户端，SQL、连接串和启动参数的值拼接须独立处理。
+b07eebf4e0fa2aac6ff8eeaf1cd7b5f245c1d37b	knowbase-app/knowbase-backend	db-provisioner/lib/common.sh	1	122	共用配置解析、等待和日志由入口 source；配置加载在 CLI 参数之后。
+2d2074254a4b49fa368c05a6455065e77a8509e1	knowbase-app/knowbase-web-frontend	app/lib/cross-app/client.ts	1	41	跨应用请求先校验出参和入参，通过已注册目标返回跳转信息。
+78d6b3c5d927435c8248a416b173d01a6c3be14a	knowbase-app/knowbase-web-frontend	app/lib/cross-app/use-cross-app.ts	1	29	查询状态缓存五分钟，调用方根据可用数据选择渲染链接。
+b6b709f5022faf64a9fc7f501b3cacc5017cf16a	knowbase-app/knowbase-admin-frontend	mybuild/harbor-cluster.sh	1	196	镜像推送报错后只验证远端同名标签存在，且标签查询忽略 TLS 证书校验。实际执行过该分支的发布次数待查。
+9dbe58edfc23295b72ae89992b21746f4faba0b9	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_run.py	1	180	定义用例期望、资料、执行人和预算的生产方模型；approx 与 tolerance 必须配对，equals 接受数字和文本。
+291b3e347d14bb0e5ad12fe5464a1176eb296704	knowbench-app/knowbench-backend	app/app/domain/workbench/test_runs.py	1	626	消费者模型与生产方对 approx 字段校验不相同。数值 equals 走 Decimal，文本 equals 走字符串比较。结果与产出分开；大回包优先缩减正文，保留各终点身份。
+f06c17163f0322bd452b8d96a2e5c66e3e837792	knowlab-app/knowlab-web-frontend	app/components/knowbots/row-conditions.tsx	1	126	选行条件的类型独立保存，旧 JSON 可重新编辑；重复列与非有限数拒绝。该保护没有用于断言目标值。
+60116939eb990c1e46d79255697a332847982bfe	knowfeed-app/knowfeed-backend	app/app/domain/supply/subscription.py	1	216	范围同意按订阅及修订编号生成，订阅类型、对象组合、日期、频率与数量均有约束。
+6c57040630b12305e8240e3920b612bba813e646	knowfeed-app/knowfeed-backend	app/app/application/supply/subscriptions.py	1	816	创建先占本地名额再写远端范围同意。续订先 PUT 远端再以原修订更新本地。取消先逐修订 DELETE，再写本地取消状态，最后单独关闭在途需求；后一步失败后重试会跳过，已用隔离替身复现。轮次和配额另行入账。
+08a46e4e81f693955643e8c47703ccdb20517029	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_subscription.py	1	859	finish_round 在事务中按订阅行与轮次核对、持用户月配额锁裁减及落单。change 与 end_items 分开事务。分主题搜索清理在单事务中锁所有 searching 行，需验证实际积压。
+1e7fff26b8179a42ca5de4b5134e2f9d587bfd3e	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/knowbase_user.py	1	118	用户确认与按修订撤回分别用本人令牌经 HTTPS，拒绝跟随重定向，撤回对远端 404 幂等。
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	673	747	订阅授权以主体、订阅和修订命名。重复写会核 scope，相同修订的用途不可替换。撤回按一个修订操作，后台 live 查询核 knowfeed 身份和截止日期。
+409559f5b9e6105f25f7c6eecabe52581b6137e4	knowfeed-app/knowfeed-web-frontend	app/features/supply/ui/subscriptions-panel.tsx	1	369	创建时按三种输入裁剪字段，成功后轮换请求键。卡片的续订与取消都可发起，未串行化并发请求。轮次读取暂缺加载、错误反馈。
+df19777e7e6984ecff5274744cc419e5dff7346c	knowfeed-app/knowfeed-web-frontend	app/app/[locale]/(dashboard)/supply/subscriptions/page.tsx	1	30	订阅页动态渲染，先核用户会话，再把 csrf token 交给创建及操作表单。
+da02c44faf931f8d0c7403425cd313fe5e0a5fab	knowmart-app/knowmart-admin-frontend	app/app/[locale]/(dashboard)/market/listings/page.tsx	1	32	列表审核页要求 admin 或 operator，将当前会话 CSRF token 交给审核组件。
+2d38fc7e9aee537d0b6630c2fc78beffc3836eb9	knowmart-app/knowmart-backend	app/alembic/versions/20261120_0016_self_method_listing.py	1	53	新增 scope 拆开同一版本的自用和公开条目。用联合唯一键和列条件维持两者不同的发布资料；一旦生成自用条目，降级明确报错。
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	546	998	区分自用、公开、许可孵化、买家使用。公众初次获取仅允许 listed；已获取的运行重验允许 withdrawn，仍核资质和摘要。公开审核跨服务在事务外，回写重取并对照原条目。
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	66	218	公开资质与店铺状态在 SQL 中核验；按作者、版本、作用域做唯一插入。分类关联同时用方法标识、版本与摘要。
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	352	516	公开孵化按主键翻页，检索词仅标标签。可用目录合并作者与已获版本并先筛资格再分页。下架版本区分新获和原购买者继续使用。
+e186499102ae86fe526822bacf6440e3f12520a0	knowbench-app/knowbench-backend	app/app/application/workbench/registry_catalog.py	1	685	消费端按当前资格筛选，分类可选加权；有分类命中时读全授权再排序。孵化端查共享许可所有页，再查已装绑定并排序。确认和执行按精确版本复核；普通委托的授权与作者共享许可分别处理。
+43549e68677ee6c2e4a87d2ce7462d3dc7b383ac	knowbench-app/knowbench-backend	app/app/domain/workbench/incubation_tools.py	1	22	单页最多 100 项，许可含作者、条目、精确版本和授权范围；分类命中是可选标记。
+a647138297961590745eeddeedb944315ec80370	knowbench-app/knowbench-backend	app/app/application/workbench/directory_browse.py	1	116	每次请求扫描该场景全部授权页、逐批查分类，再对全部匹配标识二次查询以取页。先产生总数再取结果，跨页不构成同一时刻快照。
+5333f4f2a81351186c954e71b9b8d0966271e997	knowbench-app/knowbench-backend	app/app/infrastructure/external/knowmart_client.py	1	210	市场按主体及版本回执，批量核权每次最多百项。分类命中超一页则放弃加权，目录读取验证后续页大小。
+fe9a38bcf9a4b20be108ca902edeb4fec7f7b674	knowbench-app/knowbench-backend	app/app/domain/workbench/method_search.py	1	99	跨声明字段交错取词，中文用相邻两字，最多 32 项；排除场景不用于正向命中。目录检索接口限制页长一百。
+18a6694108fc46dc86b18bc1421f1bdfecfac4a6	knowlab-app/knowlab-backend	app/app/application/services/incubation_selection.py	1	494	作者核准写入前校验工作稿修订、步骤与实时授权，并复验依赖。组合时传入原适用与排除场景，直接指令分支没有传 scope，默认 excludes 为空。已实测 WorkdraftBody 接受与原稿范围不相同的直接定义。
+85efcd8d256c114a520702d06c7cbd65c2795884	knowlab-app/knowlab-backend	app/app/application/services/knowbot_workdraft.py	192	360	保存先锁修订、应用 edits 后整体验形；采用组合草图生成含来源回执。已有普通步骤或计划才需显式确认 brief，scope 单独存在不触发。
+67bb3cd65e031c3e9cf08da00b0389d8d60105e6	knowlab-app/knowlab-backend	app/app/domain/knowbots/workdraft.py	330	467	模板核目标、交付及各输出的检验规则。WorkdraftBody 的 scope 与正式直接方法中的适用和排除没有一致性校验。
+1e1a0c2b07a22adb24672bb108bb9523c719d495	knowlab-app/knowlab-backend	app/tests/test_delivery_template.py	1	103	修订和模板守卫有回归，冻结需要实际执行，具名承诺有独立用例覆盖。未断言原排除范围在直接指令里保留。
+9dbe58edfc23295b72ae89992b21746f4faba0b9	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_run.py	181	537	提交与回执对象的生产方定义。复核产出受大小和来源引用约束，带输入资料的答复归用户；非资料答复的一种组合判断仍需对照操作入口。
+267320e7c4e7c1585e0219e4452065e0fb685234	knowlab-app/knowlab-backend	app/app/domain/knowbots/selection.py	1	682	目录快照、树、可采用平图和冻结契约分别验形。expand 可编译多个互不依赖的具名终点；PlanningTree 只允许子节点作为父输入。conditional_witnesses 按独立路由输入覆盖最大叶数及每分支。
+253e8ac88b771bf8a6444c60734284d2c4c0e612	knowbench-app/knowbench-backend	app/app/domain/workbench/hierarchical_planning.py	1	1110	两端共用的决策、披露、回溯和继续规划。split 必须选真实下游方法并绑定其输入；finish 有实际根步骤，缺承诺清单。对分开交两份独立输出，单项命中也获 ready，递归无法直接表达已可编译的两个独立末端。
+a8f4fe6092c03534f7f96957d114a4426c0acc7a	knowbench-app/knowbench-backend	app/app/domain/workbench/temporary_plan.py	1	241	v7 将选型别名精确还原后用共同 expand；单个完整专家可直接复用。旧 profile 解为三步 Choice 并按各端口精确匹配，真正在用的调用范围仍需追路由。
+35a49ac86c6ddb08d220e7302eb39cb2c799fc5f	knowbench-app/knowbench-backend	app/app/domain/workbench/planning_capabilities.py	1	154	部署能力、老版本摘要和结构对照分别处理；两独立终点或多个依赖都判 join。只能核验图结构与部分硬要求，无法从该检查确保多项业务承诺齐全。
+afd01722aa1deeade6914d1c7bedd2b811b835e4	knowbench-app/knowbench-backend	app/tests/test_hierarchical_planning.py	1	219	覆盖双端恢复后具名交付，但测试两份成果的工具本来就存在前后依赖。另有路由、撤权、一次回溯及尾部候选披露样例。
+2a975ad60c2049f8e68ff738464446a197a9d95b	knowbase-app/knowbase-backend	app/app/interfaces/http/web/auth.py	1	247	登录、注册、切换账号、回调与注销。切换账号使用短时双提交令牌，回调异常限制可显示原因。异常回跳链接没有原业务页。
+a40e4bf60f2e288201bd940ca593d8cb542667e6	knowbase-app/knowbase-backend	app/app/interfaces/http/admin/auth.py	1	131	管理端回调直接要求 code 和 state，正常回调按保存路径回跳。授权提供方返回 error 的情况与 Web 路由处理不同。
+4210079e16800e63a557fec7e1a9695e7f08fb43	knowbase-app/knowbase-backend	app/app/interfaces/http/auth_common.py	1	54	事务 cookie 与会话 cookie 由配置控制 secure，本地时钟与过期时刻决定有效期。回调后清理事务 cookie，禁止缓存。
+e4c769612df85693c41f53086c876af62ff88cac	knowbase-app/knowbase-backend	app/app/infrastructure/external/downstream_service.py	1	138	服务主体与单调时钟令牌缓存，带锁刷新；目标路径按已配置前缀校验。服务错误统一映射，重定向关闭。
+b633bb37b77b04090fa27e453812e45a8ee9793a	knowbase-app/knowbase-web-frontend	app/lib/auth/next-path.ts	1	22	同语言相对路径和后续参数可保留，显式限制长度、控制字符与登录页。
+1738cedd04987dc152989fc780278ad653fe81d1	knowbase-app/knowbase-web-frontend	app/app/[locale]/(auth)/login/page.tsx	1	118	浏览器已有会话回请求路径，首次登录优先转身份服务；失败页提供换账号，注册成功有单独提示。
+a28da31280817aef10c4faa6fc7f528c929ab8e7	knowbase-app/knowbase-web-frontend	app/components/common/common-kernel.tsx	1	329	模板含表格、表单、上传、通知、审计弹窗与可视化。异步确认没有提交中状态，反馈 ID 用当前毫秒。
+bb7fc9f332282979ec9641a9205090c3a8e74bce	knowbase-app/knowbase-admin-frontend	app/components/admin/interface-settings.tsx	1	99	密度、主题和语言使用前端状态；切换语言用当前 pathname，查询参数未显式传递。
+8ffbf327882015bb58c24aa378ea6025cdbeacbb	knowbase-app/knowbase-admin-frontend	app/components/reference/crud-reference.tsx	1	131	示范页数据完全在本地 state，翻页不改变 rows；动作与上传只改提示，不能作为业务接口验收。
+2b779d971e33540bd6d470a101029f1601731e20	knowmart-app/knowmart-admin-frontend	app/components/market-admin/market-admin.tsx	1	702	管理市场队列只载入知识和专家；正式方法另有 pending_formal 和 review_formal 接口，此组件不展示。资质与店铺撤销需理由；成交记录错误时未显式反馈。
+b7249a16a0111bc27b2e655620d418be84712422	knowbench-app/knowbench-backend	app/app/application/workbench/temporary_planning.py	1	847	从未匹配回执和当前修订启动。根据目录、许可、预算、身份创建 v7 子任务。查看、保存和复用核摘要；人工改步骤时只改 steps，树中保留原模型步骤。超时或纠正失败会归到 gap。
+c15249363bc8d810342ecae21001cd84e776f505	knowbench-app/knowbench-web-frontend	app/features/expert/ui/temporary-planning.tsx	1	356	计划轮询、选目录、补问、定向改节点、批准探查资料、保存复用。树以目标和原因展示；复用以人工输入任务号为入口。
+0b4ccc762d08b263456d64e7955456c25800d966	knowbench-app/knowbench-web-frontend	app/features/expert/ui/temporary-plan-review.tsx	1	168	审核用自由文本逐行录入条件值并精确比较；修改步骤或条件需再次确认。显示具名输出；额外手输标签含换行时没有转义。
+2427a9750458b818f7df4f3bfa55c2ec60dcd13e	knowlab-app/knowlab-web-frontend	app/components/knowbots/selection-panel.tsx	1	515	子目标转新申请用当前标签页的 sessionStorage。作者复核条件值以中英文逗号或换行拆分并 trim，与精确分支字面值可能冲突。确认须核稿修订及每步说明。
+f4f1a6ee2314de83a9c1d2839f677e3fb13990ac	knowbench-app/knowbench-admin-frontend	app/app/[locale]/(dashboard)/method-skill-center/page.tsx	1	19	管理页限 admin/operator，入口显示平台服务函数管理组件。
+fd1a79593bda03cbca8d1cc578f77d35734cd2b0	knowbench-app/knowbench-admin-frontend	app/app/[locale]/(dashboard)/research/runtime/page.tsx	1	34	示例研究运行面板有 admin/operator 门槛，标题及正文保留模板说明。
+582ef72beb3d4e6fc5187225ddcc583a2a24094a	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/incubation/page.tsx	1	40	孵化队列解析指定分类与条目，检查会话后转入 IncubationView。
+9a062ccb9d670d0a218973bc284b1196899be8bc	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/acceptance/page.tsx	1	40	待审、通过、驳回三类，已有会话带 csrf 到审查视图。
+16f1630887a87b7f6c7118a778e9eb380a6b6ea4	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/delivery/page.tsx	1	49	交付和人工放行同页，链接支持条目加六种状态筛选。
