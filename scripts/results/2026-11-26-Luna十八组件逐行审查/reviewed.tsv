@@ -638,3 +638,11 @@ dea6fb58b8143fb0810e751c8b652f14882af278	knowfeed-app/knowfeed-admin-frontend	my
 7d6108c98e593b38ba5710819b8c1f34f9e7dd8a	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-inputs.tsx	1	111	复核条件只能引用可选输入，检查 covers 来源及回退目标，人工可编辑修复 B97
 db965acb67a058d59074748e90326df6516dd3ef	knowlab-app/knowlab-web-frontend	app/components/knowbots/review-requirements.tsx	1	108	从图上直接依赖及已保存要求构造复核边；多输出单来源才可分阶段
 5a5160c730467e2620ad40b519da72feb2564893	knowlab-app/knowlab-web-frontend	app/components/knowbots/review-stages.tsx	1	72	逐项核对独立首轮、延后比较输出、返工次数的显示及修改
+4b9eb8227e718bfad6ba2c3e051259773080eede	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-data.tsx	1	158	知识库选择器与选中项同源，保存回调传整组 ID
+c82a4bdb6cd638e504344de9a0cc87d4bd1f7f45	knowlab-app/knowlab-web-frontend	app/components/knowbots/knowledge-view.tsx	1	73	知识库展示描述、归属、版本与大小
+bec7b879942f55a2d7b3c470e8408b8309c12e15	knowlab-app/knowlab-web-frontend	app/components/knowbots/manual-release.tsx	1	150	核对当前申请资格、冷缓存与历史展示的依赖关系 B98
+59bf323128e0dbfe7b757fda832246a6216803dd	knowlab-app/knowlab-web-frontend	app/components/knowbots/test-execution.tsx	1	109	试跑终态停止轮询，按用例查看步骤、支出和交付
+9bbbb12028c63982e35a98027d7069acfe06a2d4	knowlab-app/knowlab-web-frontend	app/components/knowbots/name-view.tsx	1	198	名称详情装载人工放行、测试与时间线，核对事件跳转
+6b84fcbd66246555c2159e823e99c36bdcc721d7	knowlab-app/knowlab-web-frontend	app/lib/knowbots/manual-release.ts	1	27	列表和申请分别读取集合及确切草稿
+0ab32c5dd48eb7e36b05874d163b139da3d98053	knowlab-app/knowlab-web-frontend	app/tests/component/manual-release.test.tsx	1	84	两项已有测试分别覆盖申请同意和免重测交付
+60195a68f034cbc59ae52dc95956067fe6289ef8	knowlab-app/knowlab-backend	app/app/application/services/knowbot_manual_release.py	1	177	原申请去重、核对历史基准及二次审核，驳回仍留有记录
