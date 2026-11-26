@@ -1969,3 +1969,11 @@ a4c74f08d47cf49d63c77991f35ae5fec7e983a4	knowbase-app/knowbase-backend	app/alemb
 6e0082e958df8986640f093aee69dcc1482083ca	knowbase-app/knowbase-backend	app/tests/test_drop_legacy_data_db.py	1	212	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
 3436dd5905476723ba2f5f8e418d978a272a728b	knowbase-app/knowbase-backend	app/tests/test_knowledge_migration_dependencies.py	1	23	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
 b3feb6937ab6f37c67c65a6b064bcbeee4aa1be3	knowbase-app/knowbase-backend	app/tests/test_readings_migration_db.py	1	157	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+674c2b3ed62bc27c4a76ff87b9ca0c5f31270155	knowbase-app/knowbase-backend	app/alembic/versions/20260715_0003_retrieval_domain.py	1	284	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+a556bd069193b5d840df1a0d7a61706fbe20c195	knowbase-app/knowbase-backend	app/alembic/versions/20261026_0010_user_data_v4.py	1	362	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+938750d6e58ba3a7517ff8a293c4f5de9a604fdd	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0011_user_data_v4_runs.py	1	223	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+32c750a04537b1cb8758d0b2a38334c6a5196fcb	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0012_user_data_v4_resolution.py	1	98	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+45200114cca5b7f58e9dbe6cd00bd6362f1f04f0	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0013_user_data_v4_sessions.py	1	38	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+cd978b2e47021ddcaed1f4257aaabcadb7340bda	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0014_user_data_v4_public.py	1	49	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+3ad27a6431b28b07a9d9bf426256a256113eef67	knowbase-app/knowbase-backend	app/tests/test_knowledge_retrieval.py	1	310	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+feefd82d08fcbb7cc55ce2cccb4171c138751e54	knowbase-app/knowbase-backend	app/tests/test_retrieval_migration.py	1	35	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
