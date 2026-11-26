@@ -1242,3 +1242,4 @@ ccc55fe98e20e5107f6a3435a2b90c3cee916f9c	knowlab-app/knowlab-web-frontend	app/ap
 4188f2ea549a31acf6cb977444cc6ada04b5c363	knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/names/[requestId]/workdraft/page.tsx	1	34	核对工作台入口、页面会话、查询定位和旧地址映射。
 d4de607ced9ed75f754134cad07bc0aaa5873723	knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/questions/page.tsx	1	7	核对工作台入口、页面会话、查询定位和旧地址映射。
 5482d82ad8fd0c4cb700b82862766ed04e6fd492	knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/tests/page.tsx	1	36	核对工作台入口、页面会话、查询定位和旧地址映射。
+00fb68327c0a8111ec07c78427bd441575fe6a45	knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-editor.tsx	1	1161	核对工作稿恢复身份、草图确认、试跑回执、冻结与自用上架。
