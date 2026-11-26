@@ -2344,13 +2344,13 @@ e9cabf0eda5378ce660674f9d87257bf9503ace5	knowfeed-app/knowfeed-backend	app/app/i
 f7a12a875b4de039a1f5688b11eee0d7af227320	knowfeed-app/knowfeed-backend	app/app/interfaces/http/web/supply.py	1	777	核对需求存储与提交租约、途中过期和结算、个人需求及订阅 HTTP 的输入输出
 744fd50a88af72c4a5d601f77de9f970a6a66799	knowfeed-app/knowfeed-backend	app/core/config.py	1	751	核对完整配置、身份与下游服务配置校验、存储与搜索目标的降级行为
 0e480cc329b088085b382bab9463662471bdad8e	knowfeed-app/knowfeed-backend	app/tests/test_supply_db.py	1	461	核对一次真实本地数据库委托的测试夹具、财务原始行、共享交付与重放断言
-a8e5e0d978c345cc5b7c486cf4a08627c35123cf	knowfeed-app/knowfeed-backend	app/tests/test_crawl_http.py	1	576	mark
-da36db357a96021d2042d580e6af75e6cb8f3d1d	knowfeed-app/knowfeed-backend	app/tests/test_supply_catalog_db.py	1	462	mark
-43890f076e4ed258e3e3642acf0bed321d97c143	knowfeed-app/knowfeed-backend	app/tests/test_supply_review2_db.py	1	536	mark
-08addd8d9c390e8763bc887117146c8cf036e28a	knowfeed-app/knowfeed-backend	app/tests/test_supply_review3_db.py	1	654	mark
-dbec8a0f749465bebe02c0500f3382e1f703aecc	knowfeed-app/knowfeed-backend	app/tests/test_supply_web_db.py	1	622	mark
-fa19cfe010a4e1c5ee2521699dd81dd49481d4ef	knowfeed-app/knowfeed-backend	app/tests/test_supply_schedule_db.py	1	771	mark
-0bbc5dfbead5d02d503c89c257c5f0a2a42f7deb	knowfeed-app/knowfeed-backend	app/tests/test_report_extraction.py	1	942	mark
+a8e5e0d978c345cc5b7c486cf4a08627c35123cf	knowfeed-app/knowfeed-backend	app/tests/test_crawl_http.py	1	576	核查爬取 HTTP 测试的重定向、响应与抓取边界
+da36db357a96021d2042d580e6af75e6cb8f3d1d	knowfeed-app/knowfeed-backend	app/tests/test_supply_catalog_db.py	1	462	核查供给目录数据库测试的发现与登记条件
+43890f076e4ed258e3e3642acf0bed321d97c143	knowfeed-app/knowfeed-backend	app/tests/test_supply_review2_db.py	1	536	核查供给复审的状态与数据库断言
+08addd8d9c390e8763bc887117146c8cf036e28a	knowfeed-app/knowfeed-backend	app/tests/test_supply_review3_db.py	1	654	核查供给复审的后续状态及回执断言
+dbec8a0f749465bebe02c0500f3382e1f703aecc	knowfeed-app/knowfeed-backend	app/tests/test_supply_web_db.py	1	622	核查用户侧供给流程与数据库可见性
+fa19cfe010a4e1c5ee2521699dd81dd49481d4ef	knowfeed-app/knowfeed-backend	app/tests/test_supply_schedule_db.py	1	771	核查供给调度领取、时间与完成状态
+0bbc5dfbead5d02d503c89c257c5f0a2a42f7deb	knowfeed-app/knowfeed-backend	app/tests/test_report_extraction.py	1	942	核查报告提取样例、缺项与结果断言
 8185e245869e826cea9a769ebccebb73e5bc67a9	knowbench-app/knowbench-backend	app/app/infrastructure/external/knowbase_data_v2.py	1	428	对照已逐行审过的 knowlab-app/knowlab-backend/app/app/infrastructure/external/knowbase_data_v2.py 复核资料准备、授权、产出及调用方关系差异
 ee9224de7e79f82a1d0834648873871ad22e1326	knowbench-app/knowbench-backend	app/app/infrastructure/security/relation_auth.py	1	255	对照已逐行审过的 knowmart-app/knowmart-backend/app/app/infrastructure/security/relation_auth.py 复核资料准备、授权、产出及调用方关系差异
 c0467f80fa7322eb336b34d4e3a7ed28eddb12f8	knowbench-app/knowbench-backend	app/core/config.py	1	979	对照已审源码逐项核对配置、验收与用户资料接口测试 tpl-app/tpl-backend/app/core/config.py
@@ -2404,3 +2404,16 @@ f78ce86f9f6b81bcc0bcf9669667ba910e0291d9	knowbench-app/knowbench-backend	app/app
 eaa3a1961059524be2e1e249421132c231d83b2e	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/relay_admin.py	1	71	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
 944b75f7a0a9957f07915a4f602a04e18cfc1aa8	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/service_functions.py	1	100	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
 c56394d73f6f0325e4ce24ebb6272da368233a9b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/skill_executor.py	1	122	核对 WebSocket 握手与应答、服务修订及引用查询、隔离脚本交付与计量的错误路径
+2bfcf36ec05f61cdbce2494599058854bd5a6cc2	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/commands_wakeup.py	1	18	核对调用主体、宿主边界、登记与查询的版本范围、推送触发及失败恢复
+fb0ce5f7fd7c8123022d2191ea68aa0a33e3e1df	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/knowfeed_status_routes.py	1	81	核对调用主体、宿主边界、登记与查询的版本范围、推送触发及失败恢复
+4cefbeaca2ec6330c8c952f5377c4ac404db0c9f	knowbench-app/knowbench-backend	app/app/interfaces/http/admin/service_functions.py	1	85	核对调用主体、宿主边界、登记与查询的版本范围、推送触发及失败恢复
+74adc18788729afe626f99b9d5b8c4227dbac2e5	knowbench-app/knowbench-backend	app/app/interfaces/http/client_ip.py	1	46	核对调用主体、宿主边界、登记与查询的版本范围、推送触发及失败恢复
+f93edf1de8f8afbbd14f55d54a7e459cbf8e4df4	knowbench-app/knowbench-backend	app/app/interfaces/http/internal/service_functions.py	1	58	核对调用主体、宿主边界、登记与查询的版本范围、推送触发及失败恢复
+f632d2cc5a350f51fbb2fda61f92b3be91b49340	knowbench-app/knowbench-backend	app/app/bootstrap/workbench.py	1	612	核对作者与消费服务的构造、试跑目录、资料授权、脚本与指令运行的配置条件
+ec157ac36dec7b8db63c15924c15ea0fbebe84f4	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/capability_repository.py	1	471	核查能力资产幂等登记、会话作用域状态、全沙箱锁顺序、脚本清理与计量队列
+0bd4c2bd341dc75adb3fc99d68afff8ca0e283fe	knowbench-app/knowbench-backend	app/app/interfaces/mcp/workbench_mcp.py	1	381	核对 MCP 请求解析、版本协商、权限、调用记账、结果大小与异常状态
+a1282c5839ef85fcb14935aaaa99349d3b6536a1	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/knowbot_runtime_routes.py	1	629	核对正式验证与登记、双端目录、孵化轮次、试跑产出和取消的身份与返回契约
+26305ae64a2086a8f332dd864cfdb04921c48e60	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/capability_routes.py	1	1173	核对登记、目录查询、只读授权与凭据、试跑审批、普通和正式调用结果的 MCP 交回
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1	155	核对环境登记与移除、项目与会话可见性、游标锁、事件持久化及委托列表
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	179	829	核对环境登记与移除、项目与会话可见性、游标锁、事件持久化及委托列表
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	859	1030	核对环境登记与移除、项目与会话可见性、游标锁、事件持久化及委托列表
