@@ -2524,3 +2524,14 @@ b124c06d766c52167890ad52d749c85d34a62c63	knowbench-app/knowbench-backend	app/tes
 8eedade5df91cb198565d0619f8c849117351192	knowbench-app/knowbench-backend	app/tests/test_method_registration.py	1	141	核对依赖图精确准入、市场分批核权、会合通道应答及发布器失败语义。
 d005588b3e6064c9a8e12412eae6dfef1ae6f001	knowbench-app/knowbench-backend	app/tests/test_workbench_adapters.py	1	153	核对依赖图精确准入、市场分批核权、会合通道应答及发布器失败语义。
 050ef21a55c2dd2f4b1f00adb7dad1a6596053cd	knowbench-app/knowbench-backend	app/tests/test_workbench_knowmart_client.py	1	162	核对依赖图精确准入、市场分批核权、会合通道应答及发布器失败语义。
+47b775ce8a44798187427009b7127494778eb05f	knowbench-app/knowbench-backend	app/tests/test_method_plan.py	1	315	核对已执行前缀版本约束、投影路径碰撞前置校验和最终输出必须来自最后实例。
+9e567b28dfffb93c09c275384f0d84a704ff4712	knowbench-app/knowbench-backend	app/tests/test_execution_plan_db.py	1	403	核对动态派发账簿、回退后产物谱系、取消并发与预算的事务原子性。
+5a7ba113452984134e552ddf5bf9af97aa706786	knowbench-app/knowbench-backend	app/tests/test_fixed_as_plan_equivalence_db.py	1	445	核对内部固定烟测的双路径快照、断点恢复和名单控制；与用户旧固定包禁用区分。
+8ce348a133935bb6c86c80b7b375f86789c7eb9f	knowbench-app/knowbench-backend	app/tests/test_incubation_shared_tools_db.py	1	343	核对跨作者共享许可、消费者安装账户选择和撤换时再核权，以及自有脚本计价。
+eb791de896ede3ed844da930676fe4b113aeb041	knowbench-app/knowbench-backend	app/tests/test_method_evidence_delivery_db.py	1	332	核对嵌套指令父节点撤权、重启结算、证据冻结和来源页码事实数量落盘回归。
+1f859c028a7104c53769401bd6173d1011b8482e	knowbench-app/knowbench-backend	app/tests/test_recursive_instruction_db.py	1	227	核对嵌套指令父节点撤权、重启结算、证据冻结和来源页码事实数量落盘回归。
+31c8034d254d73f76b5c3e591c28331469a9d4ec	knowbench-app/knowbench-backend	app/tests/test_tool_operations.py	1	169	核对工具注册命名空间、描述摘要、命令策略、资源约束及远端声明与宿主政策的边界。
+d4732580843a2557e1151c69701e3340835117b4	knowbench-app/knowbench-backend	app/tests/test_tool_policy.py	1	102	核对工具注册命名空间、描述摘要、命令策略、资源约束及远端声明与宿主政策的边界。
+c7c2b44ef95f99f351aa062b02620b04c1dd7a28	knowbench-app/knowbench-backend	app/tests/test_tool_registry.py	1	210	核对工具注册命名空间、描述摘要、命令策略、资源约束及远端声明与宿主政策的边界。
+7cbd987b846d96a6dea1aa2801728dbf6a7c2645	knowbench-app/knowbench-backend	app/tests/test_service_function_management_db.py	1	205	核对宿主调用凭证绑定当前回合、重复审批和函数管理端只显示精确版本引用。
+da62657afac201272feca693a6f5239dd3d71552	knowbench-app/knowbench-backend	app/tests/test_tool_invocation_db.py	1	230	核对宿主调用凭证绑定当前回合、重复审批和函数管理端只显示精确版本引用。
