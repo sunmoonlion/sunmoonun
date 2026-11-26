@@ -1049,3 +1049,21 @@ bf752183c95a339f2d9a6063a1567116d174f828	knowlab-app/knowlab-backend	app/app/int
 347e3ecdf7e1c37ab6f82b0754932a2a8ccbb4db	knowlab-app/knowlab-admin-frontend	app/tests/unit/browser-session.test.ts	1	116	会话 DTO、匿名和上游异常的差别
 8ad3a952acd8001aa94ad361661df4db9a5f9e10	knowlab-app/knowlab-admin-frontend	app/tests/unit/env.test.ts	1	127	开发构建默认值与部署时环境约束
 88a6e67f2272124cacf1cdf31f642638f4f5919d	knowlab-app/knowlab-web-frontend	app/components/knowbots/my-questions.tsx	1	180	逐类型处理与答复转交反馈；资料由作者在测试页确认
+f405107de1333e95da6191824466178a77df5159	knowbench-app/knowbench-web-frontend	app/tests/unit/browser-session.test.ts	1	116	逐行与已审 tpl-app/tpl-web-frontend/app/tests/unit/browser-session.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+80e3c4e499c0e7fc063c8184aa66727fcf471a11	knowbench-app/knowbench-admin-frontend	app/env/server-schema.ts	1	77	逐行与已审 knowbench-app/knowbench-web-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+d93bef749a5fde6f98e62ab98c40df878691d948	knowlab-app/knowlab-web-frontend	app/tests/unit/env.test.ts	1	131	逐行与已审 knowlab-app/knowlab-admin-frontend/app/tests/unit/env.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8dcb6f2f8b3f6fcc6f4687f9c4dcd8e20e21653a	knowmart-app/knowmart-admin-frontend	app/tests/unit/browser-session.test.ts	1	116	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/unit/browser-session.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+e98a52723bb931c9bfee954c572e6e65a257f9ce	knowbench-app/knowbench-web-frontend	app/lib/security/content-security-policy.ts	1	39	逐行与已审 knowbase-app/knowbase-admin-frontend/app/lib/security/content-security-policy.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+96e686377d2c2d10a6c4a678a7d73a9c02a42055	knowbench-app/knowbench-backend	app/tests/test_dynamic_incubation_db.py	1	162	核对市场与作者目录、运行契约及回执的覆盖边界
+c0a582460223a5bc99f270be228cbf8d0d0e9b34	knowbench-app/knowbench-backend	app/tests/test_knowbot_test_run_lock.py	1	251	核对市场与作者目录、运行契约及回执的覆盖边界
+f0779dd02783eeae70a5f9d7f1b20d0ce4930aaa	knowbench-app/knowbench-backend	app/tests/test_run_data_contract_db.py	1	69	核对市场与作者目录、运行契约及回执的覆盖边界
+0187350484ca49f3d0a40ae20970291add5f32fc	knowbench-app/knowbench-backend	app/tests/test_test_run_v2.py	1	36	核对市场与作者目录、运行契约及回执的覆盖边界
+7c69e9c7b74cc1bd9258c05ad51c50c368f2b7eb	knowbench-app/knowbench-backend	app/tests/test_dynamic_market_intake.py	1	227	核对市场与作者目录、运行契约及回执的覆盖边界
+dc5e3aba803a37348289b0a997227b9f3cb24720	knowbench-app/knowbench-backend	app/tests/test_dynamic_method_catalog.py	1	187	核对市场与作者目录、运行契约及回执的覆盖边界
+25cd9dcda1e8b191dc31d0ba986add529c5f1b9d	knowbench-app/knowbench-backend	app/tests/test_knowbot_test_runs_db.py	1	155	试跑连接与本机测试初始化
+de466eac469d6aa86c0f5a2e2f3b92bbfb4cdcf0	knowbench-app/knowbench-backend	app/app/application/workbench/runner.py	2191	2354	运行方原始澄清项与答复投递
+4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	450	541	开步前逐个转交原始标识
+470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	611	745	问题身份、回答受理与幂等范围
+470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	1081	1293	等待与答复的实际消费标识
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1543	1564	动态测试受理的普通插入与用例落库
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	2267	2294	试跑结果更新列与事务
