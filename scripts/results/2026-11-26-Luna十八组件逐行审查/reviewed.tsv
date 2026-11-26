@@ -738,3 +738,31 @@ c85c74a77a3a654e49e49528c35ac25ed9b3259c	knowmart-app/knowmart-web-frontend	app/
 ae6a567d8b7f727c4137b512dc4f048694a6ee62	knowmart-app/knowmart-web-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
 26b2ca6f027df01b9a9e3901d1eb945867859c06	knowmart-app/knowmart-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
 52b751e42149e2f354abab321252bcccc3684445	knowmart-app/knowmart-backend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+fe9a38bcf9a4b20be108ca902edeb4fec7f7b674	knowbench-app/knowbench-backend	app/app/domain/workbench/method_search.py	1	99	目录检索场景和中文双字词、多字段交替取词的限制
+a647138297961590745eeddeedb944315ec80370	knowbench-app/knowbench-backend	app/app/application/workbench/directory_browse.py	1	116	规划目录先全量取权再本地分页，模拟两次实际翻页验证开销
+e186499102ae86fe526822bacf6440e3f12520a0	knowbench-app/knowbench-backend	app/app/application/workbench/registry_catalog.py	1	685	逐段核过登记来源、授权窗口、类别召回、选型与共享工具资格
+b4fd3496040a014f3003a0a5d80e7fc4ebe40b89	knowbench-app/knowbench-backend	app/app/application/workbench/formal_expert_intake.py	40	141	目录上下文超长和点名降级行为，截断与目录证据
+b7eb371e031f27914289b7e018ae4ba6268b35f4	knowbench-app/knowbench-backend	app/app/application/workbench/find_expert.py	75	148	预算和幂等身份、点名与翻页互斥
+b7eb371e031f27914289b7e018ae4ba6268b35f4	knowbench-app/knowbench-backend	app/app/application/workbench/find_expert.py	160	204	筛空、版本修订、目录构建失败和任务创建时序
+f551d42a099251629eb79798e861a6ecc6c13524	knowbench-app/knowbench-backend	app/app/interfaces/http/web/workbench_expert.py	506	569	匹配输入边界和项目请求传参
+0cf68e233e37ca7f2be7ad47d295b47215663b0b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/formal_method_repository.py	1	408	正式版本筛选、类别与词项评分、执行活动和源修订
+5333f4f2a81351186c954e71b9b8d0966271e997	knowbench-app/knowbench-backend	app/app/infrastructure/external/knowmart_client.py	1	210	授权与检索窗口回执、单批100上限、精确版本身份
+43549e68677ee6c2e4a87d2ce7462d3dc7b383ac	knowbench-app/knowbench-backend	app/app/domain/workbench/incubation_tools.py	1	22	孵化授权响应格式和分页
+307d98e4f74e06a5e56fe4d20ee4e2ef47e3052b	knowbench-app/knowbench-web-frontend	app/components/workbench/formal-expert-start.tsx	1	141	用户发起请求、局部翻页和重试身份
+e57a649a1b7924535ba50fdc45d3f82b381765a6	knowbench-app/knowbench-web-frontend	app/features/expert/ui/formal-expert-directory.tsx	1	59	按授权目录展示并选择确切专家版本
+f3cc7b72f5fe230bc48c8139ac53b802bd9b43df	knowfeed-app/knowfeed-backend	mybuild/push-image.sh	1	95	逐行与已审 knowmart-app/knowmart-backend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+15ad6c9c3ba0ba2a312e446bdcf165bb247fad3c	knowfeed-app/knowfeed-web-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+dc1daf902a3a447f786527a22f1ac60d691560c3	knowfeed-app/knowfeed-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8f3769552469765f8ca11f4f8ba71e5de9054522	knowfeed-app/knowfeed-backend	app/app/worker.py	1	136	逐行与已审 tpl-app/tpl-backend/app/app/worker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b766fac66f81d86dc07e04b698e96f341ebc629a	knowfeed-app/knowfeed-admin-frontend	app/playwright.config.ts	1	69	逐行与已审 tpl-app/tpl-admin-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8f57adb08c8a0ff7b96b0486a8584d57f0b1649d	knowfeed-app/knowfeed-web-frontend	app/playwright.config.ts	1	69	逐行与已审 tpl-app/tpl-web-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+1f28e531a5f94c1f5f0e0d01f02e30d74726504c	knowfeed-app/knowfeed-backend	app/app/tasks/supply_upkeep.py	1	120	周期调度、数据清理、订阅与领加工单的服务依赖
+c9d92cd8c08521cfed5bcea69742a05e2043f826	knowbase-app/knowbase-backend	app/app/domain/table_format.py	1	216	逐项核对工作表关系、行列坐标、CSV 编码及完整表头条件
+bd57e3b7f86d1614c34d4b2f945d80caf99c7b7b	knowbase-app/knowbase-backend	app/tests/test_table_format.py	1	157	对照稀疏列、公式、精确列检查的样本覆盖
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	338	433	两种格式读取模式的数据源、版本和读取记账
+016ab7dde01b5c195a3e0b7e86bd9b5d04f4fe95	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_library_routes.py	175	247	挑选资料的格式与指定列是否存在分别映射
+9253f5f0cbdb6a0763b7d67d9208c22c7e7adf6a	knowbase-app/knowbase-backend	app/app/application/dto/retrieval.py	1	144	检索请求、证据标识、引用和回查地址的契约
+38e0f36e00e5ad49dc89e6b9e104bbad1e87c5ed	knowbase-app/knowbase-backend	app/app/application/ports/knowledge_provider.py	1	159	提供方返回的定位、解析状态及处理协议
+72590ab8a3ace779ebe165b2a66f6679fe0856bf	knowbase-app/knowbase-backend	app/app/application/services/knowledge_retrieval_service.py	1	236	检索候选映射、预算裁剪与证据标识构造次序
+8b8209200b4e07795d80184caa1c5c47251a314a	knowbase-app/knowbase-backend	app/app/infrastructure/external/ragflow_provider.py	1	174	RAGFlow 归一化、缺省片段编号及文档绑定
+3ad27a6431b28b07a9d9bf426256a256113eef67	knowbase-app/knowbase-backend	app/tests/test_knowledge_retrieval.py	1	95	已有示例、精确证据与契约检查
