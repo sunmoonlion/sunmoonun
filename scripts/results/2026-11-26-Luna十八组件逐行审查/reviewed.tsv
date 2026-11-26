@@ -1799,3 +1799,7 @@ d1b8ef1e213eee8e42a3a962060bd1dd081d569b	tpl-app/tpl-backend	app/tests/test_work
 29a5ba08fa7c4c3817b56e85b833740f25d582ba	tpl-app/tpl-backend	app/tests/test_worker_readiness_broker.py	1	138	核对队列绑定、守护超时、真实消费端就绪和路由恢复的测试边界
 8f2a5649c154b4cf919c2e18957e2b71f39dcec2	tpl-app/tpl-backend	app/scripts/pair_fixture.py	1	204	核对双前端配对夹具真实响应与事件流
 306448016bd05c9e2ae3b19ad8b3e1174370c65b	tpl-app/tpl-backend	app/tests/test_logging_policy.py	1	103	复核独立子进程中四类角色的日志断言及 SQL 参数显示策略
+3171a5387bf858a068d89a2f02599c7743a6b20c	tpl-app/tpl-backend	app/tests/test_interaction_contract.py	1	185	逐行核验交互快照、SSE、确认动作和引用跳转的原有测试边界
+c6db0c138a571090c79f5ba97b7c7f4991a476c1	tpl-app/tpl-backend	app/tests/test_service_identity.py	1	81	核对服务主体、绑定范围与真实签名边界的测试替身
+c1c7b1ef33240f0698960444e9b72a252486565b	tpl-app/tpl-backend	app/tests/test_auth_adapters.py	1	240	核对 Redis 原子消费与真实 PostgreSQL 账号迁移、回读夹具
+4dea8a45bfe89e48d54ab1a2c5da6e0de2e892eb	tpl-app/tpl-backend	app/tests/test_auth_routes_security.py	1	321	对照实际问题详情、两套浏览器会话、管理/普通身份和退出路径的 HTTP 回归
