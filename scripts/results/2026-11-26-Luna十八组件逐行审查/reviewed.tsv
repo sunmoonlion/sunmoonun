@@ -646,3 +646,20 @@ bec7b879942f55a2d7b3c470e8408b8309c12e15	knowlab-app/knowlab-web-frontend	app/co
 6b84fcbd66246555c2159e823e99c36bdcc721d7	knowlab-app/knowlab-web-frontend	app/lib/knowbots/manual-release.ts	1	27	列表和申请分别读取集合及确切草稿
 0ab32c5dd48eb7e36b05874d163b139da3d98053	knowlab-app/knowlab-web-frontend	app/tests/component/manual-release.test.tsx	1	84	两项已有测试分别覆盖申请同意和免重测交付
 60195a68f034cbc59ae52dc95956067fe6289ef8	knowlab-app/knowlab-backend	app/app/application/services/knowbot_manual_release.py	1	177	原申请去重、核对历史基准及二次审核，驳回仍留有记录
+4998c6e0029e27836b2e707bd7cb5323f7e4715f	knowmart-app/knowmart-admin-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowmart-app/knowmart-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+6d0272a3f1eaf864a48fc9a65b1caaa705a2b5c2	knowmart-app/knowmart-admin-frontend	app/tests/e2e/rendering.e2e.ts	1	175	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/e2e/rendering.e2e.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b36622e71f950bbccdb0645d593f34c469a229df	knowmart-app/knowmart-web-frontend	app/tests/unit/cross-app-links.test.ts	1	166	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/cross-app-links.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+376b2e8142d0c44b1bd65100520f0a09e88286fa	knowmart-app/knowmart-web-frontend	app/preview/preview.config.mjs	1	20	逐行与已审 tpl-app/tpl-web-frontend/app/preview/preview.config.mjs 对照；相同行在原位置映射，增删段和所有变更已人工复核
+644ca04e467d7217644af00bf9a8d5f6f8169f94	knowmart-app/knowmart-backend	app/app/worker.py	1	122	逐行与已审 tpl-app/tpl-backend/app/app/worker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+e1bc4b8b8d0eaa6eda65da56ff63da491b9f155a	knowmart-app/knowmart-web-frontend	app/contracts/auth.ts	1	34	逐行与已审 knowbase-app/knowbase-web-frontend/app/contracts/auth.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+091babc978218518fb25045ac7ac0b3d515f5526	knowmart-app/knowmart-admin-frontend	app/contracts/auth.ts	1	34	逐行与已审 knowbase-app/knowbase-admin-frontend/app/contracts/auth.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+962369eabda1cd58f326bce26d7be9d613f0cfee	knowmart-app/knowmart-web-frontend	mybuild/rebuild-and-run.sh	1	26	逐行与已审 tpl-app/tpl-web-frontend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+457df10831c295c44a2f053ab310c113c63f45f8	knowmart-app/knowmart-web-frontend	app/app/layout.tsx	1	27	逐行与已审 tpl-app/tpl-web-frontend/app/app/layout.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+78978cf90a1543835a242a6b465cf1397ed99883	knowmart-app/knowmart-admin-frontend	mybuild/rebuild-and-run.sh	1	25	逐行与已审 tpl-app/tpl-admin-frontend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+c7f759452af97ce9744e548c757d6807a9694c2e	knowmart-app/knowmart-web-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+78278c19d385860cfb86251a15d09d1ea92cd02c	knowlab-app/knowlab-web-frontend	app/components/knowbots/platform-asks.tsx	1	83	平台提问与已答记录按类型定位
+88a6e67f2272124cacf1cdf31f642638f4f5919d	knowlab-app/knowlab-web-frontend	app/components/knowbots/my-questions.tsx	1	180	审批、资料、缺口和选择题按类别回传答复
+2944eeed492fbf9dad78d6ccea52e378768af7bf	knowlab-app/knowlab-web-frontend	app/components/knowbots/overview.tsx	1	132	首页对所有交回专家统一提示测试通过，见 B99
+bd97e54a283713b921b6309d5f25297d66e4630c	knowlab-app/knowlab-web-frontend	app/components/knowbots/reference.tsx	1	166	作者材料、用例期望、旧补充与规则出处的展示
+0bf8215dd5a8affa246dfbe09a5ea03fbb8a288e	knowlab-app/knowlab-web-frontend	app/tests/component/knowbots-columns.test.tsx	1	115	审核与首页组件夹具及待答缺口用例
+807cd8052fc82db27be5a95b74143c2a64c8d15b	knowlab-app/knowlab-backend	app/app/application/services/knowbot_board.py	496	615	收件箱、面向作者的专家状态和时间线组装
