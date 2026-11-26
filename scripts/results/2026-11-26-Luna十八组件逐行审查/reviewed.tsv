@@ -2212,3 +2212,30 @@ bd2ee90f8b0db8df02efccddd111e27bbad7b897	knowfeed-app/knowfeed-backend	app/app/a
 efdad59ef07b97412a35b5faebba7146e4729138	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_directory.py	1	94	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
 5e89c0b076564fb455e88c2fbb22889e99acbade	knowfeed-app/knowfeed-backend	app/tests/test_supply_cninfo.py	1	198	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
 8b9da641885aa722451d99812d104ae7fca657eb	knowfeed-app/knowfeed-backend	app/tests/test_supply_cninfo_irm.py	1	145	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+e08af3a663f01c0e37b63debe9ff45c34bffca23	knowbench-app/knowbench-backend	app/app/infrastructure/external/knowbase_client.py	1	123	与已审 knowlab-app/knowlab-backend/app/app/infrastructure/external/knowbase_client.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+e34c5a0cd8456e7f1624f1b9f4ca96678cfe7fae	knowbench-app/knowbench-backend	app/app/infrastructure/external/service_client.py	1	164	与已审 knowlab-app/knowlab-backend/app/app/infrastructure/external/service_client.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+bad81b460810a0cc74215f58401e37f4c65813d6	knowbench-app/knowbench-backend	app/app/infrastructure/logging/logging.py	1	66	与已审 knowbase-app/knowbase-backend/app/app/infrastructure/logging/logging.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+057308f813758bc7ffada1f3ec27461483ba467e	knowbench-app/knowbench-backend	app/tests/test_architecture_v2_repository_identity.py	1	42	与已审 knowbase-app/knowbase-backend/app/tests/test_architecture_v2_repository_identity.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+bf57534b224aad459d3c81a506e1a919e0e4ebef	knowbench-app/knowbench-backend	app/tests/test_auth_service.py	1	547	与已审 tpl-app/tpl-backend/app/tests/test_auth_service.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+ae735db59a9d9f71f48b79f1282b81172e2fdbaa	knowbench-app/knowbench-backend	app/tests/test_config_security.py	1	162	与已审 knowbase-app/knowbase-backend/app/tests/test_config_security.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+09b42789737bafcbd8f55036c5917cd79042f61c	knowbench-app/knowbench-backend	app/tests/test_cross_app.py	1	290	与已审 knowlab-app/knowlab-backend/app/tests/test_cross_app.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+d22e579de8896f152a7af862e3ec36b2608b17a1	knowbench-app/knowbench-backend	app/tests/test_downstream_service.py	1	72	与已审 knowbase-app/knowbase-backend/app/tests/test_downstream_service.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+be48b91f17ddc15660e2454557e1f4aa89a891f9	knowbench-app/knowbench-backend	app/tests/test_service_identity.py	1	79	与已审 knowbase-app/knowbase-backend/app/tests/test_service_identity.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+69aee54729b381c15caa90e0b8328113426b0123	knowbench-app/knowbench-backend	app/tests/test_worker_readiness_broker.py	1	138	与已审 knowbase-app/knowbase-backend/app/tests/test_worker_readiness_broker.py 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+829530f5fd7931a093b9dfdf9de7baac97bee1c4	knowbench-app/knowbench-backend	mybuild/build-image.sh	1	115	与已审 knowbase-app/knowbase-backend/mybuild/build-image.sh 逐行核对；检查媒体类型、错误响应、日志过滤、测试夹具和构建身份差异
+0139f82c1f983e75e29b6c95d3d74dc2e87e9668	knowfeed-app/knowfeed-backend	app/app/application/supply/readings.py	1	217	核对正文、网页、订阅源与主题搜索的解析、确认及重试流程
+9d349b8b960d1f224c167224f5a7ba35faf49fdb	knowfeed-app/knowfeed-backend	app/app/application/supply/searches.py	1	456	核对正文、网页、订阅源与主题搜索的解析、确认及重试流程
+a371f93ccee82865fe92cd2a2135a3693a1a6bfd	knowfeed-app/knowfeed-backend	app/app/application/supply/web.py	1	445	核对正文、网页、订阅源与主题搜索的解析、确认及重试流程
+578c44932352b34ce050c852ecaaca46648c6e39	knowfeed-app/knowfeed-backend	app/tests/test_supply_readings.py	1	104	核对同站取数、订阅游标、RSS/Atom、电子文档与来源判断的完整测试输入和输出
+ec5b8172c87a1c8f66a37c8d0b9df6f4f0307d65	knowfeed-app/knowfeed-backend	app/tests/test_supply_web.py	1	765	核对同站取数、订阅游标、RSS/Atom、电子文档与来源判断的完整测试输入和输出
+1ceba75f553e335a6fa22bee057e14a45879ec02	knowfeed-app/knowfeed-backend	app/app/application/ports/supply.py	1	494	核对异步采集接口及供应商、调度、受益人、回执和对象存储的身份与失败语义
+1baa35362bf68d47997ce7a59f59da1fd1fdb9cd	knowfeed-app/knowfeed-backend	app/app/application/supply/jobs.py	1	550	核对执行、重试、配额、渠道切换和受益人
+1baa35362bf68d47997ce7a59f59da1fd1fdb9cd	knowfeed-app/knowfeed-backend	app/app/application/supply/jobs.py	1	1370	核对供给作业派发、受益项匹配及补加工的全链代码，对照每份读取资格的隔离库测试
+7054b50282ac10acd8918f198fd1f14fdb8ad89b	knowfeed-app/knowfeed-backend	app/tests/test_supply_collected_readings_db.py	1	236	核对供给作业派发、受益项匹配及补加工的全链代码，对照每份读取资格的隔离库测试
+9e2cb536dc4e20a1c99a73b47bab87c6997f586f	knowfeed-app/knowfeed-backend	app/app/cli/__init__.py	1	1	核对订阅轮次、调度查询、预检和对账入口及其测试
+cfa25ff3bdc6cb369b13e6827bbb7ca9fab7fb04	knowfeed-app/knowfeed-backend	app/app/cli/distribution_preflight.py	1	45	核对订阅轮次、调度查询、预检和对账入口及其测试
+3bf1331ac903a195ac401e86598e5071c0523095	knowfeed-app/knowfeed-backend	app/app/cli/drain_delivery_outbox.py	1	26	核对订阅轮次、调度查询、预检和对账入口及其测试
+d8c8a3a11ac57e9fddeac760b35ea1bd7e78fef8	knowfeed-app/knowfeed-backend	app/app/cli/identity_preflight.py	1	48	核对订阅轮次、调度查询、预检和对账入口及其测试
+2f086dd72d818ae8afc0c178ee8384ac35a4a251	knowfeed-app/knowfeed-backend	app/app/cli/reconcile_artifacts.py	1	70	核对订阅轮次、调度查询、预检和对账入口及其测试
+9d389cffc3313412e53fabe44ffcee469e133582	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_schedule.py	1	376	核对订阅轮次、调度查询、预检和对账入口及其测试
+310234bd3f62bbe0482411829e8dcbe6d006615b	knowfeed-app/knowfeed-backend	app/tests/test_supply_subscriptions_db.py	1	434	核对订阅轮次、调度查询、预检和对账入口及其测试
