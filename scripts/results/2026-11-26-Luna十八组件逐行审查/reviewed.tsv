@@ -1955,3 +1955,17 @@ ed9f4016ea2521a0b87cee2dfa069dba2872d2a9	knowbase-app/knowbase-backend	app/alemb
 e52f79263bcd0687bfecd23622c049c49ead54cd	knowbase-app/knowbase-backend	app/alembic/versions/20261028_0017_requests_by_task.py	1	49	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
 9da6c6f1ebda25655456af7bdd688d89611cfc8b	knowbase-app/knowbase-backend	app/alembic/versions/20261101_0021_ragflow_and_released_refs.py	1	48	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
 f5d18af6d84e6436e86220cc83c7618787a5ac2a	knowbase-app/knowbase-backend	app/alembic/versions/20261119_0022_method_read_consent.py	1	47	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
+54f4857395df27e460330660029f9c2ef2107213	knowbase-app/knowbase-backend	app/alembic/versions/20260710_0001_knowledge_ingestion.py	1	68	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+f314210c2b3e554e2336defcc1f157360fb9c4b1	knowbase-app/knowbase-backend	app/alembic/versions/20260712_0002_auth_identity.py	1	52	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+b4e08127682c4821cd96092a5f134caca7fe7f84	knowbase-app/knowbase-backend	app/alembic/versions/20260808_0004_outbox_primitives.py	1	94	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+ae1396ee8c2b6f48cdc7dfb4c287c1d60333e1c7	knowbase-app/knowbase-backend	app/alembic/versions/20260811_0005_uuid_defaults.py	1	34	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+647eb496c0460f9a050e954be7a280a43f971311	knowbase-app/knowbase-backend	app/alembic/versions/20260911_0006_durable_delivery.py	1	80	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+224b03c565c499d21f9f6356db03fcd2ee465ad5	knowbase-app/knowbase-backend	app/alembic/versions/20260927_0007_dataset_registry.py	1	72	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+d14fc5df836c9363c60acb82225aa32b297da4a5	knowbase-app/knowbase-backend	app/alembic/versions/20261023_0008_user_data.py	1	187	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+c5a66a6f65a108133e45223bb6695ab5fed771bb	knowbase-app/knowbase-backend	app/alembic/versions/20261025_0009_auth_user_by_subject.py	1	145	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+c1971858a5c1bf9d2361f73ea2d07935a7dffd64	knowbase-app/knowbase-backend	app/alembic/versions/20261028_0018_drop_legacy_data.py	1	162	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+a4c74f08d47cf49d63c77991f35ae5fec7e983a4	knowbase-app/knowbase-backend	app/alembic/versions/20261029_0019_readings_in_postgres.py	1	80	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+65363f93cc2eba0d4ed79a69a5af7a1c875cbc44	knowbase-app/knowbase-backend	app/alembic/versions/20261029_0020_recognized_log.py	1	43	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+6e0082e958df8986640f093aee69dcc1482083ca	knowbase-app/knowbase-backend	app/tests/test_drop_legacy_data_db.py	1	212	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+3436dd5905476723ba2f5f8e418d978a272a728b	knowbase-app/knowbase-backend	app/tests/test_knowledge_migration_dependencies.py	1	23	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
+b3feb6937ab6f37c67c65a6b064bcbeee4aa1be3	knowbase-app/knowbase-backend	app/tests/test_readings_migration_db.py	1	157	入库、用户合并、旧数据退役、正文转存等迁移；对照历史表结构、升级降级用例与对象键缺失条件。
