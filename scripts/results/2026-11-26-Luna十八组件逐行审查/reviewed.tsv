@@ -1372,3 +1372,10 @@ c308b840476a9fc23fab809b33bfda00d2fb5f4f	knowbench-app/knowbench-web-frontend	ap
 367633c46cc2ea7cadfaafe658bdbc21ffa66a49	knowbench-app/knowbench-web-frontend	app/features/chat/index.ts	1	1	核对请求与事件的轮次归属、终态展示与滚动容器
 4b99a5196c8ea155e6d6e89864161aa59d94b58f	knowbench-app/knowbench-web-frontend	app/features/chat/model/thread.ts	1	145	核对请求与事件的轮次归属、终态展示与滚动容器
 541f7aaa80adc8a7c52d3bc630bc7708915ff232	knowbench-app/knowbench-web-frontend	app/features/chat/ui/turn.tsx	1	98	核对请求与事件的轮次归属、终态展示与滚动容器
+b82af54908e8319ea994251091106ccb143c5f17	knowbench-app/knowbench-web-frontend	app/features/projects/api/board.ts	1	16	项目按工作区归集、目录拼接、看板刷新与卡片取数
+459ab3087bf017c35f2fc8a59e3afad2ca83a796	knowbench-app/knowbench-web-frontend	app/features/projects/api/projects.ts	1	51	项目按工作区归集、目录拼接、看板刷新与卡片取数
+b954b62f0d35413df22deb74c65acecebe57dab1	knowbench-app/knowbench-web-frontend	app/features/projects/index.ts	1	2	项目按工作区归集、目录拼接、看板刷新与卡片取数
+1b777cb7865c7044380296e9abbc299848dc2a9f	knowbench-app/knowbench-web-frontend	app/features/projects/model/projects.ts	1	87	项目按工作区归集、目录拼接、看板刷新与卡片取数
+afb8782bc0abf2f62270cf1eb8b2b526a0997c3d	knowbench-app/knowbench-web-frontend	app/features/projects/ui/project-board.tsx	1	94	项目按工作区归集、目录拼接、看板刷新与卡片取数
+6dc20adeafd4f11444ba52dd293ec5b370f8e8e2	knowbench-app/knowbench-backend	app/app/domain/workbench/projects.py	1	396	核对工作区路径、模式、审批和会话设置
+38756743964c35bbf33d121de85254459f6130b7	knowbench-app/knowbench-web-frontend	app/features/projects/ui/new-project-dialog.tsx	78	152	核对建目录或克隆发生在项目登记之前的副作用顺序
