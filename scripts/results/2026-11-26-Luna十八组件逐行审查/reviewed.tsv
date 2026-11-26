@@ -1989,3 +1989,10 @@ e462a54994ec72a794e82206e4d7af49ad94ca5c	knowbase-app/knowbase-backend	app/app/i
 84284406e541f15d95c63491f3ebba60f530c6d4	knowbase-app/knowbase-backend	app/app/tasks/knowledge_ingestion.py	1	11	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
 74590511b3b64a0b7dcdff3bc86a58a0a524f546	knowbase-app/knowbase-backend	app/tests/test_knowledge_clock_regression_db.py	1	46	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
 3754946abfd2551add218e97640f440d7a794df3	knowbase-app/knowbase-backend	app/tests/test_knowledge_delivery_db.py	1	536	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+4a3237d316e1b131c2fe0667f8e18b973475e39e	knowbase-app/knowbase-backend	app/app/domain/recognition.py	1	439	文件名与首页识别、披露报告期、研究类型、行业词表和嵌套属性校验，对照上传识别测试。
+0e3af0caeb3b52947a8b2bbca5b45e8f11a69b9c	knowbase-app/knowbase-backend	app/app/domain/vocabulary.py	1	386	文件名与首页识别、披露报告期、研究类型、行业词表和嵌套属性校验，对照上传识别测试。
+18a073c2f6d86a9c88ab832b42805fbcf4a502ca	knowbase-app/knowbase-backend	app/app/infrastructure/external/first_page.py	1	67	文件名与首页识别、披露报告期、研究类型、行业词表和嵌套属性校验，对照上传识别测试。
+4dc8a195f32bdb06cd5d8336f7923480fa373fd4	knowbase-app/knowbase-backend	app/tests/test_recognition.py	1	208	文件名与首页识别、披露报告期、研究类型、行业词表和嵌套属性校验，对照上传识别测试。
+2a12f27c3d760a5ac892b1deaf605145279403f1	knowbase-app/knowbase-backend	app/app/domain/method_reads.py	1	44	核对逐次方法调用路径、资料版本及公开资料资格判定。
+4f0dab7d62b5e8a9a81b9a721338ea5437f4f625	knowbase-app/knowbase-backend	app/app/domain/public_access.py	1	54	核对逐次方法调用路径、资料版本及公开资料资格判定。
+231f221c40d64930754b84925dc3389b3726d790	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/public_access.py	1	17	核对逐次方法调用路径、资料版本及公开资料资格判定。
