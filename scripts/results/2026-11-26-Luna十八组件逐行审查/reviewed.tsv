@@ -2417,3 +2417,15 @@ a1282c5839ef85fcb14935aaaa99349d3b6536a1	knowbench-app/knowbench-backend	app/app
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1	155	核对环境登记与移除、项目与会话可见性、游标锁、事件持久化及委托列表
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	179	829	核对环境登记与移除、项目与会话可见性、游标锁、事件持久化及委托列表
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	859	1030	核对环境登记与移除、项目与会话可见性、游标锁、事件持久化及委托列表
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1031	1114	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1149	1542	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1565	1609	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1655	2266	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	2295	2809	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	2875	3195	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	3211	3506	核对排队与 CAS、冻结证据、清理前置条件、授权与用量、租约回收及命令归属
+ce61bc2604b51951ad1660e8c650dc22c38b4e9b	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/workbench_routes.py	1	1606	核对设备、会话、委托、远程文件、复核路由、设置与凭据的浏览器入口
+fb7de9b304cc949909d496a5e48398e8bf8474b5	knowbench-app/knowbench-backend	app/scripts/export_method_capabilities.py	1	50	核对运行能力契约导出、凭据轮换及旧财务钉版清理的事务条件
+54f051577c5bc34053b965c232832268b5dff7a5	knowbench-app/knowbench-backend	app/scripts/retire_legacy_finance_pins.sql	1	50	核对运行能力契约导出、凭据轮换及旧财务钉版清理的事务条件
+c0d318baa03553908126de9e5193167b27f13e0c	knowbench-app/knowbench-backend	app/scripts/rotate_connection_keys.py	1	28	核对运行能力契约导出、凭据轮换及旧财务钉版清理的事务条件
+3570f958e5d48e68eb9a030ca9b9765d5321777f	knowbench-app/knowbench-backend	app/scripts/export_capability_contract.py	1	505	核对运行能力的 provider Schema、宿主与模型调用样本和消费端散列
