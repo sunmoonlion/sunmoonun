@@ -2239,3 +2239,42 @@ d8c8a3a11ac57e9fddeac760b35ea1bd7e78fef8	knowfeed-app/knowfeed-backend	app/app/c
 2f086dd72d818ae8afc0c178ee8384ac35a4a251	knowfeed-app/knowfeed-backend	app/app/cli/reconcile_artifacts.py	1	70	核对订阅轮次、调度查询、预检和对账入口及其测试
 9d389cffc3313412e53fabe44ffcee469e133582	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_schedule.py	1	376	核对订阅轮次、调度查询、预检和对账入口及其测试
 310234bd3f62bbe0482411829e8dcbe6d006615b	knowfeed-app/knowfeed-backend	app/tests/test_supply_subscriptions_db.py	1	434	核对订阅轮次、调度查询、预检和对账入口及其测试
+61f4d3607ffa2b188f7be9f2e0bf7f078e06462e	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/knowbase_app.py	1	128	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+3e2cd83ced5bdd8f56c87fa7340dd693a66d41d3	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/render_client.py	1	80	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+580ae5983c637aa36340ae70940519b4ec51aadb	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/distribution_identity_v1.py	1	37	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+a136d9ca714cc7b01d57bd883a2a6df7b5d978c7	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/info_identity_v1.py	1	18	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+22b98ba0d7e48ba2a9df703ef2d9bfdcda1aaed7	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_status.py	1	74	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+0d87c8f35c9a4e2fb36151b7320fd5618ebfcfe2	knowfeed-app/knowfeed-backend	app/app/infrastructure/securities/fetcher.py	1	71	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+386d1c81ec27a495105f5c5ddaa3bafdac2281d8	knowfeed-app/knowfeed-backend	app/app/infrastructure/securities/pdf_words.py	1	60	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+0d43774535773376801b5f31f84dedbe65fbccf4	knowfeed-app/knowfeed-backend	app/app/infrastructure/storage/crawl_concurrency.py	1	61	核对资料交付令牌、渲染响应、事件发件箱、迁移预检及采集限流
+fa661cc87d25ffd5a7c5122f923af0ca4ae5c95f	knowbench-app/knowbench-backend	app/app/domain/workbench/expert_lookup.py	1	53	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+d87e9fce9f5442601e4a5ded6f4f8055594f9452	knowbench-app/knowbench-backend	app/app/domain/workbench/fixed_plan.py	1	98	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+ebb87f5d601c1b123b868ce8f4d271e67decfe36	knowbench-app/knowbench-backend	app/app/domain/workbench/ordinary_expert.py	1	152	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+14e99f5fb1434fb32a1cdf99aae61c6ccc8dd8c1	knowbench-app/knowbench-backend	app/app/domain/workbench/pack_view.py	1	92	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+855443731eb4bcb72f427b69a320d11488b67117	knowbench-app/knowbench-backend	app/app/domain/workbench/packs.py	1	793	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+460da3a14c1d5fc0f17ca565823df5177eae8c33	knowbench-app/knowbench-backend	app/app/domain/workbench/scheduling.py	1	10	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+ea3d5df9739908d25819f108db97958e2264c392	knowbench-app/knowbench-backend	app/app/domain/workbench/source_tasks.py	1	127	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+6cace51135ec5ee8ee091b92b3e39d3b144f849f	knowbench-app/knowbench-backend	app/app/domain/workbench/supply_status.py	1	61	核对委托款项与资料约束、包提示及预览、来源任务、防退役匹配和固定编译的关系；同名中间产物复证
+903cfeb95a89a6cff2ffb433a8108356c23912a5	knowfeed-app/knowfeed-backend	app/app/application/securities/__init__.py	1	1	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+8499c46095916cdb0cac50c597af37dfc1e0893e	knowfeed-app/knowfeed-backend	app/app/application/supply/__init__.py	1	1	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+3d3b1f60816745861ca12130c4bd5ad883c33040	knowfeed-app/knowfeed-backend	app/app/domain/supply/__init__.py	1	2	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+ebf78ba3a42f34663d284a95857631878a565640	knowfeed-app/knowfeed-backend	app/app/infrastructure/search/__init__.py	1	13	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+3195b59eaa5d32f3070d51f5f8508bc3261168b5	knowfeed-app/knowfeed-backend	app/app/infrastructure/search/info_index.py	1	170	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+a02165b3b6a8501ddf647f1f2b81188de0bc6ad4	knowfeed-app/knowfeed-backend	app/app/infrastructure/securities/__init__.py	1	1	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+b397c50ce5507140d4aeb9b199de967f1eb3ffc0	knowfeed-app/knowfeed-backend	app/app/infrastructure/storage/artifact_reconciliation.py	1	231	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+a243d1c592512d34e8cb98a6a41c80dbd0bbc9f8	knowfeed-app/knowfeed-backend	app/app/infrastructure/storage/object_storage.py	1	250	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+7550263c84fc70aa0650a2c45b68a284dd9c51b9	knowfeed-app/knowfeed-backend	app/app/infrastructure/supply/__init__.py	1	1	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+f4f01ce1799c3a9ac12ae57e5c4047d6f3bdb7d1	knowfeed-app/knowfeed-backend	app/app/tasks/crawl.py	1	8	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+7a6ace249215c15fd6410ecb3d3a8e5b220a8860	knowfeed-app/knowfeed-backend	app/app/tasks/distribution.py	1	8	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+08b1ec8e13dcc8d58483a066ffd74536c6e30b66	knowfeed-app/knowfeed-backend	app/app/tasks/search.py	1	8	核对对象版本取回及对账、索引字段与写入、任务退役与包导出
+a9573e106e41b8c50e835ce94413a814e3521c7a	knowfeed-app/knowfeed-backend	app/tests/test_document_relations.py	1	57	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+e312d2adf35b72b38dede267a00cfb4fc0cfe258	knowfeed-app/knowfeed-backend	app/tests/test_duplicate_detection.py	1	72	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+90b6c4daf198f34bcd6332bc927d3325278c1bc0	knowfeed-app/knowfeed-backend	app/tests/test_entity_links.py	1	40	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+697de02d2949cdfc6de764fb51325b1855a57328	knowfeed-app/knowfeed-backend	app/tests/test_object_storage.py	1	115	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+11b19cb2c30a6fea607f9ed5ae1decb8986f20e8	knowfeed-app/knowfeed-backend	app/tests/test_search_index.py	1	122	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+73590d5ee36dbc2efa1453566e476326d6486097	knowfeed-app/knowfeed-backend	app/tests/test_upload_helpers.py	1	9	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+40decf2d90b096864e3d0a730a0da857eb37dfb6	knowfeed-app/knowfeed-backend	app/tests/test_worker_config.py	1	29	核对对象读取、索引、上传、工作队列、关系去重和实体测试断言
+5b3fcb179059c79faaace6d77174832be22ce673	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/knowbase_supply.py	1	447	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
+a41bbd99eb9855997a68f3f9af97a528a0912600	knowfeed-app/knowfeed-backend	app/tests/test_knowbase_chart_lock.py	1	31	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
+a70610522f700e165905703a955891310c26137b	knowfeed-app/knowfeed-backend	app/tests/test_knowbase_supply_client.py	1	222	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
+6d773a951f374a9065a5055eb5d55627f8d369a4	knowfeed-app/knowfeed-backend	app/tests/test_knowbase_vocabulary_lock.py	1	49	逐项对照 KnowBase 供给、读取、失败响应、测试形状及科目与词表锁
