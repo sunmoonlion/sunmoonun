@@ -2041,3 +2041,16 @@ bbe56a1a39ed0595bc421ec2d215d131e63c7184	knowbase-app/knowbase-backend	app/tests
 669e816d7e0926a9f71a0d25ae36f36bc85603fa	knowbase-app/knowbase-backend	app/app/interfaces/schemas/web_library.py	1	81	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
 4db12809eb5db4faddfafb880d3093f775c2b9ff	knowbase-app/knowbase-backend	app/tests/test_library_web_http.py	1	604	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
 30d05cb67f745e5f35f25356036dd27ae228a887	knowbase-app/knowbase-backend	app/tests/test_user_library_contract.py	1	169	逐行审接口契约生成模型与摘要校验，用真实路由请求模型反查漏登。
+5cf92c6e974b0043b44c9f878bee444b61810775	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_run_routes.py	1	750	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+5d815b7b9733c39561b316729765703ab37468b5	knowbase-app/knowbase-backend	app/tests/test_architecture_v2_repository_identity.py	1	42	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+d2b7e73d6763d8ef61e7138524d2aed559b34526	knowbase-app/knowbase-backend	app/tests/test_database_config.py	1	13	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+cb764781a620ab80f75a2217b5954f6ff850d30a	knowbase-app/knowbase-backend	app/tests/test_dormant_capabilities.py	1	149	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+0df9144fdb4bd500e8e4fa86e4a9a35b1f857aa7	knowbase-app/knowbase-backend	app/tests/test_interaction_contract.py	1	181	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+b359ff9aba961151d2b8ee58a8db41f8d927855a	knowbase-app/knowbase-backend	app/tests/test_knowbench_recheck_contract.py	1	116	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+3b945b781b6cc16304ef59bef2030d9ae075746e	knowbase-app/knowbase-backend	storage-access-bootstrap/setup-k8s-storage-access.sh	1	4	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+2857bceaf21b5da71de0720c12a9e4aa31a14927	knowbase-app/knowbase-backend	storage-access-bootstrap/storage-access-bootstrap.sh	1	65	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+7d5ef6aca5929dfc8d3b8ce8cacd068f43c7f4f5	knowbase-app/knowbase-backend	storage-access-bootstrap/teardown-k8s-storage-access.sh	1	4	核对运行授权与产出写回/查找、跨仓刷新、休眠与交互契约、数据库地址及对象存储引导命令
+ba7a0843747756972b40854df42e8ea93a87c9f4	knowbase-app/knowbase-backend	app/tests/test_kernel_invariants.py	1	138	核对镜像构建、基础镜像选择、迁移链和正式版本门禁
+99345d09b4ff69678000f1dd24bb077ffe222120	knowbase-app/knowbase-backend	mybuild/build-image.sh	1	115	核对镜像构建、基础镜像选择、迁移链和正式版本门禁
+78ccd068fd9dfdcd9914ed3803f7cdd4fcbf2dc7	knowbase-app/knowbase-backend	app/tests/test_user_runs_db.py	1	1256	逐项核对授权冻结与撤回、读法写回与版本固定、产出重试与转换、材料清除与库迁移回归
+908b05d57a0a2cfcade55b9a6598b1949716bc8d	knowbase-app/knowbase-backend	app/tests/test_user_data.py	1	293	核对代办身份、对象存储签名与文件格式单测
