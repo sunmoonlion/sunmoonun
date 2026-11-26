@@ -2054,3 +2054,11 @@ ba7a0843747756972b40854df42e8ea93a87c9f4	knowbase-app/knowbase-backend	app/tests
 99345d09b4ff69678000f1dd24bb077ffe222120	knowbase-app/knowbase-backend	mybuild/build-image.sh	1	115	核对镜像构建、基础镜像选择、迁移链和正式版本门禁
 78ccd068fd9dfdcd9914ed3803f7cdd4fcbf2dc7	knowbase-app/knowbase-backend	app/tests/test_user_runs_db.py	1	1256	逐项核对授权冻结与撤回、读法写回与版本固定、产出重试与转换、材料清除与库迁移回归
 908b05d57a0a2cfcade55b9a6598b1949716bc8d	knowbase-app/knowbase-backend	app/tests/test_user_data.py	1	293	核对代办身份、对象存储签名与文件格式单测
+7c3e1ae26ccd46b0549806b3abe2dcf1ccfe67f6	knowbase-app/knowbase-backend	app/app/infrastructure/security/oidc.py	1	457	核对用户及服务身份、关系与受众匹配、发现文档缓存及换取流程；OIDC 导航见 B367
+604826c74dc8b62c223607659321448c33183bcf	knowbase-app/knowbase-backend	app/app/infrastructure/security/relation_auth.py	1	290	核对用户及服务身份、关系与受众匹配、发现文档缓存及换取流程；OIDC 导航见 B367
+8e38ca3d7f8d702627d4407b4ffb6cbb36b4913d	knowbase-app/knowbase-backend	app/app/infrastructure/security/service_auth.py	1	164	核对用户及服务身份、关系与受众匹配、发现文档缓存及换取流程；OIDC 导航见 B367
+52348ad1d33d24a84211db00aea5d80e79088084	knowbase-app/knowbase-backend	app/app/infrastructure/security/user_token.py	1	105	核对用户及服务身份、关系与受众匹配、发现文档缓存及换取流程；OIDC 导航见 B367
+3c3f9c18d6b155f127a33afb7dead2b7815b1533	knowbase-app/knowbase-backend	app/tests/test_relation_auth.py	1	153	核对用户及服务身份、关系与受众匹配、发现文档缓存及换取流程；OIDC 导航见 B367
+cc543e78f609f0e039e19a1008c6483e1dc3d7a9	knowbase-app/knowbase-backend	app/tests/test_service_identity.py	1	79	核对用户及服务身份、关系与受众匹配、发现文档缓存及换取流程；OIDC 导航见 B367
+9de99e160f675b7713be572f5c799546868fe107	knowbase-app/knowbase-backend	app/tests/test_oidc_security.py	1	270	逐行核对 OIDC 登录、退出与服务身份回归，以及独立发现文档配置
+0b9194eff49c555bba8fc3d077915313c3b50f67	knowbase-app/knowbase-backend	app/tests/test_service_auth.py	1	183	逐行核对 OIDC 登录、退出与服务身份回归，以及独立发现文档配置
