@@ -2327,3 +2327,20 @@ da7d910707f2ca198d139fb134937868591be948	knowbench-app/knowbench-backend	app/app
 603ffd703413301b2e859ce124448d5d54e7fbd2	knowbench-app/knowbench-backend	app/app/domain/workbench/compute.py	1	244	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
 8ea69adea609824968be5e322f88775b6458c556	knowbench-app/knowbench-backend	app/app/domain/workbench/errors.py	1	299	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
 b5b317c6b501c0e4672cb1d812d2e89edde414c2	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/skill_sources.py	1	76	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
+d8f6020be18a98182f3e551a65f21338c5ff20a6	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/crawl_http.py	1	353	核对源站网络限制、跨事务并发、原件双向核账、库回滚及重复投递的正常和异常用例
+f75d28840836ff9d5040d14417e23cc75c464f78	knowfeed-app/knowfeed-backend	app/tests/test_artifact_reconciliation.py	1	366	核对源站网络限制、跨事务并发、原件双向核账、库回滚及重复投递的正常和异常用例
+9e662c7727cc1e8c0456f8a6c30a4a391f86142c	knowfeed-app/knowfeed-backend	app/tests/test_artifact_reconciliation_s3.py	1	265	核对源站网络限制、跨事务并发、原件双向核账、库回滚及重复投递的正常和异常用例
+95339101f4d0e403deac759b8e4e50fa35730ff9	knowfeed-app/knowfeed-backend	app/tests/test_crawl_concurrency_db.py	1	340	核对源站网络限制、跨事务并发、原件双向核账、库回滚及重复投递的正常和异常用例
+064a4e55d49efd0213060e2e4d66cbf4df5bf83d	knowfeed-app/knowfeed-backend	app/tests/test_info_delivery_db.py	1	426	核对源站网络限制、跨事务并发、原件双向核账、库回滚及重复投递的正常和异常用例
+ed077100e255830a2b7de751146178e8bcdab08a	knowfeed-app/knowfeed-backend	app/tests/test_distribution_identity_db.py	1	394	核对文档及分发并发创建、丢失回执、数据库重复约束与有数据迁移用例
+07229f187d7c038dd909edd78a9085a407d2e315	knowfeed-app/knowfeed-backend	app/tests/test_info_identity_db.py	1	441	核对文档及分发并发创建、丢失回执、数据库重复约束与有数据迁移用例
+0c092353238ff946836e8a547ccc87e44741243e	knowfeed-app/knowfeed-backend	app/tests/test_periodic_statements.py	1	348	逐行核对财报夹具与预期值、状态事件、过期清理和再次取回的回归断言
+8fc625142ed6f99b04dd9459e0dd8f667f87b39b	knowfeed-app/knowfeed-backend	app/tests/test_report_extraction_fixtures.py	1	181	逐行核对财报夹具与预期值、状态事件、过期清理和再次取回的回归断言
+b69f97d01aa74caeb3acdef20ff29ced31479700	knowfeed-app/knowfeed-backend	app/tests/test_supply_status_db.py	1	331	逐行核对财报夹具与预期值、状态事件、过期清理和再次取回的回归断言
+70ce29644312c563ce132a52e96738ff3a7a21ad	knowfeed-app/knowfeed-backend	app/tests/test_supply_admin_http_db.py	1	232	核对个人及管理端 HTTP 集成场景、事实溯源和锁定的 KnowBase 契约
+0b9f4662b426dd50ccf28596dc382de70333d8ba	knowfeed-app/knowfeed-backend	app/tests/test_supply_user_data_contract.py	1	317	核对个人及管理端 HTTP 集成场景、事实溯源和锁定的 KnowBase 契约
+0b4d85fe3ed0ac48ec43bc4735656520db9ce1d4	knowfeed-app/knowfeed-backend	app/tests/test_supply_web_http_db.py	1	248	核对个人及管理端 HTTP 集成场景、事实溯源和锁定的 KnowBase 契约
+e9cabf0eda5378ce660674f9d87257bf9503ace5	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply.py	1	1074	核对需求存储与提交租约、途中过期和结算、个人需求及订阅 HTTP 的输入输出
+f7a12a875b4de039a1f5688b11eee0d7af227320	knowfeed-app/knowfeed-backend	app/app/interfaces/http/web/supply.py	1	777	核对需求存储与提交租约、途中过期和结算、个人需求及订阅 HTTP 的输入输出
+744fd50a88af72c4a5d601f77de9f970a6a66799	knowfeed-app/knowfeed-backend	app/core/config.py	1	751	核对完整配置、身份与下游服务配置校验、存储与搜索目标的降级行为
+0e480cc329b088085b382bab9463662471bdad8e	knowfeed-app/knowfeed-backend	app/tests/test_supply_db.py	1	461	核对一次真实本地数据库委托的测试夹具、财务原始行、共享交付与重放断言
