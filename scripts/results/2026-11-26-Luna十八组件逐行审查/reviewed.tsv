@@ -146,3 +146,8 @@ c2b7a2cf60e3be963ba6595e7d8cfe297974e21f	knowlab-app/knowlab-web-frontend	app/li
 f7cde7e19e7ad3000bef3363295e5602d841d513	knowbench-app/knowbench-backend	app/app/application/workbench/catalog.py	1	284	区分固定旧快照、v3 市场目录、正式任务和内置专家；市场钉版要核清单摘要和部署名单。
 7a1c59d03ef0cda5941baed8a6c099181bf92ef3	knowbench-app/knowbench-backend	app/app/domain/workbench/knowbots.py	1	196	精确解析市场引用，只接受 v3 运行目录，v2 在解析器处直接拒绝；绑定必须属于指定专家版本。
 fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	2037	2061	同一 URL 默认列作者方法；formal=true 时交给正式方法服务，可按申请过滤。
+f2203887c9638cff77ce9ad362345f439fa1a39f	knowlab-app/knowlab-backend	app/app/domain/knowbots/atomic_methods.py	1	116	作者方法 v3 的独立规则、输入、检查和输出。可选输入受条件检查约束；定义摘要用 canonical。
+0900802f788039ee1665e8ec7741c68c55c23d8f	knowlab-app/knowlab-backend	app/app/domain/knowbots/method_composition.py	1	132	按绑定重建步骤并核对原始快照；导入时复编译、比 method_units，用旧文件输出尾段仅回放历史固定证据。
+566da01bf925cef7b81dc0982b2a5c9ecfd07ad6	knowlab-app/knowlab-backend	app/app/domain/knowbots/managed_authoring.py	1	63	旧工作稿在步骤 advanced、工作流、方法单元及嵌入方法来源分别检查 MCP 与 Skill 绑定。此处门禁的扫描范围与正式定义不同。
+32a70760a222da7007712318d6d4eb46f0db4268	knowlab-app/knowlab-backend	app/app/domain/knowbots/method_demand.py	1	165	需求分析保留用户原文、要求来源和显式方法，限制未经接受的建议长度；正式转交的建议图只携带摘要、方法引用和输出名称，没有步骤连线。
+d5bfa7877cf5333e68777adc2bca7abfe8ed1d73	knowbench-app/knowbench-backend	app/app/application/workbench/formal_handoff.py	1	157	事务内记转交意向、事务外提交、回读远端申请编号再事务记录回执。建议附件限已保存的摘要、步骤引用以及输出名。
