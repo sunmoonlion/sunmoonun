@@ -1872,3 +1872,7 @@ d7f939a5286d00523936c19dd4e143af12d43795	knowlab-app/knowlab-backend	app/tests/t
 c4b71a30a705a8d6861f90e598d199b0ffd06abe	knowlab-app/knowlab-backend	app/tests/test_author_selection.py	1	513	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
 a325b9a37359a1d3f3b2bdf7ed1c211327f578f0	knowlab-app/knowlab-backend	app/tests/test_capability_methods.py	1	252	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
 9f473e1236310d44769dbf22a874a7a2a394a48b	knowlab-app/knowlab-backend	app/tests/test_formal_expert_visibility.py	1	135	核对独立作者方法冻结、跨专家固定版本与升级、输入别名、图交付和运行可见性；比对领域、SQL 与编译后的整包校验
+84ae315b0be371b2bca1fa9ff984c91f164a9844	knowlab-app/knowlab-backend	app/app/infrastructure/external/knowbot_clients.py	1	621	逐行核对运行方测试、孵化、市场交付与状态回执，以及真实数据库的审核交付、迁移及待补偿查询
+3d3f4f858f5bf236aa91f17c0c2d9a1be617e1aa	knowlab-app/knowlab-backend	app/tests/test_knowbot_clients.py	1	476	逐行核对运行方测试、孵化、市场交付与状态回执，以及真实数据库的审核交付、迁移及待补偿查询
+fc6aa7cf18ed94c91958ee4ae7800b31b354f0a4	knowlab-app/knowlab-backend	app/tests/test_knowbot_deliveries_db.py	1	253	逐行核对运行方测试、孵化、市场交付与状态回执，以及真实数据库的审核交付、迁移及待补偿查询
+32916759002ff6cbeaf6f1ba7a47a883bb8e1f87	knowlab-app/knowlab-backend	app/tests/test_knowbot_experts.py	1	1421	核对自用交付与公开审核，撤回、补偿与同步并发测试
