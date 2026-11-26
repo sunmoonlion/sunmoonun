@@ -124,3 +124,25 @@ f3f68aed67356ec2acac12bbefe6583756ada56a	knowmart-app/knowmart-web-frontend	app/
 d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/application/services/expert_catalog.py	1	368	混合目录把旧专家与正式方法按用户可见范围、排序和页码合并；旧包仅取 v3，版本细节与未上架缘由依身份投影。
 9723a12f7052105277dab03e155cc1caca3d416a	knowmart-app/knowmart-backend	app/app/infrastructure/external/formal_method_delivery.py	1	85	取回指定权属、精确版本及可选技能实体后校验，依赖条款和文件大小有上限。
 f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	260	365	正式上架目录先限本人自用和可公开条目，再取每种方法的最新可见版本；分类计数位于筛类之前。
+e995e2511f9869928fa35b2915410fa396e5ba87	knowlab-app/knowlab-web-frontend	app/components/knowbots/method-template.tsx	1	91	固定目标、成果、检查、证据四格，在子组件维护本地输入，采用或移除才提交。
+c83adb8c2cb8a40328638e354ca139898667d89a	knowlab-app/knowlab-web-frontend	app/components/knowbots/delivery-promises.tsx	1	209	交付承诺可多条，验证规则绑定命名输出，条件可绑调用方输入。固定模板的 template_delivery 在此隐藏，其他承诺可单独增删。
+bfb5381faaa1c794e96cd9ebf434afc81fd74d95	knowlab-app/knowlab-web-frontend	app/components/knowbots/expert-from-tool.tsx	1	186	本人目录与共享目录分别分页，目录切换清除选择；依精确版本看预览，可绑定安装。
+6e0801cc2abc05e1d52663ecb4c68f35a5a48358	knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-orchestration-summary.tsx	1	84	展示各节点条件、绑定、分支、确切版本摘要以及方法命名导出；步骤显示内部标识。
+04007d258dec30d4303e16bdd1757434613612e1	knowlab-app/knowlab-web-frontend	app/components/knowbots/tool-version-choice.tsx	1	164	本人方法按摘要读取，共享方法按授权接口预览；采用前复取安装版本并核当前修订。
+1142a700f212879368efb1d249348899f994fbff	knowlab-app/knowlab-web-frontend	app/components/knowbots/expert-input-binding.tsx	1	215	调用方、字面值和可达前序输出手动连线。共享外部别名时比较整个槽位；数值字面量在保存前检查浏览器精度。
+6c31aac7ada7fd8c92c2014dbd9c330da69db816	knowlab-app/knowlab-web-frontend	app/components/knowbots/idea-methods.tsx	1	308	普通申请从旧 method-units 挑方法，辅助生成模板；将候选按版本和摘要依次绑定到工作稿格子，与正式目录查询协议不同。
+f7ab987ed5cd1d34a09a71b87fc29dbabf797f11	knowlab-app/knowlab-web-frontend	app/components/knowbots/ask-in-knowbench.tsx	1	28	上架态且有市场专家 ID 才构建带 knowbot 的工作台链接；有多版则挑最高已上架版本。
+1057cadae78858a55ee1752e65c243e06d5d8333	knowlab-app/knowlab-web-frontend	app/components/knowbots/method-version-browser.tsx	1	165	按页选作者方法，载入精确版本及对照；原始版本摘要失配时阻止采用。
+782031086e4e50b655942d6e7b87f195d91a7798	knowlab-app/knowlab-web-frontend	app/components/knowbots/method-version-changes.tsx	1	73	比较输入结构和十一个步骤字段，以 before/after 显示变更；比较的是方法定义，与局部绑定独立。
+5666f518a3651be8697f3dc25ae501e95e1e0aa6	knowlab-app/knowlab-web-frontend	app/components/knowbots/incubation-mode.tsx	1	173	委托平台、续期、撤权带独立确认；是否接近到期按组件挂载时刻计算，页面长时间打开时参考时刻不刷新。
+670f1e0d9b188829021cd0e4fe3710f72a09a7fa	knowlab-app/knowlab-web-frontend	app/components/knowbots/experts-view.tsx	1	203	按申请收集同源专家版本，已上架时给工作台入口和停用操作；另列交付待办、试跑及市场状态。
+3939748ef298f6d6321f637bf1c5b0678722c5c1	knowlab-app/knowlab-web-frontend	app/components/knowbots/applications-view.tsx	1	236	申请的创意版本、同意与专家记录按申请展示；从正式委托过来可凭项目和任务标识回到正式入口。
+c2b7a2cf60e3be963ba6595e7d8cfe297974e21f	knowlab-app/knowlab-web-frontend	app/lib/cross-app/destinations.ts	1	39	正式委托按项目回跳，另有市场专家编号@版本入口；复核转交携带来源及证据摘要。
+0400ec8d6d2359aff69d11cd87b3c72b8405720a	knowlab-app/knowlab-web-frontend	app/lib/knowbots/methods.ts	1	101	浏览、冻结和绑定走作者方法单元接口，回包核对版本、摘要及本地绑定范围。
+1edab5e39151e307a66d7dce169ee8ec9b7cb47b	knowbench-app/knowbench-web-frontend	app/components/workbench/knowbot-arrival.tsx	1	61	读取 knowbot 参数并在该组件实例首次抵达时钉版；失败给市场回跳。
+4d305247e612a5c88936d31e25ba4ac613c18b2b	knowbench-app/knowbench-web-frontend	app/lib/workbench/knowbots.ts	1	41	钉版经防跨站伪造校验的 POST，移除使专家目录查询失效。
+42354042cec98a9dbf5ea5d1d07b88ea1556c3b7	knowbench-app/knowbench-web-frontend	app/app/[locale]/(dashboard)/workbench/page.tsx	1	20	拒绝 match、expert 及 knowbot 与 task 同时出现的书签；单独 knowbot 仍到 HomeScreen。
+214654013042d40fc2e86f67cd4c3a20387845ad	knowbench-app/knowbench-web-frontend	app/tests/component/retired-expert-pages.test.tsx	1	31	断言旧书签 404 和正式版本首页可渲染，未将单独 knowbot 标为退役。
+f7cde7e19e7ad3000bef3363295e5602d841d513	knowbench-app/knowbench-backend	app/app/application/workbench/catalog.py	1	284	区分固定旧快照、v3 市场目录、正式任务和内置专家；市场钉版要核清单摘要和部署名单。
+7a1c59d03ef0cda5941baed8a6c099181bf92ef3	knowbench-app/knowbench-backend	app/app/domain/workbench/knowbots.py	1	196	精确解析市场引用，只接受 v3 运行目录，v2 在解析器处直接拒绝；绑定必须属于指定专家版本。
+fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	2037	2061	同一 URL 默认列作者方法；formal=true 时交给正式方法服务，可按申请过滤。
