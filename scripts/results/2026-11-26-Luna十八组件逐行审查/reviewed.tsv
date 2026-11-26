@@ -663,3 +663,33 @@ c7f759452af97ce9744e548c757d6807a9694c2e	knowmart-app/knowmart-web-frontend	mybu
 bd97e54a283713b921b6309d5f25297d66e4630c	knowlab-app/knowlab-web-frontend	app/components/knowbots/reference.tsx	1	166	作者材料、用例期望、旧补充与规则出处的展示
 0bf8215dd5a8affa246dfbe09a5ea03fbb8a288e	knowlab-app/knowlab-web-frontend	app/tests/component/knowbots-columns.test.tsx	1	115	审核与首页组件夹具及待答缺口用例
 807cd8052fc82db27be5a95b74143c2a64c8d15b	knowlab-app/knowlab-backend	app/app/application/services/knowbot_board.py	496	615	收件箱、面向作者的专家状态和时间线组装
+e038637be7bbe3facbf83c78258672ce8a85bbb2	knowbase-app/knowbase-web-frontend	mybuild/build-image.sh	1	257	逐行与已审 tpl-app/tpl-web-frontend/mybuild/build-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+87cad6902cda7ef9f62e01541ab09b32dd812592	knowbase-app/knowbase-admin-frontend	mybuild/build-image.sh	1	257	逐行与已审 tpl-app/tpl-web-frontend/mybuild/build-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+9ed63112e4108952d0c800285fbb494b838f6fa7	knowbase-app/knowbase-backend	app/tests/test_delivery_metrics_http.py	1	375	逐行与已审 tpl-app/tpl-backend/app/tests/test_delivery_metrics_http.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+cb6cc97de5959526480627bb2d4d92c63305dc0e	knowbase-app/knowbase-web-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+cadf5d219d7fa36f1543a5c5df5c1989845f50c1	knowbase-app/knowbase-admin-frontend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-admin-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+301f5611bc438db2c4bfb88896078ca20c4c356e	knowbase-app/knowbase-backend	app/app/bootstrap/api.py	1	181	逐行与已审 tpl-app/tpl-backend/app/app/bootstrap/api.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+84483a5067340793f56b39e1f60d96e15c5734ed	knowbase-app/knowbase-backend	app/app/worker.py	1	114	逐行与已审 tpl-app/tpl-backend/app/app/worker.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+3618e2091f49ebbfb034e3c5207c6f784c767729	knowbase-app/knowbase-admin-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowbase-app/knowbase-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+1dfa9c32ffee37c149761d52537bafc8c4465b44	knowbase-app/knowbase-backend	app/app/application/audit_context.py	1	64	逐行与已审 tpl-app/tpl-backend/app/app/application/audit_context.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+3c22f98606dbbf888e113cad078bebcd695b89f4	knowbase-app/knowbase-admin-frontend	app/env/server-schema.ts	1	77	逐行与已审 tpl-app/tpl-admin-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+923b34f35c8fa658d041f873db83233a82e9a3bd	knowbase-app/knowbase-admin-frontend	app/tests/e2e/rendering.e2e.ts	1	175	逐行与已审 tpl-app/tpl-admin-frontend/app/tests/e2e/rendering.e2e.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+91f5fab19868069e0b75d2061b6b3e955414d5b5	knowbase-app/knowbase-web-frontend	app/env/server-schema.ts	1	83	逐行与已审 tpl-app/tpl-web-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+17a6eaf754e2456940c998a7428b05b85b9b2b59	knowbase-app/knowbase-web-frontend	mybuild/rebuild-and-run.sh	1	26	逐行与已审 tpl-app/tpl-web-frontend/mybuild/rebuild-and-run.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+cea1643f989e6e10090c519038cd1ef5629cc244	knowlab-app/knowlab-web-frontend	app/components/knowbots/shared.tsx	1	245	核对精确选择与首项回退的优先级
+1367ba37be6d2ec931a2ee5df01b5f8cd162db36	knowlab-app/knowlab-web-frontend	app/components/knowbots/review-view.tsx	1	277	核对待办过滤、出错时审批及人工放行状态提示
+9c79c2d796272568a406c035144b029d82ae8a27	knowlab-app/knowlab-web-frontend	app/components/knowbots/delivery-panel.tsx	1	323	核对交付、授权、费用输入、撤回及人工放行说明
+f204ff56c9a927a55a37dcaa4b5e84618263ae51	knowlab-app/knowlab-web-frontend	app/components/knowbots/side-panel.tsx	1	198	检查历史展示在窄屏与宽屏的默认状态及页签选择
+071ecca7f20ebfacacc7eef63ad64490f6135f89	knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/review/page.tsx	1	36	核对路由查询到待办选中项
+9bebbd6b862f50bfd9d7005430ef357ff3547e3e	knowlab-app/knowlab-web-frontend	app/lib/knowbots/test-execution.ts	1	14	按测试和用例读取运行详情
+b27c10595f0c253fe754fef1289dd2fc385a8b46	knowlab-app/knowlab-web-frontend	app/contracts/test-execution.ts	1	44	核对视图状态来自运行器
+98078ea4ac72d6b7bb0bf08d6db755199fc86bcc	knowbench-app/knowbench-backend	app/app/application/workbench/test_execution.py	1	132	核对运行身份、分用例展开和状态透传
+807cd8052fc82db27be5a95b74143c2a64c8d15b	knowlab-app/knowlab-backend	app/app/application/services/knowbot_board.py	258	329	已处理问题和准专家均有回看定位
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	525	596	证据读取同意、运行者选择、运营可见性
+886bb15dfef77b910320f7bcea9b2b33c3788294	knowlab-app/knowlab-web-frontend	app/components/knowbots/structured-value.tsx	1	80	递归显示结构、编辑标量和只读空值
+d1d13b994d0e1638191709cdbcb6fd40e0374cb5	knowlab-app/knowlab-web-frontend	app/components/knowbots/sample-column-check.tsx	1	136	精确样本钉版、列名核验及清理尝试状态
+7f65145950be91b9bcd0e9041c567aae920f1132	knowlab-app/knowlab-web-frontend	app/components/knowbots/tool-slot-editor.tsx	1	143	核对输入输出预设、标识和采用按钮
+a6ea9b233859e6b239a665be1095061aa87f9ab3	knowlab-app/knowlab-web-frontend	app/components/knowbots/trial-example.tsx	1	147	试跑输入与断言从调用方槽及导出生成；空文本清空断言
+8f7b444a683b52a0840e1a8b5c0b3d306a1cd936	knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-execution.tsx	300	355	试跑表单允许转入手填值
+455dda1cf6e091c691b43530acf2f8149134d18a	knowlab-app/knowlab-web-frontend	app/contracts/formal-methods.ts	1	90	形式契约、权限与绑定形状
+01bd5b031a922e43807992806e851ee39061dcbd	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method.py	1	135	ValueSlot 的本地指针解析对数组路径误报，见 B102
