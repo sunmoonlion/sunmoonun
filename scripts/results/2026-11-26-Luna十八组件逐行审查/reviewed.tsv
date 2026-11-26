@@ -766,3 +766,14 @@ af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/a
 72590ab8a3ace779ebe165b2a66f6679fe0856bf	knowbase-app/knowbase-backend	app/app/application/services/knowledge_retrieval_service.py	1	236	检索候选映射、预算裁剪与证据标识构造次序
 8b8209200b4e07795d80184caa1c5c47251a314a	knowbase-app/knowbase-backend	app/app/infrastructure/external/ragflow_provider.py	1	174	RAGFlow 归一化、缺省片段编号及文档绑定
 3ad27a6431b28b07a9d9bf426256a256113eef67	knowbase-app/knowbase-backend	app/tests/test_knowledge_retrieval.py	1	95	已有示例、精确证据与契约检查
+17b2c3b38979f51b4a562238532ea21f0d61bcc5	knowbase-app/knowbase-backend	app/app/application/services/data_query_revisions.py	1	277	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+ff8fdec8880232cd05bff6e2b72f2f21d604b4ae	knowbase-app/knowbase-backend	app/app/application/services/data_functions.py	1	781	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+5e93c26418c399e82e97b0d7eeceefc19f706fa5	knowbase-app/knowbase-backend	app/app/interfaces/http/internal/function_calls.py	1	175	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+b54e2f61b13ab24e82842ad14f06ced2f8328a12	knowbase-app/knowbase-backend	app/app/domain/user_data.py	76	137	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	126	195	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	302	326	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	463	488	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	1179	1216	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	1	170	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	188	279	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	314	341	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
