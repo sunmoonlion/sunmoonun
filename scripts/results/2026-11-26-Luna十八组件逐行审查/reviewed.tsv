@@ -2113,3 +2113,25 @@ dbb87c121f68223d1085fd8630e23689cfebd57d	knowmart-app/knowmart-backend	app/tests
 08e71f2383a123df20cfc431af08dcedbe9bb9ec	knowmart-app/knowmart-backend	app/tests/test_knowbot_contract.py	1	75	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
 172f01eac5578fdb81f42c57135075eda5649d0d	knowmart-app/knowmart-backend	app/tests/test_knowbot_manifest_v2.py	1	128	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
 20ab3ff3d2055c6c1f378fbd803116d993d89d09	knowmart-app/knowmart-backend	app/tests/test_knowbot_manifest_v3.py	1	120	核对市场数据库升级与回退、清单及目录模型、交付与持有仓储、装配、定时核权和相关回归；历史夹具及索引实测见 B497/B498
+5db6faf572d7d63e490b896f7c0b36df806f4e25	knowmart-app/knowmart-backend	app/tests/test_auth_service.py	1	547	逐行与 knowlab-app/knowlab-backend/app/tests/test_auth_service.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+0bea7d9e7284a40543c6bcb609eb8e751bc6f805	knowmart-app/knowmart-backend	app/tests/test_config_security.py	1	162	逐行与 knowbase-app/knowbase-backend/app/tests/test_config_security.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+9c7e0dbdf8cbebd1d3e967aec2f232c78f8c4380	knowmart-app/knowmart-backend	app/tests/test_cross_app.py	1	291	逐行与 knowlab-app/knowlab-backend/app/tests/test_cross_app.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+58398f0c3b0b7527503f25cfac7cad5605818f59	knowmart-app/knowmart-backend	app/tests/test_dormant_capabilities.py	1	145	逐行与 knowlab-app/knowlab-backend/app/tests/test_dormant_capabilities.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+5de12a106d44c960ef85612cd3ab35e4c464702f	knowmart-app/knowmart-backend	app/tests/test_downstream_service.py	1	72	逐行与 knowbase-app/knowbase-backend/app/tests/test_downstream_service.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+f6031260b4d809b01f2d99ebd49691f1bbf9cc4c	knowmart-app/knowmart-backend	app/tests/test_interaction_contract.py	1	181	逐行与 knowbase-app/knowbase-backend/app/tests/test_interaction_contract.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+8a849af56c25d14a63040ea9cbd7b15aac7699fd	knowmart-app/knowmart-backend	app/tests/test_logging_policy.py	1	103	逐行与 knowbase-app/knowbase-backend/app/tests/test_logging_policy.py 对照，已核完应用标识、客户端、域名、权限及文字差异
+9474da471ef0d4893940b4f950c1b8529298f143	knowmart-app/knowmart-backend	mybuild/build-image.sh	1	115	逐行与 knowbase-app/knowbase-backend/mybuild/build-image.sh 对照，已核完应用标识、客户端、域名、权限及文字差异
+78a9ae7bd76adcbf5da588cfce56693ce26b6f9d	knowmart-app/knowmart-backend	app/app/interfaces/http/middleware/auth.py	1	176	逐行与 knowbase-app/knowbase-backend/app/app/interfaces/http/middleware/auth.py 对照，核对资料库受众、市场开关与平台主体、测试迁移链和双端身份差异
+26dc29da1fc2b0e070d585c09bfae1e2a4064381	knowmart-app/knowmart-backend	app/core/config.py	1	589	逐行与 tpl-app/tpl-backend/app/core/config.py 对照，核对资料库受众、市场开关与平台主体、测试迁移链和双端身份差异
+4f366317242cea94a13e41e2703ad05e84582fa7	knowmart-app/knowmart-backend	app/scripts/pair_fixture.py	1	204	逐行与 knowlab-app/knowlab-backend/app/scripts/pair_fixture.py 对照，核对资料库受众、市场开关与平台主体、测试迁移链和双端身份差异
+c9e78384fce8d598bdd20f6d46b1e406fb5bcced	knowmart-app/knowmart-backend	app/tests/test_auth_routes_security.py	1	321	逐行与 knowbase-app/knowbase-backend/app/tests/test_auth_routes_security.py 对照，核对资料库受众、市场开关与平台主体、测试迁移链和双端身份差异
+2891041764e4778aad782cbaf09880a598435aea	knowmart-app/knowmart-backend	app/tests/test_kernel_invariants.py	1	109	逐行与 tpl-app/tpl-backend/app/tests/test_kernel_invariants.py 对照，核对资料库受众、市场开关与平台主体、测试迁移链和双端身份差异
+338865ecbb37e81f344437946df1b1479fae518c	knowmart-app/knowmart-backend	app/tests/test_oidc_security.py	1	320	逐行与 knowbench-app/knowbench-backend/app/tests/test_oidc_security.py 对照，核对资料库受众、市场开关与平台主体、测试迁移链和双端身份差异
+9e05d287a8dff5eb1b124258980fd6298f17378c	knowmart-app/knowmart-backend	app/app/application/ports/market.py	1	267	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1	2789	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+44346740d054649e5edf565747271726f90049af	knowmart-app/knowmart-backend	app/app/domain/market.py	1	384	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+67fd8ca36f56fc7c845be9abb27b2387ed105af8	knowmart-app/knowmart-backend	app/tests/test_public_expert_directory.py	1	83	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+42168f0d8b5fd92ef8f145b3997ab45266d8474c	knowmart-app/knowmart-backend	app/tests/test_shop_db.py	1	671	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+51620ff026cfa1e2510483c98927189328fc2b0a	knowmart-app/knowmart-backend	app/tests/test_shop_migration_db.py	1	111	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+c433379e5a3b29df6fc0cb31b5b90bcf5869e7bd	knowmart-app/knowmart-backend	app/tests/test_trade_granted_db.py	1	106	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+73e27b6affc39c0c8189094fd0e885bc468d7447	knowmart-app/knowmart-backend	app/tests/test_version_held_migration_db.py	1	98	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
