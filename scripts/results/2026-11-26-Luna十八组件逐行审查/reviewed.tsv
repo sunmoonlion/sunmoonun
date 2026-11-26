@@ -1899,3 +1899,8 @@ e023181dd029b03e97d7def037ea44c09d3ae64a	knowlab-app/knowlab-backend	app/tests/t
 b6497c17d7f9829436aefc22ac8ff05b0ce67bdb	knowlab-app/knowlab-backend	app/tests/test_formal_methods_db.py	1	453	核对自用冻结持久化、人工例外及回炉反馈中行级验收定位
 f57fd4d914c45bd8dfe113b72dbe4836cfa95ca6	knowlab-app/knowlab-backend	app/tests/test_knowbot_lab_extras.py	1	445	核对自用冻结持久化、人工例外及回炉反馈中行级验收定位
 9954c18068bca2ba8e1a0402e8ee034ba997a3bf	knowlab-app/knowlab-backend	app/tests/test_manual_release_db.py	1	255	核对自用冻结持久化、人工例外及回炉反馈中行级验收定位
+bcf9cb1199b2914374c4d3ddc8daf579b0648c0d	knowlab-app/knowlab-backend	app/app/infrastructure/models/knowbots.py	1	987	核对数据库约束、事务、试跑和冻结持久化、名录同步及迁移回归
+a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	1	2046	核对数据库约束、事务、试跑和冻结持久化、名录同步及迁移回归
+557763b5e3aeca0748e2f67d70c7b964c9771f3d	knowlab-app/knowlab-backend	app/tests/test_knowbot_repository_db.py	1	981	核对数据库约束、事务、试跑和冻结持久化、名录同步及迁移回归
+9846ede4b752d1349a6d9445798d103956e317ef	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_db.py	1	257	核验转孵化幂等键、数据库中工作稿与运行轮次关联及旧申请退役
+5cb1aae202e0e9963f6e1303b320e4b2b7ac815a	knowlab-app/knowlab-backend	app/tests/test_runtime_method_demand_db.py	1	206	核验转孵化幂等键、数据库中工作稿与运行轮次关联及旧申请退役
