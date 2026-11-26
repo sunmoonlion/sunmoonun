@@ -2556,3 +2556,19 @@ f3f7f30458926ac2a8fc436b1b878317e8c2092e	knowbench-app/knowbench-backend	app/tes
 b5ba153dd527d79bb726c655b9c7c16fa9014304	knowbench-app/knowbench-backend	app/tests/test_knowbot_runtime_routes.py	1	277	核对内部试跑接口、用户沙箱登记、重连探测的并发和取消以及凭据只显示摘要。
 176b3cda9bd4f2a03ad2ddee74c421664db1f2ea	knowbench-app/knowbench-backend	app/tests/test_workbench_reconnect_db.py	1	241	核对内部试跑接口、用户沙箱登记、重连探测的并发和取消以及凭据只显示摘要。
 18611182a73f5ca6fbb746606857050c8300ecbd	knowbench-app/knowbench-backend	app/tests/test_workbench_routes.py	1	452	核对内部试跑接口、用户沙箱登记、重连探测的并发和取消以及凭据只显示摘要。
+6a69e1a1cff52ea1f2927f0fd8c80be64c9de999	knowbench-app/knowbench-backend	app/tests/test_connection_oauth_db.py	1	871	核对 OAuth 回调账号、PKCE、换钥抢占、实际本地 TLS、A2A 未知结果查回及不重复派发。
+1fe85a7c2f777741bacbe403f11e4100e9781adc	knowbench-app/knowbench-backend	app/tests/test_capabilities_db.py	1	739	核对连接选择、审批与超时证据、重复调用及执行器接管后旧回合的处理。
+fc385b650c9b895bc0b1bd290e3694c8e8e79b89	knowbench-app/knowbench-backend	app/tests/test_calls_db.py	1	512	核对平台原生 MCP 与托管工具共享调用标识、事务幂等、历史迁移和跨会话清理。
+30a7e6ed405a1445565beaf28816ddb7c6f64577	knowbench-app/knowbench-backend	app/tests/test_calls_mcp_db.py	1	357	核对平台原生 MCP 与托管工具共享调用标识、事务幂等、历史迁移和跨会话清理。
+70def31df6405c313f7f48805b0b01d0b3d01cc7	knowbench-app/knowbench-backend	app/tests/test_connector_approval_scopes_db.py	1	651	核对连接器读审批的精确键与子集、写入附件摘要、提供方响应裁剪及两种审批界面。
+cc2e181052fcbc66801828c2f9195dccc3610533	knowbench-app/knowbench-backend	app/tests/test_connector_cross_scene_db.py	1	244	核对三个执行场景共享账户而各自确认、外部未知结果处理、技能资源延迟读取及方法范围变更。
+2ad01309692495515c264491393e53a4178b8578	knowbench-app/knowbench-backend	app/tests/test_method_capabilities_db.py	1	441	核对三个执行场景共享账户而各自确认、外部未知结果处理、技能资源延迟读取及方法范围变更。
+816b5546d994ec09e8128bc62100196926d10e42	knowbench-app/knowbench-backend	app/tests/test_task_output_reader_db.py	1	355	核对步骤产出读回对两种调用方的约束、嵌套读取与返工回退的步骤展示。
+92746fff0b6709084d8166708e5f9eee5d170f74	knowbench-app/knowbench-backend	app/tests/test_workbench_step_view_db.py	1	389	核对步骤产出读回对两种调用方的约束、嵌套读取与返工回退的步骤展示。
+cb6cd988b74a128564273aa08f0a25f0ebf23b78	knowbench-app/knowbench-backend	app/tests/test_knowbase_method_read_db.py	1	608	核对资料所有者同意绑定父级与调用路径、摘要和时限，宿主和模型读取的不同返回。
+3bd126daa78bb2dd431280887838d4b700b723df	knowbench-app/knowbench-backend	app/tests/test_temporary_plan_db.py	1	657	核对即时编排从空目录到审批交付、缺项澄清、局部重拟、分次查目录以及总超时。
+4383341e7b008a35fc7e16c38c6f87b1b60e7e3b	knowbench-app/knowbench-backend	app/tests/test_method_task_runtime_db.py	1	639	核对动态计划在 TaskRuntime 的派发、核验中取消、文件碰撞、返工重绑和末次交付。
+9f602c365aca71e3cf0a4041393f351f69dd07c5	knowbench-app/knowbench-backend	app/tests/test_method_tools_db.py	1	451	核对方法工具与实际回合证据、规划禁调、作用域和审批/撤销后不能复用。
+f2d14a846762ce09623b9ba785158b9c09b52441	knowbench-app/knowbench-backend	app/tests/test_agent_onboarding_unit.py	1	352	核对设备配对摘要、轮询、交付清除、反向代理与访问日志测试。
+9c7bcb817e2bc7daad6d7659d31b7f05d8b20962	knowbench-app/knowbench-backend	app/tests/test_workbench_provisioning.py	1	469	核对首次供给并发、令牌轮换模型、容量回收与记录工具权限测试。
+375d644bdc15d762ed5eedd8a1c8d6bb830f3464	knowbench-app/knowbench-backend	app/tests/drivers/workbench_tape_driver.py	1	326	磁带从通知、提问、拒绝与结束事件写入预览；核对清理及结果判定，见 B580、B581。
