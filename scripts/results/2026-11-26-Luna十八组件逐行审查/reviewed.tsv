@@ -288,3 +288,7 @@ aa0ac4fa8efe06c4432f4c09ecc58cf78c5148d2	tpl-app/tpl-backend	app/app/application
 318ed03a7475f7ae6653eda8bd01e772e01c1c68	tpl-app/tpl-backend	app/tests/worker_progress_fixture.py	1	47	隔离库与合成处理器装配
 cacb0ffc9fce7d9f61ae042275d85efabd94cff8	tpl-app/tpl-backend	app/tests/test_delivery_clock_regression_db.py	1	159	数据库时钟回拨、租约 epoch 和重放时钟
 fc10fa6d3ab567b13dfa3b72dace9e51a7c7a4d1	tpl-app/tpl-backend	app/tests/test_delivery_metrics_http.py	1	375	采集身份、并发、数据库锁及取消后恢复
+48ce1b9a660a45b255928409a2a10595dd5eff4b	tpl-app/tpl-backend	app/tests/test_delivery_observation.py	1	404	真实库中已确认、异常值、只读快照和采样超时
+73e74587a8279e278293c4c07e279106fa0d1ae5	tpl-app/tpl-backend	app/tests/test_scheduler_activity.py	1	306	调度进程身份、单调时钟、发布反馈独立计数
+a4bd213c32903be12dd132db0bab65b025cfc664	tpl-app/tpl-backend	app/tests/test_scheduler_activity_broker.py	1	162	真实 beat 用例以已发布消息及重启后进程身份佐证
+80e86c6bd5374f5db19caaa11478e775b2cd9d59	tpl-app/tpl-backend	app/tests/test_outbox_primitives.py	1	24	传输对象仅测试体积上限和正常负载

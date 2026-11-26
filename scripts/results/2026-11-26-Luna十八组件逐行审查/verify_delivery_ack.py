@@ -1,4 +1,9 @@
 """用模板 test_durable_delivery_db 的一次性 PostgreSQL fixture 运行。"""
+import pytest
+from sqlalchemy.exc import DBAPIError
+
+from app.application.dto.outbox import OutboxEvent
+from app.infrastructure.repositories.outbox import SqlOutboxRepository
 from app.infrastructure.messaging.delivery_observation import collect_delivery_snapshot
 from test_durable_delivery_db import db, request, runtime, sql
 
@@ -44,3 +49,13 @@ async def test_contended_resource_before_any_execution(db):
     assert not await delivery.consume(second)
     assert await sql(db, "SELECT message_id FROM outbox_dead_letter WHERE replayed_at IS NULL") == second
     assert await sql(db, "SELECT value FROM delivery_test_counter") == 0
+
+@pytest.mark.parametrize("nonfinite", [float("nan"), float("inf"), -float("inf")])
+async def test_outbox_accepts_values_postgres_cannot_store(db, nonfinite):
+    event = OutboxEvent(topic="test.counter.v1", aggregate_key="x",
+                        deduplication_key="x", payload={"reading": nonfinite})
+    with pytest.raises(DBAPIError) as failed:
+        async with db() as session, session.begin():
+            await SqlOutboxRepository().enqueue(session, event)
+    assert failed.value.orig.sqlstate == "22P02"
+    assert await sql(db, "SELECT count(*) FROM outbox_message") == 0
