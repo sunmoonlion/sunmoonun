@@ -1573,3 +1573,5 @@ a7943786a8d2af41add613bd4afa4c4d45609c46	knowbench-app/knowbench-backend	app/tes
 080b483c7d4e4df5694cb6173e511add4011e064	knowbench-app/knowbench-backend	app/tests/test_formal_session_tools_db.py	1	158	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
 b776258b93ab302a83145d0da1e814c431a39981	knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_evidence.py	1	473	核对模型回合原始事件、计量和冻结后的再次验证；对照异步计量到达顺序
 ecdf86edf50fd594863ab4cfa97680bc4f2e0830	knowbench-app/knowbench-backend	app/tests/test_formal_model_evidence.py	1	542	核对模型回合原始事件、计量和冻结后的再次验证；对照异步计量到达顺序
+1e50e4455de26920f9bcb7a05f6f6bac75d821a0	knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_execution.py	1	291	核对模型单回合的启动、取消、未知费用恢复、输出上限与落库语义
+0e4a18f7245ec3aceac6d7394c959bf712edd56b	knowbench-app/knowbench-backend	app/tests/test_formal_model_execution_db.py	1	217	核对模型单回合的启动、取消、未知费用恢复、输出上限与落库语义
