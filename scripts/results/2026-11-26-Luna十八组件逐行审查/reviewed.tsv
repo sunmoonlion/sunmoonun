@@ -1585,3 +1585,9 @@ a635df07d81384432b82c12040af93082c5bc601	knowbench-app/knowbench-backend	app/app
 ac8d87347aba96dd5c2090c7d99ec5ee169a3bac	knowbench-app/knowbench-backend	app/alembic/versions/20261114_0043_formal_methods.py	1	44	核对正式方法与封存证据迁移的回退条件，以及失败汇合计划逐步提取已核验产物的条件
 22acaba7d517d8a094d515f35cbcb5503499e0c2	knowbench-app/knowbench-backend	app/alembic/versions/20261115_0045_formal_execution_evidence.py	1	41	核对正式方法与封存证据迁移的回退条件，以及失败汇合计划逐步提取已核验产物的条件
 1355516fbdf995e05b616ba634038cba85b006f8	knowbench-app/knowbench-backend	app/app/application/workbench/formal_partial_delivery.py	1	222	核对正式方法与封存证据迁移的回退条件，以及失败汇合计划逐步提取已核验产物的条件
+7f1f79b51e83b263a2b4051bedc4420a1d7cb339	knowbench-app/knowbench-backend	app/alembic/versions/20261016_0019_knowbot_pins.py	1	80	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
+d5d488e8c976ca4225cc58d97e11f4140b996b7b	knowbench-app/knowbench-backend	app/alembic/versions/20261017_0020_knowbot_test_runs.py	1	112	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
+9bdee2fed55114cc30e76751b25d7773286de035	knowbench-app/knowbench-backend	app/alembic/versions/20261019_0021_test_case_outputs.py	1	28	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
+24e0fc53b1faec04dcfcf1fd836ec0c32b2944d8	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0023_test_run_blocked.py	1	33	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
+8bb590ade1797417fb0b15d497da895c2e4c3e83	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0024_task_data.py	1	90	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
+c95e928662d2e14b8aaa7a014a96fbfcea141cc7	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0025_session_data.py	1	54	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
