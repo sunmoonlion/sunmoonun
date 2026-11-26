@@ -728,3 +728,13 @@ d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/a
 42168f0d8b5fd92ef8f145b3997ab45266d8474c	knowmart-app/knowmart-backend	app/tests/test_shop_db.py	614	671	公开工具的审核与平台引用许可测试
 f4edc073be678bf366ba386160c148b927e5909c	knowmart-app/knowmart-backend	app/tests/test_knowbot_repository_db.py	38	65	独立 PostgreSQL schema 的迁移与清理
 9161a2ab18e1cfbc2932508f2e482e8ae1beee04	knowmart-app/knowmart-backend	app/tests/test_market_db.py	146	163	独立发布主体审批夹具
+d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/application/services/expert_catalog.py	250	368	精确详情、版本展示和类目树；近期过滤与店主展示版本不一致
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	228	514	冻结标识投影、分类、目录筛选、按页检索和孵化授权
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	572	791	正式方法作者目录、许可修改、分类和自动自用交付
+8007ff4552e2c1833bba8ce02d7d8be0f36105d0	knowmart-app/knowmart-backend	app/app/application/ports/knowbots.py	22	90	分身、精确版本与持有状态的记录
+ad52c134bda6801a9c30b06a98c3fe82eb7db1a3	knowmart-app/knowmart-admin-frontend	mybuild/push-image.sh	1	95	逐行与已审 knowmart-app/knowmart-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+a3c7de8e390aca45ceb47663e70ea193c2498a4c	knowmart-app/knowmart-web-frontend	app/components/platform/reference-workspace.tsx	1	145	逐行与已审 tpl-app/tpl-web-frontend/app/components/platform/reference-workspace.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+c85c74a77a3a654e49e49528c35ac25ed9b3259c	knowmart-app/knowmart-web-frontend	app/lib/common/api-client.ts	1	99	逐行与已审 knowbench-app/knowbench-web-frontend/app/lib/common/api-client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+ae6a567d8b7f727c4137b512dc4f048694a6ee62	knowmart-app/knowmart-web-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+26b2ca6f027df01b9a9e3901d1eb945867859c06	knowmart-app/knowmart-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+52b751e42149e2f354abab321252bcccc3684445	knowmart-app/knowmart-backend	mybuild/push-image.sh	1	95	逐行与已审 tpl-app/tpl-web-frontend/mybuild/push-image.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
