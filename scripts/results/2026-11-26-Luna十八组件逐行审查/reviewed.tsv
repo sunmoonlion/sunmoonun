@@ -1909,3 +1909,6 @@ fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/int
 46085c15e6d3b253e86e6bab13998eee4da4453f	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_routes.py	1	422	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
 e4f90f5c1dc7d883febd841cf3f3ce5a3c3da02f	knowlab-app/knowlab-backend	app/tests/test_knowbot_lab_routes.py	1	212	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
 478edd82974e5c3f7383ba787315bbaa6a2a12b7	knowlab-app/knowlab-backend	app/tests/test_manual_release_routes.py	1	95	作者与运营 HTTP 路由对照孵化、放行、选型及材料回归；拒绝意见的入口校验和运营轮次查询分别登记。
+12500c3ef61798d56abb350c58ae675af678e388	knowlab-app/knowlab-backend	app/tests/test_method_composition.py	1	82	方法版本引用、跨应用 Schema 校验、交付路径冲突以及失败后工作稿和冻结版本不变的测试。
+07f50583b33bbb4dffe1425b7cc76da115b2163c	knowlab-app/knowlab-backend	app/tests/test_method_delivery_preflight.py	1	93	方法版本引用、跨应用 Schema 校验、交付路径冲突以及失败后工作稿和冻结版本不变的测试。
+f340bf97b5d0f1f087e70608638c63ef7578624d	knowlab-app/knowlab-backend	app/tests/test_method_delivery_preflight_db.py	1	109	方法版本引用、跨应用 Schema 校验、交付路径冲突以及失败后工作稿和冻结版本不变的测试。
