@@ -292,3 +292,30 @@ fc10fa6d3ab567b13dfa3b72dace9e51a7c7a4d1	tpl-app/tpl-backend	app/tests/test_deli
 73e74587a8279e278293c4c07e279106fa0d1ae5	tpl-app/tpl-backend	app/tests/test_scheduler_activity.py	1	306	调度进程身份、单调时钟、发布反馈独立计数
 a4bd213c32903be12dd132db0bab65b025cfc664	tpl-app/tpl-backend	app/tests/test_scheduler_activity_broker.py	1	162	真实 beat 用例以已发布消息及重启后进程身份佐证
 80e86c6bd5374f5db19caaa11478e775b2cd9d59	tpl-app/tpl-backend	app/tests/test_outbox_primitives.py	1	24	传输对象仅测试体积上限和正常负载
+c3d79b5f0534e76770a251a977afa99e776a62f3	tpl-app/tpl-admin-frontend	app/components/crud/action-drawer.tsx	1	32	遮罩关闭和对话框关联
+32745e0433ee84bc36e991177d45d169d8f68ef1	tpl-app/tpl-admin-frontend	app/components/crud/audited-action-dialog.tsx	1	66	审计理由校验、确认期间按钮禁用，异常交调用方
+b45540a8a30199df7f23bf999747892be99e2fe2	tpl-app/tpl-admin-frontend	app/components/crud/contract-upload.tsx	1	34	文件体积校验与选中回调
+23de7a9a54de30609fd88d93944699789d367485	tpl-app/tpl-admin-frontend	app/components/crud/data-table.tsx	1	60	加载与错误优先、空数据、受控分页
+127063f1d860f3314585f8e5530706afd40cdef3	tpl-app/tpl-admin-frontend	app/components/crud/feedback.tsx	1	37	定时清除消息，毫秒时间戳作为通知键
+d1502bf7d1038f9b3ec42413fac8a78bd159f592	tpl-app/tpl-admin-frontend	app/components/crud/resource-description.tsx	1	23	资源属性及空值渲染
+5c40271afd5e04a029d321540f320d9f901d7b0a	tpl-app/tpl-admin-frontend	app/components/crud/schema-form.tsx	1	86	按字段校验，回调收到原始输入
+8ffbf327882015bb58c24aa378ea6025cdbeacbb	tpl-app/tpl-admin-frontend	app/components/reference/crud-reference.tsx	1	131	分页只更新页码，行集是内存示例；打开抽屉同时呈现两个同标题 ID
+fd639e6591dcc5d672b204522e51a480e95009ab	tpl-app/tpl-admin-frontend	app/tests/component/crud-toolkit.test.tsx	1	79	测试分页回调、必填和审计理由
+2cb5ddcb74e824cc085fa35e5db149a81d410d83	tpl-app/tpl-admin-frontend	app/components/admin/app-shell.tsx	1	187	导航按角色过滤，关闭当前标签转首页
+bb7fc9f332282979ec9641a9205090c3a8e74bce	tpl-app/tpl-admin-frontend	app/components/admin/interface-settings.tsx	1	99	语言切换传 pathname、密度与全屏
+5c20984a71b2cde55e8f755ee35aee4a5bd706ee	tpl-app/tpl-admin-frontend	app/components/admin/theme-controller.tsx	1	24	主题响应系统偏好并注销监听
+bade055070947715ddead8014db2a155354c9395	tpl-app/tpl-admin-frontend	app/store/ui.ts	1	99	本地存储的主题和标签重新按角色过滤
+15e984dce63f6b41cb51e0b873a0109de10811bd	tpl-app/tpl-admin-frontend	app/lib/navigation.ts	1	65	导航权限、路径前缀和区域码
+6cc0240108b88dfd7b9d0e92802a53802d7d4875	tpl-app/tpl-admin-frontend	app/components/crud/index.ts	1	7	组件库导出
+8d50ab6a7d7124effafd59e6cd69ada481fcdc79	knowlab-app/knowlab-admin-frontend	app/components/knowbots/operator-workdraft.tsx	1	418	提议、本地编辑、预览、发布及版本切换 B40/B41
+a3a7dd84b8a2bcf91a7f8a74d00a79909276b5fd	knowlab-app/knowlab-admin-frontend	app/components/knowbots/workdraft-cells.tsx	1	222	来源展示、错误路径、本地数字输入与溢出 B42
+2bf619e5662420edbe6c6a37645821ccc61d82be	knowlab-app/knowlab-admin-frontend	app/components/knowbots/workdraft-checks.tsx	1	400	复核模板字段、数值容差及早期步骤依赖
+cbc014ba23926176e1b53da10c0e3d1fced6af2f	knowlab-app/knowlab-admin-frontend	app/components/knowbots/workdraft-suggestions.tsx	1	220	路径定位、结构化编辑、添加与接受建议
+e32e1624458292d96d99d1d8439aabf9aafe2328	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/proposals.ts	1	61	新增步骤、移动、按字段差异生成提议和排除高级字段
+23f8a64da8d8c2b3283ffa710fbd81a6889d2f65	knowlab-app/knowlab-admin-frontend	app/tests/component/operator-workdraft.test.tsx	1	115	运营提交理由、发布和撤回回归
+a0297308856015833fed67f954bc0215dab57b41	knowlab-app/knowlab-admin-frontend	app/app/[locale]/(dashboard)/names/[requestId]/workdraft/page.tsx	1	32	运营工作稿的鉴权页面及初始参数
+cd3976b857bc1a565fafcb51bf0fa9d8f8e94364	knowbench-app/knowbench-admin-frontend	app/components/research/service-functions.tsx	1	190	搜索翻页清空详情，按提供方、函数及版本加载
+dcf1b4dd3fce15b44012932948aec1f78a005e4d	knowbench-app/knowbench-admin-frontend	app/tests/component/service-functions.test.tsx	1	63	同名函数分辨及新搜索关闭详情
+f4f1a6ee2314de83a9c1d2839f677e3fb13990ac	knowbench-app/knowbench-admin-frontend	app/app/[locale]/(dashboard)/method-skill-center/page.tsx	1	19	页面按角色准入
+59732ed8354378c57f0b5725fc391b23e1f50460	tpl-app/tpl-admin-frontend	app/vitest.config.mts	1	15	管理端组件测试发现规则
+db25861d0ea8d59f5f75550cad09b113156f335a	knowlab-app/knowlab-admin-frontend	app/components/knowbots/workdraft-step.tsx	1	680	重排、前序勾选、输出改名、复核参数、失败退回与高级设置的编辑传递
