@@ -432,3 +432,6 @@ dd5e51d8d6685bd1c1fd1444242fbb4998ac4946	knowfeed-app/knowfeed-backend	app/app/a
 cea1c89de5f64f5fff2e12ae7890bb6d6db4a9a1	knowfeed-app/knowfeed-backend	app/app/application/supply/matching.py	1	191	按来源目录和许可预匹配、逐项错误与预估时间
 985636ab2ba335980877756895b486b16c2613ef	knowfeed-app/knowfeed-backend	app/app/domain/supply/models.py	85	249	资料查询参数和描述键的序列化
 985636ab2ba335980877756895b486b16c2613ef	knowfeed-app/knowfeed-backend	app/app/domain/supply/models.py	403	438	正式需求限额、读法和来源查询边界
+985636ab2ba335980877756895b486b16c2613ef	knowfeed-app/knowfeed-backend	app/app/domain/supply/models.py	1	668	逐项状态、描述键与事实键、作业和交付对象、渠道覆盖范围
+3ac77c0c73a734bd3419033859f11d3b32667c5b	knowfeed-app/knowfeed-backend	app/app/domain/supply/vocabulary.py	1	128	大类展开、定期报告、机构主体的采集范围
+589995d5043e6e837232220b4fa4d361612a7d87	knowbench-app/knowbench-backend	app/app/domain/workbench/supply_prematch.py	1	163	确认清单的预匹配投影、读取方式、快照与预计时间
