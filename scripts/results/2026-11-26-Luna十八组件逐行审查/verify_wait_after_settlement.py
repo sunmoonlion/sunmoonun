@@ -84,3 +84,22 @@ async def test_answer_and_drive_enqueue_survive_separately(db, monkeypatch):
         with pytest.raises(InteractionRejected):
             await answer_interaction(repo, question["interaction_id"], token=question["token"],
                 response={"answer": "2025"}, owner_actor_id=OWNER)
+
+
+async def test_charge_after_cancellation_changes_the_reported_finish_time(db):
+    from app.application.workbench.expert_desk import ExpertDesk
+    _, task, prior = await pending(db)
+    async with db() as session:
+        repo = WorkbenchRepository(session)
+        ledger = Ledger(repo)
+        await ledger.request_cancel(task, owner_actor_id=OWNER)
+        desk = ExpertDesk(repo)
+        first = (await desk.steps(task, owner_actor_id=OWNER))["task"]
+        await ledger.record_late_cost(
+            task, attempt_id=prior, consumed=Decimal("1.25"),
+            tokens={}, turn_id="pending-turn",
+        )
+        final = (await desk.steps(task, owner_actor_id=OWNER))["task"]
+        assert first["state"] == final["state"] == "CANCELLED"
+        assert final["budget"]["spent"] == "1.25"
+        assert final["ended_at"] > first["ended_at"]

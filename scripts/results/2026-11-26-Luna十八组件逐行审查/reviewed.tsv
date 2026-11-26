@@ -395,3 +395,21 @@ ce61bc2604b51951ad1660e8c650dc22c38b4e9b	knowbench-app/knowbench-backend	app/app
 ce61bc2604b51951ad1660e8c650dc22c38b4e9b	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/workbench_routes.py	1540	1606	待决答复调用的权限检查、消费、投递和通知
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	156	178	事务深度与最外层提交
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	830	858	会话事件的排序与指定页查询
+797943e2d969327dbd2eae446181a5419f1bf363	knowbench-app/knowbench-backend	app/app/domain/workbench/step_view.py	1	350	步骤回退、历史尝试、根据当前步与验收回单展示状态
+47e5164ec1e793e80512037fead4d63c19045ddd	knowbench-app/knowbench-backend	app/app/domain/workbench/now_view.py	1	115	实时进度和最近活动时间的推导
+f54b9a6f2d2ea915d93238358dea463436115fbe	knowbench-app/knowbench-backend	app/app/domain/workbench/dossier_view.py	1	370	以有效产出生成工作底稿、摘要和 Markdown 导出
+ccb955212c21f6105f6324fce6a76e006f648b99	knowbench-app/knowbench-backend	app/app/domain/workbench/deliverables.py	1	114	项目文件布局、通用成稿规则与交回文件
+5f258353906ed92cbfb71664ecc65f12630e5160	knowbench-app/knowbench-backend	app/app/domain/workbench/execution_plan.py	1	114	已接受计划投影至执行契约，输入槽、回退和最终结果绑定
+ed20c8e26269a77fdb12bfd1b31a2f88306a0b2e	knowbench-app/knowbench-backend	app/app/application/workbench/execution_plan.py	1	415	按当前谱系还原已验收结果，核验绑定和开步权限
+18a5a8cb8427e384544a47fcee92cd82fe474891	knowbench-app/knowbench-backend	app/app/application/workbench/expert_desk.py	1	607	任务详情、当前与历史结果、进度、费用、看板、待我决定
+61817ab935a2db880adab2780cfe07cee0a91fbf	knowbench-app/knowbench-backend	app/app/application/workbench/deliverable_check.py	1	222	文件存在、原字节、指纹及 UTF-8 阅读副本的边界
+8aa0ff8fcb68d67cb44f1fece5c1db889db4a92c	knowbench-app/knowbench-backend	app/app/application/workbench/run_files.py	1	29	从已接受计划生成底稿文件预期位置
+2865ca8279a448be5e39bf2eba29c543f22868de	knowbench-app/knowbench-backend	app/tests/test_method_test_exports_db.py	1	320	回炉后历史输出、显式最终实例、多成稿和唯一中间断言
+be6e89e93ca13ede6bf41b1898cd58159ff76fd1	knowbench-app/knowbench-backend	app/tests/test_method_views_db.py	1	154	动态计划谱系对详情、底稿与版本展示的约束
+939e28ac5d16a767e9c657341007785fbc99f2dd	knowbench-app/knowbench-web-frontend	app/features/expert/ui/parts.tsx	1	365	步骤详情、回炉标签、表与列表预览、金额显示
+017f0fc004f35e52ec228c6a4f19c7d8344e0060	knowbench-app/knowbench-web-frontend	app/tests/unit/expert-run.test.ts	1	171	用例对历史交付呈现、截断和状态的覆盖
+7e33ac9edc0e1045114f28b9daa817e418c48cc5	knowbench-app/knowbench-web-frontend	app/tests/component/expert-run-screen.test.tsx	1	352	实际组件对步骤详情、取消、审定与数据准备的覆盖
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1115	1148	核对任务更新时刻语义
+4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	1143	1230	验收保存结构化产出和本地路径
+4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	1830	2132	收尾摘要及文件签名、通用模型提示与业务要求
+a875872ef9ea0745f7959a6e8bd2c34cd0c03405	knowbench-app/knowbench-backend	app/app/domain/workbench/method_plan.py	251	318	校验最终方法、作者范围、相对路径和重复写入
