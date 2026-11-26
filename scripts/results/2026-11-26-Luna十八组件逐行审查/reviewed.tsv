@@ -1334,3 +1334,15 @@ ea1a91dd5a49afb08bf6d2e8a90eec1f4f0cdf39	knowbench-app/knowbench-web-frontend	ap
 170d098573c99a437e03e9b83b48fe212f21d575	knowbench-app/knowbench-backend	app/tests/test_ordinary_partial_delivery_db.py	1	125	核对中断汇合后领取的数据库测试，覆盖超时、撤权、摘要变化和并发领取，正例只有无适用承诺的分支
 1ff54e99baa44772e689e4245a9b1a50894dfa48	knowbench-app/knowbench-web-frontend	app/components/workbench/side-panel.tsx	1	246	核查侧栏初始状态、历史改动自动弹开、文件选择和打开路径
 f54fac6fc9189f09778020bce94942d1b7b827aa	knowbench-app/knowbench-backend	app/tests/formal_plan_support.py	1	198	核查测试供给的固定方法、真实审批与结算、冻结依赖、两步编排、请求验证和用例保真
+abd7074ef331af53074e723ac2ad2747e3290129	knowbench-app/knowbench-web-frontend	app/components/common/markdown.tsx	1	30	核对 Markdown 展示及对应 Office 成稿文件、值类型、出处和格式往返断言
+9d4e93d9d996cec059998c8fbb6975baea20466f	knowbench-app/knowbench-web-frontend	app/lib/workbench/export/actions.ts	1	72	核对 Markdown 展示及对应 Office 成稿文件、值类型、出处和格式往返断言
+6a903c10accac5f40779355e4e40caeb7f8bbe03	knowbench-app/knowbench-web-frontend	app/lib/workbench/export/docx.ts	1	216	核对 Markdown 展示及对应 Office 成稿文件、值类型、出处和格式往返断言
+b09a94161dcc97a53db6bd9716400416212b733a	knowbench-app/knowbench-web-frontend	app/lib/workbench/export/markdown.ts	1	68	核对 Markdown 展示及对应 Office 成稿文件、值类型、出处和格式往返断言
+6a6494057f174ef8224cbd2d17123ea9fd28a91c	knowbench-app/knowbench-web-frontend	app/lib/workbench/export/xlsx.ts	1	81	核对 Markdown 展示及对应 Office 成稿文件、值类型、出处和格式往返断言
+108a922641964f8d07feefb0d3346ebb8d8d5099	knowbench-app/knowbench-web-frontend	app/tests/unit/deliverable-export.test.ts	1	151	核对 Markdown 展示及对应 Office 成稿文件、值类型、出处和格式往返断言
+29b93bbafb5010318f559292f3242c9661b242ca	knowbench-app/knowbench-web-frontend	app/components/workbench/step-line.tsx	1	164	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
+a84265754da5556e52a8ddcd1dcedd2ee271a01d	knowbench-app/knowbench-web-frontend	app/features/work/model/timeline.ts	1	2	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
+333e2f540c37611f0523be8a8165f4b85368d3a3	knowbench-app/knowbench-web-frontend	app/lib/workbench/items.ts	1	178	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
+0ea1abebf334aa6d4340cf5ca2d99384fb9ce981	knowbench-app/knowbench-web-frontend	app/lib/workbench/timeline.ts	1	588	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
+03c1c9935a542405c24b41a8bfe56abd1a992bc1	knowbench-app/knowbench-web-frontend	app/tests/unit/dossier-paths.test.ts	1	29	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
+fa8e438b9187e0f8f9c80de95bfb5a78c2468fea	knowbench-app/knowbench-web-frontend	app/tests/unit/work-timeline.test.ts	1	488	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
