@@ -1591,3 +1591,4 @@ d5d488e8c976ca4225cc58d97e11f4140b996b7b	knowbench-app/knowbench-backend	app/ale
 24e0fc53b1faec04dcfcf1fd836ec0c32b2944d8	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0023_test_run_blocked.py	1	33	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
 8bb590ade1797417fb0b15d497da895c2e4c3e83	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0024_task_data.py	1	90	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
 c95e928662d2e14b8aaa7a014a96fbfcea141cc7	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0025_session_data.py	1	54	对照测试用例复合主键、快照约束、产物字段、阻塞记录和数据授权的生命周期
+b4fd3496040a014f3003a0a5d80e7fc4ebe40b89	knowbench-app/knowbench-backend	app/app/application/workbench/formal_expert_intake.py	1	340	检查候选分页与字节截断、空目录回执、改题与结束、核权和选择事件的事务边界
