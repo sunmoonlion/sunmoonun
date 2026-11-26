@@ -196,3 +196,4 @@ a29bf79629ef5741e0e261b50033182f26657601	knowfeed-app/knowfeed-backend	app/app/d
 a510cb2a87f714b42f263b7328ac37e0684b7fdf	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/cross_year.py	1	183	逐行单位换算、对照、容差与按值配对；见 B27
 b9266247d5673ca18d14b800847d85fee6f2bf57	knowfeed-app/knowfeed-backend	app/tests/test_report_cross_year.py	1	326	逐例核对重复科目、跨单位、单股数及真实年报回归；现有 35 项通过
 81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	430	585	事实 SQL 过滤、排序、行单位与分页、表格最新版本和持久化输入组合
+629aacaaa40a09f246a84e64be722ac0cad14a77	knowbase-app/knowbase-backend	app/tests/test_user_facts_db.py	1	355	逐例核对入库、质检、市场及运行指标的夹具与断言；现有指标例只覆盖毛利率、营收增长
