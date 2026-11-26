@@ -1274,3 +1274,8 @@ cff291c2c924f9f9a09f898fc971e867ecf9a936	knowlab-app/knowlab-web-frontend	app/te
 463d3f6b1c6acc7684a2f1dec2d0d78f0997a97d	knowlab-app/knowlab-web-frontend	app/tests/component/method-demand-reference.test.tsx	1	60	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
 41758d8d25ff63eeed3bba00846237fb0d09648f	knowlab-app/knowlab-web-frontend	app/tests/component/test-execution.test.tsx	1	82	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
 9d10589442f3dd32fd03c85b4d7d84a61c353624	knowlab-app/knowlab-web-frontend	app/tests/component/web-shell.test.tsx	1	96	核对栏目入口、版本夹具、跨端链接、交付结果及授权组件测试断言和所替换依赖。
+b63c059322d9a953fe5f7dcf6ac9d46d52b1b29e	knowlab-app/knowlab-web-frontend	app/contracts/formal-method-execution.ts	1	383	核对正式方法定义、钉版、调用方验收证据、试跑输入和确认命令跨端一致性。
+455dda1cf6e091c691b43530acf2f8149134d18a	knowlab-app/knowlab-web-frontend	app/contracts/formal-methods.ts	1	405	核对正式方法定义、钉版、调用方验收证据、试跑输入和确认命令跨端一致性。
+fdd90d047dc95ca74f3995932f3f574acef20943	knowlab-app/knowlab-web-frontend	app/lib/knowbots/client.ts	1	610	核对正式方法定义、钉版、调用方验收证据、试跑输入和确认命令跨端一致性。
+ffaeb5dc6f142028e0104fd8c0f7c527f2f883d3	knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-methods.ts	1	397	核对正式方法定义、钉版、调用方验收证据、试跑输入和确认命令跨端一致性。
+789ab5393b70c3fb7c2446c72f0a754d585d7990	knowlab-app/knowlab-web-frontend	app/contracts/knowbots.ts	1	795	核对创意、测试、回执、市场交付、应用返回上下文和资料选择的浏览器契约。
