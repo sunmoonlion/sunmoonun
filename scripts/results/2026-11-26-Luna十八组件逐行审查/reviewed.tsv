@@ -572,3 +572,24 @@ ab53d71756fb3eb9ca6111e442a90bb532ad1443	tpl-app/tpl-admin-frontend	app/env/serv
 eb9626801826f2b8c710b10f89ce2c2b187021ad	tpl-app/tpl-admin-frontend	app/playwright.config.ts	1	69	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
 3b695277795c8e8488e2b3b2a4a714abe493ee91	tpl-app/tpl-admin-frontend	app/components/platform/public-home.tsx	1	46	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
 9e42292b6f175950928ead28e84131501e508f7c	tpl-app/tpl-admin-frontend	app/tests/unit/env.test.ts	1	127	与逐行审完的模板 Web 对应文件比对，逐行审查全部差异
+f2126b3179891e7b63b5dc6aecc03dd70de1a46f	knowmart-app/knowmart-web-frontend	app/tests/unit/preview-server.test.ts	1	294	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/preview-server.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b0de5a73b758e501130c2557713dd30e947f410d	knowmart-app/knowmart-backend	app/app/bootstrap/api.py	1	181	逐行与已审 tpl-app/tpl-backend/app/app/bootstrap/api.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+574fca233a02b8f6298b467192753793fb1cba1e	knowmart-app/knowmart-backend	app/tests/test_delivery_metrics_http.py	1	375	逐行与已审 tpl-app/tpl-backend/app/tests/test_delivery_metrics_http.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+d65493f23e8b6fdba7a411da405fe515a771a441	knowmart-app/knowmart-backend	app/app/application/audit_context.py	1	64	逐行与已审 tpl-app/tpl-backend/app/app/application/audit_context.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b71659fcfeed55584566bee5a502628b90cc1abb	knowmart-app/knowmart-backend	db-provisioner/drivers/redis.sh	1	282	逐行与已审 knowbase-app/knowbase-backend/db-provisioner/drivers/redis.sh 对照；相同行在原位置映射，增删段和所有变更已人工复核
+af30b9d49753f0613c3b6d44574b6e30771f68a3	knowmart-app/knowmart-admin-frontend	app/lib/auth/browser-session.ts	1	64	逐行与已审 knowbase-app/knowbase-admin-frontend/app/lib/auth/browser-session.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+7267400c2f6b9578debffe1ad93fb52d95150529	knowmart-app/knowmart-web-frontend	app/lib/auth/browser-session.ts	1	64	逐行与已审 knowbase-app/knowbase-web-frontend/app/lib/auth/browser-session.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8b3600d30ba424f55de212d89b848dc9e4d64cba	knowmart-app/knowmart-web-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowbase-app/knowbase-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+cd971e06ebfb7aa60ebd02f7f29bac8641e5f526	knowlab-app/knowlab-web-frontend	app/tests/unit/preview-server.test.ts	1	294	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/preview-server.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+3a0b643f20cbc5398310380476dad3938f812f80	knowlab-app/knowlab-backend	app/app/bootstrap/api.py	1	181	逐行与已审 tpl-app/tpl-backend/app/app/bootstrap/api.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+8ef2c28173fc49ec8d6f59e18edda7cfcc23d9d9	knowlab-app/knowlab-backend	app/tests/test_delivery_metrics_http.py	1	375	逐行与已审 tpl-app/tpl-backend/app/tests/test_delivery_metrics_http.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+3ec2a6af6fcca5d71e8d223f7fa6f0c6af412d41	knowlab-app/knowlab-backend	app/app/application/audit_context.py	1	64	逐行与已审 tpl-app/tpl-backend/app/app/application/audit_context.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+c89e47366894e933f425956e020e85ced96ba683	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-checks.tsx	1	432	逐行与已审 knowlab-app/knowlab-admin-frontend/app/components/knowbots/workdraft-checks.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+5376a7c968c7847f159b6736b34b1e3f3a1b447f	knowlab-app/knowlab-admin-frontend	app/lib/auth/browser-session.ts	1	64	逐行与已审 knowbase-app/knowbase-admin-frontend/app/lib/auth/browser-session.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+46d76eefeba0640da159864bb85032b8a1a5c350	knowlab-app/knowlab-web-frontend	app/lib/auth/browser-session.ts	1	64	逐行与已审 knowbase-app/knowbase-web-frontend/app/lib/auth/browser-session.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+7229f72225e625c49bf09ebe36b034b2f08fa80f	knowlab-app/knowlab-web-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowbase-app/knowbase-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+626b1652910c3f805ae602b832f3910897b89796	knowlab-app/knowlab-admin-frontend	mybuild/Dockerfile	1	121	逐行与已审 knowbase-app/knowbase-web-frontend/mybuild/Dockerfile 对照；相同行在原位置映射，增删段和所有变更已人工复核
+5e4b06cdf6d87d7c8a7ba3c372303e9dbdfb7360	knowlab-app/knowlab-admin-frontend	app/contracts/workdraft.ts	1	279	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
+222a5fd0dc0e43b0af866a8a0bc38620883a2fc5	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/workdraft.ts	1	199	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
+e32e1624458292d96d99d1d8439aabf9aafe2328	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/proposals.ts	1	61	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
+35a7c660689ea9008f5dcf35185ca465e70cd571	knowlab-app/knowlab-backend	app/app/application/services/knowbot_proposals.py	1	281	对照运营提议序列化、整组选中验收规则替换、作者接受时的检查及出处生成
