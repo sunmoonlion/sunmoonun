@@ -1417,3 +1417,4 @@ f551d42a099251629eb79798e861a6ecc6c13524	knowbench-app/knowbench-backend	app/app
 f551d42a099251629eb79798e861a6ecc6c13524	knowbench-app/knowbench-backend	app/app/interfaces/http/web/workbench_expert.py	1	1070	逐项核对委托入口、资料选择、正式方法移交、执行预览和周期责任
 dbb14adb688dad013f533e1ecb73375195677696	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_data_db.py	1	190	阅读数据库集成夹具、解析修订与补采候选构造
 ec57f397bf25975c26399f22754bc5763fb98aa7	knowbench-app/knowbench-web-frontend	app/contracts/workbench-v2.ts	640	848	阅读资料选择与补采回执网页契约及缺省值
+dbb14adb688dad013f533e1ecb73375195677696	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_data_db.py	1	1637	核对真库测试对已退役 v2 的前置依赖、缺数、取消和租约覆盖
