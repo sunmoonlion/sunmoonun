@@ -1619,3 +1619,15 @@ ec2ca9abb738f61e14c13e4006521536bccc8034	knowbench-app/knowbench-backend	app/tes
 789053c6f699cae30bc3b8bbde601ed675b0fcb9	knowbench-app/knowbench-backend	app/tests/test_skill_execution_db.py	1	365	逐行核对技能压缩包、正式脚本执行协议、普通调用的审批与测试回执，比较安装和派发各自接受的文件清单
 5c5dbfc64e1ff5f4286a102c722a45ceb647c2d1	knowbench-app/knowbench-backend	app/tests/test_skill_package.py	1	140	逐行核对技能压缩包、正式脚本执行协议、普通调用的审批与测试回执，比较安装和派发各自接受的文件清单
 553bbe96a8d837301e101b70efc3346fb0ac2177	knowbench-app/knowbench-backend	app/tests/test_skill_package_db.py	1	515	核对技能安装原子性、延迟读取、会话撤选、迟到回执和重复安装的数据库测试
+86977c968ce95cf444d84ea4cb12010d295bfaa8	knowbench-app/knowbench-backend	app/alembic/versions/20261121_0051_instruction_cleanup.py	1	17	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+f0b5b918456a7107ba754ca32476266eae671bbd	knowbench-app/knowbench-backend	app/app/application/workbench/formal_host_calls.py	1	1092	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+eed0a2e2a5b294e09e813cea7053ba16bd6b2f04	knowbench-app/knowbench-backend	app/app/application/workbench/instruction_evidence.py	1	112	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+38d307cf6d04ffe5fe14451c17f271b17307040c	knowbench-app/knowbench-backend	app/app/application/workbench/instruction_requests.py	1	424	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+9e0f1348da03f2daf58e2eb7fcf8894583e0e2e9	knowbench-app/knowbench-backend	app/app/application/workbench/instruction_runner.py	1	747	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+be7d5962c11c0db5a92335c9bf7845517768a907	knowbench-app/knowbench-backend	app/app/application/workbench/instruction_turn.py	1	187	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+4b9bf7d7b3a94160a49576e528e83248fa5c753a	knowbench-app/knowbench-backend	app/app/domain/workbench/instruction_requests.py	1	191	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+0a35261f95c7d37779c5d5bb73d2a5544efa9178	knowbench-app/knowbench-backend	app/app/interfaces/http/internal/instruction_control.py	1	161	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+eb098b55466b4abda3b1305ea6f537d4ec106f9e	knowbench-app/knowbench-backend	app/tests/test_instruction_output.py	1	28	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+262564e47644907c7954f91e8ce5bd03a3ba5bf8	knowbench-app/knowbench-backend	app/tests/test_instruction_requests_db.py	1	395	逐行核对指令请求、宿主审批、凭据选择、计量与恢复、输出与封存，以及相应测试与清理索引
+06c8ab2c470b42491b20f1dfe5009ae9bee2eac4	knowbench-app/knowbench-backend	app/app/application/workbench/instruction_leaf.py	1	366	核对正式指令叶子、独立复核的角色和报价、实际授权及取消与未知调用终态
+5b4b7d1c7e2a7992b4028d313491a1c68b1f7f4a	knowbench-app/knowbench-backend	app/tests/test_instruction_runner_db.py	1	631	核对独立指令工作进程的真实账本测试：恢复、超时、付费回执、首次复核与隔离资源回收
