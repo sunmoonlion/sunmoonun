@@ -1695,3 +1695,19 @@ e92e06d3519987a524d7258df9929dfcaecb9b03	knowbench-app/knowbench-backend	app/app
 fa308d417407cea1f6f2a49548d708e459b5f819	knowbench-app/knowbench-backend	app/app/application/workbench/run_reader.py	1	118	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
 ee5766d47e0ac7774e20a368e7991ef4d023f690	knowbench-app/knowbench-backend	app/app/application/workbench/scoped_data_functions.py	1	121	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
 ab28c442f5320399bb03c9370b1bb3eb79cfd13f	knowbench-app/knowbench-backend	app/tests/test_method_acceptance_db.py	1	59	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
+b0e4a8e1d3f97055021b69fc8f7eb40f11ff0044	knowbench-app/knowbench-backend	app/app/application/workbench/grant_release.py	1	86	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+41ce707b5277dc3ef23c5c8954145dbb8a6d7afd	knowbench-app/knowbench-backend	app/app/application/workbench/knowbase_method_read.py	1	130	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+517213af38842acb8422abb5eb55be5c45e99e1f	knowbench-app/knowbench-backend	app/app/application/workbench/knowbot_compute.py	1	311	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+4fc68466c1e1c67b61f99187225cd2edf934fcea	knowbench-app/knowbench-backend	app/app/application/workbench/ordinary_material.py	1	124	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+7085187e4c059b62879c5b4dfa2d417423c03a1e	knowbench-app/knowbench-backend	app/app/application/workbench/outputs.py	1	387	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+d5c3733e959b694cd796cd595d7e7c5de8fa972c	knowbench-app/knowbench-backend	app/app/application/workbench/records.py	1	126	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+b78f48755dac7feb0638c62f865b02f3b05e4947	knowbench-app/knowbench-backend	app/app/application/workbench/script_inputs.py	1	188	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+d7a12e31b9708cd33a7822a16d575c050bda1586	knowbench-app/knowbench-backend	app/app/application/workbench/task_output_reader.py	1	195	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+d55ba0d66f6c42fddeb105b123122ac5746162dd	knowbench-app/knowbench-backend	app/app/domain/workbench/records.py	1	132	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+3f2e1d35321c7e686e5607835a35b683beda162a	knowbench-app/knowbench-backend	app/tests/test_workbench_outputs_db.py	1	620	逐行核对项目记录分页、批量计算事件、脚本材料绑定、成稿写入与授权释放，比较成功回执、失败重试和同名文件处理。
+4fe53a28861ae66a17daaa2117f8af1d2573874d	knowbench-app/knowbench-backend	app/app/application/workbench/delegation.py	1	341	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
+dc9ec30d7859564be8a04115997173281c518746	knowbench-app/knowbench-backend	app/app/application/workbench/method_access.py	1	77	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
+54a001d693efed565f9394f46753f3b4ad6498cb	knowbench-app/knowbench-backend	app/app/application/workbench/method_calls.py	1	83	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
+18c1d679f5e60ad56f127665c381d0380b4539da	knowbench-app/knowbench-backend	app/app/application/workbench/ordinary_expert_execution.py	1	195	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
+f799b7f1bd3b239a8adcd3b5b0265c0398f68e56	knowbench-app/knowbench-backend	app/app/application/workbench/ordinary_local_tools.py	1	140	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
+911d8a7a15b4faf3249ea1aa5db7220e6b99ada3	knowbench-app/knowbench-backend	app/tests/test_workbench_records.py	1	197	核对正式委托确认回执、逐叶选择消费者已许可来源及复核路线、权限核验、交付重放和专家入口事务。
