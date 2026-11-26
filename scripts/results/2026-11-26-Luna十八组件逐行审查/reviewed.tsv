@@ -447,3 +447,14 @@ ac5f56d4ea95c4cd154c32d482c345fa22079e93	knowfeed-app/knowfeed-backend	app/app/a
 c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	361	376	来源目录、自动登记标识冲突及供给契约生成
 ac5f56d4ea95c4cd154c32d482c345fa22079e93	knowfeed-app/knowfeed-backend	app/app/application/supply/catalog.py	1	682	渠道试采的启动、构建适配器、采样与结果落库；复审与启停
 c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	317	360	渠道试采的启动、构建适配器、采样与结果落库；复审与启停
+5585c1faa77f07838a20c929888f4a50adc2fbbe	knowfeed-app/knowfeed-backend	app/app/infrastructure/messaging/delivery_handlers.py	1	78	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	1	828	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+e78e732924195f79c21bb41607541f81261f0692	knowfeed-app/knowfeed-backend	app/app/infrastructure/messaging/durable_tasks.py	1	226	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+ecfb28450e81d32060ca8f41886c037c5727f873	knowfeed-app/knowfeed-backend	app/app/infrastructure/messaging/durable_delivery.py	1	208	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+abe15e0df62dd5d800500ea35981ba0cbbf98cda	knowfeed-app/knowfeed-backend	app/app/application/supply/retention.py	1	49	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+e9cabf0eda5378ce660674f9d87257bf9503ace5	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply.py	625	780	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+694f02115db4aa67b169b7c2d96de474a6bb920f	knowfeed-app/knowfeed-backend	app/app/tasks/durable_delivery.py	1	67	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+ed61f445223497c3ffdd6e9e3d564467bc9e8ab8	knowfeed-app/knowfeed-backend	app/app/bootstrap/supply.py	1	313	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+52fbd841c4cd9990407f99d3371c7ddc1eec100f	knowfeed-app/knowfeed-backend	app/app/application/supply/monitor.py	1	68	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+9a9d1dbb9516796a26c848d13e3ff396ba54a017	knowfeed-app/knowfeed-backend	app/app/application/supply/notify.py	1	36	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
+1212b0e9adaa59fa6f0ff45f728214ccafe153d0	knowfeed-app/knowfeed-backend	app/app/infrastructure/external/app_supply_status.py	1	88	从渠道试采消息到管理端记录、资料续期和实物删除逐项核对
