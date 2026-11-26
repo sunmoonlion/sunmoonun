@@ -1947,3 +1947,11 @@ ecbb25d27c116d461787a64fce7ee2ece311a38b	knowlab-app/knowlab-backend	app/scripts
 1b54b008baf16a5ee7de5bf617a97a759072a837	knowlab-app/knowlab-backend	app/tests/test_config_security.py	1	172	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
 5779f992c8b7df2be6779e812cbd22fe0d5a073f	knowlab-app/knowlab-backend	app/tests/test_cross_app.py	1	290	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
 cf580bcd3a0423882d2dd6ae281bf74648949702	knowlab-app/knowlab-backend	app/tests/knowbot_fakes.py	1	1501	逐行核对共用仓储、运行与交付替身；比对事务回滚、清单编译、试跑回执及授权查询语义。
+744cf9939c25ebbce96f5442c8593e03e698d63d	knowlab-app/knowlab-backend	app/tests/test_auth_routes_security.py	1	322	会话、组织隔离、OIDC 与回跳，从两种语言的方法目录完成登录并和专家页作对照。
+25f739ab1e17a585d28ecb380ca586e7c1680ce5	knowlab-app/knowlab-backend	app/tests/test_auth_service.py	1	547	会话、组织隔离、OIDC 与回跳，从两种语言的方法目录完成登录并和专家页作对照。
+23864d991a40456f93121e9460d8a9018cb70f81	knowlab-app/knowlab-backend	app/tests/test_oidc_security.py	1	320	会话、组织隔离、OIDC 与回跳，从两种语言的方法目录完成登录并和专家页作对照。
+ef5de5ee4f4aae2e39ad27517bdb20377750e494	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0015_user_data_v4_facts.py	1	96	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
+ed9f4016ea2521a0b87cee2dfa069dba2872d2a9	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0016_description_dimensions.py	1	59	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
+e52f79263bcd0687bfecd23622c049c49ead54cd	knowbase-app/knowbase-backend	app/alembic/versions/20261028_0017_requests_by_task.py	1	49	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
+9da6c6f1ebda25655456af7bdd688d89611cfc8b	knowbase-app/knowbase-backend	app/alembic/versions/20261101_0021_ragflow_and_released_refs.py	1	48	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
+f5d18af6d84e6436e86220cc83c7618787a5ac2a	knowbase-app/knowbase-backend	app/alembic/versions/20261119_0022_method_read_consent.py	1	47	资料原行与标准事实、描述维度、需求偏好、已释放委托及单次方法阅读许可迁移，已核对升级与降级分支。
