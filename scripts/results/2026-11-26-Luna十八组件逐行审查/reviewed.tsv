@@ -2572,3 +2572,19 @@ cb6cd988b74a128564273aa08f0a25f0ebf23b78	knowbench-app/knowbench-backend	app/tes
 f2d14a846762ce09623b9ba785158b9c09b52441	knowbench-app/knowbench-backend	app/tests/test_agent_onboarding_unit.py	1	352	核对设备配对摘要、轮询、交付清除、反向代理与访问日志测试。
 9c7bcb817e2bc7daad6d7659d31b7f05d8b20962	knowbench-app/knowbench-backend	app/tests/test_workbench_provisioning.py	1	469	核对首次供给并发、令牌轮换模型、容量回收与记录工具权限测试。
 375d644bdc15d762ed5eedd8a1c8d6bb830f3464	knowbench-app/knowbench-backend	app/tests/drivers/workbench_tape_driver.py	1	326	磁带从通知、提问、拒绝与结束事件写入预览；核对清理及结果判定，见 B580、B581。
+920a87f353e68ac50f8f8edb675b541d1a4daf29	knowbench-app/knowbench-backend	app/tests/drivers/workbench_modes_driver.py	1	326	核对会话模式现场驱动和磁带重放；已关联临时目录所有权及响应事件。
+16e1847167a3fe0ebb16119f5ab835e764986f54	knowbench-app/knowbench-backend	app/tests/preview_replay.py	1	241	核对会话模式现场驱动和磁带重放；已关联临时目录所有权及响应事件。
+985a8a97d187ffd6fe48db3c519534e8bd26f509	knowbench-app/knowbench-backend	app/tests/test_preview_agent_pairing.py	1	253	核对安装、查配对码和批准三个响应与预览清单写入。
+c837e32f76ef1c5de418ef96b0ebf04590f5d278	knowbench-app/knowbench-backend	app/tests/test_workbench_modes_db.py	1	456	核对每轮环境、授权与工作模式，预算、返工、取消和旧版退役测试的实际断言。
+9144dc201875a752027f8fb3d9fc0ec87d0e4f90	knowbench-app/knowbench-backend	app/tests/test_workbench_task_runtime_db.py	1	563	核对每轮环境、授权与工作模式，预算、返工、取消和旧版退役测试的实际断言。
+5ace7903c5b1c855b7ba4e77d7b68076e383d979	knowbench-app/knowbench-backend	app/tests/test_instruction_control_db.py	1	614	核对冻结报价、HTTPS 回执重放、进程中断、双阶段复核与隔离工作目录的断言。
+61c42c78094ad2e874a11526fb2cd80bfcb3fb4b	knowbench-app/knowbench-backend	app/tests/test_instruction_runner_codex.py	1	569	核对冻结报价、HTTPS 回执重放、进程中断、双阶段复核与隔离工作目录的断言。
+23d43c47c4640830ef20af7ab379796573f16074	knowbench-app/knowbench-backend	app/tests/test_registry_paths_db.py	1	677	核对已安装来源与冻结方法独立审批、作者目录与用户许可差异、跨页和过期许可断言。
+5fce6c9ec75367506abebe4f1bfaeb7d9abc5e6f	knowbench-app/knowbench-backend	app/tests/preview_samples.py	1	568	核对离线协议探针的工具发现、实际回执及预览样本的公式与文字一致性。
+1e461762578e2e54a2498a6b6d739eb88710ddbf	knowbench-app/knowbench-backend	app/tests/probe_native_search_scope.py	1	381	核对离线协议探针的工具发现、实际回执及预览样本的公式与文字一致性。
+f9749d7a31651408f42a81dc883e5a96fc0d9047	knowbench-app/knowbench-backend	app/tests/drivers/workbench_chain_driver.py	1	650	核对现场链路驱动的轮次、授权、费用、停止和恢复断言，及秒级目录冲突。
+41c43b7e55eb5c20eb03474eff903d8c7a0d01b9	knowbench-app/knowbench-backend	app/tests/test_knowbot_compute.py	1	928	核对数值断言、证据定位与实算、空结果和平台故障分开记账。
+f887d5a56bb2f9e03db4336af6c92514b32b3666	knowbench-app/knowbench-backend	app/tests/test_preview_fixtures.py	1	1005	验证三种预览生成路径，注意通过夹具重新开放旧专家目录及注入与录制消息的区别。
+203669302289ce6fd4bb00b5f0db832948530fa7	knowbench-app/knowbench-backend	app/tests/sample_packs.py	1	1542	三份测试内置包逐步核对声明、输入、交回物、返工及预测缺项策略。
+25cd9dcda1e8b191dc31d0ba986add529c5f1b9d	knowbench-app/knowbench-backend	app/tests/test_knowbot_test_runs_db.py	1	1652	全段核对旧 v2 试跑夹具在排队、隔离、留存、用例资料、审批、取消的预期；隔离实跑三十项未达断言。
+301861cba9bb0de3a37be9702df357a9a3df7c8e	knowbench-app/knowbench-backend	app/tests/test_workbench_runner_db.py	1	2341	逐段核对沙箱租约、接手、重连、控制权、撤销、迟到费用、在途轮次与真实回执断言。
