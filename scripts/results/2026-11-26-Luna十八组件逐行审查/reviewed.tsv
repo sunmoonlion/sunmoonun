@@ -413,3 +413,9 @@ ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app
 4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	1143	1230	验收保存结构化产出和本地路径
 4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	1830	2132	收尾摘要及文件签名、通用模型提示与业务要求
 a875872ef9ea0745f7959a6e8bd2c34cd0c03405	knowbench-app/knowbench-backend	app/app/domain/workbench/method_plan.py	251	318	校验最终方法、作者范围、相对路径和重复写入
+a875872ef9ea0745f7959a6e8bd2c34cd0c03405	knowbench-app/knowbench-backend	app/app/domain/workbench/method_plan.py	1	335	通用计划验收的来源、已执行前缀、要求匹配和最终成果可达性
+83f63cdf3ae88fba4a0acfd9b9dc1ced04a566d1	knowbench-app/knowbench-backend	app/app/domain/workbench/method_catalog.py	1	679	核对冻结方法、能力绑定、输入槽与执行策略，目录准入与计划验收的差距
+eebe07e9e67b114944b7e3c4488a78c8e0323e48	knowbench-app/knowbench-backend	app/tests/test_capability_method_plan.py	1	325	两种目录计划覆盖、必选方法可达性、引用与投影的验收控制
+82bb2adb62ed9c6dd287e6f55dc9046204e79eb1	knowbench-app/knowbench-backend	app/app/application/workbench/acceptance.py	1	388	确定性验收、数值等价、领域措辞和嵌套条件
+5698f87ef01b03ef55d682b08306f9bfd6c997df	knowlab-app/knowlab-backend	app/app/domain/knowbots/capability_compilation.py	1	220	作者侧可选输入反编译与冻结引用、能力数量及输出验证
+13eec1d0df53741acef50785d800b6a22c39a725	knowlab-app/knowlab-backend	app/app/domain/knowbots/compile.py	456	620	编译工作稿检验覆盖与必经步骤文件冲突
