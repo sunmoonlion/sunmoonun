@@ -2185,3 +2185,30 @@ eede56259608306b9d5dbd2b6b6162dc256af8f8	knowfeed-app/knowfeed-backend	app/alemb
 8dfc6ec7940719b5886fb75bc4143b05666f4911	knowfeed-app/knowfeed-backend	app/alembic/versions/20261030_0022_supply_web_subscriptions.py	1	389	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
 4b86954dac721d07a64dd8c4173e334430aa8e05	knowfeed-app/knowfeed-backend	app/tests/test_drop_security_line_db.py	1	210	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
 16f45602a68a1917dc2ea3e7bc296dbf96fd6b63	knowfeed-app/knowfeed-backend	app/tests/test_schedule_downgrade_db.py	1	209	核对 0021 与 0022 回退状态断言，网址回退原测试仅判证券主体非空
+478d783de791abd0aef0d1f8216335ca7dcd44b6	knowfeed-app/knowfeed-backend	app/app/application/collectors/__init__.py	1	18	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+7823214d89294239b8bc6a7de5fc79fffd7cc735	knowfeed-app/knowfeed-backend	app/app/application/collectors/api.py	1	95	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+f2331810dfb30ada4101f9f00a1b0be6fe2fa205	knowfeed-app/knowfeed-backend	app/app/application/collectors/base.py	1	22	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+827f4f3e872ad3b29154679c12b4d2ea1d82bb62	knowfeed-app/knowfeed-backend	app/app/application/collectors/changedetection.py	1	21	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+ff2555e4b01ef2055e3343e548d23500db73b8ec	knowfeed-app/knowfeed-backend	app/app/application/collectors/external_results.py	1	99	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+b9479db45e30f20c4ff9ac9f379d9d8fa554a1f9	knowfeed-app/knowfeed-backend	app/app/application/collectors/playwright.py	1	22	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+05fe5dcf418f4b7893e755310a270334279f5a58	knowfeed-app/knowfeed-backend	app/app/application/collectors/registry.py	1	28	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+9603b8ceefb104f365cf79adc01e6e3fc4f0a3e4	knowfeed-app/knowfeed-backend	app/app/application/collectors/rss.py	1	129	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+ae8f334861b66aa53ab18a9b223af8660657a07e	knowfeed-app/knowfeed-backend	app/app/application/collectors/scrapy.py	1	23	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+0541dbf22680a62753e730b6dcffa37e0d4f477f	knowfeed-app/knowfeed-backend	app/app/application/ports/crawl.py	1	33	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+d1d424937957f5f7ff765634fdb6b7f5f3558881	knowfeed-app/knowfeed-backend	app/app/application/ports/securities.py	1	11	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+450f29095163408714635947dad6fe68bfc164b7	knowfeed-app/knowfeed-backend	app/app/application/services/delivery_outbox.py	1	31	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+2d21bb3a3dbc19a45dc20865cd9f5e2f83dfbfef	knowfeed-app/knowfeed-backend	app/app/application/services/info_crawl_service.py	1	1939	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+313c08bd9e5d37b7c49cc5c3a777c94329c14110	knowfeed-app/knowfeed-backend	app/tests/test_collectors.py	1	168	核对采集器、采集服务全链、来源与提取回执、审核与分发、索引与同源重复数据处理
+8916e683da5b58d3cd3e2e9f785edff4ac972813	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/__init__.py	1	26	核对合并报表四列与两列、金额、页界、表头单位及折旧摊销补充资料；复证三项取数偏差
+2c16974dca8ab4c3f32f96e4635fbe71c35ee4b7	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/extract.py	1	240	核对合并报表四列与两列、金额、页界、表头单位及折旧摊销补充资料；复证三项取数偏差
+26c57725101eb2baf6616ff41000f1ca216cc0fa	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/layout.py	1	196	核对合并报表四列与两列、金额、页界、表头单位及折旧摊销补充资料；复证三项取数偏差
+1638f4fea709ae881321198d104e3b0397bf02f9	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/supplement.py	1	166	核对合并报表四列与两列、金额、页界、表头单位及折旧摊销补充资料；复证三项取数偏差
+e00ad1b1c47b6b3acdafdbeaa56d141563879745	knowfeed-app/knowfeed-backend	app/app/application/supply/cninfo.py	1	451	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+64b435fac9ef669975bd59e5022f1aa740660bcd	knowfeed-app/knowfeed-backend	app/app/application/supply/cninfo_irm.py	1	203	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+bd2ee90f8b0db8df02efccddd111e27bbad7b897	knowfeed-app/knowfeed-backend	app/app/application/supply/directory.py	1	68	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+5be24ce287cbd03b6769409969c0c13eecee7378	knowfeed-app/knowfeed-backend	app/app/application/supply/provider_query.py	1	169	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+014ab9fe387e9ea820197ee458ee448888f92196	knowfeed-app/knowfeed-backend	app/app/application/supply/scheduler.py	1	116	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+3aba05828596be2b3afd780757d1686bc0b3345f	knowfeed-app/knowfeed-backend	app/app/application/supply/watch.py	1	86	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+efdad59ef07b97412a35b5faebba7146e4729138	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_directory.py	1	94	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+5e89c0b076564fb455e88c2fbb22889e99acbade	knowfeed-app/knowfeed-backend	app/tests/test_supply_cninfo.py	1	198	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
+8b9da641885aa722451d99812d104ae7fca657eb	knowfeed-app/knowfeed-backend	app/tests/test_supply_cninfo_irm.py	1	145	核对渠道查询映射、供应商回执、证券名录、速率调度与订阅游标及巨潮离线测试
