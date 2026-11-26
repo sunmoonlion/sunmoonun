@@ -803,3 +803,35 @@ c26eaa90c8b847f0633c878a89ed79dea9a1db83	knowbench-app/knowbench-web-frontend	ap
 e379a888f7598f66c6199223b01fbca56a26b3fd	knowlab-app/knowlab-web-frontend	app/app/layout.tsx	1	27	逐行与已审 tpl-app/tpl-web-frontend/app/app/layout.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
 78de46423a80f3b7561edb6c2b80775cb0abcbf9	knowbase-app/knowbase-web-frontend	app/app/layout.tsx	1	27	逐行与已审 tpl-app/tpl-web-frontend/app/app/layout.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
 4903833d18df4441e221208f91ab2fa03c6297ed	knowbench-app/knowbench-admin-frontend	app/components/platform/public-home.tsx	1	46	逐行与已审 knowbase-app/knowbase-web-frontend/app/components/platform/public-home.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+b530b3a216c7ac0fc7932d2263e25f750b9a564d	knowbench-app/knowbench-web-frontend	app/components/workbench/formal-method-panel.tsx	1	68	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+1ed5fc2e6d2ae70f7e5d9a72f6a699d6e08fcd6f	knowbench-app/knowbench-web-frontend	app/components/workbench/formal-method-selection.tsx	1	135	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+48e46b85338fd32568b55850e8e9bfe848169bf5	knowbench-app/knowbench-web-frontend	app/components/workbench/method-connection-preview.tsx	1	32	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+d2ac63cd6c195ee9279b3fdcfa8c008dc9946c4f	knowbench-app/knowbench-web-frontend	app/components/workbench/planning-methods.tsx	1	262	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+51c3d076b60492812dd86141cdf28822eee63dc9	knowbench-app/knowbench-web-frontend	app/tests/component/formal-method-panel.test.tsx	1	225	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+576ecaebfea13043f720c0af21c9ab05b041b12a	knowbench-app/knowbench-web-frontend	app/lib/workbench/formal-methods.ts	1	148	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+c69d7b4124e3f0bed7b41b8147e6e4c83de88848	knowbench-app/knowbench-web-frontend	app/lib/workbench/formal-method-reference.ts	1	16	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+1bf530a8361c3a899dd608c94464b277c6cfe2a5	knowbench-app/knowbench-web-frontend	app/lib/workbench/method-skill-center.ts	1	179	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+8fdbcfc83cfcd49061004842e45c20ac37340b53	knowbench-app/knowbench-web-frontend	app/features/expert/ui/branch-route-screen.tsx	1	230	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+be910b41836689433253956cf60b0d1cc3ac3ef5	knowbench-app/knowbench-web-frontend	app/features/expert/ui/partial-delivery.tsx	1	65	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+70ed235c12cb34ec1795d86cbd0944218c247820	knowbench-app/knowbench-web-frontend	app/features/expert/ui/formal-handoff.tsx	1	109	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+6ca93abf0114f1200c9c121229043650725567d4	knowbench-app/knowbench-web-frontend	app/features/expert/ui/review-decisions.tsx	1	196	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+4470a61d8a6eb44fcc49c7cb3467e35578014750	knowbench-app/knowbench-web-frontend	app/features/methods/ui/method-skill-center-sources.tsx	1	239	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+15aee5d3b99f6ed0e7a9dc498dd9ff0b866bbe66	knowbench-app/knowbench-web-frontend	app/components/common/request-failure.tsx	1	31	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+254261724e51f8fd071acb2a1ad6c19099dd891c	knowlab-app/knowlab-web-frontend	app/components/knowbots/method-directory.tsx	1	236	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+5beb0a088ff08f82907934da0f048c94051f1960	knowlab-app/knowlab-web-frontend	app/tests/component/method-directory.test.tsx	1	88	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+ad967e900c3d47db0e4fdacdfcccbaa8559da967	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-method-freeze.tsx	1	248	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+f56fe335cd848ccee39ac03e66d36213fd9263ac	knowlab-app/knowlab-web-frontend	app/components/knowbots/revise-form.tsx	1	35	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+cf020fa6823b183d459a862a5fca5ec4084e1149	knowlab-app/knowlab-web-frontend	app/tests/component/author-method-freeze.test.tsx	1	177	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+6f6a8f856accd89578f4dd0ffad1ade49562b9c7	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-planning.tsx	1	227	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+0400ec8d6d2359aff69d11cd87b3c72b8405720a	knowlab-app/knowlab-web-frontend	app/lib/knowbots/methods.ts	1	101	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+da514958461ce097a161e102ceb2a25327339ccb	knowlab-app/knowlab-web-frontend	app/components/knowbots/branch-review-form.tsx	1	232	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+5a5160c730467e2620ad40b519da72feb2564893	knowlab-app/knowlab-web-frontend	app/components/knowbots/review-stages.tsx	1	72	核对目录、工具冻结、复核及资料来源操作的请求与结果显示
+c15249363bc8d810342ecae21001cd84e776f505	knowbench-app/knowbench-web-frontend	app/features/expert/ui/temporary-planning.tsx	1	163	核对目录挂载身份和登记页测试上下文
+10da4054a484a0251ef07b0ed29b52972f7a3b2b	knowbench-app/knowbench-web-frontend	app/tests/component/registry.test.tsx	1	115	核对目录挂载身份和登记页测试上下文
+2ab7afcf11685e6d1ae4994f0db254a2d04f79ae	knowbench-app/knowbench-web-frontend	app/features/expert/ui/child-handoffs.tsx	1	199	追踪真实登记正文校验、交接账本、处置门槛、费用与证据显示
+d075f25d5dd2dad38bc79a7121e93c83de7c2d40	knowbench-app/knowbench-web-frontend	app/features/expert/api/handoffs.ts	1	70	追踪真实登记正文校验、交接账本、处置门槛、费用与证据显示
+84d58c3dd348ad3a9203e9e5617a77fb09d4ddc2	knowlab-app/knowlab-web-frontend	app/components/knowbots/partial-trial-result.tsx	1	96	追踪真实登记正文校验、交接账本、处置门槛、费用与证据显示
+f8efc81e6b80a16b4df119b7935f95acba1d0898	knowbench-app/knowbench-backend	app/app/domain/workbench/registry_sources.py	1	55	追踪真实登记正文校验、交接账本、处置门槛、费用与证据显示
+ffb4c47031b0a8b44b344ca2ed1b21c210a5c594	knowbench-app/knowbench-backend	app/app/application/workbench/delegation_receipts.py	1	345	追踪真实登记正文校验、交接账本、处置门槛、费用与证据显示
+d6d0f252dc16e2656e9a4b6ed1dec89d0946a9c5	knowbench-app/knowbench-backend	app/tests/test_delegation_receipts_db.py	1	144	追踪真实登记正文校验、交接账本、处置门槛、费用与证据显示
+3a6356a64c4f07a6fcd37df2ad0b09157c885911	knowbench-app/knowbench-backend	app/app/domain/workbench/states.py	1	150	区分交接中的尝试与整项委托终态
