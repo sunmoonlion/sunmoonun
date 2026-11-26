@@ -2135,3 +2135,53 @@ b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/a
 51620ff026cfa1e2510483c98927189328fc2b0a	knowmart-app/knowmart-backend	app/tests/test_shop_migration_db.py	1	111	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
 c433379e5a3b29df6fc0cb31b5b90bcf5869e7bd	knowmart-app/knowmart-backend	app/tests/test_trade_granted_db.py	1	106	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
 73e27b6affc39c0c8189094fd0e885bc468d7447	knowmart-app/knowmart-backend	app/tests/test_version_held_migration_db.py	1	98	核对持久化端口、市场 DTO、小店展示、运营决定、分批巡检、回滚与报价视图，结合前序分段审完
+563818b8c17d1baa62308a798f893763490818fa	knowmart-app/knowmart-backend	app/app/infrastructure/security/relation_auth.py	1	232	比对已逐行核过的 knowlab-app/knowlab-backend/app/app/infrastructure/security/relation_auth.py，核对调用方、审核上下文、受众及多运行方测试的全部差异
+7124fb3e90f280e8324e419a0d51afc30cfcd125	knowmart-app/knowmart-backend	app/tests/test_relation_auth.py	1	144	比对已逐行核过的 knowbase-app/knowbase-backend/app/tests/test_relation_auth.py，核对调用方、审核上下文、受众及多运行方测试的全部差异
+04f7886241f146c0c22b50ff7ac8a65612730b04	knowmart-app/knowmart-backend	app/app/infrastructure/models/knowbots.py	1	217	核对发布主体、资质、专家、停用状态和空号版约束
+f6703def3d48dec9ab1457c2692ab1a682e17031	knowmart-app/knowmart-backend	app/app/infrastructure/models/market.py	1	356	核对市场数据模型、路由与测试中交付重放、上架与撤回、持有权益、服务身份及分页的实际断言
+282b7a3987dbb4fc68bb74713e602273a054c9e2	knowmart-app/knowmart-backend	app/app/interfaces/endpoints/market_routes.py	1	621	核对市场数据模型、路由与测试中交付重放、上架与撤回、持有权益、服务身份及分页的实际断言
+d59d9e064da9d247d5bbfc8e62f50ea1c437bcd6	knowmart-app/knowmart-backend	app/tests/test_knowbase_library.py	1	292	核对市场数据模型、路由与测试中交付重放、上架与撤回、持有权益、服务身份及分页的实际断言
+ab79bfaa0bab1db4010187b93ca5f98ee673ee05	knowmart-app/knowmart-backend	app/tests/test_knowbot_routes.py	1	449	核对市场数据模型、路由与测试中交付重放、上架与撤回、持有权益、服务身份及分页的实际断言
+d21de331d832cba52d175491f8b7d5d943f2797c	knowmart-app/knowmart-backend	app/tests/test_knowbot_service.py	1	416	核对市场数据模型、路由与测试中交付重放、上架与撤回、持有权益、服务身份及分页的实际断言
+a0e76edd83eb5742bd2189bad95f8d8a46f5e54b	knowmart-app/knowmart-backend	app/tests/test_market_routes.py	1	262	核对市场数据模型、路由与测试中交付重放、上架与撤回、持有权益、服务身份及分页的实际断言
+2a0ff41cbc8ed102b79837edc176f9ea0b80fd9a	knowfeed-app/knowfeed-backend	app/app/infrastructure/models/__init__.py	1	44	与已审 knowmart-app/knowmart-backend/app/app/infrastructure/models/__init__.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+606f00a8227df11355978f3986f727df2ca1e6bb	knowfeed-app/knowfeed-backend	app/app/infrastructure/models/base.py	1	35	与已审 knowbase-app/knowbase-backend/app/app/infrastructure/models/base.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+3dc6ff5a25a4c9edfc11293a0aa743699bbd6301	knowfeed-app/knowfeed-backend	app/app/infrastructure/security/relation_auth.py	1	228	与已审 knowlab-app/knowlab-backend/app/app/infrastructure/security/relation_auth.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+c71fe926ec6965a5206d7c5b20f9a94d19b01fbb	knowfeed-app/knowfeed-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	与已审 knowbase-app/knowbase-backend/app/app/interfaces/http/admin/diagnostics.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+de7911624dfa18a512962c20968f7b791b33d378	knowfeed-app/knowfeed-backend	app/app/interfaces/http/middleware/auth.py	1	176	与已审 knowmart-app/knowmart-backend/app/app/interfaces/http/middleware/auth.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+4328bda1217f4c7926347380dc12600eef8b2838	knowfeed-app/knowfeed-backend	app/app/interfaces/http/routes.py	1	27	与已审 tpl-app/tpl-backend/app/app/interfaces/http/routes.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+c351e742934a656d1a47912f81b54da6b1de8cc6	knowfeed-app/knowfeed-backend	app/scripts/pair_fixture.py	1	206	与已审 knowbase-app/knowbase-backend/app/scripts/pair_fixture.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+50de4ebf9e140e2a2cb25aa83bc5d9fa16f8e84d	knowfeed-app/knowfeed-backend	app/tests/test_architecture_v2_repository_identity.py	1	42	与已审 knowbase-app/knowbase-backend/app/tests/test_architecture_v2_repository_identity.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+1f01b330893985246fde4339dc1830e0bf84ceaf	knowfeed-app/knowfeed-backend	app/tests/test_auth_routes_security.py	1	321	与已审 knowbase-app/knowbase-backend/app/tests/test_auth_routes_security.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+0894522717343e860312617181b2c25c435f8822	knowfeed-app/knowfeed-backend	app/tests/test_auth_service.py	1	547	与已审 tpl-app/tpl-backend/app/tests/test_auth_service.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+507c374c216568c0feb45c4d0be9dc8134808dad	knowfeed-app/knowfeed-backend	app/tests/test_config_security.py	1	162	与已审 knowbase-app/knowbase-backend/app/tests/test_config_security.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+ab594db7659e505bd764010f46ffb45f4ed85e1b	knowfeed-app/knowfeed-backend	app/tests/test_cross_app.py	1	296	与已审 knowmart-app/knowmart-backend/app/tests/test_cross_app.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+f1c00bf2f1a337a60de411115c7f90c15af6aff0	knowfeed-app/knowfeed-backend	app/tests/test_database_config.py	1	32	与已审 knowbase-app/knowbase-backend/app/tests/test_database_config.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+81ce047697481b33fbd343e27b3ce14bba681de5	knowfeed-app/knowfeed-backend	app/tests/test_dormant_capabilities.py	1	178	与已审 knowmart-app/knowmart-backend/app/tests/test_dormant_capabilities.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+8f99e00fadd7782c0e59e3468c3772900ac4c3fe	knowfeed-app/knowfeed-backend	app/tests/test_interaction_contract.py	1	181	与已审 knowbase-app/knowbase-backend/app/tests/test_interaction_contract.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+b0caa23b041e5ffb8873e611856fe20e897970ea	knowfeed-app/knowfeed-backend	app/tests/test_kernel_invariants.py	1	135	与已审 tpl-app/tpl-backend/app/tests/test_kernel_invariants.py 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+eb4fdb12bc0293f4f32521d9cef1f7c57125f9e0	knowfeed-app/knowfeed-backend	mybuild/build-image.sh	1	115	与已审 knowbase-app/knowbase-backend/mybuild/build-image.sh 逐行比对，核对模型注册、依赖配置、服务关系、迁移断言与应用范围差异
+0c5905986097dceb7551d73fde8b422ef94bc66c	knowfeed-app/knowfeed-backend	app/alembic/versions/20260706_0001_info_spider_mvp.py	1	215	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+77c5c3ab7a4c104d0ba5d2f04f2593a72d487281	knowfeed-app/knowfeed-backend	app/alembic/versions/20260707_0002_source_governance.py	1	47	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+317182f40388d41c4d470e6a99377f121dbd668d	knowfeed-app/knowfeed-backend	app/alembic/versions/20260712_0003_auth_identity.py	1	52	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+6a3ef400ec750b9eb5e315f861204e3e11178ccb	knowfeed-app/knowfeed-backend	app/alembic/versions/20260714_0004_delivery_outbox.py	1	86	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+c7323ada89134b63eb3b582f5eb61d0e950e1ed7	knowfeed-app/knowfeed-backend	app/alembic/versions/20260809_0005_outbox_primitives.py	1	102	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+0a3750c846ed94a268b4ea991ff6fc6588d0b767	knowfeed-app/knowfeed-backend	app/alembic/versions/20260811_0006_delivery_outbox_uuid_default.py	1	37	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+0e2f91531c961845d4c9bb798ebc0c68a7bcf1c5	knowfeed-app/knowfeed-backend	app/alembic/versions/20260911_0007_durable_delivery.py	1	73	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+8ee4e5cc6775c0c685a6cced436b1fd635ba68f6	knowfeed-app/knowfeed-backend	app/alembic/versions/20260912_0008_canonical_identity.py	1	75	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+e517c5e916acf42063e3c3e27ee7fd49dbbae499	knowfeed-app/knowfeed-backend	app/alembic/versions/20260913_0009_distribution_identity.py	1	90	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+3b4489c3c1df810048cf95c121472130fd46ca67	knowfeed-app/knowfeed-backend	app/alembic/versions/20260927_0010_security_ingestion.py	1	129	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+8018054881f5d0ed454d7fe78dbc99ca5b4a0bbc	knowfeed-app/knowfeed-backend	app/alembic/versions/20260927_0011_security_dataset.py	1	79	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+e34e5ec2d65ecec70bbdcc5d1adb49ba73afd7c7	knowfeed-app/knowfeed-backend	app/alembic/versions/20260927_0012_security_dataset_registration.py	1	25	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+695246a2e863c6cfa132e61f728754fbdcabd959	knowfeed-app/knowfeed-backend	app/alembic/versions/20260929_0013_security_requests.py	1	204	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+2f06f4b07ed44f3e239f876334283f1cbb364851	knowfeed-app/knowfeed-backend	app/alembic/versions/20261015_0014_knowfeed_rename.py	1	70	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+f44ee84b30a7935b067e17be08345a2d4b4a13e2	knowfeed-app/knowfeed-backend	app/alembic/versions/20261025_0015_auth_user_by_subject.py	1	145	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+4b69f3a78e75dc7420f2540357bb70a2be0fec7d	knowfeed-app/knowfeed-backend	app/alembic/versions/20261027_0016_supply.py	1	169	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+6aa5dfc747581b8a9d62b39f6025ba3eca4e8f47	knowfeed-app/knowfeed-backend	app/alembic/versions/20261027_0017_supply_window_types.py	1	39	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+a564e661dc8bb99aa6ba0adbbe32ab1606c9dfcc	knowfeed-app/knowfeed-backend	app/alembic/versions/20261028_0018_security_directory.py	1	35	核对 0001–0018 原表约束、两种发件箱的去重口径、原文与分发身份、证券采集和订阅建表及降级
+96151dab2c7eae3e5c785365228ce4471c0a2746	knowfeed-app/knowfeed-backend	app/alembic/versions/20261028_0019_drop_security_line.py	1	315	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
+292edecd5d7cc14ea7715e3eb0ec274e54d14c45	knowfeed-app/knowfeed-backend	app/alembic/versions/20261029_0020_supply_catalog.py	1	180	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
+eede56259608306b9d5dbd2b6b6162dc256af8f8	knowfeed-app/knowfeed-backend	app/alembic/versions/20261030_0021_supply_schedule.py	1	147	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
+8dfc6ec7940719b5886fb75bc4143b05666f4911	knowfeed-app/knowfeed-backend	app/alembic/versions/20261030_0022_supply_web_subscriptions.py	1	389	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
+4b86954dac721d07a64dd8c4173e334430aa8e05	knowfeed-app/knowfeed-backend	app/tests/test_drop_security_line_db.py	1	210	核对渠道退役、调度与网页订阅的升级回填及回退，比较旧死信引用及 0018 测试夹具
+16f45602a68a1917dc2ea3e7bc296dbf96fd6b63	knowfeed-app/knowfeed-backend	app/tests/test_schedule_downgrade_db.py	1	209	核对 0021 与 0022 回退状态断言，网址回退原测试仅判证券主体非空
