@@ -2387,3 +2387,12 @@ dc894b9394f53733addebc183c6c503b96a8b752	knowbench-app/knowbench-backend	app/tes
 f50fbdd556e7b0bb01c5a9d28ee4bce3ad3c718b	knowbench-app/knowbench-backend	app/tests/test_workbench_request_data_schema.py	1	60	核验定数据提示、状态机与断线续读的既有测试
 1d7e3271f1791ad3fbf687584aa99fead0aa9de3	knowbench-app/knowbench-backend	app/tests/test_workbench_states.py	1	112	核验定数据提示、状态机与断线续读的既有测试
 74a48859198cd3ecc42d6259e1155f435f90407b	knowbench-app/knowbench-backend	app/tests/test_workbench_stream_loop.py	1	104	核验定数据提示、状态机与断线续读的既有测试
+e4c168dc3cb3c0a0dad4f1b19ea99c527a357770	knowbench-app/knowbench-backend	app/app/domain/workbench/capability_contract.py	1	313	比对各类调用序列化、工具用途与身份配置约束
+3f5b0c6805aa108a714d1479ddd115bdec92fd5b	knowbench-app/knowbench-backend	app/app/domain/workbench/connection_oauth.py	1	145	比对各类调用序列化、工具用途与身份配置约束
+744ad91ed1644700463e3a72d0d91d650ab61a19	knowbench-app/knowbench-backend	app/app/domain/workbench/native_functions.py	1	313	比对各类调用序列化、工具用途与身份配置约束
+33a89a06baf1694b089219ffebe3cff4decf3444	knowbench-app/knowbench-backend	app/app/application/workbench/capabilities.py	1	2585	核对会话能力保存、准备、调用审批、派发、资源读取和撤销收尾
+725c6a1f2186375a0f9505c36e9238cd2918bd6b	knowbench-app/knowbench-backend	app/app/application/workbench/method_authorizations.py	1	459	核验每步同意、继承范围、续授权及到期后的恢复行为
+8749e290ad3e3f7727127f3b300ae110948dc6a6	knowbench-app/knowbench-backend	app/app/domain/workbench/method_authorization.py	1	301	核验每步同意、继承范围、续授权及到期后的恢复行为
+1b987eb2e67a0126945089776eb7a64883fbe2a3	knowbench-app/knowbench-backend	app/app/infrastructure/external/ai_summon_clients.py	1	91	核对跨服务提交回执和模型用量测试夹具
+a4933e5871559593003b786a947580ebbde59284	knowbench-app/knowbench-backend	app/tests/test_ai_summon_clients.py	1	69	核对跨服务提交回执和模型用量测试夹具
+649a874a57a51c2d8db36b58312c1c296fd50d48	knowbench-app/knowbench-backend	app/tests/usage_support.py	1	34	核对跨服务提交回执和模型用量测试夹具
