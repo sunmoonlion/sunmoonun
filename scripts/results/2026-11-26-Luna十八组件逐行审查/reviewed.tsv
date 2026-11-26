@@ -1811,3 +1811,9 @@ faad73ef96251c3d8376ec9131889d6e309c576e	knowlab-app/knowlab-backend	app/app/app
 23f01acd50096ae727a030a02cf4251c66d865d6	knowlab-app/knowlab-backend	app/alembic/versions/20261028_0018_incubations.py	1	181	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
 b03181db7c6ae82307d3af6ee76668038dd72979	knowlab-app/knowlab-backend	app/alembic/versions/20261101_0024_incubation_request_unique_key.py	1	26	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
 7058bd66fe194d527adf11d0fde8389eca293c70	knowlab-app/knowlab-backend	app/alembic/versions/20261102_0025_author_methods.py	1	85	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
+c43bd91c9028c2583dcc0a722a96a0b32f634246	knowlab-app/knowlab-backend	app/app/domain/knowbots/incubation.py	1	444	核对孵化请求、来源限制、工作稿/交回的完整模型与时序状态
+05588445a1a16c4ae043c887f0f4429775eb0ee5	knowlab-app/knowlab-backend	app/app/application/services/knowbot_incubation.py	1	993	逐行核对发起、答复打包、运行方结果落库、批量刷新与逐格接受
+a1a0610c7a5953cbb162a0422ddd7a5f92123224	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_service.py	1	694	核对起草和修改的证据、接受建议时机、旧回执与答复的全部既有断言
+2a93df68b0deb8d3587f690772f06a1547f6d392	knowlab-app/knowlab-backend	app/app/domain/knowbots/schema.py	1	163	核对孵化签名发布格式、JSON Schema 样例、原话回读及建议变更领域用例
+2e32723ea879adca4f5c7617d568bae5484d36bd	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_contract.py	1	330	核对孵化签名发布格式、JSON Schema 样例、原话回读及建议变更领域用例
+77d09f35d36f849e0a4d77cc28342ee2282d54a2	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_rounds.py	1	155	核对孵化签名发布格式、JSON Schema 样例、原话回读及建议变更领域用例
