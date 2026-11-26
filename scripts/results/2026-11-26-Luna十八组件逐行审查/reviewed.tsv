@@ -164,3 +164,7 @@ e32e1624458292d96d99d1d8439aabf9aafe2328	knowlab-app/knowlab-admin-frontend	app/
 82cfffd7908a802323d1327a50c74c8fef67e5bf	knowlab-app/knowlab-backend	app/app/domain/knowbots/amendment_usage.py	1	65	旧补充采用需作者 edit/accept 记录，核路径、工作稿、主体及对应方法中的逐字文本。
 c6fb33cbce99f598d7e7d5f85e054e3d61e7194c	knowlab-app/knowlab-backend	app/app/domain/knowbots/platform_grants.py	1	68	孵化及测试授权上限均为 1000 元；过期态按当前时间计算。
 5310024c254fc8a10f58eca1f99480e0b0b43d0f	knowlab-app/knowlab-backend	app/app/domain/knowbots/manual_release.py	1	46	人工例外须基线测试、清单摘要、理由、限制和明确承认未经复测，另有审批决定。
+4f7f3afb73e5915715dfbcde8c22028cf21af755	knowlab-app/knowlab-backend	app/app/application/services/knowbot_platform.py	1	282	授权、续期、收回、交还、轻受理。收回有在途运行时批量更新使用仓储不接受的字段。
+1d1e74161ac36ae9370b9248fb5e340817551d74	knowlab-app/knowlab-backend	app/app/application/services/knowbot_grants.py	1	50	运营权按有效期核算；自助受理与交付审核另有各自依据。
+746f8c06f0a0bbb25574a2b44e585f4a609d6cca	knowlab-app/knowlab-backend	app/app/domain/knowbots/lifecycle.py	1	220	受理、用户审核、测试、交回、上架及停用状态与双端分类。运行方取消映射到平台测试错误。
+21e5ebf40c0fd0e68acbf6d05b88476a843aa444	knowlab-app/knowlab-backend	app/tests/test_knowbot_platform.py	1	232	覆盖过期续期、交还、无在途孵化轮的收回、待开测试撤销。未覆盖正在排队时收回。
