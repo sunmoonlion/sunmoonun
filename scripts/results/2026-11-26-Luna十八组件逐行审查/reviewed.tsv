@@ -1791,3 +1791,11 @@ afb7076b40682ae9b3cb1ccc03fc4fd1a7abe444	tpl-app/tpl-backend	app/tests/test_cros
 5001053f682708fbd7490e2b5550cd480c969baa	tpl-app/tpl-backend	app/tests/test_session_config.py	1	83	核对配置、数据库会话选项及显式刷新测试
 1b6571dd15b79d5d4dd654b78185f23222b92ea3	tpl-app/tpl-backend	app/tests/preview_recorder.py	1	159	逐行核验预览录制、重录覆盖、请求身份和固定编号测试
 05e07fc30c6fa60fc39cb6ebeca4bbd8851ec5dd	tpl-app/tpl-backend	app/tests/test_preview_recorder.py	1	112	逐行核验预览录制、重录覆盖、请求身份和固定编号测试
+e9b2285d80fd88df8206b5c3285d73f6c1adf64f	tpl-app/tpl-backend	app/tests/test_dormant_capabilities.py	1	147	核对登录失败类别、显式切换账号、模板休眠能力和服务调用断言
+c954b45bfbd2943fe27d0a2e24e85c3e504549cf	tpl-app/tpl-backend	app/tests/test_downstream_service.py	1	72	核对登录失败类别、显式切换账号、模板休眠能力和服务调用断言
+1329d5a55e18b1249d646e1d030b8e1c740189a7	tpl-app/tpl-backend	app/tests/test_login_recovery.py	1	172	核对登录失败类别、显式切换账号、模板休眠能力和服务调用断言
+d1cf4a676d93911b5169dd1fefbf735feffc928f	tpl-app/tpl-backend	app/tests/test_broker_topology.py	1	51	核对队列绑定、守护超时、真实消费端就绪和路由恢复的测试边界
+d1b8ef1e213eee8e42a3a962060bd1dd081d569b	tpl-app/tpl-backend	app/tests/test_worker_readiness.py	1	195	核对队列绑定、守护超时、真实消费端就绪和路由恢复的测试边界
+29a5ba08fa7c4c3817b56e85b833740f25d582ba	tpl-app/tpl-backend	app/tests/test_worker_readiness_broker.py	1	138	核对队列绑定、守护超时、真实消费端就绪和路由恢复的测试边界
+8f2a5649c154b4cf919c2e18957e2b71f39dcec2	tpl-app/tpl-backend	app/scripts/pair_fixture.py	1	204	核对双前端配对夹具真实响应与事件流
+306448016bd05c9e2ae3b19ad8b3e1174370c65b	tpl-app/tpl-backend	app/tests/test_logging_policy.py	1	103	复核独立子进程中四类角色的日志断言及 SQL 参数显示策略
