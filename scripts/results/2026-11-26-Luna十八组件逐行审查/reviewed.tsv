@@ -1876,3 +1876,12 @@ a325b9a37359a1d3f3b2bdf7ed1c211327f578f0	knowlab-app/knowlab-backend	app/tests/t
 3d3f4f858f5bf236aa91f17c0c2d9a1be617e1aa	knowlab-app/knowlab-backend	app/tests/test_knowbot_clients.py	1	476	逐行核对运行方测试、孵化、市场交付与状态回执，以及真实数据库的审核交付、迁移及待补偿查询
 fc6aa7cf18ed94c91958ee4ae7800b31b354f0a4	knowlab-app/knowlab-backend	app/tests/test_knowbot_deliveries_db.py	1	253	逐行核对运行方测试、孵化、市场交付与状态回执，以及真实数据库的审核交付、迁移及待补偿查询
 32916759002ff6cbeaf6f1ba7a47a883bb8e1f87	knowlab-app/knowlab-backend	app/tests/test_knowbot_experts.py	1	1421	核对自用交付与公开审核，撤回、补偿与同步并发测试
+555ad0639a301f1a44c25cf3b514432f95cdf49a	knowlab-app/knowlab-backend	app/app/application/ports/knowbots.py	1	1181	核对作者数据对象、市场交付回执协议及跨应用关系鉴权
+c6486a55240badc786f88c957e9697f5f1ba92b8	knowlab-app/knowlab-backend	app/app/infrastructure/security/relation_auth.py	1	238	核对作者数据对象、市场交付回执协议及跨应用关系鉴权
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	1	1639	核对逐版受理、自助切换、作者测试和市场重跑的状态关系
+aa24453ca89f653cddafe864475788df5c52d02a	knowlab-app/knowlab-backend	app/app/domain/knowbots/__init__.py	1	4	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
+c587f90a48a7cac9f8c64e3336cd92d2c4c67a9e	knowlab-app/knowlab-backend	app/app/infrastructure/models/__init__.py	1	22	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
+c909d9148867cb2ce41b67448b9c05ac7fa094f8	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/__init__.py	1	1	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
+f03ae2f9ac20e01f5142357bf37152896ef5f457	knowlab-app/knowlab-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
+dacacdf0462b5b021313b5aa80964eeaa6a9cf1f	knowlab-app/knowlab-backend	app/app/interfaces/http/middleware/auth.py	1	208	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
+2069d230587768a45eeb6b8f82b84132f44c9d6a	knowlab-app/knowlab-backend	app/app/interfaces/http/routes.py	1	28	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
