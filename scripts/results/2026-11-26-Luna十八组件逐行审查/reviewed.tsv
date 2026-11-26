@@ -1120,3 +1120,10 @@ af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/a
 9dab56511c3a75d9c1e28f4eca785da3c8c5f723	knowfeed-app/knowfeed-admin-frontend	app/app/[locale]/(dashboard)/knowfeed/queue/page.tsx	1	29	四个运营页核对角色、语言与元数据；供应查询契约、轮询、缓存刷新及写操作。
 702afdb3c18c7047331f30e67fad2507d2efbc78	knowfeed-app/knowfeed-admin-frontend	app/app/[locale]/(dashboard)/knowfeed/sites/page.tsx	1	29	四个运营页核对角色、语言与元数据；供应查询契约、轮询、缓存刷新及写操作。
 8719529db46c50cf78ccbdbf73aae189fc076d68	knowfeed-app/knowfeed-admin-frontend	app/features/supply/api/supply.ts	1	188	四个运营页核对角色、语言与元数据；供应查询契约、轮询、缓存刷新及写操作。
+d19a7eddbdc6c7fc3a512c1a12edd1c094c8753a	knowfeed-app/knowfeed-admin-frontend	app/contracts/supply.ts	1	220	核对队列概况、列表与详情查询、再排操作及业务数据契约。
+ec4c6f3fd3af6a52e9ac5b7c09722834f7853001	knowfeed-app/knowfeed-admin-frontend	app/features/supply/ui/queue-panel.tsx	1	207	核对队列概况、列表与详情查询、再排操作及业务数据契约。
+52fbd841c4cd9990407f99d3371c7ddc1eec100f	knowfeed-app/knowfeed-backend	app/app/application/supply/monitor.py	1	68	队列列表限量、运行中作业的恢复条件及仓储锁。
+17633b9c8f859f4f8f384bde8864da9401d97213	knowfeed-app/knowfeed-backend	app/app/interfaces/http/admin/supply.py	532	588	队列列表限量、运行中作业的恢复条件及仓储锁。
+c4d76f5820bba91e70c8dde533b1c8f703b32af0	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply_catalog.py	594	731	队列列表限量、运行中作业的恢复条件及仓储锁。
+47a20231312722bb3109e56da8a24e4218611235	knowfeed-app/knowfeed-admin-frontend	app/tests/component/supply-panels.test.tsx	1	90	核对请求捕获、时钟、队列用例与重排目标。
+47a20231312722bb3109e56da8a24e4218611235	knowfeed-app/knowfeed-admin-frontend	app/tests/component/supply-panels.test.tsx	263	346	核对请求捕获、时钟、队列用例与重排目标。
