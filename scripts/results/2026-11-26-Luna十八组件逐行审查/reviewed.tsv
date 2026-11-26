@@ -1325,3 +1325,12 @@ ea563728c487ba156aac4c53cef2f4df9f75365e	knowbench-app/knowbench-web-frontend	ap
 9923c4dc6a395dd8a7ec2fc0ea5421aa69c330a6	knowbench-app/knowbench-web-frontend	app/lib/workbench/link-side.ts	1	19	核对本地与远程文件读取、目录归属与大小写语义、预览导出及文件树组件测试
 0bb1037f739dffb043070f2879f5c4654df7560c	knowbench-app/knowbench-web-frontend	app/lib/workbench/local-agent.ts	1	447	核对本地与远程文件读取、目录归属与大小写语义、预览导出及文件树组件测试
 3528fe64e38e356d1e1c7206b48c48a4bd91d6e5	knowbench-app/knowbench-web-frontend	app/tests/component/file-tree.test.tsx	1	296	核对本地与远程文件读取、目录归属与大小写语义、预览导出及文件树组件测试
+cf2b5e919f7da5860060f9011ed5b231d519c965	knowbench-app/knowbench-web-frontend	app/features/expert/api/formal-expert.ts	1	379	逐项核对正式请专家、即时草图、部分领取、回炉及值守客户端的请求与响应契约
+66cbc39fdca59c5e6fdb2c7f6472b463257214bb	knowbench-app/knowbench-backend	app/app/application/workbench/ordinary_partial_delivery.py	1	141	核对中断任务逐支领取的适用门槛、证据、承诺映射和回执
+950ecf27cd3fdb9d417e4840dd356a601c8cdfd3	knowbench-app/knowbench-web-frontend	app/components/workbench/activity-line.tsx	1	34	核对运行中活动提示、连接电脑导航、改动文件和按专家委托呈现的底稿
+90561c8b91bb30fbca20f54d7bfc44c26ee4c633	knowbench-app/knowbench-web-frontend	app/components/workbench/changes-panel.tsx	1	72	核对运行中活动提示、连接电脑导航、改动文件和按专家委托呈现的底稿
+5cd46caccf79aa4df0b54d6ac212b1f60b130172	knowbench-app/knowbench-web-frontend	app/components/workbench/connect-computer.tsx	1	19	核对运行中活动提示、连接电脑导航、改动文件和按专家委托呈现的底稿
+ea1a91dd5a49afb08bf6d2e8a90eec1f4f0cdf39	knowbench-app/knowbench-web-frontend	app/components/workbench/dossier-panel.tsx	1	82	核对运行中活动提示、连接电脑导航、改动文件和按专家委托呈现的底稿
+170d098573c99a437e03e9b83b48fe212f21d575	knowbench-app/knowbench-backend	app/tests/test_ordinary_partial_delivery_db.py	1	125	核对中断汇合后领取的数据库测试，覆盖超时、撤权、摘要变化和并发领取，正例只有无适用承诺的分支
+1ff54e99baa44772e689e4245a9b1a50894dfa48	knowbench-app/knowbench-web-frontend	app/components/workbench/side-panel.tsx	1	246	核查侧栏初始状态、历史改动自动弹开、文件选择和打开路径
+f54fac6fc9189f09778020bce94942d1b7b827aa	knowbench-app/knowbench-backend	app/tests/formal_plan_support.py	1	198	核查测试供给的固定方法、真实审批与结算、冻结依赖、两步编排、请求验证和用例保真
