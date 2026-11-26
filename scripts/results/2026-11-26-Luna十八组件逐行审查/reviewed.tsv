@@ -258,3 +258,27 @@ e47039512306d84bcf79ec669460b7442b230ed3	tpl-app/tpl-web-frontend	app/tests/unit
 8d02955e29b1abcb8f17423a846d75bc181f3b8a	knowlab-app/knowlab-web-frontend	app/lib/interaction/use-run-projection.ts	1	114	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
 8d02955e29b1abcb8f17423a846d75bc181f3b8a	knowmart-app/knowmart-web-frontend	app/lib/interaction/use-run-projection.ts	1	114	与模板逐项对照：四端省略过期会话订阅，KnowBench 增加取消操作；补读依赖相同快照对象的机制相同
 51cc33d3ab5106684ec3ff0b772d41dd5899abe3	knowbench-app/knowbench-web-frontend	app/components/research/research-workspace.tsx	1	274	按运行号挂载的研究页面；已取消仍按 required_action 渲染，确认问题影响范围
+ecfb28450e81d32060ca8f41886c037c5727f873	tpl-app/tpl-backend	app/app/infrastructure/messaging/durable_delivery.py	1	208	发布认领、发布结果及租约过期后协调与死信
+335c49fed523ca0ecc9e36b0a6791cc3aa530af3	tpl-app/tpl-backend	app/app/infrastructure/messaging/delivery_handlers.py	1	7	注册表决定可认领主题
+e78e732924195f79c21bb41607541f81261f0692	tpl-app/tpl-backend	app/app/infrastructure/messaging/durable_tasks.py	1	226	按聚合键占执行权，事务内执行业务与确认
+f9c70b66d8294761ae5110158751fc84d16ff29e	tpl-app/tpl-backend	app/app/infrastructure/messaging/delivery_schedule.py	1	13	到期头与数据库表达式
+d4e84933b506224d5b175497f9116cbca33f3f2d	tpl-app/tpl-backend	app/app/infrastructure/messaging/delivery_schema.py	1	31	执行权、死信和传输表约束
+801e91de1784eac097454053ccadd961048e67cd	tpl-app/tpl-backend	app/app/infrastructure/messaging/scheduler_activity.py	1	148	调度器活动观测
+0ea7ee6495678ec349e1f43d6475bfd6dee2710b	tpl-app/tpl-backend	app/app/infrastructure/messaging/delivery_observers.py	1	8	服务观测注册
+957e1ee0ef8681d1810d873ff1a6d9d4dfab64e4	tpl-app/tpl-backend	app/app/infrastructure/messaging/delivery_observation.py	1	183	数据库采样及指标呈现
+694f02115db4aa67b169b7c2d96de474a6bb920f	tpl-app/tpl-backend	app/app/tasks/durable_delivery.py	1	67	周期发布、消费和数据库资源释放
+b339daf0fd226b7fd49fd776d5ee78479d45989b	tpl-app/tpl-backend	app/app/infrastructure/repositories/outbox.py	1	180	幂等意图、延期与发布批次
+48b5e4c069f6a54642cc7318451ff54fa3ece3d8	tpl-app/tpl-backend	app/app/infrastructure/models/outbox.py	1	60	消息表、索引及租约字段
+54e72ab2c2ca0b10c014fac406484280b01fcc0f	tpl-app/tpl-backend	app/app/application/ports/outbox.py	1	27	入队与批次存储接口
+aa0ac4fa8efe06c4432f4c09ecc58cf78c5148d2	tpl-app/tpl-backend	app/app/application/dto/outbox.py	1	86	输入限制、保留头与调度规范化
+130f0177d4a0f05fadfc7585129a73555a5c689f	tpl-app/tpl-backend	app/app/cli/durable_delivery.py	1	54	死信重放命令
+805ab4c7ec5f1045808d0bb4d4707878bcdc90d3	tpl-app/tpl-backend	app/app/cli/delivery_metrics.py	1	49	交付观测命令
+54979b415c544c3c4a85f2d127c8ec0fc9941f5d	tpl-app/tpl-backend	app/app/cli/scheduler_activity.py	1	24	调度器活动命令
+2d7ffbbe339d2cecc595b9a1558d8b15e22523ea	tpl-app/tpl-backend	app/app/interfaces/http/internal/delivery_metrics.py	1	48	观测权限、单进程并发限制与异常后的释放
+63cdddee64b1345e03a75f7302f9b782a661024d	tpl-app/tpl-backend	app/app/bootstrap/worker.py	1	7	启动时强制校验 broker
+33c9c7909194d774587e2d61774c62a22f8464b6	tpl-app/tpl-backend	app/app/bootstrap/scheduler.py	1	10	注册活动观测调度器
+597e9a80e4bc9f79bdf9e1e8a4406051ed37368f	tpl-app/tpl-backend	app/app/worker.py	1	113	队列路由、序列化和周期调度
+299f2fb8806350b98f3c0c0dfa6d304088accf59	tpl-app/tpl-backend	app/tests/test_durable_delivery_db.py	1	314	PostgreSQL 事务、崩溃、租约与幂等用例
+147d5a07c0ef97f40a36d6c6b3a35edb3eab41cd	tpl-app/tpl-backend	app/tests/test_delivery_schedule.py	1	294	调度与重试分离，后继任务及业务回执原子提交或回滚
+7e97df39ffd06a30448856018e20b7231c878e4a	knowbase-app/knowbase-backend	app/app/infrastructure/messaging/delivery_handlers.py	1	30	核对实际业务处理器与模板投递链的关系
+5585c1faa77f07838a20c929888f4a50adc2fbbe	knowfeed-app/knowfeed-backend	app/app/infrastructure/messaging/delivery_handlers.py	1	78	核对实际业务处理器与模板投递链的关系
