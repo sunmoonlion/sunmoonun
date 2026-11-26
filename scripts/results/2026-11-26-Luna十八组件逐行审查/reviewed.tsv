@@ -1484,3 +1484,8 @@ eb11021af3528b902646b0ced1ee1190e8ee635b	knowbench-app/knowbench-backend	app/ale
 5f6e3d4a975a536c13dc6cd1643b0b185d4a5882	knowbench-app/knowbench-backend	app/tests/test_data_planning_flow_db.py	1	186	核对试跑与执行轮迁移、资料规划夹具以及执行中止和线程隔离的覆盖
 2b430b48ac53c6e0ba801fc80fce2451d3ee2bae	knowbench-app/knowbench-backend	app/tests/test_data_planning_runner_db.py	1	284	核对试跑与执行轮迁移、资料规划夹具以及执行中止和线程隔离的覆盖
 de466eac469d6aa86c0f5a2e2f3b92bbfb4cdcf0	knowbench-app/knowbench-backend	app/app/application/workbench/runner.py	773	1134	核对线程事件聚合、早到消息接收、目录隔离、输出恢复与等待回执
+de466eac469d6aa86c0f5a2e2f3b92bbfb4cdcf0	knowbench-app/knowbench-backend	app/app/application/workbench/runner.py	1135	3290	核对回合停机确认、权限与人工答复回传、租约接管和任务恢复、会话启动等路径
+301861cba9bb0de3a37be9702df357a9a3df7c8e	knowbench-app/knowbench-backend	app/tests/test_workbench_runner_db.py	1497	1705	等待时限、问题生命周期与服务表单默认值测试
+301861cba9bb0de3a37be9702df357a9a3df7c8e	knowbench-app/knowbench-backend	app/tests/test_workbench_runner_db.py	2166	2341	核对取消后的答复投递、问答记录与停机等待
+070222182704ebca4d6751b48a2072e7a7fa47d8	knowbench-app/knowbench-backend	app/app/application/workbench/ledger.py	1540	1740	逐行对照决定核验、写入事件、追加预算和返回运行视图
+de466eac469d6aa86c0f5a2e2f3b92bbfb4cdcf0	knowbench-app/knowbench-backend	app/app/application/workbench/runner.py	1	772	连接与代际、阶段配置、用量重报、模型上下文注入与事件入库顺序
