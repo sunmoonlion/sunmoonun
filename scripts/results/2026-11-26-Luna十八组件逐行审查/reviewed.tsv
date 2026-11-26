@@ -1565,3 +1565,11 @@ e7e9a9776444c99f11c161b377d917d0e1c57de8	knowbench-app/knowbench-backend	app/app
 48e71e3276b0ac97924be582c171361e106316ec	knowbench-app/knowbench-backend	app/app/application/workbench/script_budget.py	1	170	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
 2939d5485956bd09b65cad71fbd18c22f3623a63	knowbench-app/knowbench-backend	app/tests/test_formal_script_execution_db.py	1	972	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
 1f2ec4824ce6297d18d75d06263a495e6ad906e9	knowbench-app/knowbench-backend	app/tests/test_script_budget_db.py	1	95	核对脚本预算预留释放、回执缺失、停止重试、冻结门槛、组合脚本计量与数据库迁移
+099a2b86fad40b99a6094864fd6eaae404f3fdab	knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_calls.py	1	237	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
+45a1a16f2fe5b2fe9bd4af369a992419a7ced3b8	knowbench-app/knowbench-backend	app/app/application/workbench/formal_session_tools.py	1	160	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
+a578a814129dfeb086476df83d764612b8ee5d83	knowbench-app/knowbench-backend	app/tests/test_formal_method_calls_db.py	1	422	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
+a7943786a8d2af41add613bd4afa4c4d45609c46	knowbench-app/knowbench-backend	app/tests/test_formal_model_catalog_db.py	1	274	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
+860c18225cfa741d432b90685156ab78c3a395a9	knowbench-app/knowbench-backend	app/tests/test_formal_session_tools.py	1	86	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
+080b483c7d4e4df5694cb6173e511add4011e064	knowbench-app/knowbench-backend	app/tests/test_formal_session_tools_db.py	1	158	核对模型试跑与普通会话的工具接口生成、调用身份、审批、目录资格测试及回执保留
+b776258b93ab302a83145d0da1e814c431a39981	knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_evidence.py	1	473	核对模型回合原始事件、计量和冻结后的再次验证；对照异步计量到达顺序
+ecdf86edf50fd594863ab4cfa97680bc4f2e0830	knowbench-app/knowbench-backend	app/tests/test_formal_model_evidence.py	1	542	核对模型回合原始事件、计量和冻结后的再次验证；对照异步计量到达顺序
