@@ -172,3 +172,12 @@ a0e1744f15e72848838fa03a9e4a9e655ed96614	knowlab-app/knowlab-backend	app/app/dom
 bfefe59b9a6cf678c8f9bc44a3e7cf539330a7cd	knowlab-app/knowlab-backend	app/app/domain/knowbots/supply_status.py	1	63	KnowFeed 状态事件契约含所属应用、主体、需求单、任务与条目；消费者应按单号复查当前状态。
 634c04712e9ea96eca7f0f718ede423f269a8dca	knowlab-app/knowlab-backend	app/app/interfaces/http/internal/supply_status.py	1	51	集群内 KnowFeed 通知仅传单号与所属用户给业务层重新查询；未配置服务时直接 204。
 fe1e199c35662f2ff9636fc4607db29f9b64951d	knowlab-app/knowlab-backend	app/app/application/services/knowbot_test_data.py	333	379	每个通知扫描所有在测任务并逐个取问题，再按单号、归属过滤。需测大规模在途时的查询成本；收尾逐笔尝试撤销用例授权。
+fe1e199c35662f2ff9636fc4607db29f9b64951d	knowlab-app/knowlab-backend	app/app/application/services/knowbot_test_data.py	1	586	从资料提问到补采回调、固化用例和逐例签发；复现 B17/B18
+563b597234db324663fa03d97640952e7bcde3b1	knowlab-app/knowlab-backend	app/tests/test_knowbot_test_data.py	1	458	核对补采、超时与测试集的替身和现有断言，用同一 fixture 复现实验
+90f62219fffd8b1bc59c9748b414a1a6f338e9cf	knowlab-app/knowlab-backend	app/app/domain/knowbots/data_plan.py	1	179	逐项处理已选、待补和歧义；两种读法在同一原件版本上碰撞，见 B19
+a56b64e576b00438387c84c350072f1f8b8564bf	knowlab-app/knowlab-backend	app/app/domain/knowbots/data_request.py	1	200	核对请求、期间、必填与读法字段；双端相同部分对照，另读声明差异
+dbbc1bf01a1c94b3a2571d11b5b66156efc38d56	knowbench-app/knowbench-backend	app/app/domain/workbench/data_plan.py	1	257	逐项处理已选、待补和歧义；两种读法在同一原件版本上碰撞，见 B19
+1bdf9ecdeb056f2cb157a2a9e504ac8daeba688f	knowbench-app/knowbench-backend	app/app/domain/workbench/data_request.py	1	212	核对请求、期间、必填与读法字段；双端相同部分对照，另读声明差异
+3950184693c2ce01892c4540c423831fe16b235b	knowbase-app/knowbase-backend	app/app/interfaces/schemas/user_runs.py	1	209	核对授权依据、用途、有效期、原件和读法分别钉版的输入输出
+2e864c99ee42caf9b6ad0d6f1c731019f6562036	knowbase-app/knowbase-backend	app/app/application/services/user_resolution_service.py	433	481	按 reading 检索该版本最新 ready 读法并回填其摘要
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	929	945	记录测试失败时收不到已签发的部分授权列表
