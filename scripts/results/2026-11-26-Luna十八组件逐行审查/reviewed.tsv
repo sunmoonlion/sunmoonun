@@ -1407,3 +1407,13 @@ ae73364b6d52917ece9a1bb8875ead1b54b50ef3	knowbench-app/knowbench-web-frontend	ap
 1ca5ab797dc8106bf6f261f4d63b028d0f581517	knowbench-app/knowbench-web-frontend	app/lib/pane-widths.ts	1	83	核对首帧主题、浏览器恢复、分栏拖动及全局样式清理
 79eff53b85c999995ed3b287351667eff65d13a0	knowbench-app/knowbench-web-frontend	app/lib/preferences-boot.ts	1	5	核对首帧主题、浏览器恢复、分栏拖动及全局样式清理
 11bce60c74fb0d0805fdb768862911ccd2cc9b71	knowbench-app/knowbench-web-frontend	app/lib/preferences.ts	1	97	核对首帧主题、浏览器恢复、分栏拖动及全局样式清理
+c91acd2ba726ae2235292c4af5f2de58b3a4bf7d	knowbench-app/knowbench-web-frontend	app/components/workbench/task-data-panel.tsx	1	710	核对委托资料确认、版本范围、选择撤销、按材料行调整及页面测试
+f2b9825319592fd30e0ed323f9184759b1e7ae3a	knowbench-app/knowbench-web-frontend	app/lib/workbench/task-data.ts	1	198	核对委托资料确认、版本范围、选择撤销、按材料行调整及页面测试
+6436a0a1aa5b496ef75ec52e01609c10f2ee577f	knowbench-app/knowbench-web-frontend	app/tests/component/task-data-panel.test.tsx	1	587	核对委托资料确认、版本范围、选择撤销、按材料行调整及页面测试
+dd383d7e457d3b42993e0cfcba2a254cf65d0c3f	knowbench-app/knowbench-web-frontend	app/tests/component/task-data-refresh.test.tsx	1	47	核对委托资料确认、版本范围、选择撤销、按材料行调整及页面测试
+1764e383aefda0c61c62d7a26fea3905dcacbc42	knowbench-app/knowbench-web-frontend	app/tests/unit/task-data.test.ts	1	166	核对委托资料确认、版本范围、选择撤销、按材料行调整及页面测试
+284572bb728c425a38dedecb187d200c45e72e94	knowbench-app/knowbench-backend	app/app/application/workbench/expert_data.py	1	1434	核对提采、确认、冻结、补采和等待过程中的请求身份与重试
+f551d42a099251629eb79798e861a6ecc6c13524	knowbench-app/knowbench-backend	app/app/interfaces/http/web/workbench_expert.py	355	450	核对网页数据确认、重查和拒绝路由实际携带的范围
+f551d42a099251629eb79798e861a6ecc6c13524	knowbench-app/knowbench-backend	app/app/interfaces/http/web/workbench_expert.py	1	1070	逐项核对委托入口、资料选择、正式方法移交、执行预览和周期责任
+dbb14adb688dad013f533e1ecb73375195677696	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_data_db.py	1	190	阅读数据库集成夹具、解析修订与补采候选构造
+ec57f397bf25975c26399f22754bc5763fb98aa7	knowbench-app/knowbench-web-frontend	app/contracts/workbench-v2.ts	640	848	阅读资料选择与补采回执网页契约及缺省值
