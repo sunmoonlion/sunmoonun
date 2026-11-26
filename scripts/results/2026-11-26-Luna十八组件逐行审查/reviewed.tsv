@@ -777,3 +777,12 @@ af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/a
 6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	1	170	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
 6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	188	279	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
 6cca7228f63ca4f085e06155530123ac14d18414	knowbase-app/knowbase-backend	app/tests/test_registered_data_functions.py	314	341	模型数据函数的登记契约、调用分派、素材权属、原文及表结构读取和 HTTP 验证
+e671a2c1d3072596b25ab44dcd95498f1729bf38	knowbase-app/knowbase-backend	app/app/application/services/call_rate.py	1	22	入库身份、状态、轮询、重试与资料解析偏好路径
+3bc105466ea93b16392398177b8e97477556ae88	knowbase-app/knowbase-backend	app/app/application/services/durable_tasks.py	1	24	入库身份、状态、轮询、重试与资料解析偏好路径
+9474050b4585995b92b2ce2c4d5d4dd39ff60486	knowbase-app/knowbase-backend	app/app/application/services/ingestion_authorization.py	1	47	入库身份、状态、轮询、重试与资料解析偏好路径
+60c293b56863cd38981ca5aa101f7bd1ba3212ca	knowbase-app/knowbase-backend	app/app/application/services/ingestion_execution.py	1	128	入库身份、状态、轮询、重试与资料解析偏好路径
+536b9d10324c90fe4cdc40272021257acee82e54	knowbase-app/knowbase-backend	app/app/application/services/knowledge_ingestion_service.py	1	720	入库身份、状态、轮询、重试与资料解析偏好路径
+2e864c99ee42caf9b6ad0d6f1c731019f6562036	knowbase-app/knowbase-backend	app/app/application/services/user_resolution_service.py	1	808	入库身份、状态、轮询、重试与资料解析偏好路径
+28c63ce7c6fc777089d8d6def6738e70f67fab19	knowbase-app/knowbase-backend	app/tests/test_user_resolution_db.py	1	56	核对资料候选偏好数据库夹具及对照用例
+28c63ce7c6fc777089d8d6def6738e70f67fab19	knowbase-app/knowbase-backend	app/tests/test_user_resolution_db.py	100	187	核对资料候选偏好数据库夹具及对照用例
+28c63ce7c6fc777089d8d6def6738e70f67fab19	knowbase-app/knowbase-backend	app/tests/test_user_resolution_db.py	209	236	核对资料候选偏好数据库夹具及对照用例
