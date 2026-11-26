@@ -1803,3 +1803,11 @@ d1b8ef1e213eee8e42a3a962060bd1dd081d569b	tpl-app/tpl-backend	app/tests/test_work
 c6db0c138a571090c79f5ba97b7c7f4991a476c1	tpl-app/tpl-backend	app/tests/test_service_identity.py	1	81	核对服务主体、绑定范围与真实签名边界的测试替身
 c1c7b1ef33240f0698960444e9b72a252486565b	tpl-app/tpl-backend	app/tests/test_auth_adapters.py	1	240	核对 Redis 原子消费与真实 PostgreSQL 账号迁移、回读夹具
 4dea8a45bfe89e48d54ab1a2c5da6e0de2e892eb	tpl-app/tpl-backend	app/tests/test_auth_routes_security.py	1	321	对照实际问题详情、两套浏览器会话、管理/普通身份和退出路径的 HTTP 回归
+7fa71dd7621f99dc57b2846f857ecc26aa2c06a3	knowlab-app/knowlab-backend	app/alembic/versions/20261120_0028_method_graph_indexes.py	1	65	核查目录分页预算、候选去重、冻结索引、请求动作历史及数据库测试
+d90a98b7c4bc1432bdfa3fad5e91a9d75d611bb1	knowlab-app/knowlab-backend	app/alembic/versions/20261120_0029_method_search_pages.py	1	28	核查目录分页预算、候选去重、冻结索引、请求动作历史及数据库测试
+faad73ef96251c3d8376ec9131889d6e309c576e	knowlab-app/knowlab-backend	app/app/application/services/method_search.py	1	117	核查目录分页预算、候选去重、冻结索引、请求动作历史及数据库测试
+004bc6607a5b566009e9ca59b173ed96b9c97856	knowlab-app/knowlab-backend	app/tests/test_method_search_db.py	1	171	核查目录分页预算、候选去重、冻结索引、请求动作历史及数据库测试
+84a9434d93af15818c7f9ceca4c969e5f0a77944	knowlab-app/knowlab-backend	app/alembic/versions/20261016_0004_knowbots.py	1	83	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
+23f01acd50096ae727a030a02cf4251c66d865d6	knowlab-app/knowlab-backend	app/alembic/versions/20261028_0018_incubations.py	1	181	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
+b03181db7c6ae82307d3af6ee76668038dd72979	knowlab-app/knowlab-backend	app/alembic/versions/20261101_0024_incubation_request_unique_key.py	1	26	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
+7058bd66fe194d527adf11d0fde8389eca293c70	knowlab-app/knowlab-backend	app/alembic/versions/20261102_0025_author_methods.py	1	85	对照申请与试跑历史、孵化轮次及来源唯一性、作者版本不可变约束
