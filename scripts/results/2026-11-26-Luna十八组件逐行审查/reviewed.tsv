@@ -997,3 +997,27 @@ b19117826bd194f73ce5832208ac2c8159b07053	knowlab-app/knowlab-admin-frontend	app/
 171175cbce8bf32809eeeb9f0d509922923a2882	knowbench-app/knowbench-admin-frontend	app/env/client.ts	1	29	逐行与已审 tpl-app/tpl-web-frontend/app/env/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
 28a607c9811f4be9e612f68e7ee4f42a28462aa4	knowlab-app/knowlab-web-frontend	app/app/[locale]/(dashboard)/toolkit/page.tsx	1	27	逐行与已审 knowbase-app/knowbase-web-frontend/app/app/[locale]/(dashboard)/toolkit/page.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
 57cf05e62e3f972c3f1963f3ca519bd5249a1623	knowbench-app/knowbench-backend	app/app/application/workbench/external_claim.py	1	50	外部操作的申请、失败与到期后重领
+807cd8052fc82db27be5a95b74143c2a64c8d15b	knowlab-app/knowlab-backend	app/app/application/services/knowbot_board.py	1	717	核对四栏、有效授权、阶段切换及既有验证
+1d1e74161ac36ae9370b9248fb5e340817551d74	knowlab-app/knowlab-backend	app/app/application/services/knowbot_grants.py	1	50	核对四栏、有效授权、阶段切换及既有验证
+c6fb33cbce99f598d7e7d5f85e054e3d61e7194c	knowlab-app/knowlab-backend	app/app/domain/knowbots/platform_grants.py	1	68	核对四栏、有效授权、阶段切换及既有验证
+ebafd1f1d77e68bdf645207285ba1b7f4ddb2996	knowlab-app/knowlab-backend	app/tests/test_knowbot_platform_routes.py	1	203	核对四栏、有效授权、阶段切换及既有验证
+f5ebfd6bbd03836969012294467da87ecf6da65a	knowlab-app/knowlab-backend	app/tests/test_knowbot_board.py	1	224	核对四栏、有效授权、阶段切换及既有验证
+8b5320f39700e282c105d2cd6ec1b3bce349f065	knowlab-app/knowlab-backend	app/alembic/versions/20261029_0019_platform_grants.py	1	130	核对四栏、有效授权、阶段切换及既有验证
+fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	1190	1265	测试授权、申请和操作可用性对照
+20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	822	924	测试授权、申请和操作可用性对照
+4f7f3afb73e5915715dfbcde8c22028cf21af755	knowlab-app/knowlab-backend	app/app/application/services/knowbot_platform.py	1	114	测试授权、申请和操作可用性对照
+4f7f3afb73e5915715dfbcde8c22028cf21af755	knowlab-app/knowlab-backend	app/app/application/services/knowbot_platform.py	169	282	测试授权、申请和操作可用性对照
+a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	681	701	测试授权、申请和操作可用性对照
+cf580bcd3a0423882d2dd6ae281bf74648949702	knowlab-app/knowlab-backend	app/tests/knowbot_fakes.py	369	384	测试授权、申请和操作可用性对照
+21e5ebf40c0fd0e68acbf6d05b88476a843aa444	knowlab-app/knowlab-backend	app/tests/test_knowbot_platform.py	138	232	测试授权、申请和操作可用性对照
+933aef133bb91e2f8fcb3c5af1de0e9f71ae7106	knowlab-app/knowlab-admin-frontend	app/components/knowbots/acceptance-view.tsx	1	327	运营栏目筛选与导航角标的取值
+d3f5a91b9c4bef33dd46f660214fddefeee4f9fc	knowlab-app/knowlab-admin-frontend	app/components/knowbots/shared.tsx	1	340	运营栏目筛选与导航角标的取值
+f19bddc2f37763cac8fc3c314ed12ddbbf08eb4f	knowlab-app/knowlab-admin-frontend	app/components/knowbots/todo.tsx	1	36	运营栏目筛选与导航角标的取值
+67853504ff35db33629abddcf49e3fe9c96ba84b	knowlab-app/knowlab-web-frontend	app/components/knowbots/self-test.tsx	237	325	过期后再次提交与撤回入口条件
+4f7f3afb73e5915715dfbcde8c22028cf21af755	knowlab-app/knowlab-backend	app/app/application/services/knowbot_platform.py	1	282	从申请、续期到退回与轻受理的完整状态变化
+11118084f0bfbb4198cff277528d5950d0147b6c	knowbench-app/knowbench-web-frontend	app/lib/interaction/client.ts	1	154	逐行与已审 tpl-app/tpl-web-frontend/app/lib/interaction/client.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+39b53bb14549a2863d292772207247dc2c9c8a52	knowlab-app/knowlab-admin-frontend	app/env/server-schema.ts	1	77	逐行与已审 tpl-app/tpl-admin-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+34b5ded86ad7482c65e7b3e8b6d7286ae7e9a25a	knowlab-app/knowlab-web-frontend	app/env/server-schema.ts	1	83	逐行与已审 tpl-app/tpl-web-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+1e5c0ac17cd7592cde0c162ff899df5271bc2bfa	knowbench-app/knowbench-web-frontend	app/env/server-schema.ts	1	83	逐行与已审 tpl-app/tpl-web-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+39a62ddae64ac7d9e0db4f8ebd56274ef582b007	knowlab-app/knowlab-web-frontend	app/components/knowbots/markdown.tsx	1	43	逐行与已审 knowlab-app/knowlab-admin-frontend/app/components/knowbots/markdown.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
+52eacd7e80def9f66c0bf20861b82dff3b9a1b64	knowlab-app/knowlab-admin-frontend	app/lib/navigation.ts	1	107	逐行与已审 tpl-app/tpl-admin-frontend/app/lib/navigation.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
