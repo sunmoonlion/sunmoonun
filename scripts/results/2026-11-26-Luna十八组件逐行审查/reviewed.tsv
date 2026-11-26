@@ -220,3 +220,6 @@ bae2e951214f2f685304dd5c4ff888c013851bd7	knowmart-app/knowmart-backend	app/app/i
 9161a2ab18e1cfbc2932508f2e482e8ae1beee04	knowmart-app/knowmart-backend	app/tests/test_market_db.py	785	946	阅读同键重试及卖家恢复可售的回归；该套件恢复后换键，未验证原失败键
 af8a70f678d844104707ad3b878e917ca84797cd	knowbase-app/knowbase-backend	app/app/application/services/user_library_service.py	1216	1325	购入时冻结当前版本，以及公开持有量查询和管理端检索
 016ab7dde01b5c195a3e0b7e86bd9b5d04f4fe95	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_library_routes.py	986	1018	市场交易在线接口返回版本、许可，未带版本内容摘要
+ab8a3c0aa84e7beedca1bd4c867bcdec67b0ac86	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_library.py	892	976	回执复用发生于 add_holding 内，查既有使用权晚于服务重查是否可售
+d77b403591bb1543be93467684f658dc01faa10b	knowbase-app/knowbase-backend	app/tests/test_user_library_db.py	396	483	核现有持有权幂等、改低许可后的买家读取与平台同意使用旧版本等断言
+81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	1039	1078	资料清除事务中删除读法内容并结束持有权
