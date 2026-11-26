@@ -20,7 +20,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: frontend
-          image: harbor.sunmoonai.com:30443/platform/knowlab-admin-frontend@sha256:f1bcd03485246b1587636f74b98b7d1daff01f7ff20d73d661eef4c42f236d92
+          image: harbor.sunmoonai.com:30443/platform/knowlab-admin-frontend@sha256:43f928c3713631099f020f7406cc443f68c7e56ec13b23109732d01a7b01f0eb
           imagePullPolicy: IfNotPresent
           ports: [{name: http, containerPort: 3000}]
           env:
@@ -29,7 +29,7 @@ spec:
             - {name: AUTH_APP, value: knowlab}
             - {name: APP_ORIGIN, value: "https://knowlab-admin.dev.sunmoonai.com:30443"}
             - {name: BACKEND_INTERNAL_URL, value: 'http://knowlab-api.app-platform-dev.svc.cluster.local:8000'}
-            - {name: DEPLOYMENT_ID, value: "knowlab-admin-frontend-f1bcd03485246b15"}
+            - {name: DEPLOYMENT_ID, value: "knowlab-admin-frontend-43f928c371363109"}
             - {name: HOSTNAME, value: 0.0.0.0}
             - {name: PORT, value: '3000'}
             - {name: REFERENCE_UI_ENABLED, value: 'false'}

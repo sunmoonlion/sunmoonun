@@ -39,9 +39,9 @@ applications:
     admin_revision: 33559e926c3ebb7570716d5bb318b5a014e0d645
   # 2026-10-16 由 tpl-app 4b19daf 实例化的空应用（qwen-003）
   knowlab:
-    parent_revision: 7c18a9e6bc915639c1006652dd2d9bace065437e
-    backend_parent_revision: 7d518645992d2ce26930db5a6cf43ad8082c6172
-    backend_revision: 7d518645992d2ce26930db5a6cf43ad8082c6172
+    parent_revision: 3857400992ae70ea19e0d118e9cf4550a69aaa49
+    backend_parent_revision: 8ddff9028ff360c106597e645f74c9ae86ed9c99
+    backend_revision: 8ddff9028ff360c106597e645f74c9ae86ed9c99
     web_parent_revision: b681780fdcf8446900516e1a2d8f19802aac0eee
     web_revision: b681780fdcf8446900516e1a2d8f19802aac0eee
     admin_parent_revision: 89fe3ac1f6178018186584db7542f11102896381
