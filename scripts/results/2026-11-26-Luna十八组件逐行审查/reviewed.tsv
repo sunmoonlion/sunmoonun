@@ -419,3 +419,7 @@ eebe07e9e67b114944b7e3c4488a78c8e0323e48	knowbench-app/knowbench-backend	app/tes
 82bb2adb62ed9c6dd287e6f55dc9046204e79eb1	knowbench-app/knowbench-backend	app/app/application/workbench/acceptance.py	1	388	确定性验收、数值等价、领域措辞和嵌套条件
 5698f87ef01b03ef55d682b08306f9bfd6c997df	knowlab-app/knowlab-backend	app/app/domain/knowbots/capability_compilation.py	1	220	作者侧可选输入反编译与冻结引用、能力数量及输出验证
 13eec1d0df53741acef50785d800b6a22c39a725	knowlab-app/knowlab-backend	app/app/domain/knowbots/compile.py	456	620	编译工作稿检验覆盖与必经步骤文件冲突
+13eec1d0df53741acef50785d800b6a22c39a725	knowlab-app/knowlab-backend	app/app/domain/knowbots/compile.py	1	1639	作者工作稿编译与重新导入、输出和验收模板、计划与来源约束逐段核对
+67bb3cd65e031c3e9cf08da00b0389d8d60105e6	knowlab-app/knowlab-backend	app/app/domain/knowbots/workdraft.py	1	870	工作稿类型、逐格修改、规范化与出处回查
+5698f87ef01b03ef55d682b08306f9bfd6c997df	knowlab-app/knowlab-backend	app/app/domain/knowbots/capability_compilation.py	1	220	输入槽映射、降级投影、逐项还原与重新编译比较
+4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	602	788	步骤接受与业务规则判断，交叉检查声明类型与持久化结果
