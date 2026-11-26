@@ -1977,3 +1977,15 @@ a556bd069193b5d840df1a0d7a61706fbe20c195	knowbase-app/knowbase-backend	app/alemb
 cd978b2e47021ddcaed1f4257aaabcadb7340bda	knowbase-app/knowbase-backend	app/alembic/versions/20261027_0014_user_data_v4_public.py	1	49	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
 3ad27a6431b28b07a9d9bf426256a256113eef67	knowbase-app/knowbase-backend	app/tests/test_knowledge_retrieval.py	1	310	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
 feefd82d08fcbb7cc55ce2cccb4171c138751e54	knowbase-app/knowbase-backend	app/tests/test_retrieval_migration.py	1	35	资料版本、读取许可、用户确认、公共资料与入库索引回填；对照检索与迁移原有测试。
+8bacd1d174f3b504b553001b3f40d53175ba3732	knowbase-app/knowbase-backend	app/app/application/dto/knowledge.py	1	115	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+6457f38ba2e86b7860cb2c6f1db38df697a3abdf	knowbase-app/knowbase-backend	app/app/cli/provider_receipts.py	1	86	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+520ea716562cfcc5a0a2215c00ee1be0f07fd9e6	knowbase-app/knowbase-backend	app/app/infrastructure/external/artifact_content.py	1	283	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+031acb92d176c1f652f7afba543a9b22070e9fb7	knowbase-app/knowbase-backend	app/app/infrastructure/external/knowledge_provider.py	1	36	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+611e005248bfecf81bbea366d072c10106fdf78d	knowbase-app/knowbase-backend	app/app/infrastructure/models/knowledge.py	1	143	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+5da8eab184eabfb9393588d95cdd165192740cb5	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/knowledge_routes.py	1	191	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+6e5334c419d1c3eea7916baf34c7b60cc0ae2d6f	knowbase-app/knowbase-backend	app/app/interfaces/http/routes.py	1	60	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+46de754a31a62cf6a56b1c64c60e4f9cec873ff0	knowbase-app/knowbase-backend	app/app/interfaces/schemas/knowledge.py	1	21	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+e462a54994ec72a794e82206e4d7af49ad94ca5c	knowbase-app/knowbase-backend	app/app/interfaces/schemas/retrieval.py	1	21	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+84284406e541f15d95c63491f3ebba60f530c6d4	knowbase-app/knowbase-backend	app/app/tasks/knowledge_ingestion.py	1	11	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+74590511b3b64a0b7dcdff3bc86a58a0a524f546	knowbase-app/knowbase-backend	app/tests/test_knowledge_clock_regression_db.py	1	46	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
+3754946abfd2551add218e97640f440d7a794df3	knowbase-app/knowbase-backend	app/tests/test_knowledge_delivery_db.py	1	536	入库 API、状态和资料模型、回执工具、存储版本读取以及持久重试与时钟回归。隔离数据库核对手工状态写入。
