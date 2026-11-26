@@ -2429,3 +2429,33 @@ fb7de9b304cc949909d496a5e48398e8bf8474b5	knowbench-app/knowbench-backend	app/scr
 54f051577c5bc34053b965c232832268b5dff7a5	knowbench-app/knowbench-backend	app/scripts/retire_legacy_finance_pins.sql	1	50	核对运行能力契约导出、凭据轮换及旧财务钉版清理的事务条件
 c0d318baa03553908126de9e5193167b27f13e0c	knowbench-app/knowbench-backend	app/scripts/rotate_connection_keys.py	1	28	核对运行能力契约导出、凭据轮换及旧财务钉版清理的事务条件
 3570f958e5d48e68eb9a030ca9b9765d5321777f	knowbench-app/knowbench-backend	app/scripts/export_capability_contract.py	1	505	核对运行能力的 provider Schema、宿主与模型调用样本和消费端散列
+8748c8d1783b27f516306b5b85dd42eaacd33c0e	knowbench-app/knowbench-backend	app/scripts/probes/codex_capabilities_probe.py	1	550	核对固定版本离线探针的本地模型、事件归属、选型隔离与断言强度
+3ea71028070a288e7f910e9fe83b2f035d71e319	knowbench-app/knowbench-backend	app/scripts/probes/codex_instruction.py	1	299	核对固定版本离线探针的本地模型、事件归属、选型隔离与断言强度
+aad62f7c075d883239de32982dbe4d4238004189	knowbench-app/knowbench-backend	app/scripts/probes/codex_probe_client.py	1	57	核对固定版本离线探针的本地模型、事件归属、选型隔离与断言强度
+913d286bd95b85aadcc6912e5e9ee583e99be6fe	knowbench-app/knowbench-backend	app/scripts/probes/codex_review_models.py	1	123	核对固定版本离线探针的本地模型、事件归属、选型隔离与断言强度
+7c8c30f1afe03a566f6d9246983e089e2ffa5dab	knowbench-app/knowbench-backend	app/scripts/probes/formal_model_isolation_probe.py	1	300	核对固定版本离线探针的本地模型、事件归属、选型隔离与断言强度
+c854f0e693cbbb772ec375d49183fb9ccda39c6b	knowbench-app/knowbench-backend	scripts/probes/codex_mcp_provenance.py	1	381	核对固定版本离线探针的本地模型、事件归属、选型隔离与断言强度
+da4be1ad57296730838eef671f6e0b3d4050dd98	knowbench-app/knowbench-backend	app/tests/agent_test_fakes.py	1	29	核对测试事务替身、HTTP 适配器、内置样例注入、权限与资料试跑的断言
+0c40102e60dacc0369524fe19a51dce5bed45767	knowbench-app/knowbench-backend	app/tests/capability_transport_support.py	1	76	核对测试事务替身、HTTP 适配器、内置样例注入、权限与资料试跑的断言
+5d68922092ad706de7e30198986590d6642d72a4	knowbench-app/knowbench-backend	app/tests/conftest.py	1	60	核对测试事务替身、HTTP 适配器、内置样例注入、权限与资料试跑的断言
+c3c807c0d8d49d33b552e8a1b45e12593e5185d2	knowbench-app/knowbench-backend	app/tests/method_access_support.py	1	22	核对测试事务替身、HTTP 适配器、内置样例注入、权限与资料试跑的断言
+f5cd765ed609dcd9645ac00d1e6e0e990afb4cb4	knowbench-app/knowbench-backend	app/tests/method_plan_fixtures.py	1	52	核对测试事务替身、HTTP 适配器、内置样例注入、权限与资料试跑的断言
+52d265bec6e2dba56d6431c66a3b6303885aeb30	knowbench-app/knowbench-backend	app/tests/ordinary_material_scenario.py	1	119	核对测试事务替身、HTTP 适配器、内置样例注入、权限与资料试跑的断言
+7ac7b173d901e490e97c1c3c24681df18f58ad93	knowbench-app/knowbench-backend	app/tests/test_script_inputs_db.py	1	257	核查 MCP 目录、对账与资料中转，脚本材料权限撤回与绑定，核对实际测试到达的分支
+d3bb6ce7d7c81583993a758417a67cca044a038b	knowbench-app/knowbench-backend	app/tests/test_workbench_mcp_routes.py	1	670	核查 MCP 目录、对账与资料中转，脚本材料权限撤回与绑定，核对实际测试到达的分支
+7ffe0944da3b924fb8215cd70409f74fdf92f7e5	knowbench-app/knowbench-backend	app/tests/test_acceptance_disclaimers.py	1	113	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+0b1340dfa94ed0818d6252d8908be786deea5d46	knowbench-app/knowbench-backend	app/tests/test_acceptance_json_feedback.py	1	63	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+3b95484f2a0759241c4150804819969512d5d121	knowbench-app/knowbench-backend	app/tests/test_acceptance_precision.py	1	76	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+ab516b22bb3ee654b3951010e4d87239c21ae19b	knowbench-app/knowbench-backend	app/tests/test_call_outcomes.py	1	61	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+078ed84b8744aa7b23977e24cbe932d7df385f71	knowbench-app/knowbench-backend	app/tests/test_compute_tool_contract.py	1	33	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+bfa469c171f1914a421c5d601ce76e729b534267	knowbench-app/knowbench-backend	app/tests/test_data_tool_discovery.py	1	20	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+4177841bf49f04f7ee6a993cc80df020ecf96d3b	knowbench-app/knowbench-backend	app/tests/test_fact_requests.py	1	72	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+8d6dd502623f6ee0c54ff6e974442e9345bfd988	knowbench-app/knowbench-backend	app/tests/test_memory.py	1	23	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+b27adc8e4edf682c4f3d5809d8c9e77acc57c7e4	knowbench-app/knowbench-backend	app/tests/test_scope_requirements.py	1	115	核实验收判定范围、十进制精度、缺项与提问、更改范围须获同意及测试断言
+23cb4332daecc2a9e21fb0310cb747d3c9d38d28	knowbench-app/knowbench-backend	app/tests/test_provider_url.py	1	59	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
+74c132a4664b62bc2838cb57295481eafcb13743	knowbench-app/knowbench-backend	app/tests/test_relay_permissions_contract.py	1	15	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
+f868856bb84d7fa9d10448a74741e48f7f4d0f31	knowbench-app/knowbench-backend	app/tests/test_skill_executor.py	1	177	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
+c78b3da0f974438d159020add5d30d2f636a0214	knowbench-app/knowbench-backend	app/tests/test_unbounded_expert_duration.py	1	56	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
+092a01b7f520b3bf6469de4baa1abf6099b0704e	knowbench-app/knowbench-backend	app/tests/test_unbounded_expert_duration_db.py	1	56	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
+d27d8edc8886cf9d621fe86197882783949e5148	knowbench-app/knowbench-backend	app/tests/test_workbench_credentials_contract.py	1	42	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
+a5cef09fde90019ba26e208ef96e8c7146069053	knowbench-app/knowbench-backend	app/tests/test_workbench_memories_routes.py	1	51	核对用户偏好与来源、凭据展示、技能执行计费失败语义、主动取消与协议锁
