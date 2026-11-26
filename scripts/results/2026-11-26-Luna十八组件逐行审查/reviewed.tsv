@@ -1885,3 +1885,5 @@ c909d9148867cb2ce41b67448b9c05ac7fa094f8	knowlab-app/knowlab-backend	app/app/int
 f03ae2f9ac20e01f5142357bf37152896ef5f457	knowlab-app/knowlab-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
 dacacdf0462b5b021313b5aa80964eeaa6a9cf1f	knowlab-app/knowlab-backend	app/app/interfaces/http/middleware/auth.py	1	208	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
 2069d230587768a45eeb6b8f82b84132f44c9d6a	knowlab-app/knowlab-backend	app/app/interfaces/http/routes.py	1	28	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
+b3648f24caf0236f9021026131f1abe89bc014d2	knowlab-app/knowlab-backend	app/tests/test_knowbot_platform_db.py	1	214	对照试跑用例归属、完成判定与市场交付证据；核对授权迁移的 PostgreSQL 约束
+58093a55c712464fdef78121d9b202679ef9ef55	knowlab-app/knowlab-backend	app/tests/test_knowbot_test_outputs.py	1	287	对照试跑用例归属、完成判定与市场交付证据；核对授权迁移的 PostgreSQL 约束
