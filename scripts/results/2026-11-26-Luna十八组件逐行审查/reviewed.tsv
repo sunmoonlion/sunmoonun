@@ -1996,3 +1996,8 @@ e462a54994ec72a794e82206e4d7af49ad94ca5c	knowbase-app/knowbase-backend	app/app/i
 2a12f27c3d760a5ac892b1deaf605145279403f1	knowbase-app/knowbase-backend	app/app/domain/method_reads.py	1	44	核对逐次方法调用路径、资料版本及公开资料资格判定。
 4f0dab7d62b5e8a9a81b9a721338ea5437f4f625	knowbase-app/knowbase-backend	app/app/domain/public_access.py	1	54	核对逐次方法调用路径、资料版本及公开资料资格判定。
 231f221c40d64930754b84925dc3389b3726d790	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/public_access.py	1	17	核对逐次方法调用路径、资料版本及公开资料资格判定。
+0982edf22e62c7c14241e198ae773bca572b22c7	knowbase-app/knowbase-backend	app/app/application/ports/user_library.py	1	154	资料持有与版本、用途撤回、候选检索和乐观修订的仓储接口。
+a569fb8eafc001d7e3b5ed960d8a2c03f53d24cd	knowbase-app/knowbase-backend	app/app/application/ports/user_resolution.py	1	52	资料持有与版本、用途撤回、候选检索和乐观修订的仓储接口。
+405627d35d948f218b7b8e1d6002011ae82df02b	knowbase-app/knowbase-backend	app/app/domain/user_resolution.py	1	693	核对期间展开、描述筛选、持有版本、表格事实与修订落库，服务入口复现时点及空条目缺陷。
+0c75d77caee6df358443e05e2eb90dccf8444316	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_resolution.py	1	549	核对期间展开、描述筛选、持有版本、表格事实与修订落库，服务入口复现时点及空条目缺陷。
+28c63ce7c6fc777089d8d6def6738e70f67fab19	knowbase-app/knowbase-backend	app/tests/test_user_resolution_db.py	1	976	报告期、展示和收集、修订竞争及多读法授权的数据库测试，对照缺失时点、版本和事项偏好。
