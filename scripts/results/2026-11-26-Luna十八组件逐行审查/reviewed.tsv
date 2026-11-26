@@ -924,3 +924,15 @@ f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/i
 42168f0d8b5fd92ef8f145b3997ab45266d8474c	knowmart-app/knowmart-backend	app/tests/test_shop_db.py	1	142	小店测试数据库装配与市场资格、知识和需求样例
 b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	1550	1815	按购买摘要判断可转售与需求选择、补附条目、结算
 b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	2170	2310	审核资料、撤销主体及证照、撤销后的市场条目处置
+d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/application/services/expert_catalog.py	1	368	用户视角版本筛选、目录合并分页、分类计数与指定版本详情
+0bfd4f10b94e2534df858aeb49553e09a836afac	knowmart-app/knowmart-backend	app/app/application/services/knowbot_service.py	1	473	交付命令幂等、版本身份、撤回与后台资料检查并发
+afa96110622d6409710bf065a4855a4a98167ef2	knowmart-app/knowmart-backend	app/app/domain/knowbots/delivery.py	1	94	提交类目与绑定自用和公开的两种检查
+76257b315a2f1c7cd410ec040be19f30a8f6b282	knowmart-app/knowmart-backend	app/tests/test_expert_catalog.py	1	352	公开、自用、版本及筛选边界，内存仓储
+f4edc073be678bf366ba386160c148b927e5909c	knowmart-app/knowmart-backend	app/tests/test_knowbot_repository_db.py	1	409	迁移、版本不可变、真实目录查询与撤回后的绑定巡检
+d882c3052eea6c54830206bd62daaec6d974f80a	knowmart-app/knowmart-web-frontend	app/components/knowbots/expert-catalog.tsx	1	535	正式条目卡片、工作台来路、关键词标签与分页恢复
+43f4f21ab28d15d8e9c4edddfe4acccafb3e7d8c	knowmart-app/knowmart-web-frontend	app/components/knowbots/expert-detail.tsx	1	400	精确版本展示、故障呈现、停用入口与返回目录链接
+d6e05f7eb4bf41feecf2dea041a3f96b4c601be4	knowmart-app/knowmart-web-frontend	app/components/knowbots/demo-expert-gallery.tsx	1	73	只读展示与真实专家分离、分类筛选
+ed505b3fcc2f377b30804de5f8b456e485b57b6b	knowmart-app/knowmart-web-frontend	app/components/knowbots/demo-expert-placeholders.ts	1	272	20 个示例的展示声明与类型、未进入可委托目录
+624cd9f11da32e4b36bee0b7ca9f2c1ec9d2c8cf	knowmart-app/knowmart-web-frontend	app/lib/knowbots/catalog.ts	1	90	筛选解析与URL投影、目录与详情解析
+408959d4051238048cb22c4eb6d7e96394ecf2a9	knowmart-app/knowmart-web-frontend	app/contracts/experts.ts	1	166	正式卡片与动态分身两种形状、详情和可用性
+9489a8b9cc930635ad5c0ec1355e440853dd91c7	knowmart-app/knowmart-web-frontend	app/tests/component/expert-catalog.test.tsx	1	356	目录入口、返回、占位与版本记录的交互断言
