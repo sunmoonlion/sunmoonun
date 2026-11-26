@@ -1549,3 +1549,6 @@ d9a4dee6fb5ea77561e8c237d005977cbc2a5db4	knowbench-app/knowbench-web-frontend	ap
 051eee7b5112cd575789d2916fd14eebd779b1a4	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_routes.py	1	235	核对固定包拒绝、动态目录钉版、会话归属、项目排队及快照的测试断言
 1cc04eaa834d1fead362d6d4689e5af11948ffe5	knowbench-app/knowbench-backend	app/tests/test_workbench_knowbots.py	1	88	核对固定包拒绝、动态目录钉版、会话归属、项目排队及快照的测试断言
 0d4ca1c11d1a647f6b141f2d43db5387d48c68c9	knowbench-app/knowbench-backend	app/tests/test_workbench_knowbots_db.py	1	213	核对固定包拒绝、动态目录钉版、会话归属、项目排队及快照的测试断言
+23009fb6f646e2e448f7c84ba2dd06798a92541c	knowbench-app/knowbench-backend	app/app/domain/workbench/expert_match.py	1	506	核对各代匹配回执、收费候选、目录完整性和用户原话溯源，追踪现行模块的共享依赖
+7908593141d5e341c597dff05a8fd43505252ae2	knowbench-app/knowbench-backend	app/tests/test_declaration_match.py	1	150	核对各代匹配回执、收费候选、目录完整性和用户原话溯源，追踪现行模块的共享依赖
+16542de62e93bb901bc1f5abf9965f20a1fb5718	knowbench-app/knowbench-backend	app/tests/test_expert_match.py	1	248	核对各代匹配回执、收费候选、目录完整性和用户原话溯源，追踪现行模块的共享依赖
