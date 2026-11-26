@@ -197,3 +197,15 @@ a510cb2a87f714b42f263b7328ac37e0684b7fdf	knowfeed-app/knowfeed-backend	app/app/a
 b9266247d5673ca18d14b800847d85fee6f2bf57	knowfeed-app/knowfeed-backend	app/tests/test_report_cross_year.py	1	326	逐例核对重复科目、跨单位、单股数及真实年报回归；现有 35 项通过
 81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	430	585	事实 SQL 过滤、排序、行单位与分页、表格最新版本和持久化输入组合
 629aacaaa40a09f246a84e64be722ac0cad14a77	knowbase-app/knowbase-backend	app/tests/test_user_facts_db.py	1	355	逐例核对入库、质检、市场及运行指标的夹具与断言；现有指标例只覆盖毛利率、营收增长
+799e918508aceeff35c0155bda817d3e4aa63046	knowmart-app/knowmart-backend	app/app/domain/knowbots/catalog.py	1	235	能力类目、资质、短语建议、公开与私有详情字段
+9723a12f7052105277dab03e155cc1caca3d416a	knowmart-app/knowmart-backend	app/app/infrastructure/external/formal_method_delivery.py	1	85	校验来源、回执类型、冻结引用及包的有无
+d5a0f8f4bd324659e4b92130d3ea0f8cc954ea84	knowmart-app/knowmart-backend	app/app/application/services/expert_catalog.py	1	368	合并市场目录、双层分页排序、版本可见性和筛选；实测 B28
+b38baf30cbc5fecc59af9281b8c8ea4367f845c5	knowmart-app/knowmart-backend	app/app/application/services/market.py	505	886	发布资质与作者分类、孵化许可、精确版本核权、目录页与自用及公开提交
+f8d766643bc244b37ab884c3f1b0dde3c9d7892c	knowmart-app/knowmart-backend	app/app/infrastructure/repositories/market.py	1	471	逐行核对分类映射、上架去重、聚合分页与许可；公开专家的检索分类随资质类目变化见 B29
+76257b315a2f1c7cd410ec040be19f30a8f6b282	knowmart-app/knowmart-backend	app/tests/test_expert_catalog.py	1	352	核对公开范围、类目筛选、日期、状态、私有版本、分页与详情的基线
+000247c5685f75239e9df34586615482eceb001f	knowmart-app/knowmart-web-frontend	app/components/market/my-formal-methods.tsx	1	115	作者页翻页、确认采用建议、实际可编辑条件及撤回后的缓存失效
+a647138297961590745eeddeedb944315ec80370	knowbench-app/knowbench-backend	app/app/application/workbench/directory_browse.py	1	116	按场景遍历授权、按版本取分类再分页；实测翻页通讯量 B30
+fe9a38bcf9a4b20be108ca902edeb4fec7f7b674	knowbench-app/knowbench-backend	app/app/domain/workbench/method_search.py	1	99	分类契约、分词、检索上限和去重
+e186499102ae86fe526822bacf6440e3f12520a0	knowbench-app/knowbench-backend	app/app/application/workbench/registry_catalog.py	560	685	共享工具按许可遍历、安装资格、全局候选排序与版本细查
+0cf68e233e37ca7f2be7ad47d295b47215663b0b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/formal_method_repository.py	211	395	宿主范围、已授权过滤、词召回与分类交错排序；资产与活动元数据投影
+b43737c8cbcd1253767743e74e962e4b3ec48b12	knowbench-app/knowbench-backend	app/tests/test_planning_window_recall_db.py	1	332	逐例审查目录扩张、万版本召回、手动分类末页、越权排除与分类交错的断言
