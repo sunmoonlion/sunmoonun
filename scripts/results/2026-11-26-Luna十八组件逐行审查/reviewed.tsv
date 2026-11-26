@@ -1067,3 +1067,7 @@ de466eac469d6aa86c0f5a2e2f3b92bbfb4cdcf0	knowbench-app/knowbench-backend	app/app
 470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	1081	1293	等待与答复的实际消费标识
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	1543	1564	动态测试受理的普通插入与用例落库
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	2267	2294	试跑结果更新列与事务
+004ac551fad6cf3a2d68fd4c59c482f85b3efd15	knowbench-app/knowbench-admin-frontend	app/components/research/research-runtime-panel.tsx	1	19	运行页面实际指引与会话、部署和组件依赖测试的覆盖范围
+1498d63d8d759c7b2253284c3ba18c500ab50885	knowbench-app/knowbench-admin-frontend	app/tests/unit/browser-session.test.ts	1	116	运行页面实际指引与会话、部署和组件依赖测试的覆盖范围
+40ae759c286e364c3e151aeee8365e3d23b8afa8	knowbench-app/knowbench-admin-frontend	app/tests/unit/env.test.ts	1	127	运行页面实际指引与会话、部署和组件依赖测试的覆盖范围
+cd57f4ec42d352429331188f28dd7133a4391a5b	knowbench-app/knowbench-admin-frontend	app/tests/unit/feature-boundaries.test.ts	1	133	运行页面实际指引与会话、部署和组件依赖测试的覆盖范围
