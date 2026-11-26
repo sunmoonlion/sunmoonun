@@ -2009,3 +2009,15 @@ ab8a3c0aa84e7beedca1bd4c867bcdec67b0ac86	knowbase-app/knowbase-backend	app/app/i
 8e0a799933aaacd5fb603ab8c0456da4cefad14f	knowbase-app/knowbase-backend	app/app/application/ports/user_runs.py	1	194	核对资料进入正式运行后的输入组合、授权修订、同意撤回、读法、成果与清理的接口。
 81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	1	1201	逐行核对输入组合、授权、读取版本、分页搜索、财务事实、产出写入和清理回执。
 b478d0f2d2ac017295ab5874e18484acf17e7522	knowbase-app/knowbase-backend	app/app/infrastructure/models/user_data.py	1	815	核对资料、版本、加工、事实、运行与清理全部持久化字段、唯一约束和读数留痕的识别粒度。
+35373a5179e4961adac058f8c37b500af477b40f	knowbase-app/knowbase-backend	app/app/infrastructure/external/ragflow.py	1	430	核对检索与收录适配器、完整分页、解析终态、健康检查以及真实 HTTP 协议边界的测试。
+33fcf5f7af9e5d11f1327d8ed92936113f3a8f33	knowbase-app/knowbase-backend	app/tests/test_knowledge_ingestion.py	1	660	核对检索与收录适配器、完整分页、解析终态、健康检查以及真实 HTTP 协议边界的测试。
+384e5066cf86625172e23725014db448ec640151	knowbase-app/knowbase-backend	app/tests/test_knowledge_provider.py	1	275	核对检索与收录适配器、完整分页、解析终态、健康检查以及真实 HTTP 协议边界的测试。
+2a9b589c20fa3c916051d97d39a217dbd1e25e68	knowbase-app/knowbase-backend	app/tests/test_ragflow_receipt_api.py	1	89	核对检索与收录适配器、完整分页、解析终态、健康检查以及真实 HTTP 协议边界的测试。
+d098da85093625bc1f1c3aeac939b42ac76fb267	knowbase-app/knowbase-backend	app/app/application/errors/exceptions.py	1	92	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+23cd75e76627fcb07f0234939038ed8169df0cc3	knowbase-app/knowbase-backend	app/app/application/ports/auth.py	1	74	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+28f155749f778e76b0815a9aa9c44e3c92c80198	knowbase-app/knowbase-backend	app/app/bootstrap/publish_functions.py	1	44	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+5840147d63f6b9d1af1d364967e812f1f26fe628	knowbase-app/knowbase-backend	app/app/infrastructure/models/__init__.py	1	21	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+a2a4b4d5ac0e0c48240788f89c05b3999f9cef08	knowbase-app/knowbase-backend	app/app/infrastructure/models/base.py	1	35	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+443590cb5a3172b05c1d3161a5f61c2432c266df	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_data_errors.py	1	18	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+e513aa3bfd899190b6e39385cadbc47d14cc66a5	knowbase-app/knowbase-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+c79cdf4e21a3db6e13001239177e88c02d899e7c	knowbase-app/knowbase-backend	app/tests/test_function_publication.py	1	83	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
