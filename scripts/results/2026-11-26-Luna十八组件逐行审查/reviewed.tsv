@@ -1546,3 +1546,6 @@ af2359927cf20e7e337dd202f26cf0c5e37a7a2c	knowbench-app/knowbench-web-frontend	ap
 b49d4b30db78fe65e08ba1f23baba0393ecd3b03	knowbench-app/knowbench-web-frontend	app/tests/component/open-task-from-ref.test.tsx	1	64	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
 1c742fd345ee1eaec8108c20553c527c601e900c	knowbench-app/knowbench-web-frontend	app/tests/component/temporary-plan-review.test.tsx	1	64	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
 d9a4dee6fb5ea77561e8c237d005977cbc2a5db4	knowbench-app/knowbench-web-frontend	app/tests/e2e/rendering.e2e.ts	1	540	核对专家确认、匹配修订、旧钉版用例、设备配对和回跳，以及浏览器端发布和方法目录场景
+051eee7b5112cd575789d2916fd14eebd779b1a4	knowbench-app/knowbench-backend	app/tests/test_workbench_expert_routes.py	1	235	核对固定包拒绝、动态目录钉版、会话归属、项目排队及快照的测试断言
+1cc04eaa834d1fead362d6d4689e5af11948ffe5	knowbench-app/knowbench-backend	app/tests/test_workbench_knowbots.py	1	88	核对固定包拒绝、动态目录钉版、会话归属、项目排队及快照的测试断言
+0d4ca1c11d1a647f6b141f2d43db5387d48c68c9	knowbench-app/knowbench-backend	app/tests/test_workbench_knowbots_db.py	1	213	核对固定包拒绝、动态目录钉版、会话归属、项目排队及快照的测试断言
