@@ -1245,3 +1245,11 @@ d4de607ced9ed75f754134cad07bc0aaa5873723	knowlab-app/knowlab-web-frontend	app/ap
 00fb68327c0a8111ec07c78427bd441575fe6a45	knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-editor.tsx	1	1161	核对工作稿恢复身份、草图确认、试跑回执、冻结与自用上架。
 8f7b444a683b52a0840e1a8b5c0b3d306a1cd936	knowlab-app/knowlab-web-frontend	app/components/knowbots/formal-method-execution.tsx	1	669	核对试跑恢复、失败重试与编辑锁定以及步骤旧绑定移除操作。
 797e016f91d01649185481d3955a0c8b5b4388b6	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-managed-capabilities.tsx	1	44	核对试跑恢复、失败重试与编辑锁定以及步骤旧绑定移除操作。
+f565cb49c4dee5a05d63488a3d248522f9d9c622	knowlab-app/knowlab-web-frontend	app/components/knowbots/lab-columns.tsx	1	411	对照作者测试历史的用例版本、产物呈现、工作稿步骤方法绑定及契约。
+92d0dda7522d9a7ae9533ab49439f0737c325c84	knowlab-app/knowlab-web-frontend	app/components/knowbots/test-results.tsx	1	343	对照作者测试历史的用例版本、产物呈现、工作稿步骤方法绑定及契约。
+d1087afa24b437c8980ebd64c81b9919bc78febf	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-method-picker.tsx	1	250	对照作者测试历史的用例版本、产物呈现、工作稿步骤方法绑定及契约。
+2e9667019a472c622735ae2962a732ab93213a23	knowlab-app/knowlab-web-frontend	app/contracts/author-methods.ts	1	123	对照作者测试历史的用例版本、产物呈现、工作稿步骤方法绑定及契约。
+5a640ccb1473337c8c7f1e2aef357eb6b3b747ac	knowlab-app/knowlab-web-frontend	app/contracts/method-choice.ts	1	9	对照作者测试历史的用例版本、产物呈现、工作稿步骤方法绑定及契约。
+340ade885909ea4b517ae2dba54333ec7bf81557	knowlab-app/knowlab-web-frontend	app/components/knowbots/p2-join.tsx	1	310	核对并行汇合、独立复核及有界对象批处理草图预览和手动导入、复制操作。
+56d24db8e841fe0b05579850eb90249f8db5ab46	knowlab-app/knowlab-web-frontend	app/components/knowbots/p4-comparison.tsx	1	274	核对并行汇合、独立复核及有界对象批处理草图预览和手动导入、复制操作。
+bfe538e0224377d58c6d426ee812c5cec24b1b9c	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-panels.tsx	1	269	核对并行汇合、独立复核及有界对象批处理草图预览和手动导入、复制操作。
