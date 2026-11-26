@@ -157,3 +157,4 @@ d5bfa7877cf5333e68777adc2bca7abfe8ed1d73	knowbench-app/knowbench-backend	app/app
 84d58c3dd348ad3a9203e9e5617a77fb09d4ddc2	knowlab-app/knowlab-web-frontend	app/components/knowbots/partial-trial-result.tsx	1	96	逐项显示未交承诺、分支状态与产物，仅在整轮终止后允许领取已接受的分支。
 efd91194c519b61d70d5479b73be026d97e50a03	knowlab-app/knowlab-backend	app/app/domain/knowbots/incubation_rounds.py	1	225	种子、引用校验、来源回填及建议操作逐行核对。add 对单段路径访问 parts[1]，已复现建议能解析但采用抛 IndexError。
 7df9016109abd1efe3fe14d0da1dee1601bed577	knowlab-app/knowlab-backend	app/app/domain/knowbots/incubation_tools.py	1	69	共享工具按定义摘要和直接方法类型校验；安装选择须在返回列表内。样本列固定资料版本与摘要。
+35a7c660689ea9008f5dcf35185ca465e70cd571	knowlab-app/knowlab-backend	app/app/application/services/knowbot_proposals.py	1	281	运营提议先逐条试套、再锁申请复核授权；作者采用时锁修订并记录出处。用真实 propose 和存储替身确认 B13 在提议入库之前也会抛 IndexError。
