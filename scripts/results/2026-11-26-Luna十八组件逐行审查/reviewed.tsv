@@ -1346,3 +1346,10 @@ a84265754da5556e52a8ddcd1dcedd2ee271a01d	knowbench-app/knowbench-web-frontend	ap
 0ea1abebf334aa6d4340cf5ca2d99384fb9ce981	knowbench-app/knowbench-web-frontend	app/lib/workbench/timeline.ts	1	588	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
 03c1c9935a542405c24b41a8bfe56abd1a992bc1	knowbench-app/knowbench-web-frontend	app/tests/unit/dossier-paths.test.ts	1	29	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
 fa8e438b9187e0f8f9c80de95bfb5a78c2468fea	knowbench-app/knowbench-web-frontend	app/tests/unit/work-timeline.test.ts	1	488	核对事件到活动行、文件差异、审批及交付正文的变换和时间线单测
+6332bc1788d80813ebc53a557da3cf15df9baa31	knowbench-app/knowbench-web-frontend	app/components/workbench/capability-action-card.tsx	1	286	核对会话能力选择、资源依据过期复核、用途保存与授权回执、撤销的前端和测试
+58703f55982dd54d7d38a8cd02bcb2ba2cb2f768	knowbench-app/knowbench-web-frontend	app/components/workbench/capability-panel.tsx	1	401	核对会话能力选择、资源依据过期复核、用途保存与授权回执、撤销的前端和测试
+e6b56c85c57f36ac62d01adc75260b116cd1825b	knowbench-app/knowbench-web-frontend	app/components/workbench/resource-delegation-selection.tsx	1	138	核对会话能力选择、资源依据过期复核、用途保存与授权回执、撤销的前端和测试
+f764aa338be56b66e5763056885a6b8585e0fd17	knowbench-app/knowbench-web-frontend	app/tests/component/capabilities.test.tsx	1	921	核对会话能力选择、资源依据过期复核、用途保存与授权回执、撤销的前端和测试
+a9f2b0f08a75c62c26a6c325d698adac761720b6	knowbench-app/knowbench-web-frontend	app/lib/workbench/capabilities.ts	1	668	核对能力客户端契约、已固定的服务样例与选择、调用身份及状态关联断言
+3be5b216cff20bf7808685511099f8df496ee278	knowbench-app/knowbench-web-frontend	app/tests/unit/capability-contract.test.ts	1	295	核对能力客户端契约、已固定的服务样例与选择、调用身份及状态关联断言
+ce5d89a9daaf9690990f6cd50401289595657891	knowbench-app/knowbench-backend	app/app/domain/workbench/skill_execution.py	1	207	核对安装脚本输入、正式脚本唯一结果文件、注册脚本的公开状态和返回的附件路径
