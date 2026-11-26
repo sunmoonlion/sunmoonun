@@ -1440,3 +1440,12 @@ c5770e792c25c499a306a416f8e15454e24ed90a	knowbench-app/knowbench-web-frontend	ap
 dcb471b8fd3a8b3549c1a75cbbda4f2a2ad297c7	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/agent_onboarding_routes.py	305	380	核验展示的安装包与安装命令签发及脚本渲染的版本来源
 dcb471b8fd3a8b3549c1a75cbbda4f2a2ad297c7	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/agent_onboarding_routes.py	1	304	配对创建与审批、失败次数和设备信息校验
 dcb471b8fd3a8b3549c1a75cbbda4f2a2ad297c7	knowbench-app/knowbench-backend	app/app/interfaces/endpoints/agent_onboarding_routes.py	381	483	安装凭证消费、对象身份及分段响应
+b923103fd9a0eeeafd5b871d0aea3a0c5b260c1c	knowbench-app/knowbench-backend	app/app/application/workbench/agent_download.py	1	55	逐行核对字节区间、整包校验、流关闭及对象存储适配器与测试
+9b4b87d547d301e568ef2305ba222e20ae4abbb2	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/agent_release.py	1	127	逐行核对字节区间、整包校验、流关闭及对象存储适配器与测试
+faf087f99caa849b5695d658de93b6811233e581	knowbench-app/knowbench-backend	app/tests/test_agent_release.py	1	297	逐行核对字节区间、整包校验、流关闭及对象存储适配器与测试
+a15224df7a065e8ea0f2eb5d3db840c197d46e49	knowbench-app/knowbench-backend	app/tests/preview_agent_download.py	1	16	核查空配置、已配置和离线预览与下载接口实际响应
+a941cb7f6498df4b03efaf6f4bc1c3012dd969e7	knowbench-app/knowbench-backend	app/tests/test_preview_agent_download.py	1	58	核查空配置、已配置和离线预览与下载接口实际响应
+51e262e1ed3ec4a24181fe13b9c18d2d18eaded2	knowbench-app/knowbench-backend	app/app/application/workbench/agent_onboarding.py	1	307	审查限频、审批和轮换事务、撤销与过期回执
+1f7c67b13f27395c4e30ad7614419eefb4dead48	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/agent_limiter.py	1	42	审查限频、审批和轮换事务、撤销与过期回执
+786c1535c3ea90499a999ab8399c6eb81fc7735f	knowbench-app/knowbench-backend	app/app/tasks/agent_onboarding.py	1	27	审查限频、审批和轮换事务、撤销与过期回执
+ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	2810	2874	核对配对审计、安装次数扣减与到期清理 SQL
