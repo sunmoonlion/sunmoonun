@@ -1764,3 +1764,11 @@ df54c35e785304a2062aae558bdd67bc4b206292	tpl-app/tpl-backend	app/app/infrastruct
 c759d025d0ed7170afc229a842aedced54a55499	tpl-app/tpl-backend	app/app/infrastructure/storage/session_store.py	1	21	模板进程就绪、日志、会话存储、服务主体与角色引导
 79663f7f61b26eb84ada86839de28334766d1abe	tpl-app/tpl-backend	app/app/infrastructure/security/oidc.py	1	521	逐行核对发现文档、登录登出地址、令牌交换与缓存更新
 aea0ea75686635d1ccb4b3ea912d9c4253acbb99	tpl-app/tpl-backend	app/tests/test_oidc_security.py	1	320	核验登录登出、发现文档、令牌交换及上游拒绝的现有断言
+e341993bf9103f858b310b03a2fdb1102c543576	tpl-app/tpl-backend	app/app/interfaces/errors/exception_handlers.py	1	120	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+7775e262742b80f1af83667e59bd6ae56bca0729	tpl-app/tpl-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+8d41fee950d4c14790e02b8acb339b6ade6ebe44	tpl-app/tpl-backend	app/app/interfaces/http/internal/host_guard.py	1	26	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+f187c56a1eafc6979fdf12a6ca6c747e26b25e31	tpl-app/tpl-backend	app/app/interfaces/http/middleware/auth.py	1	153	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+3046764923c597467d53546003b5af62bfc1499a	tpl-app/tpl-backend	app/app/interfaces/http/routes.py	1	18	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+8fca5c0ad0aef517217cd3e2371bf7168c1b48f8	tpl-app/tpl-backend	app/app/interfaces/http/web/cross_app.py	1	55	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+58a143594f8b03f4c9d7760ad44c6ac4fd90792e	tpl-app/tpl-backend	app/app/interfaces/schemas/base.py	1	17	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
+de9b3de2df6ed5f2fcae08d50679dfbe86fc90bb	tpl-app/tpl-backend	app/app/interfaces/schemas/cross_app.py	1	20	核对管理诊断、错误响应、跨应用导航、服务路由及两端认证
