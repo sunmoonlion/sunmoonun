@@ -1819,3 +1819,5 @@ a1a0610c7a5953cbb162a0422ddd7a5f92123224	knowlab-app/knowlab-backend	app/tests/t
 77d09f35d36f849e0a4d77cc28342ee2282d54a2	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_rounds.py	1	155	核对孵化签名发布格式、JSON Schema 样例、原话回读及建议变更领域用例
 da633ed16967fbf2b32b960f2b125420ad024134	knowlab-app/knowlab-backend	app/app/interfaces/http/internal/incubation_requests.py	1	65	沿真实三种移交模型检查来源请求号、题目与回执，核对旧格式重放用例
 f42b66422c48cf26d3eadce66d2904046223fb1e	knowlab-app/knowlab-backend	app/tests/test_knowbot_incubation_requests.py	1	163	沿真实三种移交模型检查来源请求号、题目与回执，核对旧格式重放用例
+367e5546bb4a930e13cb5deb233d342c3eaf24c1	knowlab-app/knowlab-backend	app/tests/financial_author_method_fixtures.py	1	2128	财务合成夹具与跨仓装配；核对二十项的声明、输入、校验及成稿依赖，五项装配回归通过
+9ffa82d06a4a0608b0bfcfb28e5dabeb929da02c	knowlab-app/knowlab-backend	app/tests/test_financial_methods_assembly.py	1	374	财务合成夹具与跨仓装配；核对二十项的声明、输入、校验及成稿依赖，五项装配回归通过
