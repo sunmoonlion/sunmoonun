@@ -1449,3 +1449,9 @@ a941cb7f6498df4b03efaf6f4bc1c3012dd969e7	knowbench-app/knowbench-backend	app/tes
 1f7c67b13f27395c4e30ad7614419eefb4dead48	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/agent_limiter.py	1	42	审查限频、审批和轮换事务、撤销与过期回执
 786c1535c3ea90499a999ab8399c6eb81fc7735f	knowbench-app/knowbench-backend	app/app/tasks/agent_onboarding.py	1	27	审查限频、审批和轮换事务、撤销与过期回执
 ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/repository.py	2810	2874	核对配对审计、安装次数扣减与到期清理 SQL
+1d91fa13e8a801fe20f9bbb83388bb9128a26d7c	knowbench-app/knowbench-backend	app/tests/test_agent_limiter.py	1	104	核对并发消费、到期清理、配置拒绝及限频白名单测试覆盖
+5f6ffaedb8b4592ef923978d3031b7125d518b89	knowbench-app/knowbench-backend	app/tests/test_agent_onboarding.py	1	100	核对并发消费、到期清理、配置拒绝及限频白名单测试覆盖
+04fd759cbf8d84eaebef2d5e097d7e88c37ab250	knowbench-app/knowbench-backend	app/tests/test_agent_onboarding_db.py	1	124	核对并发消费、到期清理、配置拒绝及限频白名单测试覆盖
+9d3621b3b1ba68c8beeefabd00c5c9a02b54d80f	knowbench-app/knowbench-backend	app/app/application/workbench/agent_reports.py	1	97	核对代理审计幂等、会话归属与本地服务请求响应和错误映射
+1084d21c902f535032fe1e20c355d0baca4c6159	knowbench-app/knowbench-backend	app/app/application/workbench/agent_service.py	1	133	核对代理审计幂等、会话归属与本地服务请求响应和错误映射
+4e0936950973ecf8e533f8376bef94ae82064dfa	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/agent_service_ws.py	1	105	核对代理审计幂等、会话归属与本地服务请求响应和错误映射
