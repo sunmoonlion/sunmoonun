@@ -1379,3 +1379,25 @@ b954b62f0d35413df22deb74c65acecebe57dab1	knowbench-app/knowbench-web-frontend	ap
 afb8782bc0abf2f62270cf1eb8b2b526a0997c3d	knowbench-app/knowbench-web-frontend	app/features/projects/ui/project-board.tsx	1	94	项目按工作区归集、目录拼接、看板刷新与卡片取数
 6dc20adeafd4f11444ba52dd293ec5b370f8e8e2	knowbench-app/knowbench-backend	app/app/domain/workbench/projects.py	1	396	核对工作区路径、模式、审批和会话设置
 38756743964c35bbf33d121de85254459f6130b7	knowbench-app/knowbench-web-frontend	app/features/projects/ui/new-project-dialog.tsx	78	152	核对建目录或克隆发生在项目登记之前的副作用顺序
+38756743964c35bbf33d121de85254459f6130b7	knowbench-app/knowbench-web-frontend	app/features/projects/ui/new-project-dialog.tsx	1	406	对照新建项目副作用、取消及列表和详情操作
+08aabdf47f05f32bad1863385ff186a560cb5ba7	knowbench-app/knowbench-web-frontend	app/features/projects/ui/project-list-screen.tsx	1	165	对照新建项目副作用、取消及列表和详情操作
+9b90a42d41f0ca6dd3653db1610bfa70fb693807	knowbench-app/knowbench-web-frontend	app/features/projects/ui/project-screen.tsx	1	290	对照新建项目副作用、取消及列表和详情操作
+9e8c25b00fa101b97cc2007189bb71f05a4f28da	knowbench-app/knowbench-web-frontend	app/tests/component/new-project-dialog.test.tsx	1	241	对照新建项目副作用、取消及列表和详情操作
+a4138c832e711b303f87cfeac7284d3103ee1147	knowbench-app/knowbench-backend	app/app/application/workbench/project_service.py	1	297	核对项目管理 API、目录归属、改名归档事务和委托汇总
+1bc635e8b3cb07625c04a4fc4a44aecad36078e9	knowbench-app/knowbench-backend	app/app/interfaces/http/web/workbench_projects.py	1	231	核对项目管理 API、目录归属、改名归档事务和委托汇总
+8be4537766732b82704060c8cd47cc8bad9d3eee	knowbench-app/knowbench-web-frontend	app/features/settings/model/guide.ts	1	22	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+a8e5b546911101955507ec74f438a767c131bd87	knowbench-app/knowbench-web-frontend	app/features/settings/model/onboarding.ts	1	29	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+dfce79717ecc30d317624ee81117b5015c4e0286	knowbench-app/knowbench-web-frontend	app/features/settings/ui/link-status.tsx	1	76	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+12a6e42c0ac414d8cde09c38a62d16e40d77dd21	knowbench-app/knowbench-web-frontend	app/features/settings/ui/machines-redirect.tsx	1	21	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+e20475577a61bce8d29e810be06ee4d270214f42	knowbench-app/knowbench-web-frontend	app/features/settings/ui/settings-redirect.tsx	1	26	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+c18197b843b12faf5b72b41f66df1cfabb16ebc0	knowbench-app/knowbench-web-frontend	app/features/shell/index.ts	1	1	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+b8e53b53677c73ff523c511df4da7dbacd67f7bd	knowbench-app/knowbench-web-frontend	app/features/shell/model/link-check.ts	1	80	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+48c584b3dc84cb2091f6bd0a103ff4a73a700f16	knowbench-app/knowbench-web-frontend	app/features/shell/model/workspace-choice.ts	1	29	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+9736900efb2699199595f1c927a6572143ffe4e7	knowbench-app/knowbench-web-frontend	app/features/shell/ui/link-check-banner.tsx	1	110	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+626eee32c3672a1f08446338062c52eb0446b978	knowbench-app/knowbench-web-frontend	app/features/shell/ui/workbench-shell.tsx	1	37	核对电脑与沙箱状态提示、接入引导、配对码与跳转
+b128e8387c8397dc1470ca1630c88d50e396e7a9	knowbench-app/knowbench-backend	app/tests/test_workbench_project_routes.py	1	434	复核项目领域规则及 HTTP 测试实际覆盖边界
+467f5f73c9b0c36f797522bce3075e6b2aa1eb81	knowbench-app/knowbench-backend	app/tests/test_workbench_projects.py	1	403	复核项目领域规则及 HTTP 测试实际覆盖边界
+86c462e0d6361c3f6eeb9b6c2912a682f899776c	knowbench-app/knowbench-web-frontend	app/features/settings/ui/machines-screen.tsx	1	355	核对设备配对查询、异步确认与目录进度显示
+c8317292dd21836026152683f71df691592e0a4b	knowbench-app/knowbench-web-frontend	app/features/settings/api/computer.ts	1	111	核对配对查询、批准与拒绝分别绑定的字段
+ae73364b6d52917ece9a1bb8875ead1b54b50ef3	knowbench-app/knowbench-web-frontend	app/features/settings/ui/preferences-section.tsx	1	101	核对本地外观偏好与复核模型选择、不可用选项及保存回执
+3022c208fe5bebba4ba3afcf537680c8a214bf39	knowbench-app/knowbench-web-frontend	app/features/settings/ui/reviewer-preference.tsx	1	75	核对本地外观偏好与复核模型选择、不可用选项及保存回执
