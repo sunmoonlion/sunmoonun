@@ -423,3 +423,12 @@ eebe07e9e67b114944b7e3c4488a78c8e0323e48	knowbench-app/knowbench-backend	app/tes
 67bb3cd65e031c3e9cf08da00b0389d8d60105e6	knowlab-app/knowlab-backend	app/app/domain/knowbots/workdraft.py	1	870	工作稿类型、逐格修改、规范化与出处回查
 5698f87ef01b03ef55d682b08306f9bfd6c997df	knowlab-app/knowlab-backend	app/app/domain/knowbots/capability_compilation.py	1	220	输入槽映射、降级投影、逐项还原与重新编译比较
 4a5f4b9d697279ea206f84225b0fd8b1a12ca927	knowbench-app/knowbench-backend	app/app/application/workbench/task_runtime.py	602	788	步骤接受与业务规则判断，交叉检查声明类型与持久化结果
+fec1d33a7867c8d78fcdd0715676033c7e49a369	knowfeed-app/knowfeed-backend	app/app/domain/info_identity_v1.py	1	115	资料标识规范化与迁移碰撞预检
+09a90ca809083b770b996083f62593608f2b4e05	knowfeed-app/knowfeed-backend	app/app/domain/supply/prematch.py	1	127	来源目录预匹配字段与确认条件快照
+43b5dc33c8ed8250d7c989a291ed136968c5a2dc	knowfeed-app/knowfeed-backend	app/app/domain/supply/quota.py	1	58	受理频率、并行及月度新资料额度的计算边界
+06159d82b69ebe5df87af173f231288008b11162	knowfeed-app/knowfeed-backend	app/app/domain/supply/status_event.py	1	68	通知的归属、状态与逐项更新时间
+c3ed38f5d9a847bed0cfadf8513a9a559c3e2de2	knowfeed-app/knowfeed-backend	app/app/domain/supply/schedule.py	1	257	许可条件、按用户轮转、每日及每分钟限制与排队时间估算
+dd5e51d8d6685bd1c1fd1444242fbb4998ac4946	knowfeed-app/knowfeed-backend	app/app/application/supply/demands.py	1	391	确认快照、受理去重、URL 候选、重复提交和截止日期
+cea1c89de5f64f5fff2e12ae7890bb6d6db4a9a1	knowfeed-app/knowfeed-backend	app/app/application/supply/matching.py	1	191	按来源目录和许可预匹配、逐项错误与预估时间
+985636ab2ba335980877756895b486b16c2613ef	knowfeed-app/knowfeed-backend	app/app/domain/supply/models.py	85	249	资料查询参数和描述键的序列化
+985636ab2ba335980877756895b486b16c2613ef	knowfeed-app/knowfeed-backend	app/app/domain/supply/models.py	403	438	正式需求限额、读法和来源查询边界
