@@ -1722,3 +1722,10 @@ fca25aec5f097ea8bbf0565fa62886aae26de2ca	knowbench-app/knowbench-backend	app/app
 a264bbdfd5ab2728656eca5a55fb9e4ebf9b5a0e	knowbench-app/knowbench-backend	app/tests/test_knowbot_incubation_routes.py	1	192	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
 95d6122b496e2eced537253709dd9bf51807697f	knowbench-app/knowbench-backend	app/tests/test_knowbot_incubations_db.py	1	574	逐行核对孵化受理与取消、规划修订和冻结回执、正式匹配事务及作者试跑。并发与中断点以独立数据库验证。
 24d7bd1a65758639a293484e817f779f4a0e6d96	knowbench-app/knowbench-backend	app/app/domain/workbench/incubations.py	1	382	对照请求、来源、交回物与选择契约
+048df81d4919e478ebbf99e67164cd7238a98847	knowbench-app/knowbench-backend	app/app/application/workbench/review_comparison.py	1	92	逐行核对模型轮次终止凭据、复核比较和作者裁定的证据版本
+4664fc38ff358a57cbdd320d22f284805455a567	knowbench-app/knowbench-backend	app/app/application/workbench/review_decisions.py	1	144	逐行核对模型轮次终止凭据、复核比较和作者裁定的证据版本
+0f81fb8a03c6347be128eb486f05d225310a4f9c	knowbench-app/knowbench-backend	app/app/application/workbench/turn.py	1	61	逐行核对模型轮次终止凭据、复核比较和作者裁定的证据版本
+d025b9f9b36b6bcafd7e455243c0223ca043a345	knowbench-app/knowbench-backend	app/app/application/workbench/machines.py	1	155	核对代理机器上报、测试目录创建与清理、作者测试匹配兼容入口
+920e3068236c3539ef32ef02acb78fda7115535a	knowbench-app/knowbench-backend	app/app/application/workbench/test_folders.py	1	118	核对代理机器上报、测试目录创建与清理、作者测试匹配兼容入口
+860589243f57f2c3e93ae91204b5c955776f8822	knowbench-app/knowbench-backend	app/app/application/workbench/test_scope.py	1	86	核对代理机器上报、测试目录创建与清理、作者测试匹配兼容入口
+f464d90da260c67c7306252eefa4a792af7dc422	knowbench-app/knowbench-backend	app/tests/test_knowbot_test_folders.py	1	131	核对清理目录、权限拒绝、连接中断及首次运行夹具
