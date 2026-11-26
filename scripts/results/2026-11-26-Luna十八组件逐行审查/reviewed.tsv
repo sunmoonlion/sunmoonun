@@ -2499,3 +2499,28 @@ d5964c017c887c183df2f170ff15933ce4bdf15a	knowbench-app/knowbench-backend	app/tes
 8f6af4ce6672b9140987b628e8ce30e78f92aad2	knowbench-app/knowbench-backend	app/tests/test_method_authority_migration_db.py	1	136	核查资源授权逐级收窄、绑定具体调用方和安装、撤回与迁移后重新确认的断言
 ab51548de3d1bbf19242b166c9a75647964ae507	knowbench-app/knowbench-backend	app/tests/test_method_authorization.py	1	252	核查资源授权逐级收窄、绑定具体调用方和安装、撤回与迁移后重新确认的断言
 d462e3fab50ee091db7a8870458158982ebf736f	knowbench-app/knowbench-backend	app/tests/test_fixed_expert_retirement_db.py	1	185	核对固定包退役后拒绝尝试、取消旧派单和混合会话只显示现行证据。
+f02e2d388deb6213236bf86050dbb3fa1d13d04e	knowbench-app/knowbench-backend	app/tests/registry_link_report.mjs	1	76	核对 Linux 执行器合成报告读写、七步财务回复夹具及授权交还重排和终态测试。
+4957751019893f8866c6ce187d987cedb94f535f	knowbench-app/knowbench-backend	app/tests/sample_replies.py	1	90	核对 Linux 执行器合成报告读写、七步财务回复夹具及授权交还重排和终态测试。
+d1451678a3045b4ac46e43529f0c316344f843ab	knowbench-app/knowbench-backend	app/tests/test_grant_release.py	1	249	核对 Linux 执行器合成报告读写、七步财务回复夹具及授权交还重排和终态测试。
+0fce22cdcf0b4507d66d3a7282c646c9294038d1	knowbench-app/knowbench-backend	app/tests/test_knowbot_case_outputs.py	1	211	核对退役契约锁跳过条件、作者用例产出字节裁剪与供应请求确认后的恢复和去重。
+bc024312cfe5e8cc41dddabf7aee660dfc9ba88a	knowbench-app/knowbench-backend	app/tests/test_knowbot_contract_lock.py	1	53	核对退役契约锁跳过条件、作者用例产出字节裁剪与供应请求确认后的恢复和去重。
+eebd05c76fe68874dbc7424c1adc4d2263d0fbe7	knowbench-app/knowbench-backend	app/tests/test_source_query_delivery_db.py	1	124	核对退役契约锁跳过条件、作者用例产出字节裁剪与供应请求确认后的恢复和去重。
+b54ee6869e5d9ca695ef7c617d55014a021c9649	knowbench-app/knowbench-backend	app/tests/test_skill_dependencies.py	1	86	核对技能包按提交和摘要安装、卸载重装、依赖端口匹配与账号撤权测试。
+e8664260537b3a9d0b0753c416977ae736563541	knowbench-app/knowbench-backend	app/tests/test_skill_dependencies_db.py	1	114	核对技能包按提交和摘要安装、卸载重装、依赖端口匹配与账号撤权测试。
+dcf676618ec678659000816c726c298561aa5a8d	knowbench-app/knowbench-backend	app/tests/test_skill_installation.py	1	117	核对技能包按提交和摘要安装、卸载重装、依赖端口匹配与账号撤权测试。
+d83ee5ec574d211253aef9f30d3b97882ade5e49	knowbench-app/knowbench-backend	app/tests/test_skill_installation_db.py	1	101	核对技能包按提交和摘要安装、卸载重装、依赖端口匹配与账号撤权测试。
+d2ecf6b4566e1ff00385a67d38f8f8d71bd1aa2a	knowbench-app/knowbench-backend	app/tests/test_method_permission_runner_db.py	1	276	核对撤权回合中断应答、重启后绑定 turn、未知实耗与方法资料读取交还。
+43be8690b24fbbb8e45cfda8b0b518c50953693a	knowbench-app/knowbench-backend	app/tests/test_method_runner_mcp_db.py	1	187	核对撤权回合中断应答、重启后绑定 turn、未知实耗与方法资料读取交还。
+b17742ee1b7ce04aed5d33cf58f15f7a28ac6c0e	knowbench-app/knowbench-backend	app/tests/test_method_authorization_db.py	1	561	核对权限续签、父子调用持久化、撤权中断确认、余额保留和回执重放断言。
+a3c6c312961392c6ac2db61147a85449d8e691bd	knowbench-app/knowbench-backend	app/tests/test_registry_permissions_db.py	1	162	核对配置委托记录身份唯一性、原生权限只授本轮、服务函数跨提供方隔离与并发登记。
+58973e934c9facd190643235022fc60936c200d9	knowbench-app/knowbench-backend	app/tests/test_resource_delegation_settings.py	1	70	核对配置委托记录身份唯一性、原生权限只授本轮、服务函数跨提供方隔离与并发登记。
+f52b00b7235ce2dc5ff29be089087cb0181d8220	knowbench-app/knowbench-backend	app/tests/test_service_function_publication_db.py	1	131	核对配置委托记录身份唯一性、原生权限只授本轮、服务函数跨提供方隔离与并发登记。
+a36c65bb0df0354557cf59834a0554ebfb3f0c2d	knowbench-app/knowbench-backend	app/tests/test_workbench_delegation_db.py	1	111	核对旧财务包注入的七步通路、超范围委托停问、资料钉版字段与顺序约束。
+71c0ccafd6c480f57379053600882775f9026cea	knowbench-app/knowbench-backend	app/tests/test_workbench_intake_db.py	1	231	核对旧财务包注入的七步通路、超范围委托停问、资料钉版字段与顺序约束。
+3c1722978b246f4ef732bcb0edcabbd22190d462	knowbench-app/knowbench-backend	app/tests/test_workbench_task_data_db.py	1	94	核对旧财务包注入的七步通路、超范围委托停问、资料钉版字段与顺序约束。
+bab3ede43401f68c812a1125b2cc3ea99710e056	knowbench-app/knowbench-backend	app/tests/test_workbench_dossier_db.py	1	219	核对委托底稿分段与导出、实时步骤投影、按 turn 合并重复或分片回执。
+ae1f4898d5c7c8e2f961822a7b28e2fd95c3045f	knowbench-app/knowbench-backend	app/tests/test_workbench_now_view.py	1	161	核对委托底稿分段与导出、实时步骤投影、按 turn 合并重复或分片回执。
+b124c06d766c52167890ad52d749c85d34a62c63	knowbench-app/knowbench-backend	app/tests/test_workbench_turn_outcome.py	1	168	核对委托底稿分段与导出、实时步骤投影、按 turn 合并重复或分片回执。
+8eedade5df91cb198565d0619f8c849117351192	knowbench-app/knowbench-backend	app/tests/test_method_registration.py	1	141	核对依赖图精确准入、市场分批核权、会合通道应答及发布器失败语义。
+d005588b3e6064c9a8e12412eae6dfef1ae6f001	knowbench-app/knowbench-backend	app/tests/test_workbench_adapters.py	1	153	核对依赖图精确准入、市场分批核权、会合通道应答及发布器失败语义。
+050ef21a55c2dd2f4b1f00adb7dad1a6596053cd	knowbench-app/knowbench-backend	app/tests/test_workbench_knowmart_client.py	1	162	核对依赖图精确准入、市场分批核权、会合通道应答及发布器失败语义。
