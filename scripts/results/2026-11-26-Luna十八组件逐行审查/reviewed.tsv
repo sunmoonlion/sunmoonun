@@ -366,3 +366,6 @@ ab926c5d39988b47db9139a543db0650e1d7c15b	knowbench-app/knowbench-backend	app/app
 20f13eae33342010883a5fccd5bd9f84cf2c2cc1	knowlab-app/knowlab-backend	app/app/application/services/knowbot_service.py	1073	1238	检查后台刷新分页和终态错误回传
 9dbe58edfc23295b72ae89992b21746f4faba0b9	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_run.py	322	415	回执模型、验证与结论
 a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	894	911	核对试跑列表排序
+2428c667686ac8034ad23d5800144e584c614030	knowbench-app/knowbench-backend	app/app/domain/workbench/models.py	1	134	预算上限缺省的语义及交接摘要字段
+291b3e347d14bb0e5ad12fe5464a1176eb296704	knowbench-app/knowbench-backend	app/app/domain/workbench/test_runs.py	1	626	试跑契约、选行比较、状态与大小受限的具名产出
+070222182704ebca4d6751b48a2072e7a7fa47d8	knowbench-app/knowbench-backend	app/app/application/workbench/ledger.py	1	435	交接事务、旧请求重放、预算快照和初始额度入账
