@@ -2021,3 +2021,5 @@ a2a4b4d5ac0e0c48240788f89c05b3999f9cef08	knowbase-app/knowbase-backend	app/app/i
 443590cb5a3172b05c1d3161a5f61c2432c266df	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_data_errors.py	1	18	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
 e513aa3bfd899190b6e39385cadbc47d14cc66a5	knowbase-app/knowbase-backend	app/app/interfaces/http/admin/diagnostics.py	1	26	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
 c79cdf4e21a3db6e13001239177e88c02d899e7c	knowbase-app/knowbase-backend	app/tests/test_function_publication.py	1	83	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
+fb5b4b8c358589a51e78099ae1e433eb6b94a420	knowbase-app/knowbase-backend	app/app/interfaces/schemas/data_request.py	1	207	核对数据需求模型、期间规则与发布给两端规划器的契约及测试。
+3a5cb29070beadf0281ad26fade57abaa55f938e	knowbase-app/knowbase-backend	app/tests/test_data_request_contract.py	1	146	核对数据需求模型、期间规则与发布给两端规划器的契约及测试。
