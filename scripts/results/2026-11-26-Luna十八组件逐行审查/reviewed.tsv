@@ -1021,3 +1021,31 @@ f19bddc2f37763cac8fc3c314ed12ddbbf08eb4f	knowlab-app/knowlab-admin-frontend	app/
 1e5c0ac17cd7592cde0c162ff899df5271bc2bfa	knowbench-app/knowbench-web-frontend	app/env/server-schema.ts	1	83	逐行与已审 tpl-app/tpl-web-frontend/app/env/server-schema.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
 39a62ddae64ac7d9e0db4f8ebd56274ef582b007	knowlab-app/knowlab-web-frontend	app/components/knowbots/markdown.tsx	1	43	逐行与已审 knowlab-app/knowlab-admin-frontend/app/components/knowbots/markdown.tsx 对照；相同行在原位置映射，增删段和所有变更已人工复核
 52eacd7e80def9f66c0bf20861b82dff3b9a1b64	knowlab-app/knowlab-admin-frontend	app/lib/navigation.ts	1	107	逐行与已审 tpl-app/tpl-admin-frontend/app/lib/navigation.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+2f3c0e9ac1046d96c7f495b57fdd95726cf916c7	knowlab-app/knowlab-admin-frontend	app/components/knowbots/tests-view.tsx	1	362	开测依赖 draft.blocked，进行中按草稿筛选问题，终态再显示交付
+b13e9dbd005619932b7736d183f5b42da43176d4	knowbench-app/knowbench-backend	app/app/application/ports/web_interaction.py	1	62	逐行与已审 knowbase-app/knowbase-backend/app/app/application/ports/web_interaction.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+2760fa40a348e8ce19630688e43aa2a87e85aa19	knowbench-app/knowbench-web-frontend	app/playwright.config.ts	1	70	逐行与已审 tpl-app/tpl-web-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+235528f3710fe95486c6697b6444249cc0c78d98	knowbench-app/knowbench-web-frontend	app/tests/unit/common-query.test.ts	1	47	逐行与已审 knowbase-app/knowbase-web-frontend/app/tests/unit/common-query.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+5736ce63a8c99847a6cb43a0dad10f8aee476e12	knowbench-app/knowbench-admin-frontend	app/playwright.config.ts	1	70	逐行与已审 tpl-app/tpl-admin-frontend/app/playwright.config.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+020ba372cd4a9b0d084fce82c2147a6a1ef501ee	knowlab-app/knowlab-web-frontend	app/tests/unit/browser-session.test.ts	1	116	逐行与已审 tpl-app/tpl-web-frontend/app/tests/unit/browser-session.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+3f089f11fe6a1c11b03794892e942827e1869dbe	knowmart-app/knowmart-web-frontend	app/contracts/interaction.ts	1	148	逐行与已审 knowbase-app/knowbase-web-frontend/app/contracts/interaction.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+67e7ce9f1625f4befa540fc6397ced4899bfe588	knowbench-app/knowbench-admin-frontend	app/tests/unit/navigation.test.ts	1	16	逐行与已审 knowmart-app/knowmart-admin-frontend/app/tests/unit/navigation.test.ts 对照；相同行在原位置映射，增删段和所有变更已人工复核
+833e7e6d028536a532c39ed33fc950febbbff3ee	knowbench-app/knowbench-backend	app/app/infrastructure/messaging/delivery_observers.py	1	10	逐行与已审 knowbase-app/knowbase-backend/app/app/infrastructure/messaging/delivery_observers.py 对照；相同行在原位置映射，增删段和所有变更已人工复核
+c1f05012298f52a0b91b2223eed7ea4777a4a809	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/client.ts	1	349	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+29a03c27dd6ac7fb08e6debdc4b613f7545cfc83	knowlab-app/knowlab-admin-frontend	app/tests/component/knowbots-columns.test.tsx	1	638	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+520c3de5abea3393b74eebb3f8ecb910d12a1b23	knowlab-app/knowlab-admin-frontend	app/components/knowbots/open-questions.tsx	1	194	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+15011de13ee5a9ce24d82466c569592c052ebbb3	knowlab-app/knowlab-admin-frontend	app/contracts/knowbots.ts	438	466	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+f5b53ed846e47b07a7c114e57b10068bba2ef270	knowlab-app/knowlab-admin-frontend	app/tests/component/knowbot-fixtures.tsx	1	112	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+8dc387d33af47d1be95bd0599b0364f916d56140	knowlab-app/knowlab-backend	app/app/application/services/knowbot_questions.py	1	460	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+f07b657299637619a1104a449281784e45941988	knowlab-app/knowlab-backend	app/tests/test_knowbot_questions.py	1	303	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+563b597234db324663fa03d97640952e7bcde3b1	knowlab-app/knowlab-backend	app/tests/test_knowbot_test_data.py	1	268	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	1400	1495	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	430	515	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	585	642	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+fb42394f3bb48c349140fe2fcf19a6a107c1b6f7	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_routes.py	1635	1708	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+bf752183c95a339f2d9a6063a1567116d174f828	knowlab-app/knowlab-backend	app/app/interfaces/endpoints/knowbot_views.py	378	432	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+9dbe58edfc23295b72ae89992b21746f4faba0b9	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_run.py	284	344	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+9dbe58edfc23295b72ae89992b21746f4faba0b9	knowlab-app/knowlab-backend	app/app/domain/knowbots/test_run.py	510	537	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+470f87a9385033523c7d553c645771f2f07e4056	knowbench-app/knowbench-backend	app/app/application/workbench/test_runs.py	170	282	按运行编号核对问题形成、列表筛选、已答补送与两端契约
+347e3ecdf7e1c37ab6f82b0754932a2a8ccbb4db	knowlab-app/knowlab-admin-frontend	app/tests/unit/browser-session.test.ts	1	116	会话 DTO、匿名和上游异常的差别
+8ad3a952acd8001aa94ad361661df4db9a5f9e10	knowlab-app/knowlab-admin-frontend	app/tests/unit/env.test.ts	1	127	开发构建默认值与部署时环境约束
+88a6e67f2272124cacf1cdf31f642638f4f5919d	knowlab-app/knowlab-web-frontend	app/components/knowbots/my-questions.tsx	1	180	逐类型处理与答复转交反馈；资料由作者在测试页确认
