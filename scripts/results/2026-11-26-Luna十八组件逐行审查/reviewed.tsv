@@ -1479,3 +1479,8 @@ f6cc29e1d744f777c0ca005371a177b45ef6e4fb	knowbench-app/knowbench-backend	app/app
 8e62957ba412e6c17302b1e9ec35d0b6af2e5878	knowbench-app/knowbench-backend	app/tests/test_referenced_method_runtime_db.py	1	75	逐行核对依赖准入、复核返工和人工裁定所用产物的版本及资格测试
 689ab9c721bfe946f703ec8e14bb32279809554a	knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration_execution.py	1	844	核对实际驱动器从冻结输入、权限和预算到执行结束与子树收据的完整路径
 4e44f79f9e35bf9d5e409c3363c25f0856d63eb2	knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_db.py	1	293	审核重启、未知执行结果、取消与单据冻结、审批累计计时的集成用例
+df93abef983fcf79fadde6d164b743f9a9633550	knowbench-app/knowbench-backend	app/alembic/versions/20261121_0055_trial_partial_delivery.py	1	16	核对试跑与执行轮迁移、资料规划夹具以及执行中止和线程隔离的覆盖
+eb11021af3528b902646b0ced1ee1190e8ee635b	knowbench-app/knowbench-backend	app/alembic/versions/20261123_0061_task_runtime_wheel.py	1	36	核对试跑与执行轮迁移、资料规划夹具以及执行中止和线程隔离的覆盖
+5f6e3d4a975a536c13dc6cd1643b0b185d4a5882	knowbench-app/knowbench-backend	app/tests/test_data_planning_flow_db.py	1	186	核对试跑与执行轮迁移、资料规划夹具以及执行中止和线程隔离的覆盖
+2b430b48ac53c6e0ba801fc80fce2451d3ee2bae	knowbench-app/knowbench-backend	app/tests/test_data_planning_runner_db.py	1	284	核对试跑与执行轮迁移、资料规划夹具以及执行中止和线程隔离的覆盖
+de466eac469d6aa86c0f5a2e2f3b92bbfb4cdcf0	knowbench-app/knowbench-backend	app/app/application/workbench/runner.py	773	1134	核对线程事件聚合、早到消息接收、目录隔离、输出恢复与等待回执
