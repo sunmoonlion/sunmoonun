@@ -1660,3 +1660,38 @@ ef22cc2fb10028a1d1e84b5b374d30bce4675a66	knowbench-app/knowbench-backend	app/ale
 10087d403480cef0fbec1a75a5c33469813154a1	knowbench-app/knowbench-backend	app/alembic/versions/20261113_0040_capabilities.py	1	34	核对能力表、调用幂等键、父级外键和委托授权迁移对待审批与在途记录的处理。
 677e91e64925fb5dd2470d3e856048a45dedd24b	knowbench-app/knowbench-backend	app/alembic/versions/20261114_0041_calls.py	1	65	核对能力表、调用幂等键、父级外键和委托授权迁移对待审批与在途记录的处理。
 f83c311025f5994c97745b72067d3dc959c0607e	knowbench-app/knowbench-backend	app/alembic/versions/20261114_0042_authorizations.py	1	39	核对能力表、调用幂等键、父级外键和委托授权迁移对待审批与在途记录的处理。
+2cdc63d5e44cbcd44d4ef89d3c65fdf6a49c1353	knowbench-app/knowbench-backend	app/alembic/versions/20261115_0044_direct_method_grants.py	1	61	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+c07580ce872d85c3aeed7bb0babaa3acc4e3cf85	knowbench-app/knowbench-backend	app/alembic/versions/20261119_0046_skill_files.py	1	73	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+36c956f3ecd1f42b3cce38dc24123c9cf1563eb7	knowbench-app/knowbench-backend	app/alembic/versions/20261120_0047_connection_oauth.py	1	20	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+34a2ffdc96b900d5991972199c9283fc1344f0e8	knowbench-app/knowbench-backend	app/alembic/versions/20261120_0048_call_read_scope.py	1	23	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+b46b11c1a60d80ffd5e8d230a323198461cb1ffa	knowbench-app/knowbench-backend	app/alembic/versions/20261120_0050_incubation_tool_bindings.py	1	24	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+724f4e5f0408dde566d2d13071cff319033ea361	knowbench-app/knowbench-backend	app/alembic/versions/20261121_0052_registry_sources.py	1	22	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+af86a3a933d96a348b0fb7daac43b27d4d20c222	knowbench-app/knowbench-backend	app/alembic/versions/20261121_0053_registry_source_tasks.py	1	26	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+a1cb6761d728a7bb375fdc97711f330177ed3983	knowbench-app/knowbench-backend	app/alembic/versions/20261121_0054_service_functions.py	1	25	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+b5c6792785bc64849938d77015fe17f1d73a6c0a	knowbench-app/knowbench-backend	app/alembic/versions/20261122_0056_ordinary_expert_tasks.py	1	26	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+03af680e845831792dc8e42e179547c4b819cf75	knowbench-app/knowbench-backend	app/alembic/versions/20261122_0057_review_preference.py	1	39	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+915d391e843404cee9f11322e8e3a1afb1815340	knowbench-app/knowbench-backend	app/alembic/versions/20261122_0058_review_decisions.py	1	35	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+ee19fc36f8466df0ca685ef2570233512ced2644	knowbench-app/knowbench-backend	app/alembic/versions/20261122_0060_source_withdrawal.py	1	25	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+c1258f3ef945394c942da6d1c261f03268ff9831	knowbench-app/knowbench-backend	app/alembic/versions/20261124_0062_capability_search.py	1	56	核对撤权后在途任务、技能文件双向迁移校验、来源撤回的降级阻断、独立复核证据表及能力索引生成字段。
+81eb88265dc2d2a7d9fc796b68efd96969621002	knowbench-app/knowbench-backend	app/alembic/versions/20260924_0009_workbench_prefs.py	1	66	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+e112e79e66715b7377be9dd2381e1e56cded0413	knowbench-app/knowbench-backend	app/alembic/versions/20260925_0010_workbench_relay_identity.py	1	50	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+a1ae76824419e3f9a87f7df5f0df6a8bef420029	knowbench-app/knowbench-backend	app/alembic/versions/20260925_0011_workbench_sandbox_leases.py	1	39	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+2bc08122441fd7629dec630e0f96a2d9576621e1	knowbench-app/knowbench-backend	app/alembic/versions/20261007_0013_workbench_library.py	1	42	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+ab69c30f836b20e5323a0c831f8d98f6c2be53f3	knowbench-app/knowbench-backend	app/alembic/versions/20261009_0014_agent_onboarding.py	1	92	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+735a0a809cf6f67f37c95d8314da24736276c693	knowbench-app/knowbench-backend	app/alembic/versions/20261012_0015_tool_approvals.py	1	105	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+8a605ab7d039d99e6a2453eec1ed86eab4eede1d	knowbench-app/knowbench-backend	app/alembic/versions/20261012_0016_memories.py	1	57	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+0bb46a713458173561f5cd59f52925b8083fff36	knowbench-app/knowbench-backend	app/alembic/versions/20261012_0017_session_archive.py	1	33	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+e61876b7507047c63bbe872726ac5ad463567f33	knowbench-app/knowbench-backend	app/alembic/versions/20261012_0018_settings_three_kinds.py	1	29	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+3f7892db56b895b2a595c54beb70ced63a8af465	knowbench-app/knowbench-backend	app/alembic/versions/20261023_0022_environment_device.py	1	42	核对沙箱凭据和租约、设备标识唯一键、审批日志与授权范围、项目成员及会话归档。
+219962aeee1c0e794f9eccb06ee917b1d5000235	knowbench-app/knowbench-backend	app/alembic/versions/20260924_0008_workbench.py	1	459	逐行核对执行任务、预算与产物账的原始外键，及从会话目录回填项目身份时的分隔符和唯一键。
+e8c65066a38b434f6b8a14a15e4395226b16fb49	knowbench-app/knowbench-backend	app/alembic/versions/20260929_0012_workbench_projects.py	1	205	逐行核对执行任务、预算与产物账的原始外键，及从会话目录回填项目身份时的分隔符和唯一键。
+db1c83d084bfaea644020b9248ebc1a2ab7c6940	knowbench-app/knowbench-backend	app/tests/test_workbench_projects_db.py	1	701	逐行核对根目录分解与拼接、项目唯一身份、恢复归档后的冲突、独立数据库并发派单与 HTTP 项目回归覆盖边界。
+e225501caec3238deadeb4d24258739d604ec536	knowbench-app/knowbench-backend	app/tests/test_formal_artifact_authority_db.py	1	244	逐行核对授权路径、产物版本范围、撤回后的再次审批、回执迟到、重启后的宿主审批及双请求只执行一次。
+178b7ff32dbbfdd378e1a7af3149f74b38f8fa23	knowbench-app/knowbench-backend	app/tests/test_formal_host_calls_db.py	1	611	逐行核对授权路径、产物版本范围、撤回后的再次审批、回执迟到、重启后的宿主审批及双请求只执行一次。
+d8382e69ae204d5a12f74c537e5216cf8413cf8b	knowbench-app/knowbench-backend	app/tests/formal_model_support.py	1	355	核对模型调用路径测试替身、请求预期隔离、模型和宿主分别试跑，及冻结后清理原任务的精确验证范围。
+656c3555f218bda06433bff95fee79c460f100ef	knowbench-app/knowbench-backend	app/tests/test_formal_model_admission_db.py	1	276	核对模型调用路径测试替身、请求预期隔离、模型和宿主分别试跑，及冻结后清理原任务的精确验证范围。
+e92e06d3519987a524d7258df9929dfcaecb9b03	knowbench-app/knowbench-backend	app/app/application/workbench/acceptance_numbers.py	1	345	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
+0f18cad31cc7add26012da230664ddf519331016	knowbench-app/knowbench-backend	app/app/application/workbench/data_function.py	1	223	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
+fa308d417407cea1f6f2a49548d708e459b5f819	knowbench-app/knowbench-backend	app/app/application/workbench/run_reader.py	1	118	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
+ee5766d47e0ac7774e20a368e7991ef4d023f690	knowbench-app/knowbench-backend	app/app/application/workbench/scoped_data_functions.py	1	121	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
+ab28c442f5320399bb03c9370b1bb3eb79cfd13f	knowbench-app/knowbench-backend	app/tests/test_method_acceptance_db.py	1	59	逐行核对验收从上游产物、计算事件及 KnowBase 实际页文取证的全过程，核对宿主绑定任务或对话、调用账和结果校验。
