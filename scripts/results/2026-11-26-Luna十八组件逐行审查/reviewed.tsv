@@ -2297,3 +2297,33 @@ b5d0bf9c94b9d2ebc2cdfa8e0d3820d7f43e57ba	knowfeed-app/knowfeed-backend	app/app/i
 d217bc7702b9ef779c7c31750e0d32fa0427a30c	knowfeed-app/knowfeed-backend	app/app/infrastructure/models/supply.py	1	544	核对来源、文档、版本、原件、订阅、队列与发件箱身份及约束
 ab513530ce9faba9dbeb80811fbcd3f8ccc80cb6	knowfeed-app/knowfeed-backend	app/tests/test_delivery_outbox.py	1	163	核对来源、文档、版本、原件、订阅、队列与发件箱身份及约束
 e0737f8c5aa9a394f003d5245963f3b3adf66f6b	knowfeed-app/knowfeed-backend	app/tests/test_distribution_helpers.py	1	200	核对资料分发入库契约及退役作业的回归范围
+4e5471dbccd6bcaf66fb799e723014f9322c66bd	knowbench-app/knowbench-backend	app/app/bootstrap/api.py	1	215	对照已逐行阅读的 knowbase-app/knowbase-backend/app/app/bootstrap/api.py，按本轮完整差异核验
+dbc217d51c3d4e204f8d9a7cc367a655f3f9e54b	knowbench-app/knowbench-backend	app/app/bootstrap/publish_functions.py	1	49	对照已逐行阅读的 knowbase-app/knowbase-backend/app/app/bootstrap/publish_functions.py，按本轮完整差异核验
+ef910388d4462903ff7563cbfeed96aacbb92f22	knowbench-app/knowbench-backend	app/app/infrastructure/external/knowfeed_supply.py	1	174	对照已逐行阅读的 knowlab-app/knowlab-backend/app/app/infrastructure/external/knowfeed_supply.py，按本轮完整差异核验
+9a21bcf473356191743f118b18fd0b3bad208130	knowbench-app/knowbench-backend	app/app/interfaces/errors/exception_handlers.py	1	134	对照已逐行阅读的 knowbase-app/knowbase-backend/app/app/interfaces/errors/exception_handlers.py，按本轮完整差异核验
+d8ddaa1dca3f8fb0746ce619c081fa363158d668	knowbench-app/knowbench-backend	app/app/interfaces/http/admin/diagnostics.py	1	44	对照已逐行阅读的 knowbase-app/knowbase-backend/app/app/interfaces/http/admin/diagnostics.py，按本轮完整差异核验
+0155c960122f01bc7ce0698c8d5f68ebcfa2682b	knowbench-app/knowbench-backend	app/app/interfaces/http/middleware/auth.py	1	182	对照已逐行阅读的 knowbase-app/knowbase-backend/app/app/interfaces/http/middleware/auth.py，按本轮完整差异核验
+917f4da5d62d29c3d3f725d824605fe0c5ea359d	knowbench-app/knowbench-backend	app/app/interfaces/http/routes.py	1	60	对照已逐行阅读的 tpl-app/tpl-backend/app/app/interfaces/http/routes.py，按本轮完整差异核验
+109ab6f7fe023eb396cf3e43f21dddf05179e524	knowbench-app/knowbench-backend	app/scripts/pair_fixture.py	1	239	对照已逐行阅读的 tpl-app/tpl-backend/app/scripts/pair_fixture.py，按本轮完整差异核验
+acf51adafa47ac5e28c225d057f000e68b3c3002	knowbench-app/knowbench-backend	app/tests/test_auth_routes_security.py	1	321	对照已逐行阅读的 knowbase-app/knowbase-backend/app/tests/test_auth_routes_security.py，按本轮完整差异核验
+35e01eadb16094f203bdab129503a8b5e1905392	knowbench-app/knowbench-backend	app/tests/test_dormant_capabilities.py	1	162	对照已逐行阅读的 knowmart-app/knowmart-backend/app/tests/test_dormant_capabilities.py，按本轮完整差异核验
+83ef19a89da414e0920169eb620cf5f0f4f390bd	knowbench-app/knowbench-backend	app/tests/test_interaction_contract.py	1	204	对照已逐行阅读的 knowbase-app/knowbase-backend/app/tests/test_interaction_contract.py，按本轮完整差异核验
+51f4eb014a507132dc6e36d88ddf5d3649f90b6c	knowbench-app/knowbench-backend	app/tests/test_kernel_invariants.py	1	152	对照已逐行阅读的 tpl-app/tpl-backend/app/tests/test_kernel_invariants.py，按本轮完整差异核验
+0bf2669faafdca48dc5e064d3e69e9e31112c155	knowbench-app/knowbench-backend	app/tests/test_worker_config.py	1	29	对照已逐行阅读的 knowfeed-app/knowfeed-backend/app/tests/test_worker_config.py，按本轮完整差异核验
+774cd477231e105b3bf7196705d9a286e7ebcdca	knowfeed-app/knowfeed-backend	app/tests/test_provider_query_db.py	1	415	核对供应商授权及付费防重、证券目录首次刷新和匹配范围的数据库用例
+046443b18426f5f70a11aa0263c97a30718393dd	knowfeed-app/knowfeed-backend	app/tests/test_supply_directory_db.py	1	88	核对供应商授权及付费防重、证券目录首次刷新和匹配范围的数据库用例
+76306739f015079029297c193d67e9e5e1ebb611	knowbench-app/knowbench-backend	app/app/application/sensitive_paths.py	1	25	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+6c4ba84bcbddabac5c79cc0d8956d2353f082cd2	knowbench-app/knowbench-backend	app/app/domain/workbench/data_function.py	1	82	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+b022f27408e7b3ec81810fa8f1e09712ec0d0b10	knowbench-app/knowbench-backend	app/app/domain/workbench/field_words.py	1	139	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+d8ddd4dcf89eddbf46d21c283ec7c2483b03548f	knowbench-app/knowbench-backend	app/app/domain/workbench/memory.py	1	41	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+938fabcdded1787a470365a4fdfaad20b1eab56a	knowbench-app/knowbench-backend	app/app/domain/workbench/native_permissions.py	1	89	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+ba6cbe82442a0d9ae4bbed652ea764531622a093	knowbench-app/knowbench-backend	app/app/domain/workbench/native_registry.py	1	58	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+13c9fb9a36242cbcccab92b8034a3ad81a24c066	knowbench-app/knowbench-backend	app/app/domain/workbench/provider_url.py	1	66	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+d30dde9f8f2228e0a5dea1788ca2c51c47abc866	knowbench-app/knowbench-backend	app/app/domain/workbench/service_functions.py	1	73	核对来源函数投影、字段中文名、用户记忆、模型地址、原生权限和函数修订声明
+a53cb4eccedcd94e3e31fc586c66e304fc7e4554	knowbench-app/knowbench-backend	app/app/domain/workbench/resource_delegation.py	1	172	核对技能选包目录、来源使用权与单层转授权的修订、证据和有效期边界
+c75d9dc43734e39570106d3cc3a564f0c25fef57	knowbench-app/knowbench-backend	app/app/domain/workbench/skill_installation.py	1	256	核对技能选包目录、来源使用权与单层转授权的修订、证据和有效期边界
+b2d3ba54f155c9df7c0649ae249cbc9ef5f64f45	knowbench-app/knowbench-backend	app/app/domain/workbench/source_licenses.py	1	142	核对技能选包目录、来源使用权与单层转授权的修订、证据和有效期边界
+da7d910707f2ca198d139fb134937868591be948	knowbench-app/knowbench-backend	app/app/domain/workbench/capabilities.py	1	209	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
+603ffd703413301b2e859ce124448d5d54e7fbd2	knowbench-app/knowbench-backend	app/app/domain/workbench/compute.py	1	244	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
+8ea69adea609824968be5e322f88775b6458c556	knowbench-app/knowbench-backend	app/app/domain/workbench/errors.py	1	299	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
+b5b317c6b501c0e4672cb1d812d2e89edde414c2	knowbench-app/knowbench-backend	app/app/infrastructure/workbench/skill_sources.py	1	76	核对工作台领域错误、能力选择、技能仓库获取与十进制计算、表达式相等判断
