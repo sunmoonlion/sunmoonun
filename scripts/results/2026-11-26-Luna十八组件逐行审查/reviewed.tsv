@@ -1353,3 +1353,5 @@ f764aa338be56b66e5763056885a6b8585e0fd17	knowbench-app/knowbench-web-frontend	ap
 a9f2b0f08a75c62c26a6c325d698adac761720b6	knowbench-app/knowbench-web-frontend	app/lib/workbench/capabilities.ts	1	668	核对能力客户端契约、已固定的服务样例与选择、调用身份及状态关联断言
 3be5b216cff20bf7808685511099f8df496ee278	knowbench-app/knowbench-web-frontend	app/tests/unit/capability-contract.test.ts	1	295	核对能力客户端契约、已固定的服务样例与选择、调用身份及状态关联断言
 ce5d89a9daaf9690990f6cd50401289595657891	knowbench-app/knowbench-backend	app/app/domain/workbench/skill_execution.py	1	207	核对安装脚本输入、正式脚本唯一结果文件、注册脚本的公开状态和返回的附件路径
+14d05d22084e7a0a24b0c7572c9c261ce3956d8b	knowbench-app/knowbench-web-frontend	app/features/settings/ui/capabilities-section.tsx	1	654	核查连接与技能设置、文件失败恢复、切换仓库候选的依赖、预览与安装回执
+e2fd3c8f9e643c5659cab239d8088b8db68845a0	knowbench-app/knowbench-web-frontend	app/features/settings/ui/skill-source-installer.tsx	1	220	核查连接与技能设置、文件失败恢复、切换仓库候选的依赖、预览与安装回执
