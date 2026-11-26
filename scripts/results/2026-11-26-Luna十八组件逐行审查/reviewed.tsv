@@ -1257,3 +1257,5 @@ d931791942c58e7bef3753ebe26261207bc3d572	knowlab-app/knowlab-web-frontend	app/co
 d6fdfd3d88e5cb956c22616bbcc8ffafd7118eac	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-suggestions.tsx	1	282	追溯建议接受、编辑、出处归属及能力声明与交付证据绑定。
 a17c201d8a59e238ce085215e217e092db89a432	knowlab-app/knowlab-web-frontend	app/components/shell/web-shell.tsx	1	199	核对作者导航与待办数量，以及试跑响应身份、审批动作和分支验收的客户端契约。
 ff1ead1dfa14b8a08bf2c5b8f38cea011f3df37f	knowlab-app/knowlab-web-frontend	app/lib/knowbots/formal-method-execution.ts	1	243	核对作者导航与待办数量，以及试跑响应身份、审批动作和分支验收的客户端契约。
+879e49def0add56c55aaadab3785c5247928190d	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-view.tsx	1	1070	逐项检查实例挂载、保存队列、草图跳转、平台与模型建议、预览和出版本的修订边界。
+6db48d8e13ee1a2253f91895c241c530abb1dbbb	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-step.tsx	1	744	逐格核对输入来源、返工、输出、提问、工具与模型额度编辑及不可保存字段。
