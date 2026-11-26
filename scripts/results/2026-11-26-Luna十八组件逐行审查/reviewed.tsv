@@ -1522,3 +1522,6 @@ ae025a9b93345cd78ded0dd4a3e2246f6113bb13	knowbench-app/knowbench-web-frontend	ap
 545a7e31db7d517284f051a3937ed93b121afb10	knowbench-app/knowbench-web-frontend	app/features/work/index.ts	1	1	核对通用控件的渲染、传播属性、关闭文字、技能依赖展示及预览测试入口
 ece2bcac1726f734a457cf3585051269955f6b7d	knowbench-app/knowbench-web-frontend	app/preview/preview.config.mjs	1	17	核对通用控件的渲染、传播属性、关闭文字、技能依赖展示及预览测试入口
 e5342f20fdda1e48a4f58bb5d31b5cc9d08ddfa8	knowbench-app/knowbench-web-frontend	app/vitest.setup.ts	1	35	核对通用控件的渲染、传播属性、关闭文字、技能依赖展示及预览测试入口
+ec57f397bf25975c26399f22754bc5763fb98aa7	knowbench-app/knowbench-web-frontend	app/contracts/workbench-v2.ts	1	1033	逐字段核对工作台 v2 会话、归档、委托、审核、数据需求与匹配契约，并查阅契约样例及模块分层测试
+75e5dbdabc721d2040ecab96e8f84d2b6b0e07e6	knowbench-app/knowbench-web-frontend	app/tests/unit/feature-boundaries.test.ts	1	126	逐字段核对工作台 v2 会话、归档、委托、审核、数据需求与匹配契约，并查阅契约样例及模块分层测试
+e2d0303b813d8585d452032490a11388cc267f29	knowbench-app/knowbench-web-frontend	app/tests/unit/workbench-contract-samples.test.ts	1	72	逐字段核对工作台 v2 会话、归档、委托、审核、数据需求与匹配契约，并查阅契约样例及模块分层测试
