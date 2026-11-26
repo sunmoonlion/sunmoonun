@@ -161,3 +161,6 @@ efd91194c519b61d70d5479b73be026d97e50a03	knowlab-app/knowlab-backend	app/app/dom
 e32e1624458292d96d99d1d8439aabf9aafe2328	knowlab-app/knowlab-admin-frontend	app/lib/knowbots/proposals.ts	1	61	运营改稿按新旧步骤生成增删改移。新增项缺目标位置，保留项相对次序不变时不会发 move。
 6f659f962aa8c8aa9bab60f5b6dc284816f66108	knowlab-app/knowlab-admin-frontend	app/tests/unit/proposals.test.ts	1	65	测试已有末尾添加及交换两个旧步骤，未覆盖中间插入后经服务端重放的结果。
 5b44b7a7482d59512a4fa18fbdac86f329da2527	knowlab-app/knowlab-backend	app/alembic/versions/20261029_0020_workdraft_proposals.py	1	76	提议以路径、动作、值和理由独立保存，含状态检查与请求时间索引，没有批内位置字段。
+82cfffd7908a802323d1327a50c74c8fef67e5bf	knowlab-app/knowlab-backend	app/app/domain/knowbots/amendment_usage.py	1	65	旧补充采用需作者 edit/accept 记录，核路径、工作稿、主体及对应方法中的逐字文本。
+c6fb33cbce99f598d7e7d5f85e054e3d61e7194c	knowlab-app/knowlab-backend	app/app/domain/knowbots/platform_grants.py	1	68	孵化及测试授权上限均为 1000 元；过期态按当前时间计算。
+5310024c254fc8a10f58eca1f99480e0b0b43d0f	knowlab-app/knowlab-backend	app/app/domain/knowbots/manual_release.py	1	46	人工例外须基线测试、清单摘要、理由、限制和明确承认未经复测，另有审批决定。
