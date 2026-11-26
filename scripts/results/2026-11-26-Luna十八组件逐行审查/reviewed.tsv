@@ -1253,3 +1253,5 @@ d1087afa24b437c8980ebd64c81b9919bc78febf	knowlab-app/knowlab-web-frontend	app/co
 340ade885909ea4b517ae2dba54333ec7bf81557	knowlab-app/knowlab-web-frontend	app/components/knowbots/p2-join.tsx	1	310	核对并行汇合、独立复核及有界对象批处理草图预览和手动导入、复制操作。
 56d24db8e841fe0b05579850eb90249f8db5ab46	knowlab-app/knowlab-web-frontend	app/components/knowbots/p4-comparison.tsx	1	274	核对并行汇合、独立复核及有界对象批处理草图预览和手动导入、复制操作。
 bfe538e0224377d58c6d426ee812c5cec24b1b9c	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-panels.tsx	1	269	核对并行汇合、独立复核及有界对象批处理草图预览和手动导入、复制操作。
+d931791942c58e7bef3753ebe26261207bc3d572	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-capabilities.tsx	1	260	追溯建议接受、编辑、出处归属及能力声明与交付证据绑定。
+d6fdfd3d88e5cb956c22616bbcc8ffafd7118eac	knowlab-app/knowlab-web-frontend	app/components/knowbots/workdraft-suggestions.tsx	1	282	追溯建议接受、编辑、出处归属及能力声明与交付证据绑定。
