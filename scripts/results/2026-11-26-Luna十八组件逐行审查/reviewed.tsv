@@ -1892,3 +1892,10 @@ e39cfbbc132c031159d763e84af56974f70126a6	knowlab-app/knowlab-backend	app/tests/t
 70741763d239c77deda559bb69cce405f66369fa	knowlab-app/knowlab-backend	app/tests/test_formal_method_routes.py	1	249	追踪正式方法的用例冻结、逐断言核验、计划输入输出、HTTP 上架和前端契约导出
 91b3ad3d8cc21b3ac383b348c94f6cee131d2b89	knowlab-app/knowlab-backend	app/tests/test_formal_method_web_export.py	1	42	追踪正式方法的用例冻结、逐断言核验、计划输入输出、HTTP 上架和前端契约导出
 7486c2d5635fde40b2ad8f7907e081bd64a92c59	knowlab-app/knowlab-backend	app/tests/test_formal_method_service.py	1	694	核对信任回执、冻结登记重放、声明覆盖和复核策略回归
+b86ee992bc0981d49975eb9c4d8d2a233ac20e99	knowlab-app/knowlab-backend	app/tests/test_formal_model_execution.py	1	379	核对模型调用资格、作者与运行方的用例关联、迁移链检查及父仓契约锁缺失时的门禁
+e023181dd029b03e97d7def037ea44c09d3ae64a	knowlab-app/knowlab-backend	app/tests/test_kernel_invariants.py	1	119	核对模型调用资格、作者与运行方的用例关联、迁移链检查及父仓契约锁缺失时的门禁
+6b97c7e1f8587cbad74bb5f9b444a29dfedcbd20	knowlab-app/knowlab-backend	app/tests/test_knowbot_contract_locks.py	1	143	核对模型调用资格、作者与运行方的用例关联、迁移链检查及父仓契约锁缺失时的门禁
+396131a457ff82bcf2688a7c300be410a5b435f7	knowlab-app/knowlab-backend	app/tests/test_knowbot_test_run_contract.py	1	189	核对模型调用资格、作者与运行方的用例关联、迁移链检查及父仓契约锁缺失时的门禁
+b6497c17d7f9829436aefc22ac8ff05b0ce67bdb	knowlab-app/knowlab-backend	app/tests/test_formal_methods_db.py	1	453	核对自用冻结持久化、人工例外及回炉反馈中行级验收定位
+f57fd4d914c45bd8dfe113b72dbe4836cfa95ca6	knowlab-app/knowlab-backend	app/tests/test_knowbot_lab_extras.py	1	445	核对自用冻结持久化、人工例外及回炉反馈中行级验收定位
+9954c18068bca2ba8e1a0402e8ee034ba997a3bf	knowlab-app/knowlab-backend	app/tests/test_manual_release_db.py	1	255	核对自用冻结持久化、人工例外及回炉反馈中行级验收定位
