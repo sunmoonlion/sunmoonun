@@ -1921,3 +1921,8 @@ e6b71a3c8f04d671b5242771746b3685bdc51145	knowlab-app/knowlab-backend	app/tests/t
 2d16109ff18603f0ac9b7541cc28ba0d721f127c	knowlab-app/knowlab-backend	app/tests/test_interaction_contract.py	1	185	审核草稿清单、工作稿数据格式迁移、引用来源及运行交互契约测试。
 5c4a3badcd3ae41142896a6fa8f725e0605f8271	knowlab-app/knowlab-backend	app/tests/test_knowbot_data_formats_db.py	1	106	审核草稿清单、工作稿数据格式迁移、引用来源及运行交互契约测试。
 19724d7c2848b4cc974b7fcbb29da4978d228893	knowlab-app/knowlab-backend	app/tests/test_knowbot_drafts.py	1	149	审核草稿清单、工作稿数据格式迁移、引用来源及运行交互契约测试。
+f241be9bf0f242448ab7d3c212266166690b3eef	knowlab-app/knowlab-backend	app/tests/test_knowbot_creation_routes.py	1	688	对照创建服务与作者、运营 HTTP 全流程；超时重置与重试、固定包退役的异常契约。
+8ea348262d9802a40e9143043d0f7ce420de2fe7	knowlab-app/knowlab-backend	app/tests/test_knowbot_creation_service.py	1	409	对照创建服务与作者、运营 HTTP 全流程；超时重置与重试、固定包退役的异常契约。
+dcd7b3c9e50cba898e78b0fbc18c8dc1765e82e7	knowlab-app/knowlab-backend	app/tests/test_dormant_capabilities.py	1	147	核对服务身份客户端、休眠能力与作者能力声明测试；固定包导入失败使后半段发布断言未执行。
+aa307426545948d1a869cac47449707e8f455df5	knowlab-app/knowlab-backend	app/tests/test_downstream_service.py	1	72	核对服务身份客户端、休眠能力与作者能力声明测试；固定包导入失败使后半段发布断言未执行。
+6e6ba070d0289ae47740cf6cc55976553110a96b	knowlab-app/knowlab-backend	app/tests/test_managed_capabilities.py	1	211	核对服务身份客户端、休眠能力与作者能力声明测试；固定包导入失败使后半段发布断言未执行。
