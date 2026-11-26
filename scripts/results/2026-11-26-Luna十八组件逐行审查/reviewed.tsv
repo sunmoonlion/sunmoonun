@@ -1946,3 +1946,4 @@ b9de70c2966c2fb8b51c4e3004dd6088f7497f84	knowlab-app/knowlab-backend	search-acce
 ecbb25d27c116d461787a64fce7ee2ece311a38b	knowlab-app/knowlab-backend	app/scripts/pair_fixture.py	1	204	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
 1b54b008baf16a5ee7de5bf617a97a759072a837	knowlab-app/knowlab-backend	app/tests/test_config_security.py	1	172	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
 5779f992c8b7df2be6779e812cbd22fe0d5a073f	knowlab-app/knowlab-backend	app/tests/test_cross_app.py	1	290	配置构造、两端登录回跳与跨应用契约、配对夹具；将断线续传与实际适配器逐事件对照。
+cf580bcd3a0423882d2dd6ae281bf74648949702	knowlab-app/knowlab-backend	app/tests/knowbot_fakes.py	1	1501	逐行核对共用仓储、运行与交付替身；比对事务回滚、清单编译、试跑回执及授权查询语义。
