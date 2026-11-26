@@ -1575,3 +1575,7 @@ b776258b93ab302a83145d0da1e814c431a39981	knowbench-app/knowbench-backend	app/app
 ecdf86edf50fd594863ab4cfa97680bc4f2e0830	knowbench-app/knowbench-backend	app/tests/test_formal_model_evidence.py	1	542	核对模型回合原始事件、计量和冻结后的再次验证；对照异步计量到达顺序
 1e50e4455de26920f9bcb7a05f6f6bac75d821a0	knowbench-app/knowbench-backend	app/app/application/workbench/formal_model_execution.py	1	291	核对模型单回合的启动、取消、未知费用恢复、输出上限与落库语义
 0e4a18f7245ec3aceac6d7394c959bf712edd56b	knowbench-app/knowbench-backend	app/tests/test_formal_model_execution_db.py	1	217	核对模型单回合的启动、取消、未知费用恢复、输出上限与落库语义
+67b8a049eba0395ef573cfca6ada94212562047d	knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration_admission.py	1	1174	逐行核对一层及递归专家封存复验、组合回执收集和结构回归的字段、费用与输出来源
+1b78db50709f8e8c87d999bdb3ae2ab1f07a6932	knowbench-app/knowbench-backend	app/app/application/workbench/formal_orchestration_evidence.py	1	767	逐行核对一层及递归专家封存复验、组合回执收集和结构回归的字段、费用与输出来源
+8e319cb6225322b67ac8d89c3c5c8b7396de06c3	knowbench-app/knowbench-backend	app/tests/test_formal_orchestration_admission.py	1	759	逐行核对一层及递归专家封存复验、组合回执收集和结构回归的字段、费用与输出来源
+15a0e08e00a9d4afb6a42a7183071d81c0297848	knowbench-app/knowbench-backend	app/app/application/workbench/formal_recursive_evidence.py	1	917	核对递归树逐层输入输出、祖先审批与事件顺序、产物清单和用例结果比对，确认逐次重复加载全套用例
