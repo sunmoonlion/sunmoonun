@@ -1164,3 +1164,15 @@ e9cabf0eda5378ce660674f9d87257bf9503ace5	knowfeed-app/knowfeed-backend	app/app/i
 e9cabf0eda5378ce660674f9d87257bf9503ace5	knowfeed-app/knowfeed-backend	app/app/infrastructure/repositories/supply.py	908	962	与用户工作台和管理表单对照：本人列表上限、超时项的迟到回执、链接失败记录、渠道排序。
 1baa35362bf68d47997ce7a59f59da1fd1fdb9cd	knowfeed-app/knowfeed-backend	app/app/application/supply/jobs.py	548	608	与用户工作台和管理表单对照：本人列表上限、超时项的迟到回执、链接失败记录、渠道排序。
 1baa35362bf68d47997ce7a59f59da1fd1fdb9cd	knowfeed-app/knowfeed-backend	app/app/application/supply/jobs.py	624	680	与用户工作台和管理表单对照：本人列表上限、超时项的迟到回执、链接失败记录、渠道排序。
+3c380153a25418fae3dc28a4c3efbba1c622ad92	knowbase-app/knowbase-web-frontend	app/app/[locale]/(dashboard)/consents/page.tsx	1	51	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+54d81d0a87aa3ccbe1399a9f05b49754b5999d9c	knowbase-app/knowbase-web-frontend	app/contracts/library.ts	1	193	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+c2d747ef7fcb205b9b1fbcadec6d197b13e690bb	knowbase-app/knowbase-web-frontend	app/features/library/api/library.ts	1	323	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+190ed6e1a13be710b4f9b37a186243b15df91f15	knowbase-app/knowbase-web-frontend	app/features/library/index.ts	1	4	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+83cf3ef767454fb811fa72de30654f3a8d9eac8d	knowbase-app/knowbase-web-frontend	app/features/library/ui/consents-panel.tsx	1	141	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+f3608554218d7d317b637c354cd4ccfa4a3a203e	knowbase-app/knowbase-web-frontend	app/features/library/ui/error-note.tsx	1	18	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+f479c08a66ed7a2b2cd77ecb4c6f1347aafce4ee	knowbase-app/knowbase-web-frontend	app/features/library/ui/library-workspace.tsx	1	387	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+5b5d597e7c580a4d6580101cda41e0bab9401d1f	knowbase-app/knowbase-web-frontend	app/features/library/ui/settings-panel.tsx	1	33	授权与设置、资料库筛选勾选和共享操作、查询与输入输出契约。
+24849837523166c50b5876c62381a4d244f8f837	knowbase-app/knowbase-web-frontend	app/tests/component/library.test.tsx	1	164	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
+24849837523166c50b5876c62381a4d244f8f837	knowbase-app/knowbase-web-frontend	app/tests/component/library.test.tsx	166	200	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
+74b2524832898fb29bff40da6b7ecf18b10596c5	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/library_web_routes.py	463	536	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
+09409b63d7124bc4656185fb371bcc7ce204196f	knowbase-app/knowbase-backend	app/app/application/services/user_run_service.py	850	985	核对资料授权展示与默认同意、撤回接口、影响范围，以及已读测试样例。
