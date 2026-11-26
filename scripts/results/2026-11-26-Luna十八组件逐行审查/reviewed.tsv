@@ -879,3 +879,14 @@ cd1cbeeec0da7f3e676c80be404680494675db86	knowlab-app/knowlab-backend	app/app/tas
 32916759002ff6cbeaf6f1ba7a47a883bb8e1f87	knowlab-app/knowlab-backend	app/tests/test_knowbot_experts.py	849	883	核对本地服务夹具、既有断言及产出证据读取
 32916759002ff6cbeaf6f1ba7a47a883bb8e1f87	knowlab-app/knowlab-backend	app/tests/test_knowbot_experts.py	994	1037	核对本地服务夹具、既有断言及产出证据读取
 32916759002ff6cbeaf6f1ba7a47a883bb8e1f87	knowlab-app/knowlab-backend	app/tests/test_knowbot_experts.py	1260	1303	核对本地服务夹具、既有断言及产出证据读取
+bafd09b12c0710c732f1626c2049ffb3efbdc90a	knowlab-app/knowlab-backend	app/app/domain/knowbots/methods.py	1	392	方法文档与输入输出定义
+f2203887c9638cff77ce9ad362345f439fa1a39f	knowlab-app/knowlab-backend	app/app/domain/knowbots/atomic_methods.py	1	116	原子方法声明与实现绑定
+92b796e861dddeba0c632be4638b5e78022e9897	knowlab-app/knowlab-backend	app/app/bootstrap/knowbots.py	1	167	作者服务依赖装配
+bc8eb0af5bec428f768f0403c69fd9b07b30c6f3	knowlab-app/knowlab-backend	app/app/application/services/formal_methods.py	1	1192	核对执行样本回执、候选匹配分页、依赖解析、事务内冻结与提交后注册的重试语义
+2974b618bcd926d0f2e7ba47dbe78c5773cfd9ff	knowlab-app/knowlab-backend	app/app/domain/knowbots/formal_method_execution.py	679	784	执行结果身份、单例重复编号、各调用方正例和断言指针
+a174cc56dc210677813eaa2fc5bc10599fc7d391	knowlab-app/knowlab-backend	app/app/infrastructure/repositories/knowbots.py	1921	2023	按授权版本和输出槽位匹配分页、当前版本子查询
+fe9a38bcf9a4b20be108ca902edeb4fec7f7b674	knowbench-app/knowbench-backend	app/app/domain/workbench/method_search.py	1	99	搜索查询契约、中文双字与跨字段交错取词
+cd08feca6a9fa68204185b7f8834ac2d32ca4767	knowbench-app/knowbench-backend	app/app/application/workbench/formal_methods.py	478	578	按冻结摘要取证及逐次读取样本、交付核权
+e186499102ae86fe526822bacf6440e3f12520a0	knowbench-app/knowbench-backend	app/app/application/workbench/registry_catalog.py	193	301	区分作者候选、消费匹配与带授权的市场分页
+c734a3dd73932f8dbed940b2d6674f98cccc3eee	knowbench-app/knowbench-backend	app/app/application/workbench/formal_test_runs.py	543	696	逐次结果封存、至少通过次数及来源复核
+ad2b50540c9dddb63cfc8175e0594b9d57574562	knowbench-app/knowbench-backend	app/app/application/workbench/formal_method_catalog.py	999	1043	注册复验通过次数、账实对照
