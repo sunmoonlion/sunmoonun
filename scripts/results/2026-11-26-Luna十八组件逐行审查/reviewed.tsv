@@ -186,3 +186,13 @@ dbbc1bf01a1c94b3a2571d11b5b66156efc38d56	knowbench-app/knowbench-backend	app/app
 81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	211	230	加工授权按创建时间倒序限条，查询未过滤已完成项
 e03a4f10ab68368709776036773564019139d6b2	knowbase-app/knowbase-backend	app/app/domain/user_readings.py	1	126	解析正文与分页文本，去 NUL、校验页号、规范化计算读法摘要
 b54e2f61b13ab24e82842ad14f06ced2f8328a12	knowbase-app/knowbase-backend	app/app/domain/user_data.py	1	137	按后缀和内容校验、清理文件名、配额与格式预览；转换产出调用 clean_name 时序见 B22
+10e76e7d2ee2d151469113e300b76e20f00d6ffc	knowbase-app/knowbase-backend	app/app/domain/user_facts.py	1	357	原样与标准事实、批次摘要、恒等式、事实筛选与指标分组计算；实测 B23/B24
+c91742a2e5b2429ceeb9217df72faf95766e3890	knowbase-app/knowbase-backend	app/app/domain/chart_of_accounts.py	1	510	核对全部科目、别名、行业、分类标准映射与六种指标声明
+2ad8b864c86bc07d895ede4dff93f8f38c84fddd	knowbase-app/knowbase-backend	app/app/domain/fact_needs.py	1	298	需求期间展开与多报告按披露日取数；时点与季度交叉见 B25
+b1ed21951d631a62c933b22380f031ecb30e4368	knowbase-app/knowbase-backend	app/tests/test_fact_needs.py	1	145	逐例核对期间、披露次序与歧义，现有 15 项通过
+b7a2a47ee24bbc244b832da76f8de89e71627e58	knowfeed-app/knowfeed-backend	app/app/application/supply/processing.py	1	345	抽取三表与补充资料、单位来源和派生下标；实际原样单位见 B26
+a29bf79629ef5741e0e261b50033182f26657601	knowfeed-app/knowfeed-backend	app/app/domain/securities/report_statements.py	1	171	报表、列、单位来源、核验结果与逐行配对的数据结构
+6a3997fe30dca17cfb4686f6829cf3d53b456d99	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/labels.py	1	144	去序号附注与折行匹配，只将金额字段纳入映射
+a510cb2a87f714b42f263b7328ac37e0684b7fdf	knowfeed-app/knowfeed-backend	app/app/application/securities/report_extraction/cross_year.py	1	183	逐行单位换算、对照、容差与按值配对；见 B27
+b9266247d5673ca18d14b800847d85fee6f2bf57	knowfeed-app/knowfeed-backend	app/tests/test_report_cross_year.py	1	326	逐例核对重复科目、跨单位、单股数及真实年报回归；现有 35 项通过
+81afa875b2e2d1bf041db76551a6f678caa86301	knowbase-app/knowbase-backend	app/app/infrastructure/repositories/user_runs.py	430	585	事实 SQL 过滤、排序、行单位与分页、表格最新版本和持久化输入组合
