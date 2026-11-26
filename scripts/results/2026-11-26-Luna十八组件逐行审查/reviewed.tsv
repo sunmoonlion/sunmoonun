@@ -1887,3 +1887,8 @@ dacacdf0462b5b021313b5aa80964eeaa6a9cf1f	knowlab-app/knowlab-backend	app/app/int
 2069d230587768a45eeb6b8f82b84132f44c9d6a	knowlab-app/knowlab-backend	app/app/interfaces/http/routes.py	1	28	核对模板路由组装、会话及跨应用凭据、运营诊断入口与模型注册
 b3648f24caf0236f9021026131f1abe89bc014d2	knowlab-app/knowlab-backend	app/tests/test_knowbot_platform_db.py	1	214	对照试跑用例归属、完成判定与市场交付证据；核对授权迁移的 PostgreSQL 约束
 58093a55c712464fdef78121d9b202679ef9ef55	knowlab-app/knowlab-backend	app/tests/test_knowbot_test_outputs.py	1	287	对照试跑用例归属、完成判定与市场交付证据；核对授权迁移的 PostgreSQL 约束
+029830e45275e2400eeeec4d27a9c7f79587babb	knowlab-app/knowlab-backend	app/tests/test_formal_method_execution.py	1	629	追踪正式方法的用例冻结、逐断言核验、计划输入输出、HTTP 上架和前端契约导出
+e39cfbbc132c031159d763e84af56974f70126a6	knowlab-app/knowlab-backend	app/tests/test_formal_method_plan.py	1	436	追踪正式方法的用例冻结、逐断言核验、计划输入输出、HTTP 上架和前端契约导出
+70741763d239c77deda559bb69cce405f66369fa	knowlab-app/knowlab-backend	app/tests/test_formal_method_routes.py	1	249	追踪正式方法的用例冻结、逐断言核验、计划输入输出、HTTP 上架和前端契约导出
+91b3ad3d8cc21b3ac383b348c94f6cee131d2b89	knowlab-app/knowlab-backend	app/tests/test_formal_method_web_export.py	1	42	追踪正式方法的用例冻结、逐断言核验、计划输入输出、HTTP 上架和前端契约导出
+7486c2d5635fde40b2ad8f7907e081bd64a92c59	knowlab-app/knowlab-backend	app/tests/test_formal_method_service.py	1	694	核对信任回执、冻结登记重放、声明覆盖和复核策略回归
