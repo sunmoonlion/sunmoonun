@@ -1729,3 +1729,9 @@ d025b9f9b36b6bcafd7e455243c0223ca043a345	knowbench-app/knowbench-backend	app/app
 920e3068236c3539ef32ef02acb78fda7115535a	knowbench-app/knowbench-backend	app/app/application/workbench/test_folders.py	1	118	核对代理机器上报、测试目录创建与清理、作者测试匹配兼容入口
 860589243f57f2c3e93ae91204b5c955776f8822	knowbench-app/knowbench-backend	app/app/application/workbench/test_scope.py	1	86	核对代理机器上报、测试目录创建与清理、作者测试匹配兼容入口
 f464d90da260c67c7306252eefa4a792af7dc422	knowbench-app/knowbench-backend	app/tests/test_knowbot_test_folders.py	1	131	核对清理目录、权限拒绝、连接中断及首次运行夹具
+9315b9c89c95d9143834875907bdb883fec5dd02	knowbench-app/knowbench-backend	app/app/application/workbench/session_service.py	1	344	从立项、会话、方向盘和中断逐项核对持锁边界
+524390d1f545d3887d98d0213e069cb89d950215	knowbench-app/knowbench-backend	app/app/application/workbench/call_policy.py	1	112	核对工具调用的任务身份、幂等键、操作登记与派发前授权
+5461d651eb1ec5d1bd7e4257594dc824dcafc0d8	knowbench-app/knowbench-backend	app/app/application/workbench/calls.py	1	137	核对工具调用的任务身份、幂等键、操作登记与派发前授权
+e04287e460120fbcb9ca643724714467d12f7084	knowbench-app/knowbench-backend	app/app/application/workbench/tool_invocation.py	1	118	核对模型工具调用事件、参数与宿主线程复验
+856abcc0263ca5e4022d0dc691f904dbf2f22ff9	knowbench-app/knowbench-backend	app/app/application/workbench/method_capabilities.py	1	137	复核步骤绑定、撤权暂停、费用待核与再次授权前提
+80798e8ade88dbb085347caf8bced63ec3915b74	knowbench-app/knowbench-backend	app/app/application/workbench/method_permission_recovery.py	1	96	复核步骤绑定、撤权暂停、费用待核与再次授权前提
