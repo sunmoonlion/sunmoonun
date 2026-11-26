@@ -2035,3 +2035,9 @@ bbe56a1a39ed0595bc421ec2d215d131e63c7184	knowbase-app/knowbase-backend	app/tests
 766b3e111eda293ae159c1aa1d7994391e583805	knowbase-app/knowbase-backend	app/app/interfaces/schemas/user_resolution.py	1	221	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
 58e5e963b92ce62fa14cee8c4f6b93cc7958c0a1	knowbase-app/knowbase-backend	app/tests/test_source_query_db.py	1	89	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
 7e03bcb3d1d18b404c981cdb22fca2d80b1310a2	knowbase-app/knowbase-backend	app/tests/test_user_resolution_refresh_http.py	1	104	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
+74b2524832898fb29bff40da6b7ecf18b10596c5	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/library_web_routes.py	1	536	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
+016ab7dde01b5c195a3e0b7e86bd9b5d04f4fe95	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_library_routes.py	1	1084	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
+7540a7d359b461c48635bdcc25c39ef2835c1691	knowbase-app/knowbase-backend	app/app/interfaces/schemas/user_library.py	1	436	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
+669e816d7e0926a9f71a0d25ae36f36bc85603fa	knowbase-app/knowbase-backend	app/app/interfaces/schemas/web_library.py	1	81	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
+4db12809eb5db4faddfafb880d3093f775c2b9ff	knowbase-app/knowbase-backend	app/tests/test_library_web_http.py	1	604	逐行核对资料库 Web 与内部路由、请求/响应模型及 Web 整合测试；核验指定版本、重试、交付回执与成交重放。
+30d05cb67f745e5f35f25356036dd27ae228a887	knowbase-app/knowbase-backend	app/tests/test_user_library_contract.py	1	169	逐行审接口契约生成模型与摘要校验，用真实路由请求模型反查漏登。
