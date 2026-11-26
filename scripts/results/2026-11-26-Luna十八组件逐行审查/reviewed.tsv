@@ -2023,3 +2023,15 @@ e513aa3bfd899190b6e39385cadbc47d14cc66a5	knowbase-app/knowbase-backend	app/app/i
 c79cdf4e21a3db6e13001239177e88c02d899e7c	knowbase-app/knowbase-backend	app/tests/test_function_publication.py	1	83	对照函数发布回执、通用应用异常、身份接口、模型基类和管理诊断入口。
 fb5b4b8c358589a51e78099ae1e433eb6b94a420	knowbase-app/knowbase-backend	app/app/interfaces/schemas/data_request.py	1	207	核对数据需求模型、期间规则与发布给两端规划器的契约及测试。
 3a5cb29070beadf0281ad26fade57abaa55f938e	knowbase-app/knowbase-backend	app/tests/test_data_request_contract.py	1	146	核对数据需求模型、期间规则与发布给两端规划器的契约及测试。
+b58a80a4c3a72f9f58aa60fcf4e844d4339e602d	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_fact_routes.py	1	180	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+039364005db5b11638c06558a58f1d363d410da4	knowbase-app/knowbase-backend	app/app/interfaces/schemas/user_facts.py	1	144	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+de6ae18f8be09b3ad1a756051071a4354e0cdfeb	knowbase-app/knowbase-backend	app/tests/test_chart_of_accounts.py	1	51	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+bbe56a1a39ed0595bc421ec2d215d131e63c7184	knowbase-app/knowbase-backend	app/tests/test_fact_function_http.py	1	107	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+82a033ef897ef278dc0cea04505af08555807159	knowbase-app/knowbase-backend	app/tests/test_fact_resolution_db.py	1	139	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+7770f11daf5621aacfe441c297e719fa00cc85ea	knowbase-app/knowbase-backend	app/tests/test_public_holdings_db.py	1	146	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+2d4dd8baba9fdf2d45ae8a64d579cc420770a31c	knowbase-app/knowbase-backend	app/tests/test_public_originals_db.py	1	266	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+97e57e9f096323f76ba8c3825df92e3fa60926e3	knowbase-app/knowbase-backend	app/tests/test_user_run_limits.py	1	17	核对事实 HTTP 入参及返回、财务科目映射和指标过滤、资料持有核查、公开版本与事实解析回归。
+867f7d3fdcf8b12fc957c24e108838e95de838f7	knowbase-app/knowbase-backend	app/app/interfaces/endpoints/user_resolution_routes.py	1	446	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
+766b3e111eda293ae159c1aa1d7994391e583805	knowbase-app/knowbase-backend	app/app/interfaces/schemas/user_resolution.py	1	221	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
+58e5e963b92ce62fa14cee8c4f6b93cc7958c0a1	knowbase-app/knowbase-backend	app/tests/test_source_query_db.py	1	89	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
+7e03bcb3d1d18b404c981cdb22fca2d80b1310a2	knowbase-app/knowbase-backend	app/tests/test_user_resolution_refresh_http.py	1	104	用户与执行服务的创建、读回与重核对清单，逐字段核对供应商查询的领域和 HTTP 表示。
