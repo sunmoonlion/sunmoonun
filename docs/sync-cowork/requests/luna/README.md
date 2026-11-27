@@ -6,7 +6,8 @@
 
 ## 当前在办
 
-- [#128 工坊和专家匹配体验合并补发 · Cursor](2026-11-27-工坊和专家匹配体验合并补发-Cursor/request.md)。三项镜像待发布，Luna 负责发布后现场验收。
+- [#128 工坊和专家匹配体验合并补发 · Cursor](2026-11-27-工坊和专家匹配体验合并补发-Cursor/request.md)。Cursor 已接手，进度见[发布回执](2026-11-27-工坊和专家匹配体验合并补发-Cursor/replies/cursor.md)。
+- [专家交付编译器与双入口审阅补发 · Cursor](2026-11-27-专家交付编译器与双入口审阅补发-Cursor/request.md)。排在上一单之后，涉及 KnowLab 和 KnowBench 的 API、Web，发布后由 Luna 验收。
 
 ## 11 月 27 日已收回的评审
 
