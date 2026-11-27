@@ -6,6 +6,8 @@
 
 ## 当前在办
 
+- [KnowBench 专家匹配澄清作答补发](2026-11-27-KnowBench专家匹配澄清作答补发/request.md)。待 Carbon 评审和 Cursor 补发。
+
 - [#128 KnowLab 工坊创建修复与草稿删除补发](2026-11-27-KnowLab工坊创建成功误报失败补发/request.md)。前后端候选已就绪，待 Carbon 评审和 Cursor 补发。
 
 - [三端专家方法旧入口与旧代码清理评审](2026-11-27-三端专家方法旧入口与旧代码清理评审/request.md)。Luna 已固定本地提交，待 Carbon 独立评审。
