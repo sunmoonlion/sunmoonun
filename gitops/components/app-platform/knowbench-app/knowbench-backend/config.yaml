@@ -8,7 +8,7 @@ knowbench_backend_deployment:
   database_bootstrap_revision: v1
   migration_job_revision: v16
   # 0056 普通专家任务，0057 复核偏好，0058 复核裁定，0059 长期职责，0060 来源撤回，0061 任务运行时，0062 冻结定义搜索词。
-  expected_schema_revision: '20261126_0063'
+  expected_schema_revision: '20261127_0064'
   deploy_budget_bytes: 2147483648
   redis_user: knowbench_runtime
   redis_key_pattern: knowbench:*

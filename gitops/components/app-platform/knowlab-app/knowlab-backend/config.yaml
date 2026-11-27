@@ -7,7 +7,7 @@ knowlab_backend_deployment:
   database_bootstrap_revision: v2
   migration_job_revision: v5
   # 作者确认的目录检索页：0029 接线上 0028。
-  expected_schema_revision: '20261126_0030'
+  expected_schema_revision: '20261127_0031'
   deploy_budget_bytes: 2147483648
   redis_user: knowlab_runtime
   redis_key_pattern: 'knowlab:*'
