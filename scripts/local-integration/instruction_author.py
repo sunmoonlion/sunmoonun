@@ -12,7 +12,48 @@ from functools import partial
 from types import SimpleNamespace
 from uuid import uuid4
 
-from p1_author import BENCH, LAB, configure_lab
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+BENCH = ROOT / "knowbench-app/knowbench-backend/app"
+LAB = ROOT / "knowlab-app/knowlab-backend/app"
+
+def configure_lab(sessions, runtime, subjects):
+    from app.application.services.formal_methods import FormalMethodService
+    from app.application.services.knowbot_incubation import KnowbotIncubationService
+    from app.interfaces.endpoints import knowbot_routes as routes
+    from app.interfaces.http.middleware import auth
+    from tests.test_auth_routes_security import FakeAuthService, session as login
+    from app.infrastructure.repositories.knowbots import SqlKnowlabRepository
+    from app.main import app
+    from tests.knowbot_fakes import FakeRuntime
+
+    async def sql():
+        async with sessions() as session:
+            yield session
+
+    async def methods():
+        async with sessions() as session:
+            yield FormalMethodService(SqlKnowlabRepository(session), runtime)
+
+    async def incubation():
+        async with sessions() as session:
+            yield KnowbotIncubationService(
+                SqlKnowlabRepository(session), None, FakeRuntime()
+            )
+
+    app.dependency_overrides[routes.incubation_service] = incubation
+    accounts = {}
+    for subject in subjects:
+        user = login("web", "profile:read")
+        accounts[subject] = user.model_copy(
+            update={"principal": user.principal.model_copy(update={"subject": subject})}
+        )
+    auth.web_auth_service = FakeAuthService(accounts)
+    routes.runtime_clients = lambda: runtime
+    app.dependency_overrides.update(
+        {routes.get_db_session: sql, routes.formal_service: methods}
+    )
 
 
 async def bench(registered):
