@@ -20,7 +20,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: frontend
-          image: harbor.sunmoonai.com:30443/platform/knowmart-web-frontend@sha256:67c151998ad5fb49c4678594ca51fb70aff0e5248b2d84b22ef8899001b2051f
+          image: harbor.sunmoonai.com:30443/platform/knowmart-web-frontend@sha256:36f937cc859764a729c1c2f1d99df088ef46bf1484a2700fded6175fbf8de010
           imagePullPolicy: IfNotPresent
           ports: [{name: http, containerPort: 3000}]
           env:
@@ -29,7 +29,7 @@ spec:
             - {name: AUTH_APP, value: knowmart}
             - {name: APP_ORIGIN, value: "https://knowmart.dev.sunmoonai.com:30443"}
             - {name: BACKEND_INTERNAL_URL, value: 'http://knowmart-api.app-platform-dev.svc.cluster.local:8000'}
-            - {name: DEPLOYMENT_ID, value: "knowmart-web-frontend-67c151998ad5fb49"}
+            - {name: DEPLOYMENT_ID, value: "knowmart-web-frontend-36f937cc859764a7"}
             - {name: HOSTNAME, value: 0.0.0.0}
             - {name: PORT, value: '3000'}
             - {name: REFERENCE_UI_ENABLED, value: 'false'}
