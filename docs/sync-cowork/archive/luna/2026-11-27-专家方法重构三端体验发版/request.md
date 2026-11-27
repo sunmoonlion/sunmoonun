@@ -1,6 +1,6 @@
 # 专家方法重构三端体验发版
 
-2026-11-27，所有者要求先发版查看重构后的界面。**#128 已发布。Luna 已用现场账号验收三个用户页面并复查 #124，运营页待管理员登录后验收。** [Cursor 发布回执](replies/cursor.md) · [Luna 现场验收](replies/luna.md)。目标是现有 `sunmoon-kind` 开发体验环境。Luna 从本地 `/home/zymun/worktrees/luna` 发起本单并负责发布后验收。Cursor 在本卡 `replies/cursor.md` 记录构建、晋级结果、迁移版本及可访问时间。
+2026-11-27，所有者要求先发版查看重构后的界面。**#128 已发布，2026-11-27 结案。Luna 已用现场账号验收三个用户页面与运营审核页，并复查 #124 退役行为。** [Cursor 发布回执](replies/cursor.md) · [Luna 现场验收](replies/luna.md)。目标是现有 `sunmoon-kind` 开发体验环境。Luna 从本地 `/home/zymun/worktrees/luna` 发起本单并负责发布后验收。Cursor 在本卡 `replies/cursor.md` 记录构建、晋级结果、迁移版本及可访问时间。
 
 ## 候选和现场基线
 
@@ -12,7 +12,7 @@ Luna 发单时读到 Flux `platform` 为 `sha256:f16889a9a3b7719008db57aa5292bbc
 | KnowBench | `7db654728697a89860584a593b228f158669dc3c` | `2ec1c338c2f1b3941c44f55470fa50a4f887c040` | `88514dd74794aa03e87f60ff07e2fdab23b8eaf1` | 沿用现场 |
 | KnowMart | `bdb7e9d79beebc4eae423c510f0587c17cb63c08` | `7ae8eb8c089d4f57b49deacaa017fcbd468ed080` | `7bafcc75bad99acbf90c8e03f06badbf98c0284b` | `6badf80be1d4aecd831bd02581f2af45300c4445` |
 
-三端界面取 Carbon 收尾版。KnowMart 增带 Luna 的 0022 数据库修复，使正式方法响应、成交可落库；已在独立 PostgreSQL 16 通过 72 项回归，Carbon 评审仍在进行。Luna 后续编译器提交留在独立评审卡。尚待处理的旧入口清理另批交付。[KnowMart 修复评审](../2026-11-27-KnowMart正式方法需求响应与成交修复评审/request.md)
+三端界面取 Carbon 收尾版。KnowMart 增带 Luna 的 0022 数据库修复，使正式方法响应、成交可落库；已在独立 PostgreSQL 16 通过 72 项回归，Carbon 评审仍在进行。Luna 后续编译器提交留在独立评审卡。尚待处理的旧入口清理另批交付。[KnowMart 修复评审](../../../requests/luna/2026-11-27-KnowMart正式方法需求响应与成交修复评审/request.md)
 
 ## 发单前实测
 
