@@ -8,7 +8,7 @@ knowmart_backend_deployment:
   migration_job_revision: v5
   # 账 175：本地用户只按 subject 认、合并旧份（20261025_0009）
   # 0018 正式买家查询，0019 正式方法类型，0020 方法分类。
-  expected_schema_revision: '20261124_0020'
+  expected_schema_revision: '20261127_0022'
   deploy_budget_bytes: 2147483648
   redis_user: knowmart_runtime
   redis_key_pattern: 'knowmart:*'
