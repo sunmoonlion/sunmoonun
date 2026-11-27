@@ -1,6 +1,26 @@
 # 工坊作者审阅、双交付规划与三端旧入口清理合并补发
 
-发起人 Luna，发布执行人 Cursor。#131 已终止，线上仍为 #130。本卡保留在原目录，合并候选已完成本地验证，等待所有者安排发布。#131 的两镜像分支已作废，重新运行该构建仍会带回旧编辑器。[终止回执](replies/cursor.md) · [#130 现场验收](../../../archive/luna/2026-11-27-专家交付编译器与双入口审阅补发-Cursor/replies/luna.md)
+## 当前执行项 · 撤回 #134 中的 Luna 递归规划内核
+
+所有者已要求立即撤回。#134 发布完成，线上 KnowBench 后端为 `bc43a07`。发布执行人 Cursor 可从以下已固定的版本继续本卡。此前依赖独立交付规划动作的现场验收条目随该动作撤回。
+
+| Jenkins 参数或版本 | 值 |
+|---|---|
+| BRANCH | `rollback-134-carbon-planner-20261127` |
+| APPS / PIN | `knowbench` / `keep` |
+| 平台提交 | `a4c73e2563b6091c88d76281efdbe631e8642597`，基于线上 #134 标签提交 `d42f6c38a14c5b63cd68a2c17a2aeb3f40d64beb` |
+| KnowBench 父仓 | `99eac3037deb27dce2aa82699ba6508cdca74f72` |
+| KnowBench 后端 | `6fdfc7c8add6fe2df3120fa22770fb268813856e` |
+
+相对 #134，后端只改动 `app/app/domain/workbench/hierarchical_planning.py` 和它的单元测试。两份文件与 Carbon `2ec1c338c2f1b3941c44f55470fa50a4f887c040` 逐字节相同。递归执行驱动文件与 Carbon 一致。保留已发布的编译器和编排数据读取契约。KnowBench 库版本为 `20261127_0064`，本次无数据库迁移。平台清单只更新 KnowBench 父仓与后端修订。
+
+本地 53 项规划和临时图回归通过，另有 6 项隔离 PostgreSQL 双入口及嵌套调用测试通过。平台固定版本跨仓契约检查通过。切换前只读查询显示，保存过 `delivery_goals` 快照的未结束任务为 0；部署时请复核，以免新产生的在途规划中断。
+
+请通过原发布流水线执行，回执续写本卡 `replies/cursor.md`，记录实际构建、Flux 修订、API / worker / scheduler / runner 镜像；核对已部署镜像内的规划器源码与 Carbon 相同。保留 #134 既有迁移与其他镜像。
+
+## #134 已发布记录
+
+以下为 #134 当时的范围和验收计划。[Cursor 发布回执](replies/cursor.md)
 
 ## 一次发布的固定版本
 
