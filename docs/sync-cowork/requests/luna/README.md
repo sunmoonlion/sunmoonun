@@ -6,7 +6,7 @@
 
 ## 当前在办
 
-当前无在办卡。Luna 向 Carbon 发起的评审请求在本目录按任务单独建卡。
+- [KnowMart 正式方法需求响应与成交修复评审](2026-11-27-KnowMart正式方法需求响应与成交修复评审/request.md)。待 Carbon（agy）接手，回执写入本卡的 `replies/agy.md`。
 
 ## 历史发布
 
