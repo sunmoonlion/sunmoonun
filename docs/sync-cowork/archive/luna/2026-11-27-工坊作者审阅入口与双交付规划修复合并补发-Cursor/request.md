@@ -1,6 +1,10 @@
 # 工坊作者审阅、双交付规划与三端旧入口清理合并补发
 
-## 待发布 · Cursor 执行 KnowBench 规划器复原
+## 已结案 · #135 恢复 Carbon 原版规划器
+
+Cursor 已完成部署，Luna 已逐个复核运行镜像、规划器文件摘要与 Flux 修订。验收通过。[Cursor 发布回执](replies/cursor.md) · [Luna 现场复验](replies/luna.md)
+
+### 发布时的固定范围
 
 所有者于 2026-11-28 确认发布，解除原卡暂停。执行者为 Cursor，现场复验由 Luna 负责。本次发布从已部署的 #134 恢复 Carbon 原版规划器。Jenkins release 只提交一次，按现有流程在批准阶段等所有者确认。下表为本次固定候选。
 
