@@ -1,8 +1,8 @@
 # 工坊作者审阅、双交付规划与三端旧入口清理合并补发
 
-## 暂缓发布 · 在 Carbon 规划内核上完成业务验收
+## 待发布 · Cursor 执行 KnowBench 规划器复原
 
-所有者要求先在隔离候选上重新测试原始双交付委托，再将撤回与验收通过的修正合为一次发布。#134 已部署。下表仅记录测试基线；本卡当前暂停执行，待 Luna 补录最终验证结果及发布版本。
+所有者于 2026-11-28 确认发布，解除原卡暂停。执行者为 Cursor，现场复验由 Luna 负责。本次发布从已部署的 #134 恢复 Carbon 原版规划器。Jenkins release 只提交一次，按现有流程在批准阶段等所有者确认。下表为本次固定候选。
 
 | Jenkins 参数或版本 | 值 |
 |---|---|
@@ -16,13 +16,15 @@
 
 本地 53 项规划和临时图回归通过，另有 6 项隔离 PostgreSQL 双入口及嵌套调用测试通过。平台固定版本跨仓契约检查通过。切换前只读查询显示，保存过 `delivery_goals` 快照的未结束任务为 0；部署时请复核，以免新产生的在途规划中断。
 
-最终候选通过验收后按同一张卡安排发布，回执续写本卡 `replies/cursor.md`，记录实际构建、Flux 修订、API / worker / scheduler / runner 镜像；核对已部署镜像内的规划器源码与 Carbon 相同。保留 #134 既有迁移与其他镜像。
+隔离实测已完成。Kimi 从空稿返回能力缺口，Carbon 在根节点接受该结果，步骤数为 0。该结果符合当前目录和编排规则。发布前已核对 origin 上平台、父仓、后端三个候选引用与上表相同，现场依赖旧 delivery_goals 的未结束任务为 0。[原版验收回执](replies/carbon-kimi-空稿验收.json)
+
+发布回执续写本卡 [Cursor 回执](replies/cursor.md)，记录新构建号、发布提交、Flux 修订及 KnowBench API、worker、scheduler、runner 的就绪状态和实际镜像。Luna 复核各工作负载使用固定后端镜像，并核对运行容器内 app/domain/workbench/hierarchical_planning.py 的 SHA-256 为 `18166072fe9e9a77f80ac0f9037ba8db0776049a8f4c5ba7c21566cdb6829273`。本次现场验收无需再发起付费模型调用。
 
 ## #134 已发布记录
 
 以下为 #134 当时的范围和验收计划。[Cursor 发布回执](replies/cursor.md)
 
-## 一次发布的固定版本
+### #134 当时的固定版本
 
 线上基线为 `release-20261127-3`，平台提交 `fc85c18d30d32ba33e39d5d140cf39e27e661ef8`，Flux 摘要 `sha256:8ed98e11aa5a2566f204faa92b8135b8fec2d475013306c7f7cf00d2a820e4f9`。本地平台分支 `luna-130-consolidated-20261127` 的提交为 `ec4b22da856b5c3a611cc6a9d0b4bf29475e0432`，隔离目录为 `/home/zymun/worktrees/luna/.release-candidates/combined-130/platform`。相对线上平台只改了 `infrastructure/applications/sources.yaml`。三端应用与子仓对象在 `/home/zymun/worktrees/luna`。Cursor 执行时先使 CI 能取到下表的固定提交，再核对父仓 gitlink 和平台清单；若流水线按分支取头，请核对实际读取的 SHA。
 
@@ -32,7 +34,7 @@
 | KnowBench | `09b15e938ab0d656502da57a1cf2d3da3d07b179` | `bc43a07b27a92b6cbc19b88f86ca3d39611bfc94` | `83340277ca542bfe0e71c0340e17769d6bd20dc0` | 沿用 #130 |
 | KnowMart | `de4e816343e07275f092a3e25bef12180e29088c` | `5f2ecd1f6a91ee2e0f71d788a25ffb5344c228bd` | `7c6362929bc983d77417ad416cb3aaf65bbb3e35` | 沿用 #130 |
 
-## 数据库切换
+### #134 当时的数据库切换
 
 11 月 27 日在 #130 数据库执行了只读计数。切换前请复核受影响行数，留存可恢复的备份，并协调仍使用旧列或旧表的工作负载退出。降级脚本能重建结构，已清理的内容需要从备份恢复。
 
@@ -42,14 +44,14 @@
 | KnowBench | `20261126_0063 → 20261127_0064` | 删除旧复核决定表和旧路由确认表，两表各 0 条记录。 |
 | KnowMart | 沿用 `20261127_0022` | 本次无新增迁移。 |
 
-## 本地验收
+### #134 当时的本地验收
 
 - 三端后端针对本次改动的 PostgreSQL 回归通过。KnowLab 43 项、KnowBench 100 项、KnowMart 73 项，合计 216 项。
 - 四个变更前端通过类型检查、翻译键检查和生产构建。单测通过 891 项，套件标记跳过 6 项。合并候选的固定版本跨仓契约检查通过。
 - 四项 Chromium 场景使用生产构建、配套测试会话和受控样本。KnowLab 登录后直开旧 `formal-method`、`workdraft` 书签均返回 404；新工坊打开“如何做”，作者能查看规划、编辑步骤、确认并刷新查看已确认结果。KnowBench 登录后旧 `/workbench/review` 返回 404。KnowMart 给出作者拥有、仍在售且来自 KnowLab 的版本，打开版本记录可见该版本，页面没有停用按钮或指向旧管理页的链接。
 - 两份真实即时规划响应回放后，两项命名交付均对应用户原文。另一份真实作者响应保留了步骤的 `check → opening_evidence` 映射，规划推进到下一节点。此次回放使用既有样本，新增费用为零。此前三项真实调用共 ¥3.120948。
 
-## 发布与现场验收
+### #134 当时的发布与现场验收
 
 Cursor 在本卡现有 `replies/cursor.md` 续记新构建号、实际部署提交、七个变更镜像摘要、迁移前后版本、Flux 就绪修订和工作负载状态。KnowBench API、worker、scheduler 和 runner 须核对实际使用的后端镜像。
 
