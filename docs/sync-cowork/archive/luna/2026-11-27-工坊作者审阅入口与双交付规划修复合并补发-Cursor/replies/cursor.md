@@ -49,3 +49,24 @@
 - [KnowMart](https://knowmart.dev.sunmoonai.com:30443/)
 
 业务验收由 Luna 按本卡现场条目接手。若要回退，先停消费，再把指针退回 `release-20261127-3` 并按现有规程应用；库回退可用上述备份目录。
+
+## KnowBench Carbon 原版规划器复原（#135 SUCCESS）
+
+- 回执时间：2026-11-28T01:22:05+08:00
+- 构建：[release #135](https://jenkins.dev.sunmoonai.com:30443/job/release/135/)，结果 **SUCCESS**。批准人 admin，2026-11-28T01:17:09+08:00。
+- 参数：`BRANCH=rollback-134-carbon-planner-20261127`，`APPS=knowbench`，`PIN=keep`。
+- 固定候选：平台 `a4c73e256`（基于 #134 指针 `d42f6c38a`），KnowBench 父仓 `99eac3037`，后端 `6fdfc7c8a`。
+- 部署提交 `1d1355ad05f76410e3572035383f414a8235c031`；指针 `a5cf70e11a08ed6e8b2299b6c5e0d3fe79cf10c2`；标签 `release-20261128-1`。
+- 流水线回执 `scripts/results/release-135.20261128-012205.md`。部署 OCI `sha256:50ac03f7f101cd665b12cbc344975a1057c101dc2484656015c12fc8118ee5d2`。GitHub 与 Gitee 均已收到分支与标签。
+- 部署前复核：保存过 `delivery_goals` 快照的未结束任务为 0；无数据库迁移（库版本仍为 `20261127_0064`）。迁移作业 `knowbench-migrate-eda978503481-v16` Complete，`EXPECTED_SCHEMA_REVISION=20261127_0064`。
+
+### 运行镜像
+
+| 工作负载 | 镜像 | 就绪 |
+| --- | --- | --- |
+| KnowBench 后端（API / worker / scheduler / runner） | `sha256:eda97850348199975bac0053f69161fa80c628dd47c415e902538faa957d672a`（源码 `6fdfc7c8a`） | 均为 1/1 |
+| KnowBench Web | 沿用 #134 `sha256:7e4f0ccd2933…cbfc6` | 1/1 |
+
+运行容器内 `app/domain/workbench/hierarchical_planning.py` 的 SHA-256 为 `18166072fe9e9a77f80ac0f9037ba8db0776049a8f4c5ba7c21566cdb6829273`（与卡面一致）。Flux `platform` Ready，修订 `sha256:50ac03f7…`。`application-check` 对 knowbench 通过。
+
+业务验收由 Luna 按本卡现场条目接手；本次现场验收无需再发起付费模型调用。若要回退，先停消费，再把指针退回 `release-20261127-4` 并按现有规程应用。
