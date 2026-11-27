@@ -1,6 +1,6 @@
 # 专家方法重构三端体验发版
 
-2026-11-27，所有者要求先发版查看重构后的界面。**待 Cursor 接手发布**。目标是现有 `sunmoon-kind` 开发体验环境。Luna 从本地 `/home/zymun/worktrees/luna` 发起本单并负责发布后验收。Cursor 在本卡 `replies/cursor.md` 记录构建、晋级结果、迁移版本及可访问时间。
+2026-11-27，所有者要求先发版查看重构后的界面。**#128 已发布。Luna 已用现场账号验收三个用户页面并复查 #124，运营页待管理员登录后验收。** [Cursor 发布回执](replies/cursor.md) · [Luna 现场验收](replies/luna.md)。目标是现有 `sunmoon-kind` 开发体验环境。Luna 从本地 `/home/zymun/worktrees/luna` 发起本单并负责发布后验收。Cursor 在本卡 `replies/cursor.md` 记录构建、晋级结果、迁移版本及可访问时间。
 
 ## 候选和现场基线
 
