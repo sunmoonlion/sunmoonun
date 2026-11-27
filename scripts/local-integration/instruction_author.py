@@ -202,7 +202,7 @@ async def bench(registered):
 async def author(peer):
     import httpx
     from app.application.services.knowbot_service import KnowbotCreationService
-    from app.application.services.knowbot_workdraft import KnowbotWorkdraftService
+    from tests.studio_fixtures import save_studio_method
     from app.domain.knowbots.drafts import KnowbotRequestIn
     from app.infrastructure.external.knowbot_clients import RuntimeTestClients
     from app.infrastructure.repositories.knowbots import SqlKnowlabRepository
@@ -232,6 +232,10 @@ async def author(peer):
         return httpx.Response(code, content=body)
 
     draft, env = await read()
+    procedure = draft["definition"]["procedure"]
+    for slots in (procedure["inputs"], procedure["outputs"]):
+        for slot in slots.values():
+            slot["meaning"]["domain_id"] = "core.scalar.text"
     runtime = RuntimeTestClients(
         {
             **KNOWBENCH,
@@ -265,10 +269,8 @@ async def author(peer):
                 if source == draft["source"]
             )
             async with sessions() as session:
-                await KnowbotWorkdraftService(SqlKnowlabRepository(session)).save(
-                    "author", str(req.id), revision=0, edits=[("formal_method", draft)]
-                )
-            prefix = "/api/web/v1/method-units/" + str(uuid4())
+                await save_studio_method(SqlKnowlabRepository(session), "author", req.id, req.id, 0, draft)
+            prefix = "/api/web/v1/method-units/" + str(req.id)
 
             async def call(method, path, **kwargs):
                 response = await client.request(method, prefix + path, **kwargs)
@@ -404,22 +406,9 @@ async def author(peer):
                             request_body(title=f"Instruction expert at depth {depth}")
                         ),
                     )
-                    await KnowbotWorkdraftService(repo).save(
-                        "author",
-                        str(expert.id),
-                        revision=0,
-                        edits=[
-                            (
-                                "formal_method",
-                                {
-                                    "definition": definition,
-                                    "source": None,
-                                    "allowed_callers": ["host"],
-                                },
-                            )
-                        ],
-                    )
-                prefix = "/api/web/v1/method-units/" + str(uuid4())
+                    await save_studio_method(repo, "author", expert.id, expert.id, 0,
+                                            {"definition": definition, "source": None, "allowed_callers": ["host"]})
+                prefix = "/api/web/v1/method-units/" + str(expert.id)
                 command = {
                     "request_id": str(expert.id),
                     "run_id": str(uuid4()),
