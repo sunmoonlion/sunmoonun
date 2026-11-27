@@ -1,0 +1,649 @@
+{
+  "release": 135,
+  "owner": "sig-am",
+  "budget_cny": "20",
+  "tools": {
+    "Q01": {
+      "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8",
+      "version": 2,
+      "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c",
+      "visibility": "private",
+      "request_id": "4c98aa61-6b25-47eb-9316-9dbbdd8561df",
+      "run_id": "e66cc358-35bb-40ea-b94d-a0379a36a5fb",
+      "suite": {
+        "suite_id": "95001c83-caff-4b3f-a4fb-c8398261aee1",
+        "version": 1,
+        "digest": "sha256:7863327bead585a158732b2867e4b6abf71d78750d25c983c15732679c4d3ba3"
+      },
+      "cases": 6,
+      "passed_assertions": 46,
+      "spent_cny": "0.010000",
+      "self_listing": {
+        "contract_version": 1,
+        "listing_id": "09a7fb4b-24fb-40eb-88a1-21e14e8ea36c",
+        "scope": "self",
+        "reference": {
+          "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8",
+          "version": 2,
+          "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c"
+        },
+        "status": "listed"
+      }
+    },
+    "Q02": {
+      "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6",
+      "version": 2,
+      "digest": "sha256:a8a3cf77b76b6e4c60a2c9e21155093d2066a42e0a88b563093ed5f52684aa81",
+      "visibility": "private",
+      "request_id": "9c14f046-d264-40e6-a599-a0db35906888",
+      "run_id": "44f2b950-a17d-45c2-a595-f8d5d7064306",
+      "suite": {
+        "suite_id": "c0a24964-8a9b-42cd-beb8-11132b333542",
+        "version": 1,
+        "digest": "sha256:8026104fefcf4000f821cb469b194abcf7ae7e4955e04f28a1001e35cd4d5b5d"
+      },
+      "cases": 6,
+      "passed_assertions": 46,
+      "spent_cny": "0.000000",
+      "self_listing": {
+        "contract_version": 1,
+        "listing_id": "739d797f-929c-4492-a31a-0268cd80dc97",
+        "scope": "self",
+        "reference": {
+          "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6",
+          "version": 2,
+          "digest": "sha256:a8a3cf77b76b6e4c60a2c9e21155093d2066a42e0a88b563093ed5f52684aa81"
+        },
+        "status": "listed"
+      }
+    },
+    "Q03": {
+      "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba",
+      "version": 2,
+      "digest": "sha256:bd9dd6dac277741abec11f41d5724eed37ce525b5006b5909e726a565bac2fbe",
+      "visibility": "private",
+      "request_id": "81ef0c43-4e85-4d32-8ce1-5e630701e824",
+      "run_id": "6386f25e-2e63-476b-b653-3e88bda1bb38",
+      "suite": {
+        "suite_id": "075108b0-974a-47a6-be2a-2af2f04d872f",
+        "version": 1,
+        "digest": "sha256:4551574ec2ec24eeab61d90d9f348e8808170b72db16ca2188fc6a88ccc27285"
+      },
+      "cases": 6,
+      "passed_assertions": 46,
+      "spent_cny": "0.050000",
+      "self_listing": {
+        "contract_version": 1,
+        "listing_id": "1185c9ec-a49f-4069-8b1d-48eab1110994",
+        "scope": "self",
+        "reference": {
+          "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba",
+          "version": 2,
+          "digest": "sha256:bd9dd6dac277741abec11f41d5724eed37ce525b5006b5909e726a565bac2fbe"
+        },
+        "status": "listed"
+      }
+    },
+    "Q04": {
+      "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608",
+      "version": 2,
+      "digest": "sha256:72d988f6d10938e9cc076e9261ce739ac8952404603ec0fdc010ac442a422a7d",
+      "visibility": "private",
+      "request_id": "ce6bd029-511d-479e-a33d-683726c33ef9",
+      "run_id": "70685955-8539-45e4-8147-11709308de76",
+      "suite": {
+        "suite_id": "09bce467-913c-4c68-9521-cc79ddb90802",
+        "version": 1,
+        "digest": "sha256:4b855a1e507cf1300bb3001f3d327d778d58c6e603a8e0563701b3b16fdb0084"
+      },
+      "cases": 7,
+      "passed_assertions": 45,
+      "spent_cny": "0.030000",
+      "self_listing": {
+        "contract_version": 1,
+        "listing_id": "418c6f67-0610-4f17-b477-53f263769506",
+        "scope": "self",
+        "reference": {
+          "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608",
+          "version": 2,
+          "digest": "sha256:72d988f6d10938e9cc076e9261ce739ac8952404603ec0fdc010ac442a422a7d"
+        },
+        "status": "listed"
+      }
+    },
+    "S01": {
+      "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040",
+      "version": 2,
+      "digest": "sha256:931ce72500d3d1f6b9c03ee0a52407db59867783801d79de9caf3b86f49f235f",
+      "visibility": "private",
+      "request_id": "eed822ad-b105-4ba6-85ac-b6d7d40de1b5",
+      "run_id": "34a4eac9-d367-4219-8ba8-2bd4569e9e3b",
+      "suite": {
+        "suite_id": "a518ad18-8aa1-4d20-a2c1-509ee1acc592",
+        "version": 1,
+        "digest": "sha256:f9f103bb22b9d90224b705cc2c85c0ead9b6530badedadbd299ee6d8d304f056"
+      },
+      "cases": 3,
+      "passed_assertions": 33,
+      "spent_cny": "0.010000",
+      "self_listing": {
+        "contract_version": 1,
+        "listing_id": "2c5f2fcf-3fbf-4237-bfd4-36222df308f4",
+        "scope": "self",
+        "reference": {
+          "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040",
+          "version": 2,
+          "digest": "sha256:931ce72500d3d1f6b9c03ee0a52407db59867783801d79de9caf3b86f49f235f"
+        },
+        "status": "listed"
+      }
+    }
+  },
+  "tool_total_cny": "0.100000",
+  "expert": {
+    "mid": "ba65c0d9-6409-51a4-835c-eb95f46222e9",
+    "revision": 3,
+    "request": "4a026af6-33a8-4e13-b806-25f749480e55",
+    "started_without_procedure": true,
+    "initial": {
+      "incubation_id": "2a458ad9-d415-42cd-ab09-152f756b74d9",
+      "spent_cny": "4.266388",
+      "root_operator": "parallel_join",
+      "steps": [
+        {
+          "id": "n1_1",
+          "reference": {
+            "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c",
+            "version": 2,
+            "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8"
+          },
+          "public_outputs": {
+            "check": "opening_balance"
+          }
+        },
+        {
+          "id": "n1_2",
+          "reference": {
+            "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c",
+            "version": 2,
+            "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8"
+          },
+          "public_outputs": {
+            "check": "closing_balance"
+          }
+        },
+        {
+          "id": "n1_3",
+          "reference": {
+            "digest": "sha256:a8a3cf77b76b6e4c60a2c9e21155093d2066a42e0a88b563093ed5f52684aa81",
+            "version": 2,
+            "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6"
+          },
+          "public_outputs": {
+            "check": "profit"
+          }
+        },
+        {
+          "id": "n1_4",
+          "reference": {
+            "digest": "sha256:bd9dd6dac277741abec11f41d5724eed37ce525b5006b5909e726a565bac2fbe",
+            "version": 2,
+            "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba"
+          },
+          "public_outputs": {
+            "check": "cash"
+          }
+        },
+        {
+          "id": "n1_5",
+          "reference": {
+            "digest": "sha256:72d988f6d10938e9cc076e9261ce739ac8952404603ec0fdc010ac442a422a7d",
+            "version": 2,
+            "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608"
+          },
+          "public_outputs": {
+            "check": "inventory"
+          }
+        },
+        {
+          "id": "n1",
+          "reference": {
+            "digest": "sha256:931ce72500d3d1f6b9c03ee0a52407db59867783801d79de9caf3b86f49f235f",
+            "version": 2,
+            "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040"
+          },
+          "public_outputs": {
+            "report": "report"
+          }
+        }
+      ],
+      "author_confirmation": "selection_export"
+    },
+    "revised": {
+      "incubation_id": "6d8a0888-da28-4e9d-a8ce-87eed4249267",
+      "spent_cny": "3.846588",
+      "root_operator": "parallel_join",
+      "steps": [
+        {
+          "id": "n1_1",
+          "reference": {
+            "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c",
+            "version": 2,
+            "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8"
+          },
+          "public_outputs": {}
+        },
+        {
+          "id": "n1_2",
+          "reference": {
+            "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c",
+            "version": 2,
+            "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8"
+          },
+          "public_outputs": {}
+        },
+        {
+          "id": "n1_3",
+          "reference": {
+            "digest": "sha256:a8a3cf77b76b6e4c60a2c9e21155093d2066a42e0a88b563093ed5f52684aa81",
+            "version": 2,
+            "method_id": "ec4a5858-0bd2-5a3e-8211-e0e3f0d882a6"
+          },
+          "public_outputs": {}
+        },
+        {
+          "id": "n1_4",
+          "reference": {
+            "digest": "sha256:bd9dd6dac277741abec11f41d5724eed37ce525b5006b5909e726a565bac2fbe",
+            "version": 2,
+            "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba"
+          },
+          "public_outputs": {}
+        },
+        {
+          "id": "n1_5",
+          "reference": {
+            "digest": "sha256:72d988f6d10938e9cc076e9261ce739ac8952404603ec0fdc010ac442a422a7d",
+            "version": 2,
+            "method_id": "75e1b6d4-1a4c-55f7-b28a-44d5fcca8608"
+          },
+          "public_outputs": {}
+        },
+        {
+          "id": "n1",
+          "reference": {
+            "digest": "sha256:931ce72500d3d1f6b9c03ee0a52407db59867783801d79de9caf3b86f49f235f",
+            "version": 2,
+            "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040"
+          },
+          "public_outputs": {
+            "report": "report"
+          }
+        }
+      ],
+      "author_confirmation": "accepted"
+    },
+    "frozen": {
+      "method_id": "ba65c0d9-6409-51a4-835c-eb95f46222e9",
+      "version": 3,
+      "digest": "sha256:c79028548c082faaf47ab14f076169ac4e8a3a7ae05c396726d53ed64b603f91",
+      "visibility": "private",
+      "run_id": "a47e25dc-6907-436e-a85d-6ca804c4f8b7",
+      "suite": {
+        "suite_id": "d86ca495-78b5-47aa-adc5-53b082648917",
+        "version": 1,
+        "digest": "sha256:03025005197ab0c32729e5d687ca3df6ab6bd700c9a4251d958826fa727e48d7"
+      },
+      "spent_cny": "0.250000",
+      "assertions_passed": 26,
+      "mixed_case_counts": {
+        "应核": 5,
+        "实核": 4,
+        "阈值内": 3,
+        "不平": 1,
+        "未核验": 1
+      },
+      "self_listing": {
+        "contract_version": 1,
+        "listing_id": "e5726894-2466-440b-8054-3cbf6191bb15",
+        "scope": "self",
+        "reference": {
+          "method_id": "ba65c0d9-6409-51a4-835c-eb95f46222e9",
+          "version": 3,
+          "digest": "sha256:c79028548c082faaf47ab14f076169ac4e8a3a7ae05c396726d53ed64b603f91"
+        },
+        "status": "listed"
+      }
+    }
+  },
+  "first_match_before_self_listing": {
+    "task_id": "5ecba376-b25f-46c9-a8d7-e6b50e95e484",
+    "picks": [
+      {
+        "method_id": "ba65c0d9-6409-51a4-835c-eb95f46222e9",
+        "version": 2,
+        "digest": "sha256:21c88d2894dc7aa0a6a010196e2fbb2d891f9aca21f8f5d15dcdfae53b85b731"
+      }
+    ],
+    "spent_cny": "0.766476",
+    "executed": false
+  },
+  "ordinary": {
+    "match_task_id": "20ead3b0-5a28-4dbf-803c-0d218d7f0e95",
+    "entry": "named_v3_self_directory",
+    "state": "SUCCEEDED",
+    "outcome": "candidates",
+    "match_spent_cny": "0.534780",
+    "preview_digest": "sha256:368096c881edf043da8fe4a666f9e7bfb9eafd5d111e1fca4332a8e44858b0e6",
+    "estimated_maximum_cny": "5.46",
+    "selected_version": 3,
+    "selected_digest": "sha256:c79028548c082faaf47ab14f076169ac4e8a3a7ae05c396726d53ed64b603f91",
+    "execution_task_id": "86c4c60b-121c-4064-b997-02ad46dfc514",
+    "execution_state": "SUCCEEDED",
+    "execution_spent_cny": "0.110000",
+    "execution_reserved_cny": "0.000000",
+    "script_calls": [
+      {
+        "id": "6ca5813d-a627-416d-9cbc-1c1bd7071031",
+        "status": "succeeded",
+        "digest": "sha256:a5e5b39b0b3ef555cb35a3d3956efb9e005cc4f054af51064bff37cebf7837cf"
+      },
+      {
+        "id": "643e5dbd-c4dd-4d05-a57a-32692d3f5549",
+        "status": "succeeded",
+        "digest": "sha256:01560e510fade4fb00409b9dd05ce84ab56e2db07826c4ab440bb2f296cc58ad"
+      },
+      {
+        "id": "2665debb-fbd4-4245-a65b-e624d0026a4e",
+        "status": "succeeded",
+        "digest": "sha256:8aa8fe038074386c2ac98d51c633b8f93ca60354aae8761d4f22e7fe376aedbb"
+      },
+      {
+        "id": "ca8f0402-5b42-4467-8db8-5debaf4d4422",
+        "status": "succeeded",
+        "digest": "sha256:8ba22dea2cfa86a2b224931aab60ab6682b52cbf73aa89cce3c560d7e4fe1c2f"
+      },
+      {
+        "id": "04e9e094-6d6c-4f0f-b606-4d5591dcbe9f",
+        "status": "succeeded",
+        "digest": "sha256:dd669fe5f8929436db871e0d42593a380a453c32fa6925690d833043386c6ee2"
+      },
+      {
+        "id": "eb4d137a-662e-4ad2-8804-2ecca77e99dc",
+        "status": "succeeded",
+        "digest": "sha256:dd669fe5f8929436db871e0d42593a380a453c32fa6925690d833043386c6ee2"
+      }
+    ],
+    "verified_report": {
+      "不平": 0,
+      "实核": 5,
+      "应核": 5,
+      "明细": [
+        {
+          "工具": "Q01",
+          "待补": [],
+          "状态": "阈值内",
+          "算式": "A-L-E",
+          "证据": [
+            {
+              "页": "57",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期初资产总计",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "165432981684.75",
+              "截止日期": "2023-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "B01",
+              "起始日期": ""
+            },
+            {
+              "页": "58",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期初负债合计",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "33083608497.58",
+              "截止日期": "2023-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "B02",
+              "起始日期": ""
+            },
+            {
+              "页": "58",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期初所有者权益合计",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "132349373187.17",
+              "截止日期": "2023-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "B03",
+              "起始日期": ""
+            }
+          ],
+          "差额元": "0.00",
+          "项目键": "资产平表-期初"
+        },
+        {
+          "工具": "Q01",
+          "待补": [],
+          "状态": "阈值内",
+          "算式": "A-L-E",
+          "证据": [
+            {
+              "页": "57",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期末资产总计",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "188252218704.17",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "B04",
+              "起始日期": ""
+            },
+            {
+              "页": "58",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期末负债合计",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "51857424971.48",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "B05",
+              "起始日期": ""
+            },
+            {
+              "页": "58",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期末所有者权益合计",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "136394793732.69",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "B06",
+              "起始日期": ""
+            }
+          ],
+          "差额元": "0.00",
+          "项目键": "资产平表-期末"
+        },
+        {
+          "工具": "Q02",
+          "待补": [],
+          "状态": "阈值内",
+          "算式": "NP-P-M",
+          "证据": [
+            {
+              "页": "61",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "净利润",
+              "表名": "利润表",
+              "原单位": "元",
+              "原始金额": "33193460484.32",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "P01",
+              "起始日期": "2024-01-01"
+            },
+            {
+              "页": "62",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "归属于母公司股东的净利润",
+              "表名": "利润表",
+              "原单位": "元",
+              "原始金额": "31853172533.98",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "P02",
+              "起始日期": "2024-01-01"
+            },
+            {
+              "页": "62",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "少数股东损益",
+              "表名": "利润表",
+              "原单位": "元",
+              "原始金额": "1340287950.34",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "P03",
+              "起始日期": "2024-01-01"
+            }
+          ],
+          "差额元": "0.00",
+          "项目键": "利润归属-全年"
+        },
+        {
+          "工具": "Q03",
+          "待补": [],
+          "状态": "阈值内",
+          "算式": "END-BEGIN-CHANGE",
+          "证据": [
+            {
+              "页": "65",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期末现金及现金等价物余额",
+              "表名": "现金流量表",
+              "原单位": "元",
+              "原始金额": "124771274417.68",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "C03",
+              "起始日期": ""
+            },
+            {
+              "页": "65",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期初现金及现金等价物余额",
+              "表名": "现金流量表",
+              "原单位": "元",
+              "原始金额": "113095684224.30",
+              "截止日期": "2023-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "C01",
+              "起始日期": ""
+            },
+            {
+              "页": "65",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "现金及现金等价物净增加额",
+              "表名": "现金流量表",
+              "原单位": "元",
+              "原始金额": "11675590193.38",
+              "截止日期": "2024-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "C02",
+              "起始日期": "2024-01-01"
+            }
+          ],
+          "差额元": "0.00",
+          "项目键": "现金滚动-全年"
+        },
+        {
+          "工具": "Q04",
+          "待补": [],
+          "状态": "阈值内",
+          "算式": "OPEN-PREV_CLOSE",
+          "证据": [
+            {
+              "页": "56",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期初存货",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "17387841712.87",
+              "截止日期": "2023-12-31",
+              "报告版本": "五粮液2024年报-20250426",
+              "披露精度": "0.01",
+              "证据编号": "I01",
+              "起始日期": ""
+            },
+            {
+              "页": "53",
+              "主体": "宜宾五粮液股份有限公司",
+              "币种": "CNY",
+              "范围": "合并",
+              "行名": "期末存货",
+              "表名": "资产负债表",
+              "原单位": "元",
+              "原始金额": "17387841712.87",
+              "截止日期": "2023-12-31",
+              "报告版本": "五粮液2023年报-20240429",
+              "披露精度": "0.01",
+              "证据编号": "I02",
+              "起始日期": ""
+            }
+          ],
+          "差额元": "0.00",
+          "项目键": "存货连续性-期初"
+        }
+      ],
+      "未核验": 0,
+      "阈值内": 5,
+      "待补清单": []
+    }
+  },
+  "total_recorded_cny": "9.874232"
+}
