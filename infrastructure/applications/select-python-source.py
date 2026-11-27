@@ -30,9 +30,11 @@ def main():
     # 2026-11-20：清华源对当前构建机返回 403。国内模式改到阿里云后，仍承认锁文件里的清华地址并投影过去。
     indexes.add('https://pypi.tuna.tsinghua.edu.cn/simple')
     prefixes.add('https://pypi.tuna.tsinghua.edu.cn/packages/')
+    # uv.lock may record registry URLs with a trailing slash; compare by normalized form.
+    indexes_norm = {url.rstrip('/') for url in indexes}
 
     def map_url(url):
-        if url in indexes:
+        if url.rstrip('/') in indexes_norm:
             return profile['python_index']
         for prefix in prefixes:
             if url.startswith(prefix):
@@ -65,7 +67,7 @@ def main():
 
     uv = files['pyproject.toml'][3].get('tool', {}).get('uv', {})
     configured = uv.get('index', [])
-    if (len(configured) != 1 or configured[0].get('url') not in indexes
+    if (len(configured) != 1 or configured[0].get('url', '').rstrip('/') not in indexes_norm
             or not configured[0].get('default') or uv.get('sources')):
         raise ValueError('Expected one approved default index without source overrides')
     lock = files['uv.lock'][3]
@@ -76,7 +78,7 @@ def main():
         source = package.get('source', {})
         if source in ({'editable': '.'}, {'virtual': '.'}):
             continue
-        if set(source) != {'registry'} or source['registry'] not in indexes:
+        if set(source) != {'registry'} or source['registry'].rstrip('/') not in indexes_norm:
             raise ValueError('Unsupported locked package source')
         for artifact in ([package['sdist']] if 'sdist' in package else []) + package.get('wheels', []):
             url = artifact.get('url', '')
