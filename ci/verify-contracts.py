@@ -47,18 +47,41 @@ def keys(node, path=()):
 def contracts(repos, pinned):
     pins = yaml.safe_load((APPLICATIONS / "sources.yaml").read_text())["applications"]
 
+    def pinned_hint(app, component, detail):
+        if not pinned:
+            return detail
+        rev_key = component + "_revision" if component != "parent" else "parent_revision"
+        pin_rev = pins.get(app, {}).get(rev_key, "<missing>")
+        return (
+            f"{detail}\n"
+            f"[W10 promotion-window hint] --pinned checked {app} ({rev_key}={pin_rev[:12]}) "
+            f"from infrastructure/applications/sources.yaml. If app repos have promoted new "
+            f"contract locks ahead of sources.yaml, update sources.yaml in the same promotion PR."
+        )
+
     def read(app, component, path):
         suffix = "backend" if component == "backend" else component + "-frontend"
         repo = repos / (app + "-app") / (app + "-" + suffix)
         if pinned:
-            return git(
-                repo, "show", pins[app][component + "_revision"] + ":app/" + path
-            )
+            try:
+                return git(
+                    repo, "show", pins[app][component + "_revision"] + ":app/" + path
+                )
+            except subprocess.CalledProcessError as exc:
+                raise SystemExit(
+                    pinned_hint(
+                        app,
+                        component,
+                        f"Pinned revision missing {app}/{component}/{path}",
+                    )
+                ) from exc
         return (repo / "app" / path).read_bytes()
 
     def verify(app, component, path, expected):
         if hashlib.sha256(read(app, component, path)).hexdigest() != expected:
-            raise SystemExit(f"Contract drift in {app}/{component}/{path}")
+            raise SystemExit(
+                pinned_hint(app, component, f"Contract drift in {app}/{component}/{path}")
+            )
 
     lock = json.loads(read("knowbench", "backend", "contracts/formal-method-lock.json"))
     web_dir = "contracts/formal-method-provider/"
@@ -127,11 +150,20 @@ def contracts(repos, pinned):
 
     def published(name):
         if pinned:
-            return git(
-                provider,
-                "show",
-                pins["knowlab"]["parent_revision"] + ":" + public_dir + name,
-            )
+            try:
+                return git(
+                    provider,
+                    "show",
+                    pins["knowlab"]["parent_revision"] + ":" + public_dir + name,
+                )
+            except subprocess.CalledProcessError as exc:
+                raise SystemExit(
+                    pinned_hint(
+                        "knowlab",
+                        "parent",
+                        f"Pinned KnowLab parent missing {public_dir}{name}",
+                    )
+                ) from exc
         return (provider / public_dir / name).read_bytes()
 
     expected_schemas = {
@@ -174,7 +206,9 @@ def contracts(repos, pinned):
         ("knowbench", "web"),
         ("knowbench", "admin"),
         ("knowlab", "web"),
+        ("knowlab", "admin"),
         ("knowmart", "web"),
+        ("knowmart", "admin"),
     ]:
         langs = [
             set(keys(json.loads(read(app, target, f"messages/{code}.json"))))
