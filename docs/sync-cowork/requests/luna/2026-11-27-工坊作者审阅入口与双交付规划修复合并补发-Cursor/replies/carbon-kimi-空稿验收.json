@@ -1,0 +1,124 @@
+{
+  "planner_commit": "2ec1c338c2f1b3941c44f55470fa50a4f887c040",
+  "planner_sha256": "18166072fe9e9a77f80ac0f9037ba8db0776049a8f4c5ba7c21566cdb6829273",
+  "model": "kimi-k3",
+  "transport": "Moonshot Responses API",
+  "draft_id": "29b81e5e-025e-4dc3-8515-bee662118546",
+  "draft_revision": 3,
+  "purpose": "给定同一主体、期间和币种的标准化合并报表披露行，核验期初资产负债是否平衡，以及期末现金与期初现金和本期现金净变动能否勾稽。每项交付一份含差额和证据编号的回执。",
+  "targets": [
+    {
+      "promise_id": "opening_evidence",
+      "summary": "期初资产负债平衡回执",
+      "expected_domain_id": "core.check.receipt",
+      "outputs": [
+        "opening_evidence"
+      ]
+    },
+    {
+      "promise_id": "cash_difference",
+      "summary": "现金滚动差额回执",
+      "expected_domain_id": "core.check.receipt",
+      "outputs": [
+        "cash_difference"
+      ]
+    }
+  ],
+  "candidate_count": 11,
+  "initial_procedure": null,
+  "first_prompt_sha256": "9823971a8d9d60b32bee2aae4d3998aababe95fc292a64200d170fce0027a172",
+  "attempts": [
+    {
+      "status": "incomplete",
+      "usage": {
+        "input_tokens": 5089,
+        "input_tokens_details": {
+          "cache_write_tokens": 4864,
+          "cached_tokens": 0
+        },
+        "output_tokens": 4096,
+        "output_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "total_tokens": 9185
+      },
+      "cost": "0.51138",
+      "response_id": "resp_185eb1fa-4b77-9f04-a6a4-d2071806224a",
+      "reasoning_effort_requested": "provider_default",
+      "turn": 0
+    },
+    {
+      "status": "incomplete",
+      "incomplete_reason": {
+        "reason": "max_output_tokens"
+      },
+      "usage": {
+        "input_tokens": 5089,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 4864
+        },
+        "output_tokens": 16384,
+        "output_tokens_details": {
+          "reasoning_tokens": 16384
+        },
+        "total_tokens": 21473
+      },
+      "cost": "1.652628",
+      "response_id": "resp_e32a0c26-401e-9e32-a5f2-1eaca0e203bf",
+      "reasoning_effort_requested": "provider_default",
+      "turn": 0
+    },
+    {
+      "status": "completed",
+      "incomplete_reason": null,
+      "usage": {
+        "input_tokens": 5090,
+        "input_tokens_details": {
+          "cache_write_tokens": 4864,
+          "cached_tokens": 0
+        },
+        "output_tokens": 508,
+        "output_tokens_details": {
+          "reasoning_tokens": 329
+        },
+        "total_tokens": 5598
+      },
+      "cost": "0.1526",
+      "response_id": "resp_c10514d6-d689-9c47-9ca4-44d79a82f0f8",
+      "reasoning_effort_requested": "low",
+      "turn": 0,
+      "decision": {
+        "action": "gap",
+        "reason": "本目标要求同时交付两份回执：期初资产负债平衡核验（m4 资产负债平衡核验，A-L-E）与现金滚动核验（m3 现金及现金等价物滚动核验，END-BEGIN-CHANGE）。目录中没有任何单一方法能同时产出这两项交付，因此不能 hit。若拆分，两份回执需要一个最终汇集方法消费其子输出，但唯一的汇总方法 m2（核验结果汇总）要求五份回执（opening_balance、closing_balance、profit、cash、inventory），其端口与本目标仅两份额外回执不匹配，无法作为合法的 parallel_join 汇集锚点。拆分无真实方法可锚定，故报告缺口。已检索范围：m1-m11 全部授权方法。"
+      },
+      "accepted": true
+    }
+  ],
+  "selection": {
+    "status": "gap",
+    "reason": "本目标要求同时交付两份回执：期初资产负债平衡核验（m4 资产负债平衡核验，A-L-E）与现金滚动核验（m3 现金及现金等价物滚动核验，END-BEGIN-CHANGE）。目录中没有任何单一方法能同时产出这两项交付，因此不能 hit。若拆分，两份回执需要一个最终汇集方法消费其子输出，但唯一的汇总方法 m2（核验结果汇总）要求五份回执（opening_balance、closing_balance、profit、cash、inventory），其端口与本目标仅两份额外回执不匹配，无法作为合法的 parallel_join 汇集锚点。拆分无真实方法可锚定，故报告缺口。已检索范围：m1-m11 全部授权方法。",
+    "steps": [],
+    "routing_required": false,
+    "tree": {
+      "catalog_digest": "06da67b01b6dafa8f69c34e1880e311c4fee734290edc23bc04f47f1d99ba2d2",
+      "nodes": [
+        {
+          "id": "n1",
+          "parent": null,
+          "goal": "给定同一主体、期间和币种的标准化合并报表披露行，核验期初资产负债是否平衡，以及期末现金与期初现金和本期现金净变动能否勾稽。每项交付一份含差额和证据编号的回执。",
+          "status": "gap",
+          "reason": "本目标要求同时交付两份回执：期初资产负债平衡核验（m4 资产负债平衡核验，A-L-E）与现金滚动核验（m3 现金及现金等价物滚动核验，END-BEGIN-CHANGE）。目录中没有任何单一方法能同时产出这两项交付，因此不能 hit。若拆分，两份回执需要一个最终汇集方法消费其子输出，但唯一的汇总方法 m2（核验结果汇总）要求五份回执（opening_balance、closing_balance、profit、cash、inventory），其端口与本目标仅两份额外回执不匹配，无法作为合法的 parallel_join 汇集锚点。拆分无真实方法可锚定，故报告缺口。已检索范围：m1-m11 全部授权方法。",
+          "operator": null,
+          "step": null,
+          "batch": null,
+          "backtracks": 0
+        }
+      ],
+      "pins": {}
+    },
+    "object_batch": null
+  },
+  "run_cost_cny": "2.316608",
+  "cumulative_cost_cny": "6.865088"
+}
