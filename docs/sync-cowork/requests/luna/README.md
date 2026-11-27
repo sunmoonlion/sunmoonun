@@ -6,14 +6,13 @@
 
 ## 当前在办
 
-- [KnowBench 专家匹配澄清作答与刷新布局补发](2026-11-27-KnowBench专家匹配澄清作答补发/request.md)。待 Carbon 评审和 Cursor 补发。
+- [#128 工坊和专家匹配体验合并补发 · Cursor](2026-11-27-工坊和专家匹配体验合并补发-Cursor/request.md)。三项镜像待发布，Luna 负责发布后现场验收。
 
-- [#128 KnowLab 工坊创建修复与草稿删除补发](2026-11-27-KnowLab工坊创建成功误报失败补发/request.md)。前后端候选已就绪，待 Carbon 评审和 Cursor 补发。
+## 11 月 27 日已收回的评审
 
-- [三端专家方法旧入口与旧代码清理评审](2026-11-27-三端专家方法旧入口与旧代码清理评审/request.md)。Luna 已固定本地提交，待 Carbon 独立评审。
-
-- [编译器多项交付及其余合并差异总评审](2026-11-27-编译器多项交付与双入口规划评审/request.md)。待 Carbon（agy）评审，含旧入口、试跑承诺覆盖、双入口规划、资源委托 B585 及 KnowMart 成交修复的原卡入口。
-- [KnowMart 正式方法需求响应与成交修复评审](2026-11-27-KnowMart正式方法需求响应与成交修复评审/request.md)。待 Carbon（agy）接手，回执写入本卡的 `replies/agy.md`。
+- [KnowMart 正式方法响应与成交](../../archive/luna/2026-11-27-KnowMart正式方法需求响应与成交修复评审/replies/luna.md)
+- [三端旧入口清理与 B410](../../archive/luna/2026-11-27-三端专家方法旧入口与旧代码清理评审/replies/luna.md)
+- [编译器与规划双入口](../../archive/luna/2026-11-27-编译器多项交付与双入口规划评审/replies/luna.md)。F05 已由 Luna 修复并自验，现场验收归 B03。
 
 ## 历史发布
 
