@@ -1,5 +1,7 @@
 # KnowFeed 本人订阅配置补发
 
+**已结案。** #141 配置补发已交回，本人订阅创建及授权撤销已随 #142 现场复验通过。 [Luna 验收回执](replies/luna.md)
+
 Cursor 负责发布，Luna 负责业务复验。基线为 #136；从实际晋级指针取最新部署配置。
 
 sig-am 在 KnowFeed 订阅页通过本人会话提交一份五粮液公告订阅，两次使用同一幂等键，均为 HTTP 503，业务码 `knowbase_unconfigured`，没有收到订阅 ID。现场 KnowFeed API 的 `knowbase_user_audience` 为空，后台 `supply_relation()` 已配置。用户入口在 `get_web_knowbase_token` 就返回 503，尚未尝试交换令牌。KnowBase API 的 `USER_TOKEN_APPS_JSON` 也缺少 KnowFeed Web 映射。#136 发布声明中的 KnowFeed 身份注册 Job 的 `TOKEN_EXCHANGE_SURFACES` 为空列表。

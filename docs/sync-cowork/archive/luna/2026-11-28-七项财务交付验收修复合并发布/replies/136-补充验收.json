@@ -1,0 +1,37 @@
+{
+  "隔离用例": {
+    "KnowBench": "2 passed in 1.89s",
+    "KnowBase日志事务": "1 passed in 1.50s",
+    "KnowBench资料清单": "2 passed in 5.80s",
+    "锁释放同步与异步连接修正": "KnowFeed 首跑失败 1 项，使用 asyncpg 连接串对原断言复跑通过",
+    "两次真实投递": "同一隔离数据库同一队列两次运行，每次含重放。不同 ID 两个、计数分别为 1。"
+  },
+  "tpl和KnowMart现场读回": [
+    [
+      "tpl",
+      {
+        "path": "/api/web/v1/runs/00000000-0000-5000-8000-000000000001",
+        "status": 503,
+        "code": "provider_unavailable"
+      }
+    ],
+    [
+      "knowmart",
+      {
+        "path": "/zh-CN/knowledge",
+        "headings": [
+          "搜寻知识"
+        ],
+        "links": 0,
+        "testListings": 0,
+        "alert": []
+      }
+    ]
+  ],
+  "并发与事务": [
+    "6 concurrent requests / 3 accepted across two clients; separate account accepted; both expired",
+    "rollback: no published event; commit: publish after commit",
+    "old turn cleanup isolated; exact idle thread required",
+    "50 rounds: one lookup; empty page: zero additional lookups"
+  ]
+}

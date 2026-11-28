@@ -1,0 +1,14 @@
+{
+  "deleted": 361,
+  "deleted_bytes": 38435122283,
+  "failed": [],
+  "keep_verified": 40,
+  "keep_missing_after": [],
+  "gc_status": 201,
+  "gc_error": null,
+  "gc_job_id": 84,
+  "gc_final_status": "Success",
+  "gc_freed_bytes": 13961394927,
+  "gc_purged_blobs": 936,
+  "gc_purged_manifests": 361
+}

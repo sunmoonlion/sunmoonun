@@ -1,0 +1,136 @@
+[
+  {
+    "suite": "feed-lock-retry",
+    "passed": 1,
+    "skipped": 0,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowbase-0",
+    "passed": 890,
+    "skipped": 5,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowbench-0",
+    "passed": 702,
+    "skipped": 4,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowbench-1",
+    "passed": 798,
+    "skipped": 5,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowbench-2",
+    "passed": 922,
+    "skipped": 2,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowbench-3",
+    "passed": 818,
+    "skipped": 5,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowfeed-0",
+    "passed": 1160,
+    "skipped": 13,
+    "failed": [
+      "tests.test_crawl_concurrency_db/test_abrupt_process_exit_releases_source_lock"
+    ]
+  },
+  {
+    "suite": "suite-knowlab-0",
+    "passed": 1207,
+    "skipped": 5,
+    "failed": []
+  },
+  {
+    "suite": "suite-knowmart-0",
+    "passed": 586,
+    "skipped": 5,
+    "failed": []
+  },
+  {
+    "suite": "suite-tpl-0",
+    "passed": 421,
+    "skipped": 5,
+    "failed": []
+  },
+  {
+    "suite": "knowbase-admin-frontend",
+    "passed": 63,
+    "skipped": 0,
+    "failed": []
+  },
+  {
+    "suite": "knowbase-web-frontend",
+    "passed": 134,
+    "skipped": 2,
+    "failed": []
+  },
+  {
+    "suite": "knowbench-admin-frontend",
+    "passed": 57,
+    "skipped": 1,
+    "failed": []
+  },
+  {
+    "suite": "knowbench-web-frontend",
+    "passed": 552,
+    "skipped": 2,
+    "failed": []
+  },
+  {
+    "suite": "knowfeed-admin-frontend",
+    "passed": 71,
+    "skipped": 0,
+    "failed": []
+  },
+  {
+    "suite": "knowfeed-web-frontend",
+    "passed": 128,
+    "skipped": 2,
+    "failed": []
+  },
+  {
+    "suite": "knowlab-admin-frontend",
+    "passed": 87,
+    "skipped": 0,
+    "failed": []
+  },
+  {
+    "suite": "knowlab-web-frontend",
+    "passed": 205,
+    "skipped": 2,
+    "failed": []
+  },
+  {
+    "suite": "knowmart-admin-frontend",
+    "passed": 53,
+    "skipped": 0,
+    "failed": []
+  },
+  {
+    "suite": "knowmart-web-frontend",
+    "passed": 162,
+    "skipped": 2,
+    "failed": []
+  },
+  {
+    "suite": "tpl-admin-frontend",
+    "passed": 56,
+    "skipped": 0,
+    "failed": []
+  },
+  {
+    "suite": "tpl-web-frontend",
+    "passed": 124,
+    "skipped": 2,
+    "failed": []
+  }
+]
