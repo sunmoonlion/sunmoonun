@@ -361,7 +361,7 @@ knowlab 后端 256e726、前端 6699ce0；后端全量 807 passed / 5 skipped，
 财务夹具或展示占位代替。来源/字段变更只涉及 knowlab 自有创意 JSON，不改跨应用
 孵化请求或专家清单 schema；无新迁移。
 
-当前代码和验证见[联调记录](../../../../scripts/results/第二轨联调/2026-11-02-创意入口与动态测试/README.md)：
+当前代码和验证见[联调记录](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/%E7%AC%AC%E4%BA%8C%E8%BD%A8%E8%81%94%E8%B0%83/2026-11-02-%E5%88%9B%E6%84%8F%E5%85%A5%E5%8F%A3%E4%B8%8E%E5%8A%A8%E6%80%81%E6%B5%8B%E8%AF%95/README.md)：
 正式 HTTP/DB 与 UI 回归通过；真实 Kimi 在隔离 Runner 链完成两种动态计划。该探针
 不用生产数据 MCP/Wind，不等于金融内容或线上任务验收。当前 qwen 发布源不移动。
 

@@ -8,6 +8,7 @@
 # 用法：bash scripts/local-integration/workbench-modes.sh   （在 k8s 仓根）
 set -o pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; K8S="$(cd "$HERE/../../.." && pwd)"; WS="$(cd "$K8S/.." && pwd)"
+mkdir -p "$HERE/results" || exit 1
 RUNTIME="$WS/sunmoon-link"; BACKEND="$WS/knowbench-app/knowbench-backend/app"
 source "$RUNTIME/scripts/env-header.sh"
 PY="$RUNTIME/.venv/bin/python"; IMAGE="${IMAGE:-sunmoon/sandbox:dev}"

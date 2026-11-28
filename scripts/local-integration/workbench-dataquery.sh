@@ -7,6 +7,7 @@
 # 用法：bash scripts/local-integration/workbench-dataquery.sh [--limit N] [--arms baseline,pack] [--case-ids a,b]
 set -o pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; K8S="$(cd "$HERE/../../.." && pwd)"; WS="$(cd "$K8S/.." && pwd)"
+mkdir -p "$HERE/results" || exit 1
 RUNTIME="$WS/sunmoon-link"; BACKEND="$WS/knowbench-app/knowbench-backend/app"; KNOWBASE="$WS/knowbase-app/knowbase-backend/app"
 source "$RUNTIME/scripts/env-header.sh"
 PY="$RUNTIME/.venv/bin/python"; IMAGE="${IMAGE:-sunmoon/sandbox:dev}"

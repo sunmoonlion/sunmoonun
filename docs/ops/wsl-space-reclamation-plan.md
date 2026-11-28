@@ -58,9 +58,9 @@
 >
 > 逐项清单与证据：`../../scripts/results/qwen-probe-runs-inventory.20261101.md`（149 行，SHA256 `e39d54397566d3e17643cb796e64b2c68981f05a1fd9ef07dd5dead6c8bb757a`，与本恢复说明同落在 qwen 工位，当时未提交）。
 
-2026-09-28 新增收尾门槛：[镜像持久化与长期空间管理](../../operations/persistence-and-space-acceptance.md)。必须分别完成重启/删群重建、全目录与镜像摘要比对、新节点实际拉取；容量监控、保留/GC、缓存、日志与备份轮换纳入统一入口，删除策略先确认。此要求尚未验收，最终报告须区分已实现、已验证和未完成。
+2026-09-28 新增收尾门槛：镜像持久化与长期空间管理（历史路径 `../../operations/persistence-and-space-acceptance.md`）。必须分别完成重启/删群重建、全目录与镜像摘要比对、新节点实际拉取；容量监控、保留/GC、缓存、日志与备份轮换纳入统一入口，删除策略先确认。此要求尚未验收，最终报告须区分已实现、已验证和未完成。
 
-日期：2026-09-27。**所有者已批准 R1 ≥7 天档和 R4 的 7 个重复文件，本轮已执行并复盘；R2 延后到宿主 Harbor 恢复及全目录摘要验收之后，R3 取消。WSL 压缩并入入口切换维护窗口，由所有者操作，不启用自动收缩。数据盘上限已明确为 100 GiB。** 统一目标及新数据盘方案见 [主方案](storage-and-harbor-placement-decision.md)。
+日期：2026-09-27。**所有者已批准 R1 ≥7 天档和 R4 的 7 个重复文件，本轮已执行并复盘；R2 延后到宿主 Harbor 恢复及全目录摘要验收之后，R3 取消。WSL 压缩并入入口切换维护窗口，由所有者操作，不启用自动收缩。数据盘上限已明确为 100 GiB。** 统一目标及新数据盘方案见 主方案（历史路径 `storage-and-harbor-placement-decision.md`）。
 
 
 **本轮最后决定：剩余清理统一放到迁移与验收结束后执行，现在不再追加。清理是必须完成的收尾项，不能以“已迁移”直接结束任务。** 已完成 R1/R4 的记录不变；执行边界仍受 Harbor 验收、原缓存时龄、远程分支审阅及容器/卷保护约束。
@@ -96,9 +96,9 @@
 
 ## 2. 只读盘点
 
-基础快照：WSL 文件系统已用约 459.00 GiB，系统 VHDX 文件逻辑大小 480.45 GiB，C 盘剩余约 231.96 GiB。旧静态卷 17.186 GiB、两个 worker 动态卷合计 0.240 GiB、Harbor 冷备份 16.851 GiB；详见 [数据盘容量记录](../../scripts/results/luna-data-disk-sizing.20260927.json)。
+基础快照：WSL 文件系统已用约 459.00 GiB，系统 VHDX 文件逻辑大小 480.45 GiB，C 盘剩余约 231.96 GiB。旧静态卷 17.186 GiB、两个 worker 动态卷合计 0.240 GiB、Harbor 冷备份 16.851 GiB；详见 [数据盘容量记录](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-data-disk-sizing.20260927.json)。
 
-原始证据：[目录盘点](../../scripts/results/luna-wsl-space-inventory.20260927.json)、[Docker/CRI 引用盘点](../../scripts/results/luna-docker-space-inventory.20260927.json)。全根扫描超过 180 秒后停止，只停止本轮 du 进程，改用有界分目录扫描；不把超时当盘点成功。目录总量与 Docker 报告可能重叠、包含共享层或绑定挂载，不能直接相加。测量不停止服务，运行期新增写入会造成变化。
+原始证据：[目录盘点](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-wsl-space-inventory.20260927.json)、[Docker/CRI 引用盘点](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-docker-space-inventory.20260927.json)。全根扫描超过 180 秒后停止，只停止本轮 du 进程，改用有界分目录扫描；不把超时当盘点成功。目录总量与 Docker 报告可能重叠、包含共享层或绑定挂载，不能直接相加。测量不停止服务，运行期新增写入会造成变化。
 
 | 盘点项 | 用量 / 状态 | 如何解读 |
 | --- | --- | --- |
@@ -125,7 +125,7 @@
 
 物理 `/var/lib/containerd` 逐文件统计在 120 秒上限内未完成（退出 124），没有给它编造精确 du 总量；Docker `/system/df` API 的镜像层记录已完整取得并用于镜像/缓存估计。其余列出的 du 值都来自成功完成的对应目录扫描。
 
-R1 候选 ID 清单：[luna-build-cache-candidates.20260927.json](../../scripts/results/luna-build-cache-candidates.20260927.json)。目前只读核实 builder `default`（docker driver，Buildx v0.33.0 / BuildKit v0.29.0）。本轮实施前检查了实际 builder、InUse/共享/时间条件是否漂移；任何新使用者出现就移出候选。缓存、镜像和节点记录存在共享/压缩/快照差异，以上数字**不相加为总回收承诺**。
+R1 候选 ID 清单：[luna-build-cache-candidates.20260927.json](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-build-cache-candidates.20260927.json)。目前只读核实 builder `default`（docker driver，Buildx v0.33.0 / BuildKit v0.29.0）。本轮实施前检查了实际 builder、InUse/共享/时间条件是否漂移；任何新使用者出现就移出候选。缓存、镜像和节点记录存在共享/压缩/快照差异，以上数字**不相加为总回收承诺**。
 
 ## 3. 按安全程度排序的回收单元
 
@@ -135,7 +135,7 @@ R1 候选 ID 清单：[luna-build-cache-candidates.20260927.json](../../scripts/
 
 本轮按所有者选择固定 builder `default` 和原 854 条 ID，执行前再次检查 InUse=false、Shared=false、LastUsedAt ≥7 天。原清单 854 条均通过，runtime du 预览集合也严格相同；没有纳入新出现的缓存。
 
-实际运行命令由 [批次脚本](../../cicd-platform/materials/space_reclaim_20260927.py) 生成：`docker buildx prune --builder default --force --filter 'id~=^(原清单ID的正则并集)$' --filter until=168h --filter 'private=""'`。不使用 `--all`，不清镜像/容器/卷；BuildKit 自身在执行时排除 InUse。最初 `shared=false` 预览为零，门禁在删除前拦截；已查明本机版本布尔字段是存在性条件，改用经同集合预览验证的 `private=""`。[Docker 参数说明](https://docs.docker.com/reference/cli/docker/buildx/prune/)、[Buildx 0.33.0 转换源码](https://github.com/docker/buildx/blob/v0.33.0/commands/prune.go)、[BuildKit 0.29.0 过滤源码](https://github.com/moby/buildkit/blob/v0.29.0/cache/manager.go)。这不是可跨版本盲用的命令模板。
+实际运行命令由 批次脚本（历史路径 `../../cicd-platform/materials/space_reclaim_20260927.py`） 生成：`docker buildx prune --builder default --force --filter 'id~=^(原清单ID的正则并集)$' --filter until=168h --filter 'private=""'`。不使用 `--all`，不清镜像/容器/卷；BuildKit 自身在执行时排除 InUse。最初 `shared=false` 预览为零，门禁在删除前拦截；已查明本机版本布尔字段是存在性条件，改用经同集合预览验证的 `private=""`。[Docker 参数说明](https://docs.docker.com/reference/cli/docker/buildx/prune/)、[Buildx 0.33.0 转换源码](https://github.com/docker/buildx/blob/v0.33.0/commands/prune.go)、[BuildKit 0.29.0 过滤源码](https://github.com/moby/buildkit/blob/v0.29.0/cache/manager.go)。这不是可跨版本盲用的命令模板。
 
 实际删除 375 条，缓存记录大小合计 **6,386,095,842 字节 / 5.947 GiB**，CLI 报告 Total 6.386GB（十进制）。清理过程中 195 条父缓存的 LastUsedAt 更新到本轮时刻，按父子/别名关系回溯覆盖剩余 479 条 / 23.730 GiB；未放宽 7 天限制，也未把候选预算报成释放量。剩余部分后续重新按时龄与依赖盘点。
 
@@ -158,13 +158,13 @@ R1 候选 ID 清单：[luna-build-cache-candidates.20260927.json](../../scripts/
 3. 例如 `harbor.sunmoonai.com:30443/app-images/sandbox@sha256:dbafbcd4eba426fe2a8aa89545214a90b80ae38d508bf1bcee55dda7d41502af` 本机与 Harbor 相同。人工复核可运行 `docker manifest inspect --verbose <完整repo@sha256>` 并核查 Descriptor.digest；普通 inspect 输出的 config.digest 不是镜像 index 摘要。
 4. 宿主 Harbor 恢复后重做全目录比对和每个候选的按摘要可拉取检查；镜像层目录/数据库/加密密钥的恢复验收仍按主方案执行。镜像删除不加 force、不递归删父镜像；缓存先冻结精确 ID，运行时出现新引用即移出。
 
-清单与算法：[分类与共享层估算](../../scripts/results/luna-r2-classification.20260927.json)、[Harbor 目录](../../scripts/results/luna-r2-harbor-catalog.20260927.json)、[只读估算脚本](../../cicd-platform/materials/space_r2_inventory.py)。缓存元数据库读取仅用于此次版本的盘点，绝不写库或据此直接删底层文件。
+清单与算法：[分类与共享层估算](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-r2-classification.20260927.json)、[Harbor 目录](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-r2-harbor-catalog.20260927.json)、只读估算脚本（历史路径 `../../cicd-platform/materials/space_r2_inventory.py`）。缓存元数据库读取仅用于此次版本的盘点，绝不写库或据此直接删底层文件。
 
 #### B. 其余镜像逐个核对恢复来源
 
 **100 个**，API 独有层合计 **32.973 GiB**，该数未计某些共享层、未扣自举/回退/离线保护，不能作为安全释放承诺。其中 **20 个**在 Harbor 其他项目有同摘要，**32 个**在现有 tar 中找到精确 OCI 描述符并校验全部 linux/amd64 必需 config/layer 的 SHA256；二者重叠 17 个，合计 **35 个**至少一种已核验来源。另 **65 个**未证实来源，全部保留；没有因为无 tag 或无容器引用就删。
 
-只读取已有镜像归档，未解包到宿主目录、未 docker load/pull、未新增容器。逐项 image ID、标签、Harbor repo@digest、离线 tar 路径和验证方法见 [100 个镜像恢复来源清单](../../scripts/results/luna-r2-archive-sources.20260927.json)。有来源仍需扣除 KIND/Harbor 自举、发布/回退与验收物料的保护集合；**本轮这一类实际释放 0，未确定可以删除的最终总量**。同版本同文件名不算恢复证明，公网可重新下载也不算本地已核验来源。
+只读取已有镜像归档，未解包到宿主目录、未 docker load/pull、未新增容器。逐项 image ID、标签、Harbor repo@digest、离线 tar 路径和验证方法见 [100 个镜像恢复来源清单](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-r2-archive-sources.20260927.json)。有来源仍需扣除 KIND/Harbor 自举、发布/回退与验收物料的保护集合；**本轮这一类实际释放 0，未确定可以删除的最终总量**。同版本同文件名不算恢复证明，公网可重新下载也不算本地已核验来源。
 
 ### R3：已取消
 
@@ -186,7 +186,7 @@ R1 候选 ID 清单：[luna-build-cache-candidates.20260927.json](../../scripts/
 | 两次 `work/offline-negative-*` 工作目录 | 合计约 0.24 GiB | 先保留两次 result 与失败/成功日志，之后可由同一输入重建 |
 | Harbor 冷备份、当前/回退物料、历史 images 导出目录 | **本轮建议回收 0** | 未证明存在可替代且已验收的独立恢复副本；不因有同名镜像而删除 |
 
-逐文件摘要与保留副本在 [重复物料候选清单](../../scripts/results/luna-duplicate-materials-candidates.20260927.json)。7 个文件经本轮批准、复核后已删除；正式副本均保留。临时工作目录估计已排除上述工具接收目录，不重复计数；最终收益还需扣去要另行保留的少量结果与产物。
+逐文件摘要与保留副本在 [重复物料候选清单](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-duplicate-materials-candidates.20260927.json)。7 个文件经本轮批准、复核后已删除；正式副本均保留。临时工作目录估计已排除上述工具接收目录，不重复计数；最终收益还需扣去要另行保留的少量结果与产物。
 
 影响：丢失唯一离线来源会使恢复依赖公网，丢失唯一备份不可逆。因此最后处理；只有逐路径、保留副本、完整性及恢复依据齐全的项目才交批准。回收前保留小型证据，不删除文件后再声称可以验摘要。
 
@@ -201,7 +201,7 @@ R1 候选 ID 清单：[luna-build-cache-candidates.20260927.json](../../scripts/
 3. 确认实际所有发行版/后台服务与 Windows 上会自动启动 WSL 的终端、IDE、计划任务。约定预计 30–60 分钟窗口（不是完成保证），中途不强行终止压缩或断电。
 4. 保存所有节点/容器的运行与停止状态、restart policy、卷名和挂载，按明确清单停止写入任务和数据库，再停止计划内服务；原本停止的回退节点保持停止。不运行任何 rm/prune。
 5. 文件系统 sync；在已批准窗口做 `sudo fstrim -v /`，记录结果。若未来还压缩新数据 VHDX，再单独对已确认挂载的 `/mnt/sunmoon-data` trim；不把裸路径不存在时的结果当成功。不用写满空闲空间的 zero-fill 手段。
-6. 暂停可能重启 WSL 的相关任务，记录原状态用于恢复。新 `sunmoon-data-mount` 已注册：先创建 `C:\wsl-disks\sunmoon-data.maintenance`、Disable 该任务并等待运行实例结束，再关闭 WSL；完整命令见 [存储索引](../mount/README.md#压缩维护先暂停自动任务完毕再恢复)。恢复挂载并核对后才解除标记和恢复任务。WSL 关闭会影响全部发行版；这项影响必须先明确。
+6. 暂停可能重启 WSL 的相关任务，记录原状态用于恢复。新 `sunmoon-data-mount` 已注册：先创建 `C:\wsl-disks\sunmoon-data.maintenance`、Disable 该任务并等待运行实例结束，再关闭 WSL；完整命令见 存储索引（历史路径 `../mount/README.md`）。恢复挂载并核对后才解除标记和恢复任务。WSL 关闭会影响全部发行版；这项影响必须先明确。
 
 ### 4.2 合并维护窗口的顺序
 
@@ -271,7 +271,7 @@ DiskPart 文本若包含失败，即使退出码为 0 也不能当通过。压�
 
 ## 7. 本轮实际执行与复盘
 
-证据汇总：[实际回收结果](../../scripts/results/luna-reclaim-summary.20260927.json)、[清理前](../../scripts/results/luna-reclaim-before.20260927.json)、[清理后](../../scripts/results/luna-reclaim-after.20260927.json)、[R1 预检与命令](../../scripts/results/luna-reclaim-r1.20260927.json)、[R1 原始输出](../../scripts/results/luna-reclaim-r1-output.20260927.txt)、[R4 逐文件结果](../../scripts/results/luna-reclaim-r4.20260927.json)。原候选文件保持历史原样，其 approved=false 是批准前快照；本轮授权与实绩以本节和新结果为准。
+证据汇总：[实际回收结果](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-reclaim-summary.20260927.json)、[清理前](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-reclaim-before.20260927.json)、[清理后](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-reclaim-after.20260927.json)、[R1 预检与命令](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-reclaim-r1.20260927.json)、[R1 原始输出](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-reclaim-r1-output.20260927.txt)、[R4 逐文件结果](https://github.com/sunmoonlion/sunmoonun/blob/125295df282622e0652a22a9be97e4a21e0abfca/scripts/results/luna-reclaim-r4.20260927.json)。原候选文件保持历史原样，其 approved=false 是批准前快照；本轮授权与实绩以本节和新结果为准。
 
 | 项目 | 实际结果 |
 | --- | --- |
@@ -289,7 +289,7 @@ DiskPart 文本若包含失败，即使退出码为 0 也不能当通过。压�
 
 ## 8. 必须执行的最终清理清单
 
-新增物料目录范围：见 [集群升级物料对应与最终清理](cluster-material-retirement.md)。25 个旧集群包约 0.946 GiB、1 个已被替代的新整合包约 0.267 GiB，当前只是退役候选，实际释放 0。平台版本不变、Harbor 原始冷备与旧客户端保留；脚本动态引用和新版依赖闭包未完成前不得删除。不能把目录全部约 40.81 GiB 视作可回收量。
+新增物料目录范围：见 集群升级物料对应与最终清理（历史路径 `cluster-material-retirement.md`）。25 个旧集群包约 0.946 GiB、1 个已被替代的新整合包约 0.267 GiB，当前只是退役候选，实际释放 0。平台版本不变、Harbor 原始冷备与旧客户端保留；脚本动态引用和新版依赖闭包未完成前不得删除。不能把目录全部约 40.81 GiB 视作可回收量。
 
 所有者明确要求“等最后再一起清理，但一定要清理”。以下收尾项未结清，不得宣称本次整体迁移完成：
 

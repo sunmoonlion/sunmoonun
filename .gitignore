@@ -214,3 +214,4 @@ __pycache__/
 # SOPS private identities must stay outside the repository.
 *.agekey
 scripts/results/*.zip
+/scripts/local-integration/results/
