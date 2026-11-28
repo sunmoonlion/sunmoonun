@@ -31,14 +31,14 @@
 CLUSTER=KIND APPS=investment COMPONENTS="backend web-frontend" SOURCE_ROOT=/home/zymun/worktrees/fable bash build-push-app-images.sh
 ```
 
-完整原始输出：[kind-runner-release.20260924-212959.A1.txt](kind-runner-release.20260924-212959.A1.txt)。
+完整原始输出：[kind-runner-release.20260924-212959.A1.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-212959.A1.txt)。
 首次失败：Docker build 的 apt-get 无法连接清华 Debian 镜像源 HTTP 地址，解析地址为 198.18.0.26；apt-get rc=100，构建脚本 rc=1。
 
 网络诊断：宿主机通过已有代理访问该镜像源 HTTP、HTTPS 均返回 200；Docker config 没有 proxies 配置。
 重试使用私有临时 Docker config，把当前进程已有的 HTTP/HTTPS 代理传给 Docker build；保留现有 Harbor 身份；临时目录 0700、配置 0600；不输出凭据，退出后自动删除临时目录。
 通过比较 Docker daemon ID 确认重试仍使用同一个本机 Docker daemon。全局 Docker 配置和仓库构建脚本均未改。
 
-重试完整输出：[kind-runner-release.20260924-212959.A1-proxy-retry.txt](kind-runner-release.20260924-212959.A1-proxy-retry.txt)。
+重试完整输出：[kind-runner-release.20260924-212959.A1-proxy-retry.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-212959.A1-proxy-retry.txt)。
 重试中 Debian 和 Python 依赖下载完成，Ruff lint 通过，153 个文件格式检查通过；Pyright 输出如下：
 
 ```text

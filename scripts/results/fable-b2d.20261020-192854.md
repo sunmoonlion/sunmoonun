@@ -8,14 +8,14 @@
 
 | 日志 | 范围 | exit |
 | --- | --- | --- |
-| [01-preflight](fable-b2d.20261020-192854.01-preflight.txt) | HEAD、请求头表达式、controller status、agent status 均通过 | 0 |
-| [02-initial-build-state](fable-b2d.20261020-192854.02-initial-build-state.txt) | 第二节 #1–#8 持久化元数据，#1 已 FAILURE | 0 |
-| [03-forced-render-check](fable-b2d.20261020-192854.03-forced-render-check.txt) | 唯一一次 `make -C infrastructure jenkins-agent-check`，构建 #7 FAILURE | 2 |
-| [04-timer-identity-observations](fable-b2d.20261020-192854.04-timer-identity-observations.txt) | 定时 #1 身份准备任务名称/状态提取，不输出身份值 | 0 |
-| [05-forced-console-tail](fable-b2d.20261020-192854.05-forced-console-tail.txt) | 保存的 #7 consoleText 原文末 40 行及完整日志路径 | 0 |
-| [06-final-build-and-service-state](fable-b2d.20261020-192854.06-final-build-and-service-state.txt) | 最终 #1–#8 元数据、目录事实、单元及内网入口只读探针 | 0 |
-| [07-render-stage-observations](fable-b2d.20261020-192854.07-render-stage-observations.txt) | #7 的 12 条应用命令及 recap、身份任务状态观测 | 0 |
-| [08-agent-worktree-state](fable-b2d.20261020-192854.08-agent-worktree-state.txt) | 代理 k8s HEAD、跟踪文件状态、gitops/sources 无 diff | 0 |
+| [01-preflight](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.01-preflight.txt) | HEAD、请求头表达式、controller status、agent status 均通过 | 0 |
+| [02-initial-build-state](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.02-initial-build-state.txt) | 第二节 #1–#8 持久化元数据，#1 已 FAILURE | 0 |
+| [03-forced-render-check](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.03-forced-render-check.txt) | 唯一一次 `make -C infrastructure jenkins-agent-check`，构建 #7 FAILURE | 2 |
+| [04-timer-identity-observations](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.04-timer-identity-observations.txt) | 定时 #1 身份准备任务名称/状态提取，不输出身份值 | 0 |
+| [05-forced-console-tail](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.05-forced-console-tail.txt) | 保存的 #7 consoleText 原文末 40 行及完整日志路径 | 0 |
+| [06-final-build-and-service-state](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.06-final-build-and-service-state.txt) | 最终 #1–#8 元数据、目录事实、单元及内网入口只读探针 | 0 |
+| [07-render-stage-observations](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.07-render-stage-observations.txt) | #7 的 12 条应用命令及 recap、身份任务状态观测 | 0 |
+| [08-agent-worktree-state](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2d.20261020-192854.08-agent-worktree-state.txt) | 代理 k8s HEAD、跟踪文件状态、gitops/sources 无 diff | 0 |
 
 原始 stdout/stderr 与实际退出码完整保留，未裁剪或覆盖；原生 Ansible 的等待重试是在轮询同一个构建，不是重新触发构建。未读取、抄写管理员口令或 crumb/cookie，保留 no_log 与证书校验。
 

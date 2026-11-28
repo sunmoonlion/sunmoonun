@@ -8,16 +8,16 @@
 
 | 日志 | 范围 | exit |
 | --- | --- | --- |
-| [01-preflight](fable-b2c.20261020-191232.01-preflight.txt) | HEAD、insteadOf=5、控制器 status、SSH 真实退出码与成功提示 | 0 |
-| [02-agent-plan](fable-b2c.20261020-191232.02-agent-plan.txt) | `jenkins-agent-plan` | 0 |
-| [03-agent-deploy](fable-b2c.20261020-191232.03-agent-deploy.txt) | 保留七个父仓、fetch、18 子仓检出、工具安装、代理启用及上线核对 | 0 |
-| [04-agent-status-and-checks](fable-b2c.20261020-191232.04-agent-status-and-checks.txt) | status=0、单元/目录/子仓；本地检查误数 @tmp，见下文 | 1 |
-| [05-repo-count-correction](fable-b2c.20261020-191232.05-repo-count-correction.txt) | 修正本地计数检查：7 个实际 Git 仓、3 个 knowbench 子仓、alternates=0 | 0 |
-| [06-render-check](fable-b2c.20261020-191232.06-render-check.txt) | `jenkins-agent-check`，提交 POST 返回 400 | 2 |
-| [07-stop-diagnostics](fable-b2c.20261020-191232.07-stop-diagnostics.txt) | 单元、代理/控制器完整时间窗口 journal、本机日志目录、两项入口探针 | 0 |
-| [08-timer-build-state](fable-b2c.20261020-191232.08-timer-build-state.txt) | 只读 Jenkins 持久化构建元数据：已有 #1–#5 均为定时来源，无终态 | 0 |
-| [09-timer-progress](fable-b2c.20261020-191232.09-timer-progress.txt) | 只读 #1 当前任务名与日志路径，未触发新构建 | 0 |
-| [10-latest-timer-state](fable-b2c.20261020-191232.10-latest-timer-state.txt) | 19:22:22 再次只读核对 #1，仍无 result 终态，日志继续增长 | 0 |
+| [01-preflight](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.01-preflight.txt) | HEAD、insteadOf=5、控制器 status、SSH 真实退出码与成功提示 | 0 |
+| [02-agent-plan](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.02-agent-plan.txt) | `jenkins-agent-plan` | 0 |
+| [03-agent-deploy](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.03-agent-deploy.txt) | 保留七个父仓、fetch、18 子仓检出、工具安装、代理启用及上线核对 | 0 |
+| [04-agent-status-and-checks](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.04-agent-status-and-checks.txt) | status=0、单元/目录/子仓；本地检查误数 @tmp，见下文 | 1 |
+| [05-repo-count-correction](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.05-repo-count-correction.txt) | 修正本地计数检查：7 个实际 Git 仓、3 个 knowbench 子仓、alternates=0 | 0 |
+| [06-render-check](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.06-render-check.txt) | `jenkins-agent-check`，提交 POST 返回 400 | 2 |
+| [07-stop-diagnostics](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.07-stop-diagnostics.txt) | 单元、代理/控制器完整时间窗口 journal、本机日志目录、两项入口探针 | 0 |
+| [08-timer-build-state](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.08-timer-build-state.txt) | 只读 Jenkins 持久化构建元数据：已有 #1–#5 均为定时来源，无终态 | 0 |
+| [09-timer-progress](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.09-timer-progress.txt) | 只读 #1 当前任务名与日志路径，未触发新构建 | 0 |
+| [10-latest-timer-state](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2c.20261020-191232.10-latest-timer-state.txt) | 19:22:22 再次只读核对 #1，仍无 result 终态，日志继续增长 | 0 |
 
 日志保留全部 stdout/stderr、实际 exit 和工具原生行尾空白，没有用格式清理改写原始证据。SSH 用 -n，不以 head 的退出码代替 SSH 的真实退出码；提示 successfully authenticated 且退出 1，符合卡。
 

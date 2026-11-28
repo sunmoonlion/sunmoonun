@@ -12,13 +12,13 @@
 
 | 日志 | 命令 / 范围 | exit |
 | --- | --- | --- |
-| [01-controller-checks](fable-b1.20261020-175616.01-controller-checks.txt) | `第三节独立 ss、三个 curl、systemctl` | 0 |
-| [02-entry-preview](fable-b1.20261020-175616.02-entry-preview.txt) | `make -C infrastructure entry-preview` | 0 |
-| [03-entry-idle](fable-b1.20261020-175616.03-entry-idle.txt) | `30443 活跃连接计数（只读）` | 0 |
-| [04-entry-stop](fable-b1.20261020-175616.04-entry-stop.txt) | `make -C infrastructure entry-stop` | 0 |
-| [05-entry-deploy](fable-b1.20261020-175616.05-entry-deploy.txt) | `make -C infrastructure entry-deploy` | 0 |
-| [06-entry-checks](fable-b1.20261020-175616.06-entry-checks.txt) | `经入口 Jenkins login 与 Harbor health 的 sudo curl` | 0 |
-| [07-platform-status](fable-b1.20261020-175616.07-platform-status.txt) | `make -C infrastructure platform-status` | 0 |
+| [01-controller-checks](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.01-controller-checks.txt) | `第三节独立 ss、三个 curl、systemctl` | 0 |
+| [02-entry-preview](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.02-entry-preview.txt) | `make -C infrastructure entry-preview` | 0 |
+| [03-entry-idle](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.03-entry-idle.txt) | `30443 活跃连接计数（只读）` | 0 |
+| [04-entry-stop](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.04-entry-stop.txt) | `make -C infrastructure entry-stop` | 0 |
+| [05-entry-deploy](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.05-entry-deploy.txt) | `make -C infrastructure entry-deploy` | 0 |
+| [06-entry-checks](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.06-entry-checks.txt) | `经入口 Jenkins login 与 Harbor health 的 sudo curl` | 0 |
+| [07-platform-status](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-175616.07-platform-status.txt) | `make -C infrastructure platform-status` | 0 |
 
 ## 第三节独立核对（完整原文）
 

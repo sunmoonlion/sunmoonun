@@ -59,7 +59,7 @@
 | --- | --- |
 | 活文档里的链接（docs、infrastructure 下 14 个 README、`AGENTS.md`、`README.md`、`CLAUDE.md`） | 工具改：写 `docs/process/tools/relocate-links.py`，输入「旧前缀 → 新前缀」表，对每个 markdown 重算相对链接（被搬的文件浅了一层，`../../../../../scripts/results/` 这类要重算），改完跑 doc-gate、anchor-gate 和一个新的「相对链接都能解析」检查 |
 | 门禁与钩子（`.githooks/pre-commit`、`pre-merge-commit`、`tools/doc-gate.py` 的 `DOC_ROOT`、`anchor-gate.py` 的 `DOCS`、`scripts/test_switch_test_sync.py`、`switch-test/*.sh` 里的路径） | 手改，同一提交 |
-| `scripts/results/` 下 33 份历史回执里的链接 | **不改**。results 只增不改是规矩，回执是当时的记录；链接失效可以接受，README 记一句「2026-10-21 之前的回执里 `docs/dev-investment-agent/…` 读作 `docs/design/` 或 `docs/process/`」 |
+| `scripts/results/` 下 33 份历史回执里的链接 | **不改**。本次改名保留当时的回执正文；后续过程附件按现行保留约定清理；链接失效可以接受，README 记一句「2026-10-21 之前的回执里 `docs/dev-investment-agent/…` 读作 `docs/design/` 或 `docs/process/`」 |
 
 ### 3.3 牵连到活的流程
 

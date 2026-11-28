@@ -11,15 +11,15 @@
 
 | 日志 | 内容 | exit |
 | --- | --- | --- |
-| [01-preflight](fable-b2b.20261020-184120.01-preflight.txt) | c126a36e：HEAD、insteadOf、控制器 status、SSH | 0 |
-| [02-agent-plan](fable-b2b.20261020-184120.02-agent-plan.txt) | c126a36e：代理 plan | 0 |
-| [03-agent-deploy](fable-b2b.20261020-184120.03-agent-deploy.txt) | c126a36e：远端全量克隆，被所有者要求中断 | 141 |
-| [04-refresh-and-cleanup](fable-b2b.20261020-184120.04-refresh-and-cleanup.txt) | f15a3e9f：旧进程均已退出、代理目录清理前后 | 0 |
-| [05-preflight-and-plan](fable-b2b.20261020-184120.05-preflight-and-plan.txt) | f15a3e9f：HEAD、控制器 status、SSH、代理 plan | 0 |
-| [06-agent-deploy-local-reference](fable-b2b.20261020-184120.06-agent-deploy-local-reference.txt) | f15a3e9f：七个父仓成功，18 个子仓引用路径失败 | 2 |
-| [07-stop-diagnostics](fable-b2b.20261020-184120.07-stop-diagnostics.txt) | 停点进程列表、代理 journal、服务状态、父仓 HEAD、两个子仓实际对象库、入口检查 | 0 |
-| [08-source-child-reference](fable-b2b.20261020-184120.08-source-child-reference.txt) | 18 个源子仓实际 common-dir 与父仓推导路径，只读核对 | 0 |
-| [09-submodule-state](fable-b2b.20261020-184120.09-submodule-state.txt) | 六个父仓的 18 个子仓均为 `-` 开头，尚未初始化成功 | 0 |
+| [01-preflight](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.01-preflight.txt) | c126a36e：HEAD、insteadOf、控制器 status、SSH | 0 |
+| [02-agent-plan](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.02-agent-plan.txt) | c126a36e：代理 plan | 0 |
+| [03-agent-deploy](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.03-agent-deploy.txt) | c126a36e：远端全量克隆，被所有者要求中断 | 141 |
+| [04-refresh-and-cleanup](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.04-refresh-and-cleanup.txt) | f15a3e9f：旧进程均已退出、代理目录清理前后 | 0 |
+| [05-preflight-and-plan](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.05-preflight-and-plan.txt) | f15a3e9f：HEAD、控制器 status、SSH、代理 plan | 0 |
+| [06-agent-deploy-local-reference](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.06-agent-deploy-local-reference.txt) | f15a3e9f：七个父仓成功，18 个子仓引用路径失败 | 2 |
+| [07-stop-diagnostics](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.07-stop-diagnostics.txt) | 停点进程列表、代理 journal、服务状态、父仓 HEAD、两个子仓实际对象库、入口检查 | 0 |
+| [08-source-child-reference](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.08-source-child-reference.txt) | 18 个源子仓实际 common-dir 与父仓推导路径，只读核对 | 0 |
+| [09-submodule-state](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2b.20261020-184120.09-submodule-state.txt) | 六个父仓的 18 个子仓均为 `-` 开头，尚未初始化成功 | 0 |
 
 所有原文完整保存，未裁剪失败输出。原生 `git submodule update` 自身在缺少 reference 时打印了 Retry scheduled 和第二次失败；没有在 Make 外增加重试。07 的卡原命令 `ps ... | grep 'git '` 会命中诊断包装 shell 自己，08 又按精确可执行名核对，实际 Git/SSH/Make/Ansible 进程均无残留。
 

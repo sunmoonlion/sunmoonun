@@ -29,19 +29,19 @@ A1—A9 已执行；新开发包、两份输入/锁和部署声明留在工作�
 
 | 步骤 | 实际执行 | 原始退出码 | 完整日志 |
 | --- | --- | --- | --- |
-| A1 | 构建推送两个镜像 | 0 | [kind-runner-release.20260924-214900.A1.txt](kind-runner-release.20260924-214900.A1.txt) |
-| A2 | 读取两个 RepoDigests | 0 | [kind-runner-release.20260924-214900.A2.txt](kind-runner-release.20260924-214900.A2.txt) |
-| A3 | 更新源码锁 | 0 | [kind-runner-release.20260924-214900.A3.txt](kind-runner-release.20260924-214900.A3.txt) |
-| A4 | 更新 development-input | 0 | [kind-runner-release.20260924-214900.A4.txt](kind-runner-release.20260924-214900.A4.txt) |
-| A5 | 渲染到 /tmp/investment-dev | 0 | [kind-runner-release.20260924-214900.A5.txt](kind-runner-release.20260924-214900.A5.txt) |
-| A6-diff | 完整 diff（1 表示存在差异） | 1 | [kind-runner-release.20260924-214900.A6-diff.txt](kind-runner-release.20260924-214900.A6-diff.txt) |
-| A6-copy | 获准后替换 bundle，旧包已备份 | 0 | [kind-runner-release.20260924-214900.A6-copy.txt](kind-runner-release.20260924-214900.A6-copy.txt) |
-| A6-conf | 所有者补充：同步部署声明 | 0 | [kind-runner-release.20260924-214900.A6-conf.txt](kind-runner-release.20260924-214900.A6-conf.txt) |
-| A7 | 不可变开发包门禁 | 0 | [kind-runner-release.20260924-214900.A7.txt](kind-runner-release.20260924-214900.A7.txt) |
-| A8 | 初次单测：knowledge 与 investment 两处错误 | 1 | [kind-runner-release.20260924-214900.A8.txt](kind-runner-release.20260924-214900.A8.txt) |
-| A9 | 初次 plan：声明未同步 | 2 | [kind-runner-release.20260924-214900.A9.txt](kind-runner-release.20260924-214900.A9.txt) |
-| A8-retry | 声明同步后单测：仅 knowledge 已知错误 | 1 | [kind-runner-release.20260924-214900.A8-retry.txt](kind-runner-release.20260924-214900.A8-retry.txt) |
-| A9-retry | 声明同步后只读 KIND plan | 0 | [kind-runner-release.20260924-214900.A9-retry.txt](kind-runner-release.20260924-214900.A9-retry.txt) |
+| A1 | 构建推送两个镜像 | 0 | [kind-runner-release.20260924-214900.A1.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A1.txt) |
+| A2 | 读取两个 RepoDigests | 0 | [kind-runner-release.20260924-214900.A2.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A2.txt) |
+| A3 | 更新源码锁 | 0 | [kind-runner-release.20260924-214900.A3.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A3.txt) |
+| A4 | 更新 development-input | 0 | [kind-runner-release.20260924-214900.A4.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A4.txt) |
+| A5 | 渲染到 /tmp/investment-dev | 0 | [kind-runner-release.20260924-214900.A5.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A5.txt) |
+| A6-diff | 完整 diff（1 表示存在差异） | 1 | [kind-runner-release.20260924-214900.A6-diff.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A6-diff.txt) |
+| A6-copy | 获准后替换 bundle，旧包已备份 | 0 | [kind-runner-release.20260924-214900.A6-copy.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A6-copy.txt) |
+| A6-conf | 所有者补充：同步部署声明 | 0 | [kind-runner-release.20260924-214900.A6-conf.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A6-conf.txt) |
+| A7 | 不可变开发包门禁 | 0 | [kind-runner-release.20260924-214900.A7.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A7.txt) |
+| A8 | 初次单测：knowledge 与 investment 两处错误 | 1 | [kind-runner-release.20260924-214900.A8.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A8.txt) |
+| A9 | 初次 plan：声明未同步 | 2 | [kind-runner-release.20260924-214900.A9.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A9.txt) |
+| A8-retry | 声明同步后单测：仅 knowledge 已知错误 | 1 | [kind-runner-release.20260924-214900.A8-retry.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A8-retry.txt) |
+| A9-retry | 声明同步后只读 KIND plan | 0 | [kind-runner-release.20260924-214900.A9-retry.txt](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/kind-runner-release.20260924-214900.A9-retry.txt) |
 
 A1 使用先前验证有效的临时 Docker 代理配置，私有临时目录自动清理，未改全局 Docker 配置或构建脚本。
 后端 Ruff/格式/Pyright 通过，两个镜像均 docker push 成功。
