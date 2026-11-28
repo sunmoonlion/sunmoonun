@@ -1,0 +1,421 @@
+{
+  "environment": "sunmoon-kind/app-platform-dev",
+  "release": 135,
+  "tag": "release-20261128-1",
+  "deployment_commit": "1d1355ad05f76410e3572035383f414a8235c031",
+  "promotion": "a5cf70e11a08ed6e8b2299b6c5e0d3fe79cf10c2",
+  "flux": "sha256:50ac03f7f101cd665b12cbc344975a1057c101dc2484656015c12fc8118ee5d2",
+  "luna_platform_source": "fc20b36e6c9690219f8f8ddc56a4f694667f9192",
+  "components": [
+    {
+      "repository": "tpl-app/tpl-backend",
+      "deployed_source": "75482b2602b1300a3244e915b1465ea8d417e60b",
+      "deployed_digest": "sha256:887f4611cecf9589941064b09d6afd45584f9069b2d3e295f04623326b72915c",
+      "ready_deployments": [
+        "tpl-api",
+        "tpl-scheduler",
+        "tpl-worker"
+      ],
+      "luna_source": "0686f06df9fc0c29bece26cda33939cd67540bf8",
+      "deployed_parent": "1de0d8b3af685df0b102bd5810ccc8f66e6b670e",
+      "luna_parent": "d743540447a3cb86a9b92fdd48d1a9c63194d907",
+      "merge_base": "c7cc3f4806fc9f945e9d4fb2c858bbe9049e1a76",
+      "deployed_only_commits": 2,
+      "luna_only_commits": 11,
+      "merge_conflicts": [],
+      "deployed_patch_equivalents": [
+        "- 28b5026281fb73b52589bcd1048aee6dde16a9e0",
+        "- 75482b2602b1300a3244e915b1465ea8d417e60b"
+      ],
+      "schema": {
+        "live": "20261025_0004",
+        "target": "20261025_0004",
+        "revisions": []
+      },
+      "parent_contract_files": []
+    },
+    {
+      "repository": "tpl-app/tpl-web-frontend",
+      "deployed_source": "6f46aef4bcbca07b126682c24ec1b2cedb42d52c",
+      "deployed_digest": "sha256:64b5426d9b68d288b089e5b3941725daba43be1b5c794bf178f68540081312ab",
+      "ready_deployments": [
+        "tpl-web"
+      ],
+      "luna_source": "b374297b763a1ecead92ad63d8cb0778d12f8975",
+      "deployed_parent": "1de0d8b3af685df0b102bd5810ccc8f66e6b670e",
+      "luna_parent": "d743540447a3cb86a9b92fdd48d1a9c63194d907",
+      "merge_base": "76b50b6c49dfa92df6cee09ed3fe6fb0d1065160",
+      "deployed_only_commits": 3,
+      "luna_only_commits": 8,
+      "merge_conflicts": [
+        "app/components/platform/reference-workspace.tsx",
+        "app/lib/interaction/client.ts",
+        "app/lib/interaction/use-run-projection.ts"
+      ],
+      "deployed_patch_equivalents": [
+        "- af4ef6e58bf849db766c139ffec9a4b535c291f3",
+        "- 3d28d93d07e8665060c5f23161d1e2309930d75f",
+        "- 6f46aef4bcbca07b126682c24ec1b2cedb42d52c"
+      ]
+    },
+    {
+      "repository": "tpl-app/tpl-admin-frontend",
+      "deployed_source": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "deployed_digest": "sha256:0312ab07e7c90851d81f6c1bdebccfa676b4665cabd18a48336c0d5b8e22cde3",
+      "ready_deployments": [
+        "tpl-admin"
+      ],
+      "luna_source": "849805014466dcff4c6ab57e30edfc33a78d1ea2",
+      "deployed_parent": "1de0d8b3af685df0b102bd5810ccc8f66e6b670e",
+      "luna_parent": "d743540447a3cb86a9b92fdd48d1a9c63194d907",
+      "merge_base": "722c6b80e849d6352f28abbdd7362e1151191c14",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 3,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowfeed-app/knowfeed-backend",
+      "deployed_source": "0fa4b9e9b60ca632345f09f5fcdd017b9010ae6c",
+      "deployed_digest": "sha256:afe1c8ddc9e2d5c69b19961f1749e4d6f5eab0a51c4c8c9465f1aa6bbc627294",
+      "ready_deployments": [
+        "knowfeed-api",
+        "knowfeed-scheduler",
+        "knowfeed-worker"
+      ],
+      "luna_source": "0b751b2d7c80a07bea450c37cdfe04710f15883e",
+      "deployed_parent": "9be5089a1dc9080d5e81db2a59c40a17825b7ed4",
+      "luna_parent": "e837ada6a3eb6c528b78e1b981c29e09b957753a",
+      "merge_base": "4b5d9ac32e9bf00a2ed24b6c16cbbe5a260badcb",
+      "deployed_only_commits": 2,
+      "luna_only_commits": 27,
+      "merge_conflicts": [],
+      "deployed_patch_equivalents": [
+        "- fa0a58e233655cd9cc5adcd591ec19ec6abe1ef3",
+        "- 0fa4b9e9b60ca632345f09f5fcdd017b9010ae6c"
+      ],
+      "schema": {
+        "live": "20261030_0022",
+        "target": "20261128_0027",
+        "revisions": [
+          "app/alembic/versions/20261128_0023_full_subscription_targets.py",
+          "app/alembic/versions/20261128_0024_submission_lease.py",
+          "app/alembic/versions/20261128_0025_delivery_topics.py",
+          "app/alembic/versions/20261128_0026_original_purge_pending.py",
+          "app/alembic/versions/20261128_0027_quarantine_unattributed_receipts.py"
+        ]
+      },
+      "parent_contract_files": [
+        "contracts/README.md",
+        "contracts/knowbase-user-data-lock.json",
+        "contracts/supply-prematch/v1/contract-manifest.json",
+        "contracts/supply-prematch/v1/prematch-request.schema.json"
+      ]
+    },
+    {
+      "repository": "knowfeed-app/knowfeed-web-frontend",
+      "deployed_source": "5ef58d640154cf6c9b7de3a0d2cadc75f41bc32e",
+      "deployed_digest": "sha256:2a51defb4cf68bddadd5d1743ec260c05a8e213e0fe35ea9a4d98da79e94a5c1",
+      "ready_deployments": [
+        "knowfeed-web"
+      ],
+      "luna_source": "7ad117a0c1126577545d19ffa4ba3ce7845c631c",
+      "deployed_parent": "9be5089a1dc9080d5e81db2a59c40a17825b7ed4",
+      "luna_parent": "e837ada6a3eb6c528b78e1b981c29e09b957753a",
+      "merge_base": "bb03f1ac21ffea0bc4e71dd5efc678256dd354ab",
+      "deployed_only_commits": 2,
+      "luna_only_commits": 8,
+      "merge_conflicts": [],
+      "deployed_patch_equivalents": [
+        "- ff822a6291499d0b51f7aaac88fd4072700a0b0d",
+        "- 5ef58d640154cf6c9b7de3a0d2cadc75f41bc32e"
+      ]
+    },
+    {
+      "repository": "knowfeed-app/knowfeed-admin-frontend",
+      "deployed_source": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+      "deployed_digest": "sha256:488a3181a5f5960e9dd96a776e31101d9a7fe3c42c2aad5d9ae4b9c7fd50351a",
+      "ready_deployments": [
+        "knowfeed-admin"
+      ],
+      "luna_source": "51cb6030c6e07485912aacf92958fe0cb3e452e1",
+      "deployed_parent": "9be5089a1dc9080d5e81db2a59c40a17825b7ed4",
+      "luna_parent": "e837ada6a3eb6c528b78e1b981c29e09b957753a",
+      "merge_base": "1bdcbcd042a45a0d19de1787778fd78f96cf49b6",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 5,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowbase-app/knowbase-backend",
+      "deployed_source": "a30b375fc4850dacf163820290bf1454497ff8d2",
+      "deployed_digest": "sha256:a178753154b3dec903a6e7358ccbaad4230214feab4d399b810b4735d77bd4bc",
+      "ready_deployments": [
+        "knowbase-api",
+        "knowbase-scheduler",
+        "knowbase-worker"
+      ],
+      "luna_source": "288dc831be714374b0d91ba1ce399c2c8e5bc2f1",
+      "deployed_parent": "00b59ec8b5391fbf3fa54bfd9ebf4d7fc2a5e54a",
+      "luna_parent": "b0c5f5d347b3c5fa9ce18de089a6769f7c38768d",
+      "merge_base": "a30b375fc4850dacf163820290bf1454497ff8d2",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 25,
+      "merge_conflicts": [],
+      "schema": {
+        "live": "20261119_0022",
+        "target": "20261128_0027",
+        "revisions": [
+          "app/alembic/versions/20261128_0023_read_version.py",
+          "app/alembic/versions/20261128_0024_unverified_knowledge_rows.py",
+          "app/alembic/versions/20261128_0025_binding_freeze_receipts.py",
+          "app/alembic/versions/20261128_0026_version_disclosures.py",
+          "app/alembic/versions/20261128_0027_retrieved_citations.py"
+        ]
+      },
+      "parent_contract_files": [
+        "contracts/data-request/v1/contract-manifest.json",
+        "contracts/data-request/v1/data-request.schema.json",
+        "contracts/user-data/v2/contract-manifest.json",
+        "contracts/user-data/v2/user-data.schema.json"
+      ]
+    },
+    {
+      "repository": "knowbase-app/knowbase-web-frontend",
+      "deployed_source": "884d235418f63676a88002978bf99bd99112cdb1",
+      "deployed_digest": "sha256:8a6ecfe684ab5e71d31ef769ef01113dd38b9dfb6d9ac5de0aff718df0c71ec0",
+      "ready_deployments": [
+        "knowbase-web"
+      ],
+      "luna_source": "e10d22628deb3b1eb7653236452cb85224195a9f",
+      "deployed_parent": "00b59ec8b5391fbf3fa54bfd9ebf4d7fc2a5e54a",
+      "luna_parent": "b0c5f5d347b3c5fa9ce18de089a6769f7c38768d",
+      "merge_base": "884d235418f63676a88002978bf99bd99112cdb1",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 5,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowbase-app/knowbase-admin-frontend",
+      "deployed_source": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+      "deployed_digest": "sha256:e7affd1c995b55186280552373cdb666b803d86c1416c6d1ad079a41d55aab23",
+      "ready_deployments": [
+        "knowbase-admin"
+      ],
+      "luna_source": "da9d62cd224dbdb6f40ca56e8c0feb82ebeefcd9",
+      "deployed_parent": "00b59ec8b5391fbf3fa54bfd9ebf4d7fc2a5e54a",
+      "luna_parent": "b0c5f5d347b3c5fa9ce18de089a6769f7c38768d",
+      "merge_base": "f2f6df3163a01c71be13efdd20b87187b63693ec",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 4,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowbench-app/knowbench-backend",
+      "deployed_source": "6fdfc7c8add6fe2df3120fa22770fb268813856e",
+      "deployed_digest": "sha256:eda97850348199975bac0053f69161fa80c628dd47c415e902538faa957d672a",
+      "ready_deployments": [
+        "knowbench-api",
+        "knowbench-runner",
+        "knowbench-scheduler",
+        "knowbench-worker"
+      ],
+      "luna_source": "17021f8e7902c62b8d6ffa2ced42ae795a30de90",
+      "deployed_parent": "99eac3037deb27dce2aa82699ba6508cdca74f72",
+      "luna_parent": "75385d40b5c1b01d1d59dd8ea5461ecc9b044598",
+      "merge_base": "6fdfc7c8add6fe2df3120fa22770fb268813856e",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 40,
+      "merge_conflicts": [],
+      "schema": {
+        "live": "20261127_0064",
+        "target": "20261128_0073",
+        "revisions": [
+          "app/alembic/versions/20261128_0065_sandbox_registration_origin.py",
+          "app/alembic/versions/20261128_0066_trial_artifact_fingerprint.py",
+          "app/alembic/versions/20261128_0067_turn_request_lookups.py",
+          "app/alembic/versions/20261128_0068_test_folder_scheme.py",
+          "app/alembic/versions/20261128_0069_install_release_snapshot.py",
+          "app/alembic/versions/20261128_0070_sandbox_revision_and_permission_lookup.py",
+          "app/alembic/versions/20261128_0071_script_receipt_retries.py",
+          "app/alembic/versions/20261128_0072_task_dossier_layout.py",
+          "app/alembic/versions/20261128_0073_directory_pages.py"
+        ]
+      },
+      "parent_contract_files": [
+        "contracts/dynamic-methods/v1/catalog.schema.json",
+        "contracts/dynamic-methods/v1/contract-manifest.json",
+        "contracts/dynamic-methods/v2/catalog.schema.json",
+        "contracts/dynamic-methods/v3/catalog.schema.json",
+        "contracts/knowbase-data-request-lock.json",
+        "contracts/knowfeed-supply-prematch-lock.json",
+        "contracts/knowlab-author-method-lock.json",
+        "contracts/knowlab-author-method-v2-lock.json",
+        "contracts/knowlab-author-method-v3-lock.json",
+        "contracts/knowlab-formal-handoff-v2-lock.json",
+        "contracts/knowlab-incubation-lock.json",
+        "contracts/knowlab-test-run-lock.json"
+      ]
+    },
+    {
+      "repository": "knowbench-app/knowbench-web-frontend",
+      "deployed_source": "83340277ca542bfe0e71c0340e17769d6bd20dc0",
+      "deployed_digest": "sha256:7e4f0ccd293385953c5e1854fd3a044eba25d4e5bfa42a90aa3736b8e42cbfc6",
+      "ready_deployments": [
+        "knowbench-web"
+      ],
+      "luna_source": "f8f25b4617c72414176e3de50a09be36d1a0d2e6",
+      "deployed_parent": "99eac3037deb27dce2aa82699ba6508cdca74f72",
+      "luna_parent": "75385d40b5c1b01d1d59dd8ea5461ecc9b044598",
+      "merge_base": "83340277ca542bfe0e71c0340e17769d6bd20dc0",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 17,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowbench-app/knowbench-admin-frontend",
+      "deployed_source": "33559e926c3ebb7570716d5bb318b5a014e0d645",
+      "deployed_digest": "sha256:74c0a17b57aa11feda8adec69f3d18865515388987c237f3886edcd44dcc2725",
+      "ready_deployments": [
+        "knowbench-admin"
+      ],
+      "luna_source": "75085a8e628dd31f8f6447f91e8296f3c4086d96",
+      "deployed_parent": "99eac3037deb27dce2aa82699ba6508cdca74f72",
+      "luna_parent": "75385d40b5c1b01d1d59dd8ea5461ecc9b044598",
+      "merge_base": "33559e926c3ebb7570716d5bb318b5a014e0d645",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 4,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowlab-app/knowlab-backend",
+      "deployed_source": "f53aad14ac4c6c00493fd5962e73ce48da9a6270",
+      "deployed_digest": "sha256:de8ec1c748cf5c153f90d89a56b83b0862c11e488ade52958991adbc838e4264",
+      "ready_deployments": [
+        "knowlab-api",
+        "knowlab-scheduler",
+        "knowlab-worker"
+      ],
+      "luna_source": "10a173a269a02587575848e9df595e2f9ee0c34b",
+      "deployed_parent": "e3b0eb6d8334b7dc9ed70b8b9f4a003a450b559d",
+      "luna_parent": "f475636dd04823b7f561fd26769db555af12f166",
+      "merge_base": "f53aad14ac4c6c00493fd5962e73ce48da9a6270",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 22,
+      "merge_conflicts": [],
+      "schema": {
+        "live": "20261127_0031",
+        "target": "20261128_0033",
+        "revisions": [
+          "app/alembic/versions/20261128_0032_trial_poll_order.py",
+          "app/alembic/versions/20261128_0033_formal_trial_binding.py"
+        ]
+      },
+      "parent_contract_files": [
+        "contracts/author-method/v1/definition.schema.json",
+        "contracts/author-method/v2/definition.schema.json",
+        "contracts/author-method/v3/definition.schema.json",
+        "contracts/formal-handoff/v2/request.schema.json",
+        "contracts/formal-method/v1/branch-review-request.schema.json",
+        "contracts/formal-method/v1/contract-manifest.json",
+        "contracts/formal-method/v1/execution-request.schema.json",
+        "contracts/formal-method/v1/partial-delivery-result.schema.json",
+        "contracts/knowbase-data-request-lock.json",
+        "contracts/knowbase-user-data-lock.json",
+        "contracts/knowbench-dynamic-methods-lock.json",
+        "contracts/knowbench-dynamic-methods-v2-lock.json",
+        "contracts/knowbench-dynamic-methods-v3-lock.json",
+        "contracts/knowbot-incubation/v1/contract-manifest.json",
+        "contracts/knowbot-incubation/v1/incubation-request.schema.json",
+        "contracts/knowbot-test-run/v1/contract-manifest.json",
+        "contracts/knowbot-test-run/v1/test-run-result.schema.json"
+      ]
+    },
+    {
+      "repository": "knowlab-app/knowlab-web-frontend",
+      "deployed_source": "4e0f8d4f272f4f01f8a70064453a3477c450696f",
+      "deployed_digest": "sha256:13b6f33e4f41ddd8022bcfe21307cc2bb2d40440982589c8d8d39a5a60244aef",
+      "ready_deployments": [
+        "knowlab-web"
+      ],
+      "luna_source": "7a1e043fc368675d9d98e075952d7b423214a569",
+      "deployed_parent": "e3b0eb6d8334b7dc9ed70b8b9f4a003a450b559d",
+      "luna_parent": "f475636dd04823b7f561fd26769db555af12f166",
+      "merge_base": "4e0f8d4f272f4f01f8a70064453a3477c450696f",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 11,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowlab-app/knowlab-admin-frontend",
+      "deployed_source": "e4d87c5df89b237806bf4aec64bc7585422820f3",
+      "deployed_digest": "sha256:1cc62f952ee5d4f89562978d99ee3d369ae682fc921f5cfd8bd6c3d69b6f241d",
+      "ready_deployments": [
+        "knowlab-admin"
+      ],
+      "luna_source": "ec6b2e13509225948a14a10b87b0b671bf828502",
+      "deployed_parent": "e3b0eb6d8334b7dc9ed70b8b9f4a003a450b559d",
+      "luna_parent": "f475636dd04823b7f561fd26769db555af12f166",
+      "merge_base": "e4d87c5df89b237806bf4aec64bc7585422820f3",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 9,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowmart-app/knowmart-backend",
+      "deployed_source": "5f2ecd1f6a91ee2e0f71d788a25ffb5344c228bd",
+      "deployed_digest": "sha256:154b6b113d50f24a58d95ac36472bacb2b200503eed351b64f552c1afd9b5249",
+      "ready_deployments": [
+        "knowmart-api",
+        "knowmart-scheduler",
+        "knowmart-worker"
+      ],
+      "luna_source": "8d3e97a0e38534c8deeee2a3a55d50a6e87e4817",
+      "deployed_parent": "de4e816343e07275f092a3e25bef12180e29088c",
+      "luna_parent": "adff5f3c086c525051a166fff4f2a4e99fc025b3",
+      "merge_base": "5f2ecd1f6a91ee2e0f71d788a25ffb5344c228bd",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 16,
+      "merge_conflicts": [],
+      "schema": {
+        "live": "20261127_0022",
+        "target": "20261128_0025",
+        "revisions": [
+          "app/alembic/versions/20261128_0023_version_delivery_options.py",
+          "app/alembic/versions/20261128_0024_duplicate_trade_identity.py",
+          "app/alembic/versions/20261128_0025_reconcile_revoked_purchases.py"
+        ]
+      },
+      "parent_contract_files": []
+    },
+    {
+      "repository": "knowmart-app/knowmart-web-frontend",
+      "deployed_source": "7c6362929bc983d77417ad416cb3aaf65bbb3e35",
+      "deployed_digest": "sha256:36f937cc859764a729c1c2f1d99df088ef46bf1484a2700fded6175fbf8de010",
+      "ready_deployments": [
+        "knowmart-web"
+      ],
+      "luna_source": "631aad605e1d4f8dc04667eee17422347743b8e0",
+      "deployed_parent": "de4e816343e07275f092a3e25bef12180e29088c",
+      "luna_parent": "adff5f3c086c525051a166fff4f2a4e99fc025b3",
+      "merge_base": "7c6362929bc983d77417ad416cb3aaf65bbb3e35",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 6,
+      "merge_conflicts": []
+    },
+    {
+      "repository": "knowmart-app/knowmart-admin-frontend",
+      "deployed_source": "6badf80be1d4aecd831bd02581f2af45300c4445",
+      "deployed_digest": "sha256:bc7a12b7aa179fd0bee3e73c4874c376368deac55512eb8cdf236391949d7aae",
+      "ready_deployments": [
+        "knowmart-admin"
+      ],
+      "luna_source": "52322c426f70236c524d180b4bd12e28287c4e21",
+      "deployed_parent": "de4e816343e07275f092a3e25bef12180e29088c",
+      "luna_parent": "adff5f3c086c525051a166fff4f2a4e99fc025b3",
+      "merge_base": "6badf80be1d4aecd831bd02581f2af45300c4445",
+      "deployed_only_commits": 0,
+      "luna_only_commits": 3,
+      "merge_conflicts": []
+    }
+  ]
+}
