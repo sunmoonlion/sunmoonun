@@ -23,7 +23,8 @@ knowfeed_backend_deployment:
   # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
   # v7: 网页端登录凭证 24 小时，管理端仍 1 小时（所有者 2026-11-11）。
   # v8: 管理端也统一为 24 小时，保持原有登录与组织隔离策略（所有者 2026-11-11）。
-  identity_revision: v8
+  identity_revision: v9
+  identity_token_exchange: true
   api_port: 8000
   api_replicas: 1
   worker_replicas: 1
@@ -39,7 +40,8 @@ knowfeed_backend_deployment:
   celery_event_queue_exclusive: true
   # 0010：跨应用链接（0008-info）；数据集登记随旧版删了（decisions ⑰）
   cross_app_enabled: true
-  domain_env: {}
+  domain_env:
+    KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
   # Wind凭据与账号主体沿用应用私有输入 -> SOPS；仅目录发现API与取数worker需要。
   domain_secrets:
     WIND_API_KEY: {source: private}

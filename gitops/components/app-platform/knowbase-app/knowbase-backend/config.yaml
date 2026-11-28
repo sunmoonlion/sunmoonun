@@ -66,7 +66,7 @@ knowbase_backend_deployment:
     KNOWBASE_MCP_RATE_PER_MINUTE: '120'
     # SDD 0042 用户资料：本人令牌的 aud 是 Casdoor 里的目标应用（identity_audience_application）；azp → 分区，只认三家网页端
     USER_TOKEN_AUDIENCE: sunmoon-kind-knowbase-user-data
-    USER_TOKEN_APPS_JSON: '{"sunmoon-kind-knowbench-web": "knowbench", "sunmoon-kind-knowlab-web": "knowlab", "sunmoon-kind-knowmart-web": "knowmart"}'
+    USER_TOKEN_APPS_JSON: '{"sunmoon-kind-knowbench-web": "knowbench", "sunmoon-kind-knowlab-web": "knowlab", "sunmoon-kind-knowmart-web": "knowmart", "sunmoon-kind-knowfeed-web": "knowfeed"}'
     # 用户资料存自己的桶（机制规定 <应用>-originals，前缀 users/；凭据在 USER_DATA_S3_*，见 object_storage.env_prefix）
     USER_DATA_BUCKET: knowbase-originals
     USER_DATA_PREFIX: users
