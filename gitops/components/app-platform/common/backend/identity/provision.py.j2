@@ -207,13 +207,15 @@ def run():
                               params={'id': 'admin/' + config['name'], 'columns': 'expireInHours'})
                 require(changed == 'Affected', 'Browser session lifetime was not applied')
                 existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
-            # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from the pre-0042
-            # shape (authorization code only, one-hour tokens): add the token exchange grant and
-            # the longer web token. Everything else must already match.
+            # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from authorization
+            # code alone. Pre-0042 apps were one-hour; later lifetime migrations left some apps at
+            # 12 h or 24 h without token-exchange (KnowFeed). Allow those lifetimes too so adding
+            # the exchange grant (and aligning expireInHours to 24 when still short) is one step.
+            # Everything else must already match.
             exchange_keys = {'grantTypes', 'expireInHours'}
             drift = {k for k, v in desired.items() if existing.get(k) != v}
             if (drift and drift <= exchange_keys and existing.get('grantTypes') == ['authorization_code']
-                    and existing.get('expireInHours') == 1):
+                    and existing.get('expireInHours') in (1, 12, 24)):
                 changed = api('POST', '/api/update-application', dict(existing, **{k: desired[k] for k in drift}),
                               params={'id': 'admin/' + config['name']})
                 require(changed == 'Affected', 'Token exchange settings were not applied')
