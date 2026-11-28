@@ -1,7 +1,0 @@
-Checking formatting...
-All matched files use Prettier code style!
-
-Command (cwd=/home/zymun/worktrees/luna/knowbench-app/knowbench-web-frontend/app):
-/home/zymun/.nvm/versions/node/v24.18.0/bin/node node_modules/prettier/bin/prettier.cjs --check components/workbench/capability-action-card.tsx components/workbench/capability-panel.tsx components/workbench/formal-method-panel.tsx components/workbench/formal-method-selection.tsx lib/workbench/capabilities.ts lib/workbench/formal-methods.ts lib/workbench/formal-method-reference.ts messages/en.json messages/zh-CN.json tests/component/capabilities.test.tsx tests/component/formal-method-panel.test.tsx tests/unit/capability-contract.test.ts
-Exit: 0. Check only; no source files changed.
-Generated provider locks/samples were not reformatted.

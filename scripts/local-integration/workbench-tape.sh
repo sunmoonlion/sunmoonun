@@ -6,6 +6,7 @@
 #      不给 TAPE_OUT 就写到 knowbench-backend 的 tests/preview_tapes/conversations.json
 set -o pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; K8S="$(cd "$HERE/../../.." && pwd)"; WS="$(cd "$K8S/.." && pwd)"
+mkdir -p "$HERE/results" || exit 1
 RUNTIME="$WS/sunmoon-link"; BACKEND="$WS/knowbench-app/knowbench-backend/app"
 source "$RUNTIME/scripts/env-header.sh"
 PY="$RUNTIME/.venv/bin/python"; IMAGE="${IMAGE:-sunmoon/sandbox:dev}"

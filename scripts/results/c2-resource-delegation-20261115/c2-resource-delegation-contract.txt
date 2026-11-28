@@ -1,1 +1,0 @@
-Provider schema and samples, consumer copies and test fixture match byte-for-byte; both lock SHA-256 values verified.

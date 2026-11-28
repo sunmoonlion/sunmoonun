@@ -42,7 +42,7 @@ Luna 已处理 [C5 分项回执和五条修订](../../../archive/luna/2026-11-20
 | SunMoon Link 0.5.9 Windows x64 | Link 仓 `13f2c81842b9342557246d370626d75546df1088`，组包提交 `318f79e54cfe2be27fc9ceb722d172a8e757d975` | 已发布下载对象及读回 SHA-256、页面标示的版本、从正式包启动的 Link 0.5.9 与包内 Codex 0.170.0 握手 |
 | SunMoon Link 0.5.9 Linux x64（平台电脑） | 同一组包提交 | 正式 Linux 对象的读回 SHA-256、平台电脑升级后的 Link 心跳版本和包内 Codex 0.170.0 握手 |
 
-本轮复测沙箱镜像内 `codex --version` 为 `codex-cli 0.170.0`，Windows 和 Linux 均使用随包原生程序重新完成 exec-server 初始化，返回 `executorVersion=0.170.0`。Luna 复算两个 `edge-public` 本地候选，Windows ZIP 的 SHA-256 为 `807ac5eb4a738b5b785ef014f1bc3293e27483c0afc82a82b5467acdaa1fa135`，Linux tar.gz 为 `6c0cd50f84095739a5f7fb8459da3618d242dc7c55cb1c6131bda371b677e35c`。Cursor 核对目标站点，按对应发行配置构建或取已验包、上传新版本对象并读回，随后更新发行配置中的版本、对象键、源码提交、摘要和大小。目标站点或重建产物不同，按实际产物重新核验并记录。保留 0.5.8 的不可变对象和回退入口。生产用户电脑按既有安装流程获取 Windows 更新。[开发验证与清单摘要](../../../../../scripts/results/codex-0170-mcp-20261119.json) · [发行配置](../../../../../gitops/components/app-platform/knowbench-app/knowbench-backend/agent-releases/config.yaml)
+本轮复测沙箱镜像内 `codex --version` 为 `codex-cli 0.170.0`，Windows 和 Linux 均使用随包原生程序重新完成 exec-server 初始化，返回 `executorVersion=0.170.0`。Luna 复算两个 `edge-public` 本地候选，Windows ZIP 的 SHA-256 为 `807ac5eb4a738b5b785ef014f1bc3293e27483c0afc82a82b5467acdaa1fa135`，Linux tar.gz 为 `6c0cd50f84095739a5f7fb8459da3618d242dc7c55cb1c6131bda371b677e35c`。Cursor 核对目标站点，按对应发行配置构建或取已验包、上传新版本对象并读回，随后更新发行配置中的版本、对象键、源码提交、摘要和大小。目标站点或重建产物不同，按实际产物重新核验并记录。保留 0.5.8 的不可变对象和回退入口。生产用户电脑按既有安装流程获取 Windows 更新。[开发验证与清单摘要](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/codex-0170-mcp-20261119.json) · [发行配置](../../../../../gitops/components/app-platform/knowbench-app/knowbench-backend/agent-releases/config.yaml)
 
 ## 可复核的本地证据
 

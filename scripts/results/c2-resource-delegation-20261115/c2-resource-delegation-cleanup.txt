@@ -1,1 +1,0 @@
-luna-c2-resource-delegation-tests-pg
