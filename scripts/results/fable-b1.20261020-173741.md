@@ -12,15 +12,15 @@
 
 | 原始输出 | 命令 / 检查 | exit | 判定 |
 | --- | --- | --- | --- |
-| [01-preflight](fable-b1.20261020-173741.01-preflight.txt) | `核对 / platform-status` | 0 | pass |
-| [02-materials](fable-b1.20261020-173741.02-materials.txt) | `prepare-host-materials` | 0 | pass |
-| [03-account-plan](fable-b1.20261020-173741.03-account-plan.txt) | `platform-account-plan OBJECT=jenkins` | 0 | pass |
-| [04-account-import](fable-b1.20261020-173741.04-account-import.txt) | `platform-account-import OBJECT=jenkins` | 0 | pass |
-| [05-jenkins-plan](fable-b1.20261020-173741.05-jenkins-plan.txt) | `jenkins-plan` | 0 | pass |
-| [06-jenkins-deploy](fable-b1.20261020-173741.06-jenkins-deploy.txt) | `jenkins-deploy` | 0 | pass |
-| [07-jenkins-status](fable-b1.20261020-173741.07-jenkins-status.txt) | `jenkins-status` | 0 | pass |
-| [08-controller-checks](fable-b1.20261020-173741.08-controller-checks.txt) | `独立 ss / curl / systemctl 检查` | 77 | fail（停点） |
-| [10-ca-permissions](fable-b1.20261020-173741.10-ca-permissions.txt) | `停下后的只读路径权限诊断` | 0 | pass |
+| [01-preflight](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.01-preflight.txt) | `核对 / platform-status` | 0 | pass |
+| [02-materials](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.02-materials.txt) | `prepare-host-materials` | 0 | pass |
+| [03-account-plan](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.03-account-plan.txt) | `platform-account-plan OBJECT=jenkins` | 0 | pass |
+| [04-account-import](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.04-account-import.txt) | `platform-account-import OBJECT=jenkins` | 0 | pass |
+| [05-jenkins-plan](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.05-jenkins-plan.txt) | `jenkins-plan` | 0 | pass |
+| [06-jenkins-deploy](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.06-jenkins-deploy.txt) | `jenkins-deploy` | 0 | pass |
+| [07-jenkins-status](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.07-jenkins-status.txt) | `jenkins-status` | 0 | pass |
+| [08-controller-checks](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.08-controller-checks.txt) | `独立 ss / curl / systemctl 检查` | 77 | fail（停点） |
+| [10-ca-permissions](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-173741.10-ca-permissions.txt) | `停下后的只读路径权限诊断` | 0 | pass |
 
 第一节的同步处理：所有者刚运行 human-local 同步，HEAD 正是卡的提交；遵守 switch-test 本地助手“不 pull、不 fetch”的规矩，省略卡里的重复 `git pull --ff-only origin fable`，改为只读核对当前 HEAD、卡的提交、分支与干净状态。没有改变检查标准或基线；这一差异在此明记。Git 只做本次回执的本地提交，未同步或推送。
 

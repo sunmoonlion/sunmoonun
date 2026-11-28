@@ -12,9 +12,9 @@ Windows hosts 原来没有 `jenkins.sunmoonai.com`；既有平台内网域名均
 
 | 原始输出 | 结果 |
 | --- | --- |
-| [01-windows-hosts](fable-b1.20261020-180743.01-windows-hosts.txt) | 既有脚本执行成功，备份路径及新增域名有记录，exit=0 |
-| [02-windows-check](fable-b1.20261020-180743.02-windows-check.txt) | Windows 系统解析得到 `127.0.0.1`；原生 curl 在 TLS 阶段报 `CRYPT_E_NO_REVOCATION_CHECK`，HTTP 000、exit=35，保留失败原文 |
-| [03-windows-webrequest](fable-b1.20261020-180743.03-windows-webrequest.txt) | Windows `Invoke-WebRequest -UseBasicParsing` 默认校验、无证书回调或 TLS 覆盖，直接请求域名 `/login`，StatusCode=200、X-Jenkins=2.580.1、登录表单存在，exit=0 |
+| [01-windows-hosts](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-180743.01-windows-hosts.txt) | 既有脚本执行成功，备份路径及新增域名有记录，exit=0 |
+| [02-windows-check](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-180743.02-windows-check.txt) | Windows 系统解析得到 `127.0.0.1`；原生 curl 在 TLS 阶段报 `CRYPT_E_NO_REVOCATION_CHECK`，HTTP 000、exit=35，保留失败原文 |
+| [03-windows-webrequest](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b1.20261020-180743.03-windows-webrequest.txt) | Windows `Invoke-WebRequest -UseBasicParsing` 默认校验、无证书回调或 TLS 覆盖，直接请求域名 `/login`，StatusCode=200、X-Jenkins=2.580.1、登录表单存在，exit=0 |
 
 curl 的失败没有用 `-k`、关闭吊销检查或修改系统策略绕过；改用另一个系统默认客户端单独验证 Windows 解析与登录页可达。不能将此写成 Windows curl 通过，也不能据此声称浏览器已由所有者验收。
 

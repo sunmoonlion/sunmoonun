@@ -3,7 +3,7 @@
 
 两步：`--move` 按下面的对照表 `git mv`；`--rewrite` 把仓里活文档的链接按搬后的位置重算——
 markdown 链接 `[..](相对路径)` 先按文件搬家前的位置解析成仓内绝对路径，再映射到新位置，再从文件的新位置重算相对路径；
-文中直接写的仓内路径（`docs/dev-investment-agent/...` 这种）按前缀替换。不改 scripts/results/（回执只增不改）。
+文中直接写的仓内路径（`docs/dev-investment-agent/...` 这种）按前缀替换。不改 scripts/results/（迁移工具跳过历史回执）。
 `--dry-run` 只报数。只用标准库。
 """
 import argparse

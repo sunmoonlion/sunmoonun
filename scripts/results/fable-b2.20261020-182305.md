@@ -10,16 +10,16 @@ stdout/stderr 完整保留在下列文件，未截断或覆盖；末行均写实
 
 | 日志 | 范围 | exit |
 | --- | --- | --- |
-| [01-preflight](fable-b2.20261020-182305.01-preflight.txt) | HEAD、文件、Make 目标、控制器 status；SSH 的 heredoc 包装执行有误，见下文 | 1 |
-| [02-ssh-precondition](fable-b2.20261020-182305.02-ssh-precondition.txt) | 修正 SSH 的 stdin 接法；GitHub 认证成功、全局无 insteadOf | 0 |
-| [03-materials](fable-b2.20261020-182305.03-materials.txt) | `make -C infrastructure jenkins-materials`，归档与 77 项文件大小、SHA-256 校验 | 0 |
-| [04-material-count](fable-b2.20261020-182305.04-material-count.txt) | 文件总数 77：hpi=76、tar.gz=1 | 0 |
-| [05-controller-stop](fable-b2.20261020-182305.05-controller-stop.txt) | `make -C infrastructure jenkins-stop` | 0 |
-| [06-controller-deploy](fable-b2.20261020-182305.06-controller-deploy.txt) | `make -C infrastructure jenkins-deploy`，插件、启动脚本、TLS 与管理员身份、匿名拒绝、节点存在检查 | 0 |
-| [07-controller-checks](fable-b2.20261020-182305.07-controller-checks.txt) | `jenkins-status` 与第三节四项独立检查 | 0 |
-| [08-agent-plan](fable-b2.20261020-182305.08-agent-plan.txt) | `make -C infrastructure jenkins-agent-plan` | 0 |
-| [09-agent-deploy](fable-b2.20261020-182305.09-agent-deploy.txt) | `make -C infrastructure jenkins-agent-deploy`，在克隆任务模板求值时失败 | 2 |
-| [10-stop-diagnostics](fable-b2.20261020-182305.10-stop-diagnostics.txt) | 停点后的服务状态、完整代理与控制器 journal、空 repos 目录、经入口两项 TLS 检查 | 0 |
+| [01-preflight](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.01-preflight.txt) | HEAD、文件、Make 目标、控制器 status；SSH 的 heredoc 包装执行有误，见下文 | 1 |
+| [02-ssh-precondition](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.02-ssh-precondition.txt) | 修正 SSH 的 stdin 接法；GitHub 认证成功、全局无 insteadOf | 0 |
+| [03-materials](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.03-materials.txt) | `make -C infrastructure jenkins-materials`，归档与 77 项文件大小、SHA-256 校验 | 0 |
+| [04-material-count](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.04-material-count.txt) | 文件总数 77：hpi=76、tar.gz=1 | 0 |
+| [05-controller-stop](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.05-controller-stop.txt) | `make -C infrastructure jenkins-stop` | 0 |
+| [06-controller-deploy](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.06-controller-deploy.txt) | `make -C infrastructure jenkins-deploy`，插件、启动脚本、TLS 与管理员身份、匿名拒绝、节点存在检查 | 0 |
+| [07-controller-checks](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.07-controller-checks.txt) | `jenkins-status` 与第三节四项独立检查 | 0 |
+| [08-agent-plan](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.08-agent-plan.txt) | `make -C infrastructure jenkins-agent-plan` | 0 |
+| [09-agent-deploy](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.09-agent-deploy.txt) | `make -C infrastructure jenkins-agent-deploy`，在克隆任务模板求值时失败 | 2 |
+| [10-stop-diagnostics](https://github.com/sunmoonlion/sunmoonun/blob/c93a1af7ff40c2dabc2408e44a2c6782372786b4/scripts/results/fable-b2.20261020-182305.10-stop-diagnostics.txt) | 停点后的服务状态、完整代理与控制器 journal、空 repos 目录、经入口两项 TLS 检查 | 0 |
 
 第一节初始工作区干净。01 中 `git status` 看到的是执行时刚创建的本轮原始日志，不是产品改动。控制器 status=0、active/enabled。初始执行把 SSH 放进 `bash` heredoc，SSH 继承脚本 stdin，吞掉后续语句，外层 exit=1，捕获的认证输出也没被打印。这是本地命令包装错误。修正为 `ssh -n` 且以 DEVNULL 提供 stdin 的独立检查，没有变更 SSH 认证判据、部署脚本或产品代码。02 的原文：
 
