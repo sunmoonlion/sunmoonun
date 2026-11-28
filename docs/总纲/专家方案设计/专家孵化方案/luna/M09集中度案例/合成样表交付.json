@@ -1,0 +1,186 @@
+{
+  "report": {
+    "customer": {
+      "related_amount": "20",
+      "unknown_related_refs": [
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "disclosed_related_share": "1/10",
+      "context": {
+        "issuer": "合成甲公司",
+        "period": "2025年度",
+        "scope": "合并",
+        "unit": "人民币元",
+        "report": "合成年度披露v1"
+      },
+      "side": "customer",
+      "n": 5,
+      "metric": "sales",
+      "count": 5,
+      "status": "complete",
+      "sum": "50",
+      "total": {
+        "metric": "sales",
+        "amount": "200",
+        "ref": "C总额"
+      },
+      "selected": [
+        {
+          "rank": 1,
+          "amount": "20",
+          "ref": "C1",
+          "identity": {
+            "id": "甲",
+            "ref": "C实名注"
+          },
+          "related": {
+            "confirmed": true,
+            "ref": "C关联注"
+          }
+        },
+        {
+          "rank": 2,
+          "amount": "12",
+          "ref": "C2",
+          "identity": null,
+          "related": null
+        },
+        {
+          "rank": 3,
+          "amount": "8",
+          "ref": "C3",
+          "identity": null,
+          "related": null
+        },
+        {
+          "rank": 4,
+          "amount": "6",
+          "ref": "C4",
+          "identity": null,
+          "related": null
+        },
+        {
+          "rank": 5,
+          "amount": "4",
+          "ref": "C5",
+          "identity": null,
+          "related": null
+        }
+      ],
+      "disclosed_share": "1/4",
+      "top_n_share": "1/4"
+    },
+    "supplier": {
+      "related_amount": "20",
+      "unknown_related_refs": [
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "disclosed_related_share": "1/5",
+      "context": {
+        "issuer": "合成甲公司",
+        "period": "2025年度",
+        "scope": "合并",
+        "unit": "人民币元",
+        "report": "合成年度披露v1"
+      },
+      "side": "supplier",
+      "n": 5,
+      "metric": "purchases",
+      "count": 5,
+      "status": "complete",
+      "sum": "45",
+      "total": {
+        "metric": "purchases",
+        "amount": "100",
+        "ref": "S总额"
+      },
+      "selected": [
+        {
+          "rank": 1,
+          "amount": "20",
+          "ref": "S1",
+          "identity": {
+            "id": "甲",
+            "ref": "S实名注"
+          },
+          "related": {
+            "confirmed": true,
+            "ref": "S关联注"
+          }
+        },
+        {
+          "rank": 2,
+          "amount": "10",
+          "ref": "S2",
+          "identity": null,
+          "related": null
+        },
+        {
+          "rank": 3,
+          "amount": "8",
+          "ref": "S3",
+          "identity": null,
+          "related": null
+        },
+        {
+          "rank": 4,
+          "amount": "4",
+          "ref": "S4",
+          "identity": null,
+          "related": null
+        },
+        {
+          "rank": 5,
+          "amount": "3",
+          "ref": "S5",
+          "identity": null,
+          "related": null
+        }
+      ],
+      "disclosed_share": "9/20",
+      "top_n_share": "9/20"
+    },
+    "risk_rating": "待定",
+    "context": {
+      "issuer": "合成甲公司",
+      "period": "2025年度",
+      "scope": "合并",
+      "unit": "人民币元",
+      "report": "合成年度披露v1"
+    },
+    "matches": [
+      {
+        "id": "甲",
+        "customer": {
+          "row_ref": "C1",
+          "identity_ref": "C实名注"
+        },
+        "supplier": {
+          "row_ref": "S1",
+          "identity_ref": "S实名注"
+        }
+      }
+    ],
+    "anonymous_refs": {
+      "customer": [
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "supplier": [
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ]
+    },
+    "coverage": "partial"
+  }
+}
