@@ -2,7 +2,8 @@
 
 - 对应请求：../request.md
 - 本轮：第 1 轮
-- 结论：现场已晋级到候选十八组件；Jenkins 账面 #136 为 FAILURE（第 11 阶段 KnowBase 域集成），根因已修并完成六应用 `application-check` 补跑；Git 晋级提交与标签已补推。业务验收与七项财务探针交 Luna。
+- 结论：现场已晋级到候选十八组件；Jenkins 账面 #136 为 FAILURE（第 11 阶段 KnowBase 域集成），根因已修并完成六应用 `application-check` 补跑；Git 晋级提交与标签已补推。
+- Luna 首轮现场验收（`replies/luna.md`，2026-11-28）：18 组件源码/镜像、31 角色、六库 head、12 登录页 200、七项财务合成 138/138 与跨镜像 0.99/1 探针均通过；卡仍开放，待登录后业务链路、M02 普通委托及其余编号证据。
 
 ## 发布结果
 
@@ -75,7 +76,18 @@
 - 官方流水线未写出 SUCCESS 回执文件；以本卡回执 + 补推 Git（`0b8b2b185`）为准。
 - 平台 gitops 校验脚本相对候选构建点多了投递验收修复提交；应用十八组件源码钉未变。
 
-## Luna 下一步
+## Luna 首轮验收对照
 
-1. 按 request 做六应用业务验收与七项财务断言 / 跨镜像探针。  
-2. 验收通过后按约定清理 Harbor：仅保留现网 + 上一回滚（#135 / `release-20261128-1`），其余未引用层出清单再批删。
+已读 `replies/luna.md`：与本回执 Flux digest `sha256:23f213da…` / revision `dc6eb7ce…`、十八组件钉及角色就绪一致；财务合成与跨镜像探针由 Luna 现场跑通。本侧无新部署动作。
+
+## 开放项（Luna）
+
+1. 登录后六应用业务链路、KnowLab M02 普通委托、其余台账编号逐号证据（卡保持开放）。  
+2. 结案归档仍待上述业务验收完成。
+
+## Harbor 清理（已执行）
+
+- 范围：仅 18 个应用组件仓；不动基础设施 / sandbox / `deployments-kind` OCI。
+- 保留：现场集群引用 ∪ #135 gitops ∪ #136 gitops（应用组件 40 个 digest，删后抽验均仍在）。
+- 删除：361 个未保留制品（清单口径约 35.8 GiB）；失败 0。清单与结果见 `harbor-delete-manifest-136.json`、`harbor-delete-result-136.json`。
+- GC：已触发 Manual（job 以现场为准）；构建缓存此前已清零（`buildx prune --all`，41.51 GiB）。
