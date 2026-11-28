@@ -8,13 +8,13 @@
 
 Luna 在 #135 将现场就绪 Pod 的镜像摘要与发布锁、发布源码及本地父仓的组件指针逐项对照。18 个组件均有源码差异。下表列出纳入此次构建的版本，完整父子仓 SHA、现网镜像摘要、对应部署角色、分叉和契约文件见[18 组件发布对照](18组件发布对照.json)。源码位于本机 `/home/zymun/worktrees/luna`。Cursor 开工时重读现场晋级指针；若已前进，先重做差异核对。
 
-| 组件 | #135 源码 | Luna 候选源码 | 从 #135 整合 |
+| 组件 | #135 源码 | 最终构建源码 | 整合结果 |
 | --- | --- | --- | --- |
-| tpl-backend | `75482b260` | `0686f06df` | 分叉，可自动合并 |
-| tpl-web-frontend | `6f46aef4b` | `b374297b7` | 分叉，3 文件冲突 |
+| tpl-backend | `75482b260` | `65db1cd6f` | 已合并 |
+| tpl-web-frontend | `6f46aef4b` | `d87b31669` | 已解决 3 个冲突并合并 |
 | tpl-admin-frontend | `722c6b80e` | `849805014` | 快进 |
-| knowfeed-backend | `0fa4b9e9b` | `0b751b2d7` | 分叉，可自动合并 |
-| knowfeed-web-frontend | `5ef58d640` | `7ad117a0c` | 分叉，可自动合并 |
+| knowfeed-backend | `0fa4b9e9b` | `cf0d52d64` | 已合并 |
+| knowfeed-web-frontend | `5ef58d640` | `188010e23` | 已合并 |
 | knowfeed-admin-frontend | `1bdcbcd04` | `51cb6030c` | 快进 |
 | knowbase-backend | `a30b375fc` | `288dc831b` | 快进 |
 | knowbase-web-frontend | `884d23541` | `e10d22628` | 快进 |
@@ -29,7 +29,7 @@ Luna 在 #135 将现场就绪 Pod 的镜像摘要与发布锁、发布源码及�
 | knowmart-web-frontend | `7c6362929` | `631aad605` | 快进 |
 | knowmart-admin-frontend | `6badf80be` | `52322c426` | 快进 |
 
-四个分叉组件中，现场一侧独有的九个提交均能在 Luna 历史中找到等价补丁（附件中的 `git cherry` 结果）。模板 Web 直接三方合并仍会在 `reference-workspace.tsx`、`client.ts`、`use-run-projection.ts` 产生冲突。整合时逐个核对 Luna 后续修改，验证登录恢复、切换账号、会话时长、交互请求和运行进度后锁定最终提交。其余三个分叉也需记录整合结果。不要把整套 Luna GitOps 目录覆盖到现场分支。
+Luna 已在本地合并四个分叉并锁定六个父仓。现场独有的九个提交在候选历史中均有等价补丁。模板 Web 逐文件保留会话恢复与切换、当前运行 ID 校验、引文显示及事件流重连；所有十八个最终提交的源码树逐一与已回归的 Luna 源码树比对相同。模板和 KnowFeed 两个 Web 回归分别通过 124、128 项，各跳过 2 项，类型与中英文键检查通过；对应后端身份与权限回归分别通过 68、65 项。
 
 ## 数据库、契约与部署顺序
 
@@ -42,9 +42,11 @@ Luna 在 #135 将现场就绪 Pod 的镜像摘要与发布锁、发布源码及�
 | knowlab | `20261127_0031` | `20261128_0033` | 2 |
 | knowmart | `20261127_0022` | `20261128_0025` | 3 |
 
-1. 从 #135 或更新的现场分支创建发布候选，在六个父仓锁定表内组件和配套契约。逐项整合 Luna 相对共同祖先改动的 `ci/verify-contracts.py`、KnowBench 与 KnowLab 后端 config 和 runtime workload、KnowMart 后端 config。使用现场模型路由、试用名单、报价和服务关系渲染配置，检查消费进程所需的配置键。核对 Carbon 规划器与 #135 已通过的 M02 入口。
-2. 同步 KnowBase 的 data-request、user-data，KnowFeed 的 supply-prematch，KnowBench 和 KnowLab 的动态方法、作者定义、孵化请求与消费方锁。具体文件列在附件各父仓记录。候选先通过 `python3 sunmoonun/ci/verify-contracts.py --repos <并列仓根目录>`，将最终父子提交写入发布仓 sources.yaml 后，在该发布仓执行相同检查并加 `--pinned`。使用最终提交构建六组镜像，复跑分叉组件测试、各应用契约及类型检查。
-3. 从目标镜像生成各库迁移任务，将五个变更库的 `expected_schema_revision` 和渲染产物更新到表列目标。备份并在隔离副本演练从现场版本向前执行 24 个 revision，检查隔离的无归属回执、重复交易、撤销购买和冻结凭证数据处置数量；记录恢复点。正式切换时暂停相关写入和消费，核对在途任务，迁移成功且各库 head 唯一后再放行。历史 revision 已执行的库沿新增链升级。
+**Cursor 构建起点**为本机 `/home/zymun/worktrees/luna/.release-candidates/587/platform` 的 `luna-release-587` 提交 `c22be711ddb283227dcc5ca61ba047924ae4c283`。应用 Git 对象在 `/home/zymun/worktrees/luna/<应用>-app` 及其组件仓。新建的四个组件合并提交和两个父仓提交均有同名本地分支。发布流程如从远程检出，先使清单中的父子仓 SHA 可获取，再写入晋级记录。现场指针若自 #135 前进，在最新回执上合入此候选的配置与源码锁增量。
+
+1. 六个父仓及十八个组件已钉入候选 sources.yaml；工作树契约校验与 `--pinned` 校验均通过。五库目标 head 与迁移任务代次已写入配置，KnowLab 已补中英文 studio 和 methods 登录返回路径。使用候选提交构建 18 个镜像，再以实际镜像摘要通过原生发布流程渲染运行和迁移资源。
+2. Luna 已用六个 #135 后端的精确源码在独立 PostgreSQL 16 创建旧库结构，分别备份、还原到新库，并从恢复点升级至表列目标。五库 24 步通过，六库第二次执行升级后 head 均正确。KnowFeed 旧链使用平台数据库具备的 uuid-ossp 扩展。演练使用空业务库；现场在只读事务内核对六个数据计数，KnowFeed 待隔离披露、KnowMart 重复专家交易组和待撤销购买、KnowBase 待回填冻结记录、缺失呈现内容、待纠正摘要均为 0。
+3. Cursor 在发布窗口核对在途任务并暂停受影响写入和消费，取得当时的实际数据备份和可恢复点，按新镜像执行迁移、核对记录数与目标 head，再开放对应服务。
 4. 先就绪消费新契约的运行端，再开放产生新定义的作者端；待跨服务依赖、API 与后台消费角色就绪后开放 Web 和管理端。若迁移后需回退，先停新写入及消费，按演练结果恢复兼容的应用和数据库，核对在途任务与交易。
 5. Cursor 在本卡 `replies/cursor.md` 记录发布号、GitOps 指针、六个父仓与十八个最终组件 SHA 和镜像摘要、六库实际 head、迁移回执、附件所列角色就绪情况、时间及与候选的差异。以此交 Luna 做现场业务验收。
 
