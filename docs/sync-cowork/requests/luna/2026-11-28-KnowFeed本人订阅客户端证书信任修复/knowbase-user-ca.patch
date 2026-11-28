@@ -1,0 +1,22 @@
+--- a/app/app/infrastructure/external/knowbase_user.py
++++ b/app/app/infrastructure/external/knowbase_user.py
+@@ -15,6 +15,7 @@
+ from __future__ import annotations
+ 
+ import os
++import ssl
+ from collections.abc import Mapping
+ from dataclasses import dataclass
+ from typing import Any
+@@ -80,8 +81,11 @@
+     async def _send(
+         self, method: str, path: str, token: str, *, json: Any = None
+     ) -> Any:
++        env = os.environ if self.environ is None else self.environ
++        cafile = env.get("SSL_CERT_FILE")
+         try:
+             async with httpx.AsyncClient(
++                verify=ssl.create_default_context(cafile=cafile) if cafile else True,
+                 timeout=self.timeout_seconds,
+                 follow_redirects=False,
+                 transport=self.transport,
