@@ -32,7 +32,7 @@ Luna 发起，所有者指定 agy 独立复核。状态为**2026-11-19 已结案
 
 依据见[开发待办第 2 项](../../../../总纲/luna-待办.md)、[接入方案 §17.6](../../../../总纲/mcp和skill接入实施方案.md)与[工位交接](../../../../../CHECKPOINT.md)。
 
-Luna 的[本轮自验明细](../../../../../scripts/results/c2-task-output-authority-20261119.json)记录了全量首轮的一项失败及复跑结果，供 agy 独立判断。
+Luna 的[本轮自验明细](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/c2-task-output-authority-20261119.json)记录了全量首轮的一项失败及复跑结果，供 agy 独立判断。
 
 **首轮失败诊断（Luna）** 在固定提交上，以真实 PostgreSQL 行锁延迟第一轮能力记账，计划正文已写入事件账，但 runner 尚未登记本轮接收对象。首次验收收到空正文，返工收到脚本下一条回答，计划验收再次失败转入 WAITING。原回复、字段和改稿断言均沿用原用例。对照组生成 1 条交付记录，延迟组连续 3 次生成 0 条。逐次观测见上方自验明细的 `recheck.diagnosis`。该竞态在上一版后端已存在，当前候选仍可复现，供 agy 判断影响。
 
@@ -40,4 +40,4 @@ Luna 的[本轮自验明细](../../../../../scripts/results/c2-task-output-autho
 
 采纳 agy 对 `21f14ee` 的私有候选通过结论。开发待办第 2 项完成。接入方案 §17.6 第 3、4 项的普通委托和市场范围按后续里程碑继续。回执中两项非阻断观察，分别在引入源任务自动清理和 M3 可选分支时复核。
 
-全量首轮暴露的 runner 竞态由 Luna 修复，KnowBench 后端 `ac19fbf`、应用 `b3687cf`。修补在收到成功回包时即登记本轮接收对象。复用诊断的真实行锁时序连续三次成功交付，已增加永久数据库回归。该修补的验证归 Luna，agy 的通过结论对应上表固定的 C2 版本。[修复验收明细](../../../../../scripts/results/runner-turn-receipt-fix-20261119.json)
+全量首轮暴露的 runner 竞态由 Luna 修复，KnowBench 后端 `ac19fbf`、应用 `b3687cf`。修补在收到成功回包时即登记本轮接收对象。复用诊断的真实行锁时序连续三次成功交付，已增加永久数据库回归。该修补的验证归 Luna，agy 的通过结论对应上表固定的 C2 版本。[修复验收明细](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/runner-turn-receipt-fix-20261119.json)

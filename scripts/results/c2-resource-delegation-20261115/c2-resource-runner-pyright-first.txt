@@ -1,8 +1,0 @@
-/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/tests/test_resource_delegation_runner_db.py
-  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/tests/test_resource_delegation_runner_db.py:60:50 - error: Argument of type "SimpleNamespace" cannot be assigned to parameter "driver" of type "TurnDriver" in function "__init__"
-    "SimpleNamespace" is incompatible with protocol "TurnDriver"
-      "run_turn" is not present (reportArgumentType)
-  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/tests/test_resource_delegation_runner_db.py:64:9 - error: Argument of type "StepContract | None" cannot be assigned to parameter "step" of type "StepContract" in function "_settle_step"
-    Type "StepContract | None" is not assignable to type "StepContract"
-      "None" is not assignable to "StepContract" (reportArgumentType)
-2 errors, 0 warnings, 0 informations

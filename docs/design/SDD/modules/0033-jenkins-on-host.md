@@ -57,7 +57,7 @@ Jenkins 要做的只有一件事：**把这串固定的 `make` 目标按固定�
 | 9 写指针 | 写 `flux-source.yaml`，提交 `release(kind): 晋级到 …`，打 `release-<日期>-<序号>` tag | — |
 | 10 部署 | `flux-source-apply` | 非 0 |
 | 11 检查 | 每个应用 `application-check APP=…`；`platform-check` 选中对象 | 非 0 |
-| 12 推送与回执 | `git push origin BRANCH` 连 tag；生成回执 `scripts/results/release-<构建号>.<时间>.md`（和今天 Qwen 的回执同一格式），随推送带上 | — |
+| 12 推送与回执 | 推送部署提交、晋级指针及 tag，回执随 Jenkins 构建归档 | — |
 
 任何一步停下，**`gitops/` 工作区回到干净**（第 6 步之前用 `git checkout -- gitops sources.yaml`，第 6 步之后已经是提交，留着给人看，不会被发布：发布器只打包已提交且晋级过的）。浏览器走查（卡的第五节）仍是人做，不进流水线。
 
@@ -67,7 +67,7 @@ Jenkins 要做的只有一件事：**把这串固定的 `make` 目标按固定�
 
 ## 五、和现有规矩怎么对上
 
-- **人的分工**：卡还是 Opus 写，但卡从「命令清单」变成「参数加走查清单」；Qwen 不再敲发布链，只做走查的集群侧核对。正式发布回执进入 `scripts/results/`。过程输出按[结果保留约定](../../../../scripts/results/README.md)清理。
+- **人的分工**：卡还是 Opus 写，但卡从「命令清单」变成「参数加走查清单」；Qwen 不再敲发布链，只做走查的集群侧核对。正式发布回执见 Jenkins 构建页的 Build Artifacts。
 - **秘密**：日志里不能出现口令、令牌、age 私钥。`make` 目标今天就不打印它们；流水线层再加一道 `grep` 已知模式，命中就把该次构建标红并打码产物。
 - **分支**：流水线在哪个分支触发就提交到哪个分支，不碰 master；合到 master 仍按所有者指令由人做。
 - **重复跑**：同样的钉、同样的源码，构建出同样的镜像摘要（构建本来就是从 Git 对象导出的），第二次跑到第 4 步会显示「无差异」并停在第 6 步前，不空发。
@@ -120,7 +120,7 @@ Jenkins 要做的只有一件事：**把这串固定的 `make` 目标按固定�
 | 9 写指针 | `sudo cat 候选 \| sudo tee environments/kind/flux-source.yaml`，`chown` 回代理用户，`git commit -m "release(kind): 晋级到 <短号>（release #n）"`，打 tag `release-<YYYYMMDD>-<当日序号>`（先 `git fetch --tags` 再数） | `9-pointer.txt`（指针内容、提交号、tag 名） | — |
 | 10 部署 | `make flux-source-apply`（它自己等 OCI 源 Ready、根 kustomization Ready、generation 与摘要一致）；再 `kubectl -n flux-system wait kustomizations <app>-* --for=condition=Ready --timeout=30m` | `10-apply.log`、`10-wait.txt` | 非 0 |
 | 11 检查 | 逐应用 `make application-check APP=`；`platform-check OBJECT=app-platform/<app>-app`（0033 第四节原文） | `11-check-<app>.log` | 非 0 |
-| 12 推送与回执 | 流水线自己生成 `scripts/results/release-<n>.<时间>.md`（参数、改钉、镜像锁、gitops 差异、候选、批准人与时间、apply 与 check 的尾部），`git commit -m "release(kind): 回执 #n"`；`git push origin HEAD:refs/heads/<BRANCH>` 加 tag | 回执本身 | 推送非快进 → 停，提交留在代理克隆（见 10.3） |
+| 12 推送与回执 | 推送部署提交、晋级指针及 tag，回执随 Jenkins 构建归档 | 回执与推送日志 | 非快进则停止 |
 
 第 10 阶段之后、第 11 之前不插人；第 11 不过就是「已部署但检查没过」，和今天手敲一样，由人看回执决定退回（退回 = 指针改回上一版再 apply，今天也是手做，这步**不进流水线**，第五节「不替代维护窗口的人工判断」）。
 
@@ -152,7 +152,7 @@ body.main(params, repos, approver)      // 在 node 外面
 
 1. **失败路径**（第七节第 3 条）：开一个临时分支 `fable-b4-test`，把 tpl 后端 `config.yaml` 的 `expected_schema_revision` 改旧并提交推上；`release BRANCH=fable-b4-test APPS=tpl PIN=keep`。要看到：停在第 2 阶段（`2-plan-tpl.log` 里 `Expected schema differs`），`gitops/` 干净，Harbor 没多镜像，什么都没提交。跑完删分支。
 2. **人批路径**（第七节第 2 条的能验的一半）：`APPROVAL_TIMEOUT_MINUTES=2`，`APPS=tpl PIN=keep`，没人点；要看到：到第 8 阶段停、2 分钟后 ABORTED，`flux-source.yaml` 没变、现网没动、代理克隆里有 `abandoned/release-<n>` 指着第 6 阶段的提交，候选在 Harbor。「非所有者账号点不了」只有一个账号时验不了，记为按配置保证（`submitter`），等 D 段接 Casdoor 有第二个账号再验。
-3. **真发布**（第七节第 6 条）：借今天已知的一处真实差异——tpl 两个 ingress 的 `/api/internal` 收敛规则（模板比 tpl 已提交的声明新，别的五个应用都已有）。`APPS=tpl PIN=keep NOTE="tpl ingress 补 /api/internal（release）"`，所有者在页面上点批。要看到：`deploy(tpl)` 与 `release(kind): 晋级到 …` 两个提交加 tag 推上 `fable`，`flux-source.yaml` 指到新候选，apply 过、`tpl-*` kustomization Ready、`application-check APP=tpl` 过、`scripts/results/release-<n>.*.md` 随推送带上；浏览器走查：`https://tpl.sunmoonai.com:30443/api/internal/x` 回 404。不碰产品线的代码，风险最小，又把一处已知漂移收掉。
+3. **真发布**（第七节第 6 条）：借今天已知的一处真实差异——tpl 两个 ingress 的 `/api/internal` 收敛规则（模板比 tpl 已提交的声明新，别的五个应用都已有）。`APPS=tpl PIN=keep NOTE="tpl ingress 补 /api/internal（release）"`，所有者在页面上点批。要看到：`deploy(tpl)` 与 `release(kind): 晋级到 …` 两个提交加 tag 推上 `fable`，`flux-source.yaml` 指到新候选，apply 过、`tpl-*` kustomization Ready、`application-check APP=tpl` 过、构建产物包含 `release-<n>.<时间>.md`；浏览器走查：`https://tpl.sunmoonai.com:30443/api/internal/x` 回 404。不碰产品线的代码，风险最小，又把一处已知漂移收掉。
 
 ### 10.5b 生产站点怎么用这条链（所有者 2026-10-20 深夜问起，C 段定）
 

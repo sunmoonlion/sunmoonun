@@ -243,7 +243,7 @@ done 2>&1 | tee '${out}/10-wait.txt'
                 def hit = scanSecrets()
                 if (hit) { error "秘密样子核查命中，不写回执不推：${hit}" }
                 def stamp = sh(script: 'date +%Y%m%d-%H%M%S', returnStdout: true).trim()
-                def receipt = "scripts/results/release-${n}.${stamp}.md"
+                def receipt = "${out}/release-${n}.${stamp}.md"
                 sh """#!/bin/bash
 set -euo pipefail
 r='${receipt}'
@@ -262,9 +262,6 @@ r='${receipt}'
   for f in '${out}'/11-check-*.log; do echo "### \$(basename "\$f")"; echo '```text'; tail -n 8 "\$f"; echo '```'; echo; done
   echo "完整控制台与全部产物在 Jenkins 构建页；代理克隆里的分支 abandoned/release-${n} 推送成功后可删。"
 } > "\$r"
-git add "\$r"
-git -c user.name=sunmoon-ci -c user.email=ci@sunmoonai.com commit -q -m "release(${site}): 回执 #${n}"
-cp "\$r" '${out}/'
 git -c url.git@github.com:.insteadOf=https://github.com/ push origin "HEAD:refs/heads/${branch}" "refs/tags/${state.tag}" 2>&1 | tee '${out}/12-push.txt'
 # 镜像站（代理准备时按源工位的第二个 push 地址加的 remote mirror）：尽力推，推不上只记下，不算发布失败——GitHub 是真相所在
 if git remote get-url mirror >/dev/null 2>&1; then
@@ -275,7 +272,7 @@ fi
 """
                 state.pushed = true
                 def mirrorNote = sh(script: "grep -c 'MIRROR PUSH FAILED' '${out}/12-push.txt' || true", returnStdout: true).trim() == '0' ? '' : '；镜像站没推上，见 12-push.txt'
-                currentBuild.description = "${note ? note + ' — ' : ''}已发布：${state.tag}，指针 ${state.pointerCommit.take(10)}，回执 ${receipt}${mirrorNote}"
+                currentBuild.description = "${note ? note + ' — ' : ''}已发布：${state.tag}，指针 ${state.pointerCommit.take(10)}，回执 ${env.BUILD_URL}artifact/${receipt}${mirrorNote}"
                 notify("发布 #${n} 完成", "${note ?: '按钉发布'}；${state.tag}${mirrorNote}", "${env.BUILD_URL}", false)
             }
         } finally {

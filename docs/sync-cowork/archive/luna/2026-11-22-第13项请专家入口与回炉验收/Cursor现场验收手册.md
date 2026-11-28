@@ -55,7 +55,7 @@ python3 sunmoonun/scripts/local-integration/formal_market_delivery.py --expert
 
 ## 三道业务盲测
 
-[首轮输入清单](../../../../../scripts/results/第二轨联调/2026-11-22-即时自组盲测/首轮输入.json)列出三条原题及五份 PDF 的摘要。[验收约定](../../../../../scripts/results/第二轨联调/2026-11-22-即时自组盲测/验收约定.md)给出了对照组、耗时、成本记录与独立判定口径。
+[首轮输入清单](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/%E7%AC%AC%E4%BA%8C%E8%BD%A8%E8%81%94%E8%B0%83/2026-11-22-%E5%8D%B3%E6%97%B6%E8%87%AA%E7%BB%84%E7%9B%B2%E6%B5%8B/%E9%A6%96%E8%BD%AE%E8%BE%93%E5%85%A5.json)列出三条原题及五份 PDF 的摘要。[验收约定](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/%E7%AC%AC%E4%BA%8C%E8%BD%A8%E8%81%94%E8%B0%83/2026-11-22-%E5%8D%B3%E6%97%B6%E8%87%AA%E7%BB%84%E7%9B%B2%E6%B5%8B/%E9%AA%8C%E6%94%B6%E7%BA%A6%E5%AE%9A.md)给出了对照组、耗时、成本记录与独立判定口径。
 
 - 本机公开年报位于 `/home/zymun/sig-am-data/财务分析与预测/`。清单中的贵州茅台 2021–2025 五份 PDF 已逐份核对 SHA-256。先查 sig-am 在目标 KnowBase 可用的资料编号、版本和摘要；缺少副本时通过正常导入和项目授权补齐所需公开报告，其他工位可按文件名和摘要核对。仅选该题所需文件，私有附件留在原项目。
 - 每题建独立委托，只把清单中的 `question` 交给规划器，按约定保存目录快照、资料来源、计划、交付与实耗。Q3 问的是五粮液，包内五份 PDF 都是茅台；先查本人获准目录。缺五粮液依据时保留澄清、补资料或停止的实际结果，交 zymun 结合当时目录判定。该题和其余两题都要留记录。

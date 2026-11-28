@@ -1,9 +1,0 @@
-/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/formal_method_calls.py
-  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/app/application/workbench/formal_method_calls.py:59:75 - error: Argument of type "str" cannot be assigned to parameter "caller" of type "Literal['host', 'model']" in function "list_owned"
-    Type "str" is not assignable to type "Literal['host', 'model']"
-      "str" is not assignable to type "Literal['host']"
-      "str" is not assignable to type "Literal['model']" (reportArgumentType)
-/home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/scripts/export_capability_contract.py
-  /home/zymun/worktrees/luna/knowbench-app/knowbench-backend/app/scripts/export_capability_contract.py:339:32 - error: Argument of type "list[dict[str, Unknown]]" cannot be assigned to parameter "formal_methods" of type "tuple[MethodRef, ...]" in function "__init__"
-    "list[dict[str, Unknown]]" is not assignable to "tuple[MethodRef, ...]" (reportArgumentType)
-2 errors, 0 warnings, 0 informations

@@ -34,7 +34,7 @@ SMTP 密码是专用密码，不是阿里云登录密码或 AccessKey。文件�
 
 发布仍走 `infrastructure/Makefile` 的原生入口：`platform-stage OBJECT=app-platform/knowbench-app/knowbench-backend` 准备声明，审阅后按既有 Flux 发布流程发布并晋级；公网入口另用 `edge-deploy` 更新。不能只更新其中一端。
 
-公开注册发布使用身份 Job 代次 `v7`；没有密码时不能完成正式 stage。2026-11-11 已在 kind 开发站点完成私有输入准备、原生 stage、Flux 候选发布与晋级，以及公网边缘更新。邮件接口返回成功，所有者确认测试邮箱实际收到验证码；新账号在浏览器完成注册及跨应用登录仍待人工验收。部署与检查边界见 [发布回执](../../../../../../scripts/results/qwen-public-signup-20261111.json)。其它站点不能据此视为已部署。
+公开注册发布使用身份 Job 代次 `v7`；没有密码时不能完成正式 stage。2026-11-11 已在 kind 开发站点完成私有输入准备、原生 stage、Flux 候选发布与晋级，以及公网边缘更新。邮件接口返回成功，所有者确认测试邮箱实际收到验证码；新账号在浏览器完成注册及跨应用登录仍待人工验收。部署与检查边界见 [发布回执](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/qwen-public-signup-20261111.json)。其它站点不能据此视为已部署。
 
 本次完整后端 stage 同时生成了此前未发布的业务开关、TLS 和安装包配置差异。审阅后仅提交 renderer 生成的两份 identity 文件，其余本次生成的 runtime 差异恢复到发布前状态。本次渲染一致性验证范围为身份文件；整个组件的渲染一致性仍需在处理既有差异后检查。以后完整 stage 仍须审阅这些已有差异，不能随邮件配置顺带发布。
 
@@ -69,4 +69,4 @@ python -m unittest discover -s infrastructure/edge/tests -v
 
 KnowBench 和模板现有的过期恢复界面会在用户从登录标签页返回时自动核验新会话。同账号保留尚未提交的输入并更新 CSRF，换账号先卸载旧页面再清缓存；失败的写请求不会自动重放。其它应用本次同步错误分类、换账号入口及 24 小时上限，未新增整套输入恢复界面。
 
-2026-11-11 本轮已串行完成六个后端与 Casdoor 的原生 stage，并收录六份身份工作负载及 Casdoor 会话配置候选；应用 runtime/TLS/安装包与 Casdoor TLS 的既有渲染差异未纳入本轮。仅核对所收录候选与原生渲染逐字节一致，不宣称整个组件渲染无漂移。没有晋级 Flux 源或更新运行镜像。应用源码提交、验证结果和发布状态见 [修复回执](../../../../../../scripts/results/qwen-login-recovery-20261111.json)。上线仍需按应用构建与 Flux 发布流程选择固定源码、构建镜像、审阅运行配置差异并晋级。不能只发布身份 Job 就宣称页面修复和 24 小时会话已全部生效。
+2026-11-11 本轮已串行完成六个后端与 Casdoor 的原生 stage，并收录六份身份工作负载及 Casdoor 会话配置候选；应用 runtime/TLS/安装包与 Casdoor TLS 的既有渲染差异未纳入本轮。仅核对所收录候选与原生渲染逐字节一致，不宣称整个组件渲染无漂移。没有晋级 Flux 源或更新运行镜像。应用源码提交、验证结果和发布状态见 [修复回执](https://github.com/sunmoonlion/sunmoonun/blob/30ac0ca8ce515fb7d0c64c520361009c2d5a1782/scripts/results/qwen-login-recovery-20261111.json)。上线仍需按应用构建与 Flux 发布流程选择固定源码、构建镜像、审阅运行配置差异并晋级。不能只发布身份 Job 就宣称页面修复和 24 小时会话已全部生效。
