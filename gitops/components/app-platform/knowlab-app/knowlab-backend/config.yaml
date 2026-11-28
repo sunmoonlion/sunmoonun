@@ -5,9 +5,9 @@ knowlab_backend_deployment:
   database_runtime_user: knowlab_runtime
   database_migrator_user: knowlab_migrator
   database_bootstrap_revision: v2
-  migration_job_revision: v5
+  migration_job_revision: v6
   # 作者确认的目录检索页：0029 接线上 0028。
-  expected_schema_revision: '20261127_0031'
+  expected_schema_revision: '20261128_0033'
   deploy_budget_bytes: 2147483648
   redis_user: knowlab_runtime
   redis_key_pattern: 'knowlab:*'
@@ -34,7 +34,7 @@ knowlab_backend_deployment:
     # 登录完能回到网页端现有的各栏（前缀匹配）：11-01 分栏（`06d15c1`）后的申请、孵化、测试、
     # 交付、审核、专家、知识库、名字、工具箱，加仍在的旧栏（创意、分身、待我回答、旧的
     # /knowbots 转到创意）；没有对应页面的 /data 去掉（账 182，2026-11-06）
-    WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/applications,/en/applications,/zh-CN/incubation,/en/incubation,/zh-CN/tests,/en/tests,/zh-CN/delivery,/en/delivery,/zh-CN/review,/en/review,/zh-CN/experts,/en/experts,/zh-CN/knowledge,/en/knowledge,/zh-CN/names,/en/names,/zh-CN/toolkit,/en/toolkit,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/questions,/en/questions,/zh-CN/knowbots,/en/knowbots'
+    WEB_AUTH_ALLOWED_RETURN_PATHS: '/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/applications,/en/applications,/zh-CN/incubation,/en/incubation,/zh-CN/tests,/en/tests,/zh-CN/delivery,/en/delivery,/zh-CN/review,/en/review,/zh-CN/experts,/en/experts,/zh-CN/knowledge,/en/knowledge,/zh-CN/names,/en/names,/zh-CN/toolkit,/en/toolkit,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/questions,/en/questions,/zh-CN/knowbots,/en/knowbots,/zh-CN/studio,/en/studio,/zh-CN/methods,/en/methods'
     # SDD 0042：用户令牌换给 knowbase 时要的 audience = knowbase 在 Casdoor 里的目标应用
     KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
     # 数据第四版补采开关（同 knowbench 的 WORKBENCH_DATA_SUPPLY_ENABLED，fail-closed）：测试集里缺的公开披露交 knowfeed
