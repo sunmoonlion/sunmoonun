@@ -1,0 +1,33 @@
+--- a/gitops/components/app-platform/knowfeed-app/knowfeed-backend/config.yaml
++++ b/gitops/components/app-platform/knowfeed-app/knowfeed-backend/config.yaml
+@@ -23,7 +23,8 @@
+   # v6：网页端令牌 12 小时（所有者 2026-10-25）；知识库三应用开令牌交换；knowbase 加 audience 目标应用（SDD 0042）
+   # v7: 网页端登录凭证 24 小时，管理端仍 1 小时（所有者 2026-11-11）。
+   # v8: 管理端也统一为 24 小时，保持原有登录与组织隔离策略（所有者 2026-11-11）。
+-  identity_revision: v8
++  identity_revision: v9
++  identity_token_exchange: true
+   api_port: 8000
+   api_replicas: 1
+   worker_replicas: 1
+@@ -39,7 +40,8 @@
+   celery_event_queue_exclusive: true
+   # 0010：跨应用链接（0008-info）；数据集登记随旧版删了（decisions ⑰）
+   cross_app_enabled: true
+-  domain_env: {}
++  domain_env:
++    KNOWBASE_USER_AUDIENCE: sunmoon-kind-knowbase-user-data
+   # Wind凭据与账号主体沿用应用私有输入 -> SOPS；仅目录发现API与取数worker需要。
+   domain_secrets:
+     WIND_API_KEY: {source: private}
+--- a/gitops/components/app-platform/knowbase-app/knowbase-backend/config.yaml
++++ b/gitops/components/app-platform/knowbase-app/knowbase-backend/config.yaml
+@@ -66,7 +66,7 @@
+     KNOWBASE_MCP_RATE_PER_MINUTE: '120'
+     # SDD 0042 用户资料：本人令牌的 aud 是 Casdoor 里的目标应用（identity_audience_application）；azp → 分区，只认三家网页端
+     USER_TOKEN_AUDIENCE: sunmoon-kind-knowbase-user-data
+-    USER_TOKEN_APPS_JSON: '{"sunmoon-kind-knowbench-web": "knowbench", "sunmoon-kind-knowlab-web": "knowlab", "sunmoon-kind-knowmart-web": "knowmart"}'
++    USER_TOKEN_APPS_JSON: '{"sunmoon-kind-knowbench-web": "knowbench", "sunmoon-kind-knowlab-web": "knowlab", "sunmoon-kind-knowmart-web": "knowmart", "sunmoon-kind-knowfeed-web": "knowfeed"}'
+     # 用户资料存自己的桶（机制规定 <应用>-originals，前缀 users/；凭据在 USER_DATA_S3_*，见 object_storage.env_prefix）
+     USER_DATA_BUCKET: knowbase-originals
+     USER_DATA_PREFIX: users

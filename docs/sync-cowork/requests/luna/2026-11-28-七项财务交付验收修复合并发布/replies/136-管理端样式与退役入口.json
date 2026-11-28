@@ -1,0 +1,100 @@
+[
+  [
+    "tpl",
+    {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "alias": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "path": "/zh-CN/dashboard"
+    }
+  ],
+  [
+    "knowfeed",
+    {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "alias": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "path": "/zh-CN/dashboard"
+    }
+  ],
+  [
+    "knowbase",
+    {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "alias": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "path": "/zh-CN/dashboard"
+    }
+  ],
+  [
+    "knowbench",
+    {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "alias": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "path": "/zh-CN/dashboard"
+    }
+  ],
+  [
+    "knowlab",
+    {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "alias": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "path": "/zh-CN/dashboard"
+    }
+  ],
+  [
+    "knowmart",
+    {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "alias": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", sans-serif",
+      "path": "/zh-CN/dashboard"
+    }
+  ],
+  [
+    "B167",
+    [
+      [
+        "avatars",
+        404
+      ],
+      [
+        "ideas",
+        404
+      ],
+      [
+        "experts",
+        404
+      ],
+      [
+        "knowbots",
+        404
+      ]
+    ]
+  ],
+  [
+    "B206",
+    [
+      [
+        "avatars",
+        404
+      ],
+      [
+        "ideas",
+        404
+      ],
+      [
+        "ideas/new",
+        404
+      ],
+      [
+        "knowbots",
+        404
+      ],
+      [
+        "knowbots/new",
+        404
+      ],
+      [
+        "questions",
+        404
+      ]
+    ]
+  ]
+]

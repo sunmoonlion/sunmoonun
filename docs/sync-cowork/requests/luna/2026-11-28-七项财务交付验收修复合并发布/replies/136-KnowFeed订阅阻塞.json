@@ -1,0 +1,29 @@
+{
+  "第一次": {
+    "actions": [
+      [
+        "POST",
+        "",
+        503
+      ]
+    ],
+    "error": "POST 503"
+  },
+  "同键重送": {
+    "actions": [
+      [
+        "POST",
+        "",
+        503
+      ]
+    ],
+    "error": "POST 503 [\"knowbase_unconfigured\",null,\"knowbase_unconfigured\",null,null]"
+  },
+  "knowfeed_api": {
+    "knowbase_user_audience_configured": false,
+    "supply_relation_present": true
+  },
+  "knowbase_api": {
+    "knowfeed_web_mapped": false
+  }
+}
