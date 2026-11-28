@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowbase-migrate-3f8d581373d4-v6', namespace: app-platform-dev}
+metadata: {name: 'knowbase-migrate-f32032fcf587-v6', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,7 +72,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:3f8d581373d454dd164b0ef62101450263315597f87ee91468dcc4db7340f8f9
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:f32032fcf5875193210bdae23e51cbb2a57b4f6c3762311ad9e38debcba455d6
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}

@@ -125,7 +125,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowfeed-service-identity-a1d7cb5b7506-v1', namespace: app-platform-dev}
+metadata: {name: 'knowfeed-service-identity-63689a74f1e2-v1', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -139,7 +139,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:a1d7cb5b7506b335fcb7bd44c37232399d041891aad9724ec6f15eb9fd729b0b
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:63689a74f1e23479c0b40f4d59c448d2715aeb33699c2d3cf486ad4582d7feec
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:

@@ -20,7 +20,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: frontend
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-admin-frontend@sha256:1feb3531e35394f902d72b0e1c99ec301f8e58715d436b8ce5a45912ffdeb52c
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-admin-frontend@sha256:24a20109394045063e9ad3e7abb2e06ae94f829ab460a6e2f12529e01ad2e924
           imagePullPolicy: IfNotPresent
           ports: [{name: http, containerPort: 3000}]
           env:
@@ -29,7 +29,7 @@ spec:
             - {name: AUTH_APP, value: knowfeed}
             - {name: APP_ORIGIN, value: "https://knowfeed-admin.dev.sunmoonai.com:30443"}
             - {name: BACKEND_INTERNAL_URL, value: 'http://knowfeed-api.app-platform-dev.svc.cluster.local:8000'}
-            - {name: DEPLOYMENT_ID, value: "knowfeed-admin-frontend-1feb3531e35394f9"}
+            - {name: DEPLOYMENT_ID, value: "knowfeed-admin-frontend-24a2010939404506"}
             - {name: HOSTNAME, value: 0.0.0.0}
             - {name: PORT, value: '3000'}
             - {name: REFERENCE_UI_ENABLED, value: 'false'}

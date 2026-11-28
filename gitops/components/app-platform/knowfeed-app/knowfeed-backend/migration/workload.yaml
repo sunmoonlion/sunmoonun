@@ -58,7 +58,7 @@ data:
 ---
 apiVersion: batch/v1
 kind: Job
-metadata: {name: 'knowfeed-migrate-a1d7cb5b7506-v6', namespace: app-platform-dev}
+metadata: {name: 'knowfeed-migrate-63689a74f1e2-v6', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 420
@@ -72,7 +72,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: migrate
-          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:a1d7cb5b7506b335fcb7bd44c37232399d041891aad9724ec6f15eb9fd729b0b
+          image: harbor.sunmoonai.com:30443/platform/knowfeed-backend@sha256:63689a74f1e23479c0b40f4d59c448d2715aeb33699c2d3cf486ad4582d7feec
           imagePullPolicy: IfNotPresent
           securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: '1', memory: 512Mi}}

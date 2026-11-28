@@ -196,13 +196,15 @@ data:
                                   params={'id': 'admin/' + config['name'], 'columns': 'expireInHours'})
                     require(changed == 'Affected', 'Browser session lifetime was not applied')
                     existing = api('GET', '/api/get-application', params={'id': 'admin/' + config['name']})
-                # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from the pre-0042
-                # shape (authorization code only, one-hour tokens): add the token exchange grant and
-                # the longer web token. Everything else must already match.
+                # SDD 0042 / owner 2026-10-25: the fourth allowed migration, only from authorization
+                # code alone. Pre-0042 apps were one-hour; later lifetime migrations left some apps at
+                # 12 h or 24 h without token-exchange (KnowFeed). Allow those lifetimes too so adding
+                # the exchange grant (and aligning expireInHours to 24 when still short) is one step.
+                # Everything else must already match.
                 exchange_keys = {'grantTypes', 'expireInHours'}
                 drift = {k for k, v in desired.items() if existing.get(k) != v}
                 if (drift and drift <= exchange_keys and existing.get('grantTypes') == ['authorization_code']
-                        and existing.get('expireInHours') == 1):
+                        and existing.get('expireInHours') in (1, 12, 24)):
                     changed = api('POST', '/api/update-application', dict(existing, **{k: desired[k] for k in drift}),
                                   params={'id': 'admin/' + config['name']})
                     require(changed == 'Affected', 'Token exchange settings were not applied')
@@ -298,7 +300,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 # Job 名带后端镜像摘要（和迁移 Job 一样）：Job 的模板不可改，镜像一换名字就换，不必手动升代次
-metadata: {name: 'knowbase-identity-3f8d581373d4-v8', namespace: app-platform-dev}
+metadata: {name: 'knowbase-identity-f32032fcf587-v8', namespace: app-platform-dev}
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
@@ -312,7 +314,7 @@ spec:
       securityContext: {runAsNonRoot: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: provision
-          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:3f8d581373d454dd164b0ef62101450263315597f87ee91468dcc4db7340f8f9
+          image: harbor.sunmoonai.com:30443/platform/knowbase-backend@sha256:f32032fcf5875193210bdae23e51cbb2a57b4f6c3762311ad9e38debcba455d6
           imagePullPolicy: IfNotPresent
           command: [python, /script/provision.py]
           env:
