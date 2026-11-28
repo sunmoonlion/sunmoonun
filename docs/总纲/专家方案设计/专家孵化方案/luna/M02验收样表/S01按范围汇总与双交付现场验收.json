@@ -1,0 +1,219 @@
+{
+  "owner": "sig-am",
+  "planner_sha256": "18166072fe9e9a77f80ac0f9037ba8db0776049a8f4c5ba7c21566cdb6829273",
+  "S01": {
+    "reference": {
+      "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040",
+      "version": 3,
+      "digest": "sha256:53df0aebc7c36eb1539e24e9cc493de8d612c90f3bd40eabd50c5fa7dcfb32b5"
+    },
+    "self_listing": "a897cd1f-bbee-40d2-be49-7168794076d3",
+    "source": "sha256:eb466e3832a03f63a79904566093265199aa53acb146a3ffdbf745209bc0a0ef",
+    "run": "24058cfe-50ac-46a5-aae6-2e31470e4cde",
+    "cases": [
+      {
+        "id": "two",
+        "status": "passed",
+        "passed_assertions": 7
+      },
+      {
+        "id": "full",
+        "status": "passed",
+        "passed_assertions": 12
+      },
+      {
+        "id": "missing",
+        "status": "passed",
+        "passed_assertions": 10
+      }
+    ],
+    "spent_cny": "0.030000"
+  },
+  "expert": {
+    "method_id": "29b81e5e-025e-4dc3-8515-bee662118546",
+    "draft_revision": 4,
+    "declared_outputs": [
+      "opening_evidence",
+      "cash_difference"
+    ],
+    "started_without_procedure": true,
+    "round_id": "23f91f47-a61c-40b5-af16-32ec43d170ae",
+    "status": "succeeded",
+    "spent_cny": "1.611560",
+    "budget_limit": "3.10",
+    "candidate_S01": [
+      {
+        "digest": "sha256:53df0aebc7c36eb1539e24e9cc493de8d612c90f3bd40eabd50c5fa7dcfb32b5",
+        "version": 3,
+        "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040"
+      }
+    ],
+    "error": null,
+    "selection_status": "ready",
+    "reason": "目标要求两份独立回执：期初资产负债平衡（A-L-E，m5，target 含时点参数，取期初时点，输出 check 为 type7）与现金滚动勾稽（END-BEGIN-CHANGE，m3，输出 check 为 type3）。目录中 m1「核验结果汇总」是直接交付的汇集方法：必填输入 scope（核验项到项目键的映射，type8），可选输入 opening_balance（type7）与 cash（type3）正好与两个子核验的输出端口一一对应，且其交付条件明确「该项在委托范围内，且实际收到该项回执」。单一方法不能完整交付本题：m2 还要求提供未委托的利润、期末平表与存货目标。两项核验共用同一批标准化披露行 rows，各自需要独立的 target 参数，彼此无依赖，故并行展开后由 m1 汇集交付。",
+    "nodes": [
+      {
+        "id": "n1",
+        "status": "split",
+        "operator": "parallel_join"
+      },
+      {
+        "id": "n1_1",
+        "status": "hit",
+        "operator": "leaf"
+      },
+      {
+        "id": "n1_2",
+        "status": "hit",
+        "operator": "leaf"
+      }
+    ],
+    "steps": [
+      {
+        "id": "n1_1",
+        "reference": {
+          "digest": "sha256:59396d12839b4947bceee757a486365213371877ffc6a7fe791536f5a3f67d2c",
+          "version": 2,
+          "method_id": "d9ab87ce-b35d-5644-a8ea-4e01d5cd5ed8"
+        },
+        "deliver_as": null,
+        "inputs": {
+          "rows": {
+            "name": "rows",
+            "source": "caller"
+          },
+          "target": {
+            "name": "target",
+            "source": "caller"
+          }
+        }
+      },
+      {
+        "id": "n1_2",
+        "reference": {
+          "digest": "sha256:bd9dd6dac277741abec11f41d5724eed37ce525b5006b5909e726a565bac2fbe",
+          "version": 2,
+          "method_id": "0e9e63ba-3c13-5d80-8b54-ae76480bf0ba"
+        },
+        "deliver_as": null,
+        "inputs": {
+          "rows": {
+            "name": "rows",
+            "source": "caller"
+          },
+          "target": {
+            "name": "cash_target",
+            "source": "caller"
+          }
+        }
+      },
+      {
+        "id": "n1",
+        "reference": {
+          "digest": "sha256:53df0aebc7c36eb1539e24e9cc493de8d612c90f3bd40eabd50c5fa7dcfb32b5",
+          "version": 3,
+          "method_id": "7025ce9f-7e67-5afa-849d-74b06b57c040"
+        },
+        "deliver_as": {
+          "cash": "cash_difference",
+          "opening_balance": "opening_evidence"
+        },
+        "inputs": {
+          "cash": {
+            "step": "n1_2",
+            "output": "check",
+            "source": "step"
+          },
+          "scope": {
+            "name": "scope",
+            "source": "caller"
+          },
+          "opening_balance": {
+            "step": "n1_1",
+            "output": "check",
+            "source": "step"
+          }
+        }
+      }
+    ],
+    "confirmed_revision": 5,
+    "exports": {
+      "cash_difference": {
+        "step": "n1",
+        "output": "cash",
+        "always_present": false
+      },
+      "opening_evidence": {
+        "step": "n1",
+        "output": "opening_balance",
+        "always_present": false
+      }
+    },
+    "trials": [
+      {
+        "name": "baseline",
+        "run_id": "fd84e1c2-3971-405d-8d30-5c4afb55fe65",
+        "suite": {
+          "suite_id": "cc5f21e8-861c-44e6-9c5b-6c83397903a1",
+          "version": 1,
+          "digest": "sha256:795dc17abe0e3b176c91bc1ae4006cd71b84829d9e7a7cb329a714b225ddff2b"
+        },
+        "spent_cny": "0.100000",
+        "assertions": "两份完整回执分别与独立期望逐字段相等",
+        "expected_and_verified": {
+          "opening_evidence": {
+            "difference_cny": "0.00",
+            "status": "阈值内",
+            "evidence_ids": [
+              "B01",
+              "B02",
+              "B03"
+            ]
+          },
+          "cash_difference": {
+            "difference_cny": "0.00",
+            "status": "阈值内",
+            "evidence_ids": [
+              "C03",
+              "C01",
+              "C02"
+            ]
+          }
+        }
+      },
+      {
+        "name": "changed",
+        "run_id": "619729f4-79a1-4271-a0be-1fa575506cbc",
+        "suite": {
+          "suite_id": "208d0971-67bd-467c-bd9b-fbf781a635bc",
+          "version": 1,
+          "digest": "sha256:b08ef6d126c8fe3e7bf60df41a54c3f0858dfa1156869bfa7434d08883489629"
+        },
+        "spent_cny": "0.110000",
+        "assertions": "两份完整回执分别与独立期望逐字段相等",
+        "expected_and_verified": {
+          "opening_evidence": {
+            "difference_cny": "0.00",
+            "status": "阈值内",
+            "evidence_ids": [
+              "B01",
+              "B02",
+              "B03"
+            ]
+          },
+          "cash_difference": {
+            "difference_cny": "17.00",
+            "status": "不平",
+            "evidence_ids": [
+              "C03",
+              "C01",
+              "C02"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "total_this_run_cny": "1.851560",
+  "total_double_delivery_cny": "8.716648"
+}
