@@ -69,7 +69,7 @@ data:
   SSL_CERT_FILE: /etc/sunmoon/service/ca.crt
   CROSS_APP_TARGETS_JSON: "{\"knowbench\": {\"web_base_url\": \"https://knowbench.dev.sunmoonai.com:30443\"}}"
   CROSS_APP_SOURCES_JSON: "{\"knowbench\": {\"return_url\": \"https://knowbench.dev.sunmoonai.com:30443/zh-CN/workbench?ref={ref}\"}, \"knowbase\": {}, \"knowfeed\": {}}"
-  WEB_AUTH_ALLOWED_RETURN_PATHS: "/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/applications,/en/applications,/zh-CN/incubation,/en/incubation,/zh-CN/tests,/en/tests,/zh-CN/delivery,/en/delivery,/zh-CN/review,/en/review,/zh-CN/experts,/en/experts,/zh-CN/knowledge,/en/knowledge,/zh-CN/names,/en/names,/zh-CN/toolkit,/en/toolkit,/zh-CN/ideas,/en/ideas,/zh-CN/avatars,/en/avatars,/zh-CN/questions,/en/questions,/zh-CN/knowbots,/en/knowbots"
+  WEB_AUTH_ALLOWED_RETURN_PATHS: "/zh-CN/dashboard,/en/dashboard,/zh-CN/login,/en/login,/zh-CN/studio,/en/studio,/zh-CN/methods,/en/methods,/zh-CN/knowledge,/en/knowledge,/zh-CN/toolkit,/en/toolkit"
   KNOWBASE_USER_AUDIENCE: "sunmoon-kind-knowbase-user-data"
   KNOWLAB_DATA_SUPPLY_ENABLED: "true"
 ---
@@ -103,7 +103,7 @@ spec:
         sunmoonai.com/rabbitmq-client: 'true'
         sunmoonai.com/redis-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 90d3752241d7de05ab4c69aa0d1f131b3825839335dc503068fd55b6504e91b0
+        sunmoonai.com/config-sha256: 10e96c7746b442c73eaf36c0e9d38a6967ba331091378cdc3ba3e3eb5a77cfe5
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -171,7 +171,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 90d3752241d7de05ab4c69aa0d1f131b3825839335dc503068fd55b6504e91b0
+        sunmoonai.com/config-sha256: 10e96c7746b442c73eaf36c0e9d38a6967ba331091378cdc3ba3e3eb5a77cfe5
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
@@ -234,7 +234,7 @@ spec:
         sunmoonai.com/postgresql-client: 'true'
         sunmoonai.com/rabbitmq-client: 'true'
       annotations:
-        sunmoonai.com/config-sha256: 90d3752241d7de05ab4c69aa0d1f131b3825839335dc503068fd55b6504e91b0
+        sunmoonai.com/config-sha256: 10e96c7746b442c73eaf36c0e9d38a6967ba331091378cdc3ba3e3eb5a77cfe5
     spec:
       dnsConfig:
         options: [{name: ndots, value: '2'}]
